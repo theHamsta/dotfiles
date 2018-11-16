@@ -353,7 +353,27 @@ let g:LanguageClient_serverCommands = {
     \ }
 
 nnoremap <leader>la :call LanguageClient_contextMenu()<CR>
+nnoremap <silent> <leader>ty :call LanguageClient#textDocument_typeDefinition()<CR>
 nnoremap <silent> gh :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> <leader>sy :call LanguageClient#textDocument_documentSymbol()<CR>
+nnoremap <silent> <leader>wo :call LanguageClient#workspaceSymbol()<CR>
+nnoremap <silent> <leader>re :call LanguageClient#textDocument_references()<CR>
+nnoremap <silent> <leader>fo :call LanguageClient#textDocument_formatting()<CR>
+nnoremap <silent> <leader>hi :call LanguageClient#textDocument_documentHighlight()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-nnoremap <silent> <c-.> :call LanguageClient#textDocument_codeAction()<CR>
+nnoremap <silent> <leader>co :call LanguageClient#textDocument_codeAction()<CR>
+
+noremap <leader>rn :call LanguageClient#textDocument_rename()<CR>
+
+" Rename - rc => rename camelCase
+noremap <leader>rc :call LanguageClient#textDocument_rename( \ {'newName': Abolish.camelcase(expand('<cword>'))})<CR>
+
+" Rename - rs => rename snake_case
+noremap <leader>rs :call LanguageClient#textDocument_rename( \ {'newName': Abolish.snakecase(expand('<cword>'))})<CR>
+
+" Rename - ru =>
+noremap <leader>ru :call LanguageClient#textDocument_rename( \ {'newName': Abolish.uppercase(expand('<cword>'))})<CR>
+
+set foldmethod=indent
+setlocal foldignore=
