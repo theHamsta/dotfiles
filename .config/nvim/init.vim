@@ -19,7 +19,7 @@ set relativenumber
 "nnoremap j gj
 "nnoremap k gk
 nnoremap <leader>make :wa<Cr>:make<Cr>
-nnoremap <leader>so :so %<Cr>
+nnoremap <leader>so :w<Cr>:so %<Cr>
 nnoremap <c-a-j> yyp
 nnoremap <a-t> :ToggleBool<CR>
 nnoremap <c-a-k> yyP
@@ -52,7 +52,6 @@ nnoremap <Leader>tab :tabnew<cr>
 nnoremap <Leader>tc :tabclose<cr>
 "nnoremap <Leader>nt :NERDTreeToggle<cr>
 "nnoremap <Leader>nf :NERDTreeFind<cr>
-nnoremap <Leader>oo :only<cr>
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
@@ -84,19 +83,37 @@ smap <c-n> <Esc>a<tab>
 "snoremap <c-u> <Esc>a<tab>
 
 call plug#begin('~/.local/share/nvim/plugged')
+  if (has("nvim"))
+
+  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+  if (has("termguicolors"))
+    set termguicolors
+  endif
 	"Plug 'rkulla/pydiction'
 	Plug 'junegunn/rainbow_parentheses.vim'
 	Plug 'equalsraf/neovim-gui-shim'
 	Plug 'joshuarubin/go-explorer'
 	Plug 'artur-shaik/vim-javacomplete2'
+	Plug 'joshdick/onedark.vim'
 	Plug 'kovisoft/paredit'
 	Plug 'sagarrakshe/toggle-bool'
 	Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 	Plug 'dzhou121/gonvim-fuzzy' 
 	Plug 'aben20807/vim-runner'
 	Plug 'junegunn/limelight.vim'
+	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+	Plug 'junegunn/fzf.vim'
 	"Plug 'bhurlow/vim-parinfer'
-	Plug 'w0rp/ale'
+	"Plug 'w0rp/ale'
+	Plug 'autozimu/LanguageClient-neovim', {
+	    \ 'branch': 'next',
+	    \ 'do': 'bash install.sh',
+	    \ }
 	Plug 'rking/ag.vim'
 	Plug 'Chun-Yang/vim-action-ag'
 	Plug 'easymotion/vim-easymotion'
@@ -105,7 +122,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'l04m33/vlime', {'rtp': 'vim/'}
 	"Plug 'Valloric/YouCompleteMe'
 	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-	Plug 'tweekmonster/deoplete-clang2'
+	"Plug 'tweekmonster/deoplete-clang2'
 	Plug 'zchee/deoplete-jedi'
 	Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 	Plug 'idanarye/vim-vebugger'
@@ -219,17 +236,15 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 " Note, the above line is ignored in Neovim 0.1.5 above, use this line instead.
 set termguicolors
 
-if (empty($TMUX))
-  if (has("nvim"))
-  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-  if (has("termguicolors"))
-    set termguicolors
-  endif
+if (has("nvim"))
+"For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+"For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+"Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+" < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+if (has("termguicolors"))
+set termguicolors
 endif
 
 
@@ -286,11 +301,14 @@ let g:vebugger_leader =','
 autocmd FileType python nnoremap <buffer> <F6> :VBGstartPDB %<cr>
 autocmd FileType python nnoremap <buffer> <F7> :VBGcontinue<cr>
 autocmd FileType python nnoremap <buffer> <F8> :VBGtoggleBreakpointThisLine<cr>
-autocmd FileType python nnoremap <buffer> <F9> :exec '!python3' shellescape(@%, 1)<cr>:let last_execution=@%<cr>
+autocmd FileType python nnoremap <buffer> <F9> :exec '!python3' shellescape(@%:p, 1)<cr>:let last_execution=@%:p <cr>
 autocmd FileType python nnoremap <buffer> <F3> :exec '!python3' shellescape( last_execution, 1)<cr>
 autocmd FileType python nnoremap <buffer> <F10> :VBGstepOver<cr>
 autocmd FileType python nnoremap <buffer> <F11> :VBGstepIn<cr>
 autocmd FileType python nnoremap <buffer> <F12> :VBGstepOver<cr>
+
+autocmd FileType lua nnoremap <buffer> <F5> :exec '!lua' shellescape(@%:p, 1)<cr>:let last_execution=@%:p <cr>
+autocmd FileType lua nnoremap <buffer> <F3> :exec '!lua' shellescape( last_execution, 1)<cr>
 
 let g:ag_working_path_mode="r"
 let g:deoplete#sources#jedi#python_path='/usr/bin/python3'
@@ -324,3 +342,18 @@ let g:vlime_leader = ","
 let g:vlime_enable_autodoc = v:true
 let g:vlime_window_settings = {'sldb': {'pos': 'belowright', 'vertical': v:true}, 'inspector': {'pos': 'belowright', 'vertical': v:true}, 'preview': {'pos': 'belowright', 'size': v:null, 'vertical': v:true}}
 let g:gonvim_draw_statusline = 0
+
+
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+    \ 'python': ['/usr/local/bin/pyls'],
+    \ 'lua': ['lua-lsp'],
+    \ }
+
+nnoremap <leader>la :call LanguageClient_contextMenu()<CR>
+nnoremap <silent> gh :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+nnoremap <silent> <c-.> :call LanguageClient#textDocument_codeAction()<CR>
