@@ -1,3 +1,25 @@
+if has('vim_starting')
+	set nocompatible               " Be iMproved
+endif
+
+let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
+
+let g:vim_bootstrap_langs = "c,python"
+let g:vim_bootstrap_editor = "nvim"				" nvim or vim
+
+if !filereadable(vimplug_exists)
+	if !executable("curl")
+		echoerr "You have to install curl or first install vim-plug yourself!"
+		execute "q!"
+	endif
+	echo "Installing Vim-Plug..."
+	echo ""
+	silent !\curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	let g:not_finish_vimplug = "yes"
+
+	autocmd VimEnter * PlugInstall
+endif
+
 "vim-scripts/VimPdb Identify platform {
 let g:MAC = has('macunix')
 let g:LINUX = has('unix') && !has('macunix') && !has('win32unix')
@@ -8,9 +30,11 @@ let g:WINDOWS = has('win32') || has('win64')
 " On Windows, also use '.vim' instead of 'vimfiles'; this makes synchronization
 " across (heterogeneous) systems easier.
 if g:WINDOWS
-    set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+	set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
 endif
 " }
+
+
 
 
 set number
@@ -23,6 +47,7 @@ nnoremap <leader>so :w<Cr>:so %<Cr>
 nnoremap <c-a-j> yyp
 nnoremap <a-t> :ToggleBool<CR>
 nnoremap <c-a-k> yyP
+nnoremap <c-w>o :tabe %<cr>
 nnoremap <space><space> o<Esc>
 nnoremap c "_c
 nnoremap x "_x
@@ -35,7 +60,6 @@ nnoremap L $
 vnoremap H ^
 vnoremap L $
 "inoremap  y/<C-R>"<CR>
-nnoremap <c-w>q :tabedit %<cr>
 
 let &path.="/usr/include,/usr/local/include,../include,/usr/local/include/opencv2"
 nnoremap <F4> :wa<Cr>:make<cr>
@@ -101,13 +125,14 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'artur-shaik/vim-javacomplete2'
 	Plug 'joshdick/onedark.vim'
 	Plug 'kovisoft/paredit'
-	Plug 'sagarrakshe/toggle-bool'
+	"Plug 'sagarrakshe/toggle-bool'
 	Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 	Plug 'dzhou121/gonvim-fuzzy' 
 	Plug 'aben20807/vim-runner'
 	Plug 'junegunn/limelight.vim'
 	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 	Plug 'junegunn/fzf.vim'
+	Plug 'jpalardy/vim-slime'
 	"Plug 'bhurlow/vim-parinfer'
 	"Plug 'w0rp/ale'
 	Plug 'autozimu/LanguageClient-neovim', {
@@ -125,7 +150,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 	"Plug 'tweekmonster/deoplete-clang2'
 	Plug 'zchee/deoplete-jedi'
 	Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-	Plug 'idanarye/vim-vebugger'
+	"Plug 'idanarye/vim-vebugger'
 	"Plug 'Shougo/neoinclude.vim'
 	Plug 'tpope/vim-surround'
 	Plug 'michaeljsmith/vim-indent-object'
@@ -298,14 +323,14 @@ let g:vebugger_leader =','
 "let g:ycm_server_python_interpreter='/usr/bin/python3'
 
 "let g:deoplete#sources#jedi#extra_path =['', '/usr/lib/python2.7', '/usr/lib/python2.7/plat-x86_64-linux-gnu', '/usr/lib/python27/lib-tk', '/usr/lib/python2.7/lib-old', '/usr/lib/python2.7/lib-dynload', '/home/stepha/.local/lib/python2.7/site-packages', '/usr/local/lib/python2.7/dist-packages', '/usr/li/python2.7/dist-packages', '/usr/lib/python2.7/dist-packages/PILcompat', '/usr/lib/pytho2.7/dist-packages/gtk-2.0', '/usr/lib/python2.7/dist-packages/wx-3.0-gtk2']
-autocmd FileType python nnoremap <buffer> <F6> :VBGstartPDB %<cr>
-autocmd FileType python nnoremap <buffer> <F7> :VBGcontinue<cr>
-autocmd FileType python nnoremap <buffer> <F8> :VBGtoggleBreakpointThisLine<cr>
-autocmd FileType python nnoremap <buffer> <F9> :exec '!python3' shellescape(@%:p, 1)<cr>:let last_execution=@%:p <cr>
-autocmd FileType python nnoremap <buffer> <F3> :exec '!python3' shellescape( last_execution, 1)<cr>
-autocmd FileType python nnoremap <buffer> <F10> :VBGstepOver<cr>
-autocmd FileType python nnoremap <buffer> <F11> :VBGstepIn<cr>
-autocmd FileType python nnoremap <buffer> <F12> :VBGstepOver<cr>
+"autocmd FileType python nnoremap <buffer> <F6> :VBGstartPDB %<cr>
+"autocmd FileType python nnoremap <buffer> <F7> :VBGcontinue<cr>
+"autocmd FileType python nnoremap <buffer> <F8> :VBGtoggleBreakpointThisLine<cr>
+"autocmd FileType python nnoremap <buffer> <F10> :VBGstepOver<cr>
+"autocmd FileType python nnoremap <buffer> <F11> :VBGstepIn<cr>
+"autocmd FileType python nnoremap <buffer> <F12> :VBGstepOver<cr>
+autocmd FileType python nnoremap <buffer> <F9> :exec '!python3' shellescape(@%, 1)<cr>:let last_execution=@% <cr>
+autocmd FileType python nnoremap <buffer> <F3> :!python3 shellescape( last_execution, 1)<cr>
 
 autocmd FileType lua nnoremap <buffer> <F5> :exec '!lua' shellescape(@%:p, 1)<cr>:let last_execution=@%:p <cr>
 autocmd FileType lua nnoremap <buffer> <F3> :exec '!lua' shellescape( last_execution, 1)<cr>
@@ -348,7 +373,7 @@ let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
     \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
     \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-    \ 'python': ['/usr/local/bin/pyls'],
+    \ 'python': ['pyls'],
     \ 'lua': ['lua-lsp'],
     \ }
 
@@ -363,6 +388,8 @@ nnoremap <silent> <leader>hi :call LanguageClient#textDocument_documentHighlight
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 nnoremap <silent> <leader>co :call LanguageClient#textDocument_codeAction()<CR>
+nnoremap <silent> <leader>f0 :set foldlevel=0<CR>
+nnoremap <silent> <leader>ff :set foldlevel=99<CR>
 
 noremap <leader>rn :call LanguageClient#textDocument_rename()<CR>
 
@@ -377,3 +404,8 @@ noremap <leader>ru :call LanguageClient#textDocument_rename( \ {'newName': Aboli
 
 set foldmethod=indent
 setlocal foldignore=
+
+set foldlevel=99
+
+let g:slime_target = "neovim"
+let g:slime_python_ipython = 1
