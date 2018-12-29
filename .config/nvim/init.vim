@@ -1,11 +1,14 @@
+set shell=/usr/bin/zsh
 if has('vim_starting')
 	set nocompatible               " Be iMproved
 endif
+
 
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 
 let g:vim_bootstrap_langs = "c,python"
 let g:vim_bootstrap_editor = "nvim"				" nvim or vim
+"let g:fzf_command_prefix = 'fzf'
 
 if !filereadable(vimplug_exists)
 	if !executable("curl")
@@ -34,20 +37,39 @@ if g:WINDOWS
 endif
 " }
 
+set runtimepath+=$HOME/.space-vim/core
+
 
 
 
 set number
 set relativenumber
 
+" Always show line numbers, but only in current window.
+set number
+au WinEnter * :setlocal number
+au WinEnter * :setlocal relativenumber
+au WinLeave * :setlocal relativenumber!
+
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
+
+
+"au WinLeave * :setlocal nonumber
+"
+"" " Automatically resize vertical splits.
+"au WinEnter * :set winfixheight
+"au WinEnter * :wincmd =
+
 "nnoremap j gj
 "nnoremap k gk
 nnoremap <leader>make :wa<Cr>:make<Cr>
-nnoremap <leader>so :w<Cr>:so %<Cr>
+nnoremap <leader>hi :History<Cr>
+nnoremap <leader>te :set shell=/usr/bin/zsh<cr>:split<cr>:term<Cr>:exe "resize " . 13<CR>
+nnoremap <leader>so :source %<Cr>
+nnoremap <leader>lime :Limelight!! 0.8<cr>
 nnoremap <c-a-j> yyp
-nnoremap <a-t> :ToggleBool<CR>
 nnoremap <c-a-k> yyP
-nnoremap <c-w>o :tabe %<cr>
 nnoremap <space><space> o<Esc>
 nnoremap c "_c
 nnoremap x "_x
@@ -59,14 +81,23 @@ nnoremap H ^
 nnoremap L $
 vnoremap H ^
 vnoremap L $
+command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+nnoremap <C-S-J> :m+<CR>==
+nnoremap <C-S-K> :m-2<CR>==
+inoremap <C-S-J> <Esc>:m+<CR>==gi
+inoremap <C-S-K> <Esc>:m-2<CR>==gi
+vnoremap <C-S-J> :m'>+<CR>gv=gv
+vnoremap <C-S-K> :m-2<CR>gv=gv
 "inoremap  y/<C-R>"<CR>
+"nnoremap <c-w>o :tabedit %<cr>
 
-let &path.="/usr/include,/usr/local/include,../include,/usr/local/include/opencv2"
+"let &path.="/usr/include,/usr/local/include,../include,/usr/local/include/opencv2"
 nnoremap <F4> :wa<Cr>:make<cr>
 nnoremap <Leader>cn :cn<cr>
 nnoremap <Leader>cN :cN<cr>
 nnoremap <Leader>sde :set spell<cr>:set spelllang=de<cr>
 nnoremap <Leader>sen :set spell<cr>:set spelllang=en<cr>
+inoremap <expr> <CR> pumvisible() ? "\<C-n>" : "\<C-g>u\<CR>"
 
 nnoremap <Leader>bp :bN<cr>
 nnoremap <Leader>bn :bn<cr>
@@ -74,11 +105,17 @@ nnoremap <Leader>tp :tabprevious<cr>
 nnoremap <Leader>tn :tabNext<cr>
 nnoremap <Leader>tab :tabnew<cr>
 nnoremap <Leader>tc :tabclose<cr>
-"nnoremap <Leader>nt :NERDTreeToggle<cr>
-"nnoremap <Leader>nf :NERDTreeFind<cr>
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
-
+nnoremap <Leader>nt :NERDTreeToggle<cr>
+nnoremap <Leader>nf :NERDTreeFind<cr>
+nnoremap <Leader>oo :only<cr>
+"nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+"nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <silent> <C-k> [[
+nmap <silent> <C-j> ]]
+nmap <silent> <C-h> :tp<cr>
+nmap <silent> <C-l> :tn<cr>
+nmap <Leader>ag :GonvimFuzzyAg
+map <SPACE> <leader>
 map <SPACE> <leader>
 
 set wrap
@@ -107,53 +144,77 @@ smap <c-n> <Esc>a<tab>
 "snoremap <c-u> <Esc>a<tab>
 
 call plug#begin('~/.local/share/nvim/plugged')
-  if (has("nvim"))
+	"Plug 'SirVer/ultisnips'
+	"" deoplete config
+	"let g:deoplete#enable_at_startup = 1
+	"" disable autocomplete
+	"let g:deoplete#disable_auto_complete = 1
+	"if has("gui_running")
+		"inoremap <silent><expr><C-Space> deoplete#mappings#manual_complete()
+	"else
+		"inoremap <silent><expr><C-@> deoplete#mappings#manual_complete()
+	"endif
+	"" UltiSnips config
+	"inoremap <silent><expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+	"let g:UltiSnipsExpandTrigger="<tab>"
+	"let g:UltiSnipsJumpForwardTrigger="<tab>"
+	"let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
-  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-  if (has("termguicolors"))
-    set termguicolors
-  endif
-	"Plug 'rkulla/pydiction'
-	Plug 'junegunn/rainbow_parentheses.vim'
-	Plug 'equalsraf/neovim-gui-shim'
-	Plug 'joshuarubin/go-explorer'
-	Plug 'artur-shaik/vim-javacomplete2'
-	Plug 'joshdick/onedark.vim'
-	Plug 'kovisoft/paredit'
+	"Plug 'Olical/vim-enmasse'
+	"Plug 'craigemery/vim-autotag'
+	"Plug 'ivalkeen/vim-ctrlp-tjump'
+	"Plug 'junegunn/seoul256.vim'
+	Plug 'akiyosi/gonvim-fuzzy'
 	"Plug 'sagarrakshe/toggle-bool'
-	Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-	Plug 'dzhou121/gonvim-fuzzy' 
-	Plug 'aben20807/vim-runner'
+	Plug 'AndrewRadev/switch.vim'
+	Plug 'junegunn/rainbow_parentheses.vim'
 	Plug 'junegunn/limelight.vim'
+	Plug 'machakann/vim-swap'
+	Plug 'justinmk/vim-sneak'
+	Plug 'Shougo/echodoc.vim'
+	"Plug 'w0rp/ale'
+	Plug 'aben20807/vim-runner'
 	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 	Plug 'junegunn/fzf.vim'
 	Plug 'jpalardy/vim-slime'
-	"Plug 'bhurlow/vim-parinfer'
-	"Plug 'w0rp/ale'
+	"Plug 'machakann/vim-highlightedyank'
+	"Plug 'scrooloose/nerdtree'
+	"Plug 'Xuyuanp/nerdtree-git-plugin'
+	Plug 'equalsraf/neovim-gui-shim'
+	Plug 'michaeljsmith/vim-indent-object'
+	Plug 'rking/ag.vim'
+	Plug 'Chun-Yang/vim-action-ag'
+	Plug 'easymotion/vim-easymotion'
+	Plug 'ctrlpvim/ctrlp.vim'
+	Plug 'terryma/vim-multiple-cursors'
+	Plug 'junegunn/goyo.vim'
 	Plug 'autozimu/LanguageClient-neovim', {
 	    \ 'branch': 'next',
 	    \ 'do': 'bash install.sh',
 	    \ }
-	Plug 'rking/ag.vim'
-	Plug 'Chun-Yang/vim-action-ag'
-	Plug 'easymotion/vim-easymotion'
-	Plug 'justinmk/vim-sneak'
-	Plug 'ctrlpvim/ctrlp.vim'
-	Plug 'l04m33/vlime', {'rtp': 'vim/'}
+
+	" (Optional) Multi-entry selection UI.
+	"Plug 'junegunn/fzf'
+	"Plug 'junegunn/fzf.vim'
 	"Plug 'Valloric/YouCompleteMe'
-	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+	
+	"if has('nvim')
+		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+	"else
+		"Plug 'Shougo/deoplete.nvim'
+		"Plug 'roxma/nvim-yarp'
+		"Plug 'roxma/vim-hug-neovim-rpc'
+	"endif
+
+	"Plug 'Shougo/neosnippet.vim'
+	"Plug 'Shougo/neosnippet-snippets'
+	Plug 'rbonvall/snipmate-snippets-bib'
 	"Plug 'tweekmonster/deoplete-clang2'
 	Plug 'zchee/deoplete-jedi'
 	Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-	"Plug 'idanarye/vim-vebugger'
+	Plug 'idanarye/vim-vebugger'
 	"Plug 'Shougo/neoinclude.vim'
 	Plug 'tpope/vim-surround'
-	Plug 'michaeljsmith/vim-indent-object'
 	Plug 'tpope/vim-fugitive'
 	Plug 'tpope/vim-repeat'
 	Plug 'garbas/vim-snipmate'
@@ -165,22 +226,20 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'theHamsta/vim-snippets'
 	Plug 'rakr/vim-one'
 	Plug 'altercation/vim-colors-solarized'
-	"Plug 'metakirby5/codi.vim'
-	"Plug 'dbeniamine/cheat.sh-vim'
 	Plug 'majutsushi/tagbar'
 	Plug 'vim-airline/vim-airline'
 	Plug 'rliang/nvim-pygtk3', {'do': 'make install'}
 	Plug 'lervag/vimtex'
 	Plug 'beloglazov/vim-online-thesaurus'
 	Plug 'wellle/targets.vim'
-	Plug 'tpope/vim-abolish'
-	Plug 'vim-scripts/DoxygenToolkit.vim'
+	"Plug 'rkulla/pydiction'
+	"Plug 'xolox/vim-misc'
+	"Plug 'xolox/vim-easytags'
 
 call plug#end()
 
+
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#clang#libclang_path='/usr/lib/llvm-3.8/lib/libclang-3.8.so.1'
-let g:deoplete#sources#clang#clang_header='/usr/lib/llvm-3.8/lib/clang/3.8.1/include'
 let g:deoplete#sources#clang#executable='/usr/bin/clang'
 
 nnoremap <Leader>l :ls<CR>
@@ -204,17 +263,18 @@ autocmd FileType cpp iabbrev <buffer> firend friend
 autocmd FileType cpp iabbrev <buffer> flaot float
 autocmd FileType cpp iabbrev <buffer> _std std::
 autocmd FileType cpp iabbrev <buffer> stirng string
-set autochdir
+"set autochdir
+autocmd BufEnter * silent! lcd %:p:h
 "nnoremap gf :vertical wincmd f<CR>
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pdf,*.log,*/CMakeFiles/*
 
 set lazyredraw
 set ttyfast
 
-map <leader>l <plug>(easymotion-lineforward)
-map <leader>j <plug>(easymotion-j)
-map <leader>k <plug>(easymotion-k)
-map <leader>h <plug>(easymotion-linebackward)
+map <leader>ll <plug>(easymotion-lineforward)
+map <leader>jj <plug>(easymotion-j)
+map <leader>kk <plug>(easymotion-k)
+map <leader>hh <plug>(easymotion-linebackward)
 let g:easymotion_smartcase = 1
 let g:easymotion_smartsign = 1
 
@@ -369,20 +429,34 @@ let g:vlime_window_settings = {'sldb': {'pos': 'belowright', 'vertical': v:true}
 let g:gonvim_draw_statusline = 0
 
 
+    "\ 'cpp': ['clangd'],
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
     \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
     \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
     \ 'python': ['pyls'],
     \ 'lua': ['lua-lsp'],
+    \ 'cpp': ['clangd-7'],
     \ }
+	"\ 'cpp': ['/home/stephan/projects/cquery/build/release/bin/cquery','--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery/"}, "completion": {"filterAndSort": false}}'],
+"if executable('ccls')
+	   "au User lsp_setup call lsp#register_server({
+			 "\ 'name': 'ccls',
+			 "\ 'cmd': {server_info->['ccls']},
+			 "\ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+			 "\ 'initialization_options': { 'cacheDirectory': '/tmp/ccls/cache' },
+			 "\ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+			 "\ })
+   "endif
 
 nnoremap <leader>la :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> <leader>ty :call LanguageClient#textDocument_typeDefinition()<CR>
+nnoremap <silent> gt :call LanguageClient#textDocument_typeDefinition()<CR>
 nnoremap <silent> gh :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> <leader>sy :call LanguageClient#textDocument_documentSymbol()<CR>
-nnoremap <silent> <leader>wo :call LanguageClient#workspaceSymbol()<CR>
-nnoremap <silent> <leader>re :call LanguageClient#textDocument_references()<CR>
+nnoremap <silent> <leader>ss :call LanguageClient#textDocument_documentSymbol()<CR>
+"nnoremap <silent> <c-s-o> :call LanguageClient#textDocument_documentSymbol()<CR>
+nnoremap <silent> <c-s> :call LanguageClient#textDocument_formatting()<CR>:w<CR>
+nnoremap <silent> <leader>ref :call LanguageClient#textDocument_references()<CR>
 nnoremap <silent> <leader>fo :call LanguageClient#textDocument_formatting()<CR>
 nnoremap <silent> <leader>hi :call LanguageClient#textDocument_documentHighlight()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
@@ -390,6 +464,24 @@ nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 nnoremap <silent> <leader>co :call LanguageClient#textDocument_codeAction()<CR>
 nnoremap <silent> <leader>f0 :set foldlevel=0<CR>
 nnoremap <silent> <leader>ff :set foldlevel=99<CR>
+
+"function SetLSPShortcuts()
+	"nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
+	"nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
+	"nnoremap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
+	"nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
+	"nnoremap <leader>lx :call LanguageClient#textDocument_references()<CR>
+	"nnoremap <leader>la :call LanguageClient_workspace_applyEdit()<CR>
+	"nnoremap <leader>lc :call LanguageClient#textDocument_completion()<CR>
+	"nnoremap <leader>lh :call LanguageClient#textDocument_hover()<CR>
+	"nnoremap <leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
+	"nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>
+"endfunction()
+
+"augroup LSP
+"autocmd!
+"autocmd FileType cpp,c,python,go,rust call SetLSPShortcuts()
+"augroup END
 
 noremap <leader>rn :call LanguageClient#textDocument_rename()<CR>
 
@@ -402,6 +494,11 @@ noremap <leader>rs :call LanguageClient#textDocument_rename( \ {'newName': Aboli
 " Rename - ru =>
 noremap <leader>ru :call LanguageClient#textDocument_rename( \ {'newName': Abolish.uppercase(expand('<cword>'))})<CR>
 
+nn <silent> xh :call LanguageClient#findLocations({'method':'$ccls/navigate','direction':'L'})<cr>
+nn <silent> xj :call LanguageClient#findLocations({'method':'$ccls/navigate','direction':'D'})<cr>
+nn <silent> xk :call LanguageClient#findLocations({'method':'$ccls/navigate','direction':'U'})<cr>
+nn <silent> xl :call LanguageClient#findLocations({'method':'$ccls/navigate','direction':'R'})<cr>
+
 set foldmethod=indent
 setlocal foldignore=
 
@@ -409,3 +506,19 @@ set foldlevel=99
 
 let g:slime_target = "neovim"
 let g:slime_python_ipython = 1
+
+command! Q :q
+
+
+
+"fu! C_init()
+	  "setl formatexpr=LanguageClient#textDocument_rangeFormatting()
+"endf
+"au FileType c,cpp,cuda,objc :call C_init()
+nnoremap <c-h> :History<Cr>
+:set shell=/usr/bin/zsh
+noremap <Esc> <C-\><C-n>
+tnoremap jk <C-\><C-n>
+tnoremap <c-d> <C-\><C-n><c-w>c
+
+nnoremap <a-t> :Switch<CR>
