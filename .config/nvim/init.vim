@@ -66,6 +66,7 @@ autocmd! User GoyoLeave Limelight!
 nnoremap <leader>make :wa<Cr>:make<Cr>
 nnoremap <leader>hi :History<Cr>
 nnoremap <leader>te :set shell=/usr/bin/zsh<cr>:split<cr>:term<Cr>:exe "resize " . 13<CR>
+nnoremap <leader>tt 'Ti
 nnoremap <leader>so :source %<Cr>
 nnoremap <leader>lime :Limelight!! 0.8<cr>
 nnoremap <c-a-j> yyp
@@ -127,6 +128,7 @@ set tabstop=4
 " when indenting with '>', use 4 spaces width
 set shiftwidth=4
 " On pressing tab, insert 4 spaces
+"
 "set expandtab
 
 "inoremap <A-v> <C-R><C-R>+
@@ -167,11 +169,13 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'akiyosi/gonvim-fuzzy'
 	"Plug 'sagarrakshe/toggle-bool'
 	Plug 'AndrewRadev/switch.vim'
-	Plug 'junegunn/rainbow_parentheses.vim'
+	Plug 'kien/rainbow_parentheses.vim'
 	Plug 'junegunn/limelight.vim'
 	Plug 'machakann/vim-swap'
 	Plug 'justinmk/vim-sneak'
 	Plug 'Shougo/echodoc.vim'
+	"Plug 'juanibiapina/vim-runner'
+	"Plug 'tpope/vim-projectionist'
 	"Plug 'w0rp/ale'
 	Plug 'aben20807/vim-runner'
 	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -516,9 +520,19 @@ command! Q :q
 "endf
 "au FileType c,cpp,cuda,objc :call C_init()
 nnoremap <c-h> :History<Cr>
-:set shell=/usr/bin/zsh
+set shell=/usr/bin/zsh
 noremap <Esc> <C-\><C-n>
 tnoremap jk <C-\><C-n>
 tnoremap <c-d> <C-\><C-n><c-w>c
 
 nnoremap <a-t> :Switch<CR>
+
+let g:projectionist_heuristics = {
+      \  "*": {"runner": "python3"}
+      \ }
+
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+"au Syntax * RainbowParenthesesLoadBraces
+"
