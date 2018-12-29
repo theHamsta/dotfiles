@@ -1,0 +1,5 @@
+#! /bin/bash
+
+mkdir compile_commands
+(cd compile_commands; cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=YES ..)
+ln -s compile_commands/compile_commands.json
