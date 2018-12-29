@@ -176,12 +176,13 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'justinmk/vim-sneak'
 	Plug 'Shougo/echodoc.vim'
 	"Plug 'juanibiapina/vim-runner'
-	"Plug 'tpope/vim-projectionist'
+	Plug 'tpope/vim-projectionist'
 	"Plug 'w0rp/ale'
 	Plug 'aben20807/vim-runner'
 	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 	Plug 'junegunn/fzf.vim'
-	Plug 'jpalardy/vim-slime'
+	"Plug 'jpalardy/vim-slime'
+	Plug 'kovisoft/slimv'
 	"Plug 'machakann/vim-highlightedyank'
 	"Plug 'scrooloose/nerdtree'
 	"Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -217,7 +218,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 	"Plug 'tweekmonster/deoplete-clang2'
 	Plug 'zchee/deoplete-jedi'
 	Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-	Plug 'idanarye/vim-vebugger'
+	"Plug 'idanarye/vim-vebugger'
 	"Plug 'Shougo/neoinclude.vim'
 	Plug 'tpope/vim-surround'
 	Plug 'tpope/vim-fugitive'
@@ -442,6 +443,7 @@ let g:LanguageClient_serverCommands = {
     \ 'python': ['pyls'],
     \ 'lua': ['lua-lsp'],
     \ 'cpp': ['clangd-7'],
+    \ 'lisp': ['~/.roswell/bin/cl-lsp'],
     \ }
 	"\ 'cpp': ['/home/stephan/projects/cquery/build/release/bin/cquery','--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery/"}, "completion": {"filterAndSort": false}}'],
 "if executable('ccls')
@@ -529,8 +531,17 @@ tnoremap <c-d> <C-\><C-n><c-w>c
 nnoremap <a-t> :Switch<CR>
 
 let g:projectionist_heuristics = {
-      \  "*": {"runner": "python3"}
-      \ }
+	\    '*.h': {
+      \      'alternate': [
+      \         '{}.c',
+      \         '{}.cpp',
+      \      ]},
+		\    '*.hpp': {
+      \      'alternate': [
+      \         '{}.c',
+      \         '{}.cpp',
+      \      ],
+      \ } }
 
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
@@ -540,3 +551,9 @@ au Syntax * RainbowParenthesesLoadSquare
 "
 "call camelcasemotion#CreateMotionMappings('-')
 let g:wordmotion_prefix = '-'
+
+
+
+command! CtrlPSameName call feedkeys(":CtrlP\<cr>".expand('%:t:r'), "t")
+nnoremap <a-o> :CtrlPSameName<cr>
+set path=.,**
