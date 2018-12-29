@@ -161,7 +161,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 	"let g:UltiSnipsExpandTrigger="<tab>"
 	"let g:UltiSnipsJumpForwardTrigger="<tab>"
 	"let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
+	Plug 'chaoren/vim-wordmotion'
+	"Plug 'bkad/CamelCaseMotion'
 	"Plug 'Olical/vim-enmasse'
 	"Plug 'craigemery/vim-autotag'
 	"Plug 'ivalkeen/vim-ctrlp-tjump'
@@ -536,3 +537,6 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 "au Syntax * RainbowParenthesesLoadBraces
 "
+"
+"call camelcasemotion#CreateMotionMappings('-')
+let g:wordmotion_prefix = '-'
