@@ -72,8 +72,8 @@ nnoremap <leader>lime :Limelight!! 0.8<cr>
 nnoremap <c-a-j> yyp
 nnoremap <c-a-k> yyP
 nnoremap <space><space> o<Esc>
-nnoremap c "_c
-nnoremap x "_x
+"nnoremap c "_c
+"nnoremap x "_x
 vnoremap < <gv
 vnoremap > >gv
 nnoremap K :s/,/,\r/g<CR>
@@ -568,6 +568,8 @@ nnoremap <leader>ee :TREPLSendFile<cr>
 nnoremap <leader>el :TREPLSendLine<cr>
 nnoremap ,repl :belowright Tnew<cr><c-w>j :exe "resize " . 13<CR>
 vnoremap <leader>ee :TREPLSendSelection<cr>
-let g:neoterm_repl_python="python3"
+let g:neoterm_repl_python="ipython"
 "let g:neoterm_autoinsert=1
 
+set noshowmode
+set clipboard=unnamedplus
