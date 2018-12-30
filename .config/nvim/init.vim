@@ -65,7 +65,7 @@ autocmd! User GoyoLeave Limelight!
 "nnoremap k gk
 nnoremap <leader>make :wa<Cr>:make<Cr>
 nnoremap <leader>hi :History<Cr>
-nnoremap <leader>te :set shell=/usr/bin/zsh<cr>:split<cr>:term<Cr>:exe "resize " . 13<CR>
+nnoremap <leader>te :set shell=/usr/bin/zsh<cr>:split<cr>:term<Cr>:exe "resize " . 13<CR>i
 nnoremap <leader>tt 'Ti
 nnoremap <leader>so :source %<Cr>
 nnoremap <leader>lime :Limelight!! 0.8<cr>
