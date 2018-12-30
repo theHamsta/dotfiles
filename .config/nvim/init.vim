@@ -568,7 +568,9 @@ nnoremap <leader>ee :TREPLSendFile<cr>
 nnoremap <leader>el :TREPLSendLine<cr>
 nnoremap ,repl :belowright Tnew<cr><c-w>j :exe "resize " . 13<CR>
 vnoremap <leader>ee :TREPLSendSelection<cr>
-let g:neoterm_repl_python="ipython"
+let g:neoterm_repl_python="python3"
+nmap gx <Plug>(neoterm-repl-send)
+xmap gx <Plug>(neoterm-repl-send)
 "let g:neoterm_autoinsert=1
 
 set noshowmode
