@@ -162,6 +162,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 	"let g:UltiSnipsJumpForwardTrigger="<tab>"
 	"let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 	Plug 'chaoren/vim-wordmotion'
+	Plug 'kassio/neoterm'
 	"Plug 'bkad/CamelCaseMotion'
 	"Plug 'Olical/vim-enmasse'
 	"Plug 'craigemery/vim-autotag'
@@ -515,6 +516,7 @@ let g:slime_target = "neovim"
 let g:slime_python_ipython = 1
 
 command! Q :q
+command! Qa :qa
 
 
 
@@ -557,3 +559,15 @@ let g:wordmotion_prefix = '-'
 command! CtrlPSameName call feedkeys(":CtrlP\<cr>".expand('%:t:r'), "t")
 nnoremap <a-o> :CtrlPSameName<cr>
 set path=.,**
+"horizontal split below
+let g:slimv_repl_split=2
+
+
+nnoremap <leader>E <Plug>(neoterm-repl-send)
+nnoremap <leader>ee :TREPLSendFile<cr>
+nnoremap <leader>el :TREPLSendLine<cr>
+nnoremap ,repl :belowright Tnew<cr><c-w>j :exe "resize " . 13<CR>
+vnoremap <leader>ee :TREPLSendSelection<cr>
+let g:neoterm_repl_python="python3"
+"let g:neoterm_autoinsert=1
+
