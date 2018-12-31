@@ -73,7 +73,7 @@ nnoremap <c-a-j> yyp
 nnoremap <c-a-k> yyP
 nnoremap <space><space> o<Esc>
 nnoremap c "_c
-"nnoremap x "_x
+nnoremap x "_x
 vnoremap < <gv
 vnoremap > >gv
 nnoremap K :s/,/,\r/g<CR>
@@ -504,10 +504,10 @@ noremap <leader>rs :call LanguageClient#textDocument_rename( \ {'newName': Aboli
 " Rename - ru =>
 noremap <leader>ru :call LanguageClient#textDocument_rename( \ {'newName': Abolish.uppercase(expand('<cword>'))})<CR>
 
-nn <silent> xh :call LanguageClient#findLocations({'method':'$ccls/navigate','direction':'L'})<cr>
-nn <silent> xj :call LanguageClient#findLocations({'method':'$ccls/navigate','direction':'D'})<cr>
-nn <silent> xk :call LanguageClient#findLocations({'method':'$ccls/navigate','direction':'U'})<cr>
-nn <silent> xl :call LanguageClient#findLocations({'method':'$ccls/navigate','direction':'R'})<cr>
+"nn <silent> xh :call LanguageClient#findLocations({'method':'$ccls/navigate','direction':'L'})<cr>
+"nn <silent> xj :call LanguageClient#findLocations({'method':'$ccls/navigate','direction':'D'})<cr>
+"nn <silent> xk :call LanguageClient#findLocations({'method':'$ccls/navigate','direction':'U'})<cr>
+"nn <silent> xl :call LanguageClient#findLocations({'method':'$ccls/navigate','direction':'R'})<cr>
 
 set foldmethod=indent
 setlocal foldignore=
