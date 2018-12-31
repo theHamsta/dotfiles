@@ -72,7 +72,7 @@ nnoremap <leader>lime :Limelight!! 0.8<cr>
 nnoremap <c-a-j> yyp
 nnoremap <c-a-k> yyP
 nnoremap <space><space> o<Esc>
-"nnoremap c "_c
+nnoremap c "_c
 "nnoremap x "_x
 vnoremap < <gv
 vnoremap > >gv
@@ -82,7 +82,7 @@ nnoremap H ^
 nnoremap L $
 vnoremap H ^
 vnoremap L $
-command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+command! W :execute ':silent w !sudo tee % > /dev/null'
 nnoremap <C-S-J> :m+<CR>==
 nnoremap <C-S-K> :m-2<CR>==
 inoremap <C-S-J> <Esc>:m+<CR>==gi
@@ -163,6 +163,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 	"let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 	Plug 'chaoren/vim-wordmotion'
 	Plug 'kassio/neoterm'
+	Plug 'airblade/vim-rooter'
 	"Plug 'bkad/CamelCaseMotion'
 	"Plug 'Olical/vim-enmasse'
 	"Plug 'craigemery/vim-autotag'
@@ -468,6 +469,7 @@ nnoremap <silent> <leader>ref :call LanguageClient#textDocument_references()<CR>
 nnoremap <silent> <leader>fo :call LanguageClient#textDocument_formatting()<CR>
 nnoremap <silent> <leader>hi :call LanguageClient#textDocument_documentHighlight()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> gD <c-w>v:call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 nnoremap <silent> <leader>co :call LanguageClient#textDocument_codeAction()<CR>
 nnoremap <silent> <leader>f0 :set foldlevel=0<CR>
@@ -529,6 +531,7 @@ set shell=/usr/bin/zsh
 noremap <Esc> <C-\><C-n>
 tnoremap jk <C-\><C-n>
 tnoremap <c-d> <C-\><C-n><c-w>c
+"tnoremap <c-w> <C-\><C-n><c-w>
 
 nnoremap <a-t> :Switch<CR>
 
@@ -575,3 +578,13 @@ xmap gx <Plug>(neoterm-repl-send)
 
 set noshowmode
 set clipboard=unnamedplus
+
+function! GotoPython()
+	let current_line = getline('.')
+	let goto_file = matchstr(current_line, '\(File "\)\@<=\(.*\)\("\)\@=')
+	let goto_line = matchstr(current_line, '\(line \)\@<=[0-9]*')
+	execute "edit +" . goto_line . " " . goto_file
+endfunction
+
+
+nnoremap gP :call GotoPython()<cr>
