@@ -588,3 +588,4 @@ endfunction
 
 
 nnoremap gP :call GotoPython()<cr>
+set spell
