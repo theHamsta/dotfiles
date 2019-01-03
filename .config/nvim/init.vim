@@ -82,7 +82,8 @@ nnoremap H ^
 nnoremap L $
 vnoremap H ^
 vnoremap L $
-command! W :execute ':silent w !sudo tee % > /dev/null'
+"command! W :execute ':silent w !sudo tee % > /dev/null'
+command! Wq :wq
 nnoremap <C-S-J> :m+<CR>==
 nnoremap <C-S-K> :m-2<CR>==
 inoremap <C-S-J> <Esc>:m+<CR>==gi
@@ -90,7 +91,7 @@ inoremap <C-S-K> <Esc>:m-2<CR>==gi
 vnoremap <C-S-J> :m'>+<CR>gv=gv
 vnoremap <C-S-K> :m-2<CR>gv=gv
 "inoremap  y/<C-R>"<CR>
-"nnoremap <c-w>o :tabedit %<cr>
+nnoremap <c-w>O :tab :sp<cr>
 
 "let &path.="/usr/include,/usr/local/include,../include,/usr/local/include/opencv2"
 nnoremap <F4> :wa<Cr>:make<cr>
@@ -459,6 +460,7 @@ let g:LanguageClient_serverCommands = {
    "endif
 
 nnoremap <leader>la :call LanguageClient_contextMenu()<CR>
+nnoremap <leader>qf :call LanguageClient#textDocument_codeAction()<CR>
 nnoremap <silent> <leader>ty :call LanguageClient#textDocument_typeDefinition()<CR>
 nnoremap <silent> gt :call LanguageClient#textDocument_typeDefinition()<CR>
 nnoremap <silent> gh :call LanguageClient#textDocument_hover()<CR>
@@ -471,7 +473,6 @@ nnoremap <silent> <leader>hi :call LanguageClient#textDocument_documentHighlight
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> gD <c-w>v:call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-nnoremap <silent> <leader>co :call LanguageClient#textDocument_codeAction()<CR>
 nnoremap <silent> <leader>f0 :set foldlevel=0<CR>
 nnoremap <silent> <leader>ff :set foldlevel=99<CR>
 
@@ -531,7 +532,11 @@ set shell=/usr/bin/zsh
 noremap <Esc> <C-\><C-n>
 tnoremap jk <C-\><C-n>
 tnoremap <c-d> <C-\><C-n><c-w>c
-"tnoremap <c-w> <C-\><C-n><c-w>
+tnoremap <c-d> <C-\><C-n><c-w>c
+nnoremap <c-w>+ <c-w>+<c-w>+<c-w>+<c-w>+<c-w>+<c-w>+<c-w>+<c-w>+
+nnoremap <c-w>- <c-w>-<c-w>-<c-w>-<c-w>-<c-w>-<c-w>-<c-w>-<c-w>-
+nnoremap <c-w>< <c-w><<c-w><<c-w><<c-w><<c-w><<c-w><<c-w><<c-w><
+nnoremap <c>w>> <c>w>><c>w>><c>w>><c>w>><c>w>><c>w>><c>w>><c>w>>
 
 nnoremap <a-t> :Switch<CR>
 
