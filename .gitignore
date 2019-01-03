@@ -1,0 +1,103 @@
+**/release/
+release/
+**/debug/
+debug/
+*~
+**/CMakeFiles/*
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Building #
+######################
+build/
+release/
+compile_commands/
+*.cmake
+*.make
+*.includecache
+*.internal
+*.a
+*.marks
+*.depend
+*.bak
+*.md5
+
+# IDEs #
+######################
+*.kdev4
+.vscode/
+.idea/
+parts/
+stage/
+prime/
+
+# Latex #
+######################
+*.aux
+*.auxlock
+*.idx
+*.ind
+*.bcf
+*.lof
+*.lox
+*.lot
+*.out
+*.toc
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.ist
+*.pyc
+*.fdb_latexmk
+*.fls
+*.pdf
+*.kate-swp
+*.bbl
+*.blg
+*.nav
+*.snm
+*.gz
+*.dpth
+*.run.xml
+
+tags
+.pytest_cache
+.ropeproject
