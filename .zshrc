@@ -2,17 +2,17 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=~/.oh-my-zsh
+export ZSH=/home/stephan/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="spaceship"
+#ZSH_THEME="agnosterzak"
 
 SPACESHIP_TIME_SHOW=true
 SPACESHIP_PROMPT_SEPARATE_LINE=true
 SPACESHIP_PROMPT_ADD_NEWLINE=false
-
 #zle_highlight={default:bold}
  #POSTEDIT=$'\e[0m'
 
@@ -58,9 +58,15 @@ HIST_STAMPS="dd/mm/yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-syntax-highlighting colored-man-pages fasd  copydir command-not-found extract history cp gitignore pip zsh-256color compleat)
+plugins=(git golang  zsh-syntax-highlighting python colored-man-pages fasd  copydir command-not-found extract history cp gitignore pip zsh-256color compleat zsh-bazel-plugin)
 
 source $ZSH/oh-my-zsh.sh
+
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
+
+alias -g ...='../..'
+alias -g ....='../../..'
 
 # User configuration
 
@@ -96,8 +102,8 @@ command -v dtags-activate > /dev/null 2>&1 && eval "`dtags-activate zsh`"
 alias l.='ls -d .* --color=auto'
 alias up="sudo apt update"
 alias g="sudo apt upgrade"
-alias gf="sudo apt upgrade -f"
-alias distupgrade="sudo apt dist-upgrade -f"
+alias gf="sudo apt-get upgrade -f"
+alias distupgrade="sudo apt-get dist-upgrade -f"
 alias i="sudo apt-get install "
 alias ai="apt-cache show  "
 alias r="sudo apt-get remove "
@@ -105,24 +111,38 @@ alias purge="sudo apt-get --purge remove "
 alias aptsearch="apt-cache search "
 alias autoremove="sudo apt-get autoremove"
 alias apt="sudo apt"
-alias pro="cd ~/projects"
+alias autoremove="sudo apt autoremove"
 
 alias cd..="cd .."
 alias cd...="cd ../.."
+alias -s tex=nvim
 
 alias v='f -e nvim' # quick opening files with vim
 alias o='a -e xdg-open' # quick opening files with xdg-open
 
-export GOPATH=~/projects/go
+#export CUDA_HOME=/usr/local/cuda-9.0
+#export LD_LOAD_PATH=/usr/local/cuda-9.0/targets/x86_64-linux/lib/:${LD_LOAD_PATH}
+#export LD_LIBRARY_PATH=/opt/ParaView-5.4.1-Qt5-OpenGL2-MPI-Linux-64bit/lib/paraview-5.4:${LD_LIBRARY_PATH}
+export PATH=~/.local/bin/:${PATH}
+export PATH=~/go/bin/:${PATH}
 export GIT_EDITOR=nvim
-export LD_LOAD_PATH=/usr/local/cuda-8.0/targets/x86_64-linux/lib/:${LD_LOAD_PATH}
-export PATH=~/bin/:~/.local/bin:${PATH}
-export PATH=~/.roswell/bin/:~/.local/bin:${PATH}
-export PATH=$GOPATH/bin:~/.local/bin:${PATH}
-export PYTHONSTARTUP=~/.pythonrc
+#export LD_LIBRARY_PATH="/usr/local/cuda-9.1/lib/:/usr/local/cuda-9.1/targets/x86_64-linux/lib/:$LD_LIBRARY_PATH"
+#export LD_LOAD_PATH="/usr/local/cuda-9.1/lib/:/usr/local/cuda-9.1/targets/x86_64-linux/lib/:$LD_LOAD_PATH"
+export PATH=$PATH:/usr/local/cuda-9.1/bin
+export PATH=/snap/bin/:${PATH}
+#export CUDA_HOME=/usr/local/cuda-9.1
 
-bindkey -M viins 'jk' vi-cmd-mode 
+export SCIPY_PIL_IMAGE_VIEWER=imagecomparer
 
-source "/home/stephan/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
+VMTKHOME=/localhome/local/projects/vmtk/release/Install
+#source "/home/stephan/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
 
+export OMP_NUM_THREADS=4
+export GOPATH=/home/stephan/go
+
+
+
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+	source /etc/profile.d/vte.sh
+fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
