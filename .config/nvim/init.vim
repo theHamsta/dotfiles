@@ -243,11 +243,13 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'lervag/vimtex'
 	Plug 'beloglazov/vim-online-thesaurus'
 	Plug 'wellle/targets.vim'
+	Plug 'fszymanski/deoplete-emoji'
 	"Plug 'rkulla/pydiction'
 	"Plug 'xolox/vim-misc'
 	"Plug 'xolox/vim-easytags'
 
 call plug#end()
+
 
 
 let g:deoplete#enable_at_startup = 1
@@ -650,3 +652,8 @@ let g:quickr_preview_on_cursor = 1
  imap <c-x><c-l> <plug>(fzf-complete-line)
 
  let g:fzf_tags_command = 'ctags -R .'
+ let g:echodoc#enable_at_startup = 1
+ let g:echodoc#type = 'signature'
+
+set shortmess+=c
+
