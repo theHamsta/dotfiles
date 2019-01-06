@@ -1,4 +1,2 @@
-Guifont Hack :h9
-
-set relativenumber
-GuiWindowMaximized(1)
+GuiFont Hack:h8
+GuiLinespace 0

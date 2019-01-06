@@ -1,4 +1,6 @@
-set shell=/usr/bin/zsh
+set tags=./tags;tags
+set encoding=UTF-8
+:set shell=/usr/bin/zsh
 if has('vim_starting')
 	set nocompatible               " Be iMproved
 endif
@@ -9,7 +11,7 @@ let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 let g:vim_bootstrap_langs = "c,python"
 let g:vim_bootstrap_editor = "nvim"				" nvim or vim
 "let g:fzf_command_prefix = 'fzf'
-
+j
 if !filereadable(vimplug_exists)
 	if !executable("curl")
 		echoerr "You have to install curl or first install vim-plug yourself!"
@@ -42,8 +44,8 @@ set runtimepath+=$HOME/.space-vim/core
 
 
 
-set number
-set relativenumber
+"set number
+"set relativenumber
 
 " Always show line numbers, but only in current window.
 set number
@@ -67,10 +69,8 @@ nnoremap <leader>make :wa<Cr>:make<Cr>
 nnoremap <leader>hi :History<Cr>
 nnoremap <leader>te :set shell=/usr/bin/zsh<cr>:split<cr>:term<Cr>:exe "resize " . 13<CR>i
 nnoremap <leader>tt 'Ti
-nnoremap <leader>so :source %<Cr>
+nnoremap <leader>so :source %
 nnoremap <leader>lime :Limelight!! 0.8<cr>
-nnoremap <c-a-j> yyp
-nnoremap <c-a-k> yyP
 nnoremap <space><space> o<Esc>
 nnoremap c "_c
 nnoremap x "_x
@@ -84,12 +84,12 @@ vnoremap H ^
 vnoremap L $
 "command! W :execute ':silent w !sudo tee % > /dev/null'
 command! Wq :wq
-nnoremap <C-S-J> :m+<CR>==
-nnoremap <C-S-K> :m-2<CR>==
-inoremap <C-S-J> <Esc>:m+<CR>==gi
-inoremap <C-S-K> <Esc>:m-2<CR>==gi
-vnoremap <C-S-J> :m'>+<CR>gv=gv
-vnoremap <C-S-K> :m-2<CR>gv=gv
+"nnoremap <C-S-J> :m+<CR>==
+"nnoremap <C-S-K> :m-2<CR>==
+"inoremap <C-S-J> <Esc>:m+<CR>==gi
+"inoremap <C-S-K> <Esc>:m-2<CR>==gi
+"vnoremap <C-S-J> :m'>+<CR>gv=gv
+"vnoremap <C-S-K> :m-2<CR>gv=gv
 "inoremap  y/<C-R>"<CR>
 nnoremap <c-w>O :tab :sp<cr>
 
@@ -112,11 +112,12 @@ nnoremap <Leader>nf :NERDTreeFind<cr>
 nnoremap <Leader>oo :only<cr>
 "nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 "nmap <silent> <C-j> <Plug>(ale_next_wrap)
-nmap <silent> <C-k> [[
-nmap <silent> <C-j> ]]
-nmap <silent> <C-h> :tp<cr>
-nmap <silent> <C-l> :tn<cr>
-nmap <Leader>ag :GonvimFuzzyAg
+nmap <silent> <C-k> :lprevious<cr>
+nmap <silent> <C-j> :lnext<cr>
+nmap <silent> <C-a-k> [[
+nmap <silent> <C-a-j> ]]
+nmap <silent> <leader>bl :BLines<cr>
+"nmap <Leader>ag :GonvimFuzzyAg
 map <SPACE> <leader>
 map <SPACE> <leader>
 
@@ -162,11 +163,16 @@ call plug#begin('~/.local/share/nvim/plugged')
 	"let g:UltiSnipsExpandTrigger="<tab>"
 	"let g:UltiSnipsJumpForwardTrigger="<tab>"
 	"let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+	Plug 'tpope/vim-abolish'
+	Plug 'bronson/vim-visual-star-search'
+	Plug 'ryanoasis/vim-devicons'
 	Plug 'chaoren/vim-wordmotion'
+	Plug 'tpope/vim-unimpaired' 
+	Plug 'ronakg/quickr-preview.vim'
 	Plug 'kassio/neoterm'
 	Plug 'airblade/vim-rooter'
-	"Plug 'bkad/CamelCaseMotion'
-	"Plug 'Olical/vim-enmasse'
+	Plug 'bkad/CamelCaseMotion'
+	Plug 'Olical/vim-enmasse'
 	"Plug 'craigemery/vim-autotag'
 	"Plug 'ivalkeen/vim-ctrlp-tjump'
 	"Plug 'junegunn/seoul256.vim'
@@ -178,56 +184,52 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'machakann/vim-swap'
 	Plug 'justinmk/vim-sneak'
 	Plug 'Shougo/echodoc.vim'
-	"Plug 'juanibiapina/vim-runner'
-	Plug 'tpope/vim-projectionist'
+	Plug 'juanibiapina/vim-runner'
+	"Plug 'tpope/vim-projectionist'
 	"Plug 'w0rp/ale'
 	Plug 'aben20807/vim-runner'
 	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 	Plug 'junegunn/fzf.vim'
-	"Plug 'jpalardy/vim-slime'
+	Plug 'jpalardy/vim-slime'
 	Plug 'kovisoft/slimv'
-	"Plug 'machakann/vim-highlightedyank'
-	"Plug 'scrooloose/nerdtree'
-	"Plug 'Xuyuanp/nerdtree-git-plugin'
+	Plug 'machakann/vim-highlightedyank'
+	Plug 'scrooloose/nerdtree', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+	Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
 	Plug 'equalsraf/neovim-gui-shim'
 	Plug 'michaeljsmith/vim-indent-object'
-	Plug 'rking/ag.vim'
 	Plug 'Chun-Yang/vim-action-ag'
 	Plug 'easymotion/vim-easymotion'
 	Plug 'ctrlpvim/ctrlp.vim'
 	Plug 'terryma/vim-multiple-cursors'
 	Plug 'junegunn/goyo.vim'
+	Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}, 'for': ['java', 'json']}
 	Plug 'autozimu/LanguageClient-neovim', {
-	    \ 'branch': 'next',
-	    \ 'do': 'bash install.sh',
-	    \ }
+			\ 'branch': 'next',
+			\ 'do': 'bash install.sh',
+			\ }
 
-	" (Optional) Multi-entry selection UI.
-	"Plug 'junegunn/fzf'
-	"Plug 'junegunn/fzf.vim'
-	"Plug 'Valloric/YouCompleteMe'
-	
-	"if has('nvim')
+	if has('nvim')
 		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-	"else
-		"Plug 'Shougo/deoplete.nvim'
-		"Plug 'roxma/nvim-yarp'
-		"Plug 'roxma/vim-hug-neovim-rpc'
-	"endif
+	else
+		Plug 'Shougo/deoplete.nvim'
+		Plug 'roxma/nvim-yarp'
+		Plug 'roxma/vim-hug-neovim-rpc'
+	endif
 
 	"Plug 'Shougo/neosnippet.vim'
 	"Plug 'Shougo/neosnippet-snippets'
 	Plug 'rbonvall/snipmate-snippets-bib'
 	"Plug 'tweekmonster/deoplete-clang2'
-	Plug 'zchee/deoplete-jedi'
+	"Plug 'zchee/deoplete-jedi'
 	Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 	"Plug 'idanarye/vim-vebugger'
-	"Plug 'Shougo/neoinclude.vim'
+	"Plug 'Shougo/neoinclude.vim', {'for': ['c','cpp']}
 	Plug 'tpope/vim-surround'
 	Plug 'tpope/vim-fugitive'
 	Plug 'tpope/vim-repeat'
 	Plug 'garbas/vim-snipmate'
 	Plug 'burke/matcher'
+	"Plug 'adelarsq/vim-matchit'
 	"Plug 'bling/vim-bufferline'
 	Plug 'scrooloose/nerdcommenter'
 	Plug 'MarcWeber/vim-addon-mw-utils'
@@ -249,7 +251,7 @@ call plug#end()
 
 
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#clang#executable='/usr/bin/clang'
+"let g:deoplete#sources#clang#executable='/usr/bin/clang'
 
 nnoremap <Leader>l :ls<CR>
 nnoremap <Leader>b :bp<CR>
@@ -311,7 +313,7 @@ if exists(":Tabularize")
     vmap <Leader>t: :Tabularize /:\zs<CR>
 endif
 
-inoremap <expr><cr> pumvisible() ? "\<c-n>" : "\<cr>"
+"inoremap <expr><cr> pumvisible() ? "\<c-n>" : "\<cr>"
 
 autocmd BufEnter *.m    compiler mlint 
 
@@ -427,10 +429,13 @@ if has('persistent_undo')
     set undofile
 endif
 
-"call abolish#Abolish({despa,sepe}rast{e,es,ed,ing,ely,ion,ions,or}  {despe,sepa}rat{}
 
 "imap <C-J> <Plug>snipMateNextOrTrigger
 "smap <C-J> <Plug>snipMateNextOrTrigger
+imap <C-k> <Plug>snipMateTrigger
+smap <C-k> <Plug>snipMateTrigger
+smap <s-tab> <Plug>snipMateBack
+imap <s-tab> <Plug>snipMateBack
 
 let g:vlime_leader = ","
 let g:vlime_enable_autodoc = v:true
@@ -460,22 +465,21 @@ let g:LanguageClient_serverCommands = {
    "endif
 
 nnoremap <leader>la :call LanguageClient_contextMenu()<CR>
-nnoremap <leader>qf :call LanguageClient#textDocument_codeAction()<CR>
-nnoremap <silent> <leader>ty :call LanguageClient#textDocument_typeDefinition()<CR>
-nnoremap <silent> gt :call LanguageClient#textDocument_typeDefinition()<CR>
+nnoremap <leader>ca :call LanguageClient#textDocument_codeAction()<CR>
 nnoremap <silent> gh :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> <leader>ss :call LanguageClient#textDocument_documentSymbol()<CR>
-"nnoremap <silent> <c-s-o> :call LanguageClient#textDocument_documentSymbol()<CR>
 nnoremap <silent> <c-s> :call LanguageClient#textDocument_formatting()<CR>:w<CR>
-nnoremap <silent> <leader>ref :call LanguageClient#textDocument_references()<CR>
+nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
 nnoremap <silent> <leader>fo :call LanguageClient#textDocument_formatting()<CR>
 nnoremap <silent> <leader>hi :call LanguageClient#textDocument_documentHighlight()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> gD <c-w>v:call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-nnoremap <silent> <leader>f0 :set foldlevel=0<CR>
-nnoremap <silent> <leader>ff :set foldlevel=99<CR>
-
+nnoremap <silent> <leader>f0 :set foldlevel=0<CR> nnoremap <silent> <leader>ff :set foldlevel=99<CR>
+"nmap <silent> <C-a-o> :call LanguageClient#textDocument_documentSymbol()<cr>
+nmap <silent> <C-a-o> :BTags<cr>
+nmap <silent> <leader>tag :Tags<cr>
+nmap <silent> <c-a> :Tags<cr>
 "function SetLSPShortcuts()
 	"nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
 	"nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
@@ -515,14 +519,10 @@ setlocal foldignore=
 
 set foldlevel=99
 
-let g:slime_target = "neovim"
-let g:slime_python_ipython = 1
 
 command! Q :q
 command! Qa :qa
-
-
-
+"
 "fu! C_init()
 	  "setl formatexpr=LanguageClient#textDocument_rangeFormatting()
 "endf
@@ -540,23 +540,10 @@ nnoremap <c>w>> <c>w>><c>w>><c>w>><c>w>><c>w>><c>w>><c>w>><c>w>>
 
 nnoremap <a-t> :Switch<CR>
 
-let g:projectionist_heuristics = {
-	\    '*.h': {
-      \      'alternate': [
-      \         '{}.c',
-      \         '{}.cpp',
-      \      ]},
-		\    '*.hpp': {
-      \      'alternate': [
-      \         '{}.c',
-      \         '{}.cpp',
-      \      ],
-      \ } }
-
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
-"au Syntax * RainbowParenthesesLoadBraces
+au Syntax * RainbowParenthesesLoadBraces
 "
 "
 "call camelcasemotion#CreateMotionMappings('-')
@@ -594,3 +581,72 @@ endfunction
 
 nnoremap gP :call GotoPython()<cr>
 set spell
+
+let g:slime_target = "neovim"
+let g:slime_python_ipython = 1
+let g:highlightedyank_highlight_duration = 100
+
+let g:multi_cursor_start_word_key      = '<C-n>' 
+let g:multi_cursor_select_all_word_key = '<A-n>'
+let g:multi_cursor_start_key           = 'g<C-n>'
+let g:multi_cursor_select_all_key      = 'g<A-n>'
+let g:multi_cursor_next_key            = '<C-n>'
+let g:multi_cursor_prev_key            = '<C-p>'
+let g:multi_cursor_skip_key            = '<C-x>'
+let g:multi_cursor_quit_key            = '<Esc>'
+
+let g:fzf_buffers_jump = 1
+command! -bang -nargs=* Ag
+  \ call fzf#vim#ag(<q-args>,
+  \                  fzf#vim#with_preview('up:60%'),
+  \                 1)
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \    fzf#vim#with_preview('up:60%')
+  \         ,
+  \   1)
+
+nnoremap <leader>ag :Ag<cr>
+nnoremap <leader>rg :Rg<cr>
+let g:LanguageClient_diagnosticsList = "Location"
+let g:quickr_preview_on_cursor = 1
+
+
+ function! ActivateCoc()
+	 let b:deoplete_disable_auto_complete = 1
+	nmap <silent> <c-k> <Plug>(coc-diagnostic-prev)
+	nmap <silent> <c-j> <Plug>(coc-diagnostic-next)
+	 nmap <silent> gd <Plug>(coc-definition)
+	 nmap <silent> gD <c-w>v<Plug>(coc-definition)
+	 nmap <silent> gt <Plug>(coc-type-definition)
+	 nmap <silent> gT <c-w>v<Plug>(coc-type-definition)
+	 nmap <silent> gi <Plug>(coc-implementation)
+	 nmap <silent> gI <c-w>v<Plug>(coc-implementation)
+	 nmap <silent> gr <Plug>(coc-references)
+	 nmap <silent> gh :call CocAction('doHover')<cr>
+	 nmap <silent> <c-s> :call CocAction('format')<cr>
+	 vmap <leader>a  <Plug>(coc-codeaction-selected)
+	 nmap <leader>a  <Plug>(coc-codeaction-selected)
+ endfunction()
+
+ augroup LSP
+   autocmd!
+   autocmd FileType java,json call ActivateCoc()
+ augroup END
+
+ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
+
+ let g:LanguageClient_hasSnippetSupport = 0
+
+
+ set autoread
+ "au FocusLost,WinLeave * :silent! noautocmd w
+ "
+ imap <c-x><c-k> <plug>(fzf-complete-word)
+ imap <c-x><c-f> <plug>(fzf-complete-path)
+ imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+ imap <c-x><c-l> <plug>(fzf-complete-line)
+
+ let g:fzf_tags_command = 'ctags -R .'
