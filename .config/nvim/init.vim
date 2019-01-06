@@ -163,6 +163,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 	"let g:UltiSnipsExpandTrigger="<tab>"
 	"let g:UltiSnipsJumpForwardTrigger="<tab>"
 	"let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+	Plug 'dbeniamine/cheat.sh-vim'
 	Plug 'tpope/vim-abolish'
 	Plug 'bronson/vim-visual-star-search'
 	Plug 'ryanoasis/vim-devicons'
@@ -478,10 +479,12 @@ nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> gD <c-w>v:call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 nnoremap <silent> <leader>f0 :set foldlevel=0<CR> nnoremap <silent> <leader>ff :set foldlevel=99<CR>
+
 "nmap <silent> <C-a-o> :call LanguageClient#textDocument_documentSymbol()<cr>
 nmap <silent> <C-a-o> :BTags<cr>
 nmap <silent> <leader>tag :Tags<cr>
 nmap <silent> <c-a> :Tags<cr>
+
 "function SetLSPShortcuts()
 	"nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
 	"nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
