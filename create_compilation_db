@@ -1,0 +1,6 @@
+#! /bin/bash
+
+mkdir compilation_db_dir
+cd compilation_db_dir
+cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
+mv compile_commands.json ..
