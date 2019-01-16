@@ -95,7 +95,7 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 nnoremap j gj
 nnoremap k gk
 nnoremap <leader>w :w<cr>
-nnoremap <leader>make :wa<Cr>:make<Cr>
+nnoremap <leader>make :wa<Cr>:make<cr>
 nnoremap <leader>hi :History<Cr>
 "nnoremap <leader>te :set shell=/usr/bin/zsh<cr>:split<cr>:Tnew<Cr>:exe "resize " . 13<CR>i
 nnoremap <leader>te :set shell=/usr/bin/zsh<cr>:Topen<Cr>:exe "resize " . 60<CR>
@@ -181,6 +181,8 @@ smap <c-n> <Esc>a<tab>
 "snoremap <c-u> <Esc>a<tab>
 
 call plug#begin('~/.local/share/nvim/plugged')
+	"Plug 'neomake/neomake'
+	Plug 'vhdirk/vim-cmake'
 	Plug 'sakhnik/nvim-gdb', { 'do': './install.sh' }
 	"Plug 'dbeniamine/cheat.sh-vim'
 	"Plug 'libclang-vim/libclang-vim', {'do' : 'make'}
@@ -208,7 +210,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'tpope/vim-unimpaired' 
 	Plug 'ronakg/quickr-preview.vim'
 	Plug 'kassio/neoterm'
-	"Plug 'airblade/vim-rooter'
+	Plug 'airblade/vim-rooter'
 	Plug 'bkad/CamelCaseMotion'
 	Plug 'Olical/vim-enmasse'
 	Plug 'akiyosi/gonvim-fuzzy'
