@@ -5,7 +5,6 @@ if has('vim_starting')
 	set nocompatible               " Be iMproved
 endif
 
-
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 
 let g:vim_bootstrap_langs = "c,python"
@@ -42,20 +41,50 @@ endif
 set runtimepath+=$HOME/.space-vim/core
 
 
+map <SPACE> <leader>
+
+set history=1000
 
 
-"set number
-"set relativenumber
+set number
+set relativenumber
 
 " Always show line numbers, but only in current window.
-set number
+"set number
 au WinEnter * :setlocal number
 au WinEnter * :setlocal relativenumber
-au WinLeave * :setlocal relativenumber!
+au WinLeave * :setlocal norelativenumber
+au WinLeave * :setlocal number
 
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 
+"let g:textobj_entire_no_default_key_mappings=1
+
+function! s:goyo_enter()
+  silent !tmux set status off
+  silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+  set noshowmode
+  set noshowcmd
+  set nonumber
+  set norelativenumber
+  set scrolloff=999
+  Limelight
+  nnoremap j gj
+  nnoremap k gk
+endfunction
+
+function! s:goyo_leave()
+  set showmode
+  set showcmd
+  set scrolloff=5
+  "set number
+  "set relativenumber
+  Limelight!
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 "au WinLeave * :setlocal nonumber
 "
@@ -63,17 +92,20 @@ autocmd! User GoyoLeave Limelight!
 "au WinEnter * :set winfixheight
 "au WinEnter * :wincmd =
 
-"nnoremap j gj
-"nnoremap k gk
+nnoremap j gj
+nnoremap k gk
+nnoremap <leader>w :w<cr>
 nnoremap <leader>make :wa<Cr>:make<Cr>
 nnoremap <leader>hi :History<Cr>
-nnoremap <leader>te :set shell=/usr/bin/zsh<cr>:split<cr>:term<Cr>:exe "resize " . 13<CR>i
+"nnoremap <leader>te :set shell=/usr/bin/zsh<cr>:split<cr>:Tnew<Cr>:exe "resize " . 13<CR>i
+nnoremap <leader>te :set shell=/usr/bin/zsh<cr>:Topen<Cr>:exe "resize " . 60<CR>
+nnoremap <leader>to :Topen<cr>
 nnoremap <leader>tt 'Ti
-nnoremap <leader>so :source %
+nnoremap <leader>so G:source %<cr>
 nnoremap <leader>lime :Limelight!! 0.8<cr>
 nnoremap <space><space> o<Esc>
 nnoremap c "_c
-nnoremap x "_x
+"nnoremap x "_x
 vnoremap < <gv
 vnoremap > >gv
 nnoremap K :s/,/,\r/g<CR>
@@ -99,7 +131,7 @@ nnoremap <Leader>cn :cn<cr>
 nnoremap <Leader>cN :cN<cr>
 nnoremap <Leader>sde :set spell<cr>:set spelllang=de<cr>
 nnoremap <Leader>sen :set spell<cr>:set spelllang=en<cr>
-inoremap <expr> <CR> pumvisible() ? "\<C-n>" : "\<C-g>u\<CR>"
+"inoremap <expr> <CR> pumvisible() ? "\<C-n>" : "\<C-g>u\<CR>"
 
 nnoremap <Leader>bp :bN<cr>
 nnoremap <Leader>bn :bn<cr>
@@ -109,6 +141,7 @@ nnoremap <Leader>tab :tabnew<cr>
 nnoremap <Leader>tc :tabclose<cr>
 nnoremap <Leader>nt :NERDTreeToggle<cr>
 nnoremap <Leader>nf :NERDTreeFind<cr>
+let g:NERDTreeShowIgnoredStatus = 1
 nnoremap <Leader>oo :only<cr>
 "nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 "nmap <silent> <C-j> <Plug>(ale_next_wrap)
@@ -118,8 +151,6 @@ nmap <silent> <C-a-k> [[
 nmap <silent> <C-a-j> ]]
 nmap <silent> <leader>bl :BLines<cr>
 "nmap <Leader>ag :GonvimFuzzyAg
-map <SPACE> <leader>
-map <SPACE> <leader>
 
 set wrap
 set linebreak
@@ -133,6 +164,7 @@ set shiftwidth=4
 "
 "set expandtab
 
+nnoremap <c-r><c-r> vap:TREPLSendSelection<cr>
 "inoremap <A-v> <C-R><C-R>+
 inoremap <c-V> <C-R><C-R>+
 nnoremap <a-v> <C-R><C-R>+
@@ -143,52 +175,49 @@ nnoremap <a-v> <C-R><C-R>+
 inoremap <c-h> <Esc>gea
 inoremap <c-l> <Esc>ea
 inoremap jk <Esc>
+vnoremap jk <Esc>
 smap <c-n> <Esc>a<tab>
 "smap <c-t> <Esc>a<s-tab>
 "snoremap <c-u> <Esc>a<tab>
 
 call plug#begin('~/.local/share/nvim/plugged')
-	"Plug 'SirVer/ultisnips'
-	"" deoplete config
-	"let g:deoplete#enable_at_startup = 1
-	"" disable autocomplete
-	"let g:deoplete#disable_auto_complete = 1
-	"if has("gui_running")
-		"inoremap <silent><expr><C-Space> deoplete#mappings#manual_complete()
-	"else
-		"inoremap <silent><expr><C-@> deoplete#mappings#manual_complete()
-	"endif
-	"" UltiSnips config
-	"inoremap <silent><expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-	"let g:UltiSnipsExpandTrigger="<tab>"
-	"let g:UltiSnipsJumpForwardTrigger="<tab>"
-	"let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-	Plug 'dbeniamine/cheat.sh-vim'
+	Plug 'sakhnik/nvim-gdb', { 'do': './install.sh' }
+	"Plug 'dbeniamine/cheat.sh-vim'
+	"Plug 'libclang-vim/libclang-vim', {'do' : 'make'}
+	"Plug 'libclang-vim/vim-textobj-clang'
+	Plug 'sakhnik/nvim-gdb'
+	Plug 'icymind/NeoSolarized'
 	Plug 'tpope/vim-abolish'
+	Plug 'mhinz/neovim-remote'
+	Plug 'mbbill/undotree', { 'on':  [ 'UndotreeToggle']}
 	Plug 'bronson/vim-visual-star-search'
 	Plug 'ryanoasis/vim-devicons'
+	Plug 'airblade/vim-gitgutter'
+	Plug 'kana/vim-textobj-user'
+	Plug 'kana/vim-textobj-entire'
+	Plug 'sgur/vim-textobj-parameter'
+	Plug 'glts/vim-textobj-comment'
+	Plug 'kana/vim-textobj-function'
+	Plug 'fvictorio/vim-textobj-backticks'
+	Plug 'Julian/vim-textobj-variable-segment'
+	Plug 'terryma/vim-expand-region'
+	Plug 'terryma/vim-expand-region'
+	Plug 'thalesmello/vim-textobj-methodcall'
+	Plug 'tpope/vim-eunuch'
 	Plug 'chaoren/vim-wordmotion'
 	Plug 'tpope/vim-unimpaired' 
 	Plug 'ronakg/quickr-preview.vim'
 	Plug 'kassio/neoterm'
-	Plug 'airblade/vim-rooter'
+	"Plug 'airblade/vim-rooter'
 	Plug 'bkad/CamelCaseMotion'
 	Plug 'Olical/vim-enmasse'
-	"Plug 'craigemery/vim-autotag'
-	"Plug 'ivalkeen/vim-ctrlp-tjump'
-	"Plug 'junegunn/seoul256.vim'
 	Plug 'akiyosi/gonvim-fuzzy'
-	"Plug 'sagarrakshe/toggle-bool'
 	Plug 'AndrewRadev/switch.vim'
 	Plug 'kien/rainbow_parentheses.vim'
 	Plug 'junegunn/limelight.vim'
 	Plug 'machakann/vim-swap'
 	Plug 'justinmk/vim-sneak'
 	Plug 'Shougo/echodoc.vim'
-	Plug 'juanibiapina/vim-runner'
-	"Plug 'tpope/vim-projectionist'
-	"Plug 'w0rp/ale'
-	Plug 'aben20807/vim-runner'
 	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 	Plug 'junegunn/fzf.vim'
 	Plug 'jpalardy/vim-slime'
@@ -196,6 +225,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'machakann/vim-highlightedyank'
 	Plug 'scrooloose/nerdtree', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
 	Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+	Plug 'ivalkeen/nerdtree-execute', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
 	Plug 'equalsraf/neovim-gui-shim'
 	Plug 'michaeljsmith/vim-indent-object'
 	Plug 'Chun-Yang/vim-action-ag'
@@ -203,6 +233,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'ctrlpvim/ctrlp.vim'
 	Plug 'terryma/vim-multiple-cursors'
 	Plug 'junegunn/goyo.vim'
+	"Plug 'amix/vim-zenroom2'
 	Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}, 'for': ['java', 'json']}
 	Plug 'autozimu/LanguageClient-neovim', {
 			\ 'branch': 'next',
@@ -217,21 +248,14 @@ call plug#begin('~/.local/share/nvim/plugged')
 		Plug 'roxma/vim-hug-neovim-rpc'
 	endif
 
-	"Plug 'Shougo/neosnippet.vim'
-	"Plug 'Shougo/neosnippet-snippets'
 	Plug 'rbonvall/snipmate-snippets-bib'
-	"Plug 'tweekmonster/deoplete-clang2'
-	"Plug 'zchee/deoplete-jedi'
 	Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-	"Plug 'idanarye/vim-vebugger'
-	"Plug 'Shougo/neoinclude.vim', {'for': ['c','cpp']}
+	Plug 'idanarye/vim-vebugger'
 	Plug 'tpope/vim-surround'
 	Plug 'tpope/vim-fugitive'
 	Plug 'tpope/vim-repeat'
 	Plug 'garbas/vim-snipmate'
 	Plug 'burke/matcher'
-	"Plug 'adelarsq/vim-matchit'
-	"Plug 'bling/vim-bufferline'
 	Plug 'scrooloose/nerdcommenter'
 	Plug 'MarcWeber/vim-addon-mw-utils'
 	Plug 'tomtom/tlib_vim'
@@ -241,13 +265,17 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'majutsushi/tagbar'
 	Plug 'vim-airline/vim-airline'
 	Plug 'rliang/nvim-pygtk3', {'do': 'make install'}
-	Plug 'lervag/vimtex'
+	Plug 'lervag/vimtex', { 'for': 'tex' }
+	Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+	"Plug 'lionawurscht/deoplete-biblatex', { 'for': 'tex' }
 	Plug 'beloglazov/vim-online-thesaurus'
 	Plug 'wellle/targets.vim'
 	Plug 'fszymanski/deoplete-emoji'
+	"
 	"Plug 'rkulla/pydiction'
 	"Plug 'xolox/vim-misc'
-	"Plug 'xolox/vim-easytags'
+	"Plug 'Shougo/neosnippet.vim'
+	"Plug 'Shougo/neosnippet-snippets'
 
 call plug#end()
 
@@ -279,16 +307,17 @@ autocmd FileType cpp iabbrev <buffer> _std std::
 autocmd FileType cpp iabbrev <buffer> stirng string
 "set autochdir
 autocmd BufEnter * silent! lcd %:p:h
-"nnoremap gf :vertical wincmd f<CR>
+nnoremap gf gF
+nnoremap gF <c-w>wgf
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pdf,*.log,*/CMakeFiles/*
 
 set lazyredraw
 set ttyfast
 
-map <leader>ll <plug>(easymotion-lineforward)
-map <leader>jj <plug>(easymotion-j)
-map <leader>kk <plug>(easymotion-k)
-map <leader>hh <plug>(easymotion-linebackward)
+map <space><space>l <plug>(easymotion-lineforward)
+map <space><space>j <plug>(easymotion-j)
+map <space><space>k <plug>(easymotion-k)
+map <space><space>h <plug>(easymotion-linebackward)
 let g:easymotion_smartcase = 1
 let g:easymotion_smartsign = 1
 
@@ -333,7 +362,6 @@ let g:airline_theme = 'one'
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 " Note, the above line is ignored in Neovim 0.1.5 above, use this line instead.
-set termguicolors
 
 if (has("nvim"))
 "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
@@ -397,17 +425,26 @@ let g:vebugger_leader =','
 "let g:ycm_server_python_interpreter='/usr/bin/python3'
 
 "let g:deoplete#sources#jedi#extra_path =['', '/usr/lib/python2.7', '/usr/lib/python2.7/plat-x86_64-linux-gnu', '/usr/lib/python27/lib-tk', '/usr/lib/python2.7/lib-old', '/usr/lib/python2.7/lib-dynload', '/home/stepha/.local/lib/python2.7/site-packages', '/usr/local/lib/python2.7/dist-packages', '/usr/li/python2.7/dist-packages', '/usr/lib/python2.7/dist-packages/PILcompat', '/usr/lib/pytho2.7/dist-packages/gtk-2.0', '/usr/lib/python2.7/dist-packages/wx-3.0-gtk2']
-"autocmd FileType python nnoremap <buffer> <F6> :VBGstartPDB %<cr>
-"autocmd FileType python nnoremap <buffer> <F7> :VBGcontinue<cr>
-"autocmd FileType python nnoremap <buffer> <F8> :VBGtoggleBreakpointThisLine<cr>
-"autocmd FileType python nnoremap <buffer> <F10> :VBGstepOver<cr>
-"autocmd FileType python nnoremap <buffer> <F11> :VBGstepIn<cr>
-"autocmd FileType python nnoremap <buffer> <F12> :VBGstepOver<cr>
-autocmd FileType python nnoremap <buffer> <F9> :exec '!python3' shellescape(@%, 1)<cr>:let last_execution=@% <cr>
-autocmd FileType python nnoremap <buffer> <F3> :!python3 shellescape( last_execution, 1)<cr>
+autocmd FileType python nnoremap <buffer> <F6> :VBGstartPDB3 %<cr>
+autocmd FileType python nnoremap <buffer> <space>deb :VBGstartPDB3 %<cr>
+autocmd FileType python nnoremap <buffer> <leader>con :VBGcontinue %<cr>
+autocmd FileType python nnoremap <buffer> <F7> :VBGcontinue<cr>
+autocmd FileType python nnoremap <buffer> <F9> :VBGtoggleBreakpointThisLine<cr>
+autocmd FileType python nnoremap <buffer> <c-a-b> :VBGtoggleBreakpointThisLine<cr>
+autocmd FileType python nnoremap <buffer> <F10> :VBGstepOver<cr>
+autocmd FileType python nnoremap <buffer> <F11> :VBGstepIn<cr>
+autocmd FileType python nnoremap <buffer> <F12> :VBGstepOver<cr>
+nnoremap <leader>tt :<c-u>exec v:count.'T'
+autocmd FileType python nnoremap <buffer> <F5> :let $last_execution='python3 ' . expand('%:p',1)<cr>:w<cr>:T python3 %<cr>
+":let last_execution=@%<cr>
+"
+nnoremap <F3> :exec 'T' expand($last_execution,1)<cr>
+"nnoremap <F3> :T !!<cr>
 
 autocmd FileType lua nnoremap <buffer> <F5> :exec '!lua' shellescape(@%:p, 1)<cr>:let last_execution=@%:p <cr>
-autocmd FileType lua nnoremap <buffer> <F3> :exec '!lua' shellescape( last_execution, 1)<cr>
+
+autocmd FileType tex,latex nnoremap <buffer> <c-b> :w<cr>:echo '!latexindent ' shellescape(@%:p, 1)<cr>:e
+"<cr>:e
 
 let g:ag_working_path_mode="r"
 let g:deoplete#sources#jedi#python_path='/usr/bin/python3'
@@ -435,8 +472,8 @@ endif
 
 "imap <C-J> <Plug>snipMateNextOrTrigger
 "smap <C-J> <Plug>snipMateNextOrTrigger
-imap <C-k> <Plug>snipMateTrigger
-smap <C-k> <Plug>snipMateTrigger
+imap <C-j> <Plug>snipMateTrigger
+smap <C-j> <Plug>snipMateTrigger
 smap <s-tab> <Plug>snipMateBack
 imap <s-tab> <Plug>snipMateBack
 
@@ -453,7 +490,7 @@ let g:LanguageClient_serverCommands = {
     \ 'javascript.jsx': ['javascript-typescript-stdio'],
     \ 'python': ['pyls'],
     \ 'lua': ['lua-lsp'],
-    \ 'cpp': ['clangd-7'],
+    \ 'cpp': ['/software/llvm/7.0.0/bin/clangd'],
     \ 'lisp': ['~/.roswell/bin/cl-lsp'],
     \ }
 	"\ 'cpp': ['/home/stephan/projects/cquery/build/release/bin/cquery','--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery/"}, "completion": {"filterAndSort": false}}'],
@@ -483,7 +520,7 @@ nnoremap <silent> <leader>f0 :set foldlevel=0<CR> nnoremap <silent> <leader>ff :
 "nmap <silent> <C-a-o> :call LanguageClient#textDocument_documentSymbol()<cr>
 nmap <silent> <C-a-o> :BTags<cr>
 nmap <silent> <leader>tag :Tags<cr>
-nmap <silent> <c-a> :Tags<cr>
+nmap <silent> <c-t> :Tags<cr>
 
 "function SetLSPShortcuts()
 	"nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
@@ -542,6 +579,19 @@ nnoremap <c-w>+ <c-w>+<c-w>+<c-w>+<c-w>+<c-w>+<c-w>+<c-w>+<c-w>+
 nnoremap <c-w>- <c-w>-<c-w>-<c-w>-<c-w>-<c-w>-<c-w>-<c-w>-<c-w>-
 nnoremap <c-w>< <c-w><<c-w><<c-w><<c-w><<c-w><<c-w><<c-w><<c-w><
 nnoremap <c>w>> <c>w>><c>w>><c>w>><c>w>><c>w>><c>w>><c>w>><c>w>>
+nnoremap <leader>tt :<c-u>exec v:count.'T'<cr>
+nnoremap <c-`> :Ttoggle<cr>
+let g:neoterm_default_mod='botright'
+"autocmd BufWinEnter,WinEnter term://* startinsert
+augroup terminal
+	autocmd TermOpen * set bufhidden=hide
+	autocmd TermOpen * setlocal nospell
+augroup END
+
+if has('nvim')
+	tnoremap <C-v>+ <C-\><C-n>"+Pi
+	"tnoremap <C-v>a <C-\><C-n>"aPi
+endif
 
 nnoremap <a-t> :Switch<CR>
 
@@ -606,12 +656,12 @@ command! -bang -nargs=* Ag
   \                  fzf#vim#with_preview('up:60%'),
   \                 1)
 
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \    fzf#vim#with_preview('up:60%')
-  \         ,
-  \   1)
+"command! -bang -nargs=* Rg
+  "\ call fzf#vim#grep(
+  "\   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  "\    fzf#vim#with_preview('up:60%')
+  "\         ,
+  "\   1)
 
 nnoremap <leader>ag :Ag<cr>
 nnoremap <leader>rg :Rg<cr>
@@ -641,7 +691,7 @@ let g:quickr_preview_on_cursor = 1
    autocmd FileType java,json call ActivateCoc()
  augroup END
 
- inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
+ "inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 
  let g:LanguageClient_hasSnippetSupport = 0
 
@@ -659,4 +709,24 @@ let g:quickr_preview_on_cursor = 1
  let g:echodoc#type = 'signature'
 
 set shortmess+=c
+nnoremap <leader>yp :let @+ = expand("%:p")<cr>
+"let g:rooter_change_directory_for_non_project_files = 'current'
 
+let g:livepreview_previewer = 'okular'
+
+nnoremap <leader>date :r!date<cr>
+nnoremap ,lv :VimtexView<cr>
+nnoremap ,lc :VimtexCompile<cr>
+nnoremap <leader>zen :Goyo<cr>
+nnoremap <leader>buf :Buffers<cr>
+nnoremap <leader>save :saveas 
+
+
+let g:vimtex_view_general_viewer = 'okular'
+let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
+let g:vimtex_view_general_options_latexmk = '--unique'
+let g:vimtex_compiler_progname = 'nvr'
+
+"colorscheme NeoSolarized
+"set background=dark
+"let g:neosolarized_contrast = "high"
