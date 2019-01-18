@@ -45,16 +45,34 @@ map <SPACE> <leader>
 
 set history=1000
 
+let g:use_line_numbers=1
 
-set number
-set relativenumber
+function! Toggle_line_numbers()
+	if g:use_line_numbers
+		let g:use_line_numbers=0
+		set number
+		set relativenumber
 
-" Always show line numbers, but only in current window.
-"set number
-au WinEnter * :setlocal number
-au WinEnter * :setlocal relativenumber
-au WinLeave * :setlocal norelativenumber
-au WinLeave * :setlocal number
+		" Always show line numbers, but only in current window.
+		"set number
+		au WinEnter * :setlocal number
+		au WinEnter * :setlocal relativenumber
+		au WinLeave * :setlocal norelativenumber
+		au WinLeave * :setlocal number
+	else
+		let g:use_line_numbers=1
+		set nonumber
+		set norelativenumber
+
+		" Always show line numbers, but only in current window.
+		"set number
+		au WinEnter * :setlocal nonumber
+		au WinEnter * :setlocal norelativenumber
+		au WinLeave * :setlocal norelativenumber
+		au WinLeave * :setlocal nonumber
+	endif
+endfunction
+call Toggle_line_numbers()
 
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
@@ -78,8 +96,10 @@ function! s:goyo_leave()
   set showmode
   set showcmd
   set scrolloff=5
-  "set number
-  "set relativenumber
+	if g:use_line_numbers
+	  set number
+	  set relativenumber
+	endif
   Limelight!
 endfunction
 
@@ -95,7 +115,10 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 nnoremap j gj
 nnoremap k gk
 nnoremap <leader>w :w<cr>
-nnoremap <leader>make :wa<Cr>:make<cr>
+"nnoremap <f4> :wa<cr>:make<cr>
+nnoremap <f4> :wa<cr>:copen<cr>:Neomake!<cr>
+nnoremap <leader>make :wa<Cr>:Neomake!<cr>
+nnoremap <leader>line :call Toggle_line_numbers()<cr>
 nnoremap <leader>hi :History<Cr>
 "nnoremap <leader>te :set shell=/usr/bin/zsh<cr>:split<cr>:Tnew<Cr>:exe "resize " . 13<CR>i
 nnoremap <leader>te :set shell=/usr/bin/zsh<cr>:Topen<Cr>:exe "resize " . 60<CR>
@@ -126,7 +149,6 @@ command! Wq :wq
 nnoremap <c-w>O :tab :sp<cr>
 
 "let &path.="/usr/include,/usr/local/include,../include,/usr/local/include/opencv2"
-nnoremap <F4> :wa<Cr>:make<cr>
 nnoremap <Leader>cn :cn<cr>
 nnoremap <Leader>cN :cN<cr>
 nnoremap <Leader>sde :set spell<cr>:set spelllang=de<cr>
@@ -145,10 +167,14 @@ let g:NERDTreeShowIgnoredStatus = 1
 nnoremap <Leader>oo :only<cr>
 "nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 "nmap <silent> <C-j> <Plug>(ale_next_wrap)
-nmap <silent> <C-k> :lprevious<cr>
-nmap <silent> <C-j> :lnext<cr>
-nmap <silent> <C-a-k> [[
-nmap <silent> <C-a-j> ]]
+"nmap <silent> <C-k> :lprevious<cr>
+"nmap <silent> <C-j> :lnext<cr>
+nmap <silent> <C-k> :]]<cr>
+nmap <silent> <C-j> :[[<cr>
+nmap <silent> <C-a-k> <Plug>GitGutterPrevHunk
+nmap <silent> <C-a-j> <Plug>GitGutterNextHunk
+nmap ]h <Plug>GitGutterNextHunk
+nmap [h <Plug>GitGutterPrevHunk
 nmap <silent> <leader>bl :BLines<cr>
 "nmap <Leader>ag :GonvimFuzzyAg
 
@@ -164,7 +190,7 @@ set shiftwidth=4
 "
 "set expandtab
 
-nnoremap <c-r><c-r> vap:TREPLSendSelection<cr>
+"nnoremap <c-r><c-r> vap:TREPLSendSelection<cr>
 "inoremap <A-v> <C-R><C-R>+
 inoremap <c-V> <C-R><C-R>+
 nnoremap <a-v> <C-R><C-R>+
@@ -175,15 +201,23 @@ nnoremap <a-v> <C-R><C-R>+
 inoremap <c-h> <Esc>gea
 inoremap <c-l> <Esc>ea
 inoremap jk <Esc>
-vnoremap jk <Esc>
+"vnoremap jk <Esc>
 smap <c-n> <Esc>a<tab>
 "smap <c-t> <Esc>a<s-tab>
 "snoremap <c-u> <Esc>a<tab>
 
 call plug#begin('~/.local/share/nvim/plugged')
-	"Plug 'neomake/neomake'
+	Plug 'LeafCage/yankround.vim'
+	Plug 'sgur/ctrlp-extensions.vim'
+	Plug 'tacahiroy/ctrlp-funky'
+	Plug 'mileszs/ack.vim'
+	Plug 'justinmk/vim-gtfo'
+	Plug 'neomake/neomake'
+	Plug 'NLKNguyen/papercolor-theme'
+	"Plug 'jreybert/vimagit'
 	Plug 'vhdirk/vim-cmake'
 	Plug 'sakhnik/nvim-gdb', { 'do': './install.sh' }
+	Plug 'tpope/vim-dispatch'
 	"Plug 'dbeniamine/cheat.sh-vim'
 	"Plug 'libclang-vim/libclang-vim', {'do' : 'make'}
 	"Plug 'libclang-vim/vim-textobj-clang'
@@ -266,6 +300,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'altercation/vim-colors-solarized'
 	Plug 'majutsushi/tagbar'
 	Plug 'vim-airline/vim-airline'
+	Plug 'vim-airline/vim-airline-themes'
 	Plug 'rliang/nvim-pygtk3', {'do': 'make install'}
 	Plug 'lervag/vimtex', { 'for': 'tex' }
 	Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
@@ -311,7 +346,7 @@ autocmd FileType cpp iabbrev <buffer> stirng string
 autocmd BufEnter * silent! lcd %:p:h
 nnoremap gf gF
 nnoremap gF <c-w>wgf
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pdf,*.log,*/CMakeFiles/*
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pdf,*.log,*/CMakeFiles/*,*.aux,*.lof,*.lot,*.gz,*.fls,*.fdb_latexmk,*.toc
 
 set lazyredraw
 set ttyfast
@@ -327,6 +362,8 @@ let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 let g:EasyMotion_keys='hklyuiopnm,qwertzxcvbasdgjf'
 
 nmap <Leader>gs :Gstatus<CR>
+nmap <Leader>ga :Gw<CR>
+nmap <Leader>gw :Gw<CR>
 nmap <Leader>gc :Gcommit<CR>
 nmap <Leader>gd :Gdiff<CR>
 nmap <Leader>gr :Gread<CR>
@@ -427,6 +464,7 @@ let g:vebugger_leader =','
 "let g:ycm_server_python_interpreter='/usr/bin/python3'
 
 "let g:deoplete#sources#jedi#extra_path =['', '/usr/lib/python2.7', '/usr/lib/python2.7/plat-x86_64-linux-gnu', '/usr/lib/python27/lib-tk', '/usr/lib/python2.7/lib-old', '/usr/lib/python2.7/lib-dynload', '/home/stepha/.local/lib/python2.7/site-packages', '/usr/local/lib/python2.7/dist-packages', '/usr/li/python2.7/dist-packages', '/usr/lib/python2.7/dist-packages/PILcompat', '/usr/lib/pytho2.7/dist-packages/gtk-2.0', '/usr/lib/python2.7/dist-packages/wx-3.0-gtk2']
+nnoremap <F3> :wa<cr>:exec 'T' expand($last_execution,1)<cr>
 autocmd FileType python nnoremap <buffer> <F6> :VBGstartPDB3 %<cr>
 autocmd FileType python nnoremap <buffer> <space>deb :VBGstartPDB3 %<cr>
 autocmd FileType python nnoremap <buffer> <leader>con :VBGcontinue %<cr>
@@ -437,10 +475,12 @@ autocmd FileType python nnoremap <buffer> <F10> :VBGstepOver<cr>
 autocmd FileType python nnoremap <buffer> <F11> :VBGstepIn<cr>
 autocmd FileType python nnoremap <buffer> <F12> :VBGstepOver<cr>
 nnoremap <leader>tt :<c-u>exec v:count.'T'
-autocmd FileType python nnoremap <buffer> <F5> :let $last_execution='python3 ' . expand('%:p',1)<cr>:w<cr>:T python3 %<cr>
+autocmd FileType python nnoremap <buffer> t <F5> :let $last_execution='python3 ' . expand('%:p',1)<cr>:w<cr>:T python3 %<cr>
+autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . expand('%:r',1)<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
+autocmd FileType cpp nnoremap <buffer> <F3> :wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
+"autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='
 ":let last_execution=@%<cr>
 "
-nnoremap <F3> :exec 'T' expand($last_execution,1)<cr>
 "nnoremap <F3> :T !!<cr>
 
 autocmd FileType lua nnoremap <buffer> <F5> :exec '!lua' shellescape(@%:p, 1)<cr>:let last_execution=@%:p <cr>
@@ -575,6 +615,8 @@ nnoremap <c-h> :History<Cr>
 set shell=/usr/bin/zsh
 noremap <Esc> <C-\><C-n>
 tnoremap jk <C-\><C-n>
+tnoremap <c-`> <C-\><C-n>:Ttoggle<cr>
+tnoremap <c-s-´> <C-\><C-n>:Ttoggle<cr>
 tnoremap <c-d> <C-\><C-n><c-w>c
 tnoremap <c-d> <C-\><C-n><c-w>c
 nnoremap <c-w>+ <c-w>+<c-w>+<c-w>+<c-w>+<c-w>+<c-w>+<c-w>+<c-w>+
@@ -582,7 +624,8 @@ nnoremap <c-w>- <c-w>-<c-w>-<c-w>-<c-w>-<c-w>-<c-w>-<c-w>-<c-w>-
 nnoremap <c-w>< <c-w><<c-w><<c-w><<c-w><<c-w><<c-w><<c-w><<c-w><
 nnoremap <c>w>> <c>w>><c>w>><c>w>><c>w>><c>w>><c>w>><c>w>><c>w>>
 nnoremap <leader>tt :<c-u>exec v:count.'T'<cr>
-nnoremap <c-`> :Ttoggle<cr>
+nnoremap <c-`> :cclose<cr>:lclose<cr>:Ttoggle<cr>
+nnoremap <c-s-´> :cclose<cr>:lclose<cr>:Ttoggle<cr>
 let g:neoterm_default_mod='botright'
 "autocmd BufWinEnter,WinEnter term://* startinsert
 augroup terminal
@@ -732,3 +775,56 @@ let g:vimtex_compiler_progname = 'nvr'
 "colorscheme NeoSolarized
 "set background=dark
 "let g:neosolarized_contrast = "high"
+"
+
+" ʕ◔ϖ◔ʔ Gonvim setting
+if exists('g:gonvim_running')
+	set title
+	set whichwrap=b,s,h,l
+	set mouse=a
+	set ignorecase
+	set inccommand=split
+	let mapleader = "\<Space>"
+	nnoremap <Esc><Esc> :nohlsearch<CR>
+  " ʕ◔ϖ◔ʔ Use Gonvim UI instead of vim native UII
+  set laststatus=0
+  set noshowmode
+  set noruler
+  let g:airline#extensions#bufferline#enabled = 0
+
+  " ʕ◔ϖ◔ʔ I use `ripgrep` for :GonvimFuzzyAg
+  let g:gonvim_fuzzy_ag_cmd = 'rg --column --line-number --no-heading --color never'
+
+  " ʕ◔ϖ◔ʔ Mapping for gonvim-fuzzy
+  nnoremap <leader><leader> :GonvimWorkspaceNew<CR>
+  "nnoremap <leader>n :GonvimWorkspaceNext<CR>
+  "nnoremap <leader>p :GonvimWorkspacePrevious<CR>
+  nnoremap <leader>ff :GonvimFuzzyFiles<CR>
+  nnoremap <leader>ag :GonvimFuzzyAg<CR>
+  nnoremap <leader>buf :GonvimFuzzyBuffers<CR>
+  nnoremap <leader>bl :GonvimFuzzyBLines<CR>
+endif
+let g:multi_cursor_exit_from_insert_mode=0
+
+"let g:airline_theme='papercolor'
+"set background=light
+"tpope/vim-dispatchcolorscheme PaperColor
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ 'Ignored'   : 'i',
+    \ "Unknown"   : "?"
+    \ }
+
+let NERDTreeRespectWildIgnore=1
+let g:tex_flavor = "latex"
+
+let g:rooter_silent_chdir = 1
+nnoremap <Leader>fu :CtrlPFunky<Cr>
+nnoremap <leader>yy :CtrlPYankring<cr>
