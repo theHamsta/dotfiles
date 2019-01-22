@@ -116,7 +116,11 @@ nnoremap j gj
 nnoremap k gk
 nnoremap <leader>w :w<cr>
 "nnoremap <f4> :wa<cr>:make<cr>
-nnoremap <f4> :wa<cr>:copen<cr>:Neomake!<cr>
+function! ClearQuickfixList()
+      call setqflist([])
+endfunction
+command! ClearQuickfixList call ClearQuickfixList()
+"nnoremap <f4> :ClearQuickfixList<cr>:copen<cr>:wa<cr>:Neomake!<cr>
 nnoremap <leader>make :wa<Cr>:Neomake!<cr>
 nnoremap <leader>line :call Toggle_line_numbers()<cr>
 nnoremap <leader>hi :History<Cr>
@@ -169,8 +173,8 @@ nnoremap <Leader>oo :only<cr>
 "nmap <silent> <C-j> <Plug>(ale_next_wrap)
 "nmap <silent> <C-k> :lprevious<cr>
 "nmap <silent> <C-j> :lnext<cr>
-nmap <silent> <C-k> :]]<cr>
-nmap <silent> <C-j> :[[<cr>
+nmap <silent> <C-k> [m<cr>
+nmap <silent> <C-j> ]m<cr>
 nmap <silent> <C-a-k> <Plug>GitGutterPrevHunk
 nmap <silent> <C-a-j> <Plug>GitGutterNextHunk
 nmap ]h <Plug>GitGutterNextHunk
@@ -187,8 +191,7 @@ set tabstop=4
 " when indenting with '>', use 4 spaces width
 set shiftwidth=4
 " On pressing tab, insert 4 spaces
-"
-"set expandtab
+set expandtab
 
 "nnoremap <c-r><c-r> vap:TREPLSendSelection<cr>
 "inoremap <A-v> <C-R><C-R>+
@@ -207,6 +210,10 @@ smap <c-n> <Esc>a<tab>
 "snoremap <c-u> <Esc>a<tab>
 
 call plug#begin('~/.local/share/nvim/plugged')
+    "Plug 'google/vim-maktaba'
+    "Plug 'bazelbuild/vim-bazel'
+    Plug 'theHamsta/vim-template'
+	Plug 'editorconfig/editorconfig-vim'
 	Plug 'LeafCage/yankround.vim'
 	Plug 'sgur/ctrlp-extensions.vim'
 	Plug 'tacahiroy/ctrlp-funky'
@@ -214,10 +221,13 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'justinmk/vim-gtfo'
 	Plug 'neomake/neomake'
 	Plug 'NLKNguyen/papercolor-theme'
+	Plug 'fatih/vim-go', { 'for': 'go' }
+	Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 	"Plug 'jreybert/vimagit'
 	Plug 'vhdirk/vim-cmake'
 	Plug 'sakhnik/nvim-gdb', { 'do': './install.sh' }
 	Plug 'tpope/vim-dispatch'
+	Plug 'vim-scripts/SearchComplete'
 	"Plug 'dbeniamine/cheat.sh-vim'
 	"Plug 'libclang-vim/libclang-vim', {'do' : 'make'}
 	"Plug 'libclang-vim/vim-textobj-clang'
@@ -270,7 +280,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'terryma/vim-multiple-cursors'
 	Plug 'junegunn/goyo.vim'
 	"Plug 'amix/vim-zenroom2'
-	Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}, 'for': ['java', 'json']}
+	"Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}, 'for': ['java']}
 	Plug 'autozimu/LanguageClient-neovim', {
 			\ 'branch': 'next',
 			\ 'do': 'bash install.sh',
@@ -303,7 +313,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'vim-airline/vim-airline-themes'
 	Plug 'rliang/nvim-pygtk3', {'do': 'make install'}
 	Plug 'lervag/vimtex', { 'for': 'tex' }
-	Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+	"Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+
 	"Plug 'lionawurscht/deoplete-biblatex', { 'for': 'tex' }
 	Plug 'beloglazov/vim-online-thesaurus'
 	Plug 'wellle/targets.vim'
@@ -346,7 +357,7 @@ autocmd FileType cpp iabbrev <buffer> stirng string
 autocmd BufEnter * silent! lcd %:p:h
 nnoremap gf gF
 nnoremap gF <c-w>wgf
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pdf,*.log,*/CMakeFiles/*,*.aux,*.lof,*.lot,*.gz,*.fls,*.fdb_latexmk,*.toc
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pdf,*.log,*/CMakeFiles/*,*.aux,*.lof,*.lot,*.gz,*.fls,*.fdb_latexmk,*.toc,__*__,*/pybind11/*
 
 set lazyredraw
 set ttyfast
@@ -475,9 +486,15 @@ autocmd FileType python nnoremap <buffer> <F10> :VBGstepOver<cr>
 autocmd FileType python nnoremap <buffer> <F11> :VBGstepIn<cr>
 autocmd FileType python nnoremap <buffer> <F12> :VBGstepOver<cr>
 nnoremap <leader>tt :<c-u>exec v:count.'T'
-autocmd FileType python nnoremap <buffer> t <F5> :let $last_execution='python3 ' . expand('%:p',1)<cr>:w<cr>:T python3 %<cr>
+autocmd FileType python nnoremap <buffer> <F5> :let $last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:T python3 %<cr>
 autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . expand('%:r',1)<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
 autocmd FileType cpp nnoremap <buffer> <F3> :wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
+" jump to the previous function
+autocmd FileType cpp nnoremap <buffer> <c-k> :call
+\ search('\(\(if\\|for\\|while\\|switch\\|catch\)\_s*\)\@64<!(\_[^)]*)\_[^;{}()]*\zs{', "bw")<CR>
+" jump to the next function
+autocmd FileType cpp nnoremap <buffer> <c-j> :call
+\ search('\(\(if\\|for\\|while\\|switch\\|catch\)\_s*\)\@64<!(\_[^)]*)\_[^;{}()]*\zs{', "w")<CR>
 "autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='
 ":let last_execution=@%<cr>
 "
@@ -614,18 +631,23 @@ command! Qa :qa
 nnoremap <c-h> :History<Cr>
 set shell=/usr/bin/zsh
 noremap <Esc> <C-\><C-n>
-tnoremap jk <C-\><C-n>
-tnoremap <c-`> <C-\><C-n>:Ttoggle<cr>
-tnoremap <c-s-´> <C-\><C-n>:Ttoggle<cr>
-tnoremap <c-d> <C-\><C-n><c-w>c
-tnoremap <c-d> <C-\><C-n><c-w>c
+if has('nvim')
+    tnoremap jk <C-\><C-n>
+    tnoremap <c-v> <C-\><C-n>pi
+    tnoremap <c-`> <C-\><C-n>:Ttoggle<cr>
+    tnoremap <c-s-´> <C-\><C-n>:Ttoggle<cr>
+    tnoremap <c-d> <C-\><C-n><c-w>c
+    tnoremap <c-d> <C-\><C-n><c-w>c
+endif
 nnoremap <c-w>+ <c-w>+<c-w>+<c-w>+<c-w>+<c-w>+<c-w>+<c-w>+<c-w>+
 nnoremap <c-w>- <c-w>-<c-w>-<c-w>-<c-w>-<c-w>-<c-w>-<c-w>-<c-w>-
 nnoremap <c-w>< <c-w><<c-w><<c-w><<c-w><<c-w><<c-w><<c-w><<c-w><
 nnoremap <c>w>> <c>w>><c>w>><c>w>><c>w>><c>w>><c>w>><c>w>><c>w>>
 nnoremap <leader>tt :<c-u>exec v:count.'T'<cr>
-nnoremap <c-`> :cclose<cr>:lclose<cr>:Ttoggle<cr>
-nnoremap <c-s-´> :cclose<cr>:lclose<cr>:Ttoggle<cr>
+"nnoremap <c-`> :cclose<cr>:lclose<cr>:Ttoggle<cr>
+"nnoremap <c-s-´> :cclose<cr>:lclose<cr>:Ttoggle<cr>
+nnoremap <c-`> :Ttoggle<cr>
+nnoremap <c-s-´> :Ttoggle<cr>
 let g:neoterm_default_mod='botright'
 "autocmd BufWinEnter,WinEnter term://* startinsert
 augroup terminal
@@ -633,10 +655,7 @@ augroup terminal
 	autocmd TermOpen * setlocal nospell
 augroup END
 
-if has('nvim')
-	tnoremap <C-v>+ <C-\><C-n>"+Pi
 	"tnoremap <C-v>a <C-\><C-n>"aPi
-endif
 
 nnoremap <a-t> :Switch<CR>
 
@@ -828,3 +847,9 @@ let g:tex_flavor = "latex"
 let g:rooter_silent_chdir = 1
 nnoremap <Leader>fu :CtrlPFunky<Cr>
 nnoremap <leader>yy :CtrlPYankring<cr>
+nnoremap <leader>co :Commands<cr>
+
+let g:neoterm_autoinsert=0
+let g:neoterm_autoscroll=1
+let g:neoterm_size='15'
+"g:neoterm_fixedsize
