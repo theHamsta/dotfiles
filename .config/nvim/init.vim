@@ -114,7 +114,7 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 nnoremap j gj
 nnoremap k gk
-nnoremap <leader>w :w<cr>
+nnoremap <leader>w :wa<cr>
 "nnoremap <f4> :wa<cr>:make<cr>
 function! ClearQuickfixList()
       call setqflist([])
@@ -313,6 +313,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'vim-airline/vim-airline-themes'
 	Plug 'rliang/nvim-pygtk3', {'do': 'make install'}
 	Plug 'lervag/vimtex', { 'for': 'tex' }
+    "Plug 'w0rp/ale', { 'for': 'tex' }
 	"Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 
 	"Plug 'lionawurscht/deoplete-biblatex', { 'for': 'tex' }
@@ -478,7 +479,7 @@ let g:vebugger_leader =','
 nnoremap <F3> :wa<cr>:exec 'T' expand($last_execution,1)<cr>
 autocmd FileType python nnoremap <buffer> <F6> :VBGstartPDB3 %<cr>
 autocmd FileType python nnoremap <buffer> <space>deb :VBGstartPDB3 %<cr>
-autocmd FileType python nnoremap <buffer> <leader>con :VBGcontinue %<cr>
+autocmd FileType python nnoremap <buffer> <c-f5> :VBGcontinue %<cr>
 autocmd FileType python nnoremap <buffer> <F7> :VBGcontinue<cr>
 autocmd FileType python nnoremap <buffer> <F9> :VBGtoggleBreakpointThisLine<cr>
 autocmd FileType python nnoremap <buffer> <c-a-b> :VBGtoggleBreakpointThisLine<cr>
@@ -502,7 +503,8 @@ autocmd FileType cpp nnoremap <buffer> <c-j> :call
 
 autocmd FileType lua nnoremap <buffer> <F5> :exec '!lua' shellescape(@%:p, 1)<cr>:let last_execution=@%:p <cr>
 
-autocmd FileType tex,latex nnoremap <buffer> <c-b> :w<cr>:echo '!latexindent ' shellescape(@%:p, 1)<cr>:e
+autocmd FileType tex,latex nnoremap <buffer> <c-s> mzgg=G`z:w<cr>
+autocmd FileType tex,latex call neomake#configure#automake('w')
 "<cr>:e
 
 let g:ag_working_path_mode="r"
@@ -634,9 +636,9 @@ noremap <Esc> <C-\><C-n>
 if has('nvim')
     tnoremap jk <C-\><C-n>
     tnoremap <c-v> <C-\><C-n>pi
-    tnoremap <c-`> <C-\><C-n>:Ttoggle<cr>
-    tnoremap <c-s-´> <C-\><C-n>:Ttoggle<cr>
-    tnoremap <c-d> <C-\><C-n><c-w>c
+    tnoremap <c-`> <C-\><C-n>:cclose<cr>:lclose<cr>:Ttoggle<cr>
+    tnoremap <c-s-´> <C-\><C-n>:cclose<cr>:lclose<cr>:Ttoggle<cr>
+    "tnoremap <c-s-´> <C-\><C-n>:Ttoggle<cr>
     tnoremap <c-d> <C-\><C-n><c-w>c
 endif
 nnoremap <c-w>+ <c-w>+<c-w>+<c-w>+<c-w>+<c-w>+<c-w>+<c-w>+<c-w>+
@@ -752,7 +754,7 @@ let g:quickr_preview_on_cursor = 1
 
  augroup LSP
    autocmd!
-   autocmd FileType java,json call ActivateCoc()
+   autocmd FileType java call ActivateCoc()
  augroup END
 
  "inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
@@ -774,7 +776,7 @@ let g:quickr_preview_on_cursor = 1
 
 set shortmess+=c
 nnoremap <leader>yp :let @+ = expand("%:p")<cr>
-"let g:rooter_change_directory_for_non_project_files = 'current'
+let g:rooter_change_directory_for_non_project_files = 'current'
 
 let g:livepreview_previewer = 'okular'
 
@@ -848,8 +850,22 @@ let g:rooter_silent_chdir = 1
 nnoremap <Leader>fu :CtrlPFunky<Cr>
 nnoremap <leader>yy :CtrlPYankring<cr>
 nnoremap <leader>co :Commands<cr>
+nnoremap ,, :Commands<cr>
 
 let g:neoterm_autoinsert=0
 let g:neoterm_autoscroll=1
 let g:neoterm_size='15'
 "g:neoterm_fixedsize
+
+nnoremap <A-1> 1gt
+nnoremap <A-2> 2gt
+nnoremap <A-3> 3gt
+nnoremap <A-4> 4gt
+nnoremap <A-5> 5gt
+nnoremap <A-6> 6gt
+nnoremap <A-7> 7gt
+nnoremap <A-8> 8gt
+nnoremap <A-9> 9gt
+nnoremap <A-0> 10gt
+
+
