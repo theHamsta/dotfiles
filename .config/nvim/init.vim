@@ -44,6 +44,7 @@ set runtimepath+=$HOME/.space-vim/core
 map <SPACE> <leader>
 
 set history=1000
+set mouse=a
 
 let g:use_line_numbers=1
 
@@ -88,8 +89,8 @@ function! s:goyo_enter()
   set norelativenumber
   set scrolloff=999
   Limelight
-  nnoremap j gj
-  nnoremap k gk
+  nnoremap <buffer> j gj
+  nnoremap <buffer> k gk
 endfunction
 
 function! s:goyo_leave()
@@ -114,6 +115,8 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 nnoremap j gj
 nnoremap k gk
+vnoremap j gj
+vnoremap k gk
 nnoremap <leader>w :wa<cr>
 "nnoremap <f4> :wa<cr>:make<cr>
 function! ClearQuickfixList()
@@ -125,7 +128,7 @@ nnoremap <leader>make :wa<Cr>:Neomake!<cr>
 nnoremap <leader>line :call Toggle_line_numbers()<cr>
 nnoremap <leader>hi :History<Cr>
 "nnoremap <leader>te :set shell=/usr/bin/zsh<cr>:split<cr>:Tnew<Cr>:exe "resize " . 13<CR>i
-nnoremap <leader>te :set shell=/usr/bin/zsh<cr>:Topen<Cr>:exe "resize " . 60<CR>
+nnoremap <leader>te :set shell=/usr/bin/zsh<cr>:Topen<Cr>
 nnoremap <leader>to :Topen<cr>
 nnoremap <leader>tt 'Ti
 nnoremap <leader>so G:source %<cr>
@@ -212,6 +215,10 @@ smap <c-n> <Esc>a<tab>
 call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'google/vim-maktaba'
     "Plug 'bazelbuild/vim-bazel'
+    Plug 'jason0x43/vim-wildgitignore' 
+    "Plug 'AndrewRayCode/vim-git-conflict-edit' 
+    Plug 'markonm/traces.vim' 
+    Plug 'jceb/vim-orgmode'
     Plug 'theHamsta/vim-template'
 	Plug 'editorconfig/editorconfig-vim'
 	Plug 'LeafCage/yankround.vim'
@@ -232,17 +239,16 @@ call plug#begin('~/.local/share/nvim/plugged')
 	"Plug 'libclang-vim/libclang-vim', {'do' : 'make'}
 	"Plug 'libclang-vim/vim-textobj-clang'
 	Plug 'sakhnik/nvim-gdb'
-	Plug 'icymind/NeoSolarized'
 	Plug 'tpope/vim-abolish'
 	Plug 'mhinz/neovim-remote'
-	Plug 'mbbill/undotree', { 'on':  [ 'UndotreeToggle']}
+	Plug 'mbbill/undotree', { 'on':  [ 'UndotreeToggle'] }
 	Plug 'bronson/vim-visual-star-search'
 	Plug 'ryanoasis/vim-devicons'
 	Plug 'airblade/vim-gitgutter'
 	Plug 'kana/vim-textobj-user'
-	Plug 'kana/vim-textobj-entire'
+    Plug 'theHamsta/vim-textobj-entire'
 	Plug 'sgur/vim-textobj-parameter'
-	Plug 'glts/vim-textobj-comment'
+	"Plug 'glts/vim-textobj-comment'
 	Plug 'kana/vim-textobj-function'
 	Plug 'fvictorio/vim-textobj-backticks'
 	Plug 'Julian/vim-textobj-variable-segment'
@@ -252,7 +258,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'tpope/vim-eunuch'
 	Plug 'chaoren/vim-wordmotion'
 	Plug 'tpope/vim-unimpaired' 
-	Plug 'ronakg/quickr-preview.vim'
+	"Plug 'ronakg/quickr-preview.vim'
 	Plug 'kassio/neoterm'
 	Plug 'airblade/vim-rooter'
 	Plug 'bkad/CamelCaseMotion'
@@ -264,7 +270,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'machakann/vim-swap'
 	Plug 'justinmk/vim-sneak'
 	Plug 'Shougo/echodoc.vim'
-	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 	Plug 'junegunn/fzf.vim'
 	Plug 'jpalardy/vim-slime'
 	Plug 'kovisoft/slimv'
@@ -287,7 +293,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 			\ }
 
 	if has('nvim')
-		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 	else
 		Plug 'Shougo/deoplete.nvim'
 		Plug 'roxma/nvim-yarp'
@@ -306,7 +312,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'MarcWeber/vim-addon-mw-utils'
 	Plug 'tomtom/tlib_vim'
 	Plug 'theHamsta/vim-snippets'
-	Plug 'rakr/vim-one'
 	Plug 'altercation/vim-colors-solarized'
 	Plug 'majutsushi/tagbar'
 	Plug 'vim-airline/vim-airline'
@@ -326,6 +331,11 @@ call plug#begin('~/.local/share/nvim/plugged')
 	"Plug 'Shougo/neosnippet.vim'
 	"Plug 'Shougo/neosnippet-snippets'
 
+    "Colors
+	Plug 'rakr/vim-one'
+	Plug 'icymind/NeoSolarized'
+    Plug 'junegunn/seoul256.vim'
+	"Plug 'arzg/seoul8.vim'
 call plug#end()
 
 
@@ -350,6 +360,8 @@ nnoremap <Leader>0 :10b<CR>
 nnoremap <Leader>buf :buffers<CR>
 nnoremap <Leader>dox :Dox<CR>
 
+iabbrev imageing imaging
+
 autocmd FileType cpp iabbrev <buffer> firend friend
 autocmd FileType cpp iabbrev <buffer> flaot float
 autocmd FileType cpp iabbrev <buffer> _std std::
@@ -358,7 +370,7 @@ autocmd FileType cpp iabbrev <buffer> stirng string
 autocmd BufEnter * silent! lcd %:p:h
 nnoremap gf gF
 nnoremap gF <c-w>wgf
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pdf,*.log,*/CMakeFiles/*,*.aux,*.lof,*.lot,*.gz,*.fls,*.fdb_latexmk,*.toc,__*__,*/pybind11/*
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.log,*/CMakeFiles/*,*.aux,*.lof,*.lot,*.gz,*.fls,*.fdb_latexmk,*.toc,__*__,*/pybind11/*,*[0-9]+
 
 set lazyredraw
 set ttyfast
@@ -503,7 +515,7 @@ autocmd FileType cpp nnoremap <buffer> <c-j> :call
 
 autocmd FileType lua nnoremap <buffer> <F5> :exec '!lua' shellescape(@%:p, 1)<cr>:let last_execution=@%:p <cr>
 
-autocmd FileType tex,latex nnoremap <buffer> <c-s> mzgg=G`z:w<cr>
+autocmd FileType tex,latex nnoremap <buffer> <c-s> mzgg=G`z:w<cr>zz
 autocmd FileType tex,latex call neomake#configure#automake('w')
 "<cr>:e
 
@@ -541,7 +553,7 @@ imap <s-tab> <Plug>snipMateBack
 let g:vlime_leader = ","
 let g:vlime_enable_autodoc = v:true
 let g:vlime_window_settings = {'sldb': {'pos': 'belowright', 'vertical': v:true}, 'inspector': {'pos': 'belowright', 'vertical': v:true}, 'preview': {'pos': 'belowright', 'size': v:null, 'vertical': v:true}}
-let g:gonvim_draw_statusline = 0
+let g:gonvim_draw_statusline = 1
 
 
     "\ 'cpp': ['clangd'],
@@ -551,8 +563,9 @@ let g:LanguageClient_serverCommands = {
     \ 'javascript.jsx': ['javascript-typescript-stdio'],
     \ 'python': ['pyls'],
     \ 'lua': ['lua-lsp'],
-    \ 'cpp': ['/software/llvm/7.0.0/bin/clangd'],
+    \ 'cpp': ['clangd-7'],
     \ 'lisp': ['~/.roswell/bin/cl-lsp'],
+    \ 'go': ['go-langserver'],
     \ }
 	"\ 'cpp': ['/home/stephan/projects/cquery/build/release/bin/cquery','--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery/"}, "completion": {"filterAndSort": false}}'],
 "if executable('ccls')
@@ -759,7 +772,7 @@ let g:quickr_preview_on_cursor = 1
 
  "inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 
- let g:LanguageClient_hasSnippetSupport = 0
+ let g:LanguageClient_hasSnippetSupport = 1
 
 
  set autoread
@@ -776,7 +789,7 @@ let g:quickr_preview_on_cursor = 1
 
 set shortmess+=c
 nnoremap <leader>yp :let @+ = expand("%:p")<cr>
-let g:rooter_change_directory_for_non_project_files = 'current'
+let g:rooter_change_directory_for_non_project_files = ''
 
 let g:livepreview_previewer = 'okular'
 
@@ -792,7 +805,18 @@ let g:vimtex_view_general_viewer = 'okular'
 let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
 let g:vimtex_view_general_options_latexmk = '--unique'
 let g:vimtex_compiler_progname = 'nvr'
+let g:vimtex_latexmk_options = '-pdf -shell-escape -verbose -file-line-error -synctex=1 -interaction=nonstopmode'
 
+let g:vimtex_compiler_latexmk = {
+    \ 'options' : [
+    \   '-pdf',
+    \   '-shell-escape',
+    \   '-verbose',
+    \   '-file-line-error',
+    \   '-synctex=1',
+    \   '-interaction=nonstopmode',
+    \ ],
+    \}
 "colorscheme NeoSolarized
 "set background=dark
 "let g:neosolarized_contrast = "high"
@@ -826,6 +850,7 @@ if exists('g:gonvim_running')
   nnoremap <leader>bl :GonvimFuzzyBLines<CR>
 endif
 let g:multi_cursor_exit_from_insert_mode=0
+let g:multi_cursor_exit_from_visual_mode=0
 
 "let g:airline_theme='papercolor'
 "set background=light
@@ -850,7 +875,8 @@ let g:rooter_silent_chdir = 1
 nnoremap <Leader>fu :CtrlPFunky<Cr>
 nnoremap <leader>yy :CtrlPYankring<cr>
 nnoremap <leader>co :Commands<cr>
-nnoremap ,, :Commands<cr>
+nnoremap ,c :Commands<cr>
+nnoremap ,, :BLines<cr>
 
 let g:neoterm_autoinsert=0
 let g:neoterm_autoscroll=1
@@ -868,4 +894,39 @@ nnoremap <A-8> 8gt
 nnoremap <A-9> 9gt
 nnoremap <A-0> 10gt
 
+"let g:seoul256_background = 0
+"colo seoul256
+"let g:seoul256_srgb = 1
 
+"smart case for sneak
+let g:sneak#use_ic_scs = 1
+
+"let $FZF_BIBTEX_CACHEDIR = 'PATH-TO-CACHE-DIR'
+let $FZF_BIBTEX_SOURCES = 'references.bib'
+
+function! s:bibtex_cite_sink(lines)
+    let r=system("bibtex-cite ". globpath('.', '*.bib', a:lines)
+    execute ':normal! i' . r
+endfunction
+
+function! s:bibtex_markdown_sink(lines)
+    let r=system("bibtex-markdown ", a:lines)
+    execute ':normal! i' . r
+endfunction
+
+function! s:bibtex_cite_sink_insert(lines)
+    let r=system("bibtex-cite ", a:lines)
+    execute ':normal! i' . r[1:]
+    call feedkeys('a', 'n')
+endfunction
+
+nnoremap ,cite :call fzf#run({
+                        \ 'source': 'bibtex-ls ' ,
+                        \ 'sink*': function('<sid>bibtex_markdown_sink'),
+                        \ 'up': '40%',
+                        \ 'options': '--ansi --multi --prompt "Cite>"' })<CR>
+inoremap <silent> @@ <c-g>u<c-o>:call fzf#run({
+                        \ 'source': 'bibtex-ls',
+                        \ 'sink*': function('<sid>bibtex_cite_sink_insert'),
+                        \ 'up': '40%',
+                        \ 'options': '--ansi --multi --prompt "Cite> "'})<CR>
