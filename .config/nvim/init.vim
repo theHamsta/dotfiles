@@ -213,6 +213,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'google/vim-maktaba'
     "Plug 'bazelbuild/vim-bazel'
     Plug 'theHamsta/vim-template'
+    Plug 'vim-pandoc/vim-pandoc'
     Plug 'romainl/Apprentice'
 	Plug 'editorconfig/editorconfig-vim'
 	Plug 'LeafCage/yankround.vim'
@@ -880,3 +881,5 @@ let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
 
+nnoremap <c-a-h> "zyy"zP
+nnoremap <c-a-l> "zyy"zp
