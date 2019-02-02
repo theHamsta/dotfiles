@@ -55,10 +55,10 @@ function! Toggle_line_numbers()
 
 		" Always show line numbers, but only in current window.
 		"set number
-		au WinEnter * :setlocal number
-		au WinEnter * :setlocal relativenumber
-		au WinLeave * :setlocal norelativenumber
-		au WinLeave * :setlocal number
+		"au WinEnter * :setlocal number
+		"au WinEnter * :setlocal relativenumber
+		"au WinLeave * :setlocal norelativenumber
+		"au WinLeave * :setlocal number
 	else
 		let g:use_line_numbers=1
 		set nonumber
@@ -66,10 +66,10 @@ function! Toggle_line_numbers()
 
 		" Always show line numbers, but only in current window.
 		"set number
-		au WinEnter * :setlocal nonumber
-		au WinEnter * :setlocal norelativenumber
-		au WinLeave * :setlocal norelativenumber
-		au WinLeave * :setlocal nonumber
+		"au WinEnter * :setlocal nonumber
+		"au WinEnter * :setlocal norelativenumber
+		"au WinLeave * :setlocal norelativenumber
+		"au WinLeave * :setlocal nonumber
 	endif
 endfunction
 call Toggle_line_numbers()
