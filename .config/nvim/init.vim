@@ -213,6 +213,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'google/vim-maktaba'
     "Plug 'bazelbuild/vim-bazel'
     Plug 'theHamsta/vim-template'
+    "Plug 'vitapluvia/vim-gurl'
+    "Plug 'jaxbot/github-issues.vim'
     Plug 'vim-pandoc/vim-pandoc'
     Plug 'romainl/Apprentice'
 	Plug 'editorconfig/editorconfig-vim'
@@ -226,7 +228,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'fatih/vim-go', { 'for': 'go' }
 	Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 	"Plug 'jreybert/vimagit'
-	Plug 'vhdirk/vim-cmake'
+    Plug 'vhdirk/vim-cmake'
+	"Plug 'linuor/ucmake.vim'
 	Plug 'sakhnik/nvim-gdb', { 'do': './install.sh' }
 	Plug 'tpope/vim-dispatch'
 	Plug 'vim-scripts/SearchComplete'
@@ -491,7 +494,7 @@ autocmd FileType python nnoremap <buffer> <F11> :VBGstepIn<cr>
 autocmd FileType python nnoremap <buffer> <F12> :VBGstepOver<cr>
 nnoremap <leader>tt :<c-u>exec v:count.'T'
 autocmd FileType python nnoremap <buffer> <F5> :let $last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:T python3 %<cr>
-autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . expand('%:r',1)<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
+autocmd FileType cpp nnoremap <buffer> <F5> :wa<cr>:CMake<cr>:Neomake!<cr>
 autocmd FileType cpp nnoremap <buffer> <F3> :wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
 " jump to the previous function
 autocmd FileType cpp nnoremap <buffer> ]m :call
@@ -556,7 +559,8 @@ let g:LanguageClient_serverCommands = {
     \ 'javascript.jsx': ['javascript-typescript-stdio'],
     \ 'python': ['pyls'],
     \ 'lua': ['lua-lsp'],
-    \ 'cpp': ['/software/llvm/7.0.0/bin/clangd'],
+    \ 'cpp': ['clangd-7'],
+    \ 'c': ['clangd-7'],
     \ 'lisp': ['~/.roswell/bin/cl-lsp'],
     \ }
 	"\ 'cpp': ['/home/stephan/projects/cquery/build/release/bin/cquery','--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery/"}, "completion": {"filterAndSort": false}}'],
@@ -647,10 +651,10 @@ if has('nvim')
     "tnoremap <c-s-´> <C-\><C-n>:Ttoggle<cr>
     tnoremap <c-d> <C-\><C-n><c-w>c
 endif
-nnoremap <c-w>+ <c-w>+<c-w>+<c-w>+<c-w>+<c-w>+<c-w>+<c-w>+<c-w>+
-nnoremap <c-w>- <c-w>-<c-w>-<c-w>-<c-w>-<c-w>-<c-w>-<c-w>-<c-w>-
-nnoremap <c-w>< <c-w><<c-w><<c-w><<c-w><<c-w><<c-w><<c-w><<c-w><
-nnoremap <c>w>> <c>w>><c>w>><c>w>><c>w>><c>w>><c>w>><c>w>><c>w>>
+"nnoremap <c-w>+ <c-w>+<c-w>+<c-w>+<c-w>+<c-w>+<c-w>+<c-w>+<c-w>+
+"nnoremap <c-w>- <c-w>-<c-w>-<c-w>-<c-w>-<c-w>-<c-w>-<c-w>-<c-w>-
+"nnoremap <c-w>< <c-w><<c-w><<c-w><<c-w><<c-w><<c-w><<c-w><<c-w><
+"nnoremap <c>w>> <c>w>><c>w>><c>w>><c>w>><c>w>><c>w>><c>w>><c>w>>
 nnoremap <leader>tt :<c-u>exec v:count.'T'<cr>
 "nnoremap <c-`> :cclose<cr>:lclose<cr>:Ttoggle<cr>
 "nnoremap <c-s-´> :cclose<cr>:lclose<cr>:Ttoggle<cr>
@@ -883,3 +887,7 @@ let g:NERDTreePatternMatchHighlightFullName = 1
 
 nnoremap <c-a-h> "zyy"zP
 nnoremap <c-a-l> "zyy"zp
+
+"noremap <leader>gr :call Gurl()<CR>
+nnoremap Q @q
+vnoremap Q :norm @q<cr>
