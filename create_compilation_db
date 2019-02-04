@@ -2,5 +2,5 @@
 
 mkdir compilation_db_dir
 cd compilation_db_dir
-cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
+cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON CMAKE_CXX_FLAGS -DCMAKE_CXX_FLAGS="-Wall -Wno-long-long -pedantic" .
 mv compile_commands.json ..

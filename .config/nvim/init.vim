@@ -56,10 +56,10 @@ function! Toggle_line_numbers()
 
 		" Always show line numbers, but only in current window.
 		"set number
-		"au WinEnter * :setlocal number
-		"au WinEnter * :setlocal relativenumber
-		"au WinLeave * :setlocal norelativenumber
-		"au WinLeave * :setlocal number
+		au WinEnter * :setlocal number
+		au WinEnter * :setlocal relativenumber
+		au WinLeave * :setlocal norelativenumber
+		au WinLeave * :setlocal number
 	else
 		let g:use_line_numbers=1
 		set nonumber
@@ -67,10 +67,10 @@ function! Toggle_line_numbers()
 
 		" Always show line numbers, but only in current window.
 		"set number
-		"au WinEnter * :setlocal nonumber
-		"au WinEnter * :setlocal norelativenumber
-		"au WinLeave * :setlocal norelativenumber
-		"au WinLeave * :setlocal nonumber
+		au WinEnter * :setlocal nonumber
+		au WinEnter * :setlocal norelativenumber
+		au WinLeave * :setlocal norelativenumber
+		au WinLeave * :setlocal nonumber
 	endif
 endfunction
 call Toggle_line_numbers()
@@ -170,14 +170,14 @@ nnoremap <Leader>tab :tabnew<cr>
 nnoremap <Leader>tc :tabclose<cr>
 nnoremap <Leader>nt :NERDTreeToggle<cr>
 nnoremap <Leader>nf :NERDTreeFind<cr>
-let g:NERDTreeShowIgnoredStatus = 1
+"let g:NERDTreeShowIgnoredStatus = 1
 nnoremap <Leader>oo :only<cr>
 "nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 "nmap <silent> <C-j> <Plug>(ale_next_wrap)
-nmap <silent> <C-k> :lprevious<cr>
-nmap <silent> <C-j> :lnext<cr>
-"nmap <silent> <C-k> [m<cr>
-"nmap <silent> <C-j> ]m<cr>
+"nmap <silent> <C-k> :lprevious<cr>
+"nmap <silent> <C-j> :lnext<cr>
+nmap <silent> <C-k> [m<cr>
+nmap <silent> <C-j> ]m<cr>
 nmap <silent> <C-a-k> <Plug>GitGutterPrevHunk
 nmap <silent> <C-a-j> <Plug>GitGutterNextHunk
 nmap ]h <Plug>GitGutterNextHunk
@@ -215,17 +215,20 @@ smap <c-n> <Esc>a<tab>
 call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'google/vim-maktaba'
     "Plug 'bazelbuild/vim-bazel'
-    Plug 'jason0x43/vim-wildgitignore' 
+    "Plug 'jason0x43/vim-wildgitignore' 
+    Plug 'rking/ag.vim'
+    Plug 'vim-scripts/cmake.vim-syntax'
+    Plug 'tpope/vim-obsession'
+    Plug 'dhruvasagar/vim-prosession'
+    Plug 'jalcine/cmake.vim'
+    "Plug 'xolox/vim-session'
     "Plug 'AndrewRayCode/vim-git-conflict-edit' 
     Plug 'markonm/traces.vim' 
     Plug 'jceb/vim-orgmode'
     Plug 'theHamsta/vim-template'
-    "Plug 'vitapluvia/vim-gurl'
-    "Plug 'jaxbot/github-issues.vim'
-    Plug 'vim-pandoc/vim-pandoc'
-    Plug 'romainl/Apprentice'
 	Plug 'editorconfig/editorconfig-vim'
 	Plug 'LeafCage/yankround.vim'
+	Plug 'ctrlpvim/ctrlp.vim'
 	Plug 'sgur/ctrlp-extensions.vim'
 	Plug 'tacahiroy/ctrlp-funky'
 	Plug 'mileszs/ack.vim'
@@ -235,8 +238,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'fatih/vim-go', { 'for': 'go' }
 	Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 	"Plug 'jreybert/vimagit'
-    Plug 'vhdirk/vim-cmake'
-	"Plug 'linuor/ucmake.vim'
+	Plug 'vhdirk/vim-cmake'
 	Plug 'sakhnik/nvim-gdb', { 'do': './install.sh' }
 	Plug 'tpope/vim-dispatch'
 	Plug 'vim-scripts/SearchComplete'
@@ -248,6 +250,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'mhinz/neovim-remote'
 	Plug 'mbbill/undotree', { 'on':  [ 'UndotreeToggle'] }
 	Plug 'bronson/vim-visual-star-search'
+	Plug 'ryanoasis/vim-devicons'
 	Plug 'airblade/vim-gitgutter'
 	Plug 'kana/vim-textobj-user'
     Plug 'theHamsta/vim-textobj-entire'
@@ -286,7 +289,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'michaeljsmith/vim-indent-object'
 	Plug 'Chun-Yang/vim-action-ag'
 	Plug 'easymotion/vim-easymotion'
-	Plug 'ctrlpvim/ctrlp.vim'
 	Plug 'terryma/vim-multiple-cursors'
 	Plug 'junegunn/goyo.vim'
 	"Plug 'amix/vim-zenroom2'
@@ -329,8 +331,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'beloglazov/vim-online-thesaurus'
 	Plug 'wellle/targets.vim'
 	Plug 'fszymanski/deoplete-emoji'
-	Plug 'ryanoasis/vim-devicons'
-    Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 	"
 	"Plug 'rkulla/pydiction'
 	"Plug 'xolox/vim-misc'
@@ -375,7 +375,9 @@ autocmd FileType cpp iabbrev <buffer> stirng string
 "set autochdir
 autocmd BufEnter * silent! lcd %:p:h
 nnoremap gf gF
-nnoremap gF <c-w>wgf
+nnoremap gF <c-w>gF
+nnoremap gP :call GotoPython()<cr>
+
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.log,*/CMakeFiles/*,*.aux,*.lof,*.lot,*.gz,*.fls,*.fdb_latexmk,*.toc,__*__,*/pybind11/*,*[0-9]+
 
 set lazyredraw
@@ -422,7 +424,7 @@ autocmd BufEnter *.m    compiler mlint
 set background =dark
 
 " Call the theme one
-colorscheme apprentice
+colorscheme one
 
 " Don't forget set the airline theme as well.
 let g:airline_theme = 'one'
@@ -506,20 +508,18 @@ autocmd FileType python nnoremap <buffer> <F11> :VBGstepIn<cr>
 autocmd FileType python nnoremap <buffer> <F12> :VBGstepOver<cr>
 nnoremap <leader>tt :<c-u>exec v:count.'T'
 autocmd FileType python nnoremap <buffer> <F5> :let $last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:T python3 %<cr>
-autocmd FileType cpp nnoremap <buffer> <F5> :wa<cr>:CMake<cr>:Neomake!<cr>
-autocmd FileType cpp nnoremap <buffer> <F3> :wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
+autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . $target<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
+autocmd FileType cpp nnoremap <buffer> <F4> :wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
 " jump to the previous function
-autocmd FileType cpp nnoremap <buffer> ]m :call
+autocmd FileType cpp nnoremap <buffer> [f :call
 \ search('\(\(if\\|for\\|while\\|switch\\|catch\)\_s*\)\@64<!(\_[^)]*)\_[^;{}()]*\zs{', "bw")<CR>
 " jump to the next function
-autocmd FileType cpp nnoremap <buffer> [m :call
+autocmd FileType cpp nnoremap <buffer> ]f :call
 \ search('\(\(if\\|for\\|while\\|switch\\|catch\)\_s*\)\@64<!(\_[^)]*)\_[^;{}()]*\zs{', "w")<CR>
 "autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='
 ":let last_execution=@%<cr>
 "
 "nnoremap <F3> :T !!<cr>
-autocmd FileType rust nnoremap <buffer> <c-t> :call LanguageClient#workspace_symbol()<cr>
-autocmd FileType rust nnoremap <buffer> <c-a-o> :call LanguageClient#textDocument_documentSymbol()<cr>
 
 autocmd FileType lua nnoremap <buffer> <F5> :exec '!lua' shellescape(@%:p, 1)<cr>:let last_execution=@%:p <cr>
 
@@ -572,7 +572,6 @@ let g:LanguageClient_serverCommands = {
     \ 'python': ['pyls'],
     \ 'lua': ['lua-lsp'],
     \ 'cpp': ['clangd-7'],
-    \ 'c': ['clangd-7'],
     \ 'lisp': ['~/.roswell/bin/cl-lsp'],
     \ 'go': ['go-langserver'],
     \ }
@@ -591,7 +590,6 @@ nnoremap <leader>la :call LanguageClient_contextMenu()<CR>
 nnoremap <leader>ca :call LanguageClient#textDocument_codeAction()<CR>
 nnoremap <silent> gh :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> <leader>ss :call LanguageClient#textDocument_documentSymbol()<CR>
-nnoremap <silent> <leader>wo :call LanguageClient#workspace_symbol()<CR>
 nnoremap <silent> <c-s> :call LanguageClient#textDocument_formatting()<CR>:w<CR>
 nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
 nnoremap <silent> <leader>fo :call LanguageClient#textDocument_formatting()<CR>
@@ -664,10 +662,10 @@ if has('nvim')
     "tnoremap <c-s-´> <C-\><C-n>:Ttoggle<cr>
     tnoremap <c-d> <C-\><C-n><c-w>c
 endif
-"nnoremap <c-w>+ <c-w>+<c-w>+<c-w>+<c-w>+<c-w>+<c-w>+<c-w>+<c-w>+
-"nnoremap <c-w>- <c-w>-<c-w>-<c-w>-<c-w>-<c-w>-<c-w>-<c-w>-<c-w>-
-"nnoremap <c-w>< <c-w><<c-w><<c-w><<c-w><<c-w><<c-w><<c-w><<c-w><
-"nnoremap <c>w>> <c>w>><c>w>><c>w>><c>w>><c>w>><c>w>><c>w>><c>w>>
+nnoremap <c-w>+ <c-w>+<c-w>+<c-w>+<c-w>+<c-w>+<c-w>+<c-w>+<c-w>+
+nnoremap <c-w>- <c-w>-<c-w>-<c-w>-<c-w>-<c-w>-<c-w>-<c-w>-<c-w>-
+nnoremap <c-w>< <c-w><<c-w><<c-w><<c-w><<c-w><<c-w><<c-w><<c-w><
+nnoremap <c>w>> <c>w>><c>w>><c>w>><c>w>><c>w>><c>w>><c>w>><c>w>>
 nnoremap <leader>tt :<c-u>exec v:count.'T'<cr>
 "nnoremap <c-`> :cclose<cr>:lclose<cr>:Ttoggle<cr>
 "nnoremap <c-s-´> :cclose<cr>:lclose<cr>:Ttoggle<cr>
@@ -719,11 +717,10 @@ function! GotoPython()
 	let current_line = getline('.')
 	let goto_file = matchstr(current_line, '\(File "\)\@<=\(.*\)\("\)\@=')
 	let goto_line = matchstr(current_line, '\(line \)\@<=[0-9]*')
-	execute "edit +" . goto_line . " " . goto_file
+	execute "tabedit +" . goto_line . " " . goto_file
 endfunction
 
 
-nnoremap gP :call GotoPython()<cr>
 set spell
 
 let g:slime_target = "neovim"
@@ -782,7 +779,7 @@ let g:quickr_preview_on_cursor = 1
 
  "inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 
- let g:LanguageClient_hasSnippetSupport = 1
+ let g:LanguageClient_hasSnippetSupport = 0
 
 
  set autoread
@@ -883,6 +880,7 @@ let g:tex_flavor = "latex"
 
 let g:rooter_silent_chdir = 1
 nnoremap <Leader>fu :CtrlPFunky<Cr>
+nnoremap <c-a-n> :CtrlPFunky<Cr>
 nnoremap <leader>yy :CtrlPYankring<cr>
 nnoremap <leader>co :Commands<cr>
 nnoremap ,c :Commands<cr>
@@ -903,6 +901,8 @@ nnoremap <A-7> 7gt
 nnoremap <A-8> 8gt
 nnoremap <A-9> 9gt
 nnoremap <A-0> 10gt
+nnoremap ,gitg :!gitg
+nnoremap ,gui :!cmake-gui build<cr>
 
 "let g:seoul256_background = 0
 "colo seoul256
@@ -915,7 +915,7 @@ let g:sneak#use_ic_scs = 1
 let $FZF_BIBTEX_SOURCES = 'references.bib'
 
 function! s:bibtex_cite_sink(lines)
-    let r=system("bibtex-cite ". globpath('.', '*.bib', a:lines)
+    let r=system("bibtex-cite ". globpath('.', '*.bib'), a:lines)
     execute ':normal! i' . r
 endfunction
 
@@ -940,16 +940,22 @@ inoremap <silent> @@ <c-g>u<c-o>:call fzf#run({
                         \ 'sink*': function('<sid>bibtex_cite_sink_insert'),
                         \ 'up': '40%',
                         \ 'options': '--ansi --multi --prompt "Cite> "'})<CR>
+
+inoremap <silent> @yy <c-g>u<c-o>:CtrlPYankring<CR>
+let g:cmake_export_compile_commands =1
+let g:cmake_ycm_symlinks=1
+let g:ctrlp_funky_syntax_highlight = 1
+
+nnoremap <c-a-p> :cd ~/projects<cr>:Files<cr>
+nnoremap <c-p> :CtrlPMixed<cr>
+let g:ctrlp_switch_buffer = 'et'
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+
+command! -bang -nargs=? -complete=dir Files :call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+nnoremap <c-p> :Files<cr>
 nnoremap <leader>t :T 
-set mouse=a
+nnoremap <a-l> "zyy"zp 
+nnoremap <a-h> "zyy"zP 
 
-let g:NERDTreeFileExtensionHighlightFullName = 1
-let g:NERDTreeExactMatchHighlightFullName = 1
-let g:NERDTreePatternMatchHighlightFullName = 1
 
-nnoremap <c-a-h> "zyy"zP
-nnoremap <c-a-l> "zyy"zp
 
-"noremap <leader>gr :call Gurl()<CR>
-nnoremap Q @q
-vnoremap Q :norm @q<cr>
