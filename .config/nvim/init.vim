@@ -56,24 +56,27 @@ function! Toggle_line_numbers()
 
 		" Always show line numbers, but only in current window.
 		"set number
-		au WinEnter * :setlocal number
-		au WinEnter * :setlocal relativenumber
-		au WinLeave * :setlocal norelativenumber
-		au WinLeave * :setlocal number
+		"au WinEnter * :setlocal number
+		"au WinEnter * :setlocal relativenumber
+		"au WinLeave * :setlocal norelativenumber
+		"au WinLeave * :setlocal number
 	else
 		let g:use_line_numbers=1
 		set nonumber
 		set norelativenumber
 
 		" Always show line numbers, but only in current window.
-		"set number
-		au WinEnter * :setlocal nonumber
-		au WinEnter * :setlocal norelativenumber
-		au WinLeave * :setlocal norelativenumber
-		au WinLeave * :setlocal nonumber
+		""set number
+		"au WinEnter * :setlocal nonumber
+		"au WinEnter * :setlocal norelativenumber
+		"au WinLeave * :setlocal norelativenumber
+		"au WinLeave * :setlocal nonumber
 	endif
 endfunction
 call Toggle_line_numbers()
+
+
+"au! WinEnter * SemanticHighlight
 
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
@@ -131,7 +134,7 @@ nnoremap <leader>hi :History<Cr>
 nnoremap <leader>te :set shell=/usr/bin/zsh<cr>:Topen<Cr>
 nnoremap <leader>to :Topen<cr>
 nnoremap <leader>tt 'Ti
-nnoremap <leader>so G:source %<cr>
+nnoremap <leader>so :w<cr>G:source %<cr>
 nnoremap <leader>lime :Limelight!! 0.8<cr>
 nnoremap <space><space> o<Esc>
 nnoremap c "_c
@@ -174,10 +177,10 @@ nnoremap <Leader>nf :NERDTreeFind<cr>
 nnoremap <Leader>oo :only<cr>
 "nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 "nmap <silent> <C-j> <Plug>(ale_next_wrap)
-"nmap <silent> <C-k> :lprevious<cr>
-"nmap <silent> <C-j> :lnext<cr>
-nmap <silent> <C-k> [m<cr>
-nmap <silent> <C-j> ]m<cr>
+nmap <silent> <C-k> :lprevious<cr>
+nmap <silent> <C-j> :lnext<cr>
+"nmap <silent> <C-k> [m<cr>
+"nmap <silent> <C-j> ]m<cr>
 nmap <silent> <C-a-k> <Plug>GitGutterPrevHunk
 nmap <silent> <C-a-j> <Plug>GitGutterNextHunk
 nmap ]h <Plug>GitGutterNextHunk
@@ -211,16 +214,53 @@ inoremap jk <Esc>
 smap <c-n> <Esc>a<tab>
 "smap <c-t> <Esc>a<s-tab>
 "snoremap <c-u> <Esc>a<tab>
+function! BuildComposer(info)
+  if a:info.status != 'unchanged' || a:info.force
+    if has('nvim')
+      !cargo build --release
+    else
+      !cargo build --release --no-default-features --features json-rpc
+    endif
+  endif
+endfunction
 
 call plug#begin('~/.local/share/nvim/plugged')
+    "
     "Plug 'google/vim-maktaba'
     "Plug 'bazelbuild/vim-bazel'
     "Plug 'jason0x43/vim-wildgitignore' 
+    Plug 'bfrg/vim-cpp-modern'
+    Plug 'Raimondi/delimitMate'
+    Plug 'mhartington/oceanic-next'
+    Plug 'Valloric/ListToggle'
+    Plug 'Cosson2017/nvim-go-highlight'
+    "Plug 'SammysHP/vim-heurindent'
+    "Plug 'arakashic/chromatica.nvim'
+    Plug 'dbeniamine/cheat.sh-vim'
+    Plug 'cespare/vim-toml'
+    Plug 'maralla/vim-toml-enhance'
+    Plug 'dbeniamine/cheat.sh-vim'
+    Plug 'tpope/vim-markdown'
+    "Plug 'pboettch/vim-highlight-cursor-words'
+    Plug 'jaxbot/semantic-highlight.vim'
+    Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
+    Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+    "Plug 'Valloric/vim-operator-highlight'
+    Plug 'hiphish/jinja.vim'
+    Plug 'thaerkh/vim-workspace'
+    Plug 'brooth/far.vim'
+    "Plug 'xolox/vim-misc'
+    "Plug 'xolox/vim-easytags'
     Plug 'rking/ag.vim'
-    Plug 'vim-scripts/cmake.vim-syntax'
-    Plug 'tpope/vim-obsession'
-    Plug 'dhruvasagar/vim-prosession'
-    Plug 'jalcine/cmake.vim'
+	"Plug 'vim-pandoc/vim-pandoc'
+    "Plug 'vim-pandoc/vim-pandoc-syntax'
+    "Plug 'puremourning/vimspector'
+    Plug 'romainl/Apprentice'
+    "Plug 'vim-scripts/cmake.vim-syntax'
+    "Plug 'Vigemus/iron.nvim'
+    "Plug 'tpope/vim-obsession'
+    "Plug 'dhruvasagar/vim-prosession'
+	"Plug 'jalcine/cmake.vim'
     "Plug 'xolox/vim-session'
     "Plug 'AndrewRayCode/vim-git-conflict-edit' 
     Plug 'markonm/traces.vim' 
@@ -238,14 +278,13 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'fatih/vim-go', { 'for': 'go' }
 	Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 	"Plug 'jreybert/vimagit'
-	Plug 'vhdirk/vim-cmake'
-	Plug 'sakhnik/nvim-gdb', { 'do': './install.sh' }
+	"Plug 'vhdirk/vim-cmake'
+    Plug 'sakhnik/nvim-gdb', { 'do': './install.sh' }
 	Plug 'tpope/vim-dispatch'
 	Plug 'vim-scripts/SearchComplete'
 	"Plug 'dbeniamine/cheat.sh-vim'
 	"Plug 'libclang-vim/libclang-vim', {'do' : 'make'}
 	"Plug 'libclang-vim/vim-textobj-clang'
-	Plug 'sakhnik/nvim-gdb'
 	Plug 'tpope/vim-abolish'
 	Plug 'mhinz/neovim-remote'
 	Plug 'mbbill/undotree', { 'on':  [ 'UndotreeToggle'] }
@@ -262,6 +301,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'terryma/vim-expand-region'
 	Plug 'terryma/vim-expand-region'
 	Plug 'thalesmello/vim-textobj-methodcall'
+	Plug 'w0rp/ale', { 'for' : [ 'cmake' ] }
 	Plug 'tpope/vim-eunuch'
 	Plug 'chaoren/vim-wordmotion'
 	Plug 'tpope/vim-unimpaired' 
@@ -285,6 +325,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'scrooloose/nerdtree', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
 	Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
 	Plug 'ivalkeen/nerdtree-execute', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+	"Plug 'tiagofumo/vim-nerdtree-syntax-highlight', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
 	Plug 'equalsraf/neovim-gui-shim'
 	Plug 'michaeljsmith/vim-indent-object'
 	Plug 'Chun-Yang/vim-action-ag'
@@ -292,7 +333,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'terryma/vim-multiple-cursors'
 	Plug 'junegunn/goyo.vim'
 	"Plug 'amix/vim-zenroom2'
-	"Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}, 'for': ['java']}
+    Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}, 'for': ['java']}
 	Plug 'autozimu/LanguageClient-neovim', {
 			\ 'branch': 'next',
 			\ 'do': 'bash install.sh',
@@ -308,7 +349,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 	Plug 'rbonvall/snipmate-snippets-bib'
 	Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-	Plug 'idanarye/vim-vebugger'
+	"Plug 'idanarye/vim-vebugger'
 	Plug 'tpope/vim-surround'
 	Plug 'tpope/vim-fugitive'
 	Plug 'tpope/vim-repeat'
@@ -342,6 +383,13 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'icymind/NeoSolarized'
     Plug 'junegunn/seoul256.vim'
 	"Plug 'arzg/seoul8.vim'
+    "
+    "
+    "Plug 'vhakulinen/gnvim-lsp'
+    "Plug 'prabirshrestha/vim-lsp'
+    ""Plug 'Answeror/cmakecomplete'
+    "Plug 'prabirshrestha/async.vim'
+    "Plug 'prabirshrestha/vim-lsp'
 call plug#end()
 
 
@@ -378,7 +426,7 @@ nnoremap gf gF
 nnoremap gF <c-w>gF
 nnoremap gP :call GotoPython()<cr>
 
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.log,*/CMakeFiles/*,*.aux,*.lof,*.lot,*.gz,*.fls,*.fdb_latexmk,*.toc,__*__,*/pybind11/*,*[0-9]+
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.log,*/CMakeFiles/*,*.aux,*.lof,*.lot,*.gz,*.fls,*.fdb_latexmk,*.toc,__*__,*/pybind11/*,*[0-9]+,*.class
 
 set lazyredraw
 set ttyfast
@@ -393,7 +441,7 @@ let g:easymotion_smartsign = 1
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 let g:EasyMotion_keys='hklyuiopnm,qwertzxcvbasdgjf'
 
-nmap <Leader>gs :Gstatus<CR>
+nmap <Leader>gs :Tclose<cr>:cclose<cr>:lclose<cr>:Gstatus<CR>
 nmap <Leader>ga :Gw<CR>
 nmap <Leader>gw :Gw<CR>
 nmap <Leader>gc :Gcommit<CR>
@@ -425,6 +473,7 @@ set background =dark
 
 " Call the theme one
 colorscheme one
+"colorscheme apprentice
 
 " Don't forget set the airline theme as well.
 let g:airline_theme = 'one'
@@ -496,20 +545,23 @@ let g:vebugger_leader =','
 "let g:ycm_server_python_interpreter='/usr/bin/python3'
 
 "let g:deoplete#sources#jedi#extra_path =['', '/usr/lib/python2.7', '/usr/lib/python2.7/plat-x86_64-linux-gnu', '/usr/lib/python27/lib-tk', '/usr/lib/python2.7/lib-old', '/usr/lib/python2.7/lib-dynload', '/home/stepha/.local/lib/python2.7/site-packages', '/usr/local/lib/python2.7/dist-packages', '/usr/li/python2.7/dist-packages', '/usr/lib/python2.7/dist-packages/PILcompat', '/usr/lib/pytho2.7/dist-packages/gtk-2.0', '/usr/lib/python2.7/dist-packages/wx-3.0-gtk2']
-nnoremap <F3> :wa<cr>:exec 'T' expand($last_execution,1)<cr>
-autocmd FileType python nnoremap <buffer> <F6> :VBGstartPDB3 %<cr>
-autocmd FileType python nnoremap <buffer> <space>deb :VBGstartPDB3 %<cr>
-autocmd FileType python nnoremap <buffer> <c-f5> :VBGcontinue %<cr>
-autocmd FileType python nnoremap <buffer> <F7> :VBGcontinue<cr>
-autocmd FileType python nnoremap <buffer> <F9> :VBGtoggleBreakpointThisLine<cr>
-autocmd FileType python nnoremap <buffer> <c-a-b> :VBGtoggleBreakpointThisLine<cr>
-autocmd FileType python nnoremap <buffer> <F10> :VBGstepOver<cr>
-autocmd FileType python nnoremap <buffer> <F11> :VBGstepIn<cr>
-autocmd FileType python nnoremap <buffer> <F12> :VBGstepOver<cr>
+nnoremap <F3> :Tkill<cr>:wa<cr>:exec 'T' expand($last_execution,1)<cr>
+"autocmd FileType python nnoremap <buffer> <F6> :VBGstartPDB3 %<cr>
+"autocmd FileType python nnoremap <buffer> <space>deb :VBGstartPDB3 %<cr>
+"autocmd FileType python nnoremap <buffer> <c-f5> :VBGcontinue %<cr>
+"autocmd FileType python nnoremap <buffer> <F7> :VBGcontinue<cr>
+"autocmd FileType python nnoremap <buffer> <F9> :VBGtoggleBreakpointThisLine<cr>
+"autocmd FileType python nnoremap <buffer> <c-a-b> :VBGtoggleBreakpointThisLine<cr>
+"autocmd FileType python nnoremap <buffer> <F10> :VBGstepOver<cr>
+"autocmd FileType python nnoremap <buffer> <F11> :VBGstepIn<cr>
+"autocmd FileType python nnoremap <buffer> <F12> :VBGstepOver<cr>
 nnoremap <leader>tt :<c-u>exec v:count.'T'
 autocmd FileType python nnoremap <buffer> <F5> :let $last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:T python3 %<cr>
-autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . $target<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
-autocmd FileType cpp nnoremap <buffer> <F4> :wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
+autocmd FileType python nnoremap <buffer> <s-F5> :let $last_execution=':GdbStartPDB python3 -m pdb ' . expand('%:p',1)<cr>:wa<cr>:T :GdbStartPDB python3 -m pdb %<cr>
+autocmd FileType python nnoremap <buffer> <F7> :let $last_execution='python3 -m pdb -c continue ' . expand('%:p',1)<cr>:wa<cr>:T python3 -m pdb -c continue %<cr>
+autocmd FileType python nnoremap <buffer> <F4> :let $last_execution='ipython3 ' . expand('%:p',1)<cr>:wa<cr>:T ipython3 %<cr>
+"autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . $target<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
+autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='build.py --run'<cr>:Tkill<cr>:wa<cr>:T build.py --run<cr>
 " jump to the previous function
 autocmd FileType cpp nnoremap <buffer> [f :call
 \ search('\(\(if\\|for\\|while\\|switch\\|catch\)\_s*\)\@64<!(\_[^)]*)\_[^;{}()]*\zs{', "bw")<CR>
@@ -521,6 +573,7 @@ autocmd FileType cpp nnoremap <buffer> ]f :call
 "
 "nnoremap <F3> :T !!<cr>
 
+autocmd FileType cmake SemanticHighlight
 autocmd FileType lua nnoremap <buffer> <F5> :exec '!lua' shellescape(@%:p, 1)<cr>:let last_execution=@%:p <cr>
 
 autocmd FileType tex,latex nnoremap <buffer> <c-s> mzgg=G`z:w<cr>zz
@@ -553,8 +606,8 @@ endif
 
 "imap <C-J> <Plug>snipMateNextOrTrigger
 "smap <C-J> <Plug>snipMateNextOrTrigger
-imap <C-j> <Plug>snipMateTrigger
-smap <C-j> <Plug>snipMateTrigger
+"imap <C-j> <Plug>snipMateTrigger
+"smap <C-j> <Plug>snipMateTrigger
 smap <s-tab> <Plug>snipMateBack
 imap <s-tab> <Plug>snipMateBack
 
@@ -566,14 +619,16 @@ let g:gonvim_draw_statusline = 1
 
     "\ 'cpp': ['clangd'],
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls'],
     \ 'javascript': ['javascript-typescript-stdio'],
     \ 'javascript.jsx': ['javascript-typescript-stdio'],
     \ 'python': ['pyls'],
     \ 'lua': ['lua-lsp'],
     \ 'cpp': ['clangd-7'],
+    \ 'c': ['clangd-7'],
     \ 'lisp': ['~/.roswell/bin/cl-lsp'],
     \ 'go': ['go-langserver'],
+    \ 'sh': ['~/.yarn/bin/bash-language-server', 'start']
     \ }
 	"\ 'cpp': ['/home/stephan/projects/cquery/build/release/bin/cquery','--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery/"}, "completion": {"filterAndSort": false}}'],
 "if executable('ccls')
@@ -597,7 +652,8 @@ nnoremap <silent> <leader>hi :call LanguageClient#textDocument_documentHighlight
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> gD <c-w>v:call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-nnoremap <silent> <leader>f0 :set foldlevel=0<CR> nnoremap <silent> <leader>ff :set foldlevel=99<CR>
+nnoremap <silent> <leader>f0 :set foldlevel=0<CR>
+nnoremap <silent> <leader>ff :set foldlevel=99<CR>
 
 "nmap <silent> <C-a-o> :call LanguageClient#textDocument_documentSymbol()<cr>
 nmap <silent> <C-a-o> :BTags<cr>
@@ -657,24 +713,28 @@ noremap <Esc> <C-\><C-n>
 if has('nvim')
     tnoremap jk <C-\><C-n>
     tnoremap <c-v> <C-\><C-n>pi
-    tnoremap <c-`> <C-\><C-n>:cclose<cr>:lclose<cr>:Ttoggle<cr>
-    tnoremap <c-s-´> <C-\><C-n>:cclose<cr>:lclose<cr>:Ttoggle<cr>
+    tnoremap <c-`> <C-\><C-n>:cclose<cr>:lclose<cr>:pc<cr>:Ttoggle<cr>
+    tnoremap <c-´> <C-\><C-n>:cclose<cr>:lclose<cr>:pc<cr>:Ttoggle<cr>
     "tnoremap <c-s-´> <C-\><C-n>:Ttoggle<cr>
-    tnoremap <c-d> <C-\><C-n><c-w>c
+    tnoremap <c-d> <C-\><C-n>:bd!<cr>
+    tnoremap <silent> <end> <C-\><C-n><cr>:vertical Ttoggle<cr>
+    nnoremap <silent> <c-`> :botright Ttoggle<cr>
+    nnoremap <silent> <end> <c-w>o:vertical Ttoggle<cr>
+    nnoremap <c-´> :botright Ttoggle<cr>
+    "nnoremap <leader>tt :<c-u>exec v:count.'T'<cr>
+    nnoremap <silent> <PageDown> :cclose<cr>:lclose<cr>:pc<cr>:botright Ttoggle<cr>
+    tnoremap <silent> <PageDown> <C-\><C-n><cr>:Ttoggle<cr>
+
 endif
-nnoremap <c-w>+ <c-w>+<c-w>+<c-w>+<c-w>+<c-w>+<c-w>+<c-w>+<c-w>+
-nnoremap <c-w>- <c-w>-<c-w>-<c-w>-<c-w>-<c-w>-<c-w>-<c-w>-<c-w>-
-nnoremap <c-w>< <c-w><<c-w><<c-w><<c-w><<c-w><<c-w><<c-w><<c-w><
-nnoremap <c>w>> <c>w>><c>w>><c>w>><c>w>><c>w>><c>w>><c>w>><c>w>>
-nnoremap <leader>tt :<c-u>exec v:count.'T'<cr>
 "nnoremap <c-`> :cclose<cr>:lclose<cr>:Ttoggle<cr>
 "nnoremap <c-s-´> :cclose<cr>:lclose<cr>:Ttoggle<cr>
-nnoremap <c-`> :Ttoggle<cr>
-nnoremap <c-s-´> :Ttoggle<cr>
+
 let g:neoterm_default_mod='botright'
+let g:neoterm_open_in_all_tabs=0
 "autocmd BufWinEnter,WinEnter term://* startinsert
 augroup terminal
 	autocmd TermOpen * set bufhidden=hide
+	"autocmd TermOpen * set syntax=cpp
 	autocmd TermOpen * setlocal nospell
 augroup END
 
@@ -688,13 +748,14 @@ au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 "
 "
-"call camelcasemotion#CreateMotionMappings('-')
+"call camelcasemotion#CreateMotionMappings()
 let g:wordmotion_prefix = '-'
 
 
 
 command! CtrlPSameName call feedkeys(":CtrlP\<cr>".expand('%:t:r'), "t")
 nnoremap <a-o> :CtrlPSameName<cr>
+nnoremap <c-a-h> call feedkeys(":CtrlP\<cr>".expand('%:t:r') . ".h", "t")
 set path=.,**
 "horizontal split below
 let g:slimv_repl_split=2
@@ -706,9 +767,8 @@ nnoremap <leader>el :TREPLSendLine<cr>
 nnoremap ,repl :belowright Tnew<cr><c-w>j :exe "resize " . 13<CR>
 vnoremap <leader>ee :TREPLSendSelection<cr>
 let g:neoterm_repl_python="python3"
-nmap gx <Plug>(neoterm-repl-send)
-xmap gx <Plug>(neoterm-repl-send)
-"let g:neoterm_autoinsert=1
+nmap gq <Plug>(neoterm-repl-send)
+xmap gq <Plug>(neoterm-repl-send)
 
 set noshowmode
 set clipboard=unnamedplus
@@ -737,7 +797,7 @@ let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<Esc>'
 
 let g:fzf_buffers_jump = 1
-command! -bang -nargs=* Ag
+command! -bang -nargs=* FuzzyAg
   \ call fzf#vim#ag(<q-args>,
   \                  fzf#vim#with_preview('up:60%'),
   \                 1)
@@ -750,6 +810,7 @@ command! -bang -nargs=* Ag
   "\   1)
 
 nnoremap <leader>ag :Ag<cr>
+nnoremap <leader>fag :FuzzyAg<cr>
 nnoremap <leader>rg :Rg<cr>
 let g:LanguageClient_diagnosticsList = "Location"
 let g:quickr_preview_on_cursor = 1
@@ -888,8 +949,7 @@ nnoremap ,, :BLines<cr>
 
 let g:neoterm_autoinsert=0
 let g:neoterm_autoscroll=1
-let g:neoterm_size='15'
-"g:neoterm_fixedsize
+"let  g:neoterm_fixedsize =20
 
 nnoremap <A-1> 1gt
 nnoremap <A-2> 2gt
@@ -946,16 +1006,114 @@ let g:cmake_export_compile_commands =1
 let g:cmake_ycm_symlinks=1
 let g:ctrlp_funky_syntax_highlight = 1
 
+"nnoremap <c-a-p> :cd ~/projects<cr>:CtrlPMixed<cr>
 nnoremap <c-a-p> :cd ~/projects<cr>:Files<cr>
-nnoremap <c-p> :CtrlPMixed<cr>
 let g:ctrlp_switch_buffer = 'et'
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 command! -bang -nargs=? -complete=dir Files :call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-nnoremap <c-p> :Files<cr>
+nnoremap <c-f> :Files<cr>
 nnoremap <leader>t :T 
 nnoremap <a-l> "zyy"zp 
 nnoremap <a-h> "zyy"zP 
 
+let g:ctrlp_switch_buffer=0
 
 
+nnoremap <F6> :call vimspector#Continue()<CR>
+nnoremap <a-b> :call vimspector#ToggleBreakpoint()<cr>
+nnoremap <F10>   :call vimspector#StepOver()<cr>
+nnoremap <F11>  :call vimspector#StepInto()<cr>
+nnoremap <s-F11>    :call vimspector#StepOut()<cr>
+nnoremap <leader>id :GitGutterLineHighlightsToggle<cr>
+
+let g:NERDTreeWinPos = "left"
+set updatetime=100
+
+let g:license="GPLv3"
+omap ih <Plug>GitGutterTextObjectInnerPending
+omap ah <Plug>GitGutterTextObjectOuterPending
+xmap ih <Plug>GitGutterTextObjectInnerVisual
+xmap ah <Plug>GitGutterTextObjectOuterVisual
+
+"nmap <leader>r <Plug>(iron-send-motion)
+nmap ,code :!code-insiders -r %<cr>
+
+"nnoremap <c-p> :CtrlPMixed<cr>
+let g:ctrlp_map = ''
+nnoremap <c-p> :Files<CR>
+
+" ripgrep
+if executable('rg')
+  let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
+  set grepprg=rg\ --vimgrep
+  command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+endif
+
+let g:fzf_files_options = '--preview "bat --theme="OneHalfDark" --style=numbers,changes --color always {2..-1} | head -'.&lines.'"'
+
+" Files + devicons
+function! Fzf_dev()
+  let l:fzf_files_options = '--preview "bat --theme="OneHalfDark" --style=numbers,changes --color always {2..-1} | head -'.&lines.'"'
+
+  function! s:files()
+    let l:files = split(system($FZF_DEFAULT_COMMAND), '\n')
+    return s:prepend_icon(l:files)
+  endfunction
+
+  function! s:prepend_icon(candidates)
+    let l:result = []
+    for l:candidate in a:candidates
+      let l:filename = fnamemodify(l:candidate, ':p:t')
+      let l:icon = WebDevIconsGetFileTypeSymbol(l:filename, isdirectory(l:filename))
+      call add(l:result, printf('%s %s', l:icon, l:candidate))
+    endfor
+
+    return l:result
+  endfunction
+
+  function! s:edit_file(item)
+    let l:pos = stridx(a:item, ' ')
+    let l:file_path = a:item[pos+1:-1]
+    execute 'silent e' l:file_path
+  endfunction
+
+  call fzf#run({
+        \ 'source': <sid>files(),
+        \ 'sink':   function('s:edit_file'),
+        \ 'options': '-m ' . l:fzf_files_options,
+        \ 'down':    '40%' })
+endfunction
+
+augroup filetypedetect
+    au! BufRead,BufNewFile *.cpp.tmpl setfiletype cpp
+augroup END
+
+let g:NERDTreeFileExtensionHighlightFullName = 1
+let g:NERDTreeExactMatchHighlightFullName = 1
+let g:NERDTreePatternMatchHighlightFullName = 1
+nmap Q @q
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'cpp', 'rust', 'java']
+
+function! Multiple_cursors_before()
+  let g:deoplete#disable_auto_complete = 1
+endfunction
+function! Multiple_cursors_after()
+    let g:deoplete#disable_auto_complete = 0
+endfunction
+
+let g:lt_location_list_toggle_map = '<leader>qe'
+let g:lt_quickfix_list_toggle_map = '<leader>ql'
+"au! FileType cmake unmap <buffer> <silent> gh
+"au! FileType cmake nmap <buffer> <silent> <unique> gh <Plug>CMakeCompleteHelp
+nmap <leader>ch :Cheat! 
+
+
+let g:netrw_browsex_viewer='xdg-open'
+let g:rust_fold = 1
+let g:cargo_makeprg_params = 'build'
+
+"let g:oceanic_next_terminal_bold = 1
+"let g:oceanic_next_terminal_italic = 1
+"colorscheme OceanicNext
