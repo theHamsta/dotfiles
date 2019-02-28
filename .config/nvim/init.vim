@@ -229,16 +229,23 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'google/vim-maktaba'
     "Plug 'bazelbuild/vim-bazel'
     "Plug 'jason0x43/vim-wildgitignore' 
+    "Plug 'SirVer/ultisnips'
+    Plug 'cyansprite/Extract'
+    Plug 'wbthomason/buildit.nvim'
     Plug 'bfrg/vim-cpp-modern'
-    Plug 'Raimondi/delimitMate'
+    Plug 'mgedmin/python-imports.vim'
+    Plug 'skywind3000/vim-preview'
+    Plug 'rhysd/rust-doc.vim'
+    Plug 'dyng/ctrlsf.vim'
+    "Plug 'Raimondi/delimitMate'
     Plug 'mhartington/oceanic-next'
     Plug 'Valloric/ListToggle'
     Plug 'Cosson2017/nvim-go-highlight'
     "Plug 'SammysHP/vim-heurindent'
     "Plug 'arakashic/chromatica.nvim'
     Plug 'dbeniamine/cheat.sh-vim'
-    Plug 'cespare/vim-toml'
-    Plug 'maralla/vim-toml-enhance'
+    Plug 'cespare/vim-toml', {'for': 'toml'}
+    Plug 'maralla/vim-toml-enhance', {'for': 'toml'}
     Plug 'dbeniamine/cheat.sh-vim'
     Plug 'tpope/vim-markdown'
     "Plug 'pboettch/vim-highlight-cursor-words'
@@ -333,7 +340,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'terryma/vim-multiple-cursors'
 	Plug 'junegunn/goyo.vim'
 	"Plug 'amix/vim-zenroom2'
-    Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}, 'for': ['java']}
+    Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}, 'for': ['java', 'json']}
 	Plug 'autozimu/LanguageClient-neovim', {
 			\ 'branch': 'next',
 			\ 'do': 'bash install.sh',
@@ -395,6 +402,11 @@ call plug#end()
 
 
 let g:deoplete#enable_at_startup = 1
+call deoplete#custom#var('omni', 'input_patterns', {
+            \ 'tex': g:vimtex#re#deoplete
+            \})
+
+
 "let g:deoplete#sources#clang#executable='/usr/bin/clang'
 
 nnoremap <Leader>l :ls<CR>
@@ -426,7 +438,7 @@ nnoremap gf gF
 nnoremap gF <c-w>gF
 nnoremap gP :call GotoPython()<cr>
 
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.log,*/CMakeFiles/*,*.aux,*.lof,*.lot,*.gz,*.fls,*.fdb_latexmk,*.toc,__*__,*/pybind11/*,*[0-9]+,*.class
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.log,*/CMakeFiles/*,*.aux,*.lof,*.lot,*.gz,*.fls,*.fdb_latexmk,*.toc,__*__,*/pybind11/*,*[0-9]+,*.class,*.bak?,*.bak??,*.md5,*.snm,*.bbl,*.nav,*.out,*.run.xml,*.bcf,*.blg,*.auxlock
 
 set lazyredraw
 set ttyfast
@@ -466,7 +478,6 @@ endif
 
 "inoremap <expr><cr> pumvisible() ? "\<c-n>" : "\<cr>"
 
-autocmd BufEnter *.m    compiler mlint 
 
 " Set the background theme to dark
 set background =dark
@@ -576,7 +587,7 @@ autocmd FileType cpp nnoremap <buffer> ]f :call
 autocmd FileType cmake SemanticHighlight
 autocmd FileType lua nnoremap <buffer> <F5> :exec '!lua' shellescape(@%:p, 1)<cr>:let last_execution=@%:p <cr>
 
-autocmd FileType tex,latex nnoremap <buffer> <c-s> mzgg=G`z:w<cr>zz
+autocmd FileType tex,latex nnoremap <buffer> <c-s> :w<cr>:silent !latexindent % -w<cr>:e<cr>
 autocmd FileType tex,latex call neomake#configure#automake('w')
 "<cr>:e
 
@@ -625,6 +636,7 @@ let g:LanguageClient_serverCommands = {
     \ 'python': ['pyls'],
     \ 'lua': ['lua-lsp'],
     \ 'cpp': ['clangd-7'],
+    \ 'cuda': ['clangd-7'],
     \ 'c': ['clangd-7'],
     \ 'lisp': ['~/.roswell/bin/cl-lsp'],
     \ 'go': ['go-langserver'],
@@ -641,17 +653,31 @@ let g:LanguageClient_serverCommands = {
 			 "\ })
    "endif
 
-nnoremap <leader>la :call LanguageClient_contextMenu()<CR>
-nnoremap <leader>ca :call LanguageClient#textDocument_codeAction()<CR>
-nnoremap <silent> gh :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> <leader>ss :call LanguageClient#textDocument_documentSymbol()<CR>
-nnoremap <silent> <c-s> :call LanguageClient#textDocument_formatting()<CR>:w<CR>
-nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
-nnoremap <silent> <leader>fo :call LanguageClient#textDocument_formatting()<CR>
-nnoremap <silent> <leader>hi :call LanguageClient#textDocument_documentHighlight()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> gD <c-w>v:call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+function! LC_maps()
+   if has_key(g:LanguageClient_serverCommands, &filetype)
+     call deoplete#custom#option('auto_complete', v:true)
+
+     if &filetype != "python"
+         autocmd CursorHold <buffer> silent call LanguageClient#textDocument_documentHighlight()
+     endif
+     nnoremap <buffer> <leader>la :call LanguageClient_contextMenu()<CR>
+       nnoremap <buffer> <leader>ca :call LanguageClient#textDocument_codeAction()<CR>
+       nnoremap <buffer> <silent> gh :call LanguageClient#textDocument_hover()<CR>
+       nnoremap <buffer> <silent> <leader>ss :call LanguageClient#textDocument_documentSymbol()<CR>
+       nnoremap <buffer> <silent> <c-s> :call LanguageClient#textDocument_formatting()<CR>:w<CR>
+       nnoremap <buffer> <silent> gr :call LanguageClient#textDocument_references()<CR>
+       nnoremap <buffer> <silent> <leader>fo :call LanguageClient#textDocument_formatting()<CR>
+       nnoremap <buffer> <silent> <leader>hi :call LanguageClient#textDocument_documentHighlight()<CR>
+       nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
+       nnoremap <buffer> <silent> gD <c-w>v:call LanguageClient#textDocument_definition()<CR>
+       nnoremap <buffer> <silent> gt :call LanguageClient#textDocument_typeDefinition()<CR>
+       nnoremap <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+   endif
+endfunction
+
+autocmd FileType * call LC_maps()
+
+
 nnoremap <silent> <leader>f0 :set foldlevel=0<CR>
 nnoremap <silent> <leader>ff :set foldlevel=99<CR>
 
@@ -817,26 +843,26 @@ let g:quickr_preview_on_cursor = 1
 
 
  function! ActivateCoc()
-	 let b:deoplete_disable_auto_complete = 1
-	nmap <silent> <c-k> <Plug>(coc-diagnostic-prev)
-	nmap <silent> <c-j> <Plug>(coc-diagnostic-next)
-	 nmap <silent> gd <Plug>(coc-definition)
-	 nmap <silent> gD <c-w>v<Plug>(coc-definition)
-	 nmap <silent> gt <Plug>(coc-type-definition)
-	 nmap <silent> gT <c-w>v<Plug>(coc-type-definition)
-	 nmap <silent> gi <Plug>(coc-implementation)
-	 nmap <silent> gI <c-w>v<Plug>(coc-implementation)
-	 nmap <silent> gr <Plug>(coc-references)
-	 nmap <silent> gh :call CocAction('doHover')<cr>
-	 nmap <silent> <c-s> :call CocAction('format')<cr>
-	 vmap <leader>a  <Plug>(coc-codeaction-selected)
-	 nmap <leader>a  <Plug>(coc-codeaction-selected)
+     call deoplete#custom#option('auto_complete', v:false)
+     autocmd User <buffer> CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+     autocmd  CursorHold <buffer> silent call CocActionAsync('highlight')
+     "autocmd <buffer> CursorHold * silent call CocActionAsync('highlight')
+	 nmap <silent> <buffer>  <c-k> <Plug>(coc-diagnostic-prev)
+	 nmap <silent> <buffer>  <c-j> <Plug>(coc-diagnostic-next)
+	 nmap <silent> <buffer>  gd <Plug>(coc-definition)
+	 nmap <silent> <buffer>  gD <c-w>v<Plug>(coc-definition)
+	 nmap <silent> <buffer>  gt <Plug>(coc-type-definition)
+	 nmap <silent> <buffer>  gT <c-w>v<Plug>(coc-type-definition)
+	 nmap <silent> <buffer>  gi <Plug>(coc-implementation)
+	 nmap <silent> <buffer>  gI <c-w>v<Plug>(coc-implementation)
+	 nmap <silent> <buffer>  gr <Plug>(coc-references)
+	 nmap <silent> <buffer>  gh :call CocAction('doHover')<cr>
+	 nmap <silent> <buffer>  <c-s> :call CocAction('format')<cr>
+	 vmap <buffer> <leader>a   <Plug>(coc-codeaction-selected)
+	 nmap <buffer> <leader>a <Plug>(coc-codeaction-selected)
  endfunction()
 
- augroup LSP
-   autocmd!
-   autocmd FileType java call ActivateCoc()
- augroup END
+autocmd FileType java call ActivateCoc()
 
  "inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 
@@ -961,7 +987,7 @@ nnoremap <A-7> 7gt
 nnoremap <A-8> 8gt
 nnoremap <A-9> 9gt
 nnoremap <A-0> 10gt
-nnoremap ,gitg :!gitg
+nnoremap ,gitg :!gitg&<cr>
 nnoremap ,gui :!cmake-gui build<cr>
 
 "let g:seoul256_background = 0
@@ -1097,10 +1123,10 @@ inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'cpp', 'rust', 'java']
 
 function! Multiple_cursors_before()
-  let g:deoplete#disable_auto_complete = 1
+  call deoplete#custom#option('auto_complete', v:false)
 endfunction
 function! Multiple_cursors_after()
-    let g:deoplete#disable_auto_complete = 0
+  call deoplete#custom#option('auto_complete', v:true)
 endfunction
 
 let g:lt_location_list_toggle_map = '<leader>qe'
@@ -1117,3 +1143,33 @@ let g:cargo_makeprg_params = 'build'
 "let g:oceanic_next_terminal_bold = 1
 "let g:oceanic_next_terminal_italic = 1
 "colorscheme OceanicNext
+autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
+
+nmap     <C-F>f <Plug>CtrlSFPrompt
+vmap     <C-F>f <Plug>CtrlSFVwordPath
+vmap     <C-F>F <Plug>CtrlSFVwordExec
+nmap     <C-F>n <Plug>CtrlSFCwordPath
+nmap     <C-F>p <Plug>CtrlSFPwordPath
+nnoremap <C-F>o :CtrlSFOpen<CR>
+nnoremap <C-F>t :CtrlSFToggle<CR>
+inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
+set completeopt=menuone,menu,longest,preview
+
+" Highlight (inofficial) json comments
+ autocmd FileType json syntax match Comment +\/\/.\+$+
+
+highlight Foo guibg=Black guifg=White
+let g:LanguageClient_documentHighlightDisplay = {
+            \      1: {
+            \          "name": "Text",
+            \          "texthl": "Foo",
+            \      },
+            \      2: {
+            \          "name": "Read",
+            \          "texthl": "Foo",
+            \      },
+            \      3: {
+            \          "name": "Write",
+            \          "texthl": "Foo",
+            \      }}
