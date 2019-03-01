@@ -230,7 +230,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'bazelbuild/vim-bazel'
     "Plug 'jason0x43/vim-wildgitignore' 
     "Plug 'SirVer/ultisnips'
-    Plug 'cyansprite/Extract'
+    "Plug 'cyansprite/Extract'
     Plug 'wbthomason/buildit.nvim'
     Plug 'bfrg/vim-cpp-modern'
     Plug 'mgedmin/python-imports.vim'
@@ -240,7 +240,6 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'Raimondi/delimitMate'
     Plug 'mhartington/oceanic-next'
     Plug 'Valloric/ListToggle'
-    Plug 'Cosson2017/nvim-go-highlight'
     "Plug 'SammysHP/vim-heurindent'
     "Plug 'arakashic/chromatica.nvim'
     Plug 'dbeniamine/cheat.sh-vim'
@@ -379,6 +378,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'beloglazov/vim-online-thesaurus'
 	Plug 'wellle/targets.vim'
 	Plug 'fszymanski/deoplete-emoji'
+    Plug 'zchee/deoplete-go', { 'do': 'make'}
 	"
 	"Plug 'rkulla/pydiction'
 	"Plug 'xolox/vim-misc'
@@ -639,9 +639,12 @@ let g:LanguageClient_serverCommands = {
     \ 'cuda': ['clangd-7'],
     \ 'c': ['clangd-7'],
     \ 'lisp': ['~/.roswell/bin/cl-lsp'],
-    \ 'go': ['go-langserver'],
-    \ 'sh': ['~/.yarn/bin/bash-language-server', 'start']
+    \ 'go': ['bingo', '--diagnostics-style=instant'],
+    \ 'sh': ['~/.yarn/bin/bash-language-server', 'start'],
+    \ 'tex': ['java', '-jar',  '~/.local/bin/texlab.jar'],
+    \ 'bib': ['java', '-jar',  '~/.local/bin/texlab.jar']
     \ }
+    "\ 'go': ['go-langserver'],
 	"\ 'cpp': ['/home/stephan/projects/cquery/build/release/bin/cquery','--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery/"}, "completion": {"filterAndSort": false}}'],
 "if executable('ccls')
 	   "au User lsp_setup call lsp#register_server({
@@ -657,9 +660,10 @@ function! LC_maps()
    if has_key(g:LanguageClient_serverCommands, &filetype)
      call deoplete#custom#option('auto_complete', v:true)
 
-     if &filetype != "python"
+     if &filetype != "python" || &filetype != "tex" || &filetype != "bib"
          autocmd CursorHold <buffer> silent call LanguageClient#textDocument_documentHighlight()
      endif
+     "autocmd CursorHold <buffer> silent call LanguageClient#textDocument_hover()
      nnoremap <buffer> <leader>la :call LanguageClient_contextMenu()<CR>
        nnoremap <buffer> <leader>ca :call LanguageClient#textDocument_codeAction()<CR>
        nnoremap <buffer> <silent> gh :call LanguageClient#textDocument_hover()<CR>
@@ -856,8 +860,8 @@ let g:quickr_preview_on_cursor = 1
 	 nmap <silent> <buffer>  gi <Plug>(coc-implementation)
 	 nmap <silent> <buffer>  gI <c-w>v<Plug>(coc-implementation)
 	 nmap <silent> <buffer>  gr <Plug>(coc-references)
-	 nmap <silent> <buffer>  gh :call CocAction('doHover')<cr>
-	 nmap <silent> <buffer>  <c-s> :call CocAction('format')<cr>
+	 nmap <silent> <buffer>  gh :call CocAction('doHover')
+	 nmap <silent> <buffer>  <c-s> :call CocAction('format')
 	 vmap <buffer> <leader>a   <Plug>(coc-codeaction-selected)
 	 nmap <buffer> <leader>a <Plug>(coc-codeaction-selected)
  endfunction()
@@ -1120,7 +1124,7 @@ let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
 nmap Q @q
 inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
-let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'cpp', 'rust', 'java']
+let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'cpp', 'rust', 'java', 'go']
 
 function! Multiple_cursors_before()
   call deoplete#custom#option('auto_complete', v:false)
@@ -1159,17 +1163,21 @@ set completeopt=menuone,menu,longest,preview
 " Highlight (inofficial) json comments
  autocmd FileType json syntax match Comment +\/\/.\+$+
 
-highlight Foo guibg=Black guifg=White
+highlight LangHighlightText guibg=Black guifg=White
+highlight LangHighlightWrite guibg=Black guifg=Yellow
+highlight LangHighlightRead guibg=Black guifg=Red
 let g:LanguageClient_documentHighlightDisplay = {
             \      1: {
             \          "name": "Text",
-            \          "texthl": "Foo",
+            \          "texthl": "LangHighlightText",
             \      },
             \      2: {
             \          "name": "Read",
-            \          "texthl": "Foo",
+            \          "texthl": "LangHighlightRead",
             \      },
             \      3: {
             \          "name": "Write",
-            \          "texthl": "Foo",
+            \          "texthl": "LangHighlightWrite",
             \      }}
+
+nnoremap <leader>op :!xdg-open % &<cr>
