@@ -231,11 +231,15 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'jason0x43/vim-wildgitignore' 
     "Plug 'SirVer/ultisnips'
     "Plug 'cyansprite/Extract'
-    Plug 'wbthomason/buildit.nvim'
+    "Plug 'wbthomason/buildit.nvim'
+    "Plug 'Shougo/neosnippet.vim'
+    Plug 'heavenshell/vim-pydocstring'
+    Plug 'peterhoeg/vim-qml', { 'for' : 'qml' }
     Plug 'bfrg/vim-cpp-modern'
     Plug 'mgedmin/python-imports.vim'
     Plug 'skywind3000/vim-preview'
     Plug 'rhysd/rust-doc.vim'
+    Plug 'janko/vim-test'
     Plug 'dyng/ctrlsf.vim'
     "Plug 'Raimondi/delimitMate'
     Plug 'mhartington/oceanic-next'
@@ -296,7 +300,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'mbbill/undotree', { 'on':  [ 'UndotreeToggle'] }
 	Plug 'bronson/vim-visual-star-search'
 	Plug 'ryanoasis/vim-devicons'
-	Plug 'airblade/vim-gitgutter'
+    Plug 'airblade/vim-gitgutter'
 	Plug 'kana/vim-textobj-user'
     Plug 'theHamsta/vim-textobj-entire'
 	Plug 'sgur/vim-textobj-parameter'
@@ -339,7 +343,9 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'terryma/vim-multiple-cursors'
 	Plug 'junegunn/goyo.vim'
 	"Plug 'amix/vim-zenroom2'
-    Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}, 'for': ['java', 'json']}
+    "Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}, 'for': ['java']}
+    "Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'python']}
+    Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java']}
 	Plug 'autozimu/LanguageClient-neovim', {
 			\ 'branch': 'next',
 			\ 'do': 'bash install.sh',
@@ -355,7 +361,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 	Plug 'rbonvall/snipmate-snippets-bib'
 	Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-	"Plug 'idanarye/vim-vebugger'
+    "Plug 'idanarye/vim-vebugger'
 	Plug 'tpope/vim-surround'
 	Plug 'tpope/vim-fugitive'
 	Plug 'tpope/vim-repeat'
@@ -378,7 +384,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'beloglazov/vim-online-thesaurus'
 	Plug 'wellle/targets.vim'
 	Plug 'fszymanski/deoplete-emoji'
-    Plug 'zchee/deoplete-go', { 'do': 'make'}
+    "Plug 'zchee/deoplete-go', { 'do': 'make'}
 	"
 	"Plug 'rkulla/pydiction'
 	"Plug 'xolox/vim-misc'
@@ -423,7 +429,8 @@ nnoremap <Leader>7 :7b<CR>
 nnoremap <Leader>8 :8b<CR>
 nnoremap <Leader>9 :9b<CR>
 nnoremap <Leader>0 :10b<CR>
-nnoremap <Leader>buf :buffers<CR>
+nnoremap <Leader>buf :Buffers<CR>
+nnoremap <a-p> :Buffers<CR>
 nnoremap <Leader>dox :Dox<CR>
 
 iabbrev imageing imaging
@@ -557,6 +564,7 @@ let g:vebugger_leader =','
 
 "let g:deoplete#sources#jedi#extra_path =['', '/usr/lib/python2.7', '/usr/lib/python2.7/plat-x86_64-linux-gnu', '/usr/lib/python27/lib-tk', '/usr/lib/python2.7/lib-old', '/usr/lib/python2.7/lib-dynload', '/home/stepha/.local/lib/python2.7/site-packages', '/usr/local/lib/python2.7/dist-packages', '/usr/li/python2.7/dist-packages', '/usr/lib/python2.7/dist-packages/PILcompat', '/usr/lib/pytho2.7/dist-packages/gtk-2.0', '/usr/lib/python2.7/dist-packages/wx-3.0-gtk2']
 nnoremap <F3> :Tkill<cr>:wa<cr>:exec 'T' expand($last_execution,1)<cr>
+nnoremap <s-F3> :Tkill<cr>:wa<cr>:exec expand($last_execution,1)<cr>
 "autocmd FileType python nnoremap <buffer> <F6> :VBGstartPDB3 %<cr>
 "autocmd FileType python nnoremap <buffer> <space>deb :VBGstartPDB3 %<cr>
 "autocmd FileType python nnoremap <buffer> <c-f5> :VBGcontinue %<cr>
@@ -568,9 +576,10 @@ nnoremap <F3> :Tkill<cr>:wa<cr>:exec 'T' expand($last_execution,1)<cr>
 "autocmd FileType python nnoremap <buffer> <F12> :VBGstepOver<cr>
 nnoremap <leader>tt :<c-u>exec v:count.'T'
 autocmd FileType python nnoremap <buffer> <F5> :let $last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:T python3 %<cr>
-autocmd FileType python nnoremap <buffer> <s-F5> :let $last_execution=':GdbStartPDB python3 -m pdb ' . expand('%:p',1)<cr>:wa<cr>:T :GdbStartPDB python3 -m pdb %<cr>
+autocmd FileType python nnoremap <buffer> <s-F5> :let $last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:execute ':GdbStartPDB python3 -m pdb ' . expand('%:p',1)<cr>
 autocmd FileType python nnoremap <buffer> <F7> :let $last_execution='python3 -m pdb -c continue ' . expand('%:p',1)<cr>:wa<cr>:T python3 -m pdb -c continue %<cr>
 autocmd FileType python nnoremap <buffer> <F4> :let $last_execution='ipython3 ' . expand('%:p',1)<cr>:wa<cr>:T ipython3 %<cr>
+autocmd FileType python nmap <silent> <C-.> <Plug>(pydocstring)
 "autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . $target<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
 autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='build.py --run'<cr>:Tkill<cr>:wa<cr>:T build.py --run<cr>
 " jump to the previous function
@@ -582,7 +591,6 @@ autocmd FileType cpp nnoremap <buffer> ]f :call
 "autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='
 ":let last_execution=@%<cr>
 "
-"nnoremap <F3> :T !!<cr>
 
 autocmd FileType cmake SemanticHighlight
 autocmd FileType lua nnoremap <buffer> <F5> :exec '!lua' shellescape(@%:p, 1)<cr>:let last_execution=@%:p <cr>
@@ -633,7 +641,6 @@ let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls'],
     \ 'javascript': ['javascript-typescript-stdio'],
     \ 'javascript.jsx': ['javascript-typescript-stdio'],
-    \ 'python': ['pyls'],
     \ 'lua': ['lua-lsp'],
     \ 'cpp': ['clangd-7'],
     \ 'cuda': ['clangd-7'],
@@ -642,7 +649,8 @@ let g:LanguageClient_serverCommands = {
     \ 'go': ['bingo', '--diagnostics-style=instant'],
     \ 'sh': ['~/.yarn/bin/bash-language-server', 'start'],
     \ 'tex': ['java', '-jar',  '~/.local/bin/texlab.jar'],
-    \ 'bib': ['java', '-jar',  '~/.local/bin/texlab.jar']
+    \ 'bib': ['java', '-jar',  '~/.local/bin/texlab.jar'],
+    \ 'python': ['pyls']
     \ }
     "\ 'go': ['go-langserver'],
 	"\ 'cpp': ['/home/stephan/projects/cquery/build/release/bin/cquery','--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery/"}, "completion": {"filterAndSort": false}}'],
@@ -659,8 +667,8 @@ let g:LanguageClient_serverCommands = {
 function! LC_maps()
    if has_key(g:LanguageClient_serverCommands, &filetype)
      call deoplete#custom#option('auto_complete', v:true)
-
-     if &filetype != "python" || &filetype != "tex" || &filetype != "bib"
+     
+     if &filetype != "python" && &filetype != "tex" && &filetype != "bib" && &filetype != "go"
          autocmd CursorHold <buffer> silent call LanguageClient#textDocument_documentHighlight()
      endif
      "autocmd CursorHold <buffer> silent call LanguageClient#textDocument_hover()
@@ -759,7 +767,7 @@ endif
 "nnoremap <c-`> :cclose<cr>:lclose<cr>:Ttoggle<cr>
 "nnoremap <c-s-´> :cclose<cr>:lclose<cr>:Ttoggle<cr>
 
-let g:neoterm_default_mod='botright'
+let g:neoterm_default_mod='rightb'
 let g:neoterm_open_in_all_tabs=0
 "autocmd BufWinEnter,WinEnter term://* startinsert
 augroup terminal
@@ -785,6 +793,7 @@ let g:wordmotion_prefix = '-'
 
 command! CtrlPSameName call feedkeys(":CtrlP\<cr>".expand('%:t:r'), "t")
 nnoremap <a-o> :CtrlPSameName<cr>
+
 nnoremap <c-a-h> call feedkeys(":CtrlP\<cr>".expand('%:t:r') . ".h", "t")
 set path=.,**
 "horizontal split below
@@ -848,8 +857,10 @@ let g:quickr_preview_on_cursor = 1
 
  function! ActivateCoc()
      call deoplete#custom#option('auto_complete', v:false)
-     autocmd User <buffer> CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-     autocmd  CursorHold <buffer> silent call CocActionAsync('highlight')
+     autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+     if &filetype != "python" && &filetype != "tex" && &filetype != "bib" && &filetype != "go"
+         autocmd  CursorHold <buffer> silent call CocActionAsync('highlight')
+     endif
      "autocmd <buffer> CursorHold * silent call CocActionAsync('highlight')
 	 nmap <silent> <buffer>  <c-k> <Plug>(coc-diagnostic-prev)
 	 nmap <silent> <buffer>  <c-j> <Plug>(coc-diagnostic-next)
@@ -860,13 +871,14 @@ let g:quickr_preview_on_cursor = 1
 	 nmap <silent> <buffer>  gi <Plug>(coc-implementation)
 	 nmap <silent> <buffer>  gI <c-w>v<Plug>(coc-implementation)
 	 nmap <silent> <buffer>  gr <Plug>(coc-references)
-	 nmap <silent> <buffer>  gh :call CocAction('doHover')
-	 nmap <silent> <buffer>  <c-s> :call CocAction('format')
+	 nmap <silent> <buffer>  gh :call CocAction('doHover')<cr>
+	 nmap <silent> <buffer>  <c-s> :call CocAction('format')<cr>
 	 vmap <buffer> <leader>a   <Plug>(coc-codeaction-selected)
 	 nmap <buffer> <leader>a <Plug>(coc-codeaction-selected)
  endfunction()
 
 autocmd FileType java call ActivateCoc()
+"autocmd FileType python call ActivateCoc()
 
  "inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 
@@ -883,7 +895,7 @@ autocmd FileType java call ActivateCoc()
 
  let g:fzf_tags_command = 'ctags -R .'
  let g:echodoc#enable_at_startup = 1
- let g:echodoc#type = 'signature'
+ let g:echodoc#type = 'virtual'
 
 set shortmess+=c
 nnoremap <leader>yp :let @+ = expand("%:p")<cr>
@@ -979,7 +991,7 @@ nnoremap ,, :BLines<cr>
 
 let g:neoterm_autoinsert=0
 let g:neoterm_autoscroll=1
-"let  g:neoterm_fixedsize =20
+let  g:neoterm_fixedsize =100
 
 nnoremap <A-1> 1gt
 nnoremap <A-2> 2gt
@@ -1050,11 +1062,11 @@ nnoremap <a-h> "zyy"zP
 let g:ctrlp_switch_buffer=0
 
 
-nnoremap <F6> :call vimspector#Continue()<CR>
-nnoremap <a-b> :call vimspector#ToggleBreakpoint()<cr>
-nnoremap <F10>   :call vimspector#StepOver()<cr>
-nnoremap <F11>  :call vimspector#StepInto()<cr>
-nnoremap <s-F11>    :call vimspector#StepOut()<cr>
+"nnoremap <F6> :call vimspector#Continue()<CR>
+"nnoremap <a-b> :call vimspector#ToggleBreakpoint()<cr>
+"nnoremap <F10>   :call vimspector#StepOver()<cr>
+"nnoremap <F11>  :call vimspector#StepInto()<cr>
+"nnoremap <s-F11>    :call vimspector#StepOut()<cr>
 nnoremap <leader>id :GitGutterLineHighlightsToggle<cr>
 
 let g:NERDTreeWinPos = "left"
@@ -1071,7 +1083,7 @@ nmap ,code :!code-insiders -r %<cr>
 
 "nnoremap <c-p> :CtrlPMixed<cr>
 let g:ctrlp_map = ''
-nnoremap <c-p> :Files<CR>
+nnoremap <c-p> :Files .<CR>
 
 " ripgrep
 if executable('rg')
@@ -1116,7 +1128,7 @@ function! Fzf_dev()
 endfunction
 
 augroup filetypedetect
-    au! BufRead,BufNewFile *.cpp.tmpl setfiletype cpp
+    au! BufRead,BufNewFile *.cpp.tmpl set filetype cpp
 augroup END
 
 let g:NERDTreeFileExtensionHighlightFullName = 1
@@ -1181,3 +1193,13 @@ let g:LanguageClient_documentHighlightDisplay = {
             \      }}
 
 nnoremap <leader>op :!xdg-open % &<cr>
+nnoremap gX :!xdg-open % &<cr>
+set signcolumn=yes
+"let g:neosnippet#enable_complete_done = 1
+
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
+let test#strategy = "neoterm"
