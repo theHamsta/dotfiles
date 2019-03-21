@@ -1,0 +1,20 @@
+{
+    "codeLens.enable": true,
+    "diagnostic.virtualText": true,
+    "languageserver": {
+        "texlab": {
+            "module": "~/projects/texlab-vscode/src/main.ts",
+            "args": [""],
+            "filetypes": ["tex"],
+            "trace.server": "verbose",
+            "rootPatterns": [".git"]
+            // Used for debugging
+        }
+    }
+}
+ //       "texlab": {
+  //          "command": "java",
+   //         "args": ["-jar", "~/.local/bin/texlab.jar"],
+    //        "filetypes": ["tex"],
+     //       "cwd": "."
+      //  }
