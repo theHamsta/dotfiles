@@ -131,9 +131,6 @@ nnoremap <leader>make :wa<Cr>:Neomake!<cr>
 nnoremap <leader>line :call Toggle_line_numbers()<cr>
 nnoremap <leader>hi :History<Cr>
 "nnoremap <leader>te :set shell=/usr/bin/zsh<cr>:split<cr>:Tnew<Cr>:exe "resize " . 13<CR>i
-nnoremap <leader>te :set shell=/usr/bin/zsh<cr>:Topen<Cr>
-nnoremap <leader>to :Topen<cr>
-nnoremap <leader>tt 'Ti
 nnoremap <leader>so :w<cr>G:source %<cr>
 nnoremap <leader>lime :Limelight!! 0.8<cr>
 nnoremap <space><space> o<Esc>
@@ -344,7 +341,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'junegunn/goyo.vim'
 	"Plug 'amix/vim-zenroom2'
     "Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}, 'for': ['java']}
-    "Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'python']}
     Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java']}
 	Plug 'autozimu/LanguageClient-neovim', {
 			\ 'branch': 'next',
@@ -405,7 +401,9 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'prabirshrestha/vim-lsp'
 call plug#end()
 
-
+set conceallevel=1
+let g:tex_conceal='abdmg'
+let g:tex_flavor='latex'
 
 let g:deoplete#enable_at_startup = 1
 call deoplete#custom#var('omni', 'input_patterns', {
@@ -1055,7 +1053,6 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standar
 
 command! -bang -nargs=? -complete=dir Files :call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 nnoremap <c-f> :Files<cr>
-nnoremap <leader>t :T 
 nnoremap <a-l> "zyy"zp 
 nnoremap <a-h> "zyy"zP 
 
@@ -1197,9 +1194,12 @@ nnoremap gX :!xdg-open % &<cr>
 set signcolumn=yes
 "let g:neosnippet#enable_complete_done = 1
 
-nmap <silent> t<C-n> :TestNearest<CR>
-nmap <silent> t<C-f> :TestFile<CR>
-nmap <silent> t<C-s> :TestSuite<CR>
-nmap <silent> t<C-l> :TestLast<CR>
-nmap <silent> t<C-g> :TestVisit<CR>
+nmap <silent> <leader>tn :TestNearest<CR>
+nmap <silent> <leader>tf :TestFile<CR>
+nmap <silent> <leader>ts :TestSuite<CR>
+nmap <silent> <leader>tl :TestLast<CR>
+nmap <silent> <leader>tg :TestVisit<CR>
+nnoremap <leader>te :set shell=/usr/bin/zsh<cr>:Topen<Cr>
+nnoremap <leader>to :Topen<cr>
+nnoremap <leader>tt :T
 let test#strategy = "neoterm"
