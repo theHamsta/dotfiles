@@ -231,6 +231,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'wbthomason/buildit.nvim'
     "Plug 'Shougo/neosnippet.vim'
     Plug 'heavenshell/vim-pydocstring'
+    Plug 'rliang/termedit.nvim'
     Plug 'peterhoeg/vim-qml', { 'for' : 'qml' }
     Plug 'bfrg/vim-cpp-modern'
     Plug 'mgedmin/python-imports.vim'
@@ -908,10 +909,12 @@ nnoremap <leader>zen :Goyo<cr>
 nnoremap <leader>buf :Buffers<cr>
 nnoremap <leader>save :saveas 
 
-
-let g:vimtex_view_general_viewer = 'okular'
-let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
-let g:vimtex_view_general_options_latexmk = '--unique'
+let g:vimtex_view_method ='zathura'
+let g:vimtex_view_general_viewer = 'zathura'
+let g:vimtex_view_general_options = '--synctex-forward @line:@col:@pdf'
+"--synctex-forward " . line('.') . ":" . col('.') . ":" . bufname('%') . 
+"let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
+"let g:vimtex_view_general_options_latexmk = '--unique'
 let g:vimtex_compiler_progname = 'nvr'
 let g:vimtex_latexmk_options = '-pdf -shell-escape -verbose -file-line-error -synctex=1 -interaction=nonstopmode'
 
@@ -1194,11 +1197,11 @@ nnoremap gX :!xdg-open % &<cr>
 set signcolumn=yes
 "let g:neosnippet#enable_complete_done = 1
 
-nmap <silent> <leader>tn :TestNearest<CR>
-nmap <silent> <leader>tf :TestFile<CR>
-nmap <silent> <leader>ts :TestSuite<CR>
-nmap <silent> <leader>tl :TestLast<CR>
-nmap <silent> <leader>tg :TestVisit<CR>
+nmap <silent> <leader>tn :wa<cr>:TestNearest<CR>
+nmap <silent> <leader>tf :wa<cr>:TestFile<CR>
+nmap <silent> <leader>ts :wa<cr>:TestSuite<CR>
+nmap <silent> <leader>tl :wa<cr>:TestLast<CR>
+nmap <silent> <leader>tv :TestVisit<CR>
 nnoremap <leader>te :set shell=/usr/bin/zsh<cr>:Topen<Cr>
 nnoremap <leader>to :Topen<cr>
 nnoremap <leader>tt :T
