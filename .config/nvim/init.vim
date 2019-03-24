@@ -75,6 +75,9 @@ function! Toggle_line_numbers()
 endfunction
 call Toggle_line_numbers()
 
+command! GetTermJobId echo b:terminal_job_id
+command! ConfigTermJobId execute "SlimeConfig " . b:terminal_job_id
+
 
 "au! WinEnter * SemanticHighlight
 
@@ -231,6 +234,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'wbthomason/buildit.nvim'
     "Plug 'Shougo/neosnippet.vim'
     Plug 'heavenshell/vim-pydocstring'
+    "Plug 'Vigemus/iron.nvim'
+    "Plug 'rhysd/reply.vim'
     Plug 'rliang/termedit.nvim'
     Plug 'peterhoeg/vim-qml', { 'for' : 'qml' }
     Plug 'bfrg/vim-cpp-modern'
@@ -327,7 +332,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'Shougo/echodoc.vim'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 	Plug 'junegunn/fzf.vim'
-	Plug 'jpalardy/vim-slime'
+    Plug 'jpalardy/vim-slime'
 	Plug 'kovisoft/slimv'
 	Plug 'machakann/vim-highlightedyank'
 	Plug 'scrooloose/nerdtree', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
@@ -573,7 +578,7 @@ nnoremap <s-F3> :Tkill<cr>:wa<cr>:exec expand($last_execution,1)<cr>
 "autocmd FileType python nnoremap <buffer> <F10> :VBGstepOver<cr>
 "autocmd FileType python nnoremap <buffer> <F11> :VBGstepIn<cr>
 "autocmd FileType python nnoremap <buffer> <F12> :VBGstepOver<cr>
-nnoremap <leader>tt :<c-u>exec v:count.'T'
+nnoremap <leader>tt :<c-u>exec v:count . 'T '
 autocmd FileType python nnoremap <buffer> <F5> :let $last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:T python3 %<cr>
 autocmd FileType python nnoremap <buffer> <s-F5> :let $last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:execute ':GdbStartPDB python3 -m pdb ' . expand('%:p',1)<cr>
 autocmd FileType python nnoremap <buffer> <F7> :let $last_execution='python3 -m pdb -c continue ' . expand('%:p',1)<cr>:wa<cr>:T python3 -m pdb -c continue %<cr>
@@ -802,10 +807,13 @@ let g:slimv_repl_split=2
 nnoremap <leader>E <Plug>(neoterm-repl-send)
 nnoremap <leader>ee :TREPLSendFile<cr>
 nnoremap <leader>el :TREPLSendLine<cr>
+"nnoremap <c-c><c-c> :TREPLSendLine<cr>
+"vnoremap <c-c><c-c> :TREPLSendSelection<cr>
 nnoremap ,repl :belowright Tnew<cr><c-w>j :exe "resize " . 13<CR>
 vnoremap <leader>ee :TREPLSendSelection<cr>
-let g:neoterm_repl_python="python3"
+let g:neoterm_repl_python="ipython3"
 nmap gq <Plug>(neoterm-repl-send)
+"nmap <c-c> <Plug>(neoterm-repl-send)
 xmap gq <Plug>(neoterm-repl-send)
 
 set noshowmode
@@ -1178,6 +1186,7 @@ set completeopt=menuone,menu,longest,preview
 highlight LangHighlightText guibg=Black guifg=White
 highlight LangHighlightWrite guibg=Black guifg=Yellow
 highlight LangHighlightRead guibg=Black guifg=Red
+highlight information  guifg=#737373
 let g:LanguageClient_documentHighlightDisplay = {
             \      1: {
             \          "name": "Text",
@@ -1191,7 +1200,37 @@ let g:LanguageClient_documentHighlightDisplay = {
             \          "name": "Write",
             \          "texthl": "LangHighlightWrite",
             \      }}
-
+let g:LanguageClient_diagnosticsDisplay= {
+            \       1: {
+            \           "name": "Error",
+            \           "texthl": "ALEError",
+            \           "signText": "✖",
+            \           "signTexthl": "ALEErrorSign",
+            \           "virtualTexthl": "Error",
+            \       },
+            \       2: {
+            \           "name": "Warning",
+            \           "texthl": "ALEWarning",
+            \           "signText": "⚠",
+            \           "signTexthl": "ALEWarningSign",
+            \           "virtualTexthl": "Todo",
+            \       },
+            \       3: {
+            \           "name": "Information",
+            \           "texthl": "ALEInfo",
+            \           "signText": "➤",
+            \           "signTexthl": "ALEInfoSign",
+            \           "virtualTexthl": "information",
+            \       },
+            \       4: {
+            \           "name": "Hint",
+            \           "texthl": "ALEInfo",
+        \           "signText": "➤",
+            \           "signTexthl": "ALEInfoSign",
+            \           "virtualTexthl": "Todo",
+            \       },
+            \   }
+            \
 nnoremap <leader>op :!xdg-open % &<cr>
 nnoremap gX :!xdg-open % &<cr>
 set signcolumn=yes
@@ -1206,3 +1245,8 @@ nnoremap <leader>te :set shell=/usr/bin/zsh<cr>:Topen<Cr>
 nnoremap <leader>to :Topen<cr>
 nnoremap <leader>tt :T
 let test#strategy = "neoterm"
+
+
+"luafile $HOME/.config/nvim/iron.lua
+
+
