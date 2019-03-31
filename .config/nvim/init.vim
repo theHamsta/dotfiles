@@ -407,7 +407,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'prabirshrestha/vim-lsp'
 call plug#end()
 
-set conceallevel=1
+"set conceallevel=1
 let g:tex_conceal='abdmg'
 let g:tex_flavor='latex'
 
@@ -762,6 +762,8 @@ if has('nvim')
     tnoremap <silent> <end> <C-\><C-n><cr>:vertical Ttoggle<cr>
     nnoremap <silent> <c-`> :botright Ttoggle<cr>
     nnoremap <silent> <end> <c-w>o:vertical Ttoggle<cr>
+    nnoremap <silent> <leader>py <c-w>o:vertical Ttoggle<cr>:T ipython<cr>
+    nnoremap <silent> <leader>sym <c-w>o:vertical Ttoggle<cr>:T isympy<cr>
     nnoremap <c-´> :botright Ttoggle<cr>
     "nnoremap <leader>tt :<c-u>exec v:count.'T'<cr>
     nnoremap <silent> <PageDown> :cclose<cr>:lclose<cr>:pc<cr>:botright Ttoggle<cr>
@@ -917,11 +919,13 @@ nnoremap <leader>zen :Goyo<cr>
 nnoremap <leader>buf :Buffers<cr>
 nnoremap <leader>save :saveas 
 
-let g:vimtex_view_method ='zathura'
-let g:vimtex_view_general_viewer = 'zathura'
-let g:vimtex_view_general_options = '--synctex-forward @line:@col:@pdf'
+"let g:vimtex_view_method ='zathura'
+"let g:vimtex_view_general_viewer = 'zathura'
+"let g:vimtex_view_general_options = '--synctex-forward @line:@col:@pdf'
 "--synctex-forward " . line('.') . ":" . col('.') . ":" . bufname('%') . 
-"let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
+"let g:vimtex_view_method ='okular'
+let g:vimtex_view_general_viewer = 'okular'
+let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
 "let g:vimtex_view_general_options_latexmk = '--unique'
 let g:vimtex_compiler_progname = 'nvr'
 let g:vimtex_latexmk_options = '-pdf -shell-escape -verbose -file-line-error -synctex=1 -interaction=nonstopmode'
@@ -1249,4 +1253,6 @@ let test#strategy = "neoterm"
 
 "luafile $HOME/.config/nvim/iron.lua
 
-
+nnoremap <localleader>fzf :call vimtex#fzf#run()<cr>
+set wildoptions=pum
+set pumblend=20
