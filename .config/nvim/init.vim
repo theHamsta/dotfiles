@@ -75,6 +75,12 @@ function! Toggle_line_numbers()
 endfunction
 call Toggle_line_numbers()
 
+
+function! ConfigSlurmTerm()
+    let l:term_id = b:terminal_job_id
+    execute SlimeConfig
+    execute 
+endfunction
 command! GetTermJobId echo b:terminal_job_id
 command! ConfigTermJobId execute "SlimeConfig " . b:terminal_job_id
 
