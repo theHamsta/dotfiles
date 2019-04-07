@@ -240,6 +240,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'wbthomason/buildit.nvim'
     "Plug 'Shougo/neosnippet.vim'
     Plug 'heavenshell/vim-pydocstring'
+    Plug 'henrynewcomer/vim-theme-papaya'
     Plug 'mattboehm/vim-accordion'
     Plug 't9md/vim-choosewin'
     "Plug 'Vigemus/iron.nvim'
@@ -452,7 +453,7 @@ autocmd FileType cpp iabbrev <buffer> flaot float
 autocmd FileType cpp iabbrev <buffer> _std std::
 autocmd FileType cpp iabbrev <buffer> stirng string
 "set autochdir
-autocmd BufEnter * silent! lcd %:p:h
+"autocmd BufEnter * silent! lcd %:p:h
 nnoremap gf gF
 nnoremap gF <c-w>gF
 nnoremap gP :call GotoPython()<cr>
@@ -503,6 +504,8 @@ set background =dark
 
 " Call the theme one
 colorscheme one
+"colorscheme papaya
+let g:papaya_gui_color='blue'
 "colorscheme apprentice
 
 " Don't forget set the airline theme as well.
@@ -587,6 +590,7 @@ nnoremap <s-F3> :Tkill<cr>:wa<cr>:exec expand($last_execution,1)<cr>
 "autocmd FileType python nnoremap <buffer> <F11> :VBGstepIn<cr>
 "autocmd FileType python nnoremap <buffer> <F12> :VBGstepOver<cr>
 nnoremap <leader>tt :<c-u>exec v:count . 'T '
+autocmd FileType rust nnoremap <buffer> <F5> :T cargo build<cr>
 autocmd FileType python nnoremap <buffer> <F5> :let $last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:T python3 %<cr>
 autocmd FileType python nnoremap <buffer> <s-F5> :let $last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:execute ':GdbStartPDB python3 -m pdb ' . expand('%:p',1)<cr>
 autocmd FileType python nnoremap <buffer> <F7> :let $last_execution='python3 -m pdb -c continue ' . expand('%:p',1)<cr>:wa<cr>:T python3 -m pdb -c continue %<cr>
@@ -1274,13 +1278,13 @@ function! FloatingFZF()
   let buf = nvim_create_buf(v:false, v:true)
   call setbufvar(buf, '&signcolumn', 'no')
 
-  let height = &lines - 3
+  let height = &lines - 20
   let width = float2nr(&columns - (&columns * 2 / 10))
   let col = float2nr((&columns - width) / 2)
 
   let opts = {
         \ 'relative': 'editor',
-        \ 'row': 1,
+        \ 'row': 10,
         \ 'col': col,
         \ 'width': width,
         \ 'height': height
