@@ -46,7 +46,7 @@ map <SPACE> <leader>
 set history=1000
 set mouse=a
 
-let g:use_line_numbers=1
+let g:use_line_numbers=0
 
 function! Toggle_line_numbers()
 	if g:use_line_numbers
@@ -82,7 +82,7 @@ function! ConfigSlurmTerm()
     execute 
 endfunction
 command! GetTermJobId echo b:terminal_job_id
-command! ConfigTermJobId execute "SlimeConfig " . b:terminal_job_id
+
 
 
 "au! WinEnter * SemanticHighlight
@@ -240,6 +240,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'wbthomason/buildit.nvim'
     "Plug 'Shougo/neosnippet.vim'
     Plug 'heavenshell/vim-pydocstring'
+    Plug 'mattboehm/vim-accordion'
+    Plug 't9md/vim-choosewin'
     "Plug 'Vigemus/iron.nvim'
     "Plug 'rhysd/reply.vim'
     Plug 'rliang/termedit.nvim'
@@ -648,7 +650,7 @@ let g:gonvim_draw_statusline = 1
 
     "\ 'cpp': ['clangd'],
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls'],
+    \ 'rust': ['rls'],
     \ 'javascript': ['javascript-typescript-stdio'],
     \ 'javascript.jsx': ['javascript-typescript-stdio'],
     \ 'lua': ['lua-lsp'],
@@ -1262,3 +1264,28 @@ let test#strategy = "neoterm"
 nnoremap <localleader>fzf :call vimtex#fzf#run()<cr>
 set wildoptions=pum
 set pumblend=20
+
+nmap  <leader>ww  <Plug>(choosewin)
+let g:choosewin_overlay_enable = 1
+let $FZF_DEFAULT_OPTS='--layout=reverse'
+let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+
+function! FloatingFZF()
+  let buf = nvim_create_buf(v:false, v:true)
+  call setbufvar(buf, '&signcolumn', 'no')
+
+  let height = &lines - 3
+  let width = float2nr(&columns - (&columns * 2 / 10))
+  let col = float2nr((&columns - width) / 2)
+
+  let opts = {
+        \ 'relative': 'editor',
+        \ 'row': 1,
+        \ 'col': col,
+        \ 'width': width,
+        \ 'height': height
+        \ }
+
+  call nvim_open_win(buf, v:true, opts)
+endfunction
+au FileType fzf set nonu nornu
