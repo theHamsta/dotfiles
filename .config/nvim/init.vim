@@ -183,8 +183,8 @@ nnoremap <Leader>nf :NERDTreeFind<cr>
 nnoremap <Leader>oo :only<cr>
 "nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 "nmap <silent> <C-j> <Plug>(ale_next_wrap)
-nmap <silent> <C-k> :lprevious<cr>
-nmap <silent> <C-j> :lnext<cr>
+nmap <silent> <leader><C-k> :lprevious<cr>
+nmap <silent> <leader><C-j> :lnext<cr>
 "nmap <silent> <C-k> [m<cr>
 "nmap <silent> <C-j> ]m<cr>
 nmap <silent> <C-a-k> <Plug>GitGutterPrevHunk
@@ -525,7 +525,7 @@ set termguicolors
 endif
 
 
-nnoremap <leader>gr :grep! "\b<C-R><C-W>\b"<CR>:cw<CR><cr>
+nnoremap <leader>re :Ggrep! "\b<C-R><C-W>\b"<CR>:cw<CR><cr>
 
 " The Silver Searcher
 if executable('ag')
@@ -1289,3 +1289,5 @@ function! FloatingFZF()
   call nvim_open_win(buf, v:true, opts)
 endfunction
 au FileType fzf set nonu nornu
+noremap <c-j> <c-w>w
+noremap <c-k> <c-w>W
