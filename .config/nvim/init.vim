@@ -75,8 +75,14 @@ function! Toggle_line_numbers()
 endfunction
 call Toggle_line_numbers()
 
+
+function! ConfigSlurmTerm()
+    let l:term_id = b:terminal_job_id
+    execute SlimeConfig
+    execute 
+endfunction
 command! GetTermJobId echo b:terminal_job_id
-command! ConfigTermJobId execute "SlimeConfig " . b:terminal_job_id
+
 
 
 "au! WinEnter * SemanticHighlight
@@ -177,8 +183,8 @@ nnoremap <Leader>nf :NERDTreeFind<cr>
 nnoremap <Leader>oo :only<cr>
 "nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 "nmap <silent> <C-j> <Plug>(ale_next_wrap)
-nmap <silent> <C-k> :lprevious<cr>
-nmap <silent> <C-j> :lnext<cr>
+nmap <silent> <leader><C-k> :lprevious<cr>
+nmap <silent> <leader><C-j> :lnext<cr>
 "nmap <silent> <C-k> [m<cr>
 "nmap <silent> <C-j> ]m<cr>
 nmap <silent> <C-a-k> <Plug>GitGutterPrevHunk
@@ -236,6 +242,10 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'heavenshell/vim-pydocstring'
     "Plug 'Vigemus/iron.nvim'
     "Plug 'rhysd/reply.vim'
+    "Plug 'henrynewcomer/vim-theme-papaya'
+    Plug 'mattboehm/vim-accordion'
+    Plug 't9md/vim-choosewin'
+    "Plug 'Vigemus/iron.nvim'
     Plug 'rliang/termedit.nvim'
     Plug 'whiteinge/diffconflicts'
     Plug 'peterhoeg/vim-qml', { 'for' : 'qml' }
@@ -498,6 +508,8 @@ set background =dark
 
 " Call the theme one
 colorscheme one
+"colorscheme papaya
+let g:papaya_gui_color='blue'
 "colorscheme apprentice
 
 " Don't forget set the airline theme as well.
@@ -647,7 +659,7 @@ let g:gonvim_draw_statusline = 1
 
     "\ 'cpp': ['clangd'],
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls'],
+    \ 'rust': ['rls'],
     \ 'javascript': ['javascript-typescript-stdio'],
     \ 'javascript.jsx': ['javascript-typescript-stdio'],
     \ 'lua': ['lua-lsp'],
@@ -1276,3 +1288,29 @@ autocmd BufReadPre *.eps silent %!xdg-open "%"
 autocmd BufReadPre *.jpg silent %!xdg-open "%"
 autocmd BufReadPre *.bmp silent %!xdg-open "%"
 
+nmap  <leader>ww  <Plug>(choosewin)
+let g:choosewin_overlay_enable = 1
+let $FZF_DEFAULT_OPTS='--layout=reverse'
+let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+
+function! FloatingFZF()
+  let buf = nvim_create_buf(v:false, v:true)
+  call setbufvar(buf, '&signcolumn', 'no')
+
+  let height = &lines - 20
+  let width = float2nr(&columns - (&columns * 2 / 10))
+  let col = float2nr((&columns - width) / 2)
+
+  let opts = {
+        \ 'relative': 'editor',
+        \ 'row': 10,
+        \ 'col': col,
+        \ 'width': width,
+        \ 'height': height
+        \ }
+
+  call nvim_open_win(buf, v:true, opts)
+endfunction
+au FileType fzf set nonu nornu
+noremap <c-j> <c-w>w
+noremap <c-k> <c-w>W
