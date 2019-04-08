@@ -46,7 +46,7 @@ map <SPACE> <leader>
 set history=1000
 set mouse=a
 
-let g:use_line_numbers=1
+let g:use_line_numbers=0
 
 function! Toggle_line_numbers()
 	if g:use_line_numbers
@@ -229,43 +229,42 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'google/vim-maktaba'
     "Plug 'bazelbuild/vim-bazel'
     "Plug 'jason0x43/vim-wildgitignore' 
-    "Plug 'SirVer/ultisnips'
+    Plug 'SirVer/ultisnips'
     "Plug 'cyansprite/Extract'
     "Plug 'wbthomason/buildit.nvim'
     "Plug 'Shougo/neosnippet.vim'
-    Plug 'heavenshell/vim-pydocstring'
+    "Plug 'heavenshell/vim-pydocstring'
     "Plug 'Vigemus/iron.nvim'
     "Plug 'rhysd/reply.vim'
     Plug 'rliang/termedit.nvim'
+    Plug 'whiteinge/diffconflicts'
     Plug 'peterhoeg/vim-qml', { 'for' : 'qml' }
     Plug 'bfrg/vim-cpp-modern'
-    Plug 'mgedmin/python-imports.vim'
+    ""Plug 'mgedmin/python-imports.vim'
     Plug 'skywind3000/vim-preview'
     Plug 'rhysd/rust-doc.vim'
     Plug 'janko/vim-test'
     Plug 'dyng/ctrlsf.vim'
-    "Plug 'Raimondi/delimitMate'
-    Plug 'mhartington/oceanic-next'
+    ""Plug 'Raimondi/delimitMate'
+    "Plug 'mhartington/oceanic-next'
     Plug 'Valloric/ListToggle'
     "Plug 'SammysHP/vim-heurindent'
-    "Plug 'arakashic/chromatica.nvim'
-    Plug 'dbeniamine/cheat.sh-vim'
+    Plug 'dbeniamine/cheat.sh-vim', { 'on':  [ 'Cheat!'] }
     Plug 'cespare/vim-toml', {'for': 'toml'}
     Plug 'maralla/vim-toml-enhance', {'for': 'toml'}
-    Plug 'dbeniamine/cheat.sh-vim'
     Plug 'tpope/vim-markdown'
     "Plug 'pboettch/vim-highlight-cursor-words'
-    Plug 'jaxbot/semantic-highlight.vim'
+    "Plug 'jaxbot/semantic-highlight.vim'
     Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
     Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
     "Plug 'Valloric/vim-operator-highlight'
-    Plug 'hiphish/jinja.vim'
-    Plug 'thaerkh/vim-workspace'
+    "Plug 'hiphish/jinja.vim'
+    "Plug 'thaerkh/vim-workspace'
     Plug 'brooth/far.vim'
     "Plug 'xolox/vim-misc'
     "Plug 'xolox/vim-easytags'
     Plug 'rking/ag.vim'
-	"Plug 'vim-pandoc/vim-pandoc'
+    "Plug 'vim-pandoc/vim-pandoc'
     "Plug 'vim-pandoc/vim-pandoc-syntax'
     "Plug 'puremourning/vimspector'
     Plug 'romainl/Apprentice'
@@ -273,130 +272,129 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'Vigemus/iron.nvim'
     "Plug 'tpope/vim-obsession'
     "Plug 'dhruvasagar/vim-prosession'
-	"Plug 'jalcine/cmake.vim'
+    "Plug 'jalcine/cmake.vim'
     "Plug 'xolox/vim-session'
     "Plug 'AndrewRayCode/vim-git-conflict-edit' 
     Plug 'markonm/traces.vim' 
     Plug 'jceb/vim-orgmode'
     Plug 'theHamsta/vim-template'
-	Plug 'editorconfig/editorconfig-vim'
-	Plug 'LeafCage/yankround.vim'
-	Plug 'ctrlpvim/ctrlp.vim'
-	Plug 'sgur/ctrlp-extensions.vim'
-	Plug 'tacahiroy/ctrlp-funky'
-	Plug 'mileszs/ack.vim'
-	Plug 'justinmk/vim-gtfo'
-	Plug 'neomake/neomake'
-	Plug 'NLKNguyen/papercolor-theme'
-	Plug 'fatih/vim-go', { 'for': 'go' }
-	Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-	"Plug 'jreybert/vimagit'
-	"Plug 'vhdirk/vim-cmake'
+    Plug 'editorconfig/editorconfig-vim'
+    Plug 'LeafCage/yankround.vim'
+    Plug 'ctrlpvim/ctrlp.vim'
+    Plug 'sgur/ctrlp-extensions.vim'
+    Plug 'tacahiroy/ctrlp-funky'
+    Plug 'mileszs/ack.vim'
+    Plug 'justinmk/vim-gtfo'
+    Plug 'neomake/neomake'
+    Plug 'NLKNguyen/papercolor-theme'
+    Plug 'fatih/vim-go', { 'for': 'go' }
+    Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+    "Plug 'jreybert/vimagit'
+    "Plug 'vhdirk/vim-cmake'
     Plug 'sakhnik/nvim-gdb', { 'do': './install.sh' }
-	Plug 'tpope/vim-dispatch'
-	Plug 'vim-scripts/SearchComplete'
-	"Plug 'dbeniamine/cheat.sh-vim'
-	"Plug 'libclang-vim/libclang-vim', {'do' : 'make'}
-	"Plug 'libclang-vim/vim-textobj-clang'
-	Plug 'tpope/vim-abolish'
-	Plug 'mhinz/neovim-remote'
-	Plug 'mbbill/undotree', { 'on':  [ 'UndotreeToggle'] }
-	Plug 'bronson/vim-visual-star-search'
-	Plug 'ryanoasis/vim-devicons'
+    Plug 'tpope/vim-dispatch'
+    Plug 'vim-scripts/SearchComplete'
+    "Plug 'dbeniamine/cheat.sh-vim'
+    "Plug 'libclang-vim/libclang-vim', {'do' : 'make'}
+    "Plug 'libclang-vim/vim-textobj-clang'
+    Plug 'tpope/vim-abolish'
+    Plug 'mhinz/neovim-remote'
+    Plug 'mbbill/undotree', { 'on':  [ 'UndotreeToggle'] }
+    Plug 'bronson/vim-visual-star-search'
+    Plug 'ryanoasis/vim-devicons'
     Plug 'airblade/vim-gitgutter'
-	Plug 'kana/vim-textobj-user'
+    Plug 'kana/vim-textobj-user'
     Plug 'theHamsta/vim-textobj-entire'
-	Plug 'sgur/vim-textobj-parameter'
-	"Plug 'glts/vim-textobj-comment'
-	Plug 'kana/vim-textobj-function'
-	Plug 'fvictorio/vim-textobj-backticks'
-	Plug 'Julian/vim-textobj-variable-segment'
-	Plug 'terryma/vim-expand-region'
-	Plug 'terryma/vim-expand-region'
-	Plug 'thalesmello/vim-textobj-methodcall'
-	Plug 'w0rp/ale', { 'for' : [ 'cmake' ] }
-	Plug 'tpope/vim-eunuch'
-	Plug 'chaoren/vim-wordmotion'
-	Plug 'tpope/vim-unimpaired' 
-	"Plug 'ronakg/quickr-preview.vim'
-	Plug 'kassio/neoterm'
-	Plug 'airblade/vim-rooter'
-	Plug 'bkad/CamelCaseMotion'
-	Plug 'Olical/vim-enmasse'
-	Plug 'akiyosi/gonvim-fuzzy'
-	Plug 'AndrewRadev/switch.vim'
-	Plug 'kien/rainbow_parentheses.vim'
-	Plug 'junegunn/limelight.vim'
-	Plug 'machakann/vim-swap'
-	Plug 'justinmk/vim-sneak'
-	Plug 'Shougo/echodoc.vim'
+    Plug 'sgur/vim-textobj-parameter'
+    "Plug 'glts/vim-textobj-comment'
+    Plug 'kana/vim-textobj-function'
+    Plug 'fvictorio/vim-textobj-backticks'
+    Plug 'Julian/vim-textobj-variable-segment'
+    Plug 'terryma/vim-expand-region'
+    Plug 'thalesmello/vim-textobj-methodcall'
+    Plug 'w0rp/ale', { 'for' : [ 'cmake' ] }
+    Plug 'tpope/vim-eunuch'
+    Plug 'chaoren/vim-wordmotion'
+    Plug 'tpope/vim-unimpaired' 
+    "Plug 'ronakg/quickr-preview.vim'
+    Plug 'kassio/neoterm'
+    Plug 'airblade/vim-rooter'
+    Plug 'bkad/CamelCaseMotion'
+    Plug 'Olical/vim-enmasse'
+    Plug 'akiyosi/gonvim-fuzzy'
+    Plug 'AndrewRadev/switch.vim'
+    Plug 'kien/rainbow_parentheses.vim'
+    Plug 'junegunn/limelight.vim'
+    Plug 'machakann/vim-swap'
+    Plug 'justinmk/vim-sneak'
+    Plug 'Shougo/echodoc.vim'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-	Plug 'junegunn/fzf.vim'
+    Plug 'junegunn/fzf.vim'
     Plug 'jpalardy/vim-slime'
-	Plug 'kovisoft/slimv'
-	Plug 'machakann/vim-highlightedyank'
-	Plug 'scrooloose/nerdtree', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-	Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-	Plug 'ivalkeen/nerdtree-execute', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-	"Plug 'tiagofumo/vim-nerdtree-syntax-highlight', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-	Plug 'equalsraf/neovim-gui-shim'
-	Plug 'michaeljsmith/vim-indent-object'
-	Plug 'Chun-Yang/vim-action-ag'
-	Plug 'easymotion/vim-easymotion'
-	Plug 'terryma/vim-multiple-cursors'
-	Plug 'junegunn/goyo.vim'
-	"Plug 'amix/vim-zenroom2'
+    Plug 'kovisoft/slimv'
+    Plug 'machakann/vim-highlightedyank'
+    Plug 'scrooloose/nerdtree', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    Plug 'ivalkeen/nerdtree-execute', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    "Plug 'tiagofumo/vim-nerdtree-syntax-highlight', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    Plug 'equalsraf/neovim-gui-shim'
+    Plug 'michaeljsmith/vim-indent-object'
+    Plug 'Chun-Yang/vim-action-ag'
+    Plug 'easymotion/vim-easymotion'
+    Plug 'terryma/vim-multiple-cursors'
+    Plug 'junegunn/goyo.vim'
+    "Plug 'amix/vim-zenroom2'
     "Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}, 'for': ['java']}
     Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java']}
-	Plug 'autozimu/LanguageClient-neovim', {
-			\ 'branch': 'next',
-			\ 'do': 'bash install.sh',
-			\ }
+    Plug 'autozimu/LanguageClient-neovim', {
+            \ 'branch': 'next',
+            \ 'do': 'bash install.sh',
+            \ }
 
-	if has('nvim')
+    if has('nvim')
         Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-	else
-		Plug 'Shougo/deoplete.nvim'
-		Plug 'roxma/nvim-yarp'
-		Plug 'roxma/vim-hug-neovim-rpc'
-	endif
+    else
+        Plug 'Shougo/deoplete.nvim'
+        Plug 'roxma/nvim-yarp'
+        Plug 'roxma/vim-hug-neovim-rpc'
+    endif
 
-	Plug 'rbonvall/snipmate-snippets-bib'
-	Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+    Plug 'rbonvall/snipmate-snippets-bib'
+    Plug 'Shougo/vimproc.vim', {'do' : 'make'}
     "Plug 'idanarye/vim-vebugger'
-	Plug 'tpope/vim-surround'
-	Plug 'tpope/vim-fugitive'
-	Plug 'tpope/vim-repeat'
-	Plug 'garbas/vim-snipmate'
-	Plug 'burke/matcher'
-	Plug 'scrooloose/nerdcommenter'
-	Plug 'MarcWeber/vim-addon-mw-utils'
-	Plug 'tomtom/tlib_vim'
-	Plug 'theHamsta/vim-snippets'
-	Plug 'altercation/vim-colors-solarized'
-	Plug 'majutsushi/tagbar'
-	Plug 'vim-airline/vim-airline'
-	Plug 'vim-airline/vim-airline-themes'
-	Plug 'rliang/nvim-pygtk3', {'do': 'make install'}
-	Plug 'lervag/vimtex', { 'for': 'tex' }
+    Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-repeat'
+    "Plug 'garbas/vim-snipmate'
+    Plug 'burke/matcher'
+    Plug 'scrooloose/nerdcommenter'
+    "Plug 'MarcWeber/vim-addon-mw-utils'
+    "Plug 'tomtom/tlib_vim'
+    Plug 'theHamsta/vim-snippets'
+    "Plug 'altercation/vim-colors-solarized'
+    Plug 'majutsushi/tagbar'
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    Plug 'rliang/nvim-pygtk3', {'do': 'make install'}
+    Plug 'lervag/vimtex', { 'for': 'tex' }
     "Plug 'w0rp/ale', { 'for': 'tex' }
-	"Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+    "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 
-	"Plug 'lionawurscht/deoplete-biblatex', { 'for': 'tex' }
-	Plug 'beloglazov/vim-online-thesaurus'
-	Plug 'wellle/targets.vim'
-	Plug 'fszymanski/deoplete-emoji'
+    "Plug 'lionawurscht/deoplete-biblatex', { 'for': 'tex' }
+    "Plug 'beloglazov/vim-online-thesaurus'
+    Plug 'wellle/targets.vim'
+    Plug 'fszymanski/deoplete-emoji'
     "Plug 'zchee/deoplete-go', { 'do': 'make'}
-	"
-	"Plug 'rkulla/pydiction'
-	"Plug 'xolox/vim-misc'
-	"Plug 'Shougo/neosnippet.vim'
-	"Plug 'Shougo/neosnippet-snippets'
+    "
+    "Plug 'rkulla/pydiction'
+    "Plug 'xolox/vim-misc'
+    "Plug 'Shougo/neosnippet.vim'
+    "Plug 'Shougo/neosnippet-snippets'
 
     "Colors
-	Plug 'rakr/vim-one'
-	Plug 'icymind/NeoSolarized'
-    Plug 'junegunn/seoul256.vim'
+    Plug 'rakr/vim-one'
+	"Plug 'icymind/NeoSolarized'
+    "Plug 'junegunn/seoul256.vim'
 	"Plug 'arzg/seoul8.vim'
     "
     "
@@ -407,7 +405,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'prabirshrestha/vim-lsp'
 call plug#end()
 
-"set conceallevel=1
+set conceallevel=1
 let g:tex_conceal='abdmg'
 let g:tex_flavor='latex'
 
@@ -437,6 +435,9 @@ nnoremap <Leader>buf :Buffers<CR>
 nnoremap <a-p> :Buffers<CR>
 nnoremap <Leader>dox :Dox<CR>
 
+nnoremap <Leader>do :do<CR>
+nnoremap <Leader>dp :dp<CR>
+
 iabbrev imageing imaging
 
 autocmd FileType cpp iabbrev <buffer> firend friend
@@ -444,7 +445,7 @@ autocmd FileType cpp iabbrev <buffer> flaot float
 autocmd FileType cpp iabbrev <buffer> _std std::
 autocmd FileType cpp iabbrev <buffer> stirng string
 "set autochdir
-autocmd BufEnter * silent! lcd %:p:h
+"autocmd BufEnter * silent! lcd %:p:h
 nnoremap gf gF
 nnoremap gF <c-w>gF
 nnoremap gP :call GotoPython()<cr>
@@ -464,11 +465,13 @@ let g:easymotion_smartsign = 1
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 let g:EasyMotion_keys='hklyuiopnm,qwertzxcvbasdgjf'
 
-nmap <Leader>gs :Tclose<cr>:cclose<cr>:lclose<cr>:Gstatus<CR>
+nmap <Leader>gs :Gstatus<CR>
 nmap <Leader>ga :Gw<CR>
 nmap <Leader>gw :Gw<CR>
-nmap <Leader>gc :Gcommit<CR>
+nmap <Leader>gc :Gcommit -v<CR>
+nmap <Leader>am :Gcommit -v --amend<CR>
 nmap <Leader>gd :Gdiff<CR>
+nmap <Leader>gl :0Glog<CR>
 nmap <Leader>gr :Gread<CR>
 nmap <Leader>gp :!git push<CR>
 vnoremap // y/<C-R>"<CR>
@@ -517,7 +520,7 @@ set termguicolors
 endif
 
 
-nnoremap <leader>gr :grep! "\b<C-R><C-W>\b"<CR>:cw<CR><cr>
+nnoremap <leader>G :grep! "\b<C-R><C-W>\b"<CR>:cw<CR><cr>
 
 " The Silver Searcher
 if executable('ag')
@@ -564,7 +567,6 @@ set ignorecase
 set smartcase
 
 let g:vebugger_leader =','
-"let g:ycm_server_python_interpreter='/usr/bin/python3'
 
 "let g:deoplete#sources#jedi#extra_path =['', '/usr/lib/python2.7', '/usr/lib/python2.7/plat-x86_64-linux-gnu', '/usr/lib/python27/lib-tk', '/usr/lib/python2.7/lib-old', '/usr/lib/python2.7/lib-dynload', '/home/stepha/.local/lib/python2.7/site-packages', '/usr/local/lib/python2.7/dist-packages', '/usr/li/python2.7/dist-packages', '/usr/lib/python2.7/dist-packages/PILcompat', '/usr/lib/pytho2.7/dist-packages/gtk-2.0', '/usr/lib/python2.7/dist-packages/wx-3.0-gtk2']
 nnoremap <F3> :Tkill<cr>:wa<cr>:exec 'T' expand($last_execution,1)<cr>
@@ -579,13 +581,16 @@ nnoremap <s-F3> :Tkill<cr>:wa<cr>:exec expand($last_execution,1)<cr>
 "autocmd FileType python nnoremap <buffer> <F11> :VBGstepIn<cr>
 "autocmd FileType python nnoremap <buffer> <F12> :VBGstepOver<cr>
 nnoremap <leader>tt :<c-u>exec v:count . 'T '
+"
 autocmd FileType python nnoremap <buffer> <F5> :let $last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:T python3 %<cr>
 autocmd FileType python nnoremap <buffer> <s-F5> :let $last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:execute ':GdbStartPDB python3 -m pdb ' . expand('%:p',1)<cr>
 autocmd FileType python nnoremap <buffer> <F7> :let $last_execution='python3 -m pdb -c continue ' . expand('%:p',1)<cr>:wa<cr>:T python3 -m pdb -c continue %<cr>
 autocmd FileType python nnoremap <buffer> <F4> :let $last_execution='ipython3 ' . expand('%:p',1)<cr>:wa<cr>:T ipython3 %<cr>
-autocmd FileType python nmap <silent> <C-.> <Plug>(pydocstring)
+
+"autocmd FileType python nmap <silent> <C-.> <Plug>(pydocstring)
 "autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . $target<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
 autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='build.py --run'<cr>:Tkill<cr>:wa<cr>:T build.py --run<cr>
+autocmd FileType rust nnoremap <buffer> <F5> :let $last_execution='cargo run'<cr>:Tkill<cr>:wa<cr>:T cargo run<cr>
 " jump to the previous function
 autocmd FileType cpp nnoremap <buffer> [f :call
 \ search('\(\(if\\|for\\|while\\|switch\\|catch\)\_s*\)\@64<!(\_[^)]*)\_[^;{}()]*\zs{', "bw")<CR>
@@ -604,7 +609,7 @@ autocmd FileType tex,latex call neomake#configure#automake('w')
 "<cr>:e
 
 let g:ag_working_path_mode="r"
-let g:deoplete#sources#jedi#python_path='/usr/bin/python3'
+"let g:deoplete#sources#jedi#python_path='/usr/bin/python3'
 
 
 let g:ale_fixers = {'python': ['pylint']}
@@ -631,8 +636,8 @@ endif
 "smap <C-J> <Plug>snipMateNextOrTrigger
 "imap <C-j> <Plug>snipMateTrigger
 "smap <C-j> <Plug>snipMateTrigger
-smap <s-tab> <Plug>snipMateBack
-imap <s-tab> <Plug>snipMateBack
+"smap <s-tab> <Plug>snipMateBack
+"imap <s-tab> <Plug>snipMateBack
 
 let g:vlime_leader = ","
 let g:vlime_enable_autodoc = v:true
@@ -657,37 +662,36 @@ let g:LanguageClient_serverCommands = {
     \ 'python': ['pyls']
     \ }
     "\ 'go': ['go-langserver'],
-	"\ 'cpp': ['/home/stephan/projects/cquery/build/release/bin/cquery','--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery/"}, "completion": {"filterAndSort": false}}'],
+    "\ 'cpp': ['/home/stephan/projects/cquery/build/release/bin/cquery','--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery/"}, "completion": {"filterAndSort": false}}'],
 "if executable('ccls')
-	   "au User lsp_setup call lsp#register_server({
-			 "\ 'name': 'ccls',
-			 "\ 'cmd': {server_info->['ccls']},
-			 "\ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
-			 "\ 'initialization_options': { 'cacheDirectory': '/tmp/ccls/cache' },
-			 "\ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
-			 "\ })
+       "au User lsp_setup call lsp#register_server({
+             "\ 'name': 'ccls',
+             "\ 'cmd': {server_info->['ccls']},
+             "\ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+             "\ 'initialization_options': { 'cacheDirectory': '/tmp/ccls/cache' },
+             "\ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+             "\ })
    "endif
 
 function! LC_maps()
    if has_key(g:LanguageClient_serverCommands, &filetype)
-     call deoplete#custom#option('auto_complete', v:true)
+        call deoplete#custom#option('auto_complete', v:true)
      
-     if &filetype != "python" && &filetype != "tex" && &filetype != "bib" && &filetype != "go"
-         autocmd CursorHold <buffer> silent call LanguageClient#textDocument_documentHighlight()
-     endif
-     "autocmd CursorHold <buffer> silent call LanguageClient#textDocument_hover()
-     nnoremap <buffer> <leader>la :call LanguageClient_contextMenu()<CR>
-       nnoremap <buffer> <leader>ca :call LanguageClient#textDocument_codeAction()<CR>
-       nnoremap <buffer> <silent> gh :call LanguageClient#textDocument_hover()<CR>
-       nnoremap <buffer> <silent> <leader>ss :call LanguageClient#textDocument_documentSymbol()<CR>
-       nnoremap <buffer> <silent> <c-s> :call LanguageClient#textDocument_formatting()<CR>:w<CR>
-       nnoremap <buffer> <silent> gr :call LanguageClient#textDocument_references()<CR>
-       nnoremap <buffer> <silent> <leader>fo :call LanguageClient#textDocument_formatting()<CR>
-       nnoremap <buffer> <silent> <leader>hi :call LanguageClient#textDocument_documentHighlight()<CR>
-       nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
-       nnoremap <buffer> <silent> gD <c-w>v:call LanguageClient#textDocument_definition()<CR>
-       nnoremap <buffer> <silent> gt :call LanguageClient#textDocument_typeDefinition()<CR>
-       nnoremap <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+         if &filetype != "python" && &filetype != "tex" && &filetype != "bib" && &filetype != "go"
+             autocmd CursorHold <buffer> silent call LanguageClient#textDocument_documentHighlight()
+         endif
+        nnoremap <buffer> <leader>la :call LanguageClient_contextMenu()<CR>
+        nnoremap <buffer> <leader>ca :call LanguageClient#textDocument_codeAction()<CR>
+        nnoremap <buffer> <silent> gh :call LanguageClient#textDocument_hover()<CR>
+        nnoremap <buffer> <silent> <leader>ss :call LanguageClient#textDocument_documentSymbol()<CR>
+        nnoremap <buffer> <silent> <c-s> :call LanguageClient#textDocument_formatting()<CR>:w<CR>
+        nnoremap <buffer> <silent> gr :call LanguageClient#textDocument_references()<CR>
+        nnoremap <buffer> <silent> <leader>fo :call LanguageClient#textDocument_formatting()<CR>
+        nnoremap <buffer> <silent> <leader>hi :call LanguageClient#textDocument_documentHighlight()<CR>
+        nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
+        nnoremap <buffer> <silent> gD <c-w>v:call LanguageClient#textDocument_definition()<CR>
+        nnoremap <buffer> <silent> gt :call LanguageClient#textDocument_typeDefinition()<CR>
+        nnoremap <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
    endif
 endfunction
 
@@ -703,16 +707,16 @@ nmap <silent> <leader>tag :Tags<cr>
 nmap <silent> <c-t> :Tags<cr>
 
 "function SetLSPShortcuts()
-	"nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
-	"nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
-	"nnoremap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
-	"nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
-	"nnoremap <leader>lx :call LanguageClient#textDocument_references()<CR>
-	"nnoremap <leader>la :call LanguageClient_workspace_applyEdit()<CR>
-	"nnoremap <leader>lc :call LanguageClient#textDocument_completion()<CR>
-	"nnoremap <leader>lh :call LanguageClient#textDocument_hover()<CR>
-	"nnoremap <leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
-	"nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>
+    "nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
+    "nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
+    "nnoremap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
+    "nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
+    "nnoremap <leader>lx :call LanguageClient#textDocument_references()<CR>
+    "nnoremap <leader>la :call LanguageClient_workspace_applyEdit()<CR>
+    "nnoremap <leader>lc :call LanguageClient#textDocument_completion()<CR>
+    "nnoremap <leader>lh :call LanguageClient#textDocument_hover()<CR>
+    "nnoremap <leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
+    "nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>
 "endfunction()
 
 "augroup LSP
@@ -746,7 +750,7 @@ command! Q :q
 command! Qa :qa
 "
 "fu! C_init()
-	  "setl formatexpr=LanguageClient#textDocument_rangeFormatting()
+      "setl formatexpr=LanguageClient#textDocument_rangeFormatting()
 "endf
 "au FileType c,cpp,cuda,objc :call C_init()
 nnoremap <c-h> :History<Cr>
@@ -777,12 +781,12 @@ let g:neoterm_default_mod='rightb'
 let g:neoterm_open_in_all_tabs=0
 "autocmd BufWinEnter,WinEnter term://* startinsert
 augroup terminal
-	autocmd TermOpen * set bufhidden=hide
-	"autocmd TermOpen * set syntax=cpp
-	autocmd TermOpen * setlocal nospell
+    autocmd TermOpen * set bufhidden=hide
+    "autocmd TermOpen * set syntax=cpp
+    autocmd TermOpen * setlocal nospell
 augroup END
 
-	"tnoremap <C-v>a <C-\><C-n>"aPi
+    "tnoremap <C-v>a <C-\><C-n>"aPi
 
 nnoremap <a-t> :Switch<CR>
 
@@ -822,10 +826,10 @@ set noshowmode
 set clipboard=unnamedplus
 
 function! GotoPython()
-	let current_line = getline('.')
-	let goto_file = matchstr(current_line, '\(File "\)\@<=\(.*\)\("\)\@=')
-	let goto_line = matchstr(current_line, '\(line \)\@<=[0-9]*')
-	execute "tabedit +" . goto_line . " " . goto_file
+    let current_line = getline('.')
+    let goto_file = matchstr(current_line, '\(File "\)\@<=\(.*\)\("\)\@=')
+    let goto_line = matchstr(current_line, '\(line \)\@<=[0-9]*')
+    execute "tabedit +" . goto_line . " " . goto_file
 endfunction
 
 
@@ -861,7 +865,7 @@ nnoremap <leader>ag :Ag<cr>
 nnoremap <leader>fag :FuzzyAg<cr>
 nnoremap <leader>rg :Rg<cr>
 let g:LanguageClient_diagnosticsList = "Location"
-let g:quickr_preview_on_cursor = 1
+"let g:quickr_preview_on_cursor = 1
 
 
  function! ActivateCoc()
@@ -871,19 +875,19 @@ let g:quickr_preview_on_cursor = 1
          autocmd  CursorHold <buffer> silent call CocActionAsync('highlight')
      endif
      "autocmd <buffer> CursorHold * silent call CocActionAsync('highlight')
-	 nmap <silent> <buffer>  <c-k> <Plug>(coc-diagnostic-prev)
-	 nmap <silent> <buffer>  <c-j> <Plug>(coc-diagnostic-next)
-	 nmap <silent> <buffer>  gd <Plug>(coc-definition)
-	 nmap <silent> <buffer>  gD <c-w>v<Plug>(coc-definition)
-	 nmap <silent> <buffer>  gt <Plug>(coc-type-definition)
-	 nmap <silent> <buffer>  gT <c-w>v<Plug>(coc-type-definition)
-	 nmap <silent> <buffer>  gi <Plug>(coc-implementation)
-	 nmap <silent> <buffer>  gI <c-w>v<Plug>(coc-implementation)
-	 nmap <silent> <buffer>  gr <Plug>(coc-references)
-	 nmap <silent> <buffer>  gh :call CocAction('doHover')<cr>
-	 nmap <silent> <buffer>  <c-s> :call CocAction('format')<cr>
-	 vmap <buffer> <leader>a   <Plug>(coc-codeaction-selected)
-	 nmap <buffer> <leader>a <Plug>(coc-codeaction-selected)
+     nmap <silent> <buffer>  <c-k> <Plug>(coc-diagnostic-prev)
+     nmap <silent> <buffer>  <c-j> <Plug>(coc-diagnostic-next)
+     nmap <silent> <buffer>  gd <Plug>(coc-definition)
+     nmap <silent> <buffer>  gD <c-w>v<Plug>(coc-definition)
+     nmap <silent> <buffer>  gt <Plug>(coc-type-definition)
+     nmap <silent> <buffer>  gT <c-w>v<Plug>(coc-type-definition)
+     nmap <silent> <buffer>  gi <Plug>(coc-implementation)
+     nmap <silent> <buffer>  gI <c-w>v<Plug>(coc-implementation)
+     nmap <silent> <buffer>  gr <Plug>(coc-references)
+     nmap <silent> <buffer>  gh :call CocAction('doHover')<cr>
+     nmap <silent> <buffer>  <c-s> :call CocAction('format')<cr>
+     vmap <buffer> <leader>a   <Plug>(coc-codeaction-selected)
+     nmap <buffer> <leader>a <Plug>(coc-codeaction-selected)
  endfunction()
 
 autocmd FileType java call ActivateCoc()
@@ -947,13 +951,13 @@ let g:vimtex_compiler_latexmk = {
 
 " ʕ◔ϖ◔ʔ Gonvim setting
 if exists('g:gonvim_running')
-	set title
-	set whichwrap=b,s,h,l
-	set mouse=a
-	set ignorecase
-	set inccommand=split
-	let mapleader = "\<Space>"
-	nnoremap <Esc><Esc> :nohlsearch<CR>
+    set title
+    set whichwrap=b,s,h,l
+    set mouse=a
+    set ignorecase
+    set inccommand=split
+    let mapleader = "\<Space>"
+    nnoremap <Esc><Esc> :nohlsearch<CR>
   " ʕ◔ϖ◔ʔ Use Gonvim UI instead of vim native UII
   set laststatus=0
   set noshowmode
@@ -1050,11 +1054,11 @@ nnoremap ,cite :call fzf#run({
                         \ 'sink*': function('<sid>bibtex_markdown_sink'),
                         \ 'up': '40%',
                         \ 'options': '--ansi --multi --prompt "Cite>"' })<CR>
-inoremap <silent> @@ <c-g>u<c-o>:call fzf#run({
-                        \ 'source': 'bibtex-ls',
-                        \ 'sink*': function('<sid>bibtex_cite_sink_insert'),
-                        \ 'up': '40%',
-                        \ 'options': '--ansi --multi --prompt "Cite> "'})<CR>
+"inoremap <silent> @@ <c-g>u<c-o>:call fzf#run({
+                        "\ 'source': 'bibtex-ls',
+                        "\ 'sink*': function('<sid>bibtex_cite_sink_insert'),
+                        "\ 'up': '40%',
+                        "\ 'options': '--ansi --multi --prompt "Cite> "'})<CR>
 
 inoremap <silent> @yy <c-g>u<c-o>:CtrlPYankring<CR>
 let g:cmake_export_compile_commands =1
@@ -1171,8 +1175,6 @@ let g:cargo_makeprg_params = 'build'
 "let g:oceanic_next_terminal_bold = 1
 "let g:oceanic_next_terminal_italic = 1
 "colorscheme OceanicNext
-autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
-autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
 
 nmap     <C-F>f <Plug>CtrlSFPrompt
 vmap     <C-F>f <Plug>CtrlSFVwordPath
@@ -1252,7 +1254,25 @@ let test#strategy = "neoterm"
 
 
 "luafile $HOME/.config/nvim/iron.lua
+"nmap <Leader>gd :Gdiff<CR>
+"
+autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
 
 nnoremap <localleader>fzf :call vimtex#fzf#run()<cr>
 set wildoptions=pum
 set pumblend=20
+let g:UltiSnipsEnableSnipMate=1
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+autocmd BufReadPre *.pdf silent set ro
+autocmd BufReadPre *.pdf silent %!xdg-open "%"
+autocmd BufReadPost *.pdf silent %!pdftotext -nopgbrk -layout -q -eol unix "%" - | fmt -w78
+
+autocmd BufReadPre *.png silent %!xdg-open "%"
+autocmd BufReadPre *.eps silent %!xdg-open "%"
+autocmd BufReadPre *.jpg silent %!xdg-open "%"
+autocmd BufReadPre *.bmp silent %!xdg-open "%"
+
