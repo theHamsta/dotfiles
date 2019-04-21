@@ -233,16 +233,23 @@ endfunction
 call plug#begin('~/.local/share/nvim/plugged')
     "
     "Plug 'google/vim-maktaba'
-    "Plug 'bazelbuild/vim-bazel'
+    " Plug 'bazelbuild/vim-bazel'
     "Plug 'jason0x43/vim-wildgitignore' 
     "Plug 'SirVer/ultisnips'
     "Plug 'cyansprite/Extract'
     "Plug 'wbthomason/buildit.nvim'
     "Plug 'Shougo/neosnippet.vim'
     Plug 'heavenshell/vim-pydocstring'
+    Plug 'tpope/vim-sleuth'
+    Plug 'meain/vim-package-info', { 'do': 'npm install' }
+    Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': ['lisp'] }
     Plug 'henrynewcomer/vim-theme-papaya'
     Plug 'mattboehm/vim-accordion'
     Plug 't9md/vim-choosewin'
+    Plug 'HiPhish/ncm2-vlime', {'for' : ['lisp']}
+    Plug 'ncm2/ncm2', {'for' : ['lisp']}
+    Plug 'ncm2/ncm2-bufword', {'for' : ['lisp']}
+    Plug 'ncm2/ncm2-path', {'for' : ['lisp']}
     "Plug 'Vigemus/iron.nvim'
     "Plug 'rhysd/reply.vim'
     Plug 'rliang/termedit.nvim'
@@ -342,7 +349,9 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 	Plug 'junegunn/fzf.vim'
     Plug 'jpalardy/vim-slime'
-	Plug 'kovisoft/slimv'
+    "Plug 'kovisoft/slimv'
+    Plug 'l04m33/vlime', {'rtp': 'vim/'}
+    "Plug 'vim-scripts/paredit.vim', {'for': ['lisp']}
 	Plug 'machakann/vim-highlightedyank'
 	Plug 'scrooloose/nerdtree', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
 	Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
@@ -364,6 +373,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 	if has('nvim')
         Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+		Plug 'roxma/nvim-yarp'
 	else
 		Plug 'Shougo/deoplete.nvim'
 		Plug 'roxma/nvim-yarp'
@@ -416,7 +426,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'prabirshrestha/vim-lsp'
 call plug#end()
 
-"set conceallevel=1
+set conceallevel=2
 let g:tex_conceal='abdmg'
 let g:tex_flavor='latex'
 
@@ -661,13 +671,13 @@ let g:LanguageClient_serverCommands = {
     \ 'cpp': ['clangd-7'],
     \ 'cuda': ['clangd-7'],
     \ 'c': ['clangd-7'],
-    \ 'lisp': ['~/.roswell/bin/cl-lsp'],
     \ 'go': ['bingo', '--diagnostics-style=instant'],
-    \ 'sh': ['~/.yarn/bin/bash-language-server', 'start'],
-    \ 'tex': ['java', '-jar',  '~/.local/bin/texlab.jar'],
-    \ 'bib': ['java', '-jar',  '~/.local/bin/texlab.jar'],
-    \ 'python': ['pyls']
+    \ 'python': ['pyls'],
     \ }
+    "\ 'lisp': ['~/.roswell/bin/cl-lsp'],
+    "\ 'tex': ['java', '-jar',  '~/.local/bin/texlab.jar'],
+    "\ 'bib': ['java', '-jar',  '~/.local/bin/texlab.jar'],
+    "\ 'sh': ['~/.yarn/bin/bash-language-server', 'start'],
     "\ 'go': ['go-langserver'],
 	"\ 'cpp': ['/home/stephan/projects/cquery/build/release/bin/cquery','--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery/"}, "completion": {"filterAndSort": false}}'],
 "if executable('ccls')
@@ -776,6 +786,7 @@ if has('nvim')
     nnoremap <silent> <end> <c-w>o:vertical Ttoggle<cr>
     nnoremap <silent> <leader>py <c-w>o:vertical Ttoggle<cr>:T ipython<cr>
     nnoremap <silent> <leader>sym <c-w>o:vertical Ttoggle<cr>:T isympy<cr>
+    "nnoremap <silent> <leader>lisp <c-w>o:vertical Ttoggle<cr>:T ~/.roswell/bin/cl-repl<cr>
     nnoremap <c-´> :botright Ttoggle<cr>
     "nnoremap <leader>tt :<c-u>exec v:count.'T'<cr>
     nnoremap <silent> <PageDown> :cclose<cr>:lclose<cr>:pc<cr>:botright Ttoggle<cr>
@@ -1011,7 +1022,6 @@ nnoremap <Leader>fu :CtrlPFunky<Cr>
 nnoremap <c-a-n> :CtrlPFunky<Cr>
 nnoremap <leader>yy :CtrlPYankring<cr>
 nnoremap <leader>co :Commands<cr>
-nnoremap ,c :Commands<cr>
 nnoremap ,, :BLines<cr>
 
 let g:neoterm_autoinsert=0
@@ -1153,6 +1163,7 @@ endfunction
 
 augroup filetypedetect
     au! BufRead,BufNewFile *.cpp.tmpl set filetype cpp
+    au! BufRead,BufNewFile *.asd set filetype lisp
 augroup END
 
 let g:NERDTreeFileExtensionHighlightFullName = 1
@@ -1263,6 +1274,7 @@ nnoremap <leader>tt :T
 let test#strategy = "neoterm"
 
 
+
 "luafile $HOME/.config/nvim/iron.lua
 
 nnoremap <localleader>fzf :call vimtex#fzf#run()<cr>
@@ -1295,3 +1307,24 @@ endfunction
 au FileType fzf set nonu nornu
 noremap <c-j> <c-w>w
 noremap <c-k> <c-w>W
+
+let g:vscode_extensions = [
+  \'vscode.typescript-language-features',
+  \'vscode.json-language-features',
+  \'vscode.css-language-features',
+  \'vscode.markdown-language-features',
+  \'vscode.html-language-features',
+  \'vscode.php-language-features',
+  \'rust-lang.rust',
+  \'ms-vscode.go',
+  \'ms-python.python',
+  \'hbenl.vscode-test-explorer',
+  \'swellaby.vscode-rust-test-adapter',
+  \]
+
+let g:vlime_cl_use_terminal =1
+"autocmd BufEnter * call ncm2#enable_for_buffer()
+autocmd BufEnter lisp call deoplete#custom#option('auto_complete', v:false)
+
+
+let g:vlime_enable_autodoc =1
