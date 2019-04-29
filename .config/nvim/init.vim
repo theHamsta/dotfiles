@@ -494,7 +494,7 @@ nmap <Leader>me :MerginalToggle<CR>
 nmap <Leader>gw :Gw<CR>
 nmap <Leader>gc :Gcommit -v<CR>
 nmap <Leader>am :Gcommit -v --amend<CR>
-nmap <Leader>gd :Gdiff<CR>
+nmap <Leader>gd <c-w>O:Gdiff<CR>
 nmap <Leader>gl :0Glog<CR>
 nmap <Leader>gr :Gread<CR>
 nmap <Leader>gp :!git push<CR>
