@@ -147,6 +147,7 @@ vnoremap < <gv
 vnoremap > >gv
 nnoremap K :s/,/,\r/g<CR>
 nnoremap Y y$
+nnoremap y "+y
 nnoremap H ^
 nnoremap L $
 vnoremap H ^
@@ -234,6 +235,12 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'bazelbuild/vim-bazel'
     "Plug 'jason0x43/vim-wildgitignore' 
     Plug 'SirVer/ultisnips'
+    "Plug 'tpope/vim-endwise'
+    "Plug 'lambdalisue/vim-gista'
+    "Plug 'lambdalisue/gina.vim'
+    "Plug 'hotwatermorning/auto-git-diff'
+    "Plug 'rhysd/committia.vim'
+    Plug 'junegunn/gv.vim'
     Plug 'idanarye/vim-merginal'
     Plug 'moll/vim-bbye'
     Plug 'roblillack/vim-bufferlist'
@@ -366,7 +373,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'ncm2/ncm2-ultisnips'
     "Plug 'amix/vim-zenroom2'
     "Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}, 'for': ['java']}
-    Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java']}
+    Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim']}
     Plug 'autozimu/LanguageClient-neovim', {
             \ 'branch': 'next',
             \ 'do': 'bash install.sh',
@@ -472,7 +479,7 @@ nnoremap gf gF
 nnoremap gF <c-w>gF
 nnoremap gP :call GotoPython()<cr>
 
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.log,*/CMakeFiles/*,*.aux,*.lof,*.lot,*.gz,*.fls,*.fdb_latexmk,*.toc,__*__,*/pybind11/*,*[0-9]+,*.class,*.bak?,*.bak??,*.md5,*.snm,*.bbl,*.nav,*.out,*.run.xml,*.bcf,*.blg,*.auxlock
+set wildignore+=_minted-*,*/tmp/*,*.so,*.swp,*.zip,*.log,*/CMakeFiles/*,*.aux,*.lof,*.lot,*.gz,*.fls,*.fdb_latexmk,*.toc,__*__,*/pybind11/*,*[0-9]+,*.class,*.bak?,*.bak??,*.md5,*.snm,*.bbl,*.nav,*.out,*.run.xml,*.bcf,*.blg,*.auxlock
 
 set lazyredraw
 set ttyfast
@@ -501,7 +508,7 @@ nmap <Leader>gp :!git push<CR>
 nmap <Leader>pu :!git pull<CR>
 vnoremap // y/<C-R>"<CR>
 
-let g:wordmotion_prefix = '<Leader>'
+let g:wordmotion_prefix = ','
 
 if exists(":Tabularize")
     nmap <Leader>t& :Tabularize /&<CR>
@@ -688,6 +695,7 @@ let g:LanguageClient_serverCommands = {
     \ 'sh': ['~/.yarn/bin/bash-language-server', 'start'],
     \ 'python': ['pyls']
     \ }
+    "\ 'vim': ['~/.yarn/bin/vim-language-server', '--stdio'],
     "\ 'lisp': ['~/.roswell/bin/cl-lsp'],
     "\ 'tex': ['java', '-jar',  '~/.local/bin/texlab.jar'],
     "\ 'bib': ['java', '-jar',  '~/.local/bin/texlab.jar'],
@@ -928,6 +936,7 @@ let g:LanguageClient_diagnosticsList = "Location"
  endfunction()
 
 autocmd FileType java call ActivateCoc()
+autocmd FileType vim call ActivateCoc()
 "autocmd FileType python call ActivateCoc()
 
  "inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
@@ -951,7 +960,7 @@ set shortmess+=c
 nnoremap <leader>yp :let @+ = expand("%:p")<cr>
 let g:rooter_change_directory_for_non_project_files = ''
 
-let g:livepreview_previewer = 'okular'
+"let g:livepreview_previewer = 'okular'
 
 nnoremap <leader>date :r!date<cr>
 nnoremap ,lv :VimtexView<cr>
@@ -963,11 +972,12 @@ nnoremap <leader>save :saveas
 "let g:vimtex_view_method ='zathura'
 "let g:vimtex_view_general_viewer = 'zathura'
 "let g:vimtex_view_general_options = '--synctex-forward @line:@col:@pdf'
+
 "--synctex-forward " . line('.') . ":" . col('.') . ":" . bufname('%') . 
 "let g:vimtex_view_method ='okular'
 let g:vimtex_view_general_viewer = 'okular'
 let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
-"let g:vimtex_view_general_options_latexmk = '--unique'
+let g:vimtex_view_general_options_latexmk = '--unique'
 "let g:vimtex_compiler_progname = 'nvr'
 let g:vimtex_latexmk_options = '-pdf -shell-escape -verbose -file-line-error -synctex=1 -interaction=nonstopmode'
 
@@ -1362,3 +1372,15 @@ au BufHidden term://* :set winhighlight=Normal:Normal
 command! Sbcl !sbcl --load ~/.local/share/nvim/plugged/vlime/lisp/start-vlime.lisp
 let g:slimv_simple_compl = 1
 let g:slimv_swank_cmd = '! xterm -e sbcl --load /usr/share/common-lisp/source/slime/swank-loader.lisp'
+
+let g:gista#client#default_username='theHamsta'
+let g:wordmotion_mappings = {
+\ 'w' : '<M-w>',
+\ 'b' : '<M-b>',
+\ 'e' : '<M-e>',
+\ 'ge' : 'g<M-e>',
+\ 'aw' : 'a<M-w>',
+\ 'iw' : 'i<M-w>',
+\ '<C-R><C-W>' : '<C-R><M-w>'
+\ }
+
