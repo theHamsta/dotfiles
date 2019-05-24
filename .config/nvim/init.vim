@@ -235,6 +235,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'bazelbuild/vim-bazel'
     "Plug 'jason0x43/vim-wildgitignore' 
     Plug 'SirVer/ultisnips'
+    Plug 'mhinz/vim-startify'
     "Plug 'tpope/vim-endwise'
     "Plug 'lambdalisue/vim-gista'
     "Plug 'lambdalisue/gina.vim'
@@ -244,6 +245,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'idanarye/vim-merginal'
     Plug 'moll/vim-bbye'
     Plug 'roblillack/vim-bufferlist'
+    Plug 'mhinz/vim-janah'
     "Plug 'cyansprite/Extract'
     "Plug 'wbthomason/buildit.nvim'
     "Plug 'Shougo/neosnippet.vim'
@@ -357,10 +359,10 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'junegunn/fzf.vim'
     Plug 'jpalardy/vim-slime'
     Plug 'machakann/vim-highlightedyank'
-    Plug 'scrooloose/nerdtree', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-    Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-    Plug 'ivalkeen/nerdtree-execute', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-    "Plug 'tiagofumo/vim-nerdtree-syntax-highlight', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    Plug 'scrooloose/nerdtree' ", { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    Plug 'Xuyuanp/nerdtree-git-plugin' ", { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    Plug 'ivalkeen/nerdtree-execute' ", { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    Plug 'tiagofumo/vim-nerdtree-syntax-highlight' ", { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
     Plug 'equalsraf/neovim-gui-shim'
     Plug 'michaeljsmith/vim-indent-object'
     Plug 'Chun-Yang/vim-action-ag'
@@ -479,7 +481,7 @@ nnoremap gf gF
 nnoremap gF <c-w>gF
 nnoremap gP :call GotoPython()<cr>
 
-set wildignore+=_minted-*,*/tmp/*,*.so,*.swp,*.zip,*.log,*/CMakeFiles/*,*.aux,*.lof,*.lot,*.gz,*.fls,*.fdb_latexmk,*.toc,__*__,*/pybind11/*,*[0-9]+,*.class,*.bak?,*.bak??,*.md5,*.snm,*.bbl,*.nav,*.out,*.run.xml,*.bcf,*.blg,*.auxlock
+set wildignore+=_minted-*,*/tmp/*,*.so,*.swp,*.zip,*.log,*/CMakeFiles/*,*.aux,*.lof,*.lot,*.gz,*.fls,*.fdb_latexmk,*.toc,__*__,*/pybind11/*,*[0-9]+,*.class,*.bak?,*.bak??,*.md5,*.snm,*.bbl,*.nav,*.out,*.run.xml,*.bcf,*.blg,*.auxlock,*.sty
 
 set lazyredraw
 set ttyfast
@@ -693,7 +695,8 @@ let g:LanguageClient_serverCommands = {
     \ 'c': ['clangd-7'],
     \ 'go': ['bingo', '--diagnostics-style=instant'],
     \ 'sh': ['~/.yarn/bin/bash-language-server', 'start'],
-    \ 'python': ['pyls']
+    \ 'python': ['pyls'],
+    \ 'tex': ['digestif']
     \ }
     "\ 'vim': ['~/.yarn/bin/vim-language-server', '--stdio'],
     "\ 'lisp': ['~/.roswell/bin/cl-lsp'],
@@ -1132,7 +1135,7 @@ let g:ctrlp_switch_buffer=0
 "nnoremap <s-F11>    :call vimspector#StepOut()<cr>
 nnoremap <leader>id :GitGutterLineHighlightsToggle<cr>
 
-let g:NERDTreeWinPos = "left"
+let g:NERDTreeWinPos = "right"
 set updatetime=100
 
 let g:license="GPLv3"
@@ -1384,3 +1387,7 @@ let g:wordmotion_mappings = {
 \ '<C-R><C-W>' : '<C-R><M-w>'
 \ }
 
+"autocmd ColorScheme janah highlight Normal ctermbg=235
+"colorscheme janah
+
+let g:startify_padding_left = 50
