@@ -235,6 +235,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'bazelbuild/vim-bazel'
     "Plug 'jason0x43/vim-wildgitignore' 
     Plug 'SirVer/ultisnips'
+    Plug 'pboettch/vim-cmake-syntax'
     Plug 'mhinz/vim-startify'
     "Plug 'tpope/vim-endwise'
     "Plug 'lambdalisue/vim-gista'
@@ -281,7 +282,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'maralla/vim-toml-enhance', {'for': 'toml'}
     Plug 'tpope/vim-markdown'
     "Plug 'pboettch/vim-highlight-cursor-words'
-    "Plug 'jaxbot/semantic-highlight.vim'
+    Plug 'jaxbot/semantic-highlight.vim'
     Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
     Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
     "Plug 'Valloric/vim-operator-highlight'
@@ -626,6 +627,7 @@ autocmd FileType python nnoremap <buffer> <F4> :let $last_execution='ipython3 ' 
 "autocmd FileType python nmap <silent> <C-.> <Plug>(pydocstring)
 "autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . $target<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
 autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='build.py --run'<cr>:Tkill<cr>:wa<cr>:T build.py --run<cr>
+autocmd FileType cmake nnoremap <buffer> <F5> :let $last_execution='build.py --run'<cr>:Tkill<cr>:wa<cr>:T build.py --run<cr>
 autocmd FileType rust nnoremap <buffer> <F5> :let $last_execution='cargo run'<cr>:Tkill<cr>:wa<cr>:T cargo run<cr>
 " jump to the previous function
 autocmd FileType cpp nnoremap <buffer> [f :call
