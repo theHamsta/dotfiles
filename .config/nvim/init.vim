@@ -1,6 +1,6 @@
 set tags=./tags;tags
 set encoding=UTF-8
-:set shell=/usr/bin/zsh
+set shell=/usr/bin/zsh
 if has('vim_starting')
 	set nocompatible               " Be iMproved
 endif
@@ -233,7 +233,7 @@ endfunction
 call plug#begin('~/.local/share/nvim/plugged')
     "
     "Plug 'google/vim-maktaba'
-    Plug 'bazelbuild/vim-bazel'
+    "Plug 'bazelbuild/vim-bazel'
     "Plug 'jason0x43/vim-wildgitignore' 
     Plug 'SirVer/ultisnips'
     "Plug 'cyansprite/Extract'
@@ -1343,3 +1343,4 @@ autocmd BufEnter lisp call deoplete#custom#option('auto_complete', v:false)
 
 
 let g:vlime_enable_autodoc =1
+set cursorline
