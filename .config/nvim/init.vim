@@ -1,6 +1,6 @@
 set tags=./tags;tags
 set encoding=UTF-8
-:set shell=/usr/bin/zsh
+set shell=/usr/bin/zsh
 if has('vim_starting')
 	set nocompatible               " Be iMproved
 endif
@@ -1362,31 +1362,30 @@ function! FloatingFZF()
   call nvim_open_win(buf, v:true, opts)
 endfunction
 au FileType fzf set nonu nornu
-"noremap <c-j> <c-w>w
-"noremap <c-k> <c-w>W
+noremap <c-j> <c-w>w
+noremap <c-k> <c-w>W
 
-let g:gitgutter_sign_added = '▋'
-let g:gitgutter_sign_modified = '▐'
-"let g:gitgutter_sign_removed = '▋'
-"let g:gitgutter_sign_removed_first_line = '▋'
-let g:gitgutter_sign_modified_removed = '▐_'
-"inoremap <silent> __ __<c-r>=UltiSnips#Anon('_{$1}$0', '__', '', 'i')<cr>
-nnoremap <leader>bd :Bdelete<cr>
-nmap <silent> <leader>li :call BufferList()<CR>
+let g:vscode_extensions = [
+  \'vscode.typescript-language-features',
+  \'vscode.json-language-features',
+  \'vscode.css-language-features',
+  \'vscode.markdown-language-features',
+  \'vscode.html-language-features',
+  \'vscode.php-language-features',
+  \'rust-lang.rust',
+  \'ms-vscode.go',
+  \'ms-python.python',
+  \'hbenl.vscode-test-explorer',
+  \'swellaby.vscode-rust-test-adapter',
+  \]
 
-let g:markdown_composer_autostart = 0
-"hi BlackBg guibg=black
-"au TermOpen * :set winhighlight=Normal:BlackBg
-"au FileType fzf set winhighlight=Normal:Normal
+let g:vlime_cl_use_terminal =1
+"autocmd BufEnter * call ncm2#enable_for_buffer()
+autocmd BufEnter lisp call deoplete#custom#option('auto_complete', v:false)
 
-"!git rev-list --all | xargs git grep 
-"
-au BufHidden term://* :set winhighlight=Normal:Normal
-command! Sbcl !sbcl --load ~/.local/share/nvim/plugged/vlime/lisp/start-vlime.lisp
-let g:slimv_simple_compl = 1
-let g:slimv_swank_cmd = '! xterm -e sbcl --load /usr/share/common-lisp/source/slime/swank-loader.lisp'
 
-let g:gista#client#default_username='theHamsta'
+let g:vlime_enable_autodoc =1
+set cursorline
 let g:wordmotion_mappings = {
 \ 'w' : '<M-w>',
 \ 'b' : '<M-b>',
@@ -1396,7 +1395,6 @@ let g:wordmotion_mappings = {
 \ 'iw' : 'i<M-w>',
 \ '<C-R><C-W>' : '<C-R><M-w>'
 \ }
-
 "autocmd ColorScheme janah highlight Normal ctermbg=235
 "colorscheme janah
 
