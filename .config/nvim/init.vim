@@ -1,6 +1,6 @@
 set tags=./tags;tags
 set encoding=UTF-8
-set shell=/usr/bin/zsh
+:set shell=/usr/bin/zsh
 if has('vim_starting')
 	set nocompatible               " Be iMproved
 endif
@@ -485,7 +485,7 @@ nnoremap gf gF
 nnoremap gF <c-w>gF
 nnoremap gP :call GotoPython()<cr>
 
-set wildignore+=_minted-*,*/tmp/*,*.so,*.swp,*.zip,*.log,*/CMakeFiles/*,*.aux,*.lof,*.lot,*.gz,*.fls,*.fdb_latexmk,*.toc,__*__,*/pybind11/*,*[0-9]+,*.class,*.bak?,*.bak??,*.md5,*.snm,*.bbl,*.nav,*.out,*.run.xml,*.bcf,*.blg,*.auxlock,*.sty
+set wildignore+=_minted-*,*/tmp/*,*.so,*.swp,*.zip,*.log,*/CMakeFiles/*,*.aux,*.lof,*.lot,*.gz,*.fls,*.fdb_latexmk,*.toc,__*__,*/pybind11/*,*[0-9]+,*.class,*.bak?,*.bak??,*.md5,*.snm,*.bbl,*.nav,*.out,*.run.xml,*.bcf,*.blg,*.auxlock,*.sty,*.dvi
 
 set lazyredraw
 set ttyfast
@@ -756,6 +756,8 @@ autocmd FileType * call LC_maps()
 
 nnoremap <silent> <leader>f0 :set foldlevel=0<CR>
 nnoremap <silent> <leader>ff :set foldlevel=99<CR>
+nnoremap <silent> z0 :set foldlevel=0<CR>
+nnoremap <silent> z9 :set foldlevel=99<CR>
 
 "nmap <silent> <C-a-o> :call LanguageClient#textDocument_documentSymbol()<cr>
 nmap <silent> <C-a-o> :BTags<cr>
@@ -975,7 +977,7 @@ let g:rooter_change_directory_for_non_project_files = ''
 "let g:livepreview_previewer = 'okular'
 
 nnoremap <leader>date :r!date<cr>
-nnoremap ,lv :VimtexView<cr>
+nnoremap ,lv :let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'<cr>:VimtexView<cr>:let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex --noraise'<cr>
 nnoremap ,lc :VimtexCompile<cr>
 nnoremap <leader>zen :Goyo<cr>
 nnoremap <leader>buf :Buffers<cr>
@@ -1205,6 +1207,7 @@ endfunction
 augroup filetypedetect
     au! BufRead,BufNewFile *.cpp.tmpl set filetype cpp
     au! BufRead,BufNewFile *.pdf_tex set filetype tex
+    au! BufRead,BufNewFile *.tikz set filetype tex
 augroup END
 au! BufRead,BufNewFile *.asd set filetype lisp
 
@@ -1362,30 +1365,31 @@ function! FloatingFZF()
   call nvim_open_win(buf, v:true, opts)
 endfunction
 au FileType fzf set nonu nornu
-noremap <c-j> <c-w>w
-noremap <c-k> <c-w>W
+"noremap <c-j> <c-w>w
+"noremap <c-k> <c-w>W
 
-let g:vscode_extensions = [
-  \'vscode.typescript-language-features',
-  \'vscode.json-language-features',
-  \'vscode.css-language-features',
-  \'vscode.markdown-language-features',
-  \'vscode.html-language-features',
-  \'vscode.php-language-features',
-  \'rust-lang.rust',
-  \'ms-vscode.go',
-  \'ms-python.python',
-  \'hbenl.vscode-test-explorer',
-  \'swellaby.vscode-rust-test-adapter',
-  \]
+let g:gitgutter_sign_added = '▋'
+let g:gitgutter_sign_modified = '▐'
+"let g:gitgutter_sign_removed = '▋'
+"let g:gitgutter_sign_removed_first_line = '▋'
+let g:gitgutter_sign_modified_removed = '▐_'
+"inoremap <silent> __ __<c-r>=UltiSnips#Anon('_{$1}$0', '__', '', 'i')<cr>
+nnoremap <leader>bd :Bdelete<cr>
+nmap <silent> <leader>li :call BufferList()<CR>
 
-let g:vlime_cl_use_terminal =1
-"autocmd BufEnter * call ncm2#enable_for_buffer()
-autocmd BufEnter lisp call deoplete#custom#option('auto_complete', v:false)
+let g:markdown_composer_autostart = 0
+"hi BlackBg guibg=black
+"au TermOpen * :set winhighlight=Normal:BlackBg
+"au FileType fzf set winhighlight=Normal:Normal
 
+"!git rev-list --all | xargs git grep 
+"
+au BufHidden term://* :set winhighlight=Normal:Normal
+command! Sbcl !sbcl --load ~/.local/share/nvim/plugged/vlime/lisp/start-vlime.lisp
+let g:slimv_simple_compl = 1
+let g:slimv_swank_cmd = '! xterm -e sbcl --load /usr/share/common-lisp/source/slime/swank-loader.lisp'
 
-let g:vlime_enable_autodoc =1
-set cursorline
+let g:gista#client#default_username='theHamsta'
 let g:wordmotion_mappings = {
 \ 'w' : '<M-w>',
 \ 'b' : '<M-b>',
@@ -1395,6 +1399,7 @@ let g:wordmotion_mappings = {
 \ 'iw' : 'i<M-w>',
 \ '<C-R><C-W>' : '<C-R><M-w>'
 \ }
+
 "autocmd ColorScheme janah highlight Normal ctermbg=235
 "colorscheme janah
 
@@ -1420,3 +1425,8 @@ function! NNN()
 endfunction
 
 nnoremap <leader>nn :call NNN()<cr>
+
+nnoremap <leader>ps :PreviewSignature<cr>
+nnoremap <leader>pt :PreviewTag<cr>
+nnoremap <leader>pf :PreviewFile<cr>
+
