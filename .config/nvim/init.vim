@@ -234,7 +234,10 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'google/vim-maktaba'
     "Plug 'bazelbuild/vim-bazel'
     "Plug 'jason0x43/vim-wildgitignore' 
+    Plug 'jaxbot/github-issues.vim'
     Plug 'SirVer/ultisnips'
+    "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+    Plug 'mcchrish/nnn.vim'
     Plug 'pboettch/vim-cmake-syntax'
     Plug 'mhinz/vim-startify'
     "Plug 'tpope/vim-endwise'
@@ -499,6 +502,7 @@ let g:EasyMotion_keys='hklyuiopnm,qwertzxcvbasdgjf'
 
 nmap <Leader>gs :Gstatus<CR>
 nmap <Leader>ga :Gw<CR>
+nmap <a-b> :Gblame<CR>
 nmap <Leader>res:Git reset<CR>
 nmap <Leader>me :MerginalToggle<CR>
 nmap <Leader>gw :Gw<CR>
@@ -645,7 +649,9 @@ autocmd FileType lua nnoremap <buffer> <F5> :exec '!lua' shellescape(@%:p, 1)<cr
 autocmd FileType tex,latex nnoremap <buffer> <c-s> :w<cr>:silent !latexindent % -w<cr>:e<cr>
 autocmd FileType tex,latex call neomake#configure#automake('w')
 autocmd FileType tex,latex nnoremap <buffer> <c-a-o> :call vimtex#fzf#run()<cr>
+autocmd FileType markdown nnoremap <buffer> <cr> :ComposerStart<cr>:ComposerOpen<cr>
 autocmd FileType markdown nnoremap <buffer> <leader>ll :ComposerStart<cr>
+autocmd FileType markdown nnoremap <buffer> <leader>lv :ComposerOpen<cr>
 
 "<cr>:e
 
@@ -697,9 +703,9 @@ let g:LanguageClient_serverCommands = {
     \ 'c': ['clangd-7'],
     \ 'go': ['bingo', '--diagnostics-style=instant'],
     \ 'sh': ['~/.yarn/bin/bash-language-server', 'start'],
-    \ 'python': ['pyls'],
-    \ 'tex': ['digestif']
+    \ 'python': ['pyls']
     \ }
+    "\ 'tex': ['digestif']
     "\ 'vim': ['~/.yarn/bin/vim-language-server', '--stdio'],
     "\ 'lisp': ['~/.roswell/bin/cl-lsp'],
     "\ 'tex': ['java', '-jar',  '~/.local/bin/texlab.jar'],
@@ -960,6 +966,7 @@ autocmd FileType vim call ActivateCoc()
  let g:fzf_tags_command = 'ctags -R .'
  let g:echodoc#enable_at_startup = 1
  let g:echodoc#type = 'virtual'
+ "let g:echodoc#type = 'floating'
 
 set shortmess+=c
 nnoremap <leader>yp :let @+ = expand("%:p")<cr>
@@ -979,9 +986,8 @@ nnoremap <leader>save :saveas
 "let g:vimtex_view_general_options = '--synctex-forward @line:@col:@pdf'
 
 "--synctex-forward " . line('.') . ":" . col('.') . ":" . bufname('%') . 
-"let g:vimtex_view_method ='okular'
 let g:vimtex_view_general_viewer = 'okular'
-let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
+let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex --noraise'
 let g:vimtex_view_general_options_latexmk = '--unique'
 "let g:vimtex_compiler_progname = 'nvr'
 let g:vimtex_latexmk_options = '-pdf -shell-escape -verbose -file-line-error -synctex=1 -interaction=nonstopmode'
@@ -1137,7 +1143,8 @@ let g:ctrlp_switch_buffer=0
 "nnoremap <s-F11>    :call vimspector#StepOut()<cr>
 nnoremap <leader>id :GitGutterLineHighlightsToggle<cr>
 
-let g:NERDTreeWinPos = "right"
+
+let g:NERDTreeWinPos = "left"
 set updatetime=100
 
 let g:license="GPLv3"
@@ -1197,6 +1204,7 @@ endfunction
 
 augroup filetypedetect
     au! BufRead,BufNewFile *.cpp.tmpl set filetype cpp
+    au! BufRead,BufNewFile *.pdf_tex set filetype tex
 augroup END
 au! BufRead,BufNewFile *.asd set filetype lisp
 
@@ -1393,3 +1401,24 @@ let g:wordmotion_mappings = {
 "colorscheme janah
 
 let g:startify_padding_left = 50
+let g:neoterm_term_per_tab =1
+set cursorline
+
+ "Disable default mappings
+ let g:nnn#set_default_mappings = 0
+
+ " Then set your own
+ nnoremap <silent> <leader>NN :NnnPicker<CR>
+
+
+ " Or override
+ " Start nnn in the current file's directory
+
+ 
+function! NNN()
+   NnnPicker '%:p:h'
+   "tunmap jk
+   "nnoremap q :tre
+endfunction
+
+nnoremap <leader>nn :call NNN()<cr>
