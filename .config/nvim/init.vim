@@ -263,7 +263,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'meain/vim-package-info', { 'do': 'npm install' }
     "Plug 'mattboehm/vim-accordion'
     Plug 't9md/vim-choosewin'
-    Plug 'HiPhish/ncm2-vlime', {'for' : ['lisp']}
+    Plug 'HiPhish/ncm2-vlime' ", {'for' : ['lisp']}
     Plug 'ncm2/ncm2', {'for' : ['lisp']}
     Plug 'ncm2/ncm2-bufword', {'for' : ['lisp']}
     Plug 'ncm2/ncm2-path', {'for' : ['lisp']}
@@ -693,14 +693,16 @@ let g:vlime_leader = ","
 let g:vlime_cl_use_terminal=v:true
 let g:vlime_enable_autodoc = v:true
 let g:vlime_window_settings = {'sldb': {'pos': 'belowright', 'vertical': v:true}, 'inspector': {'pos': 'belowright', 'vertical': v:true}, 'preview': {'pos': 'belowright', 'size': v:null, 'vertical': v:true}}
-let g:gonvim_draw_statusline = 1
 
+autocmd FileType lisp nnoremap <buffer> gh <localleader>do<cr>
+"let g:vlime_cl_impl = "sbcl_swank"
     
 if has('nvim') && !executable("ncat")
       echoerr "Vlime needs ncat!!!"
 endif
 
 
+let g:gonvim_draw_statusline = 1
     "\ 'cpp': ['clangd'],
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rls'],
@@ -1224,7 +1226,7 @@ augroup filetypedetect
     au! BufRead,BufNewFile *.pdf_tex set filetype=tex
     au! BufRead,BufNewFile *.tikz set filetype=tex
 augroup END
-au! BufRead,BufNewFile *.asd set filetype lisp
+au! BufRead,BufNewFile *.asd set filetype=lisp
 
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
@@ -1403,9 +1405,6 @@ let g:markdown_composer_autostart = 0
 "!git rev-list --all | xargs git grep 
 "
 "au BufHidden term://* :set winhighlight=Normal:Normal
-command! Sbcl !sbcl --load ~/.local/share/nvim/plugged/vlime/lisp/start-vlime.lisp
-let g:slimv_simple_compl = 1
-let g:slimv_swank_cmd = '! xterm -e sbcl --load /usr/share/common-lisp/source/slime/swank-loader.lisp'
 
 let g:gista#client#default_username='theHamsta'
 let g:wordmotion_mappings = {
