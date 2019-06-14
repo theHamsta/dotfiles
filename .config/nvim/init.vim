@@ -178,7 +178,7 @@ nnoremap <Leader>tab :tabnew<cr>
 nnoremap <Leader>tc :tabclose<cr>
 nnoremap <Leader>nt :NERDTreeToggle<cr>
 nnoremap <Leader>nf :NERDTreeFind<cr>
-"let g:NERDTreeShowIgnoredStatus = 1
+  "let g:NERDTreeShowIgnoredStatus = 1
 nnoremap <Leader>oo :only<cr>
 "nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 "nmap <silent> <C-j> <Plug>(ale_next_wrap)
@@ -208,7 +208,7 @@ set expandtab
 "inoremap <A-v> <C-R><C-R>+
 inoremap <c-V> <C-R><C-R>+
 nnoremap <a-v> <C-R><C-R>+
-"nnoremap <A-v> "+p
+
 "inoremap II <Esc>I
 "inoremap AA <Esc>A
 "inoremap OO <Esc>O
@@ -235,6 +235,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'bazelbuild/vim-bazel'
     "Plug 'jason0x43/vim-wildgitignore' 
     Plug 'jaxbot/github-issues.vim'
+    Plug 'adolenc/cl-neovim'
     Plug 'SirVer/ultisnips'
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
     Plug 'mcchrish/nnn.vim'
@@ -363,10 +364,10 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'junegunn/fzf.vim'
     Plug 'jpalardy/vim-slime'
     Plug 'machakann/vim-highlightedyank'
-    Plug 'scrooloose/nerdtree' ", { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-    Plug 'Xuyuanp/nerdtree-git-plugin' ", { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-    Plug 'ivalkeen/nerdtree-execute' ", { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-    Plug 'tiagofumo/vim-nerdtree-syntax-highlight' ", { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    Plug 'scrooloose/nerdtree' , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    Plug 'Xuyuanp/nerdtree-git-plugin' , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    Plug 'ivalkeen/nerdtree-execute' , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    Plug 'tiagofumo/vim-nerdtree-syntax-highlight' , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
     Plug 'equalsraf/neovim-gui-shim'
     Plug 'michaeljsmith/vim-indent-object'
     Plug 'Chun-Yang/vim-action-ag'
@@ -375,11 +376,11 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'junegunn/goyo.vim'
     "Plug 'HiPhish/ncm2-vlime' , { 'for' : ['lisp']}
     "Plug 'ncm2/ncm2', { 'for' : ['lisp']}
-    "Plug 'l04m33/vlime', {'rtp': 'vim/'}
+    Plug 'l04m33/vlime', {'rtp': 'vim/'}
     Plug 'ncm2/ncm2-ultisnips'
     "Plug 'amix/vim-zenroom2'
     "Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}, 'for': ['java']}
-    Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim']}
+    Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh']}
     Plug 'autozimu/LanguageClient-neovim', {
             \ 'branch': 'next',
             \ 'do': 'bash install.sh',
@@ -485,7 +486,7 @@ nnoremap gf gF
 nnoremap gF <c-w>gF
 nnoremap gP :call GotoPython()<cr>
 
-set wildignore+=_minted-*,*/tmp/*,*.so,*.swp,*.zip,*.log,*/CMakeFiles/*,*.aux,*.lof,*.lot,*.gz,*.fls,*.fdb_latexmk,*.toc,__*__,*/pybind11/*,*[0-9]+,*.class,*.bak?,*.bak??,*.md5,*.snm,*.bbl,*.nav,*.out,*.run.xml,*.bcf,*.blg,*.auxlock,*.sty,*.dvi
+set wildignore+=_minted-*,*/tmp/*,*.so,*.swp,*.zip,*.log,*/CMakeFiles/*,*.aux,*.lof,*.lot,*.gz,*.fls,*.fdb_latexmk,*.toc,__*__,*/pybind11/*,*[0-9]+,*.class,*.bak?,*.bak??,*.md5,*.snm,*.bbl,*.nav,*.out,*.run.xml,*.bcf,*.blg,*.auxlock,*.sty,*.dvi,*.glo,*.glg,*.ist
 
 set lazyredraw
 set ttyfast
@@ -502,12 +503,14 @@ let g:EasyMotion_keys='hklyuiopnm,qwertzxcvbasdgjf'
 
 nmap <Leader>gs :Gstatus<CR>
 nmap <Leader>ga :Gw<CR>
-nmap <a-b> :Gblame<CR>
+nmap <c-a-b> :Gblame<CR>
 nmap <Leader>res:Git reset<CR>
 nmap <Leader>me :MerginalToggle<CR>
 nmap <Leader>gw :Gw<CR>
 nmap <Leader>gc :Gcommit -v<CR>
 nmap <Leader>am :Gcommit -v --amend<CR>
+nmap <Leader>gv :GV<CR>
+nmap <Leader>gu :Git reset -- %<CR>
 nmap <Leader>gd <c-w>O:Gdiff<CR>
 nmap <Leader>gl :0Glog<CR>
 nmap <Leader>gr :Gread<CR>
@@ -621,7 +624,7 @@ nnoremap <s-F3> :Tkill<cr>:wa<cr>:exec expand($last_execution,1)<cr>
 "autocmd FileType python nnoremap <buffer> <F10> :VBGstepOver<cr>
 "autocmd FileType python nnoremap <buffer> <F11> :VBGstepIn<cr>
 "autocmd FileType python nnoremap <buffer> <F12> :VBGstepOver<cr>
-nnoremap <leader>tt :<c-u>exec v:count . 'T '
+"nnoremap <leader>tt :<c-u>exec v:count . 'T '
 "
 autocmd FileType python nnoremap <buffer> <F5> :let $last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:T python3 %<cr>
 autocmd FileType python nnoremap <buffer> <s-F5> :let $last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:execute ':GdbStartPDB python3 -m pdb ' . expand('%:p',1)<cr>
@@ -687,9 +690,15 @@ endif
 "imap <s-tab> <Plug>snipMateBack
 
 let g:vlime_leader = ","
+let g:vlime_cl_use_terminal=v:true
 let g:vlime_enable_autodoc = v:true
 let g:vlime_window_settings = {'sldb': {'pos': 'belowright', 'vertical': v:true}, 'inspector': {'pos': 'belowright', 'vertical': v:true}, 'preview': {'pos': 'belowright', 'size': v:null, 'vertical': v:true}}
 let g:gonvim_draw_statusline = 1
+
+    
+if has('nvim') && !executable("ncat")
+      echoerr "Vlime needs ncat!!!"
+endif
 
 
     "\ 'cpp': ['clangd'],
@@ -702,9 +711,9 @@ let g:LanguageClient_serverCommands = {
     \ 'cuda': ['clangd-7'],
     \ 'c': ['clangd-7'],
     \ 'go': ['bingo', '--diagnostics-style=instant'],
-    \ 'sh': ['~/.yarn/bin/bash-language-server', 'start'],
     \ 'python': ['pyls']
     \ }
+    "\ 'sh': ['bash-language-server', 'start'],
     "\ 'tex': ['digestif']
     "\ 'vim': ['~/.yarn/bin/vim-language-server', '--stdio'],
     "\ 'lisp': ['~/.roswell/bin/cl-lsp'],
@@ -754,10 +763,10 @@ nmap <silent> <leader><C-j> :lnext<cr>
 autocmd FileType * call LC_maps()
 
 
-nnoremap <silent> <leader>f0 :set foldlevel=0<CR>
-nnoremap <silent> <leader>ff :set foldlevel=99<CR>
-nnoremap <silent> z0 :set foldlevel=0<CR>
-nnoremap <silent> z9 :set foldlevel=99<CR>
+nnoremap <silent> <buffer> <leader>f0 :set foldlevel=0<CR>
+nnoremap <silent> <buffer> <leader>ff :set foldlevel=99<CR>
+nnoremap <silent> <buffer> z0 :set foldlevel=0<CR>
+nnoremap <silent> <buffer> z9 :set foldlevel=99<CR>
 
 "nmap <silent> <C-a-o> :call LanguageClient#textDocument_documentSymbol()<cr>
 nmap <silent> <C-a-o> :BTags<cr>
@@ -936,6 +945,8 @@ let g:LanguageClient_diagnosticsList = "Location"
      nmap <silent> <buffer>  <c-k> <Plug>(coc-diagnostic-prev)
      nmap <silent> <buffer>  <c-j> <Plug>(coc-diagnostic-next)
      nmap <silent> <buffer>  gd <Plug>(coc-definition)
+     nmap <silent> <buffer>  ga :CocAction<cr>
+     vmap <silent> <buffer>  ga :CocAction<cr>
      nmap <silent> <buffer>  gD <c-w>v<Plug>(coc-definition)
      nmap <silent> <buffer>  gt <Plug>(coc-type-definition)
      nmap <silent> <buffer>  gT <c-w>v<Plug>(coc-type-definition)
@@ -949,7 +960,9 @@ let g:LanguageClient_diagnosticsList = "Location"
  endfunction()
 
 autocmd FileType java call ActivateCoc()
+autocmd FileType yaml call ActivateCoc()
 autocmd FileType vim call ActivateCoc()
+autocmd FileType bash,sh call ActivateCoc()
 "autocmd FileType python call ActivateCoc()
 
  "inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
@@ -977,7 +990,9 @@ let g:rooter_change_directory_for_non_project_files = ''
 "let g:livepreview_previewer = 'okular'
 
 nnoremap <leader>date :r!date<cr>
-nnoremap ,lv :let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'<cr>:VimtexView<cr>:let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex --noraise'<cr>
+autocmd FileType tex nnoremap <buffer> ,lv :let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'<cr>:VimtexView<cr>:let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex --noraise'<cr>
+autocmd FileType tex nnoremap <buffer> <cr> :let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'<cr>:VimtexView<cr>:let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex --noraise'<cr>
+"autocmd FileType tex nnomap <buffer>  <cr> <leader>lv
 nnoremap ,lc :VimtexCompile<cr>
 nnoremap <leader>zen :Goyo<cr>
 nnoremap <leader>buf :Buffers<cr>
@@ -1054,7 +1069,7 @@ let g:NERDTreeIndicatorMapCustom = {
     \ 'Ignored'   : 'i',
     \ "Unknown"   : "?"
     \ }
-
+let NERDTreeWinSizeMax=50
 let NERDTreeRespectWildIgnore=1
 let g:tex_flavor = "latex"
 
@@ -1205,9 +1220,9 @@ function! Fzf_dev()
 endfunction
 
 augroup filetypedetect
-    au! BufRead,BufNewFile *.cpp.tmpl set filetype cpp
-    au! BufRead,BufNewFile *.pdf_tex set filetype tex
-    au! BufRead,BufNewFile *.tikz set filetype tex
+    au! BufRead,BufNewFile *.cpp.tmpl set filetype=cpp
+    au! BufRead,BufNewFile *.pdf_tex set filetype=tex
+    au! BufRead,BufNewFile *.tikz set filetype=tex
 augroup END
 au! BufRead,BufNewFile *.asd set filetype lisp
 
@@ -1291,7 +1306,7 @@ let g:LanguageClient_diagnosticsDisplay= {
             \           "texthl": "ALEInfo",
             \           "signText": "➤",
             \           "signTexthl": "ALEInfoSign",
-            \           "virtualTexthl": "information",
+            \           "virtualTexthl": "Todo",
             \       },
             \       4: {
             \           "name": "Hint",
@@ -1314,7 +1329,8 @@ nmap <silent> <leader>tl :wa<cr>:TestLast<CR>
 nmap <silent> <leader>tv :TestVisit<CR>
 nnoremap <leader>te :set shell=/usr/bin/zsh<cr>:Topen<Cr>
 nnoremap <leader>to :Topen<cr>
-nnoremap <leader>tt :T
+nnoremap <leader>tt :T<space>
+nnoremap <leader>22 :T<space>!!<enter>:T && echo ""<enter>
 let test#strategy = "neoterm"
 
 
@@ -1325,8 +1341,10 @@ autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
 autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
 
 nnoremap <localleader>fzf :call vimtex#fzf#run()<cr>
-set wildoptions=pum
-set pumblend=20
+if has('pumblend')
+  set wildoptions=pum
+  set pumblend=20
+endif
 let g:UltiSnipsEnableSnipMate=1
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
@@ -1384,7 +1402,7 @@ let g:markdown_composer_autostart = 0
 
 "!git rev-list --all | xargs git grep 
 "
-au BufHidden term://* :set winhighlight=Normal:Normal
+"au BufHidden term://* :set winhighlight=Normal:Normal
 command! Sbcl !sbcl --load ~/.local/share/nvim/plugged/vlime/lisp/start-vlime.lisp
 let g:slimv_simple_compl = 1
 let g:slimv_swank_cmd = '! xterm -e sbcl --load /usr/share/common-lisp/source/slime/swank-loader.lisp'
@@ -1429,4 +1447,8 @@ nnoremap <leader>nn :call NNN()<cr>
 nnoremap <leader>ps :PreviewSignature<cr>
 nnoremap <leader>pt :PreviewTag<cr>
 nnoremap <leader>pf :PreviewFile<cr>
+if has('nvim')
+  let $GIT_EDITOR = 'nvr -cc split --remote-wait'
+  autocmd FileType gitcommit set bufhidden=delete
+endif
 
