@@ -234,8 +234,9 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'google/vim-maktaba'
     "Plug 'bazelbuild/vim-bazel'
     "Plug 'jason0x43/vim-wildgitignore' 
-    Plug 'jaxbot/github-issues.vim'
+    "Plug 'jaxbot/github-issues.vim'
     Plug 'adolenc/cl-neovim'
+    Plug 'tpope/vim-rhubarb'
     Plug 'SirVer/ultisnips'
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
     Plug 'mcchrish/nnn.vim'
@@ -263,11 +264,14 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'meain/vim-package-info', { 'do': 'npm install' }
     "Plug 'mattboehm/vim-accordion'
     Plug 't9md/vim-choosewin'
-    Plug 'HiPhish/ncm2-vlime' ", {'for' : ['lisp']}
-    Plug 'ncm2/ncm2', {'for' : ['lisp']}
-    Plug 'ncm2/ncm2-bufword', {'for' : ['lisp']}
-    Plug 'ncm2/ncm2-path', {'for' : ['lisp']}
+    "Plug 'HiPhish/ncm2-vlime' ", {'for' : ['lisp']}
+    "Plug 'ncm2/ncm2', {'for' : ['lisp']}
+    "Plug 'ncm2/ncm2-bufword', {'for' : ['lisp']}
+    "Plug 'ncm2/ncm2-path', {'for' : ['lisp']}
+    "Plug 'ncm2/ncm2-ultisnips'
+        "Plug 'roxma/nvim-yarp'
     "Plug 'Vigemus/iron.nvim'
+    "Plug 'ncm2/ncm2', { 'for' : ['lisp']}
     Plug 'rliang/termedit.nvim'
     Plug 'whiteinge/diffconflicts'
     Plug 'peterhoeg/vim-qml', { 'for' : 'qml' }
@@ -374,10 +378,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'easymotion/vim-easymotion'
     Plug 'terryma/vim-multiple-cursors'
     Plug 'junegunn/goyo.vim'
-    "Plug 'HiPhish/ncm2-vlime' , { 'for' : ['lisp']}
-    "Plug 'ncm2/ncm2', { 'for' : ['lisp']}
     Plug 'l04m33/vlime', {'rtp': 'vim/'}
-    Plug 'ncm2/ncm2-ultisnips'
     "Plug 'amix/vim-zenroom2'
     "Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}, 'for': ['java']}
     Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh']}
@@ -694,7 +695,7 @@ let g:vlime_cl_use_terminal=v:true
 let g:vlime_enable_autodoc = v:true
 let g:vlime_window_settings = {'sldb': {'pos': 'belowright', 'vertical': v:true}, 'inspector': {'pos': 'belowright', 'vertical': v:true}, 'preview': {'pos': 'belowright', 'size': v:null, 'vertical': v:true}}
 
-autocmd FileType lisp nnoremap <buffer> gh <localleader>do<cr>
+autocmd FileType lisp nmap <buffer> gh <localleader>do<cr>
 "let g:vlime_cl_impl = "sbcl_swank"
     
 if has('nvim') && !executable("ncat")
@@ -756,6 +757,11 @@ function! LC_maps()
         nnoremap <buffer> <silent> gD <c-w>v:call LanguageClient#textDocument_definition()<CR>
         nnoremap <buffer> <silent> gt :call LanguageClient#textDocument_typeDefinition()<CR>
         nnoremap <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+        try
+          CocDisable
+        catch
+
+        endtry
    endif
 endfunction
 
