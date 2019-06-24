@@ -236,7 +236,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'jason0x43/vim-wildgitignore' 
     "Plug 'jaxbot/github-issues.vim'
     Plug 'adolenc/cl-neovim'
-    Plug 'baskerville/bubblegum'
+    "Plug 'baskerville/bubblegum'
     Plug 'tpope/vim-rhubarb'
     Plug 'SirVer/ultisnips'
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
