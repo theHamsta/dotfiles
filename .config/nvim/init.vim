@@ -716,12 +716,14 @@ let g:LanguageClient_serverCommands = {
     \ 'javascript': ['javascript-typescript-stdio'],
     \ 'javascript.jsx': ['javascript-typescript-stdio'],
     \ 'lua': ['lua-lsp'],
-    \ 'cpp': ['clangd-7'],
-    \ 'cuda': ['clangd-7'],
-    \ 'c': ['clangd-7'],
+    \ 'cpp': ['clangd-8'],
+    \ 'cuda': ['clangd-8'],
+    \ 'c': ['clangd-8'],
     \ 'go': ['bingo', '--diagnostics-style=instant'],
     \ 'python': ['pyls'],
     \ 'dockerfile': ['docker-langserver', '--stdio'],
+    \ 'tex': ['java', '-jar', '~/.local/bin/texlab.jar'],
+    \ 'bib': ['java', '-jar', '~/.local/bin/texlab.jar'],
     \ 'd': ['dls']
     \ }
     "\ 'sh': ['bash-language-server', 'start'],
