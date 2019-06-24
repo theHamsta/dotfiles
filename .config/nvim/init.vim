@@ -659,6 +659,7 @@ autocmd FileType tex,latex nnoremap <buffer> <c-a-o> :call vimtex#fzf#run()<cr>
 autocmd FileType markdown nnoremap <buffer> <cr> :ComposerStart<cr>:ComposerOpen<cr>
 autocmd FileType markdown nnoremap <buffer> <leader>ll :ComposerStart<cr>
 autocmd FileType markdown nnoremap <buffer> <leader>lv :ComposerOpen<cr>
+"autocmd FileType markdown <buffer> set conceallevel=1
 
 "<cr>:e
 
@@ -706,6 +707,8 @@ if has('nvim') && !executable("ncat")
 endif
 
 
+
+
 let g:gonvim_draw_statusline = 1
     "\ 'cpp': ['clangd'],
 let g:LanguageClient_serverCommands = {
@@ -717,7 +720,9 @@ let g:LanguageClient_serverCommands = {
     \ 'cuda': ['clangd-7'],
     \ 'c': ['clangd-7'],
     \ 'go': ['bingo', '--diagnostics-style=instant'],
-    \ 'python': ['pyls']
+    \ 'python': ['pyls'],
+    \ 'dockerfile': ['docker-langserver', '--stdio'],
+    \ 'd': ['dls']
     \ }
     "\ 'sh': ['bash-language-server', 'start'],
     "\ 'tex': ['digestif']
@@ -736,6 +741,8 @@ let g:LanguageClient_serverCommands = {
              "\ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
              "\ })
    "endif
+   "
+"let g:LanguageClient_windowLogMessageLevel=2
 
 function! LC_maps()
    if has_key(g:LanguageClient_serverCommands, &filetype)
@@ -746,6 +753,7 @@ function! LC_maps()
          endif
 
         nnoremap <buffer> <leader>la :call LanguageClient_contextMenu()<CR>
+        nnoremap <buffer> <leader>le :call LanguageClient#explainErrorAtPoint()<CR>
         nnoremap <buffer> <leader>ca :call LanguageClient#textDocument_codeAction()<CR>
         nnoremap <buffer> <silent> gh :call LanguageClient#textDocument_hover()<CR>
         nnoremap <buffer> <silent> <leader>ss :call LanguageClient#textDocument_documentSymbol()<CR>
