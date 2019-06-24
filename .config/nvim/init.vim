@@ -236,6 +236,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'jason0x43/vim-wildgitignore' 
     "Plug 'jaxbot/github-issues.vim'
     Plug 'adolenc/cl-neovim'
+    Plug 'baskerville/bubblegum'
     Plug 'tpope/vim-rhubarb'
     Plug 'SirVer/ultisnips'
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
@@ -547,6 +548,8 @@ let g:papaya_gui_color='blue'
 
 " Don't forget set the airline theme as well.
 let g:airline_theme = 'one'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
 
 " This line enables the true color support.
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -1456,4 +1459,3 @@ if has('nvim')
   let $GIT_EDITOR = 'nvr -cc split --remote-wait'
   autocmd FileType gitcommit set bufhidden=delete
 endif
-
