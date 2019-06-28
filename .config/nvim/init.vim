@@ -236,6 +236,13 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'jason0x43/vim-wildgitignore' 
     "Plug 'jaxbot/github-issues.vim'
     Plug 'adolenc/cl-neovim'
+    Plug 'sebdah/vim-delve'
+    Plug 'gregf/ultisnips-chef'
+    Plug 'rhysd/git-messenger.vim'
+    "Plug 'jodosha/vim-godebug'
+    Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'lisp' }
+    Plug 'JuliaEditorSupport/julia-vim'
+    Plug 'bfredl/nvim-ipy', { 'on':  [ 'IPython','IPython2']}
     "Plug 'baskerville/bubblegum'
     Plug 'tpope/vim-rhubarb'
     Plug 'SirVer/ultisnips'
@@ -301,7 +308,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'xolox/vim-misc'
     "Plug 'xolox/vim-easytags'
     Plug 'rking/ag.vim'
-    "Plug 'vim-pandoc/vim-pandoc'
+    Plug 'KabbAmine/vCoolor.vim'
+"Plug 'vim-pandoc/vim-pandoc'
     "Plug 'vim-pandoc/vim-pandoc-syntax'
     "Plug 'puremourning/vimspector'
     Plug 'romainl/Apprentice'
@@ -324,7 +332,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'justinmk/vim-gtfo'
     Plug 'neomake/neomake'
     Plug 'NLKNguyen/papercolor-theme'
-    Plug 'fatih/vim-go', { 'for': 'go' }
+    Plug 'fatih/vim-go', {'for' :'go'}
+    "Plug 'zchee/nvim-go', { 'do': 'make'}
     Plug 'rust-lang/rust.vim', { 'for': 'rust' }
     "Plug 'jreybert/vimagit'
     "Plug 'vhdirk/vim-cmake'
@@ -442,7 +451,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'prabirshrestha/vim-lsp'
 call plug#end()
 
-set conceallevel=0
+set conceallevel=1
 let g:tex_conceal='abdmg'
 let g:tex_flavor='latex'
 
@@ -634,6 +643,8 @@ autocmd FileType python nnoremap <buffer> <F5> :let $last_execution='python3 ' .
 autocmd FileType python nnoremap <buffer> <s-F5> :let $last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:execute ':GdbStartPDB python3 -m pdb ' . expand('%:p',1)<cr>
 autocmd FileType python nnoremap <buffer> <F7> :let $last_execution='python3 -m pdb -c continue ' . expand('%:p',1)<cr>:wa<cr>:T python3 -m pdb -c continue %<cr>
 autocmd FileType python nnoremap <buffer> <F4> :let $last_execution='ipython3 ' . expand('%:p',1)<cr>:wa<cr>:T ipython3 %<cr>
+autocmd FileType python map <cr> <Plug>(IPy-RunCell)
+autocmd FileType python map <leader>pa <Plug>(IPy-RunAll)
 
 "autocmd FileType python nmap <silent> <C-.> <Plug>(pydocstring)
 "autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . $target<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
@@ -715,17 +726,30 @@ let g:LanguageClient_serverCommands = {
     \ 'rust': ['rls'],
     \ 'javascript': ['javascript-typescript-stdio'],
     \ 'javascript.jsx': ['javascript-typescript-stdio'],
+    \   'julia': ['julia', '--startup-file=no', '--history-file=no', '-e', '
+    \       using LanguageServer;
+    \       using Pkg;
+    \       import StaticLint;
+    \       import SymbolServer;
+    \       env_path = dirname(Pkg.Types.Context().env.project_file);
+    \       debug = false; 
+    \       
+    \       server = LanguageServer.LanguageServerInstance(stdin, stdout, debug, env_path, "", Dict());
+    \       server.runlinter = true;
+    \       run(server);
+    \   '],
     \ 'lua': ['lua-lsp'],
-    \ 'cpp': ['clangd-8'],
-    \ 'cuda': ['clangd-8'],
-    \ 'c': ['clangd-8'],
-    \ 'go': ['bingo', '--diagnostics-style=instant'],
+    \ 'cpp': ['clangd-9'],
+    \ 'cuda': ['clangd-9'],
+    \ 'c': ['clangd-9'],
+    \ 'go': ['gopls'],
     \ 'python': ['pyls'],
     \ 'dockerfile': ['docker-langserver', '--stdio'],
     \ 'tex': ['java', '-jar', '~/.local/bin/texlab.jar'],
     \ 'bib': ['java', '-jar', '~/.local/bin/texlab.jar'],
     \ 'd': ['dls']
     \ }
+    "\ 'go': ['bingo', '--diagnostics-style=instant'],
     "\ 'sh': ['bash-language-server', 'start'],
     "\ 'tex': ['digestif']
     "\ 'vim': ['~/.yarn/bin/vim-language-server', '--stdio'],
@@ -750,10 +774,10 @@ function! LC_maps()
    if has_key(g:LanguageClient_serverCommands, &filetype)
         call deoplete#custom#option('auto_complete', v:true)
      
-         if &filetype != "python" && &filetype != "tex" && &filetype != "bib" && &filetype != "go"
+         if &filetype != "python" && &filetype != "tex" && &filetype != "bib"
              autocmd CursorHold <buffer> silent call LanguageClient#textDocument_documentHighlight()
          endif
-
+ "&& &filetype != "go"
         nnoremap <buffer> <leader>la :call LanguageClient_contextMenu()<CR>
         nnoremap <buffer> <leader>le :call LanguageClient#explainErrorAtPoint()<CR>
         nnoremap <buffer> <leader>ca :call LanguageClient#textDocument_codeAction()<CR>
@@ -969,6 +993,7 @@ let g:LanguageClient_diagnosticsList = "Location"
      nmap <silent> <buffer>  ga :CocAction<cr>
      vmap <silent> <buffer>  ga :CocAction<cr>
      nmap <silent> <buffer>  gD <c-w>v<Plug>(coc-definition)
+     nmap <silent> <buffer>  <leader>le <Plug>(coc-codelens-action)
      nmap <silent> <buffer>  gt <Plug>(coc-type-definition)
      nmap <silent> <buffer>  gT <c-w>v<Plug>(coc-type-definition)
      nmap <silent> <buffer>  gi <Plug>(coc-implementation)
@@ -1294,6 +1319,7 @@ highlight LangHighlightText guibg=Black guifg=White
 highlight LangHighlightWrite guibg=Black guifg=Yellow
 highlight LangHighlightRead guibg=Black guifg=Red
 highlight information  guifg=#737373
+highlight CocCodeLens  guifg=#FFA722
 let g:LanguageClient_documentHighlightDisplay = {
             \      1: {
             \          "name": "Text",
@@ -1362,10 +1388,14 @@ autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
 autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
 
 nnoremap <localleader>fzf :call vimtex#fzf#run()<cr>
-if has('pumblend')
+
+
+if has('nvim')
   set wildoptions=pum
   set pumblend=20
+  "set winblend=10
 endif
+
 let g:UltiSnipsEnableSnipMate=1
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
@@ -1469,3 +1499,18 @@ if has('nvim')
   let $GIT_EDITOR = 'nvr -cc split --remote-wait'
   autocmd FileType gitcommit set bufhidden=delete
 endif
+
+let g:email='stephan.seitz@fau.de'
+let g:username='Stephan Seitz'
+
+call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
+
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+"let g:go_auto_sameids = 1
