@@ -5,6 +5,7 @@ if has('vim_starting')
 	set nocompatible               " Be iMproved
 endif
 
+let g:rooter_patterns = ['gitmodules', '.git', '.git/']
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 
 let g:vim_bootstrap_langs = "c,python"
@@ -236,9 +237,11 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'jason0x43/vim-wildgitignore' 
     "Plug 'jaxbot/github-issues.vim'
     Plug 'adolenc/cl-neovim'
+    Plug 'shumphrey/fugitive-gitlab.vim'
     Plug 'sebdah/vim-delve'
     Plug 'gregf/ultisnips-chef'
     Plug 'rhysd/git-messenger.vim'
+    Plug 'gu-fan/riv.vim'
     "Plug 'jodosha/vim-godebug'
     Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'lisp' }
     Plug 'JuliaEditorSupport/julia-vim'
@@ -338,7 +341,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'jreybert/vimagit'
     "Plug 'vhdirk/vim-cmake'
     Plug 'sakhnik/nvim-gdb', { 'do': './install.sh' }
-    Plug 'tpope/vim-dispatch'
+    "Plug 'tpope/vim-dispatch'
     Plug 'vim-scripts/SearchComplete'
     "Plug 'dbeniamine/cheat.sh-vim'
     "Plug 'libclang-vim/libclang-vim', {'do' : 'make'}
@@ -358,7 +361,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'Julian/vim-textobj-variable-segment'
     Plug 'terryma/vim-expand-region'
     Plug 'thalesmello/vim-textobj-methodcall'
-    Plug 'w0rp/ale', { 'for' : [ 'cmake' ] }
+    "Plug 'w0rp/ale', { 'for' : [ 'cmake' ] }
     Plug 'tpope/vim-eunuch'
     Plug 'chaoren/vim-wordmotion'
     Plug 'tpope/vim-unimpaired' 
@@ -451,7 +454,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'prabirshrestha/vim-lsp'
 call plug#end()
 
-set conceallevel=1
+set conceallevel=0
 let g:tex_conceal='abdmg'
 let g:tex_flavor='latex'
 
@@ -648,8 +651,8 @@ autocmd FileType python map <leader>pa <Plug>(IPy-RunAll)
 
 "autocmd FileType python nmap <silent> <C-.> <Plug>(pydocstring)
 "autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . $target<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
-autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='build.py --run'<cr>:Tkill<cr>:wa<cr>:T build.py --run<cr>
-autocmd FileType cmake nnoremap <buffer> <F5> :let $last_execution='build.py --run'<cr>:Tkill<cr>:wa<cr>:T build.py --run<cr>
+autocmd FileType cpp nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
+autocmd FileType cmake nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
 autocmd FileType rust nnoremap <buffer> <F5> :let $last_execution='cargo run'<cr>:Tkill<cr>:wa<cr>:T cargo run<cr>
 " jump to the previous function
 autocmd FileType cpp nnoremap <buffer> [f :call
@@ -666,6 +669,7 @@ autocmd FileType lua nnoremap <buffer> <F5> :exec '!lua' shellescape(@%:p, 1)<cr
 
 autocmd FileType tex,latex nnoremap <buffer> <c-s> :w<cr>:silent !latexindent % -w<cr>:e<cr>
 autocmd FileType tex,latex call neomake#configure#automake('w')
+autocmd FileType rst call neomake#configure#automake('w')
 autocmd FileType tex,latex nnoremap <buffer> <c-a-o> :call vimtex#fzf#run()<cr>
 autocmd FileType markdown nnoremap <buffer> <cr> :ComposerStart<cr>:ComposerOpen<cr>
 autocmd FileType markdown nnoremap <buffer> <leader>ll :ComposerStart<cr>
@@ -678,7 +682,7 @@ let g:ag_working_path_mode="r"
 "let g:deoplete#sources#jedi#python_path='/usr/bin/python3'
 
 
-let g:ale_fixers = {'python': ['pylint']}
+"let g:ale_fixers = {'python': ['pylint']}
 
 "let g:ale_python_flake8_executable = 'python3'
 "let g:ale_python_flake8_args = '-m flake8'
@@ -774,7 +778,7 @@ function! LC_maps()
    if has_key(g:LanguageClient_serverCommands, &filetype)
         call deoplete#custom#option('auto_complete', v:true)
      
-         if &filetype != "python" && &filetype != "tex" && &filetype != "bib"
+         if &filetype != "python" && &filetype != "tex" && &filetype != "bib"&& &filetype != "cpp"
              autocmd CursorHold <buffer> silent call LanguageClient#textDocument_documentHighlight()
          endif
  "&& &filetype != "go"
@@ -1003,6 +1007,8 @@ let g:LanguageClient_diagnosticsList = "Location"
      nmap <silent> <buffer>  <c-s> :call CocAction('format')<cr>
      vmap <buffer> <leader>a   <Plug>(coc-codeaction-selected)
      nmap <buffer> <leader>a <Plug>(coc-codeaction-selected)
+     nmap <buffer> <leader>hp :CocCommand git.chunkpreviwe<cr>
+
  endfunction()
 
 autocmd FileType java call ActivateCoc()
@@ -1218,6 +1224,7 @@ xmap ah <Plug>GitGutterTextObjectOuterVisual
 
 "nmap <leader>r <Plug>(iron-send-motion)
 nmap ,code :!code-insiders -r %<cr>
+nmap ,CO :execute '!code-insiders -r ' getcwd()<cr>
 
 "nnoremap <c-p> :CtrlPMixed<cr>
 let g:ctrlp_map = ''
@@ -1268,6 +1275,7 @@ endfunction
 augroup filetypedetect
     au! BufRead,BufNewFile *.cpp.tmpl set filetype=cpp
     au! BufRead,BufNewFile *.pdf_tex set filetype=tex
+    au! BufRead,BufNewFile justfile set filetype=make
     au! BufRead,BufNewFile *.tikz set filetype=tex
 augroup END
 au! BufRead,BufNewFile *.asd set filetype=lisp
@@ -1498,6 +1506,7 @@ nnoremap <leader>pf :PreviewFile<cr>
 if has('nvim')
   let $GIT_EDITOR = 'nvr -cc split --remote-wait'
   autocmd FileType gitcommit set bufhidden=delete
+  autocmd FileType gitrebase set bufhidden=delete
 endif
 
 let g:email='stephan.seitz@fau.de'
@@ -1514,3 +1523,10 @@ let g:go_highlight_operators = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
 "let g:go_auto_sameids = 1
+"
+let g:riv_web_browser='firefox'
+let g:gitgutter_max_signs=1000
+let g:fugitive_gitlab_domains = ['https://i10git.cs.fau.de/']
+
+let g:rooter_patterns = ['.git/', '_darcs/', '.hg/', '.bzr/', '.svn/']
+nnoremap <leader>ju :Topen<cr>:T just<space>
