@@ -238,6 +238,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'jaxbot/github-issues.vim'
     Plug 'adolenc/cl-neovim'
     Plug 'shumphrey/fugitive-gitlab.vim'
+    Plug 'jackguo380/vim-lsp-cxx-highlight'
     Plug 'sebdah/vim-delve'
     Plug 'gregf/ultisnips-chef'
     Plug 'rhysd/git-messenger.vim'
@@ -482,10 +483,11 @@ nnoremap <Leader>9 :9b<CR>
 nnoremap <Leader>0 :10b<CR>
 nnoremap <Leader>buf :Buffers<CR>
 nnoremap <a-p> :Buffers<CR>
-nnoremap <Leader>dox :Dox<CR>
 
-nnoremap <Leader>do :do<CR>
+nnoremap <Leader>DO :diffoff!<CR>
 nnoremap <Leader>dp :dp<CR>
+nnoremap <Leader>do :do<CR>
+nnoremap <Leader>dt :diffthis<CR>
 
 iabbrev imageing imaging
 
@@ -523,6 +525,8 @@ nmap <Leader>me :MerginalToggle<CR>
 nmap <Leader>gw :Gw<CR>
 nmap <Leader>gc :Gcommit -v<CR>
 nmap <Leader>am :Gcommit -v --amend<CR>
+nmap <Leader>gH :Gvsplit HEAD^1:%<cr>
+nmap <Leader>gh :Gvsplit :%<left><left>
 nmap <Leader>gv :GV<CR>
 nmap <Leader>gu :Git reset -- %<CR>
 nmap <Leader>gd <c-w>O:Gdiff<CR>
@@ -629,7 +633,7 @@ set smartcase
 let g:vebugger_leader =','
 
 "let g:deoplete#sources#jedi#extra_path =['', '/usr/lib/python2.7', '/usr/lib/python2.7/plat-x86_64-linux-gnu', '/usr/lib/python27/lib-tk', '/usr/lib/python2.7/lib-old', '/usr/lib/python2.7/lib-dynload', '/home/stepha/.local/lib/python2.7/site-packages', '/usr/local/lib/python2.7/dist-packages', '/usr/li/python2.7/dist-packages', '/usr/lib/python2.7/dist-packages/PILcompat', '/usr/lib/pytho2.7/dist-packages/gtk-2.0', '/usr/lib/python2.7/dist-packages/wx-3.0-gtk2']
-nnoremap <F3> :Tkill<cr>:wa<cr>:exec 'T' expand($last_execution,1)<cr>
+nnoremap <F3> :Tkill<cr>:Topen<cr>:wa<cr>:exec 'T' expand($last_execution,1)<cr>
 nnoremap <s-F3> :Tkill<cr>:wa<cr>:exec expand($last_execution,1)<cr>
 "autocmd FileType python nnoremap <buffer> <F6> :VBGstartPDB3 %<cr>
 "autocmd FileType python nnoremap <buffer> <space>deb :VBGstartPDB3 %<cr>
@@ -642,7 +646,7 @@ nnoremap <s-F3> :Tkill<cr>:wa<cr>:exec expand($last_execution,1)<cr>
 "autocmd FileType python nnoremap <buffer> <F12> :VBGstepOver<cr>
 "nnoremap <leader>tt :<c-u>exec v:count . 'T '
 "
-autocmd FileType python nnoremap <buffer> <F5> :let $last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:T python3 %<cr>
+autocmd FileType python nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:T python3 %<cr>
 autocmd FileType python nnoremap <buffer> <s-F5> :let $last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:execute ':GdbStartPDB python3 -m pdb ' . expand('%:p',1)<cr>
 autocmd FileType python nnoremap <buffer> <F7> :let $last_execution='python3 -m pdb -c continue ' . expand('%:p',1)<cr>:wa<cr>:T python3 -m pdb -c continue %<cr>
 autocmd FileType python nnoremap <buffer> <F4> :let $last_execution='ipython3 ' . expand('%:p',1)<cr>:wa<cr>:T ipython3 %<cr>
@@ -653,6 +657,7 @@ autocmd FileType python map <leader>pa <Plug>(IPy-RunAll)
 "autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . $target<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
 autocmd FileType cpp nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
 autocmd FileType cmake nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
+autocmd FileType make nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
 autocmd FileType rust nnoremap <buffer> <F5> :let $last_execution='cargo run'<cr>:Tkill<cr>:wa<cr>:T cargo run<cr>
 " jump to the previous function
 autocmd FileType cpp nnoremap <buffer> [f :call
@@ -743,7 +748,7 @@ let g:LanguageClient_serverCommands = {
     \       run(server);
     \   '],
     \ 'lua': ['lua-lsp'],
-    \ 'cpp': ['clangd-9'],
+    \ 'cpp': ['ccls'],
     \ 'cuda': ['clangd-9'],
     \ 'c': ['clangd-9'],
     \ 'go': ['gopls'],
@@ -753,6 +758,7 @@ let g:LanguageClient_serverCommands = {
     \ 'bib': ['java', '-jar', '~/.local/bin/texlab.jar'],
     \ 'd': ['dls']
     \ }
+    "\ 'cpp': ['clangd-9'],
     "\ 'go': ['bingo', '--diagnostics-style=instant'],
     "\ 'sh': ['bash-language-server', 'start'],
     "\ 'tex': ['digestif']
@@ -783,7 +789,7 @@ function! LC_maps()
          endif
  "&& &filetype != "go"
         nnoremap <buffer> <leader>la :call LanguageClient_contextMenu()<CR>
-        nnoremap <buffer> <leader>le :call LanguageClient#explainErrorAtPoint()<CR>
+        nnoremap <buffer> <leader>ee :call LanguageClient#explainErrorAtPoint()<CR>
         nnoremap <buffer> <leader>ca :call LanguageClient#textDocument_codeAction()<CR>
         nnoremap <buffer> <silent> gh :call LanguageClient#textDocument_hover()<CR>
         nnoremap <buffer> <silent> <leader>ss :call LanguageClient#textDocument_documentSymbol()<CR>
