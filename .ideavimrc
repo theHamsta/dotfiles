@@ -1,1 +1,20 @@
-noremap ij <esc> 
+let mapleader = ' '
+
+set relativenumber
+set number
+set incsearch hlsearch
+set ignorecase smartcase
+set clipboard=unnamed
+set scrolloff=5
+set showmode
+set surround
+
+
+inoremap jk <Esc>
+vnoremap jk <Esc>
+nnoremap Y y$
+nnoremap H ^
+nnoremap L $
+nnoremap Q @q
+nnoremap < <gv
+nnoremap > >gv
