@@ -658,7 +658,9 @@ autocmd FileType python map <leader>pa <Plug>(IPy-RunAll)
 autocmd FileType cpp nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
 autocmd FileType cmake nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
 autocmd FileType make nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
-autocmd FileType rust nnoremap <buffer> <F5> :let $last_execution='cargo run'<cr>:Tkill<cr>:wa<cr>:T cargo run<cr>
+autocmd FileType rust,toml nmap <buffer> <F5> :let $last_execution='cargo run'<cr>:Tkill<cr>:Topen<cr>:wa<cr>:T cargo run<cr>
+autocmd FileType rust,toml nmap <buffer> <F4> :let $last_execution='cargo build'<cr>:Tkill<cr>:Topen<cr>:wa<cr>:T cargo build<cr>
+autocmd FileType rust,toml nmap <buffer> <F6> :let $last_execution='cargo test -- --nocapture'<cr>:Tkill<cr>:Topen<cr>:wa<cr>:T cargo test -- --nocapture<cr>
 " jump to the previous function
 autocmd FileType cpp nnoremap <buffer> [f :call
 \ search('\(\(if\\|for\\|while\\|switch\\|catch\)\_s*\)\@64<!(\_[^)]*)\_[^;{}()]*\zs{', "bw")<CR>
@@ -754,10 +756,13 @@ let g:LanguageClient_serverCommands = {
     \ 'go': ['gopls'],
     \ 'python': ['pyls'],
     \ 'dockerfile': ['docker-langserver', '--stdio'],
-    \ 'tex': ['java', '-jar', '~/.local/bin/texlab.jar'],
-    \ 'bib': ['java', '-jar', '~/.local/bin/texlab.jar'],
     \ 'd': ['dls']
     \ }
+    "\ 'rust': ['ra_lsp_server'],
+    "\ 'tex': ['texlab'],
+    "\ 'bib': ['texlab'],
+    "\ 'tex': ['java', '-jar', '~/.local/bin/texlab.jar'],
+    "\ 'bib': ['java', '-jar', '~/.local/bin/texlab.jar'],
     "\ 'cpp': ['clangd-9'],
     "\ 'go': ['bingo', '--diagnostics-style=instant'],
     "\ 'sh': ['bash-language-server', 'start'],
@@ -1018,6 +1023,7 @@ let g:LanguageClient_diagnosticsList = "Location"
  endfunction()
 
 autocmd FileType java call ActivateCoc()
+"autocmd FileType tex call ActivateCoc()
 autocmd FileType yaml call ActivateCoc()
 autocmd FileType vim call ActivateCoc()
 autocmd FileType bash,sh call ActivateCoc()
