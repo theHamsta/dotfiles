@@ -735,7 +735,6 @@ endif
 
 
 let g:gonvim_draw_statusline = 1
-    "\ 'cpp': ['clangd'],
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rls'],
     \ 'javascript': ['javascript-typescript-stdio'],
@@ -753,14 +752,15 @@ let g:LanguageClient_serverCommands = {
     \       run(server);
     \   '],
     \ 'lua': ['lua-lsp'],
-    \ 'cpp': ['ccls'],
     \ 'cuda': ['clangd-9', '-clang-tidy'],
+    \ 'cpp': ['ccls'],
     \ 'c': ['clangd-9'],
     \ 'go': ['gopls'],
     \ 'python': ['pyls'],
     \ 'dockerfile': ['docker-langserver', '--stdio'],
     \ 'd': ['dls']
     \ }
+    "\ 'cpp': ['clangd-9', '-clang-tidy'],
     "\ 'tex': ['texlab'],
     "\ 'bib': ['texlab'],
     "\ 'tex': ['java', '-jar', '~/.local/bin/texlab.jar'],
