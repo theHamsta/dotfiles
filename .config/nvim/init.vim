@@ -661,6 +661,9 @@ autocmd FileType make nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='jus
 autocmd FileType rust,toml nmap <buffer> <F5> :let $last_execution='cargo run'<cr>:Tkill<cr>:Topen<cr>:wa<cr>:T cargo run<cr>
 autocmd FileType rust,toml nmap <buffer> <F4> :let $last_execution='cargo build'<cr>:Tkill<cr>:Topen<cr>:wa<cr>:T cargo build<cr>
 autocmd FileType rust,toml nmap <buffer> <F6> :let $last_execution='cargo test -- --nocapture'<cr>:Tkill<cr>:Topen<cr>:wa<cr>:T cargo test -- --nocapture<cr>
+
+autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
+autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
 " jump to the previous function
 autocmd FileType cpp nnoremap <buffer> [f :call
 \ search('\(\(if\\|for\\|while\\|switch\\|catch\)\_s*\)\@64<!(\_[^)]*)\_[^;{}()]*\zs{', "bw")<CR>
@@ -751,19 +754,18 @@ let g:LanguageClient_serverCommands = {
     \   '],
     \ 'lua': ['lua-lsp'],
     \ 'cpp': ['ccls'],
-    \ 'cuda': ['clangd-9'],
+    \ 'cuda': ['clangd-9', '-clang-tidy'],
     \ 'c': ['clangd-9'],
     \ 'go': ['gopls'],
     \ 'python': ['pyls'],
     \ 'dockerfile': ['docker-langserver', '--stdio'],
     \ 'd': ['dls']
     \ }
-    "\ 'rust': ['ra_lsp_server'],
     "\ 'tex': ['texlab'],
     "\ 'bib': ['texlab'],
     "\ 'tex': ['java', '-jar', '~/.local/bin/texlab.jar'],
     "\ 'bib': ['java', '-jar', '~/.local/bin/texlab.jar'],
-    "\ 'cpp': ['clangd-9'],
+    "\ 'cpp': ['clangd-9', '-clang-tidy'],
     "\ 'go': ['bingo', '--diagnostics-style=instant'],
     "\ 'sh': ['bash-language-server', 'start'],
     "\ 'tex': ['digestif']
@@ -788,11 +790,11 @@ let g:LanguageClient_serverCommands = {
 function! LC_maps()
    if has_key(g:LanguageClient_serverCommands, &filetype)
         call deoplete#custom#option('auto_complete', v:true)
-     
-         if &filetype != "python" && &filetype != "tex" && &filetype != "bib"&& &filetype != "cpp"
+         if &filetype != "python" && &filetype != "tex" && &filetype != "bib"
              autocmd CursorHold <buffer> silent call LanguageClient#textDocument_documentHighlight()
          endif
  "&& &filetype != "go"
+      "&& &filetype != "cpp"
         nnoremap <buffer> <leader>la :call LanguageClient_contextMenu()<CR>
         nnoremap <buffer> <leader>ee :call LanguageClient#explainErrorAtPoint()<CR>
         nnoremap <buffer> <leader>ca :call LanguageClient#textDocument_codeAction()<CR>
@@ -1542,3 +1544,5 @@ let g:fugitive_gitlab_domains = ['https://i10git.cs.fau.de/']
 
 let g:rooter_patterns = ['.git/', '_darcs/', '.hg/', '.bzr/', '.svn/']
 nnoremap <leader>ju :Topen<cr>:T just<space>
+
+autocmd FileType cpp,c nnoremap <buffer> <leader>cf :w<cr>:silent !clang-include-fixer-9 %<cr>:e<cr>
