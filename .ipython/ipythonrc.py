@@ -12,9 +12,7 @@ def import_all(modules):
     for m in modules.split():
         ip.ex("from %s import *" % m)
 
-import stackprinter
-stackprinter.set_excepthook(style='color')
-
 import pyconrad.autoinit
 from pyconrad import imshow
 
+from prettyprinter import pprint
