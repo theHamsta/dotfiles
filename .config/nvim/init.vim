@@ -874,6 +874,7 @@ set foldmethod=indent
 setlocal foldignore=
 
 set foldlevel=99
+set colorcolumn=120
 
 
 command! Q :q
@@ -907,7 +908,7 @@ endif
 "nnoremap <c-`> :cclose<cr>:lclose<cr>:Ttoggle<cr>
 "nnoremap <c-s-´> :cclose<cr>:lclose<cr>:Ttoggle<cr>
 
-let g:neoterm_default_mod='rightb'
+let g:neoterm_default_mod='vert'
 let g:neoterm_open_in_all_tabs=0
 "autocmd BufWinEnter,WinEnter term://* startinsert
 augroup terminal
