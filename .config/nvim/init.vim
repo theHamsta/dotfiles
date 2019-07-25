@@ -191,7 +191,7 @@ nmap <silent> <C-a-k> <Plug>GitGutterPrevHunk
 nmap <silent> <C-a-j> <Plug>GitGutterNextHunk
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
-nmap <silent> <leader>bl :BLines<cr>
+nmap <leader>bl :BLines<cr>
 "nmap <Leader>ag :GonvimFuzzyAg
 
 set wrap
@@ -237,6 +237,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'jason0x43/vim-wildgitignore' 
     "Plug 'jaxbot/github-issues.vim'
     Plug 'adolenc/cl-neovim'
+    Plug 'liuchengxu/vista.vim'
     Plug 'shumphrey/fugitive-gitlab.vim'
     Plug 'jackguo380/vim-lsp-cxx-highlight'
     Plug 'sebdah/vim-delve'
@@ -502,7 +503,7 @@ nnoremap gf gF
 nnoremap gF <c-w>gF
 nnoremap gP :call GotoPython()<cr>
 
-set wildignore+=_minted-*,*/tmp/*,*.so,*.swp,*.zip,*.log,*/CMakeFiles/*,*.aux,*.lof,*.lot,*.gz,*.fls,*.fdb_latexmk,*.toc,__*__,*/pybind11/*,*[0-9]+,*.class,*.bak?,*.bak??,*.md5,*.snm,*.bbl,*.nav,*.out,*.run.xml,*.bcf,*.blg,*.auxlock,*.sty,*.dvi,*.glo,*.glg,*.ist
+set wildignore+=_minted-*,*/tmp/*,*.so,*.swp,*.zip,*.log,*/CMakeFiles/*,*.aux,*.lof,*.lot,*.gz,*.fls,*.fdb_latexmk,*.toc,__*__,*/pybind11/*,*[0-9]+,*.class,*.bak?,*.bak??,*.md5,*.snm,*.bbl,*.nav,*.out,*.run.xml,*.bcf,*.blg,*.auxlock,*.dvi,*.glo,*.glg,*.ist
 
 set lazyredraw
 set ttyfast
@@ -1115,7 +1116,7 @@ if exists('g:gonvim_running')
   nnoremap <leader>ff :GonvimFuzzyFiles<CR>
   nnoremap <leader>ag :GonvimFuzzyAg<CR>
   nnoremap <leader>buf :GonvimFuzzyBuffers<CR>
-  nnoremap <leader>bl :GonvimFuzzyBLines<CR>
+  "nnoremap <leader>bl :GonvimFuzzyBLines<CR>
 endif
 let g:multi_cursor_exit_from_insert_mode=0
 let g:multi_cursor_exit_from_visual_mode=0
@@ -1340,8 +1341,11 @@ set completeopt=menuone,menu,longest,preview
 highlight LangHighlightText guibg=Black guifg=White
 highlight LangHighlightWrite guibg=Black guifg=Yellow
 highlight LangHighlightRead guibg=Black guifg=Red
+highlight LangHighlightRead guibg=Black guifg=Red
 highlight information  guifg=#737373
 highlight CocCodeLens  guifg=#FFA722
+highlight LspWarning   gui=underline
+highlight LspError  guifg=#FF0000 gui=underline
 let g:LanguageClient_documentHighlightDisplay = {
             \      1: {
             \          "name": "Text",
@@ -1358,21 +1362,21 @@ let g:LanguageClient_documentHighlightDisplay = {
 let g:LanguageClient_diagnosticsDisplay= {
             \       1: {
             \           "name": "Error",
-            \           "texthl": "ALEError",
+            \           "texthl": "LspError",
             \           "signText": "✖",
             \           "signTexthl": "ALEErrorSign",
             \           "virtualTexthl": "Error",
             \       },
             \       2: {
             \           "name": "Warning",
-            \           "texthl": "ALEWarning",
+            \           "texthl": "LspWarning",
             \           "signText": "⚠",
             \           "signTexthl": "ALEWarningSign",
             \           "virtualTexthl": "Todo",
             \       },
             \       3: {
             \           "name": "Information",
-            \           "texthl": "ALEInfo",
+            \           "texthl": "information",
             \           "signText": "➤",
             \           "signTexthl": "ALEInfoSign",
             \           "virtualTexthl": "Todo",
@@ -1391,10 +1395,10 @@ nnoremap gX :!xdg-open % &<cr>
 set signcolumn=yes
 "let g:neosnippet#enable_complete_done = 1
 
-nmap <silent> <leader>tn :wa<cr>:TestNearest<CR>
-nmap <silent> <leader>tf :wa<cr>:TestFile<CR>
-nmap <silent> <leader>ts :wa<cr>:TestSuite<CR>
-nmap <silent> <leader>tl :wa<cr>:TestLast<CR>
+nmap <silent> <leader>tn :wa<cr>:Topen<cr>:TestNearest<CR>
+nmap <silent> <leader>tf :wa<cr>:Topen<cr>:TestFile<CR>
+nmap <silent> <leader>ts :wa<cr>:Topen<cr>:TestSuite<CR>
+nmap <silent> <leader>tl :wa<cr>:Tkill<cr>:Topen<cr>:TestLast<CR>
 nmap <silent> <leader>tv :TestVisit<CR>
 nnoremap <leader>te :set shell=/usr/bin/zsh<cr>:Topen<Cr>
 nnoremap <leader>to :Topen<cr>
