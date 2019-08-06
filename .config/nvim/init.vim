@@ -237,6 +237,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'jason0x43/vim-wildgitignore' 
     "Plug 'jaxbot/github-issues.vim'
     Plug 'adolenc/cl-neovim'
+    Plug 'hotwatermorning/auto-git-diff'
+    Plug 'EESchneider/vim-rebase-mode'
     Plug 'liuchengxu/vista.vim'
     Plug 'shumphrey/fugitive-gitlab.vim'
     Plug 'jackguo380/vim-lsp-cxx-highlight'
@@ -897,8 +899,8 @@ if has('nvim')
     tnoremap <silent> <end> <C-\><C-n><cr>:vertical Ttoggle<cr>
     nnoremap <silent> <c-`> :botright Ttoggle<cr>
     nnoremap <silent> <end> <c-w>o:vertical Ttoggle<cr>
-    nnoremap <silent> <leader>py <c-w>o:vertical Ttoggle<cr>:T ipython<cr>
-    nnoremap <silent> <leader>sym <c-w>o:vertical Ttoggle<cr>:T isympy<cr>
+    nnoremap <silent> <leader>py <c-w>o:vertical Topen<cr>:T ipython<cr>
+    nnoremap <silent> <leader>sym <c-w>o:vertical Topen<cr>:T isympy -I<cr>
     nnoremap <c-´> :botright Ttoggle<cr>
     "nnoremap <leader>tt :<c-u>exec v:count.'T'<cr>
     nnoremap <silent> <PageDown> :cclose<cr>:lclose<cr>:pc<cr>:botright Ttoggle<cr>
@@ -1551,3 +1553,15 @@ let g:rooter_patterns = ['.git/', '_darcs/', '.hg/', '.bzr/', '.svn/']
 nnoremap <leader>ju :Topen<cr>:T just<space>
 
 autocmd FileType cpp,c nnoremap <buffer> <leader>cf :w<cr>:silent !clang-include-fixer-9 %<cr>:e<cr>
+
+let g:auto_git_diff_disable_auto_update=1
+let g:auto_git_diff_show_window_at_right=1
+
+function! s:setup_auto_git_diff() abort
+    nmap <buffer><C-l> <Plug>(auto_git_diff_scroll_manual_update)
+    nmap <buffer><C-n> <Plug>(auto_git_diff_scroll_down_half)
+    nmap <buffer><C-p> <Plug>(auto_git_diff_scroll_up_half)
+    nmap <buffer><enter> <Plug>(auto_git_diff_manual_update)
+endfunction
+autocmd FileType gitrebase call <SID>setup_auto_git_diff()
+
