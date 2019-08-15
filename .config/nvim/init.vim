@@ -209,6 +209,8 @@ set expandtab
 "inoremap <A-v> <C-R><C-R>+
 inoremap <c-V> <C-R><C-R>+
 nnoremap <a-v> <C-R><C-R>+
+"nnoremap p "_p
+
 
 "inoremap II <Esc>I
 "inoremap AA <Esc>A
@@ -223,9 +225,9 @@ smap <c-n> <Esc>a<tab>
 function! BuildComposer(info)
   if a:info.status != 'unchanged' || a:info.force
     if has('nvim')
-      !cargo build --release
+      :T cargo build --release
     else
-      !cargo build --release --no-default-features --features json-rpc
+      :T cargo build --release --no-default-features --features json-rpc
     endif
   endif
 endfunction
@@ -237,15 +239,15 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'jason0x43/vim-wildgitignore' 
     "Plug 'jaxbot/github-issues.vim'
     Plug 'adolenc/cl-neovim'
+    Plug 'arp242/jumpy.vim'
     Plug 'hotwatermorning/auto-git-diff'
-    Plug 'EESchneider/vim-rebase-mode'
     Plug 'liuchengxu/vista.vim'
     Plug 'shumphrey/fugitive-gitlab.vim'
     Plug 'jackguo380/vim-lsp-cxx-highlight'
     Plug 'sebdah/vim-delve'
     Plug 'gregf/ultisnips-chef'
     Plug 'rhysd/git-messenger.vim'
-    Plug 'gu-fan/riv.vim'
+    "Plug 'gu-fan/riv.vim'
     "Plug 'jodosha/vim-godebug'
     Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'lisp' }
     Plug 'JuliaEditorSupport/julia-vim'
@@ -270,7 +272,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'cyansprite/Extract'
     "Plug 'wbthomason/buildit.nvim'
     "Plug 'Shougo/neosnippet.vim'
-    "Plug 'heavenshell/vim-pydocstring'
+    Plug 'heavenshell/vim-pydocstring'
     "Plug 'Vigemus/iron.nvim'
     "Plug 'rhysd/reply.vim'
     Plug 'henrynewcomer/vim-theme-papaya'
@@ -316,6 +318,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'xolox/vim-easytags'
     Plug 'rking/ag.vim'
     Plug 'KabbAmine/vCoolor.vim'
+    Plug 'arkwright/vim-manhunt'
 "Plug 'vim-pandoc/vim-pandoc'
     "Plug 'vim-pandoc/vim-pandoc-syntax'
     "Plug 'puremourning/vimspector'
@@ -385,10 +388,10 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'junegunn/fzf.vim'
     Plug 'jpalardy/vim-slime'
     Plug 'machakann/vim-highlightedyank'
-    Plug 'scrooloose/nerdtree' , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-    Plug 'Xuyuanp/nerdtree-git-plugin' , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-    Plug 'ivalkeen/nerdtree-execute' , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-    Plug 'tiagofumo/vim-nerdtree-syntax-highlight' , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    Plug 'scrooloose/nerdtree' ", { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    Plug 'Xuyuanp/nerdtree-git-plugin' " , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    Plug 'ivalkeen/nerdtree-execute' "  , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    Plug 'tiagofumo/vim-nerdtree-syntax-highlight' ", { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
     Plug 'equalsraf/neovim-gui-shim'
     Plug 'michaeljsmith/vim-indent-object'
     Plug 'Chun-Yang/vim-action-ag'
@@ -520,7 +523,34 @@ let g:easymotion_smartsign = 1
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 let g:EasyMotion_keys='hklyuiopnm,qwertzxcvbasdgjf'
 
+let g:current_idx = 0
+function! GetOtherVersionAtSameLine(fugitive_object)
+    let current_line = line('.')
+    execute 'Gvsplit +' . current_line . ' ' . a:fugitive_object . ':%'
+    echo 'Gvsplit +' . current_line . ' ' . a:fugitive_object . ':%'
+endfunction
+
+function! GoToCurrentCommit()
+    let g:current_idx = 0
+    let current_line = line('.')
+    execute 'Gedit +' . current_line . ' @~'. g:current_idx .':%'
+    echo 'Gedit +' . current_line . ' @~'. g:current_idx .':%'
+endfunction
+function! GoPreviousCommit()
+    let g:current_idx = g:current_idx + 1
+    let current_line = line('.')
+    execute 'Gedit +' . current_line . ' @~'. g:current_idx .':%'
+    echo 'Gedit +' . current_line . ' @~'. g:current_idx .':%'
+endfunction
+function! GoNextCommit()
+    let g:current_idx = g:current_idx - 1
+    let current_line = line('.')
+    execute 'Gedit +' . current_line . ' @~'. g:current_idx .':%'
+    echo 'Gedit +' . current_line . ' @~'. g:current_idx .':%'
+endfunction
+
 nmap <Leader>gs :Gstatus<CR>
+nmap <Leader>gS :Gministatus<CR>
 nmap <Leader>ga :Gw<CR>
 nmap <c-a-b> :Gblame<CR>
 nmap <Leader>res:Git reset<CR>
@@ -528,8 +558,14 @@ nmap <Leader>me :MerginalToggle<CR>
 nmap <Leader>gw :Gw<CR>
 nmap <Leader>gc :Gcommit -v<CR>
 nmap <Leader>am :Gcommit -v --amend<CR>
-nmap <Leader>gH :Gvsplit HEAD^1:%<cr>
+"nmap <Leader>gH :Gvsplit HEAD^1:%:@<cr>
 nmap <Leader>gh :Gvsplit :%<left><left>
+nmap <Leader>gH :call GetOtherVersionAtSameLine('')<left><left>
+nmap <Leader>g< :call GoPreviousCommit()<cr>
+nmap <Leader>g> :call GoNextCommit()<cr>
+nmap <C-Home> :call GoToCurrentCommit()<cr>
+nmap <C-PageDown> :call GoPreviousCommit()<cr>
+nmap <C-PageUp> :call GoNextCommit()<cr>
 nmap <Leader>gv :GV<CR>
 nmap <Leader>gu :Git reset -- %<CR>
 nmap <Leader>gd <c-w>O:Gdiff<CR>
@@ -656,7 +692,7 @@ autocmd FileType python nnoremap <buffer> <F4> :let $last_execution='ipython3 ' 
 autocmd FileType python map <cr> <Plug>(IPy-RunCell)
 autocmd FileType python map <leader>pa <Plug>(IPy-RunAll)
 
-"autocmd FileType python nmap <silent> <C-.> <Plug>(pydocstring)
+autocmd FileType python nmap <silent> <C-.> <Plug>(pydocstring)
 "autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . $target<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
 autocmd FileType cpp nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
 autocmd FileType cmake nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
@@ -756,7 +792,7 @@ let g:LanguageClient_serverCommands = {
     \   '],
     \ 'lua': ['lua-lsp'],
     \ 'cuda': ['clangd-9', '-clang-tidy'],
-    \ 'cpp': ['ccls'],
+    \ 'cpp': ['clangd-9'],
     \ 'c': ['clangd-9'],
     \ 'go': ['gopls'],
     \ 'python': ['pyls'],
@@ -903,10 +939,19 @@ if has('nvim')
     nnoremap <silent> <leader>sym <c-w>o:vertical Topen<cr>:T isympy -I<cr>
     nnoremap <c-´> :botright Ttoggle<cr>
     "nnoremap <leader>tt :<c-u>exec v:count.'T'<cr>
-    nnoremap <silent> <PageDown> :cclose<cr>:lclose<cr>:pc<cr>:botright Ttoggle<cr>
-    tnoremap <silent> <PageDown> <C-\><C-n><cr>:Ttoggle<cr>
+    "nnoremap <silent> <PageDown> :cclose<cr>:lclose<cr>:pc<cr>:botright Ttoggle<cr>
+    "tnoremap <silent> <PageDown> <C-\><C-n><cr>:Ttoggle<cr>
 
 endif
+
+let g:jumpy_map = [']]', '[[']                     
+
+let g:jumpy_after = 'zz'                           
+nmap <PageDown> ]]
+nmap <PageUp> [[
+vnoremap <PageDown> ]]
+vnoremap <PageUp> [[
+
 "nnoremap <c-`> :cclose<cr>:lclose<cr>:Ttoggle<cr>
 "nnoremap <c-s-´> :cclose<cr>:lclose<cr>:Ttoggle<cr>
 
@@ -1498,7 +1543,7 @@ let g:wordmotion_mappings = {
 "autocmd ColorScheme janah highlight Normal ctermbg=235
 "colorscheme janah
 
-let g:startify_padding_left = 50
+let g:startify_padding_left = 20
 let g:neoterm_term_per_tab =1
 set cursorline
 
@@ -1558,10 +1603,10 @@ let g:auto_git_diff_disable_auto_update=1
 let g:auto_git_diff_show_window_at_right=1
 
 function! s:setup_auto_git_diff() abort
-    nmap <buffer><C-l> <Plug>(auto_git_diff_scroll_manual_update)
-    nmap <buffer><C-n> <Plug>(auto_git_diff_scroll_down_half)
-    nmap <buffer><C-p> <Plug>(auto_git_diff_scroll_up_half)
-    nmap <buffer><enter> <Plug>(auto_git_diff_manual_update)
+    nmap <buffer> <C-l> <Plug>(auto_git_diff_scroll_manual_update)
+    nmap <buffer> <C-n> <Plug>(auto_git_diff_scroll_down_half)
+    nmap <buffer> <C-p> <Plug>(auto_git_diff_scroll_up_half)
+    nmap <buffer> <enter> <Plug>(auto_git_diff_manual_update)
 endfunction
 autocmd FileType gitrebase call <SID>setup_auto_git_diff()
 
