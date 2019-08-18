@@ -1,6 +1,6 @@
 set tags=./tags;tags
 set encoding=UTF-8
-:set shell=/usr/bin/zsh
+set shell=/usr/bin/zsh
 if has('vim_starting')
 	set nocompatible               " Be iMproved
 endif
@@ -398,7 +398,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'easymotion/vim-easymotion'
     Plug 'terryma/vim-multiple-cursors'
     Plug 'junegunn/goyo.vim'
-    Plug 'l04m33/vlime', {'rtp': 'vim/'}
+    Plug 'fukamachi/vlime', {'rtp': 'vim/', 'branch': 'develop'}
     "Plug 'amix/vim-zenroom2'
     "Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}, 'for': ['java']}
     Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh']}
@@ -686,6 +686,8 @@ nnoremap <s-F3> :Tkill<cr>:wa<cr>:exec expand($last_execution,1)<cr>
 "nnoremap <leader>tt :<c-u>exec v:count . 'T '
 "
 autocmd FileType python nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:T python3 %<cr>
+autocmd FileType python nmap <buffer> <leader>tn :wa<cr>:Topen<cr>:TestNearest -s<CR>
+autocmd FileType python nmap <buffer> <leader>tf :wa<cr>:Topen<cr>:TestFile -s<CR>
 autocmd FileType python nnoremap <buffer> <s-F5> :let $last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:execute ':GdbStartPDB python3 -m pdb ' . expand('%:p',1)<cr>
 autocmd FileType python nnoremap <buffer> <F7> :let $last_execution='python3 -m pdb -c continue ' . expand('%:p',1)<cr>:wa<cr>:T python3 -m pdb -c continue %<cr>
 autocmd FileType python nnoremap <buffer> <F4> :let $last_execution='ipython3 ' . expand('%:p',1)<cr>:wa<cr>:T ipython3 %<cr>
@@ -766,9 +768,9 @@ let g:vlime_window_settings = {'sldb': {'pos': 'belowright', 'vertical': v:true}
 autocmd FileType lisp nmap <buffer> gh <localleader>do<cr>
 "let g:vlime_cl_impl = "sbcl_swank"
     
-if has('nvim') && !executable("ncat")
-      echoerr "Vlime needs ncat!!!"
-endif
+"if has('nvim') && !executable("ncat")
+      "echoerr "Vlime needs ncat!!!"
+"endif
 
 
 
