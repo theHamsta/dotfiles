@@ -689,9 +689,11 @@ autocmd FileType python nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='p
 autocmd FileType python nnoremap <buffer> <s-F5> :let $last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:execute ':GdbStartPDB python3 -m pdb ' . expand('%:p',1)<cr>
 autocmd FileType python nnoremap <buffer> <F7> :let $last_execution='python3 -m pdb -c continue ' . expand('%:p',1)<cr>:wa<cr>:T python3 -m pdb -c continue %<cr>
 autocmd FileType python nnoremap <buffer> <F4> :let $last_execution='ipython3 ' . expand('%:p',1)<cr>:wa<cr>:T ipython3 %<cr>
-autocmd FileType python map <cr> <Plug>(IPy-RunCell)
-autocmd FileType python map <leader>pa <Plug>(IPy-RunAll)
+"autocmd FileType python <buffer> nmap <cr> <Plug>(IPy-RunCell)
+"autocmd FileType python map <leader>pa <Plug>(IPy-RunAll)
 
+autocmd FileType python nmap <silent> <leader>tn :wa<cr>:Topen<cr>:TestNearest -s<CR>
+autocmd FileType python nmap <silent> <leader>tf :wa<cr>:Topen<cr>:TestFile -s<CR>
 autocmd FileType python nmap <silent> <C-.> <Plug>(pydocstring)
 "autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . $target<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
 autocmd FileType cpp nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
