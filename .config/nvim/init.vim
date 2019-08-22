@@ -401,7 +401,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'l04m33/vlime', {'rtp': 'vim/'}
     "Plug 'amix/vim-zenroom2'
     "Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}, 'for': ['java']}
-    Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh']}
+    Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'tex', 'bib']}
     Plug 'autozimu/LanguageClient-neovim', {
             \ 'branch': 'next',
             \ 'do': 'bash install.sh',
@@ -693,7 +693,8 @@ autocmd FileType python nnoremap <buffer> <F4> :let $last_execution='ipython3 ' 
 "autocmd FileType python map <leader>pa <Plug>(IPy-RunAll)
 
 autocmd FileType python nmap <silent> <leader>tn :wa<cr>:Topen<cr>:TestNearest -s<CR>
-autocmd FileType python nmap <silent> <leader>tf :wa<cr>:Topen<cr>:TestFile -s<CR>
+autocmd FileType python nmap <silent> <leader>tf :wa<cr>:Topen<cr>:TestFile<CR>
+autocmd FileType python nmap <silent> <leader>tF :wa<cr>:Topen<cr>:TestFile -s<CR>
 autocmd FileType python nmap <silent> <C-.> <Plug>(pydocstring)
 "autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . $target<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
 autocmd FileType cpp nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
@@ -1061,22 +1062,24 @@ let g:LanguageClient_diagnosticsList = "Location"
      nmap <silent> <buffer>  ga :CocAction<cr>
      vmap <silent> <buffer>  ga :CocAction<cr>
      nmap <silent> <buffer>  gD <c-w>v<Plug>(coc-definition)
-     nmap <silent> <buffer>  <leader>le <Plug>(coc-codelens-action)
      nmap <silent> <buffer>  gt <Plug>(coc-type-definition)
      nmap <silent> <buffer>  gT <c-w>v<Plug>(coc-type-definition)
      nmap <silent> <buffer>  gi <Plug>(coc-implementation)
      nmap <silent> <buffer>  gI <c-w>v<Plug>(coc-implementation)
      nmap <silent> <buffer>  gr <Plug>(coc-references)
      nmap <silent> <buffer>  gh :call CocAction('doHover')<cr>
+     if &filetype != "tex" && &filetype != "bib"
+     nmap <silent> <buffer>  <leader>le <Plug>(coc-codelens-action)
      nmap <silent> <buffer>  <c-s> :call CocAction('format')<cr>
+   endif
      vmap <buffer> <leader>a   <Plug>(coc-codeaction-selected)
      nmap <buffer> <leader>a <Plug>(coc-codeaction-selected)
-     nmap <buffer> <leader>hp :CocCommand git.chunkpreviwe<cr>
+     "nmap <buffer> <leader>hp :CocCommand git.chunkpreview<cr>
 
  endfunction()
 
 autocmd FileType java call ActivateCoc()
-"autocmd FileType tex call ActivateCoc()
+autocmd FileType tex,bib call ActivateCoc()
 autocmd FileType yaml call ActivateCoc()
 autocmd FileType vim call ActivateCoc()
 autocmd FileType bash,sh call ActivateCoc()
@@ -1394,7 +1397,8 @@ highlight LangHighlightRead guibg=Black guifg=Red
 highlight LangHighlightRead guibg=Black guifg=Red
 highlight information  guifg=#737373
 highlight CocCodeLens  guifg=#FFA722
-highlight LspWarning   gui=underline
+" or undercurl
+highlight LspWarning   gui=underline 
 highlight LspError  guifg=#FF0000 gui=underline
 let g:LanguageClient_documentHighlightDisplay = {
             \      1: {
@@ -1445,8 +1449,8 @@ nnoremap gX :!xdg-open % &<cr>
 set signcolumn=yes
 "let g:neosnippet#enable_complete_done = 1
 
-nmap <silent> <leader>tn :wa<cr>:Topen<cr>:TestNearest<CR>
-nmap <silent> <leader>tf :wa<cr>:Topen<cr>:TestFile<CR>
+"nmap <silent> <leader>tn :wa<cr>:Topen<cr>:TestNearest<CR>
+"nmap <silent> <leader>tf :wa<cr>:Topen<cr>:TestFile<CR>
 nmap <silent> <leader>ts :wa<cr>:Topen<cr>:TestSuite<CR>
 nmap <silent> <leader>tl :wa<cr>:Tkill<cr>:Topen<cr>:TestLast<CR>
 nmap <silent> <leader>tv :TestVisit<CR>
@@ -1486,7 +1490,7 @@ autocmd BufReadPre *.eps silent %!xdg-open "%"
 autocmd BufReadPre *.jpg silent %!xdg-open "%"
 autocmd BufReadPre *.bmp silent %!xdg-open "%"
 
-nmap  <leader>ww  <Plug>(choosewin)
+nmap  <leader>cw  <Plug>(choosewin)
 let g:choosewin_overlay_enable = 1
 let $FZF_DEFAULT_OPTS='--layout=reverse'
 let g:fzf_layout = { 'window': 'call FloatingFZF()' }
