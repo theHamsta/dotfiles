@@ -1616,3 +1616,4 @@ function! s:setup_auto_git_diff() abort
 endfunction
 autocmd FileType gitrebase call <SID>setup_auto_git_diff()
 
+let g:gitgutter_preview_win_floating = 1
