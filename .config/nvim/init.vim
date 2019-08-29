@@ -1395,7 +1395,7 @@ highlight LangHighlightText guibg=Black guifg=White
 highlight LangHighlightWrite guibg=Black guifg=Yellow
 highlight LangHighlightRead guibg=Black guifg=Red
 highlight LangHighlightRead guibg=Black guifg=Red
-highlight information  guifg=#737373
+highlight information  gui=underline 
 highlight CocCodeLens  guifg=#FFA722
 " or undercurl
 highlight LspWarning   gui=underline 
@@ -1617,3 +1617,4 @@ endfunction
 autocmd FileType gitrebase call <SID>setup_auto_git_diff()
 
 let g:gitgutter_preview_win_floating = 1
+let g:LanguageClient_diagnosticsMaxSeverity = "Information" 
