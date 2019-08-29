@@ -861,8 +861,8 @@ function! LC_maps()
    endif
 endfunction
 
-nmap <silent> <leader><C-k> :lprevious<cr>
-nmap <silent> <leader><C-j> :lnext<cr>
+nmap <silent> <C-k> :lprevious<cr>
+nmap <silent> <C-j> :lnext<cr>
 
 autocmd FileType * call LC_maps()
 
