@@ -163,6 +163,7 @@ command! Wq :wq
 "vnoremap <C-S-K> :m-2<CR>gv=gv
 "inoremap  y/<C-R>"<CR>
 nnoremap <c-w>O :tab :sp<cr>
+nnoremap <c-w>C <c-w>c<c-w>c<c-w>c
 
 "let &path.="/usr/include,/usr/local/include,../include,/usr/local/include/opencv2"
 nnoremap <Leader>cn :cn<cr>
@@ -572,6 +573,7 @@ nmap <Leader>gd <c-w>O:Gdiff<CR>
 nmap <Leader>gl :0Glog<CR>
 nmap <Leader>gr :Gread<CR>
 nmap <Leader>gp :!git push<CR>
+nmap <Leader>gP :!git push -f<CR>
 nmap <Leader>pu :!git pull<CR>
 vnoremap // y/<C-R>"<CR>
 
