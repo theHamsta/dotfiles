@@ -188,10 +188,6 @@ nmap <silent> <leader><C-k> :lprevious<cr>
 nmap <silent> <leader><C-j> :lnext<cr>
 "nmap <silent> <C-k> [m<cr>
 "nmap <silent> <C-j> ]m<cr>
-nmap <silent> <C-a-k> <Plug>GitGutterPrevHunk
-nmap <silent> <C-a-j> <Plug>GitGutterNextHunk
-nmap ]h <Plug>GitGutterNextHunk
-nmap [h <Plug>GitGutterPrevHunk
 nmap <leader>bl :BLines<cr>
 "nmap <Leader>ag :GonvimFuzzyAg
 
@@ -450,6 +446,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 
     "Colors
     Plug 'rakr/vim-one'
+    "Plug 'https://gitlab.com/thealik/vim-harmony'
 	"Plug 'icymind/NeoSolarized'
     "Plug 'junegunn/seoul256.vim'
 	"Plug 'arzg/seoul8.vim'
@@ -834,7 +831,7 @@ let g:LanguageClient_serverCommands = {
 function! LC_maps()
    if has_key(g:LanguageClient_serverCommands, &filetype)
         call deoplete#custom#option('auto_complete', v:true)
-         if &filetype != "python" && &filetype != "tex" && &filetype != "bib"
+         if &filetype != "python" && &filetype != "tex" && &filetype != "bib"&& &filetype != "go"
              autocmd CursorHold <buffer> silent call LanguageClient#textDocument_documentHighlight()
          endif
  "&& &filetype != "go"
@@ -1388,7 +1385,7 @@ nmap     <C-F>p <Plug>CtrlSFPwordPath
 nnoremap <C-F>o :CtrlSFOpen<CR>
 nnoremap <C-F>t :CtrlSFToggle<CR>
 inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
-set completeopt=menuone,menu,longest,preview
+set completeopt=menuone,menu,longest
 
 " Highlight (inofficial) json comments
  autocmd FileType json syntax match Comment +\/\/.\+$+
@@ -1620,3 +1617,51 @@ autocmd FileType gitrebase call <SID>setup_auto_git_diff()
 
 let g:gitgutter_preview_win_floating = 1
 let g:LanguageClient_diagnosticsMaxSeverity = "Information" 
+
+"GitGutterLineNrHighlightsEnable
+function! NextHunkAllBuffers()
+  let line = line('.')
+  GitGutterNextHunk
+  if line('.') != line
+    return
+  endif
+
+  let bufnr = bufnr('')
+  while 1
+    bnext
+    if bufnr('') == bufnr
+      return
+    endif
+    if !empty(GitGutterGetHunks())
+      normal! 1G
+      GitGutterNextHunk
+      return
+    endif
+  endwhile
+endfunction
+
+function! PrevHunkAllBuffers()
+  let line = line('.')
+  GitGutterPrevHunk
+  if line('.') != line
+    return
+  endif
+
+  let bufnr = bufnr('')
+  while 1
+    bprevious
+    if bufnr('') == bufnr
+      return
+    endif
+    if !empty(GitGutterGetHunks())
+      normal! G
+      GitGutterPrevHunk
+      return
+    endif
+  endwhile
+endfunction
+
+nmap <silent> <c-a-j> :call NextHunkAllBuffers()<CR>
+nmap <silent> <c-a-k> :call PrevHunkAllBuffers()<CR>
+nmap ]h <Plug>GitGutterNextHunk
+nmap [h <Plug>GitGutterPrevHunk
