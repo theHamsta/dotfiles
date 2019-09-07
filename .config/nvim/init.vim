@@ -11,7 +11,7 @@ let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 let g:vim_bootstrap_langs = "c,python"
 let g:vim_bootstrap_editor = "nvim"				" nvim or vim
 "let g:fzf_command_prefix = 'fzf'
-j
+
 if !filereadable(vimplug_exists)
 	if !executable("curl")
 		echoerr "You have to install curl or first install vim-plug yourself!"
@@ -163,6 +163,7 @@ command! Wq :wq
 "vnoremap <C-S-K> :m-2<CR>gv=gv
 "inoremap  y/<C-R>"<CR>
 nnoremap <c-w>O :tab :sp<cr>
+nnoremap <c-w>C <c-w>c<c-w>c<c-w>c
 
 "let &path.="/usr/include,/usr/local/include,../include,/usr/local/include/opencv2"
 nnoremap <Leader>cn :cn<cr>
@@ -187,10 +188,6 @@ nmap <silent> <leader><C-k> :lprevious<cr>
 nmap <silent> <leader><C-j> :lnext<cr>
 "nmap <silent> <C-k> [m<cr>
 "nmap <silent> <C-j> ]m<cr>
-nmap <silent> <C-a-k> <Plug>GitGutterPrevHunk
-nmap <silent> <C-a-j> <Plug>GitGutterNextHunk
-nmap ]h <Plug>GitGutterNextHunk
-nmap [h <Plug>GitGutterPrevHunk
 nmap <leader>bl :BLines<cr>
 "nmap <Leader>ag :GonvimFuzzyAg
 
@@ -401,7 +398,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'fukamachi/vlime', {'rtp': 'vim/', 'branch': 'develop'}
     "Plug 'amix/vim-zenroom2'
     "Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}, 'for': ['java']}
-    Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh']}
+    Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'tex', 'bib']}
     Plug 'autozimu/LanguageClient-neovim', {
             \ 'branch': 'next',
             \ 'do': 'bash install.sh',
@@ -449,6 +446,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 
     "Colors
     Plug 'rakr/vim-one'
+    "Plug 'https://gitlab.com/thealik/vim-harmony'
 	"Plug 'icymind/NeoSolarized'
     "Plug 'junegunn/seoul256.vim'
 	"Plug 'arzg/seoul8.vim'
@@ -572,6 +570,7 @@ nmap <Leader>gd <c-w>O:Gdiff<CR>
 nmap <Leader>gl :0Glog<CR>
 nmap <Leader>gr :Gread<CR>
 nmap <Leader>gp :!git push<CR>
+nmap <Leader>gP :!git push -f<CR>
 nmap <Leader>pu :!git pull<CR>
 vnoremap // y/<C-R>"<CR>
 
@@ -691,9 +690,12 @@ autocmd FileType python nmap <buffer> <leader>tf :wa<cr>:Topen<cr>:TestFile -s<C
 autocmd FileType python nnoremap <buffer> <s-F5> :let $last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:execute ':GdbStartPDB python3 -m pdb ' . expand('%:p',1)<cr>
 autocmd FileType python nnoremap <buffer> <F7> :let $last_execution='python3 -m pdb -c continue ' . expand('%:p',1)<cr>:wa<cr>:T python3 -m pdb -c continue %<cr>
 autocmd FileType python nnoremap <buffer> <F4> :let $last_execution='ipython3 ' . expand('%:p',1)<cr>:wa<cr>:T ipython3 %<cr>
-autocmd FileType python map <cr> <Plug>(IPy-RunCell)
-autocmd FileType python map <leader>pa <Plug>(IPy-RunAll)
+"autocmd FileType python <buffer> nmap <cr> <Plug>(IPy-RunCell)
+"autocmd FileType python map <leader>pa <Plug>(IPy-RunAll)
 
+autocmd FileType python nmap <silent> <leader>tn :wa<cr>:Topen<cr>:TestNearest -s<CR>
+autocmd FileType python nmap <silent> <leader>tf :wa<cr>:Topen<cr>:TestFile<CR>
+autocmd FileType python nmap <silent> <leader>tF :wa<cr>:Topen<cr>:TestFile -s<CR>
 autocmd FileType python nmap <silent> <C-.> <Plug>(pydocstring)
 "autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . $target<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
 autocmd FileType cpp nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
@@ -794,8 +796,8 @@ let g:LanguageClient_serverCommands = {
     \   '],
     \ 'lua': ['lua-lsp'],
     \ 'cuda': ['clangd-9', '-clang-tidy'],
-    \ 'cpp': ['clangd-9'],
-    \ 'c': ['clangd-9'],
+    \ 'cpp': ['clangd-9', '-clang-tidy'],
+    \ 'c': ['clangd-9', '-clang-tidy'],
     \ 'go': ['gopls'],
     \ 'python': ['pyls'],
     \ 'dockerfile': ['docker-langserver', '--stdio'],
@@ -831,7 +833,7 @@ let g:LanguageClient_serverCommands = {
 function! LC_maps()
    if has_key(g:LanguageClient_serverCommands, &filetype)
         call deoplete#custom#option('auto_complete', v:true)
-         if &filetype != "python" && &filetype != "tex" && &filetype != "bib"
+         if &filetype != "python" && &filetype != "tex" && &filetype != "bib"&& &filetype != "go"
              autocmd CursorHold <buffer> silent call LanguageClient#textDocument_documentHighlight()
          endif
  "&& &filetype != "go"
@@ -860,8 +862,8 @@ function! LC_maps()
    endif
 endfunction
 
-nmap <silent> <leader><C-k> :lprevious<cr>
-nmap <silent> <leader><C-j> :lnext<cr>
+nmap <silent> <C-k> :lprevious<cr>
+nmap <silent> <C-j> :lnext<cr>
 
 autocmd FileType * call LC_maps()
 
@@ -1061,22 +1063,24 @@ let g:LanguageClient_diagnosticsList = "Location"
      nmap <silent> <buffer>  ga :CocAction<cr>
      vmap <silent> <buffer>  ga :CocAction<cr>
      nmap <silent> <buffer>  gD <c-w>v<Plug>(coc-definition)
-     nmap <silent> <buffer>  <leader>le <Plug>(coc-codelens-action)
      nmap <silent> <buffer>  gt <Plug>(coc-type-definition)
      nmap <silent> <buffer>  gT <c-w>v<Plug>(coc-type-definition)
      nmap <silent> <buffer>  gi <Plug>(coc-implementation)
      nmap <silent> <buffer>  gI <c-w>v<Plug>(coc-implementation)
      nmap <silent> <buffer>  gr <Plug>(coc-references)
      nmap <silent> <buffer>  gh :call CocAction('doHover')<cr>
+     if &filetype != "tex" && &filetype != "bib"
+     nmap <silent> <buffer>  <leader>le <Plug>(coc-codelens-action)
      nmap <silent> <buffer>  <c-s> :call CocAction('format')<cr>
+   endif
      vmap <buffer> <leader>a   <Plug>(coc-codeaction-selected)
      nmap <buffer> <leader>a <Plug>(coc-codeaction-selected)
-     nmap <buffer> <leader>hp :CocCommand git.chunkpreviwe<cr>
+     "nmap <buffer> <leader>hp :CocCommand git.chunkpreview<cr>
 
  endfunction()
 
 autocmd FileType java call ActivateCoc()
-"autocmd FileType tex call ActivateCoc()
+autocmd FileType tex,bib call ActivateCoc()
 autocmd FileType yaml call ActivateCoc()
 autocmd FileType vim call ActivateCoc()
 autocmd FileType bash,sh call ActivateCoc()
@@ -1383,7 +1387,7 @@ nmap     <C-F>p <Plug>CtrlSFPwordPath
 nnoremap <C-F>o :CtrlSFOpen<CR>
 nnoremap <C-F>t :CtrlSFToggle<CR>
 inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
-set completeopt=menuone,menu,longest,preview
+set completeopt=menuone,menu,longest
 
 " Highlight (inofficial) json comments
  autocmd FileType json syntax match Comment +\/\/.\+$+
@@ -1392,9 +1396,10 @@ highlight LangHighlightText guibg=Black guifg=White
 highlight LangHighlightWrite guibg=Black guifg=Yellow
 highlight LangHighlightRead guibg=Black guifg=Red
 highlight LangHighlightRead guibg=Black guifg=Red
-highlight information  guifg=#737373
+highlight information  gui=underline 
 highlight CocCodeLens  guifg=#FFA722
-highlight LspWarning   gui=underline
+" or undercurl
+highlight LspWarning   gui=underline 
 highlight LspError  guifg=#FF0000 gui=underline
 let g:LanguageClient_documentHighlightDisplay = {
             \      1: {
@@ -1445,8 +1450,8 @@ nnoremap gX :!xdg-open % &<cr>
 set signcolumn=yes
 "let g:neosnippet#enable_complete_done = 1
 
-nmap <silent> <leader>tn :wa<cr>:Topen<cr>:TestNearest<CR>
-nmap <silent> <leader>tf :wa<cr>:Topen<cr>:TestFile<CR>
+"nmap <silent> <leader>tn :wa<cr>:Topen<cr>:TestNearest<CR>
+"nmap <silent> <leader>tf :wa<cr>:Topen<cr>:TestFile<CR>
 nmap <silent> <leader>ts :wa<cr>:Topen<cr>:TestSuite<CR>
 nmap <silent> <leader>tl :wa<cr>:Tkill<cr>:Topen<cr>:TestLast<CR>
 nmap <silent> <leader>tv :TestVisit<CR>
@@ -1486,7 +1491,7 @@ autocmd BufReadPre *.eps silent %!xdg-open "%"
 autocmd BufReadPre *.jpg silent %!xdg-open "%"
 autocmd BufReadPre *.bmp silent %!xdg-open "%"
 
-nmap  <leader>ww  <Plug>(choosewin)
+nmap  <leader>cw  <Plug>(choosewin)
 let g:choosewin_overlay_enable = 1
 let $FZF_DEFAULT_OPTS='--layout=reverse'
 let g:fzf_layout = { 'window': 'call FloatingFZF()' }
@@ -1612,3 +1617,53 @@ function! s:setup_auto_git_diff() abort
 endfunction
 autocmd FileType gitrebase call <SID>setup_auto_git_diff()
 
+let g:gitgutter_preview_win_floating = 1
+let g:LanguageClient_diagnosticsMaxSeverity = "Information" 
+
+"GitGutterLineNrHighlightsEnable
+function! NextHunkAllBuffers()
+  let line = line('.')
+  GitGutterNextHunk
+  if line('.') != line
+    return
+  endif
+
+  let bufnr = bufnr('')
+  while 1
+    bnext
+    if bufnr('') == bufnr
+      return
+    endif
+    if !empty(GitGutterGetHunks())
+      normal! 1G
+      GitGutterNextHunk
+      return
+    endif
+  endwhile
+endfunction
+
+function! PrevHunkAllBuffers()
+  let line = line('.')
+  GitGutterPrevHunk
+  if line('.') != line
+    return
+  endif
+
+  let bufnr = bufnr('')
+  while 1
+    bprevious
+    if bufnr('') == bufnr
+      return
+    endif
+    if !empty(GitGutterGetHunks())
+      normal! G
+      GitGutterPrevHunk
+      return
+    endif
+  endwhile
+endfunction
+
+nmap <silent> <c-a-j> :call NextHunkAllBuffers()<CR>
+nmap <silent> <c-a-k> :call PrevHunkAllBuffers()<CR>
+nmap ]h <Plug>GitGutterNextHunk
+nmap [h <Plug>GitGutterPrevHunk

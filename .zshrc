@@ -116,6 +116,8 @@ alias autoremove="sudo apt autoremove"
 alias cd..="cd .."
 alias cd...="cd ../.."
 alias -s tex=nvim
+alias ls=exa
+alias tree=exa --tree
 
 alias v='f -e nvim' # quick opening files with vim
 alias o='a -e xdg-open' # quick opening files with xdg-open
