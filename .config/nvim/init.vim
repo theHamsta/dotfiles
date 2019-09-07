@@ -155,6 +155,7 @@ vnoremap H ^
 vnoremap L $
 "command! W :execute ':silent w !sudo tee % > /dev/null'
 command! Wq :wq
+command! Wqa :wqa
 "nnoremap <C-S-J> :m+<CR>==
 "nnoremap <C-S-K> :m-2<CR>==
 "inoremap <C-S-J> <Esc>:m+<CR>==gi
@@ -528,23 +529,23 @@ function! GetOtherVersionAtSameLine(fugitive_object)
     echo 'Gvsplit +' . current_line . ' ' . a:fugitive_object . ':%'
 endfunction
 
-function! GoToCurrentCommit()
-    let g:current_idx = 0
-    let current_line = line('.')
-    execute 'Gedit +' . current_line . ' @~'. g:current_idx .':%'
-    echo 'Gedit +' . current_line . ' @~'. g:current_idx .':%'
-endfunction
 function! GoPreviousCommit()
-    let g:current_idx = g:current_idx + 1
     let current_line = line('.')
-    execute 'Gedit +' . current_line . ' @~'. g:current_idx .':%'
-    echo 'Gedit +' . current_line . ' @~'. g:current_idx .':%'
+    cnext
+    execute "normal " . current_line . "gg"
+    normal zz
 endfunction
 function! GoNextCommit()
-    let g:current_idx = g:current_idx - 1
     let current_line = line('.')
-    execute 'Gedit +' . current_line . ' @~'. g:current_idx .':%'
-    echo 'Gedit +' . current_line . ' @~'. g:current_idx .':%'
+    cprevious
+    execute "normal " . current_line . "gg"
+    normal zz
+endfunction
+function! TimeMachine()
+    let current_line = line('.')
+    0Glog
+    execute "normal " . current_line . "gg"
+    normal zz
 endfunction
 
 nmap <Leader>gs :Gstatus<CR>
@@ -567,7 +568,7 @@ nmap <C-PageUp> :call GoNextCommit()<cr>
 nmap <Leader>gv :GV<CR>
 nmap <Leader>gu :Git reset -- %<CR>
 nmap <Leader>gd <c-w>O:Gdiff<CR>
-nmap <Leader>gl :0Glog<CR>
+nmap <Leader>gl :call TimeMachine()<CR>
 nmap <Leader>gr :Gread<CR>
 nmap <Leader>gp :!git push<CR>
 nmap <Leader>gP :!git push -f<CR>
