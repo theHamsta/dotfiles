@@ -2,27 +2,27 @@ set tags=./tags;tags
 set encoding=UTF-8
 set shell=/usr/bin/zsh
 if has('vim_starting')
-	set nocompatible               " Be iMproved
+    set nocompatible               " Be iMproved
 endif
 
 let g:rooter_patterns = ['gitmodules', '.git', '.git/']
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 
 let g:vim_bootstrap_langs = "c,python"
-let g:vim_bootstrap_editor = "nvim"				" nvim or vim
+let g:vim_bootstrap_editor = "nvim"             " nvim or vim
 "let g:fzf_command_prefix = 'fzf'
 
 if !filereadable(vimplug_exists)
-	if !executable("curl")
-		echoerr "You have to install curl or first install vim-plug yourself!"
-		execute "q!"
-	endif
-	echo "Installing Vim-Plug..."
-	echo ""
-	silent !\curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	let g:not_finish_vimplug = "yes"
+    if !executable("curl")
+        echoerr "You have to install curl or first install vim-plug yourself!"
+        execute "q!"
+    endif
+    echo "Installing Vim-Plug..."
+    echo ""
+    silent !\curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    let g:not_finish_vimplug = "yes"
 
-	autocmd VimEnter * PlugInstall
+    autocmd VimEnter * PlugInstall
 endif
 
 "vim-scripts/VimPdb Identify platform {
@@ -35,7 +35,7 @@ let g:WINDOWS = has('win32') || has('win64')
 " On Windows, also use '.vim' instead of 'vimfiles'; this makes synchronization
 " across (heterogeneous) systems easier.
 if g:WINDOWS
-	set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+    set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
 endif
 " }
 
@@ -50,29 +50,29 @@ set mouse=a
 let g:use_line_numbers=0
 
 function! Toggle_line_numbers()
-	if g:use_line_numbers
-		let g:use_line_numbers=0
-		set number
-		set relativenumber
+    if g:use_line_numbers
+        let g:use_line_numbers=0
+        set number
+        set relativenumber
 
-		" Always show line numbers, but only in current window.
-		"set number
-		"au WinEnter * :setlocal number
-		"au WinEnter * :setlocal relativenumber
-		"au WinLeave * :setlocal norelativenumber
-		"au WinLeave * :setlocal number
-	else
-		let g:use_line_numbers=1
-		set nonumber
-		set norelativenumber
+        " Always show line numbers, but only in current window.
+        "set number
+        "au WinEnter * :setlocal number
+        "au WinEnter * :setlocal relativenumber
+        "au WinLeave * :setlocal norelativenumber
+        "au WinLeave * :setlocal number
+    else
+        let g:use_line_numbers=1
+        set nonumber
+        set norelativenumber
 
-		" Always show line numbers, but only in current window.
-		""set number
-		"au WinEnter * :setlocal nonumber
-		"au WinEnter * :setlocal norelativenumber
-		"au WinLeave * :setlocal norelativenumber
-		"au WinLeave * :setlocal nonumber
-	endif
+        " Always show line numbers, but only in current window.
+        ""set number
+        "au WinEnter * :setlocal nonumber
+        "au WinEnter * :setlocal norelativenumber
+        "au WinLeave * :setlocal norelativenumber
+        "au WinLeave * :setlocal nonumber
+    endif
 endfunction
 call Toggle_line_numbers()
 
@@ -80,7 +80,7 @@ call Toggle_line_numbers()
 function! ConfigSlurmTerm()
     let l:term_id = b:terminal_job_id
     execute SlimeConfig
-    execute 
+    execute
 endfunction
 command! GetTermJobId echo b:terminal_job_id
 
@@ -108,10 +108,10 @@ function! s:goyo_leave()
   set showmode
   set showcmd
   set scrolloff=5
-	if g:use_line_numbers
-	  set number
-	  set relativenumber
-	endif
+    if g:use_line_numbers
+      set number
+      set relativenumber
+    endif
   Limelight!
 endfunction
 
@@ -231,7 +231,6 @@ function! BuildComposer(info)
 endfunction
 
 call plug#begin('~/.local/share/nvim/plugged')
-
     "Plug 'beloglazov/vim-online-thesaurus'
     "Plug 'garbas/vim-snipmate'
     "Plug 'idanarye/vim-vebugger'
@@ -240,6 +239,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'tomtom/tlib_vim'
     "Plug 'w0rp/ale', { 'for': 'tex' }
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+    Plug 'theHamsta/vim-rebase-mode'
+    Plug 'kamykn/CCSpellCheck.vim'
     Plug 'AndrewRadev/switch.vim'
     Plug 'Chun-Yang/vim-action-ag'
     Plug 'JuliaEditorSupport/julia-vim'
@@ -304,7 +305,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'machakann/vim-swap'
     Plug 'majutsushi/tagbar'
     Plug 'maralla/vim-toml-enhance', {'for': 'toml'}
-    Plug 'markonm/traces.vim' 
+    Plug 'markonm/traces.vim'
     Plug 'mbbill/undotree', { 'on':  [ 'UndotreeToggle'] }
     Plug 'meain/vim-package-info', { 'do': 'npm install' }
     Plug 'mhinz/neovim-remote'
@@ -351,7 +352,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'lisp' }
     Plug 'tpope/vim-sleuth'
     Plug 'tpope/vim-surround'
-    Plug 'tpope/vim-unimpaired' 
+    Plug 'tpope/vim-unimpaired'
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     Plug 'vim-scripts/SearchComplete'
@@ -382,15 +383,18 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'Shougo/neosnippet-snippets'
 
     "Colors
+    Plug 'ayu-theme/ayu-vim'
+    Plug 'jaredgorski/spacecamp'
+    Plug 'kjssad/quantum.vim'
     Plug 'romainl/Apprentice'
     "Plug 'altercation/vim-colors-solarized'
     Plug 'rakr/vim-one'
     Plug 'NLKNguyen/papercolor-theme'
     Plug 'mhinz/vim-janah'
     "Plug 'https://gitlab.com/thealik/vim-harmony'
-	"Plug 'icymind/NeoSolarized'
+    "Plug 'icymind/NeoSolarized'
     "Plug 'junegunn/seoul256.vim'
-	"Plug 'arzg/seoul8.vim'
+    "Plug 'arzg/seoul8.vim'
     "
     "
     "Plug 'vhakulinen/gnvim-lsp'
@@ -402,7 +406,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "
     ""Plug 'Raimondi/delimitMate'
     ""Plug 'mgedmin/python-imports.vim'
-    "Plug 'AndrewRayCode/vim-git-conflict-edit' 
+    "Plug 'AndrewRayCode/vim-git-conflict-edit'
     "Plug 'HiPhish/ncm2-vlime' ", {'for' : ['lisp']}
     "Plug 'SammysHP/vim-heurindent'
     "Plug 'Shougo/neosnippet.vim'
@@ -422,7 +426,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'hiphish/jinja.vim'
     "Plug 'hotwatermorning/auto-git-diff'
     "Plug 'jalcine/cmake.vim'
-    "Plug 'jason0x43/vim-wildgitignore' 
+    "Plug 'jason0x43/vim-wildgitignore'
     "Plug 'jaxbot/github-issues.vim'
     "Plug 'jodosha/vim-godebug'
     "Plug 'jreybert/vimagit'
@@ -596,10 +600,15 @@ endif
 set background =dark
 
 " Call the theme one
+set termguicolors     " enable true colors support
 colorscheme one
 "colorscheme papaya
 let g:papaya_gui_color='blue'
 "colorscheme apprentice
+"let ayucolor="light"  " for light version of theme
+"let ayucolor="mirage" " for mirage version of theme
+"let ayucolor="dark"   " for dark version of theme
+"colorscheme ayu
 
 " Don't forget set the airline theme as well.
 let g:airline_theme = 'one'
@@ -770,7 +779,7 @@ let g:vlime_window_settings = {'sldb': {'pos': 'belowright', 'vertical': v:true}
 
 autocmd FileType lisp nmap <buffer> gh <localleader>do<cr>
 "let g:vlime_cl_impl = "sbcl_swank"
-    
+
 "if has('nvim') && !executable("ncat")
       "echoerr "Vlime needs ncat!!!"
 "endif
@@ -789,8 +798,8 @@ let g:LanguageClient_serverCommands = {
     \       import StaticLint;
     \       import SymbolServer;
     \       env_path = dirname(Pkg.Types.Context().env.project_file);
-    \       debug = false; 
-    \       
+    \       debug = false;
+    \
     \       server = LanguageServer.LanguageServerInstance(stdin, stdout, debug, env_path, "", Dict());
     \       server.runlinter = true;
     \       run(server);
@@ -949,9 +958,9 @@ if has('nvim')
 
 endif
 
-let g:jumpy_map = [']]', '[[']                     
+let g:jumpy_map = [']]', '[[']
 
-let g:jumpy_after = 'zz'                           
+let g:jumpy_after = 'zz'
 nmap <PageDown> ]]
 nmap <PageUp> [[
 vnoremap <PageDown> ]]
@@ -1022,7 +1031,7 @@ let g:slime_target = "neovim"
 let g:slime_python_ipython = 1
 let g:highlightedyank_highlight_duration = 100
 
-let g:multi_cursor_start_word_key      = '<C-n>' 
+let g:multi_cursor_start_word_key      = '<C-n>'
 let g:multi_cursor_select_all_word_key = '<A-n>'
 let g:multi_cursor_start_key           = 'g<C-n>'
 let g:multi_cursor_select_all_key      = 'g<A-n>'
@@ -1118,13 +1127,13 @@ autocmd FileType tex nnoremap <buffer> <cr> :let g:vimtex_view_general_options =
 nnoremap ,lc :VimtexCompile<cr>
 nnoremap <leader>zen :Goyo<cr>
 nnoremap <leader>buf :Buffers<cr>
-nnoremap <leader>save :saveas 
+nnoremap <leader>save :saveas
 
 "let g:vimtex_view_method ='zathura'
 "let g:vimtex_view_general_viewer = 'zathura'
 "let g:vimtex_view_general_options = '--synctex-forward @line:@col:@pdf'
 
-"--synctex-forward " . line('.') . ":" . col('.') . ":" . bufname('%') . 
+"--synctex-forward " . line('.') . ":" . col('.') . ":" . bufname('%') .
 let g:vimtex_view_general_viewer = 'okular'
 let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex --noraise'
 let g:vimtex_view_general_options_latexmk = '--unique'
@@ -1269,8 +1278,8 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standar
 
 command! -bang -nargs=? -complete=dir Files :call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 nnoremap <c-f> :Files<cr>
-nnoremap <a-l> "zyy"zp 
-nnoremap <a-h> "zyy"zP 
+nnoremap <a-l> "zyy"zp
+nnoremap <a-h> "zyy"zP
 
 let g:ctrlp_switch_buffer=0
 
@@ -1368,7 +1377,7 @@ let g:lt_location_list_toggle_map = '<leader>qe'
 let g:lt_quickfix_list_toggle_map = '<leader>ql'
 "au! FileType cmake unmap <buffer> <silent> gh
 "au! FileType cmake nmap <buffer> <silent> <unique> gh <Plug>CMakeCompleteHelp
-nmap <leader>ch :Cheat! 
+nmap <leader>ch :Cheat!
 
 
 let g:netrw_browsex_viewer='xdg-open'
@@ -1388,7 +1397,7 @@ nmap     <C-F>p <Plug>CtrlSFPwordPath
 nnoremap <C-F>o :CtrlSFOpen<CR>
 nnoremap <C-F>t :CtrlSFToggle<CR>
 inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
-set completeopt=menuone,menu,longest
+set completeopt=menuone,menu,longest,preview
 
 " Highlight (inofficial) json comments
  autocmd FileType json syntax match Comment +\/\/.\+$+
@@ -1397,10 +1406,10 @@ highlight LangHighlightText guibg=Black guifg=White
 highlight LangHighlightWrite guibg=Black guifg=Yellow
 highlight LangHighlightRead guibg=Black guifg=Red
 highlight LangHighlightRead guibg=Black guifg=Red
-highlight information  gui=underline 
+highlight information  gui=underline
 highlight CocCodeLens  guifg=#FFA722
 " or undercurl
-highlight LspWarning   gui=underline 
+highlight LspWarning   gui=underline
 highlight LspError  guifg=#FF0000 gui=underline
 let g:LanguageClient_documentHighlightDisplay = {
             \      1: {
@@ -1533,7 +1542,7 @@ let g:markdown_composer_autostart = 0
 "au TermOpen * :set winhighlight=Normal:BlackBg
 "au FileType fzf set winhighlight=Normal:Normal
 
-"!git rev-list --all | xargs git grep 
+"!git rev-list --all | xargs git grep
 "
 "au BufHidden term://* :set winhighlight=Normal:Normal
 
@@ -1565,7 +1574,7 @@ set cursorline
  " Or override
  " Start nnn in the current file's directory
 
- 
+
 function! NNN()
    NnnPicker '%:p:h'
    "tunmap jk
@@ -1574,6 +1583,8 @@ endfunction
 
 nnoremap <leader>nn :call NNN()<cr>
 
+
+
 nnoremap <leader>ps :PreviewSignature<cr>
 nnoremap <leader>pt :PreviewTag<cr>
 nnoremap <leader>pf :PreviewFile<cr>
@@ -1581,7 +1592,7 @@ if has('nvim')
   let $GIT_EDITOR = 'nvr -cc split --remote-wait'
   autocmd FileType gitcommit set bufhidden=delete
   autocmd FileType gitrebase set bufhidden=delete
-endif
+  endif
 
 let g:email='stephan.seitz@fau.de'
 let g:username='Stephan Seitz'
@@ -1619,7 +1630,7 @@ endfunction
 autocmd FileType gitrebase call <SID>setup_auto_git_diff()
 
 let g:gitgutter_preview_win_floating = 1
-let g:LanguageClient_diagnosticsMaxSeverity = "Information" 
+let g:LanguageClient_diagnosticsMaxSeverity = "Information"
 
 "GitGutterLineNrHighlightsEnable
 function! NextHunkAllBuffers()
@@ -1674,3 +1685,12 @@ let g:go_highlight_function_calls = 1
 let g:go_highlight_format_strings = 1
 let g:go_fmt_command = "goimports"
 
+fun! IgnoreCamelCaseSpell()
+  syn match CamelCase /\<[A-Z][a-z]\+[A-Z].\{-}\>/ contains=@NoSpell transparent
+  syn cluster Spell add=CamelCase
+endfun
+autocmd BufRead,BufWritePost,BufNewFile * :call IgnoreCamelCaseSpell()
+
+fun! RemoveTrailingWhitespaces()
+    %s/\s\+$//e
+endfun
