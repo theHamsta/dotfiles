@@ -1667,3 +1667,9 @@ nmap <silent> <c-a-j> :call NextHunkAllBuffers()<CR>
 nmap <silent> <c-a-k> :call PrevHunkAllBuffers()<CR>
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
+
+let g:LanguageClient_hoverPreview='always'
+let g:go_highlight_function_calls = 1
+let g:go_highlight_format_strings = 1
+let g:go_fmt_command = "goimports"
+
