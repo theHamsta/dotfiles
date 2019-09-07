@@ -231,172 +231,138 @@ function! BuildComposer(info)
 endfunction
 
 call plug#begin('~/.local/share/nvim/plugged')
-    "
-    "Plug 'google/vim-maktaba'
-    "Plug 'bazelbuild/vim-bazel'
-    "Plug 'jason0x43/vim-wildgitignore' 
-    "Plug 'jaxbot/github-issues.vim'
-    Plug 'adolenc/cl-neovim'
-    Plug 'arp242/jumpy.vim'
-    Plug 'hotwatermorning/auto-git-diff'
-    Plug 'liuchengxu/vista.vim'
-    Plug 'shumphrey/fugitive-gitlab.vim'
-    Plug 'jackguo380/vim-lsp-cxx-highlight'
-    Plug 'sebdah/vim-delve'
-    Plug 'gregf/ultisnips-chef'
-    Plug 'rhysd/git-messenger.vim'
-    "Plug 'gu-fan/riv.vim'
-    "Plug 'jodosha/vim-godebug'
-    Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'lisp' }
-    Plug 'JuliaEditorSupport/julia-vim'
-    Plug 'bfredl/nvim-ipy', { 'on':  [ 'IPython','IPython2']}
-    "Plug 'baskerville/bubblegum'
-    Plug 'tpope/vim-rhubarb'
-    Plug 'SirVer/ultisnips'
+
+    "Plug 'beloglazov/vim-online-thesaurus'
+    "Plug 'garbas/vim-snipmate'
+    "Plug 'idanarye/vim-vebugger'
+    "Plug 'lionawurscht/deoplete-biblatex', { 'for': 'tex' }
+    "Plug 'MarcWeber/vim-addon-mw-utils'
+    "Plug 'tomtom/tlib_vim'
+    "Plug 'w0rp/ale', { 'for': 'tex' }
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
-    Plug 'mcchrish/nnn.vim'
-    Plug 'pboettch/vim-cmake-syntax'
-    Plug 'mhinz/vim-startify'
-    "Plug 'tpope/vim-endwise'
-    "Plug 'lambdalisue/vim-gista'
-    "Plug 'lambdalisue/gina.vim'
-    "Plug 'hotwatermorning/auto-git-diff'
-    "Plug 'rhysd/committia.vim'
-    Plug 'junegunn/gv.vim'
-    Plug 'idanarye/vim-merginal'
-    Plug 'moll/vim-bbye'
-    Plug 'roblillack/vim-bufferlist'
-    Plug 'mhinz/vim-janah'
-    "Plug 'cyansprite/Extract'
-    "Plug 'wbthomason/buildit.nvim'
-    "Plug 'Shougo/neosnippet.vim'
-    Plug 'heavenshell/vim-pydocstring'
-    "Plug 'Vigemus/iron.nvim'
-    "Plug 'rhysd/reply.vim'
-    Plug 'henrynewcomer/vim-theme-papaya'
-    Plug 'godlygeek/tabular'
-    Plug 'tpope/vim-sleuth'
-    Plug 'meain/vim-package-info', { 'do': 'npm install' }
-    "Plug 'mattboehm/vim-accordion'
-    Plug 't9md/vim-choosewin'
-    "Plug 'HiPhish/ncm2-vlime' ", {'for' : ['lisp']}
-    "Plug 'ncm2/ncm2', {'for' : ['lisp']}
-    "Plug 'ncm2/ncm2-bufword', {'for' : ['lisp']}
-    "Plug 'ncm2/ncm2-path', {'for' : ['lisp']}
-    "Plug 'ncm2/ncm2-ultisnips'
-        "Plug 'roxma/nvim-yarp'
-    "Plug 'Vigemus/iron.nvim'
-    "Plug 'ncm2/ncm2', { 'for' : ['lisp']}
-    Plug 'rliang/termedit.nvim'
-    Plug 'whiteinge/diffconflicts'
-    Plug 'peterhoeg/vim-qml', { 'for' : 'qml' }
-    Plug 'bfrg/vim-cpp-modern'
-    ""Plug 'mgedmin/python-imports.vim'
-    Plug 'skywind3000/vim-preview'
-    Plug 'rhysd/rust-doc.vim'
-    Plug 'janko/vim-test'
-    Plug 'dyng/ctrlsf.vim'
-    ""Plug 'Raimondi/delimitMate'
-    "Plug 'mhartington/oceanic-next'
-    Plug 'Valloric/ListToggle'
-    "Plug 'SammysHP/vim-heurindent'
-    Plug 'dbeniamine/cheat.sh-vim', { 'on':  [ 'Cheat!'] }
-    Plug 'cespare/vim-toml', {'for': 'toml'}
-    Plug 'maralla/vim-toml-enhance', {'for': 'toml'}
-    Plug 'tpope/vim-markdown'
-    "Plug 'pboettch/vim-highlight-cursor-words'
-    Plug 'jaxbot/semantic-highlight.vim'
-    Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
-    Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-    "Plug 'Valloric/vim-operator-highlight'
-    "Plug 'hiphish/jinja.vim'
-    "Plug 'thaerkh/vim-workspace'
-    Plug 'brooth/far.vim'
-    "Plug 'xolox/vim-misc'
-    "Plug 'xolox/vim-easytags'
-    Plug 'rking/ag.vim'
-    Plug 'KabbAmine/vCoolor.vim'
-    Plug 'arkwright/vim-manhunt'
-"Plug 'vim-pandoc/vim-pandoc'
-    "Plug 'vim-pandoc/vim-pandoc-syntax'
-    "Plug 'puremourning/vimspector'
-    Plug 'romainl/Apprentice'
-    "Plug 'vim-scripts/cmake.vim-syntax'
-    "Plug 'Vigemus/iron.nvim'
-    "Plug 'tpope/vim-obsession'
-    "Plug 'dhruvasagar/vim-prosession'
-    "Plug 'jalcine/cmake.vim'
-    "Plug 'xolox/vim-session'
-    "Plug 'AndrewRayCode/vim-git-conflict-edit' 
-    Plug 'markonm/traces.vim' 
-    Plug 'jceb/vim-orgmode'
-    Plug 'theHamsta/vim-template'
-    Plug 'editorconfig/editorconfig-vim'
-    Plug 'LeafCage/yankround.vim'
-    Plug 'ctrlpvim/ctrlp.vim'
-    Plug 'sgur/ctrlp-extensions.vim'
-    Plug 'tacahiroy/ctrlp-funky'
-    Plug 'mileszs/ack.vim'
-    Plug 'justinmk/vim-gtfo'
-    Plug 'neomake/neomake'
-    Plug 'NLKNguyen/papercolor-theme'
-    Plug 'fatih/vim-go', {'for' :'go'}
-    "Plug 'zchee/nvim-go', { 'do': 'make'}
-    Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-    "Plug 'jreybert/vimagit'
-    "Plug 'vhdirk/vim-cmake'
-    Plug 'sakhnik/nvim-gdb', { 'do': './install.sh' }
-    "Plug 'tpope/vim-dispatch'
-    Plug 'vim-scripts/SearchComplete'
-    "Plug 'dbeniamine/cheat.sh-vim'
-    "Plug 'libclang-vim/libclang-vim', {'do' : 'make'}
-    "Plug 'libclang-vim/vim-textobj-clang'
-    Plug 'tpope/vim-abolish'
-    Plug 'mhinz/neovim-remote'
-    Plug 'mbbill/undotree', { 'on':  [ 'UndotreeToggle'] }
-    Plug 'bronson/vim-visual-star-search'
-    Plug 'ryanoasis/vim-devicons'
-    Plug 'airblade/vim-gitgutter'
-    Plug 'kana/vim-textobj-user'
-    Plug 'theHamsta/vim-textobj-entire'
-    Plug 'sgur/vim-textobj-parameter'
-    "Plug 'glts/vim-textobj-comment'
-    Plug 'kana/vim-textobj-function'
-    Plug 'fvictorio/vim-textobj-backticks'
-    Plug 'Julian/vim-textobj-variable-segment'
-    Plug 'terryma/vim-expand-region'
-    Plug 'thalesmello/vim-textobj-methodcall'
-    "Plug 'w0rp/ale', { 'for' : [ 'cmake' ] }
-    Plug 'tpope/vim-eunuch'
-    Plug 'chaoren/vim-wordmotion'
-    Plug 'tpope/vim-unimpaired' 
-    "Plug 'ronakg/quickr-preview.vim'
-    Plug 'kassio/neoterm'
-    Plug 'airblade/vim-rooter'
-    Plug 'bkad/CamelCaseMotion'
-    Plug 'Olical/vim-enmasse'
-    Plug 'akiyosi/gonvim-fuzzy'
     Plug 'AndrewRadev/switch.vim'
-    Plug 'kien/rainbow_parentheses.vim'
-    Plug 'junegunn/limelight.vim'
-    Plug 'machakann/vim-swap'
-    Plug 'justinmk/vim-sneak'
+    Plug 'Chun-Yang/vim-action-ag'
+    Plug 'JuliaEditorSupport/julia-vim'
+    Plug 'Julian/vim-textobj-variable-segment'
+    Plug 'KabbAmine/vCoolor.vim'
+    Plug 'LeafCage/yankround.vim'
+    Plug 'Olical/vim-enmasse'
     Plug 'Shougo/echodoc.vim'
+    Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+    Plug 'SirVer/ultisnips'
+    Plug 'Valloric/ListToggle'
+    Plug 'Xuyuanp/nerdtree-git-plugin' " , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    Plug 'airblade/vim-gitgutter'
+    Plug 'airblade/vim-rooter'
+    Plug 'akiyosi/gonvim-fuzzy'
+    Plug 'arkwright/vim-manhunt'
+    Plug 'arp242/jumpy.vim'
+    Plug 'bfredl/nvim-ipy', { 'on':  [ 'IPython','IPython2']}
+    Plug 'bfrg/vim-cpp-modern'
+    Plug 'bkad/CamelCaseMotion'
+    Plug 'bronson/vim-visual-star-search'
+    Plug 'brooth/far.vim'
+    Plug 'burke/matcher'
+    Plug 'cespare/vim-toml', {'for': 'toml'}
+    Plug 'chaoren/vim-wordmotion'
+    Plug 'ctrlpvim/ctrlp.vim'
+    Plug 'dbeniamine/cheat.sh-vim', { 'on':  [ 'Cheat!'] }
+    Plug 'dyng/ctrlsf.vim'
+    Plug 'easymotion/vim-easymotion'
+    Plug 'editorconfig/editorconfig-vim'
+    Plug 'equalsraf/neovim-gui-shim'
+    Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
+    Plug 'fatih/vim-go', {'for' :'go'}
+    Plug 'fszymanski/deoplete-emoji'
+    Plug 'fukamachi/vlime', {'rtp': 'vim/', 'branch': 'develop'}
+    Plug 'fvictorio/vim-textobj-backticks'
+    Plug 'godlygeek/tabular'
+    Plug 'gregf/ultisnips-chef'
+    Plug 'heavenshell/vim-pydocstring'
+    Plug 'henrynewcomer/vim-theme-papaya'
+    Plug 'hotwatermorning/auto-git-diff'
+    Plug 'idanarye/vim-merginal'
+    Plug 'ivalkeen/nerdtree-execute' "  , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    Plug 'jackguo380/vim-lsp-cxx-highlight'
+    Plug 'janko/vim-test'
+    Plug 'jaxbot/semantic-highlight.vim'
+    Plug 'jceb/vim-orgmode'
+    Plug 'jpalardy/vim-slime'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
-    Plug 'jpalardy/vim-slime'
-    Plug 'machakann/vim-highlightedyank'
-    Plug 'scrooloose/nerdtree' ", { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-    Plug 'Xuyuanp/nerdtree-git-plugin' " , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-    Plug 'ivalkeen/nerdtree-execute' "  , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-    Plug 'tiagofumo/vim-nerdtree-syntax-highlight' ", { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-    Plug 'equalsraf/neovim-gui-shim'
-    Plug 'michaeljsmith/vim-indent-object'
-    Plug 'Chun-Yang/vim-action-ag'
-    Plug 'easymotion/vim-easymotion'
-    Plug 'terryma/vim-multiple-cursors'
     Plug 'junegunn/goyo.vim'
-    Plug 'fukamachi/vlime', {'rtp': 'vim/', 'branch': 'develop'}
+    Plug 'junegunn/gv.vim'
+    Plug 'junegunn/limelight.vim'
+    Plug 'justinmk/vim-gtfo'
+    Plug 'justinmk/vim-sneak'
+    Plug 'kana/vim-textobj-function'
+    Plug 'kana/vim-textobj-user'
+    Plug 'kassio/neoterm'
+    Plug 'kien/rainbow_parentheses.vim'
+    Plug 'lervag/vimtex', { 'for': 'tex' }
+    Plug 'machakann/vim-highlightedyank'
+    Plug 'machakann/vim-swap'
+    Plug 'majutsushi/tagbar'
+    Plug 'maralla/vim-toml-enhance', {'for': 'toml'}
+    Plug 'markonm/traces.vim' 
+    Plug 'mbbill/undotree', { 'on':  [ 'UndotreeToggle'] }
+    Plug 'meain/vim-package-info', { 'do': 'npm install' }
+    Plug 'mhinz/neovim-remote'
+    Plug 'mhinz/vim-startify'
+    Plug 'michaeljsmith/vim-indent-object'
+    Plug 'mileszs/ack.vim'
+    Plug 'moll/vim-bbye'
+    Plug 'neomake/neomake'
+    Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+    Plug 'pboettch/vim-cmake-syntax'
+    Plug 'peterhoeg/vim-qml', { 'for' : 'qml' }
+    Plug 'rbonvall/snipmate-snippets-bib'
+    Plug 'rhysd/git-messenger.vim'
+    Plug 'rhysd/rust-doc.vim'
+    Plug 'rking/ag.vim'
+    Plug 'rliang/nvim-pygtk3', {'do': 'make install'}
+    Plug 'rliang/termedit.nvim'
+    Plug 'roblillack/vim-bufferlist'
+    Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+    Plug 'ryanoasis/vim-devicons'
+    Plug 'sakhnik/nvim-gdb', { 'do': './install.sh' }
+    Plug 'scrooloose/nerdcommenter'
+    Plug 'scrooloose/nerdtree' ", { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    Plug 'sebdah/vim-delve'
+    Plug 'sgur/ctrlp-extensions.vim'
+    Plug 'sgur/vim-textobj-parameter'
+    Plug 'shumphrey/fugitive-gitlab.vim'
+    Plug 'skywind3000/vim-preview'
+    Plug 't9md/vim-choosewin'
+    Plug 'tacahiroy/ctrlp-funky'
+    Plug 'terryma/vim-expand-region'
+    Plug 'terryma/vim-multiple-cursors'
+    Plug 'thalesmello/vim-textobj-methodcall'
+    Plug 'theHamsta/vim-snippets'
+    Plug 'theHamsta/vim-template'
+    Plug 'theHamsta/vim-textobj-entire'
+    Plug 'tiagofumo/vim-nerdtree-syntax-highlight' ", { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    Plug 'tpope/vim-abolish'
+    Plug 'tpope/vim-eunuch'
+    Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-markdown'
+    Plug 'tpope/vim-repeat'
+    Plug 'tpope/vim-rhubarb'
+    Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'lisp' }
+    Plug 'tpope/vim-sleuth'
+    Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-unimpaired' 
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    Plug 'vim-scripts/SearchComplete'
+    Plug 'wellle/targets.vim'
+    Plug 'whiteinge/diffconflicts'
+    "Plug 'zchee/deoplete-go', { 'do': 'make'}
+    "
+    "Plug 'rkulla/pydiction'
+    "Plug 'xolox/vim-misc'
+    "Plug 'Shougo/neosnippet.vim'
+"Plug 'vim-pandoc/vim-pandoc'
     "Plug 'amix/vim-zenroom2'
     "Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}, 'for': ['java']}
     Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'tex', 'bib']}
@@ -413,40 +379,14 @@ call plug#begin('~/.local/share/nvim/plugged')
         Plug 'roxma/vim-hug-neovim-rpc'
     endif
 
-    Plug 'rbonvall/snipmate-snippets-bib'
-    Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-    "Plug 'idanarye/vim-vebugger'
-    Plug 'tpope/vim-surround'
-    Plug 'tpope/vim-fugitive'
-    Plug 'tpope/vim-repeat'
-    "Plug 'garbas/vim-snipmate'
-    Plug 'burke/matcher'
-    Plug 'scrooloose/nerdcommenter'
-    "Plug 'MarcWeber/vim-addon-mw-utils'
-    "Plug 'tomtom/tlib_vim'
-    Plug 'theHamsta/vim-snippets'
-    "Plug 'altercation/vim-colors-solarized'
-    Plug 'majutsushi/tagbar'
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
-    Plug 'rliang/nvim-pygtk3', {'do': 'make install'}
-    Plug 'lervag/vimtex', { 'for': 'tex' }
-    "Plug 'w0rp/ale', { 'for': 'tex' }
-    "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
-
-    "Plug 'lionawurscht/deoplete-biblatex', { 'for': 'tex' }
-    "Plug 'beloglazov/vim-online-thesaurus'
-    Plug 'wellle/targets.vim'
-    Plug 'fszymanski/deoplete-emoji'
-    "Plug 'zchee/deoplete-go', { 'do': 'make'}
-    "
-    "Plug 'rkulla/pydiction'
-    "Plug 'xolox/vim-misc'
-    "Plug 'Shougo/neosnippet.vim'
     "Plug 'Shougo/neosnippet-snippets'
 
     "Colors
+    Plug 'romainl/Apprentice'
+    "Plug 'altercation/vim-colors-solarized'
     Plug 'rakr/vim-one'
+    Plug 'NLKNguyen/papercolor-theme'
+    Plug 'mhinz/vim-janah'
     "Plug 'https://gitlab.com/thealik/vim-harmony'
 	"Plug 'icymind/NeoSolarized'
     "Plug 'junegunn/seoul256.vim'
@@ -458,6 +398,66 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'Answeror/cmakecomplete'
     "Plug 'prabirshrestha/async.vim'
     "Plug 'prabirshrestha/vim-lsp'
+        "Plug 'roxma/nvim-yarp'
+    "
+    ""Plug 'Raimondi/delimitMate'
+    ""Plug 'mgedmin/python-imports.vim'
+    "Plug 'AndrewRayCode/vim-git-conflict-edit' 
+    "Plug 'HiPhish/ncm2-vlime' ", {'for' : ['lisp']}
+    "Plug 'SammysHP/vim-heurindent'
+    "Plug 'Shougo/neosnippet.vim'
+    "Plug 'Valloric/vim-operator-highlight'
+    "Plug 'Vigemus/iron.nvim'
+    "Plug 'Vigemus/iron.nvim'
+    "Plug 'Vigemus/iron.nvim'
+    "Plug 'adolenc/cl-neovim'
+    "Plug 'baskerville/bubblegum'
+    "Plug 'bazelbuild/vim-bazel'
+    "Plug 'cyansprite/Extract'
+    "Plug 'dbeniamine/cheat.sh-vim'
+    "Plug 'dhruvasagar/vim-prosession'
+    "Plug 'glts/vim-textobj-comment'
+    "Plug 'google/vim-maktaba'
+    "Plug 'gu-fan/riv.vim'
+    "Plug 'hiphish/jinja.vim'
+    "Plug 'hotwatermorning/auto-git-diff'
+    "Plug 'jalcine/cmake.vim'
+    "Plug 'jason0x43/vim-wildgitignore' 
+    "Plug 'jaxbot/github-issues.vim'
+    "Plug 'jodosha/vim-godebug'
+    "Plug 'jreybert/vimagit'
+    "Plug 'lambdalisue/gina.vim'
+    "Plug 'lambdalisue/vim-gista'
+    "Plug 'libclang-vim/libclang-vim', {'do' : 'make'}
+    "Plug 'libclang-vim/vim-textobj-clang'
+    "Plug 'liuchengxu/vista.vim'
+    "Plug 'mattboehm/vim-accordion'
+    "Plug 'mcchrish/nnn.vim'
+    "Plug 'mhartington/oceanic-next'
+    "Plug 'ncm2/ncm2', { 'for' : ['lisp']}
+    "Plug 'ncm2/ncm2', {'for' : ['lisp']}
+    "Plug 'ncm2/ncm2-bufword', {'for' : ['lisp']}
+    "Plug 'ncm2/ncm2-path', {'for' : ['lisp']}
+    "Plug 'ncm2/ncm2-ultisnips'
+    "Plug 'pboettch/vim-highlight-cursor-words'
+    "Plug 'puremourning/vimspector'
+    "Plug 'rhysd/committia.vim'
+    "Plug 'rhysd/reply.vim'
+    "Plug 'ronakg/quickr-preview.vim'
+    "Plug 'thaerkh/vim-workspace'
+    "Plug 'tpope/vim-dispatch'
+    "Plug 'tpope/vim-endwise'
+    "Plug 'tpope/vim-obsession'
+    "Plug 'vhdirk/vim-cmake'
+    "Plug 'vim-pandoc/vim-pandoc-syntax'
+    "Plug 'vim-scripts/cmake.vim-syntax'
+    "Plug 'w0rp/ale', { 'for' : [ 'cmake' ] }
+    "Plug 'wbthomason/buildit.nvim'
+    "Plug 'xolox/vim-easytags'
+    "Plug 'xolox/vim-misc'
+    "Plug 'xolox/vim-session'
+    "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+    "Plug 'zchee/nvim-go', { 'do': 'make'}
 call plug#end()
 
 set conceallevel=0
