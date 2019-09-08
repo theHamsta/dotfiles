@@ -239,7 +239,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'tomtom/tlib_vim'
     "Plug 'w0rp/ale', { 'for': 'tex' }
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
-    Plug 'theHamsta/vim-rebase-mode'
+    Plug 'voldikss/vim-floaterm'
     Plug 'kamykn/CCSpellCheck.vim'
     Plug 'AndrewRadev/switch.vim'
     Plug 'Chun-Yang/vim-action-ag'
@@ -273,7 +273,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'editorconfig/editorconfig-vim'
     Plug 'equalsraf/neovim-gui-shim'
     Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
-    Plug 'fatih/vim-go', {'for' :'go'}
+    Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoInstallBinaries'}
     Plug 'fszymanski/deoplete-emoji'
     Plug 'fukamachi/vlime', {'rtp': 'vim/', 'branch': 'develop'}
     Plug 'fvictorio/vim-textobj-backticks'
@@ -329,7 +329,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'sakhnik/nvim-gdb', { 'do': './install.sh' }
     Plug 'scrooloose/nerdcommenter'
     Plug 'scrooloose/nerdtree' ", { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-    Plug 'sebdah/vim-delve'
+    Plug 'sebdah/vim-delve', { 'for' : 'go' }
     Plug 'sgur/ctrlp-extensions.vim'
     Plug 'sgur/vim-textobj-parameter'
     Plug 'shumphrey/fugitive-gitlab.vim'
@@ -342,6 +342,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'theHamsta/vim-snippets'
     Plug 'theHamsta/vim-template'
     Plug 'theHamsta/vim-textobj-entire'
+    Plug 'theHamsta/vim-rebase-mode'
     Plug 'tiagofumo/vim-nerdtree-syntax-highlight' ", { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
     Plug 'tpope/vim-abolish'
     Plug 'tpope/vim-eunuch'
@@ -711,7 +712,7 @@ autocmd FileType python nmap <silent> <C-.> <Plug>(pydocstring)
 autocmd FileType cpp nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
 autocmd FileType cmake nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
 autocmd FileType make nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
-autocmd FileType rust,toml nmap <buffer> <F5> :let $last_execution='cargo run'<cr>:Tkill<cr>:Topen<cr>:wa<cr>:T cargo run<cr>
+autocmd FileType rust,toml nmap <buffer> <F5> :let $last_execution='cargo run'<cr>:Tkill<cr>:wa<cr>:T cargo run<cr>:FloatermToggle<cr>i
 autocmd FileType rust,toml nmap <buffer> <F4> :let $last_execution='cargo build'<cr>:Tkill<cr>:Topen<cr>:wa<cr>:T cargo build<cr>
 autocmd FileType rust,toml nmap <buffer> <F6> :let $last_execution='cargo test -- --nocapture'<cr>:Tkill<cr>:Topen<cr>:wa<cr>:T cargo test -- --nocapture<cr>
 
@@ -778,6 +779,8 @@ let g:vlime_enable_autodoc = v:true
 let g:vlime_window_settings = {'sldb': {'pos': 'belowright', 'vertical': v:true}, 'inspector': {'pos': 'belowright', 'vertical': v:true}, 'preview': {'pos': 'belowright', 'size': v:null, 'vertical': v:true}}
 
 autocmd FileType lisp nmap <buffer> gh <localleader>do<cr>
+autocmd FileType lisp imap <buffer> ( (<c-x><c-o>
+autocmd FileType lisp set completeopt=menu,noinsert
 "let g:vlime_cl_impl = "sbcl_swank"
 
 "if has('nvim') && !executable("ncat")
@@ -1397,7 +1400,7 @@ nmap     <C-F>p <Plug>CtrlSFPwordPath
 nnoremap <C-F>o :CtrlSFOpen<CR>
 nnoremap <C-F>t :CtrlSFToggle<CR>
 inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
-set completeopt=menuone,menu,longest,preview
+set completeopt=menuone,menu,longest,preview,noinsert,noselect
 
 " Highlight (inofficial) json comments
  autocmd FileType json syntax match Comment +\/\/.\+$+
@@ -1694,3 +1697,8 @@ autocmd BufRead,BufWritePost,BufNewFile * :call IgnoreCamelCaseSpell()
 fun! RemoveTrailingWhitespaces()
     %s/\s\+$//e
 endfun
+
+nnoremap <silent> <PageDown> :FloatermToggle<cr>i
+nnoremap <silent> <leader>fl :FloatermToggle<cr>i
+tnoremap <silent> <PageDown> <C-\><C-n>:FloatermToggle<cr>
+tnoremap <silent> <leader>fl <C-\><C-n>:FloatermToggle<cr>
