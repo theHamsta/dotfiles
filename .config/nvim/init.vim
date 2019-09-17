@@ -175,8 +175,6 @@ nnoremap <Leader>sen :set spell<cr>:set spelllang=en<cr>
 
 nnoremap <Leader>bp :bN<cr>
 nnoremap <Leader>bn :bn<cr>
-nnoremap <Leader>tp :tabprevious<cr>
-nnoremap <Leader>tn :tabNext<cr>
 nnoremap <Leader>tab :tabnew<cr>
 nnoremap <Leader>tc :tabclose<cr>
 nnoremap <Leader>nt :NERDTreeToggle<cr>
@@ -206,7 +204,7 @@ set expandtab
 "nnoremap <c-r><c-r> vap:TREPLSendSelection<cr>
 "inoremap <A-v> <C-R><C-R>+
 inoremap <c-V> <C-R><C-R>+
-nnoremap <a-v> <C-R><C-R>+
+cnoremap <c-V> <C-R>+
 "nnoremap p "_p
 
 
@@ -240,7 +238,9 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'w0rp/ale', { 'for': 'tex' }
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
     Plug 'voldikss/vim-floaterm'
-    Plug 'kamykn/CCSpellCheck.vim'
+    Plug 'kkoomen/vim-doge'
+    Plug 'ncm2/float-preview.nvim'
+    "Plug 'kamykn/CCSpellCheck.vim'
     Plug 'AndrewRadev/switch.vim'
     Plug 'Chun-Yang/vim-action-ag'
     Plug 'JuliaEditorSupport/julia-vim'
@@ -573,11 +573,11 @@ nmap <C-PageUp> :call GoNextCommit()<cr>
 nmap <Leader>gv :GV<CR>
 nmap <Leader>gu :Git reset -- %<CR>
 nmap <Leader>gd <c-w>O:Gdiff<CR>
-nmap <Leader>gl :call TimeMachine()<CR>
+nmap <Leader>gt :call TimeMachine()<CR>
 nmap <Leader>gr :Gread<CR>
 nmap <Leader>gp :!git push<CR>
 nmap <Leader>gP :!git push -f<CR>
-nmap <Leader>pu :!git pull<CR>
+nmap <Leader>gl :Git pull<CR>
 vnoremap // y/<C-R>"<CR>
 
 let g:wordmotion_prefix = ','
@@ -696,18 +696,17 @@ nnoremap <s-F3> :Tkill<cr>:wa<cr>:exec expand($last_execution,1)<cr>
 "nnoremap <leader>tt :<c-u>exec v:count . 'T '
 "
 autocmd FileType python nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:T python3 %<cr>
-autocmd FileType python nmap <buffer> <leader>tn :wa<cr>:Topen<cr>:TestNearest -s<CR>
-autocmd FileType python nmap <buffer> <leader>tf :wa<cr>:Topen<cr>:TestFile -s<CR>
 autocmd FileType python nnoremap <buffer> <s-F5> :let $last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:execute ':GdbStartPDB python3 -m pdb ' . expand('%:p',1)<cr>
 autocmd FileType python nnoremap <buffer> <F7> :let $last_execution='python3 -m pdb -c continue ' . expand('%:p',1)<cr>:wa<cr>:T python3 -m pdb -c continue %<cr>
 autocmd FileType python nnoremap <buffer> <F4> :let $last_execution='ipython3 ' . expand('%:p',1)<cr>:wa<cr>:T ipython3 %<cr>
 "autocmd FileType python <buffer> nmap <cr> <Plug>(IPy-RunCell)
 "autocmd FileType python map <leader>pa <Plug>(IPy-RunAll)
 
-autocmd FileType python nmap <silent> <leader>tn :wa<cr>:Topen<cr>:TestNearest -s<CR>
+autocmd FileType python nmap <silent> <leader>tn <c-w>o:wa<cr>:Topen<cr>:TestNearest -s<CR>
+autocmd FileType python nmap <silent> <leader>tN <c-w>o:wa<cr>:Topen<cr>:TestNearest -s --pdb<CR>
 autocmd FileType python nmap <silent> <leader>tf :wa<cr>:Topen<cr>:TestFile<CR>
 autocmd FileType python nmap <silent> <leader>tF :wa<cr>:Topen<cr>:TestFile -s<CR>
-autocmd FileType python nmap <silent> <C-.> <Plug>(pydocstring)
+"autocmd FileType python nmap <silent> <C-.> <Plug>(pydocstring)
 "autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . $target<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
 autocmd FileType cpp nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
 autocmd FileType cmake nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
@@ -1400,7 +1399,8 @@ nmap     <C-F>p <Plug>CtrlSFPwordPath
 nnoremap <C-F>o :CtrlSFOpen<CR>
 nnoremap <C-F>t :CtrlSFToggle<CR>
 inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
-set completeopt=menuone,menu,longest,preview,noinsert,noselect
+"set completeopt=menuone,menu,longest,preview,noinsert,noselect
+set completeopt=menuone,menu,longest,noinsert,noselect
 
 " Highlight (inofficial) json comments
  autocmd FileType json syntax match Comment +\/\/.\+$+
@@ -1466,7 +1466,8 @@ set signcolumn=yes
 "nmap <silent> <leader>tn :wa<cr>:Topen<cr>:TestNearest<CR>
 "nmap <silent> <leader>tf :wa<cr>:Topen<cr>:TestFile<CR>
 nmap <silent> <leader>ts :wa<cr>:Topen<cr>:TestSuite<CR>
-nmap <silent> <leader>tl :wa<cr>:Tkill<cr>:Topen<cr>:TestLast<CR>
+nmap <silent> <leader>tl <c-w>o:wa<cr>:Tkill<cr>:Topen<cr>:TestLast<CR>
+nmap <silent> <leader>tL :wa<cr>:Tkill<cr>:Topen<cr>:TestLast<CR>
 nmap <silent> <leader>tv :TestVisit<CR>
 nnoremap <leader>te :set shell=/usr/bin/zsh<cr>:Topen<Cr>
 nnoremap <leader>to :Topen<cr>
@@ -1697,8 +1698,16 @@ autocmd BufRead,BufWritePost,BufNewFile * :call IgnoreCamelCaseSpell()
 fun! RemoveTrailingWhitespaces()
     %s/\s\+$//e
 endfun
-
+command! RemoveTrailingWhitespaces call RemoveTrailingWhitespaces()
 nnoremap <silent> <PageDown> :FloatermToggle<cr>i
 nnoremap <silent> <leader>fl :FloatermToggle<cr>i
 tnoremap <silent> <PageDown> <C-\><C-n>:FloatermToggle<cr>
 tnoremap <silent> <leader>fl <C-\><C-n>:FloatermToggle<cr>
+
+if exists('g:GuiLoaded')
+  let g:float_preview#docked = 1
+endif
+
+let g:doge_doc_standard_python='google'
+nmap <silent> <C-.> :DogeGenerate<cr>
+
