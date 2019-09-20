@@ -1711,3 +1711,4 @@ endif
 let g:doge_doc_standard_python='google'
 nmap <silent> <C-.> :DogeGenerate<cr>
 
+let g:LanguageClient_settingsPath='~/.config/nvim/settings.json'
