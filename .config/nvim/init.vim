@@ -246,27 +246,26 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'JuliaEditorSupport/julia-vim'
     Plug 'Julian/vim-textobj-variable-segment'
     Plug 'KabbAmine/vCoolor.vim'
-    Plug 'LeafCage/yankround.vim'
+    "Plug 'LeafCage/yankround.vim'
     Plug 'Olical/vim-enmasse'
     Plug 'Shougo/echodoc.vim'
-    Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+    "Plug 'Shougo/vimproc.vim', {'do' : 'make'}
     Plug 'SirVer/ultisnips'
     Plug 'Valloric/ListToggle'
     Plug 'Xuyuanp/nerdtree-git-plugin' " , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
     Plug 'airblade/vim-gitgutter'
     Plug 'airblade/vim-rooter'
     Plug 'akiyosi/gonvim-fuzzy'
-    Plug 'arkwright/vim-manhunt'
     Plug 'arp242/jumpy.vim'
-    Plug 'bfredl/nvim-ipy', { 'on':  [ 'IPython','IPython2']}
+    "Plug 'bfredl/nvim-ipy', { 'on':  [ 'IPython','IPython2']}
     Plug 'bfrg/vim-cpp-modern'
     Plug 'bkad/CamelCaseMotion'
     Plug 'bronson/vim-visual-star-search'
     Plug 'brooth/far.vim'
-    Plug 'burke/matcher'
+    "Plug 'burke/matcher'
     Plug 'cespare/vim-toml', {'for': 'toml'}
     Plug 'chaoren/vim-wordmotion'
-    Plug 'ctrlpvim/ctrlp.vim'
+    "Plug 'ctrlpvim/ctrlp.vim'
     Plug 'dbeniamine/cheat.sh-vim', { 'on':  [ 'Cheat!'] }
     Plug 'dyng/ctrlsf.vim'
     Plug 'easymotion/vim-easymotion'
@@ -311,7 +310,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'mhinz/neovim-remote'
     Plug 'mhinz/vim-startify'
     Plug 'michaeljsmith/vim-indent-object'
-    Plug 'mileszs/ack.vim'
+    "Plug 'mileszs/ack.vim'
     Plug 'moll/vim-bbye'
     Plug 'neomake/neomake'
     Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
@@ -321,7 +320,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'rhysd/git-messenger.vim'
     Plug 'rhysd/rust-doc.vim'
     Plug 'rking/ag.vim'
-    Plug 'rliang/nvim-pygtk3', {'do': 'make install'}
+    "Plug 'rliang/nvim-pygtk3', {'do': 'make install'}
     Plug 'rliang/termedit.nvim'
     Plug 'roblillack/vim-bufferlist'
     Plug 'rust-lang/rust.vim', { 'for': 'rust' }
@@ -367,7 +366,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 "Plug 'vim-pandoc/vim-pandoc'
     "Plug 'amix/vim-zenroom2'
     "Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}, 'for': ['java']}
-    Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'tex', 'bib']}
+    Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'tex', 'bib', 'json']}
     Plug 'autozimu/LanguageClient-neovim', {
             \ 'branch': 'next',
             \ 'do': 'bash install.sh',
@@ -792,7 +791,6 @@ autocmd FileType lisp set completeopt=menu,noinsert
 
 
 
-let g:gonvim_draw_statusline = 1
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rls'],
     \ 'javascript': ['javascript-typescript-stdio'],
@@ -810,10 +808,10 @@ let g:LanguageClient_serverCommands = {
     \       run(server);
     \   '],
     \ 'lua': ['lua-lsp'],
+    \ 'go': ['gopls'],
     \ 'cuda': ['clangd-10', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     \ 'cpp': ['clangd-10', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     \ 'c': ['clangd-10', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
-    \ 'go': ['gopls'],
     \ 'python': ['pyls'],
     \ 'dockerfile': ['docker-langserver', '--stdio'],
     \ 'd': ['dls']
@@ -1098,6 +1096,7 @@ let g:LanguageClient_diagnosticsList = "Location"
  endfunction()
 
 autocmd FileType java call ActivateCoc()
+autocmd FileType json call ActivateCoc()
 autocmd FileType tex,bib call ActivateCoc()
 autocmd FileType yaml call ActivateCoc()
 autocmd FileType vim call ActivateCoc()
