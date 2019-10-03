@@ -85,3 +85,8 @@ tags
 compile_commands.json
 compilation_db_dir
 *.synctex(busy)
+CMakeFiles
+compile_commands
+**/.ccls-cache/*
+rusty-tags.vi
+.clangd/
