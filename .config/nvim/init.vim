@@ -810,9 +810,9 @@ let g:LanguageClient_serverCommands = {
     \       run(server);
     \   '],
     \ 'lua': ['lua-lsp'],
-    \ 'cuda': ['clangd-10', '--clang-tidy', '--header-insertion=iwyu', '--background-index'],
-    \ 'cpp': ['clangd-10', '--clang-tidy', '--header-insertion=iwyu', '--background-index'],
-    \ 'c': ['clangd-10', '--clang-tidy', '--header-insertion=iwyu', '--background-index'],
+    \ 'cuda': ['clangd-10', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
+    \ 'cpp': ['clangd-10', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
+    \ 'c': ['clangd-10', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     \ 'go': ['gopls'],
     \ 'python': ['pyls'],
     \ 'dockerfile': ['docker-langserver', '--stdio'],
