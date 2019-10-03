@@ -190,7 +190,7 @@ nmap <silent> <leader><C-j> :lnext<cr>
 nmap <leader>bl :BLines<cr>
 "nmap <Leader>ag :GonvimFuzzyAg
 
-set wrap
+set nowrap
 set linebreak
 set nolist  " list disables linebreak
 filetype plugin indent on
@@ -726,6 +726,9 @@ autocmd FileType cpp nnoremap <buffer> ]f :call
 "autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='
 ":let last_execution=@%<cr>
 "
+autocmd FileType go nmap <buffer> <c-a-p> :cd $GOPATH/src<cr>:Files<cr>
+
+"
 
 autocmd FileType cmake SemanticHighlight
 autocmd FileType lua nnoremap <buffer> <F5> :exec '!lua' shellescape(@%:p, 1)<cr>:let last_execution=@%:p <cr>
@@ -807,9 +810,9 @@ let g:LanguageClient_serverCommands = {
     \       run(server);
     \   '],
     \ 'lua': ['lua-lsp'],
-    \ 'cuda': ['clangd-9', '-clang-tidy'],
-    \ 'cpp': ['clangd-9', '-clang-tidy'],
-    \ 'c': ['clangd-9', '-clang-tidy'],
+    \ 'cuda': ['clangd-10', '-clang-tidy'],
+    \ 'cpp': ['clangd-10', '-clang-tidy'],
+    \ 'c': ['clangd-10', '-clang-tidy'],
     \ 'go': ['gopls'],
     \ 'python': ['pyls'],
     \ 'dockerfile': ['docker-langserver', '--stdio'],
@@ -860,12 +863,15 @@ function! LC_maps()
             nnoremap <buffer> <silent> <c-s> :call LanguageClient#textDocument_formatting()<CR>:w<CR>
         endif
         nnoremap <buffer> <silent> gr :call LanguageClient#textDocument_references()<CR>
+        nnoremap <buffer> <silent> gi :call LanguageClient#textDocument_implementation()<CR>
         nnoremap <buffer> <silent> <leader>fo :call LanguageClient#textDocument_formatting()<CR>
         nnoremap <buffer> <silent> <leader>hi :call LanguageClient#textDocument_documentHighlight()<CR>
         nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
         nnoremap <buffer> <silent> gD <c-w>v:call LanguageClient#textDocument_definition()<CR>
         nnoremap <buffer> <silent> gt :call LanguageClient#textDocument_typeDefinition()<CR>
         nnoremap <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+        nnoremap <buffer> <silent> <2-LeftMouse> :call LanguageClient#textDocument_hover()<CR>
+        nnoremap <buffer> <silent> <c-2-LeftMouse> :call LanguageClient#textDocument_definition()<CR>
         try
           CocDisable
         catch
