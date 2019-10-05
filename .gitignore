@@ -6,6 +6,7 @@
 *.exe
 *.o
 *.so
+builds/**
 
 # Packages #
 ############
@@ -42,7 +43,7 @@ Thumbs.db
 cmake-build-*
 /debug/*
 .idea/*
-__pycache__/*
+**/__pycache__/*
 *.aux
 *.out
 *.fls
@@ -80,7 +81,7 @@ tags
 **/.idea/
 *.lot
 *.lof
-++/pybind11/*
+/pybind11/*
 *.bbl
 compile_commands.json
 compilation_db_dir
@@ -90,3 +91,34 @@ compile_commands
 **/.ccls-cache/*
 rusty-tags.vi
 .clangd/
+*~
+*~[0-9]*
+*.aux
+*.fls
+*.flb_latexmk
+*.log
+*.bbl
+own_openvdb
+kdev_release
+*.my_settings.toml
+**/.git
+tikz/*
+*.bak?
+*.bak??
+*.bak???
+.mypy_cache/
+.vim
+*.fmt
+*.md5
+*-blx.bib
+**/\.eggs/*
+**/.wine/*
+.wine/*
+**/.ccls*/*
+.wine
+**/pybind11/*
+.coverage.*
+.ipynb_checkpoints/
+_minted-*/
+
+
