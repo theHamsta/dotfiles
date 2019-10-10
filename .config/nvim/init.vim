@@ -124,10 +124,10 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 "au WinEnter * :set winfixheight
 "au WinEnter * :wincmd =
 
-nnoremap j gj
-nnoremap k gk
-vnoremap j gj
-vnoremap k gk
+"nnoremap j gj
+"nnoremap k gk
+"vnoremap j gj
+"vnoremap k gk
 nnoremap <leader>w :wa<cr>
 "nnoremap <f4> :wa<cr>:make<cr>
 function! ClearQuickfixList()
@@ -237,6 +237,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'tomtom/tlib_vim'
     "Plug 'w0rp/ale', { 'for': 'tex' }
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+    Plug 'theHamsta/vim-textobj-latex'
     Plug 'voldikss/vim-floaterm'
     Plug 'kkoomen/vim-doge'
     Plug 'ncm2/float-preview.nvim'
@@ -708,6 +709,7 @@ autocmd FileType python nmap <silent> <leader>tF :wa<cr>:Topen<cr>:TestFile -s<C
 "autocmd FileType python nmap <silent> <C-.> <Plug>(pydocstring)
 "autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . $target<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
 autocmd FileType cpp nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
+autocmd FileType tex,latex nnoremap <buffer> <F5> val<plug>(vimtex-compile-selected)
 autocmd FileType cmake nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
 autocmd FileType make nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
 autocmd FileType rust,toml nmap <buffer> <F5> :let $last_execution='cargo run'<cr>:Tkill<cr>:wa<cr>:T cargo run<cr>:FloatermToggle<cr>i
