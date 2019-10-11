@@ -124,10 +124,6 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 "au WinEnter * :set winfixheight
 "au WinEnter * :wincmd =
 
-"nnoremap j gj
-"nnoremap k gk
-"vnoremap j gj
-"vnoremap k gk
 nnoremap <leader>w :wa<cr>
 "nnoremap <f4> :wa<cr>:make<cr>
 function! ClearQuickfixList()
