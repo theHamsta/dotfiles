@@ -473,10 +473,6 @@ call deoplete#custom#var('omni', 'input_patterns', {
 
 "let g:deoplete#sources#clang#executable='/usr/bin/clang'
 
-nnoremap <Leader>l :ls<CR>
-nnoremap <Leader>b :bp<CR>
-nnoremap <Leader>f :bn<CR>
-nnoremap <Leader>g :e#<CR>
 nnoremap <Leader>1 :1b<CR>
 nnoremap <Leader>2 :2b<CR>
 nnoremap <Leader>3 :3b<CR>
@@ -706,6 +702,7 @@ autocmd FileType python nmap <silent> <leader>tF :wa<cr>:Topen<cr>:TestFile -s<C
 "autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . $target<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
 autocmd FileType cpp nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
 autocmd FileType tex,latex nnoremap <buffer> <F5> val<plug>(vimtex-compile-selected)
+autocmd FileType tex,latex nnoremap <buffer> <F4> :VimtexCompileSS<cr>
 autocmd FileType cmake nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
 autocmd FileType make nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
 autocmd FileType rust,toml nmap <buffer> <F5> :let $last_execution='cargo run'<cr>:Tkill<cr>:wa<cr>:T cargo run<cr>:FloatermToggle<cr>i
@@ -1076,6 +1073,7 @@ let g:LanguageClient_diagnosticsList = "Location"
      nmap <silent> <buffer>  gd <Plug>(coc-definition)
      nmap <silent> <buffer>  ga :CocAction<cr>
      vmap <silent> <buffer>  ga :CocAction<cr>
+     nmap <silent> <buffer> <f2> <Plug>(coc-rename)
      nmap <silent> <buffer>  gD <c-w>v<Plug>(coc-definition)
      nmap <silent> <buffer>  gt <Plug>(coc-type-definition)
      nmap <silent> <buffer>  gT <c-w>v<Plug>(coc-type-definition)
@@ -1093,6 +1091,7 @@ let g:LanguageClient_diagnosticsList = "Location"
 
  endfunction()
 
+ " CocInstall coc-vimlsp
 autocmd FileType java call ActivateCoc()
 autocmd FileType json call ActivateCoc()
 autocmd FileType tex,bib call ActivateCoc()
@@ -1129,6 +1128,7 @@ nnoremap <leader>date :r!date<cr>
 autocmd FileType tex nnoremap <buffer> ,lv :let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'<cr>:VimtexView<cr>:let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex --noraise'<cr>
 autocmd FileType tex nnoremap <buffer> <cr> :let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'<cr>:VimtexView<cr>:let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex --noraise'<cr>
 "autocmd FileType tex nnomap <buffer>  <cr> <leader>lv
+autocmd FileType tex nnoremap <buffer> <c-cr> :T okular output.pdf --unique --noraise<cr><c-w>o
 nnoremap ,lc :VimtexCompile<cr>
 nnoremap <leader>zen :Goyo<cr>
 nnoremap <leader>buf :Buffers<cr>
