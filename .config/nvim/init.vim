@@ -879,10 +879,10 @@ nmap <silent> <C-j> :lnext<cr>
 autocmd FileType * call LC_maps()
 
 
-nnoremap <silent> <buffer> <leader>f0 :set foldlevel=0<CR>
-nnoremap <silent> <buffer> <leader>ff :set foldlevel=99<CR>
-nnoremap <silent> <buffer> z0 :set foldlevel=0<CR>
-nnoremap <silent> <buffer> z9 :set foldlevel=99<CR>
+nnoremap <silent> <leader>f0 :set foldlevel=0<CR>
+nnoremap <silent> <leader>ff :set foldlevel=99<CR>
+nnoremap <silent> z0 :set foldlevel=0<CR>
+nnoremap <silent> z9 :set foldlevel=99<CR>
 
 "nmap <silent> <C-a-o> :call LanguageClient#textDocument_documentSymbol()<cr>
 nmap <silent> <C-a-o> :BTags<cr>
@@ -1091,7 +1091,6 @@ let g:LanguageClient_diagnosticsList = "Location"
 
  endfunction()
 
- " CocInstall coc-vimlsp
 autocmd FileType java call ActivateCoc()
 autocmd FileType json call ActivateCoc()
 autocmd FileType tex,bib call ActivateCoc()
@@ -1128,7 +1127,7 @@ nnoremap <leader>date :r!date<cr>
 autocmd FileType tex nnoremap <buffer> ,lv :let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'<cr>:VimtexView<cr>:let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex --noraise'<cr>
 autocmd FileType tex nnoremap <buffer> <cr> :let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'<cr>:VimtexView<cr>:let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex --noraise'<cr>
 "autocmd FileType tex nnomap <buffer>  <cr> <leader>lv
-autocmd FileType tex nnoremap <buffer> <c-cr> :T okular output.pdf --unique --noraise<cr><c-w>o
+autocmd FileType tex nnoremap <buffer> <c-cr> :T okular output.pdf --unique &<cr><c-w>o
 nnoremap ,lc :VimtexCompile<cr>
 nnoremap <leader>zen :Goyo<cr>
 nnoremap <leader>buf :Buffers<cr>
