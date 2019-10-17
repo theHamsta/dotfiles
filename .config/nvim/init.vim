@@ -233,7 +233,6 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'tomtom/tlib_vim'
     "Plug 'w0rp/ale', { 'for': 'tex' }
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
-    Plug 'theHamsta/vim-textobj-latex'
     Plug 'voldikss/vim-floaterm'
     Plug 'kkoomen/vim-doge'
     Plug 'ncm2/float-preview.nvim'
@@ -1714,3 +1713,13 @@ let g:doge_doc_standard_python='google'
 nmap <silent> <C-.> :DogeGenerate<cr>
 
 let g:LanguageClient_settingsPath='~/.config/nvim/settings.json'
+
+call textobj#user#plugin('latex', {
+\   'environment': {
+\     '*pattern*': ['\\begin{frame}.*\n\s*', '\n^\s*\\end{frame}'],
+\     'select-a': 'al',
+\     'select-i': 'il',
+\   }
+\ })
+
+
