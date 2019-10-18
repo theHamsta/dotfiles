@@ -233,6 +233,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'tomtom/tlib_vim'
     "Plug 'w0rp/ale', { 'for': 'tex' }
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+    Plug  'szymonmaszke/vimpyter'
     Plug 'voldikss/vim-floaterm'
     Plug 'kkoomen/vim-doge'
     Plug 'ncm2/float-preview.nvim'
@@ -1722,4 +1723,6 @@ call textobj#user#plugin('latex', {
 \   }
 \ })
 
-
+autocmd Filetype ipynb nmap <silent><Leader>b :VimpyterInsertPythonBlock<CR>
+autocmd Filetype ipynb nmap <silent><Leader>j :VimpyterStartJupyter<CR>
+autocmd Filetype ipynb nmap <silent><Leader>n :VimpyterStartNteract<CR>
