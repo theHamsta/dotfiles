@@ -233,6 +233,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'tomtom/tlib_vim'
     "Plug 'w0rp/ale', { 'for': 'tex' }
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+    Plug 'liuchengxu/vim-clap'
     Plug  'szymonmaszke/vimpyter'
     Plug 'norcalli/nvim-colorizer.lua'
     Plug 'voldikss/vim-floaterm'
@@ -1728,7 +1729,7 @@ autocmd Filetype ipynb nmap <silent><Leader>b :VimpyterInsertPythonBlock<CR>
 autocmd Filetype ipynb nmap <silent><Leader>j :VimpyterStartJupyter<CR>
 autocmd Filetype ipynb nmap <silent><Leader>n :VimpyterStartNteract<CR>
 
-lua require'colorizer'.setup()
+"lua require'colorizer'.setup()
 
 let g:tagbar_type_markdown = {
     \ 'ctagstype': 'markdown',
