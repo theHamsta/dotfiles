@@ -234,6 +234,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'w0rp/ale', { 'for': 'tex' }
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
     Plug 'liuchengxu/vim-clap'
+    Plug 'rhysd/accelerated-jk' 
+    Plug  'lambdalisue/suda.vim'
     Plug  'szymonmaszke/vimpyter'
     Plug 'norcalli/nvim-colorizer.lua'
     Plug 'voldikss/vim-floaterm'
@@ -272,6 +274,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'equalsraf/neovim-gui-shim'
     Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
     Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoInstallBinaries'}
+    Plug 'junegunn/vim-emoji'
     Plug 'fszymanski/deoplete-emoji'
     Plug 'fukamachi/vlime', {'rtp': 'vim/', 'branch': 'develop'}
     Plug 'fvictorio/vim-textobj-backticks'
@@ -730,6 +733,7 @@ autocmd FileType cmake SemanticHighlight
 autocmd FileType lua nnoremap <buffer> <F5> :exec '!lua' shellescape(@%:p, 1)<cr>:let last_execution=@%:p <cr>
 
 autocmd FileType tex,latex nnoremap <buffer> <c-s> :w<cr>:silent !latexindent % -w<cr>:e<cr>
+autocmd FileType python command! Flynt :w<cr>:silent !flynt % -w<cr>:e<cr>"
 autocmd FileType tex,latex call neomake#configure#automake('w')
 autocmd FileType rst call neomake#configure#automake('w')
 autocmd FileType tex,latex nnoremap <buffer> <c-a-o> :call vimtex#fzf#run()<cr>
@@ -1729,6 +1733,8 @@ autocmd Filetype ipynb nmap <silent><Leader>b :VimpyterInsertPythonBlock<CR>
 autocmd Filetype ipynb nmap <silent><Leader>j :VimpyterStartJupyter<CR>
 autocmd Filetype ipynb nmap <silent><Leader>n :VimpyterStartNteract<CR>
 
+command! Emoji %s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g
+
 "lua require'colorizer'.setup()
 
 let g:tagbar_type_markdown = {
@@ -1745,3 +1751,19 @@ let g:tagbar_type_markdown = {
     \ },
     \ 'sort': 0,
     \ }
+
+"nmap j <Plug>(accelerated_jk_gj)
+"nmap k <Plug>(accelerated_jk_gk)
+"
+call deoplete#custom#source('emoji', 'filetypes', ['rst', 'gitcommit', 'markdown', 'python', 'txt'])
+
+let g:nvimgdb_config_override = {
+      \ 'key_next': '<F10>',
+      \ 'key_step': '<F9>',
+      \ 'key_finish': '<c-F8>',
+      \ 'key_continue': '<F5>',
+      \ 'key_until': '<c-F5>',
+      \ 'key_breakpoint': '<c-a-b>',
+      \ 'key_frameup':    '<PageUp>',
+      \ 'key_framedown':  '<PageDown>',
+      \ }
