@@ -1077,6 +1077,7 @@ let g:LanguageClient_diagnosticsList = "Location"
          autocmd  CursorHold <buffer> silent call CocActionAsync('highlight')
      endif
      "autocmd <buffer> CursorHold * silent call CocActionAsync('highlight')
+     command! -nargs=0 OR  :call     CocAction('runCommand', 'editor.action.organizeImport')
      nmap <silent> <buffer>  <c-k> <Plug>(coc-diagnostic-prev)
      nmap <silent> <buffer>  <leader>nt :CocCommand explorer<cr>
      nmap <silent> <buffer>  <leader>nf :CocCommand explorer --reveal %<cr>
