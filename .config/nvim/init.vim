@@ -371,7 +371,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'tex', 'bib', 'json']}
     Plug 'autozimu/LanguageClient-neovim', {
             \ 'branch': 'next',
-            \ 'do': 'bash install.sh',
+            \ 'do': 'make release&',
             \ }
 
     if has('nvim')
@@ -706,12 +706,14 @@ autocmd FileType python nmap <silent> <leader>tF :wa<cr>:Topen<cr>:TestFile -s<C
 "autocmd FileType python nmap <silent> <C-.> <Plug>(pydocstring)
 "autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . $target<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
 autocmd FileType cpp nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
+autocmd FileType java nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='pyconrad_run ' . expand('%:r',1)<cr>:Tkill<cr>:wa<cr>:T pyconrad_run %:r<cr>
+autocmd FileType java nnoremap <buffer> <F4> :Topen<cr>:let $last_execution='pyconrad_run --gui ' . expand('%:r',1)<cr>:Tkill<cr>:wa<cr>:T pyconrad_run --gui %:r<cr>
 autocmd FileType tex,latex nnoremap <buffer> <F5> val<plug>(vimtex-compile-selected)
 autocmd FileType tex,latex nnoremap <buffer> <F4> :VimtexCompileSS<cr>
 autocmd FileType cmake nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
 autocmd FileType make nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
-autocmd FileType rust,toml nmap <buffer> <F5> :let $last_execution='cargo run'<cr>:Tkill<cr>:wa<cr>:T cargo run<cr>:FloatermToggle<cr>i
-autocmd FileType rust,toml nmap <buffer> <F4> :let $last_execution='cargo build'<cr>:Tkill<cr>:Topen<cr>:wa<cr>:T cargo build<cr>
+autocmd FileType rust,toml nmap <buffer> <F5> :let $last_execution='cargo run'<cr>:Tkill<cr>:wa<cr>:T cargo run<cr>:Topen<cr>
+autocmd FileType rust,toml nmap <buffer> <F4> :let $last_execution='cargo build'<cr>:Tkill<cr>:Topen<cr>:wa<cr>:T cargo build<cr>:Topen<cr>
 autocmd FileType rust,toml nmap <buffer> <F6> :let $last_execution='cargo test -- --nocapture'<cr>:Tkill<cr>:Topen<cr>:wa<cr>:T cargo test -- --nocapture<cr>
 
 autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
@@ -733,7 +735,7 @@ autocmd FileType cmake SemanticHighlight
 autocmd FileType lua nnoremap <buffer> <F5> :exec '!lua' shellescape(@%:p, 1)<cr>:let last_execution=@%:p <cr>
 
 autocmd FileType tex,latex nnoremap <buffer> <c-s> :w<cr>:silent !latexindent % -w<cr>:e<cr>
-autocmd FileType python command! Flynt :w<cr>:silent !flynt % -w<cr>:e<cr>"
+autocmd FileType python command! Flynt !flynt %:p
 autocmd FileType tex,latex call neomake#configure#automake('w')
 autocmd FileType rst call neomake#configure#automake('w')
 autocmd FileType tex,latex nnoremap <buffer> <c-a-o> :call vimtex#fzf#run()<cr>
@@ -742,6 +744,7 @@ autocmd FileType markdown nnoremap <buffer> <leader>ll :ComposerStart<cr>
 autocmd FileType markdown nnoremap <buffer> <leader>lv :ComposerOpen<cr>
 "autocmd FileType markdown <buffer> set conceallevel=1
 
+autocmd FileType bib command! Format normal :w<cr>:silent !latexindent % -w<cr>:e<cr>
 "<cr>:e
 
 let g:ag_working_path_mode="r"
@@ -1075,6 +1078,8 @@ let g:LanguageClient_diagnosticsList = "Location"
      endif
      "autocmd <buffer> CursorHold * silent call CocActionAsync('highlight')
      nmap <silent> <buffer>  <c-k> <Plug>(coc-diagnostic-prev)
+     nmap <silent> <buffer>  <leader>nt :CocCommand explorer<cr>
+     nmap <silent> <buffer>  <leader>nf :CocCommand explorer --reveal %<cr>
      nmap <silent> <buffer>  <c-j> <Plug>(coc-diagnostic-next)
      nmap <silent> <buffer>  gd <Plug>(coc-definition)
      nmap <silent> <buffer>  ga :CocAction<cr>
@@ -1367,7 +1372,7 @@ augroup filetypedetect
     au! BufRead,BufNewFile justfile set filetype=make
     au! BufRead,BufNewFile *.tikz set filetype=tex
 augroup END
-au! BufRead,BufNewFile *.asd set filetype=lisp
+au! BufRead,BufNewFile *.asd,.spacemacs set filetype=lisp
 
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
@@ -1687,10 +1692,10 @@ function! PrevHunkAllBuffers()
   endwhile
 endfunction
 
-nmap <silent> <c-a-j> :call NextHunkAllBuffers()<CR>
-nmap <silent> <c-a-k> :call PrevHunkAllBuffers()<CR>
-nmap ]h <Plug>GitGutterNextHunk
-nmap [h <Plug>GitGutterPrevHunk
+nmap <silent> <c-a-j> <Plug>(GitGutterNextHunk)
+nmap <silent> <c-a-k> <Plug>(GitGutterPrevHunk)
+nmap ]h :call NextHunkAllBuffers()<CR>
+nmap [h :call PrevHunkAllBuffers()<CR>
 
 let g:LanguageClient_hoverPreview='always'
 let g:go_highlight_function_calls = 1
@@ -1707,8 +1712,8 @@ fun! RemoveTrailingWhitespaces()
     %s/\s\+$//e
 endfun
 command! RemoveTrailingWhitespaces call RemoveTrailingWhitespaces()
-nnoremap <silent> <PageDown> :FloatermToggle<cr>i
-nnoremap <silent> <leader>fl :FloatermToggle<cr>i
+nnoremap <silent> <PageDown> :FloatermToggle<cr>
+nnoremap <silent> <leader>fl :FloatermToggle<cr>
 tnoremap <silent> <PageDown> <C-\><C-n>:FloatermToggle<cr>
 tnoremap <silent> <leader>fl <C-\><C-n>:FloatermToggle<cr>
 
@@ -1727,12 +1732,12 @@ call textobj#user#plugin('latex', {
 \     'select-a': 'al',
 \     'select-i': 'il',
 \   }
-\ })
-
+\ })                                                                    
+                                                                        
 autocmd Filetype ipynb nmap <silent><Leader>b :VimpyterInsertPythonBlock<CR>
-autocmd Filetype ipynb nmap <silent><Leader>j :VimpyterStartJupyter<CR>
-autocmd Filetype ipynb nmap <silent><Leader>n :VimpyterStartNteract<CR>
-
+autocmd Filetype ipynb nmap <silent><Leader>j :VimpyterStartJupyter<CR> 
+autocmd Filetype ipynb nmap <silent><Leader>n :VimpyterStartNteract<CR> 
+                                                                        
 command! Emoji %s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g
 
 "lua require'colorizer'.setup()
@@ -1767,3 +1772,4 @@ let g:nvimgdb_config_override = {
       \ 'key_frameup':    '<PageUp>',
       \ 'key_framedown':  '<PageDown>',
       \ }
+let g:gitgutter_max_signs=3000
