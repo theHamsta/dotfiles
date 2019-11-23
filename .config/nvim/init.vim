@@ -233,6 +233,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'tomtom/tlib_vim'
     "Plug 'w0rp/ale', { 'for': 'tex' }
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+    Plug 'neovim/nvim-lsp'
+    Plug 'glacambre/firenvim'
     Plug 'liuchengxu/vim-clap'
     Plug 'rhysd/accelerated-jk' 
     Plug  'lambdalisue/suda.vim'
@@ -266,7 +268,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'burke/matcher'
     Plug 'cespare/vim-toml', {'for': 'toml'}
     Plug 'chaoren/vim-wordmotion'
-    "Plug 'ctrlpvim/ctrlp.vim'
+    Plug 'ctrlpvim/ctrlp.vim'
     Plug 'dbeniamine/cheat.sh-vim', { 'on':  [ 'Cheat!'] }
     Plug 'dyng/ctrlsf.vim'
     Plug 'easymotion/vim-easymotion'
@@ -494,6 +496,7 @@ nnoremap <a-p> :Buffers<CR>
 nnoremap <Leader>DO :diffoff!<CR>
 nnoremap <Leader>dp :dp<CR>
 nnoremap <Leader>do :do<CR>
+nnoremap <Leader>dg :diffget<CR>
 nnoremap <Leader>dt :diffthis<CR>
 
 iabbrev imageing imaging
@@ -705,7 +708,8 @@ autocmd FileType python nmap <silent> <leader>tf :wa<cr>:Topen<cr>:TestFile<CR>
 autocmd FileType python nmap <silent> <leader>tF :wa<cr>:Topen<cr>:TestFile -s<CR>
 "autocmd FileType python nmap <silent> <C-.> <Plug>(pydocstring)
 "autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . $target<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
-autocmd FileType cpp nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
+autocmd FileType cpp nnoremap <buffer> <F7> :Topen<cr>:Tkill<cr>:wa<cr>:T just clean<cr>
+autocmd FileType cpp nnoremap <buffer> <F5> <c-w>o:wa:Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
 autocmd FileType java nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='pyconrad_run ' . expand('%:r',1)<cr>:Tkill<cr>:wa<cr>:T pyconrad_run %:r<cr>
 autocmd FileType java nnoremap <buffer> <F4> :Topen<cr>:let $last_execution='pyconrad_run --gui ' . expand('%:r',1)<cr>:Tkill<cr>:wa<cr>:T pyconrad_run --gui %:r<cr>
 autocmd FileType tex,latex nnoremap <buffer> <F5> val<plug>(vimtex-compile-selected)
@@ -850,7 +854,7 @@ let g:LanguageClient_serverCommands = {
 function! LC_maps()
    if has_key(g:LanguageClient_serverCommands, &filetype)
         call deoplete#custom#option('auto_complete', v:true)
-         if &filetype != "python" && &filetype != "tex" && &filetype != "bib"&& &filetype != "go"
+         if &filetype != "python" && &filetype != "tex" && &filetype != "bib"&& &filetype != "go"&& &filetype != "lua"
              autocmd CursorHold <buffer> silent call LanguageClient#textDocument_documentHighlight()
          endif
  "&& &filetype != "go"
@@ -1774,3 +1778,44 @@ let g:nvimgdb_config_override = {
       \ 'key_framedown':  '<PageDown>',
       \ }
 let g:gitgutter_max_signs=3000
+"
+
+"call plug#begin('~/.local/share/nvim/plugged2')
+
+"Plug 'autozimu/LanguageClient-neovim', {
+    "\ 'branch': 'next',
+    "\ 'do': 'bash install.sh',
+    "\ }
+"if has('nvim')
+  "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"else
+  "Plug 'Shougo/deoplete.nvim'
+  "Plug 'roxma/nvim-yarp'
+  "Plug 'roxma/vim-hug-neovim-rpc'
+"endif
+
+"call plug#end()
+
+
+"augroup filetype_rust
+      "autocmd!
+      "autocmd BufReadPost *.cpp setlocal filetype=cpp
+"augroup END
+
+"autocmd FileType * call deoplete#custom#option('auto_complete', v:true)
+
+
+"" Always draw sign column. Prevent buffer moving when adding/deleting sign.
+ "set signcolumn=yes
+
+"let g:deoplete#enable_at_startup = 1
+ "let g:LanguageClient_serverCommands = {
+     "\ 'cpp': ['clangd-9', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes']
+         "\ }
+ "let $RUST_BACKTRACE = 1
+ "let g:LanguageClient_loggingLevel = 'INFO'
+ "let g:LanguageClient_virtualTextPrefix = ''
+ "let g:LanguageClient_loggingFile = expand('~/.local/share/nvim/LanguageClient.log')
+ "let g:LanguageClient_serverStderr = expand('~/.local/share/nvim/LanguageServer.log')
+ 
+luafile ~/.config/nvim/init.lua
