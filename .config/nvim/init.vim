@@ -709,7 +709,7 @@ autocmd FileType python nmap <silent> <leader>tF :wa<cr>:Topen<cr>:TestFile -s<C
 "autocmd FileType python nmap <silent> <C-.> <Plug>(pydocstring)
 "autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . $target<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
 autocmd FileType cpp nnoremap <buffer> <F7> :Topen<cr>:Tkill<cr>:wa<cr>:T just clean<cr>
-autocmd FileType cpp nnoremap <buffer> <F5> <c-w>o:wa:Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
+autocmd FileType cpp nnoremap <buffer> <F5> <c-w>o:wa<cr>:Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
 autocmd FileType java nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='pyconrad_run ' . expand('%:r',1)<cr>:Tkill<cr>:wa<cr>:T pyconrad_run %:r<cr>
 autocmd FileType java nnoremap <buffer> <F4> :Topen<cr>:let $last_execution='pyconrad_run --gui ' . expand('%:r',1)<cr>:Tkill<cr>:wa<cr>:T pyconrad_run --gui %:r<cr>
 autocmd FileType tex,latex nnoremap <buffer> <F5> val<plug>(vimtex-compile-selected)
@@ -1081,7 +1081,7 @@ let g:LanguageClient_diagnosticsList = "Location"
          autocmd  CursorHold <buffer> silent call CocActionAsync('highlight')
      endif
      "autocmd <buffer> CursorHold * silent call CocActionAsync('highlight')
-     command! -nargs=0 OR  :call     CocAction('runCommand', 'editor.action.organizeImport')
+     command! OI -nargs=0 :call CocAction('runCommand', 'editor.action.organizeImport')
      nmap <silent> <buffer>  <c-k> <Plug>(coc-diagnostic-prev)
      nmap <silent> <buffer>  <leader>nt :CocCommand explorer<cr>
      nmap <silent> <buffer>  <leader>nf :CocCommand explorer --reveal %<cr>
