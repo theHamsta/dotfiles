@@ -234,6 +234,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'w0rp/ale', { 'for': 'tex' }
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
     Plug 'neovim/nvim-lsp'
+    Plug 'kovisoft/slimv', {'for': 'lisp'}
     Plug 'glacambre/firenvim'
     Plug 'liuchengxu/vim-clap'
     Plug 'rhysd/accelerated-jk' 
@@ -278,7 +279,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoInstallBinaries'}
     Plug 'junegunn/vim-emoji'
     Plug 'fszymanski/deoplete-emoji'
-    Plug 'fukamachi/vlime', {'rtp': 'vim/', 'branch': 'develop'}
+    "Plug 'fukamachi/vlime', {'rtp': 'vim/', 'branch': 'develop'}
     Plug 'fvictorio/vim-textobj-backticks'
     Plug 'godlygeek/tabular'
     Plug 'gregf/ultisnips-chef'
@@ -573,6 +574,7 @@ nmap <C-PageUp> :call GoNextCommit()<cr>
 nmap <Leader>gv :GV<CR>
 nmap <Leader>gu :Git reset -- %<CR>
 nmap <Leader>gd <c-w>O:Gdiff<CR>
+nmap <Leader>gD <c-w>O:Gvdiffsplit :%<left><left>
 nmap <Leader>gt :call TimeMachine()<CR>
 nmap <Leader>gr :Gread<CR>
 nmap <Leader>gp :!git push<CR>
@@ -682,7 +684,7 @@ set smartcase
 let g:vebugger_leader =','
 
 "let g:deoplete#sources#jedi#extra_path =['', '/usr/lib/python2.7', '/usr/lib/python2.7/plat-x86_64-linux-gnu', '/usr/lib/python27/lib-tk', '/usr/lib/python2.7/lib-old', '/usr/lib/python2.7/lib-dynload', '/home/stepha/.local/lib/python2.7/site-packages', '/usr/local/lib/python2.7/dist-packages', '/usr/li/python2.7/dist-packages', '/usr/lib/python2.7/dist-packages/PILcompat', '/usr/lib/pytho2.7/dist-packages/gtk-2.0', '/usr/lib/python2.7/dist-packages/wx-3.0-gtk2']
-nnoremap <F3> :Tkill<cr>:Topen<cr>:wa<cr>:exec 'T' expand($last_execution,1)<cr>
+nnoremap <F3> <c-w>o:Tkill<cr>:Topen<cr>:wa<cr>:exec 'T' expand($last_execution,1)<cr>
 nnoremap <s-F3> :Tkill<cr>:wa<cr>:exec expand($last_execution,1)<cr>
 "autocmd FileType python nnoremap <buffer> <F6> :VBGstartPDB3 %<cr>
 "autocmd FileType python nnoremap <buffer> <space>deb :VBGstartPDB3 %<cr>
@@ -783,21 +785,23 @@ endif
 "imap <s-tab> <Plug>snipMateBack
 
 let g:vlime_leader = ","
+let g:vlime_leader='<space>'
 let g:vlime_cl_use_terminal=v:true
 let g:vlime_enable_autodoc = v:true
 let g:vlime_window_settings = {'sldb': {'pos': 'belowright', 'vertical': v:true}, 'inspector': {'pos': 'belowright', 'vertical': v:true}, 'preview': {'pos': 'belowright', 'size': v:null, 'vertical': v:true}}
 
-autocmd FileType lisp nmap <buffer> gh <localleader>do<cr>
+"let g:slimv_leader='<space>'
+let g:slimv_leader=','
+let g:slimv_repl_simple_eval=1
+
+autocmd FileType lisp nmap <buffer> <enter> :call SlimvEvalExp()<cr>
+autocmd FileType lisp nmap <buffer> <s-enter> :call SlimvEvalBuffer()<cr>
+"autocmd FileType lisp nmap <silent> <buffer> <enter>  :call vlime#plugin#SendToREPL(vlime#ui#CurExprOrAtom())<cr>
+"autocmd FileType lisp nmap <silent> <buffer> <enter> ,d<cr>
+"autocmd FileType lisp nmap <silent> <buffer> <leader>xx  :call vlime#plugin#SendToREPL('()')<left><left><left>
 autocmd FileType lisp imap <buffer> ( (<c-x><c-o>
 autocmd FileType lisp set completeopt=menu,noinsert
 "let g:vlime_cl_impl = "sbcl_swank"
-
-"if has('nvim') && !executable("ncat")
-      "echoerr "Vlime needs ncat!!!"
-"endif
-
-
-
 
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rls'],
@@ -854,7 +858,7 @@ let g:LanguageClient_serverCommands = {
 function! LC_maps()
    if has_key(g:LanguageClient_serverCommands, &filetype)
         call deoplete#custom#option('auto_complete', v:true)
-         if &filetype != "python" && &filetype != "tex" && &filetype != "bib"&& &filetype != "go"&& &filetype != "lua"
+         if &filetype != "python" && &filetype != "tex" && &filetype != "bib"&& &filetype != "go"&& &filetype != "lua"&& &filetype != "cpp"
              autocmd CursorHold <buffer> silent call LanguageClient#textDocument_documentHighlight()
          endif
  "&& &filetype != "go"
@@ -1014,6 +1018,7 @@ nnoremap <c-a-h> call feedkeys(":CtrlP\<cr>".expand('%:t:r') . ".h", "t")
 set path=.,**
 "horizontal split below
 let g:slimv_repl_split=2
+let g:slimv_swank_cmd = '! konsole -e sbcl --load /home/stephan/quicklisp/dists/quicklisp/software/slime-v2.24/start-swank.lisp &'
 
 
 nnoremap <leader>E <Plug>(neoterm-repl-send)
