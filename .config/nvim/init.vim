@@ -75,6 +75,7 @@ function! Toggle_line_numbers()
     endif
 endfunction
 call Toggle_line_numbers()
+command! LineNumbers call Toggle_line_numbers()
 
 
 function! ConfigSlurmTerm()
@@ -234,7 +235,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'w0rp/ale', { 'for': 'tex' }
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
     Plug 'neovim/nvim-lsp'
-    Plug 'kovisoft/slimv', {'for': 'lisp'}
+    "Plug 'wellle/context.vim'
+    Plug 'udalov/kotlin-vim'
     Plug 'glacambre/firenvim'
     Plug 'liuchengxu/vim-clap'
     Plug 'rhysd/accelerated-jk' 
@@ -279,7 +281,9 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoInstallBinaries'}
     Plug 'junegunn/vim-emoji'
     Plug 'fszymanski/deoplete-emoji'
-    "Plug 'fukamachi/vlime', {'rtp': 'vim/', 'branch': 'develop'}
+    Plug 'fukamachi/vlime', {'rtp': 'vim/', 'branch': 'develop'}
+    Plug 'kovisoft/paredit', {'for':'lisp'}
+    "Plug 'kovisoft/slimv', {'for': 'lisp'}
     Plug 'fvictorio/vim-textobj-backticks'
     Plug 'godlygeek/tabular'
     Plug 'gregf/ultisnips-chef'
@@ -722,6 +726,9 @@ autocmd FileType rust,toml nmap <buffer> <F5> :let $last_execution='cargo run'<c
 autocmd FileType rust,toml nmap <buffer> <F4> :let $last_execution='cargo build'<cr>:Tkill<cr>:Topen<cr>:wa<cr>:T cargo build<cr>:Topen<cr>
 autocmd FileType rust,toml nmap <buffer> <F6> :let $last_execution='cargo test -- --nocapture'<cr>:Tkill<cr>:Topen<cr>:wa<cr>:T cargo test -- --nocapture<cr>
 
+autocmd FileType kotlin nnoremap <buffer> <F5> :wa<cr>:Topen<cr>:T ./gradlew run<cr>
+autocmd FileType groovy nnoremap <buffer> <F5> :wa<cr>:Topen<cr>:T ./gradlew run<cr>
+
 autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
 autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
 " jump to the previous function
@@ -794,8 +801,12 @@ let g:vlime_window_settings = {'sldb': {'pos': 'belowright', 'vertical': v:true}
 let g:slimv_leader=','
 let g:slimv_repl_simple_eval=1
 
-autocmd FileType lisp nmap <buffer> <enter> :call SlimvEvalExp()<cr>
-autocmd FileType lisp nmap <buffer> <s-enter> :call SlimvEvalBuffer()<cr>
+"autocmd FileType lisp nmap <buffer> <enter> :call SlimvEvalExp()<cr>
+"autocmd FileType lisp nmap <buffer> <s-enter> :call SlimvEvalBuffer()<cr>
+autocmd FileType lisp nmap <buffer> <s-enter> <space>of
+"autocmd FileType vlime_input i
+autocmd FileType vlime_input  inoremap <buffer> <enter> )<esc><enter>
+
 "autocmd FileType lisp nmap <silent> <buffer> <enter>  :call vlime#plugin#SendToREPL(vlime#ui#CurExprOrAtom())<cr>
 "autocmd FileType lisp nmap <silent> <buffer> <enter> ,d<cr>
 "autocmd FileType lisp nmap <silent> <buffer> <leader>xx  :call vlime#plugin#SendToREPL('()')<left><left><left>
@@ -820,6 +831,7 @@ let g:LanguageClient_serverCommands = {
     \       run(server);
     \   '],
     \ 'lua': ['lua-lsp'],
+    \ 'kotlin': ['kotlin-language-server', '.'],
     \ 'go': ['gopls'],
     \ 'cuda': ['clangd-10', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     \ 'cpp': ['clangd-10', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
@@ -1082,7 +1094,7 @@ let g:LanguageClient_diagnosticsList = "Location"
  function! ActivateCoc()
      call deoplete#custom#option('auto_complete', v:false)
      autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-     if &filetype != "python" && &filetype != "tex" && &filetype != "bib" && &filetype != "go"
+     if &filetype != "python" && &filetype != "tex" && &filetype != "bib" && &filetype != "go" && &filetype != "kotlin"&& &filetype != "kt"
          autocmd  CursorHold <buffer> silent call CocActionAsync('highlight')
      endif
      "autocmd <buffer> CursorHold * silent call CocActionAsync('highlight')
@@ -1823,4 +1835,17 @@ let g:gitgutter_max_signs=3000
  "let g:LanguageClient_loggingFile = expand('~/.local/share/nvim/LanguageClient.log')
  "let g:LanguageClient_serverStderr = expand('~/.local/share/nvim/LanguageServer.log')
  
+"let g:context_enabled = 1
+
+"autocmd VimEnter     * ContextActivate
+"autocmd BufAdd       * call context#update(1, 'BufAdd')
+"autocmd BufEnter     * call context#update(0, 'BufEnter')
+"autocmd CursorMoved  * call context#update(0, 'CursorMoved')
+"autocmd User GitGutter call context#update_padding('GitGutter')
+
 luafile ~/.config/nvim/init.lua
+
+let g:vlime_contribs = ['SWANK-ASDF', 'SWANK-PACKAGE-FU',
+                      \ 'SWANK-PRESENTATIONS', 'SWANK-FANCY-INSPECTOR',
+                      \ 'SWANK-C-P-C', 'SWANK-ARGLISTS', 'SWANK-REPL',
+                      \ 'SWANK-FUZZY', 'SWANK-TRACE-DIALOG']
