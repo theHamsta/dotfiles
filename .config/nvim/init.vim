@@ -281,7 +281,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoInstallBinaries'}
     Plug 'junegunn/vim-emoji'
     Plug 'fszymanski/deoplete-emoji'
-    Plug 'fukamachi/vlime', {'rtp': 'vim/', 'branch': 'develop'}
+    Plug 'theHamsta/vlime', {'rtp': 'vim/', 'for':'lisp'}
     Plug 'kovisoft/paredit', {'for':'lisp'}
     "Plug 'kovisoft/slimv', {'for': 'lisp'}
     Plug 'fvictorio/vim-textobj-backticks'
