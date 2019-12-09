@@ -1474,7 +1474,7 @@ let g:LanguageClient_diagnosticsDisplay= {
             \       2: {
             \           "name": "Warning",
             \           "texthl": "LspWarning",
-            \           "signText": "⚠",
+            \           "signText": "⚠️",
             \           "signTexthl": "ALEWarningSign",
             \           "virtualTexthl": "Todo",
             \       },
