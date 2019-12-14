@@ -236,9 +236,9 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
     Plug 'neovim/nvim-lsp'
     "Plug 'wellle/context.vim'
+    Plug 'liuchengxu/vim-clap', { 'do': function('clap#helper#build_all') }
     Plug 'udalov/kotlin-vim'
     Plug 'glacambre/firenvim'
-    Plug 'liuchengxu/vim-clap'
     Plug 'rhysd/accelerated-jk' 
     Plug  'lambdalisue/suda.vim'
     Plug  'szymonmaszke/vimpyter'
