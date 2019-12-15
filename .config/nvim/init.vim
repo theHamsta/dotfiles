@@ -284,7 +284,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'theHamsta/vlime', {'rtp': 'vim/', 'for':'lisp'}
     Plug 'kovisoft/paredit', {'for':'lisp'}
     "Plug 'kovisoft/slimv', {'for': 'lisp'}
-    Plug 'fvictorio/vim-textobj-backticks'
+    "Plug 'fvictorio/vim-textobj-backticks'
     Plug 'godlygeek/tabular'
     Plug 'gregf/ultisnips-chef'
     Plug 'heavenshell/vim-pydocstring'
