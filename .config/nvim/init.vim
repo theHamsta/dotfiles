@@ -814,6 +814,7 @@ autocmd FileType lisp imap <buffer> ( (<c-x><c-o>
 autocmd FileType lisp set completeopt=menu,noinsert
 "let g:vlime_cl_impl = "sbcl_swank"
 
+    "\ 'rust': ['rls'],
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rls'],
     \ 'javascript': ['javascript-typescript-stdio'],
@@ -1414,7 +1415,7 @@ let g:lt_location_list_toggle_map = '<leader>qe'
 let g:lt_quickfix_list_toggle_map = '<leader>ql'
 "au! FileType cmake unmap <buffer> <silent> gh
 "au! FileType cmake nmap <buffer> <silent> <unique> gh <Plug>CMakeCompleteHelp
-nmap <leader>ch :Cheat!
+nmap <leader>ch :Cheat! 
 
 
 let g:netrw_browsex_viewer='xdg-open'
