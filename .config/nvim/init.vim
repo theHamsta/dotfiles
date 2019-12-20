@@ -708,10 +708,10 @@ autocmd FileType python nnoremap <buffer> <F4> :let $last_execution='ipython3 ' 
 "autocmd FileType python <buffer> nmap <cr> <Plug>(IPy-RunCell)
 "autocmd FileType python map <leader>pa <Plug>(IPy-RunAll)
 
-autocmd FileType python nmap <silent> <leader>tn <c-w>o:wa<cr>:Topen<cr>:TestNearest -s<CR>
-autocmd FileType python nmap <silent> <leader>tN <c-w>o:wa<cr>:Topen<cr>:TestNearest -s --pdb<CR>
-autocmd FileType python nmap <silent> <leader>tf :wa<cr>:Topen<cr>:TestFile<CR>
-autocmd FileType python nmap <silent> <leader>tF :wa<cr>:Topen<cr>:TestFile -s<CR>
+autocmd FileType python nmap <silent> <leader>tn <c-w>o:wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestNearest -s<CR>
+autocmd FileType python nmap <silent> <leader>tN <c-w>o:wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestNearest -s --pdb<CR>
+autocmd FileType python nmap <silent> <leader>tf :wa<cr>:Topen<cr><cr>:exec 'T cd' FindRootDirectory():TestFile<CR>
+autocmd FileType python nmap <silent> <leader>tF :wa<cr>:Topen<cr><cr>:exec 'T cd' FindRootDirectory():TestFile -s<CR>
 "autocmd FileType python nmap <silent> <C-.> <Plug>(pydocstring)
 "autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . $target<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
 autocmd FileType cpp nnoremap <buffer> <F7> :Topen<cr>:Tkill<cr>:wa<cr>:T just clean<cr>
@@ -1501,7 +1501,7 @@ set signcolumn=yes
 
 "nmap <silent> <leader>tn :wa<cr>:Topen<cr>:TestNearest<CR>
 "nmap <silent> <leader>tf :wa<cr>:Topen<cr>:TestFile<CR>
-nmap <silent> <leader>ts :wa<cr>:Topen<cr>:TestSuite<CR>
+nmap <silent> <leader>ts :wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestSuite<CR>
 nmap <silent> <leader>tl <c-w>o:wa<cr>:Tkill<cr>:Topen<cr>:TestLast<CR>
 nmap <silent> <leader>tL :wa<cr>:Tkill<cr>:Topen<cr>:TestLast<CR>
 nmap <silent> <leader>tv :TestVisit<CR>
