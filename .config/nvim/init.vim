@@ -5,12 +5,6 @@ if has('vim_starting')
     set nocompatible               " Be iMproved
 endif
 
- if has('nvim')
-     " https://github.com/neovim/neovim/wiki/FAQ
-      set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
-endif
-
-
 let g:paredit_leader=','
 let g:rooter_patterns = ['gitmodules', '.git', '.git/']
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
