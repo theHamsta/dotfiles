@@ -5,12 +5,20 @@ if has('vim_starting')
     set nocompatible               " Be iMproved
 endif
 
+ if has('nvim')
+     " https://github.com/neovim/neovim/wiki/FAQ
+      set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
+endif
+
+
+let g:paredit_leader=','
 let g:rooter_patterns = ['gitmodules', '.git', '.git/']
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 
 let g:vim_bootstrap_langs = "c,python"
 let g:vim_bootstrap_editor = "nvim"             " nvim or vim
 "let g:fzf_command_prefix = 'fzf'
+let g:sexp_insert_after_wrap = 0
 
 if !filereadable(vimplug_exists)
     if !executable("curl")
@@ -136,7 +144,7 @@ nnoremap <leader>make :wa<Cr>:Neomake!<cr>
 nnoremap <leader>line :call Toggle_line_numbers()<cr>
 nnoremap <leader>hi :History<Cr>
 "nnoremap <leader>te :set shell=/usr/bin/zsh<cr>:split<cr>:Tnew<Cr>:exe "resize " . 13<CR>i
-nnoremap <leader>so :w<cr>G:source %<cr>
+nnoremap <leader>so :w<cr>:source %<cr>
 nnoremap <leader>lime :Limelight!! 0.8<cr>
 nnoremap <space><space> o<Esc>
 nnoremap c "_c
@@ -235,10 +243,13 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'w0rp/ale', { 'for': 'tex' }
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
     Plug 'neovim/nvim-lsp'
+    Plug 'kchmck/vim-coffee-script'
+    "Plug 'atelierbram/vim-colors_atelier-schemes'
+    "Plug 'Shougo/deoplete-lsp'
     "Plug 'wellle/context.vim'
     Plug 'liuchengxu/vim-clap', { 'do': function('clap#helper#build_all') }
     Plug 'udalov/kotlin-vim'
-    Plug 'glacambre/firenvim'
+    "Plug 'glacambre/firenvim'
     Plug 'rhysd/accelerated-jk' 
     Plug  'lambdalisue/suda.vim'
     Plug  'szymonmaszke/vimpyter'
@@ -246,6 +257,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'voldikss/vim-floaterm'
     Plug 'kkoomen/vim-doge'
     Plug 'ncm2/float-preview.nvim'
+    Plug 'liquidz/vim-iced', {'for': 'clojure'}
+    Plug 'liquidz/iced-nrepl', {'for': 'clojure'}
     "Plug 'kamykn/CCSpellCheck.vim'
     Plug 'AndrewRadev/switch.vim'
     Plug 'Chun-Yang/vim-action-ag'
@@ -282,7 +295,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'junegunn/vim-emoji'
     Plug 'fszymanski/deoplete-emoji'
     Plug 'theHamsta/vlime', {'rtp': 'vim/', 'for':'lisp'}
-    Plug 'kovisoft/paredit', {'for':'lisp'}
+    Plug 'kovisoft/paredit', {'for': ['lisp', 'clojure']}
     "Plug 'kovisoft/slimv', {'for': 'lisp'}
     "Plug 'fvictorio/vim-textobj-backticks'
     Plug 'godlygeek/tabular'
@@ -359,6 +372,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-rhubarb'
     Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'lisp' }
+    "Plug 'guns/vim-sexp', { 'for': 'lisp' }
     Plug 'tpope/vim-sleuth'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-unimpaired'
@@ -441,8 +455,6 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'jreybert/vimagit'
     "Plug 'lambdalisue/gina.vim'
     "Plug 'lambdalisue/vim-gista'
-    "Plug 'libclang-vim/libclang-vim', {'do' : 'make'}
-    "Plug 'libclang-vim/vim-textobj-clang'
     "Plug 'liuchengxu/vista.vim'
     "Plug 'mattboehm/vim-accordion'
     "Plug 'mcchrish/nnn.vim'
@@ -712,6 +724,7 @@ autocmd FileType python nmap <silent> <leader>tn <c-w>o:wa<cr>:Topen<cr>:exec 'T
 autocmd FileType python nmap <silent> <leader>tN <c-w>o:wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestNearest -s --pdb<CR>
 autocmd FileType python nmap <silent> <leader>tf :wa<cr>:Topen<cr><cr>:exec 'T cd' FindRootDirectory():TestFile<CR>
 autocmd FileType python nmap <silent> <leader>tF :wa<cr>:Topen<cr><cr>:exec 'T cd' FindRootDirectory():TestFile -s<CR>
+autocmd FileType python nmap <silent> gh 
 "autocmd FileType python nmap <silent> <C-.> <Plug>(pydocstring)
 "autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . $target<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
 autocmd FileType cpp nnoremap <buffer> <F7> :Topen<cr>:Tkill<cr>:wa<cr>:T just clean<cr>
@@ -722,9 +735,12 @@ autocmd FileType tex,latex nnoremap <buffer> <F5> val<plug>(vimtex-compile-selec
 autocmd FileType tex,latex nnoremap <buffer> <F4> :VimtexCompileSS<cr>
 autocmd FileType cmake nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
 autocmd FileType make nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
-autocmd FileType rust,toml nmap <buffer> <F5> :let $last_execution='cargo run'<cr>:Tkill<cr>:wa<cr>:T cargo run<cr>:Topen<cr>
-autocmd FileType rust,toml nmap <buffer> <F4> :let $last_execution='cargo build'<cr>:Tkill<cr>:Topen<cr>:wa<cr>:T cargo build<cr>:Topen<cr>
-autocmd FileType rust,toml nmap <buffer> <F6> :let $last_execution='cargo test -- --nocapture'<cr>:Tkill<cr>:Topen<cr>:wa<cr>:T cargo test -- --nocapture<cr>
+autocmd FileType rust,toml nmap <buffer> <F5> :exec 'T cd' FindRootDirectory()<cr><c-w>o:let $last_execution='cargo run'<cr>:Tkill<cr>:wa<cr>:T cargo run<cr>:Topen<cr>
+autocmd FileType rust,toml nmap <buffer> <F7> :exec 'T cd' FindRootDirectory()<cr><c-w>o:Tkill<cr>:wa<cr>:T cargo run 
+autocmd FileType rust,toml nmap <buffer> <F4> :exec 'T cd' FindRootDirectory()<cr><c-w>o:let $last_execution='cargo build'<cr>:Tkill<cr>:Topen<cr>:wa<cr>:T cargo build<cr>:Topen<cr>
+autocmd FileType rust,toml nmap <buffer> <F6> :exec 'T cd' FindRootDirectory()<cr><c-w>o:let $last_execution='cargo test -- --nocapture'<cr>:Tkill<cr>:Topen<cr>:wa<cr>:T cargo test -- --nocapture<cr>
+autocmd FileType rust nmap <silent> <leader>tn :wa<cr>:RustTest<cr>
+autocmd FileType rust nmap <silent> <leader>tN <c-w>o:wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestNearest -- --nocapture<CR>
 
 autocmd FileType kotlin nnoremap <buffer> <F5> :wa<cr>:Topen<cr>:T ./gradlew run<cr>
 autocmd FileType groovy nnoremap <buffer> <F5> :wa<cr>:Topen<cr>:T ./gradlew run<cr>
@@ -741,7 +757,11 @@ autocmd FileType cpp nnoremap <buffer> ]f :call
 ":let last_execution=@%<cr>
 "
 autocmd FileType go nmap <buffer> <c-a-p> :cd $GOPATH/src<cr>:Files<cr>
-
+autocmd FileType lisp nmap <buffer> <c-a-p> :cd ~/quicklisp/local-projects<cr>:Files<cr>
+autocmd FileType lisp nmap <buffer> :maplocalleader ','
+autocmd FileType lisp nmap <buffer> <c-a-q> :cd ~/quicklisp/dists/quicklisp/software<cr>:Files<cr>
+autocmd FileType lisp nmap <buffer> <s-enter> <space>of
+autocmd FileType clojure nmap <buffer> <enter> <Plug>(iced_eval_outer_top_list)
 "
 
 autocmd FileType cmake SemanticHighlight
@@ -803,20 +823,20 @@ let g:slimv_repl_simple_eval=1
 
 "autocmd FileType lisp nmap <buffer> <enter> :call SlimvEvalExp()<cr>
 "autocmd FileType lisp nmap <buffer> <s-enter> :call SlimvEvalBuffer()<cr>
-autocmd FileType lisp nmap <buffer> <s-enter> <space>of
 "autocmd FileType vlime_input i
-autocmd FileType vlime_input  inoremap <buffer> <enter> )<esc><enter>
+"autocmd FileType vlime_input  inoremap <buffer> <enter> )<esc><enter>
 
 "autocmd FileType lisp nmap <silent> <buffer> <enter>  :call vlime#plugin#SendToREPL(vlime#ui#CurExprOrAtom())<cr>
 "autocmd FileType lisp nmap <silent> <buffer> <enter> ,d<cr>
 "autocmd FileType lisp nmap <silent> <buffer> <leader>xx  :call vlime#plugin#SendToREPL('()')<left><left><left>
-autocmd FileType lisp imap <buffer> ( (<c-x><c-o>
-autocmd FileType lisp set completeopt=menu,noinsert
+"autocmd FileType lisp imap <buffer> ( (<c-x><c-o>
+"autocmd FileType lisp  set <local> completeopt=menu,noinsert
 "let g:vlime_cl_impl = "sbcl_swank"
 
+    "\ 'clojure': ['clojure-lsp'],
     "\ 'rust': ['rls'],
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rls'],
+    \ 'rust': ['ra_lsp_server'],
     \ 'javascript': ['javascript-typescript-stdio'],
     \ 'javascript.jsx': ['javascript-typescript-stdio'],
     \   'julia': ['julia', '--startup-file=no', '--history-file=no', '-e', '
@@ -831,13 +851,14 @@ let g:LanguageClient_serverCommands = {
     \       server.runlinter = true;
     \       run(server);
     \   '],
-    \ 'lua': ['lua-lsp'],
-    \ 'kotlin': ['kotlin-language-server', '.'],
-    \ 'go': ['gopls'],
     \ 'cuda': ['clangd-10', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     \ 'cpp': ['clangd-10', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     \ 'c': ['clangd-10', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     \ 'python': ['pyls'],
+    \ 'lua': ['lua-lsp'],
+    \ 'kotlin': ['kotlin-language-server', '.'],
+    \ 'lisp': ['/home/stephan/projects/cl-language-server/target/debug/cl-language-server'],
+    \ 'go': ['gopls'],
     \ 'dockerfile': ['docker-langserver', '--stdio'],
     \ 'd': ['dls']
     \ }
@@ -871,7 +892,7 @@ let g:LanguageClient_serverCommands = {
 function! LC_maps()
    if has_key(g:LanguageClient_serverCommands, &filetype)
         call deoplete#custom#option('auto_complete', v:true)
-         if &filetype != "python" && &filetype != "tex" && &filetype != "bib"&& &filetype != "go"&& &filetype != "lua"&& &filetype != "cpp"
+         if &filetype != "python" && &filetype != "tex" && &filetype != "bib"&& &filetype != "go"&& &filetype != "lua"&& &filetype != "cpp" 
              autocmd CursorHold <buffer> silent call LanguageClient#textDocument_documentHighlight()
          endif
  "&& &filetype != "go"
@@ -901,6 +922,19 @@ function! LC_maps()
 
         endtry
    endif
+endfunction
+
+function! NvimLspMaps()
+
+  nnoremap <buffer><silent> gk    <cmd>lua vim.lsp.buf.declaration()<CR>
+  nnoremap <buffer> <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
+  nnoremap <buffer><silent> gh     <cmd>lua vim.lsp.buf.hover()<CR>
+  nnoremap <buffer><silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+  nnoremap <buffer><silent> gS <cmd>lua vim.lsp.buf.signature_help()<CR>
+  inoremap <buffer><silent> ( <cmd>lua vim.lsp.buf.signature_help()<CR>(
+  nnoremap <buffer><silent> gt   <cmd>lua vim.lsp.buf.type_definition()<CR>
+  " Use LSP omni-completion in Python files.
+   setlocal omnifunc=v:lua.vim.lsp.omnifunc
 endfunction
 
 nmap <silent> <C-k> :lprevious<cr>
@@ -1095,7 +1129,7 @@ let g:LanguageClient_diagnosticsList = "Location"
  function! ActivateCoc()
      call deoplete#custom#option('auto_complete', v:false)
      autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-     if &filetype != "python" && &filetype != "tex" && &filetype != "bib" && &filetype != "go" && &filetype != "kotlin"&& &filetype != "kt"
+     if &filetype != "python" && &filetype != "tex" && &filetype != "bib" && &filetype != "go" && &filetype != "kotlin"&& &filetype != "kt"&& &filetype != "rust"
          autocmd  CursorHold <buffer> silent call CocActionAsync('highlight')
      endif
      "autocmd <buffer> CursorHold * silent call CocActionAsync('highlight')
@@ -1125,12 +1159,7 @@ let g:LanguageClient_diagnosticsList = "Location"
 
  endfunction()
 
-autocmd FileType java call ActivateCoc()
-autocmd FileType json call ActivateCoc()
-autocmd FileType tex,bib call ActivateCoc()
-autocmd FileType yaml call ActivateCoc()
-autocmd FileType vim call ActivateCoc()
-autocmd FileType bash,sh call ActivateCoc()
+autocmd FileType java,json,tex,bib,yaml,vim,bash,sh call ActivateCoc()
 "autocmd FileType python call ActivateCoc()
 
  "inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
@@ -1139,6 +1168,7 @@ autocmd FileType bash,sh call ActivateCoc()
 
 
  set autoread
+au CursorHold * checktime  
  "au FocusLost,WinLeave * :silent! noautocmd w
  "
  imap <c-x><c-k> <plug>(fzf-complete-word)
@@ -1341,7 +1371,8 @@ xmap ah <Plug>GitGutterTextObjectOuterVisual
 
 "nmap <leader>r <Plug>(iron-send-motion)
 nmap ,code :!code-insiders -r %<cr>
-nmap ,CO :execute '!code-insiders -r ' getcwd()<cr>
+nmap ,CO :execute '!code-insiders -r ' getcwd()<cr>:!code-insiders -r %<cr>
+
 
 "nnoremap <c-p> :CtrlPMixed<cr>
 let g:ctrlp_map = ''
@@ -1436,7 +1467,7 @@ nnoremap <C-F>o :CtrlSFOpen<CR>
 nnoremap <C-F>t :CtrlSFToggle<CR>
 inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 "set completeopt=menuone,menu,longest,preview,noinsert,noselect
-set completeopt=menuone,menu,longest,noinsert,noselect
+set completeopt=menuone,menu,longest
 
 " Highlight (inofficial) json comments
  autocmd FileType json syntax match Comment +\/\/.\+$+
@@ -1637,7 +1668,7 @@ if has('nvim')
 let g:email='stephan.seitz@fau.de'
 let g:username='Stephan Seitz'
 
-call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
+call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*', 'python': '[^. *\t(]\.\w*' })
 
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
@@ -1656,7 +1687,6 @@ let g:fugitive_gitlab_domains = ['https://i10git.cs.fau.de/']
 let g:rooter_patterns = ['.git/', '_darcs/', '.hg/', '.bzr/', '.svn/']
 nnoremap <leader>ju :Topen<cr>:T just<space>
 
-autocmd FileType cpp,c nnoremap <buffer> <leader>cf :w<cr>:silent !clang-include-fixer-9 %<cr>:e<cr>
 
 let g:auto_git_diff_disable_auto_update=1
 let g:auto_git_diff_show_window_at_right=1
@@ -1763,6 +1793,8 @@ autocmd Filetype ipynb nmap <silent><Leader>n :VimpyterStartNteract<CR>
                                                                         
 command! Emoji %s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g
 
+command! SBCL normal :T sbcl --load ~/.local/share/nvim/plugged/vlime/lisp/start-vlime.lisp<cr>
+
 "lua require'colorizer'.setup()
 
 let g:tagbar_type_markdown = {
@@ -1850,3 +1882,14 @@ let g:vlime_contribs = ['SWANK-ASDF', 'SWANK-PACKAGE-FU',
                       \ 'SWANK-PRESENTATIONS', 'SWANK-FANCY-INSPECTOR',
                       \ 'SWANK-C-P-C', 'SWANK-ARGLISTS', 'SWANK-REPL',
                       \ 'SWANK-FUZZY', 'SWANK-TRACE-DIALOG']
+
+"let g:LanguageClient_windowLogMessageLevel = 'Log'
+"let g:LanguageClient_loggingLevel ='DEBUG'
+"let g:LanguageClient_loggingFile= expand('~/log')
+let g:paredit_leader=','
+
+let g:iced_enable_default_key_mappings = v:true
+
+
+let g:LanguageClient_useVirtualText='All'
+
