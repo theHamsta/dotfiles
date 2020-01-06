@@ -237,6 +237,10 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'w0rp/ale', { 'for': 'tex' }
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
     Plug 'neovim/nvim-lsp'
+    Plug 'tikhomirov/vim-glsl'
+    Plug 'mattn/calendar-vim'
+    Plug 'norcalli/nvim.lua'
+    Plug 'tpope/vim-speeddating'
     Plug 'kchmck/vim-coffee-script'
     "Plug 'atelierbram/vim-colors_atelier-schemes'
     "Plug 'Shougo/deoplete-lsp'
@@ -339,7 +343,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'rliang/nvim-pygtk3', {'do': 'make install'}
     Plug 'rliang/termedit.nvim'
     Plug 'roblillack/vim-bufferlist'
-    Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+    Plug 'rust-lang/rust.vim', { 'for': ['rust', 'toml'] }
     Plug 'ryanoasis/vim-devicons'
     Plug 'sakhnik/nvim-gdb', { 'do': './install.sh' }
     Plug 'scrooloose/nerdcommenter'
@@ -479,7 +483,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'zchee/nvim-go', { 'do': 'make'}
 call plug#end()
 
-set conceallevel=0
+set conceallevel=2
 let g:tex_conceal='abdmg'
 let g:tex_flavor='latex'
 
@@ -1885,5 +1889,5 @@ let g:paredit_leader=','
 let g:iced_enable_default_key_mappings = v:true
 
 
-let g:LanguageClient_useVirtualText='All'
+let g:LanguageClient_useVirtualText=1
 
