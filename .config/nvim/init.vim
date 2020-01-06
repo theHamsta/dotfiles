@@ -390,7 +390,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'tex', 'bib', 'json']}
     Plug 'autozimu/LanguageClient-neovim', {
             \ 'branch': 'next',
-            \ 'do': 'make release&',
+            \ 'do': 'cargo build --release && cp target/release/languageclient bin -f',
             \ }
 
     if has('nvim')
