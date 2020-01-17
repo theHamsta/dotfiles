@@ -236,6 +236,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'tomtom/tlib_vim'
     "Plug 'w0rp/ale', { 'for': 'tex' }
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+    Plug 'dbridges/vim-markdown-runner'
     Plug 'neovim/nvim-lsp'
     Plug 'tikhomirov/vim-glsl'
     Plug 'mattn/calendar-vim'
@@ -388,10 +389,11 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'amix/vim-zenroom2'
     "Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}, 'for': ['java']}
     Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'tex', 'bib', 'json']}
-    Plug 'autozimu/LanguageClient-neovim', {
+    Plug 'everett1992/LanguageClient-neovim', {
             \ 'branch': 'next',
             \ 'do': 'cargo build --release && cp target/release/languageclient bin -f',
             \ }
+    Plug 'puremourning/vimspector', { 'branch': 'neovim' }
 
     if has('nvim')
         Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -720,8 +722,8 @@ autocmd FileType python nnoremap <buffer> <F4> :let $last_execution='ipython3 ' 
 
 autocmd FileType python nmap <silent> <leader>tn <c-w>o:wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestNearest -s<CR>
 autocmd FileType python nmap <silent> <leader>tN <c-w>o:wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestNearest -s --pdb<CR>
-autocmd FileType python nmap <silent> <leader>tf :wa<cr>:Topen<cr><cr>:exec 'T cd' FindRootDirectory():TestFile<CR>
-autocmd FileType python nmap <silent> <leader>tF :wa<cr>:Topen<cr><cr>:exec 'T cd' FindRootDirectory():TestFile -s<CR>
+autocmd FileType python nmap <silent> <leader>tf :wa<cr>:Topen<cr><cr>:exec 'T cd' FindRootDirectory()<cr>:TestFile<CR>
+autocmd FileType python nmap <silent> <leader>tF :wa<cr>:Topen<cr><cr>:exec 'T cd' FindRootDirectory()<cr>:TestFile -s<CR>
 autocmd FileType python nmap <silent> gh 
 "autocmd FileType python nmap <silent> <C-.> <Plug>(pydocstring)
 "autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . $target<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
@@ -837,6 +839,7 @@ let g:LanguageClient_serverCommands = {
     \ 'rust': ['ra_lsp_server'],
     \ 'javascript': ['javascript-typescript-stdio'],
     \ 'javascript.jsx': ['javascript-typescript-stdio'],
+    \ 'python': ['pyls'],
     \   'julia': ['julia', '--startup-file=no', '--history-file=no', '-e', '
     \       using LanguageServer;
     \       using Pkg;
@@ -852,7 +855,6 @@ let g:LanguageClient_serverCommands = {
     \ 'cuda': ['clangd-10', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     \ 'cpp': ['clangd-10', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     \ 'c': ['clangd-10', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
-    \ 'python': ['pyls'],
     \ 'lua': ['lua-lsp'],
     \ 'kotlin': ['kotlin-language-server', '.'],
     \ 'lisp': ['/home/stephan/projects/cl-language-server/target/debug/cl-language-server'],
@@ -1779,7 +1781,7 @@ let g:LanguageClient_settingsPath='~/.config/nvim/settings.json'
 
 call textobj#user#plugin('latex', {
 \   'environment': {
-\     '*pattern*': ['\\begin{frame}.*\n\s*', '\n^\s*\\end{frame}'],
+\     '*pattern*': ['\s*\\begin{frame}.*\n\s*', '\n^\s*\\end{frame}'],
 \     'select-a': 'al',
 \     'select-i': 'il',
 \   }
@@ -1889,5 +1891,6 @@ let g:paredit_leader=','
 let g:iced_enable_default_key_mappings = v:true
 
 
-let g:LanguageClient_useVirtualText=1
+let g:LanguageClient_useVirtualText='All'
 
+command! CargoPlay :T cargo play %
