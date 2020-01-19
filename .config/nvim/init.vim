@@ -275,7 +275,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'airblade/vim-rooter'
     Plug 'akiyosi/gonvim-fuzzy'
     Plug 'arp242/jumpy.vim'
-    "Plug 'bfredl/nvim-ipy', { 'on':  [ 'IPython','IPython2']}
+    "Plug 'bfredl/nvim-ipy',  {'on':  [ 'IPython'], 'do': ':UpdateRemotePlugins'}
     Plug 'bfrg/vim-cpp-modern'
     Plug 'bkad/CamelCaseMotion'
     Plug 'bronson/vim-visual-star-search'
@@ -333,7 +333,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'michaeljsmith/vim-indent-object'
     "Plug 'mileszs/ack.vim'
     Plug 'moll/vim-bbye'
-    Plug 'neomake/neomake'
+    "Plug 'neomake/neomake'
     Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
     Plug 'pboettch/vim-cmake-syntax'
     Plug 'peterhoeg/vim-qml', { 'for' : 'qml' }
@@ -720,6 +720,11 @@ autocmd FileType python nnoremap <buffer> <F4> :let $last_execution='ipython3 ' 
 "autocmd FileType python <buffer> nmap <cr> <Plug>(IPy-RunCell)
 "autocmd FileType python map <leader>pa <Plug>(IPy-RunAll)
 
+autocmd FileType python nmap <silent> <enter> <Plug>(IPy-Run)
+autocmd FileType python nmap <silent> <leader>rr <Plug>(IPy-RunAll)
+autocmd FileType python nmap <silent> <c-f> <Plug>(IPy-Complete)
+autocmd FileType python nmap <silent> <s-enter> <Plug>(IPy-RunCell)
+autocmd FileType python nmap <silent> <leader>? <Plug>(IPy-WordObjInfo)
 autocmd FileType python nmap <silent> <leader>tn <c-w>o:wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestNearest -s<CR>
 autocmd FileType python nmap <silent> <leader>tN <c-w>o:wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestNearest -s --pdb<CR>
 autocmd FileType python nmap <silent> <leader>tf :wa<cr>:Topen<cr><cr>:exec 'T cd' FindRootDirectory()<cr>:TestFile<CR>
@@ -1637,6 +1642,7 @@ set cursorline
 
  "Disable default mappings
  let g:nnn#set_default_mappings = 0
+ let g:nvim_ipy_perform_mappings = 0
 
  " Then set your own
  nnoremap <silent> <leader>NN :NnnPicker<CR>
