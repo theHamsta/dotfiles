@@ -857,9 +857,10 @@ let g:LanguageClient_serverCommands = {
     \       server.runlinter = true;
     \       run(server);
     \   '],
-    \ 'cuda': ['clangd-10', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
-    \ 'cpp': ['clangd-10', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
-    \ 'c': ['clangd-10', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
+    \ 'haskell': ['hie-wrapper', '--lsp'],
+    \ 'cuda': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
+    \ 'cpp': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
+    \ 'c': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     \ 'lua': ['lua-lsp'],
     \ 'kotlin': ['kotlin-language-server', '.'],
     \ 'lisp': ['/home/stephan/projects/cl-language-server/target/debug/cl-language-server'],
