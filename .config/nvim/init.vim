@@ -236,6 +236,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'tomtom/tlib_vim'
     "Plug 'w0rp/ale', { 'for': 'tex' }
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+    "Plug 'wellle/context.vim'
     Plug 'dbridges/vim-markdown-runner'
     Plug 'neovim/nvim-lsp'
     Plug 'tikhomirov/vim-glsl'
@@ -389,11 +390,11 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'amix/vim-zenroom2'
     "Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}, 'for': ['java']}
     Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'tex', 'bib', 'json']}
-    Plug 'everett1992/LanguageClient-neovim', {
+    Plug 'autozimu/LanguageClient-neovim', {
             \ 'branch': 'next',
             \ 'do': 'cargo build --release && cp target/release/languageclient bin -f',
             \ }
-    Plug 'puremourning/vimspector', { 'branch': 'neovim' }
+    Plug 'puremourning/vimspector', { 'do': ':UpdateRemotePlugins'}
 
     if has('nvim')
         Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -733,6 +734,7 @@ autocmd FileType python nmap <silent> gh
 "autocmd FileType python nmap <silent> <C-.> <Plug>(pydocstring)
 "autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . $target<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
 autocmd FileType cpp nnoremap <buffer> <F7> :Topen<cr>:Tkill<cr>:wa<cr>:T just clean<cr>
+autocmd FileType cpp nnoremap <buffer> <F6> :Topen<cr>:Tkill<cr>:wa<cr>:T just build<cr>
 autocmd FileType cpp nnoremap <buffer> <F5> <c-w>o:wa<cr>:Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
 autocmd FileType java nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='pyconrad_run ' . expand('%:r',1)<cr>:Tkill<cr>:wa<cr>:T pyconrad_run %:r<cr>
 autocmd FileType java nnoremap <buffer> <F4> :Topen<cr>:let $last_execution='pyconrad_run --gui ' . expand('%:r',1)<cr>:Tkill<cr>:wa<cr>:T pyconrad_run --gui %:r<cr>
@@ -1901,3 +1903,4 @@ let g:iced_enable_default_key_mappings = v:true
 let g:LanguageClient_useVirtualText='All'
 
 command! CargoPlay :T cargo play %
+let g:context_presenter = 'nvim-float'
