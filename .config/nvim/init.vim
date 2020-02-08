@@ -145,7 +145,6 @@ nnoremap c "_c
 "nnoremap x "_x
 vnoremap < <gv
 vnoremap > >gv
-nnoremap K :s/,/,\r/g<CR>
 nnoremap Y y$
 nnoremap y "+y
 nnoremap H ^
@@ -238,6 +237,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
     "Plug 'wellle/context.vim'
     Plug 'dbridges/vim-markdown-runner'
+    Plug 'AndrewRadev/splitjoin.vim'
+    Plug 'wincent/vcs-jump'
     Plug 'neovim/nvim-lsp'
     Plug 'tikhomirov/vim-glsl'
     Plug 'mattn/calendar-vim'
@@ -247,7 +248,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'atelierbram/vim-colors_atelier-schemes'
     "Plug 'Shougo/deoplete-lsp'
     "Plug 'wellle/context.vim'
-    Plug 'liuchengxu/vim-clap', { 'do': function('clap#helper#build_all') }
+    Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' } 
     Plug 'udalov/kotlin-vim'
     "Plug 'glacambre/firenvim'
     Plug 'rhysd/accelerated-jk' 
@@ -728,20 +729,18 @@ autocmd FileType python nmap <silent> <s-enter> <Plug>(IPy-RunCell)
 autocmd FileType python nmap <silent> <leader>? <Plug>(IPy-WordObjInfo)
 autocmd FileType python nmap <silent> <leader>tn <c-w>o:wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestNearest -s<CR>
 autocmd FileType python nmap <silent> <leader>tN <c-w>o:wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestNearest -s --pdb<CR>
-autocmd FileType python nmap <silent> <leader>tf :wa<cr>:Topen<cr><cr>:exec 'T cd' FindRootDirectory()<cr>:TestFile<CR>
-autocmd FileType python nmap <silent> <leader>tF :wa<cr>:Topen<cr><cr>:exec 'T cd' FindRootDirectory()<cr>:TestFile -s<CR>
+autocmd FileType python nmap <silent> <leader>tf :wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestFile<CR>
+autocmd FileType python nmap <silent> <leader>tF :wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestFile -s<CR>
 autocmd FileType python nmap <silent> gh 
 "autocmd FileType python nmap <silent> <C-.> <Plug>(pydocstring)
 "autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . $target<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
-autocmd FileType cpp nnoremap <buffer> <F7> :Topen<cr>:Tkill<cr>:wa<cr>:T just clean<cr>
-autocmd FileType cpp nnoremap <buffer> <F6> :Topen<cr>:Tkill<cr>:wa<cr>:T just build<cr>
-autocmd FileType cpp nnoremap <buffer> <F5> <c-w>o:wa<cr>:Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
+autocmd FileType cpp,cmake,cuda,c,make,prm nnoremap <buffer> <F7> <c-w>o:Topen<cr>:Tkill<cr>:wa<cr>:T just clean<cr>
+autocmd FileType cpp,cmake,cuda,c,make,prm nnoremap <buffer> <F6> <c-w>o:Topen<cr>:Tkill<cr>:wa<cr>:T just build<cr>
+autocmd FileType cpp,cmake,cuda,c,make,prm nnoremap <buffer> <F5> <c-w>o:wa<cr>:Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
 autocmd FileType java nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='pyconrad_run ' . expand('%:r',1)<cr>:Tkill<cr>:wa<cr>:T pyconrad_run %:r<cr>
 autocmd FileType java nnoremap <buffer> <F4> :Topen<cr>:let $last_execution='pyconrad_run --gui ' . expand('%:r',1)<cr>:Tkill<cr>:wa<cr>:T pyconrad_run --gui %:r<cr>
 autocmd FileType tex,latex nnoremap <buffer> <F5> val<plug>(vimtex-compile-selected)
 autocmd FileType tex,latex nnoremap <buffer> <F4> :VimtexCompileSS<cr>
-autocmd FileType cmake nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
-autocmd FileType make nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
 autocmd FileType rust,toml nmap <buffer> <F5> :exec 'T cd' FindRootDirectory()<cr><c-w>o:let $last_execution='cargo run'<cr>:Tkill<cr>:wa<cr>:T cargo run<cr>:Topen<cr>
 autocmd FileType rust,toml nmap <buffer> <F7> :exec 'T cd' FindRootDirectory()<cr><c-w>o:Tkill<cr>:wa<cr>:T cargo run 
 autocmd FileType rust,toml nmap <buffer> <F4> :exec 'T cd' FindRootDirectory()<cr><c-w>o:let $last_execution='cargo build'<cr>:Tkill<cr>:Topen<cr>:wa<cr>:T cargo build<cr>:Topen<cr>
@@ -753,6 +752,7 @@ autocmd FileType kotlin nnoremap <buffer> <F5> :wa<cr>:Topen<cr>:T ./gradlew run
 autocmd FileType groovy nnoremap <buffer> <F5> :wa<cr>:Topen<cr>:T ./gradlew run<cr>
 
 autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
+autocmd BufRead *.prm :setfiletype prm
 autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
 " jump to the previous function
 autocmd FileType cpp nnoremap <buffer> [f :call
@@ -1904,3 +1904,46 @@ let g:LanguageClient_useVirtualText='All'
 
 command! CargoPlay :T cargo play %
 let g:context_presenter = 'nvim-float'
+nnoremap <leader>gj :VcsJump diff<cr>
+
+
+function! LayoutTerm(size, orientation) abort
+  let timeout = 16.0
+  let animation_total = 150.0
+  let timer = {
+    \ 'size': a:size,
+    \ 'step': 1,
+    \ 'steps': animation_total / timeout
+  \}
+
+  if a:orientation == 'horizontal'
+    resize 1
+    function! timer.f(timer)
+      execute 'resize ' . string(&lines * self.size * (self.step / self.steps))
+      let self.step += 1
+    endfunction
+  else
+    vertical resize 1
+    function! timer.f(timer)
+      execute 'vertical resize ' . string(&columns * self.size * (self.step / self.steps))
+      let self.step += 1
+    endfunction
+  endif
+  call timer_start(float2nr(timeout), timer.f, {'repeat': float2nr(timer.steps)})
+endfunction
+
+" Open autoclosing terminal, with optional size and orientation
+function! OpenTerm(cmd, ...) abort
+  let orientation = get(a:, 2, 'horizontal')
+  if orientation == 'horizontal'
+    new | wincmd J
+  else
+    vnew | wincmd L
+  endif
+  call LayoutTerm(get(a:, 1, 0.5), orientation)
+  call termopen(a:cmd, {'on_exit': {j,c,e -> execute('if c == 0 | close | endif')}})
+  normal i
+endfunction
+
+nmap sk :SplitjoinSplit<cr>
+nmap sj :SplitjoinJoin<cr>
