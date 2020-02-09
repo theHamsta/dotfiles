@@ -237,11 +237,12 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
     "Plug 'wellle/context.vim'
     Plug 'dbridges/vim-markdown-runner'
+    Plug 'camspiers/animate.vim'
     Plug 'AndrewRadev/splitjoin.vim'
     Plug 'wincent/vcs-jump'
     Plug 'neovim/nvim-lsp'
     Plug 'tikhomirov/vim-glsl'
-    Plug 'mattn/calendar-vim'
+    Plug 'itchyny/calendar.vim'
     Plug 'norcalli/nvim.lua'
     Plug 'tpope/vim-speeddating'
     Plug 'kchmck/vim-coffee-script'
@@ -393,7 +394,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'tex', 'bib', 'json']}
     Plug 'autozimu/LanguageClient-neovim', {
             \ 'branch': 'next',
-            \ 'do': 'cargo build --release && cp target/release/languageclient bin -f',
+            \ 'do': [':T cargo build --release && cp target/release/languageclient bin -f', ':UpdateRemotePlugins']
             \ }
     Plug 'puremourning/vimspector', { 'do': ':UpdateRemotePlugins'}
 
@@ -725,6 +726,7 @@ autocmd FileType python nnoremap <buffer> <F4> :let $last_execution='ipython3 ' 
 autocmd FileType python nmap <silent> <enter> <Plug>(IPy-Run)
 autocmd FileType python nmap <silent> <leader>rr <Plug>(IPy-RunAll)
 autocmd FileType python nmap <silent> <c-f> <Plug>(IPy-Complete)
+autocmd FileType python let g:repl['python'] = {  'bin': 'python3',  'args': [],  'syntax': '', 'title': 'Python REPL'  }
 autocmd FileType python nmap <silent> <s-enter> <Plug>(IPy-RunCell)
 autocmd FileType python nmap <silent> <leader>? <Plug>(IPy-WordObjInfo)
 autocmd FileType python nmap <silent> <leader>tn <c-w>o:wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestNearest -s<CR>
@@ -734,9 +736,9 @@ autocmd FileType python nmap <silent> <leader>tF :wa<cr>:Topen<cr>:exec 'T cd' F
 autocmd FileType python nmap <silent> gh 
 "autocmd FileType python nmap <silent> <C-.> <Plug>(pydocstring)
 "autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . $target<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
-autocmd FileType cpp,cmake,cuda,c,make,prm nnoremap <buffer> <F7> <c-w>o:Topen<cr>:Tkill<cr>:wa<cr>:T just clean<cr>
-autocmd FileType cpp,cmake,cuda,c,make,prm nnoremap <buffer> <F6> <c-w>o:Topen<cr>:Tkill<cr>:wa<cr>:T just build<cr>
-autocmd FileType cpp,cmake,cuda,c,make,prm nnoremap <buffer> <F5> <c-w>o:wa<cr>:Topen<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
+autocmd FileType cpp,cmake,cuda,c,make,prm nnoremap <buffer> <F7> <c-w>o:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:Tkill<cr>:wa<cr>:T just clean<cr>
+autocmd FileType cpp,cmake,cuda,c,make,prm nnoremap <buffer> <F6> <c-w>o:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:Tkill<cr>:wa<cr>:T just build<cr>
+autocmd FileType cpp,cmake,cuda,c,make,prm nnoremap <buffer> <F5> <c-w>o:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
 autocmd FileType java nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='pyconrad_run ' . expand('%:r',1)<cr>:Tkill<cr>:wa<cr>:T pyconrad_run %:r<cr>
 autocmd FileType java nnoremap <buffer> <F4> :Topen<cr>:let $last_execution='pyconrad_run --gui ' . expand('%:r',1)<cr>:Tkill<cr>:wa<cr>:T pyconrad_run --gui %:r<cr>
 autocmd FileType tex,latex nnoremap <buffer> <F5> val<plug>(vimtex-compile-selected)
@@ -1940,10 +1942,19 @@ function! OpenTerm(cmd, ...) abort
   else
     vnew | wincmd L
   endif
-  call LayoutTerm(get(a:, 1, 0.5), orientation)
-  call termopen(a:cmd, {'on_exit': {j,c,e -> execute('if c == 0 | close | endif')}})
+  call LayoutTerm(get(a:, 1, 0.9), orientation)
+  call termopen(a:cmd, {'on_exit': {j,c,e -> execute('if c == 0 | close | tnoremap jk <C-\><C-n> | endif')}})
+  tunmap jk
   normal i
 endfunction
 
-nmap sk :SplitjoinSplit<cr>
-nmap sj :SplitjoinJoin<cr>
+nmap ,k :SplitjoinSplit<cr>
+nmap ,j :SplitjoinJoin<cr>
+
+
+nnoremap <silent> <Up>    :call animate#window_delta_height(10)<CR>
+nnoremap <silent> <Down>  :call animate#window_delta_height(-10)<CR>
+nnoremap <silent> <Left>  :call animate#window_delta_width(25)<CR>
+nnoremap <silent> <Right> :call animate#window_delta_width(-25)<CR>
+
+nnoremap <silent> <leader>lz :call OpenTerm('lazygit')<cr>
