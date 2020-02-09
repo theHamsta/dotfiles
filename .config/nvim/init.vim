@@ -726,7 +726,6 @@ autocmd FileType python nnoremap <buffer> <F4> :let $last_execution='ipython3 ' 
 autocmd FileType python nmap <silent> <enter> <Plug>(IPy-Run)
 autocmd FileType python nmap <silent> <leader>rr <Plug>(IPy-RunAll)
 autocmd FileType python nmap <silent> <c-f> <Plug>(IPy-Complete)
-autocmd FileType python let g:repl['python'] = {  'bin': 'python3',  'args': [],  'syntax': '', 'title': 'Python REPL'  }
 autocmd FileType python nmap <silent> <s-enter> <Plug>(IPy-RunCell)
 autocmd FileType python nmap <silent> <leader>? <Plug>(IPy-WordObjInfo)
 autocmd FileType python nmap <silent> <leader>tn <c-w>o:wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestNearest -s<CR>
