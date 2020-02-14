@@ -236,6 +236,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'w0rp/ale', { 'for': 'tex' }
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
     "Plug 'wellle/context.vim'
+    "Plug 'neomake/neomake'
     Plug 'dbridges/vim-markdown-runner'
     Plug 'camspiers/animate.vim'
     Plug 'AndrewRadev/splitjoin.vim'
@@ -777,7 +778,7 @@ autocmd FileType lua nnoremap <buffer> <F5> :exec '!lua' shellescape(@%:p, 1)<cr
 
 autocmd FileType tex,latex nnoremap <buffer> <c-s> :w<cr>:silent !latexindent % -w<cr>:e<cr>
 autocmd FileType python command! Flynt !flynt %:p
-autocmd FileType tex,latex call neomake#configure#automake('w')
+"autocmd FileType tex,latex call neomake#configure#automake('w')
 autocmd FileType rst call neomake#configure#automake('w')
 autocmd FileType tex,latex nnoremap <buffer> <c-a-o> :call vimtex#fzf#run()<cr>
 autocmd FileType markdown nnoremap <buffer> <cr> :ComposerStart<cr>:ComposerOpen<cr>
@@ -1957,3 +1958,5 @@ nnoremap <silent> <Left>  :call animate#window_delta_width(25)<CR>
 nnoremap <silent> <Right> :call animate#window_delta_width(-25)<CR>
 
 nnoremap <silent> <leader>lz :call OpenTerm('lazygit')<cr>
+nnoremap K :s/,/,\r/g<cr>
+
