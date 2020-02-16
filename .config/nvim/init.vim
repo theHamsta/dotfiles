@@ -283,7 +283,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'bfrg/vim-cpp-modern'
     Plug 'bkad/CamelCaseMotion'
     Plug 'bronson/vim-visual-star-search'
-    Plug 'brooth/far.vim'
+    "Plug 'brooth/far.vim'
     "Plug 'burke/matcher'
     Plug 'cespare/vim-toml', {'for': 'toml'}
     Plug 'chaoren/vim-wordmotion'
@@ -384,6 +384,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'vim-scripts/SearchComplete'
     Plug 'wellle/targets.vim'
     Plug 'whiteinge/diffconflicts'
+    Plug 'TravonteD/luajob'
     "Plug 'zchee/deoplete-go', { 'do': 'make'}
     "
     "Plug 'rkulla/pydiction'
@@ -395,7 +396,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'tex', 'bib', 'json']}
     Plug 'autozimu/LanguageClient-neovim', {
             \ 'branch': 'next',
-            \ 'do': [':T cargo build --release && cp target/release/languageclient bin -f', ':UpdateRemotePlugins']
+            \ 'do': ':T cargo build --release && cp target/release/languageclient bin -f',
             \ }
     Plug 'puremourning/vimspector', { 'do': ':UpdateRemotePlugins'}
 
@@ -406,6 +407,7 @@ call plug#begin('~/.local/share/nvim/plugged')
         Plug 'roxma/nvim-yarp'
         Plug 'roxma/vim-hug-neovim-rpc'
     endif
+
 
     "Plug 'Shougo/neosnippet-snippets'
 
@@ -902,7 +904,7 @@ let g:LanguageClient_serverCommands = {
 function! LC_maps()
    if has_key(g:LanguageClient_serverCommands, &filetype)
         call deoplete#custom#option('auto_complete', v:true)
-         if &filetype != "python" && &filetype != "tex" && &filetype != "bib"&& &filetype != "go"&& &filetype != "lua"&& &filetype != "cpp" 
+         if &filetype != "python" && &filetype != "tex" && &filetype != "bib"&& &filetype != "go"&& &filetype != "lua"
              autocmd CursorHold <buffer> silent call LanguageClient#textDocument_documentHighlight()
          endif
  "&& &filetype != "go"
@@ -1792,7 +1794,7 @@ let g:LanguageClient_settingsPath='~/.config/nvim/settings.json'
 
 call textobj#user#plugin('latex', {
 \   'environment': {
-\     '*pattern*': ['\s*\\begin{frame}.*\n\s*', '\n^\s*\\end{frame}'],
+\     '*pattern*': ['\\begin{frame}.*\n\s*', '\n^.*\end{frame}'],
 \     'select-a': 'al',
 \     'select-i': 'il',
 \   }
@@ -1960,3 +1962,29 @@ nnoremap <silent> <Right> :call animate#window_delta_width(-25)<CR>
 nnoremap <silent> <leader>lz :call OpenTerm('lazygit')<cr>
 nnoremap K :s/,/,\r/g<cr>
 
+"let g:LanguageClient_semanticHighlightMaps = {}
+"let g:LanguageClient_semanticHighlightMaps['cpp'] = [
+            "\ {'Function': ['entity.name.function.cpp']},
+            "\ {'Function': ['entity.name.function.method.cpp']},
+            "\ {'CppNamespace': ['entity.name.namespace.cpp']},
+            "\ {'CppEnumConstant': ['variable.other.enummember.cpp']},
+            "\ {'CppMemberVariable': ['variable.other.field.cpp']},
+            "\ {'Type': ['entity.name.type.class.cpp']},
+            "\ {'Type': ['entity.name.type.enum.cpp']},
+            "\ {'Type': ['entity.name.type.template.cpp']},
+            "\ ]
+
+"hi! CppEnumConstant ctermfg=Magenta guifg=#AD7FA8 cterm=none gui=none
+"hi! CppNamespace ctermfg=Yellow guifg=#BBBB00 cterm=none gui=none
+"hi! CppMemberVariable ctermfg=White guifg=White
+
+"let g:LanguageClient_semanticHighlightMaps['java'] = {
+    "\ '^storage.modifier.static.java:entity.name.function.java': 'JavaStaticMemberFunction',
+    "\ '^meta.definition.variable.java:meta.class.body.java:meta.class.java': 'JavaMemberVariable',
+    "\ '^entity.name.function.java': 'Function',
+    "\ '^[^:]*entity.name.function.java': 'Function',
+    "\ '^[^:]*entity.name.type.class.java': 'Type',
+    "\ }
+
+"highlight! JavaStaticMemberFunction ctermfg=Green cterm=none guifg=Green gui=none
+"highlight! JavaMemberVariable ctermfg=White cterm=italic guifg=White gui=italic
