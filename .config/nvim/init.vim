@@ -247,6 +247,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'norcalli/nvim.lua'
     Plug 'tpope/vim-speeddating'
     Plug 'kchmck/vim-coffee-script'
+    Plug 'arzg/vim-rust-syntax-ext'
     "Plug 'atelierbram/vim-colors_atelier-schemes'
     "Plug 'Shougo/deoplete-lsp'
     "Plug 'wellle/context.vim'
@@ -741,8 +742,9 @@ autocmd FileType python nmap <silent> gh
 autocmd FileType cpp,cmake,cuda,c,make,prm nnoremap <buffer> <F7> <c-w>o:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:Tkill<cr>:wa<cr>:T just clean<cr>
 autocmd FileType cpp,cmake,cuda,c,make,prm nnoremap <buffer> <F6> <c-w>o:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:Tkill<cr>:wa<cr>:T just build<cr>
 autocmd FileType cpp,cmake,cuda,c,make,prm nnoremap <buffer> <F5> <c-w>o:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
-autocmd FileType java nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='pyconrad_run ' . expand('%:r',1)<cr>:Tkill<cr>:wa<cr>:T pyconrad_run %:r<cr>
+autocmd FileType java nnoremap <buffer> <F6> :Topen<cr>:let $last_execution='pyconrad_run ' . expand('%:r',1)<cr>:Tkill<cr>:wa<cr>:T pyconrad_run %:r<cr>
 autocmd FileType java nnoremap <buffer> <F4> :Topen<cr>:let $last_execution='pyconrad_run --gui ' . expand('%:r',1)<cr>:Tkill<cr>:wa<cr>:T pyconrad_run --gui %:r<cr>
+autocmd FileType java nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='gradle run'<cr>:Tkill<cr>:wa<cr>:T gradle run<cr>
 autocmd FileType tex,latex nnoremap <buffer> <F5> val<plug>(vimtex-compile-selected)
 autocmd FileType tex,latex nnoremap <buffer> <F4> :VimtexCompileSS<cr>
 autocmd FileType rust,toml nmap <buffer> <F5> :exec 'T cd' FindRootDirectory()<cr><c-w>o:let $last_execution='cargo run'<cr>:Tkill<cr>:wa<cr>:T cargo run<cr>:Topen<cr>
@@ -1147,8 +1149,8 @@ let g:LanguageClient_diagnosticsList = "Location"
      "autocmd <buffer> CursorHold * silent call CocActionAsync('highlight')
      command! OI -nargs=0 :call CocAction('runCommand', 'editor.action.organizeImport')
      nmap <silent> <buffer>  <c-k> <Plug>(coc-diagnostic-prev)
-     nmap <silent> <buffer>  <leader>nt :CocCommand explorer<cr>
-     nmap <silent> <buffer>  <leader>nf :CocCommand explorer --reveal %<cr>
+     "nmap <silent> <buffer>  <leader>nt :CocCommand explorer<cr>
+     "nmap <silent> <buffer>  <leader>nf :CocCommand explorer --reveal %<cr>
      nmap <silent> <buffer>  <c-j> <Plug>(coc-diagnostic-next)
      nmap <silent> <buffer>  gd <Plug>(coc-definition)
      nmap <silent> <buffer>  ga :CocAction<cr>
@@ -1988,3 +1990,4 @@ nnoremap K :s/,/,\r/g<cr>
 
 "highlight! JavaStaticMemberFunction ctermfg=Green cterm=none guifg=Green gui=none
 "highlight! JavaMemberVariable ctermfg=White cterm=italic guifg=White gui=italic
+command! YankFilename :let @+ = expand("%:p")
