@@ -310,7 +310,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'fvictorio/vim-textobj-backticks'
     Plug 'godlygeek/tabular'
     Plug 'gregf/ultisnips-chef'
-    Plug 'heavenshell/vim-pydocstring'
+    "Plug 'heavenshell/vim-pydocstring'
     Plug 'henrynewcomer/vim-theme-papaya'
     Plug 'hotwatermorning/auto-git-diff'
     Plug 'idanarye/vim-merginal'
