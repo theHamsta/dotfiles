@@ -237,10 +237,12 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
     "Plug 'wellle/context.vim'
     "Plug 'neomake/neomake'
+    Plug 'kyazdani42/highlight.lua'
     Plug 'dbridges/vim-markdown-runner'
     Plug 'Olical/nvim-local-fennel'
     Plug 'bakpakin/fennel.vim'
     Plug 'Olical/aniseed'
+    Plug 'camspiers/lens.vim'
     Plug 'camspiers/animate.vim'
     Plug 'AndrewRadev/splitjoin.vim'
     Plug 'wincent/vcs-jump'
@@ -1961,8 +1963,8 @@ nmap ,j :SplitjoinJoin<cr>
 
 nnoremap <silent> <Up>    :call animate#window_delta_height(10)<CR>
 nnoremap <silent> <Down>  :call animate#window_delta_height(-10)<CR>
-nnoremap <silent> <Left>  :call animate#window_delta_width(25)<CR>
-nnoremap <silent> <Right> :call animate#window_delta_width(-25)<CR>
+nnoremap <silent> <Left>  :call animate#window_delta_width(-25)<CR>
+nnoremap <silent> <Right> :call animate#window_delta_width(+25)<CR>
 
 nnoremap <silent> <leader>lz :call OpenTerm('lazygit')<cr>
 nnoremap K :s/,/,\r/g<cr>
