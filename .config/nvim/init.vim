@@ -237,7 +237,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
     "Plug 'wellle/context.vim'
     "Plug 'neomake/neomake'
-    Plug 'kyazdani42/highlight.lua'
+    "Plug 'kyazdani42/highlight.lua'
+    "Plug 'SkyLeach/pudb.vim'
     Plug 'dbridges/vim-markdown-runner'
     Plug 'Olical/nvim-local-fennel'
     Plug 'bakpakin/fennel.vim'
@@ -1996,3 +1997,5 @@ nnoremap K :s/,/,\r/g<cr>
 "highlight! JavaStaticMemberFunction ctermfg=Green cterm=none guifg=Green gui=none
 "highlight! JavaMemberVariable ctermfg=White cterm=italic guifg=White gui=italic
 command! YankFilename :let @+ = expand("%:p")
+packadd termdebug
+"let g:pudb_python='/usr/bin/python3'
