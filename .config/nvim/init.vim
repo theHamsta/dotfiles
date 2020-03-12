@@ -236,14 +236,16 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'w0rp/ale', { 'for': 'tex' }
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
     "Plug 'wellle/context.vim'
-    "Plug 'neomake/neomake'
+    Plug 'haorenW1025/completion-nvim'
+    Plug 'neomake/neomake', {'for': 'rst'}
     "Plug 'kyazdani42/highlight.lua'
     "Plug 'SkyLeach/pudb.vim'
+    Plug 'romgrk/searchReplace.vim'
     Plug 'dbridges/vim-markdown-runner'
     Plug 'Olical/nvim-local-fennel'
     Plug 'bakpakin/fennel.vim'
     Plug 'Olical/aniseed'
-    Plug 'camspiers/lens.vim'
+    "Plug 'camspiers/lens.vim'
     Plug 'camspiers/animate.vim'
     Plug 'AndrewRadev/splitjoin.vim'
     Plug 'wincent/vcs-jump'
@@ -355,7 +357,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'rliang/nvim-pygtk3', {'do': 'make install'}
     Plug 'rliang/termedit.nvim'
     Plug 'roblillack/vim-bufferlist'
-    Plug 'rust-lang/rust.vim', { 'for': ['rust', 'toml'] }
+    "Plug 'rust-lang/rust.vim', { 'for': ['rust', 'toml'] }
     Plug 'ryanoasis/vim-devicons'
     Plug 'sakhnik/nvim-gdb', { 'do': './install.sh' }
     Plug 'scrooloose/nerdcommenter'
@@ -858,7 +860,6 @@ let g:LanguageClient_serverCommands = {
     \ 'rust': ['ra_lsp_server'],
     \ 'javascript': ['javascript-typescript-stdio'],
     \ 'javascript.jsx': ['javascript-typescript-stdio'],
-    \ 'python': ['pyls'],
     \   'julia': ['julia', '--startup-file=no', '--history-file=no', '-e', '
     \       using LanguageServer;
     \       using Pkg;
@@ -872,8 +873,9 @@ let g:LanguageClient_serverCommands = {
     \       run(server);
     \   '],
     \ 'haskell': ['hie-wrapper', '--lsp'],
-    \ 'cuda': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
+    \ 'python': ['pyls'],
     \ 'cpp': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
+    \ 'cuda': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     \ 'c': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     \ 'lua': ['lua-lsp'],
     \ 'kotlin': ['kotlin-language-server', '.'],
@@ -920,6 +922,7 @@ function! LC_maps()
         nnoremap <buffer> <leader>la :call LanguageClient_contextMenu()<CR>
         nnoremap <buffer> <leader>ee :call LanguageClient#explainErrorAtPoint()<CR>
         nnoremap <buffer> <leader>ca :call LanguageClient#textDocument_codeAction()<CR>
+        nnoremap <buffer> <leader>cr :call LanguageClient#textDocument_codeLens()<CR>
         nnoremap <buffer> <silent> gh :call LanguageClient#textDocument_hover()<CR>
         nnoremap <buffer> <silent> <leader>ss :call LanguageClient#textDocument_documentSymbol()<CR>
         nnoremap <buffer> <silent> <c-a-s> :call LanguageClient#textDocument_documentSymbol()<CR>
@@ -1970,17 +1973,6 @@ nnoremap <silent> <Right> :call animate#window_delta_width(+25)<CR>
 nnoremap <silent> <leader>lz :call OpenTerm('lazygit')<cr>
 nnoremap K :s/,/,\r/g<cr>
 
-"let g:LanguageClient_semanticHighlightMaps = {}
-"let g:LanguageClient_semanticHighlightMaps['cpp'] = [
-            "\ {'Function': ['entity.name.function.cpp']},
-            "\ {'Function': ['entity.name.function.method.cpp']},
-            "\ {'CppNamespace': ['entity.name.namespace.cpp']},
-            "\ {'CppEnumConstant': ['variable.other.enummember.cpp']},
-            "\ {'CppMemberVariable': ['variable.other.field.cpp']},
-            "\ {'Type': ['entity.name.type.class.cpp']},
-            "\ {'Type': ['entity.name.type.enum.cpp']},
-            "\ {'Type': ['entity.name.type.template.cpp']},
-            "\ ]
 
 "hi! CppEnumConstant ctermfg=Magenta guifg=#AD7FA8 cterm=none gui=none
 "hi! CppNamespace ctermfg=Yellow guifg=#BBBB00 cterm=none gui=none
