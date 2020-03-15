@@ -237,7 +237,9 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
     "Plug 'wellle/context.vim'
     Plug 'haorenW1025/completion-nvim'
-    Plug 'neomake/neomake', {'for': 'rst'}
+    Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
+    "Plug 'OmniSharp/omnisharp-vim'
+    Plug 'neomake/neomake' ", {'for': 'rst'}
     "Plug 'kyazdani42/highlight.lua'
     "Plug 'SkyLeach/pudb.vim'
     Plug 'romgrk/searchReplace.vim'
@@ -355,7 +357,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'rhysd/rust-doc.vim'
     Plug 'rking/ag.vim'
     "Plug 'rliang/nvim-pygtk3', {'do': 'make install'}
-    Plug 'rliang/termedit.nvim'
+    "Plug 'rliang/termedit.nvim'
     Plug 'roblillack/vim-bufferlist'
     "Plug 'rust-lang/rust.vim', { 'for': ['rust', 'toml'] }
     Plug 'ryanoasis/vim-devicons'
@@ -402,7 +404,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 "Plug 'vim-pandoc/vim-pandoc'
     "Plug 'amix/vim-zenroom2'
     "Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}, 'for': ['java']}
-    Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'tex', 'bib', 'json']}
+    Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'tex', 'bib', 'json', 'cs']}
     Plug 'autozimu/LanguageClient-neovim', {
             \ 'branch': 'next',
             \ 'do': ':T cargo build --release && cp target/release/languageclient bin -f',
@@ -747,9 +749,11 @@ autocmd FileType python nmap <silent> <leader>tF :wa<cr>:Topen<cr>:exec 'T cd' F
 autocmd FileType python nmap <silent> gh 
 "autocmd FileType python nmap <silent> <C-.> <Plug>(pydocstring)
 "autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . $target<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
-autocmd FileType cpp,cmake,cuda,c,make,prm nnoremap <buffer> <F7> <c-w>o:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:Tkill<cr>:wa<cr>:T just clean<cr>
-autocmd FileType cpp,cmake,cuda,c,make,prm nnoremap <buffer> <F6> <c-w>o:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:Tkill<cr>:wa<cr>:T just build<cr>
-autocmd FileType cpp,cmake,cuda,c,make,prm nnoremap <buffer> <F5> <c-w>o:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
+autocmd FileType just,cpp,cmake,cuda,c,make,prm nnoremap <buffer> <s-F6> <c-w>o:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:Tkill<cr>:wa<cr>:T just clean<cr>
+autocmd FileType just,cpp,cmake,cuda,c,make,prm nnoremap <buffer> <F7> <c-w>o:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:Tkill<cr>:wa<cr>:T just release-run<cr>
+autocmd FileType just,cpp,cmake,cuda,c,make,prm nnoremap <buffer> <s-F7> <c-w>o:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:Tkill<cr>:wa<cr>:T just release<cr>
+autocmd FileType just,cpp,cmake,cuda,c,make,prm nnoremap <buffer> <F6> <c-w>o:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:Tkill<cr>:wa<cr>:T just build<cr>
+autocmd FileType just,cpp,cmake,cuda,c,make,prm nnoremap <buffer> <F5> <c-w>o:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
 autocmd FileType java nnoremap <buffer> <F6> :Topen<cr>:let $last_execution='pyconrad_run ' . expand('%:r',1)<cr>:Tkill<cr>:wa<cr>:T pyconrad_run %:r<cr>
 autocmd FileType java nnoremap <buffer> <F4> :Topen<cr>:let $last_execution='pyconrad_run --gui ' . expand('%:r',1)<cr>:Tkill<cr>:wa<cr>:T pyconrad_run --gui %:r<cr>
 autocmd FileType java nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='gradle run'<cr>:Tkill<cr>:wa<cr>:T gradle run<cr>
@@ -1162,8 +1166,8 @@ let g:LanguageClient_diagnosticsList = "Location"
      "nmap <silent> <buffer>  <leader>nf :CocCommand explorer --reveal %<cr>
      nmap <silent> <buffer>  <c-j> <Plug>(coc-diagnostic-next)
      nmap <silent> <buffer>  gd <Plug>(coc-definition)
-     nmap <silent> <buffer>  ga :CocAction<cr>
-     vmap <silent> <buffer>  ga :CocAction<cr>
+     nmap <silent> <buffer>  <leader>la :CocAction<cr>
+     nmap <silent> <buffer>  <leader>ca <Plug>(coc-codeaction-selected)
      nmap <silent> <buffer> <f2> <Plug>(coc-rename)
      nmap <silent> <buffer>  gD <c-w>v<Plug>(coc-definition)
      nmap <silent> <buffer>  gt <Plug>(coc-type-definition)
@@ -1179,11 +1183,13 @@ let g:LanguageClient_diagnosticsList = "Location"
      vmap <buffer> <leader>a   <Plug>(coc-codeaction-selected)
      nmap <buffer> <leader>a <Plug>(coc-codeaction-selected)
      "nmap <buffer> <leader>hp :CocCommand git.chunkpreview<cr>
-
+xmap <silent> <buffer> if <Plug>(coc-funcobj-i)
+xmap <silent> <buffer> af <Plug>(coc-funcobj-a)
+omap <silent> <buffer> if <Plug>(coc-funcobj-i)
+omap  <silent> <buffer> af <Plug>(coc-funcobj-a)
  endfunction()
 
-autocmd FileType java,json,tex,bib,yaml,vim,bash,sh call ActivateCoc()
-"autocmd FileType python call ActivateCoc()
+autocmd FileType java,json,tex,bib,yaml,vim,bash,sh,cs call ActivateCoc()
 
  "inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 
@@ -1991,3 +1997,14 @@ nnoremap K :s/,/,\r/g<cr>
 command! YankFilename :let @+ = expand("%:p")
 packadd termdebug
 "let g:pudb_python='/usr/bin/python3'
+"
+nnoremap <leader>tq  :cgetbuffer<cr>:copen<cr>
+nnoremap <leader>tQ :setlocal errorformat=
+    \%A\ \ File\ \"%f\"\\\,\ line\ %l\\\,%m,
+	\%C\ \ \ \ %.%#,
+	\%+Z%.%#Error\:\ %.%#,
+	\%A\ \ File\ \"%f\"\\\,\ line\ %l,
+	\%+C\ \ %.%#,
+	\%-C%p^,
+	\%Z%m,
+	\%-G%.%#<cr>:cgetbuffer<cr>:copen<cr>
