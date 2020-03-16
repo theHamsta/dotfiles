@@ -237,6 +237,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
     "Plug 'wellle/context.vim'
     Plug 'haorenW1025/completion-nvim'
+    Plug 'gluon-lang/vim-gluon'
     Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
     "Plug 'OmniSharp/omnisharp-vim'
     Plug 'neomake/neomake' ", {'for': 'rst'}
@@ -308,7 +309,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoInstallBinaries'}
     Plug 'junegunn/vim-emoji'
     Plug 'fszymanski/deoplete-emoji'
-    Plug 'theHamsta/vlime', {'rtp': 'vim/', 'for':'lisp'}
+    Plug 'vlime/vlime', {'rtp': 'vim/', 'for':'lisp'}
     Plug 'kovisoft/paredit', {'for': ['lisp', 'clojure']}
     "Plug 'kovisoft/slimv', {'for': 'lisp'}
     "Plug 'fvictorio/vim-textobj-backticks'
@@ -786,6 +787,7 @@ autocmd FileType lisp nmap <buffer> <c-a-p> :cd ~/quicklisp/local-projects<cr>:F
 autocmd FileType lisp nmap <buffer> :maplocalleader ','
 autocmd FileType lisp nmap <buffer> <c-a-q> :cd ~/quicklisp/dists/quicklisp/software<cr>:Files<cr>
 autocmd FileType lisp nmap <buffer> <s-enter> <space>of
+autocmd FileType lisp nmap <silent> call vlime#plugin#InteractionMode(v:true)
 autocmd FileType clojure nmap <buffer> <enter> <Plug>(iced_eval_outer_top_list)
 "
 
@@ -883,11 +885,13 @@ let g:LanguageClient_serverCommands = {
     \ 'c': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     \ 'lua': ['lua-lsp'],
     \ 'kotlin': ['kotlin-language-server', '.'],
-    \ 'lisp': ['/home/stephan/projects/cl-language-server/target/debug/cl-language-server'],
     \ 'go': ['gopls'],
     \ 'dockerfile': ['docker-langserver', '--stdio'],
-    \ 'd': ['dls']
+    \ 'd': ['dls'],
+    \ 'gluon': ['gluon_language-server']
     \ }
+    "\ 'lisp': ['/home/stephan/projects/cl-language-server/target/debug/cl-language-server'],
+"
     "\ 'cpp': ['clangd-9', '-clang-tidy'],
     "\ 'tex': ['texlab'],
     "\ 'bib': ['texlab'],
@@ -2008,3 +2012,5 @@ nnoremap <leader>tQ :setlocal errorformat=
 	\%-C%p^,
 	\%Z%m,
 	\%-G%.%#<cr>:cgetbuffer<cr>:copen<cr>
+
+let g:completion_confirm_key = "\<C-y>"
