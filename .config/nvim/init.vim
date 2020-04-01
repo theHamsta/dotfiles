@@ -203,7 +203,6 @@ set expandtab
 "inoremap <A-v> <C-R><C-R>+
 inoremap <c-V> <C-R><C-R>+
 cnoremap <c-V> <C-R>+
-"nnoremap p "_p
 
 
 "inoremap II <Esc>I
@@ -236,7 +235,12 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'w0rp/ale', { 'for': 'tex' }
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
     "Plug 'wellle/context.vim'
+    Plug 'rhysd/vim-crystal'
     Plug 'haorenW1025/completion-nvim'
+    "Plug 'chrisbra/unicode.vim'
+    Plug 'bergercookie/vim-deb-preview'
+    Plug 'zoxves/LightningFileExplorer'
+    Plug 'mcchrish/info-window.nvim'
     Plug 'gluon-lang/vim-gluon'
     Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
     "Plug 'OmniSharp/omnisharp-vim'
@@ -248,9 +252,9 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'Olical/nvim-local-fennel'
     Plug 'bakpakin/fennel.vim'
     Plug 'Olical/aniseed'
-    "Plug 'camspiers/lens.vim'
-    Plug 'camspiers/animate.vim'
-    Plug 'AndrewRadev/splitjoin.vim'
+    Plug 'camspiers/lens.vim'
+    "Plug 'camspiers/animate.vim'
+    "Plug 'AndrewRadev/splitjoin.vim'
     Plug 'wincent/vcs-jump'
     Plug 'neovim/nvim-lsp'
     Plug 'tikhomirov/vim-glsl'
@@ -260,7 +264,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'kchmck/vim-coffee-script'
     Plug 'arzg/vim-rust-syntax-ext'
     "Plug 'atelierbram/vim-colors_atelier-schemes'
-    "Plug 'Shougo/deoplete-lsp'
+    Plug 'Shougo/deoplete-lsp'
     "Plug 'wellle/context.vim'
     Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' } 
     Plug 'udalov/kotlin-vim'
@@ -310,7 +314,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'junegunn/vim-emoji'
     Plug 'fszymanski/deoplete-emoji'
     Plug 'vlime/vlime', {'rtp': 'vim/', 'for':'lisp'}
-    Plug 'kovisoft/paredit', {'for': ['lisp', 'clojure']}
+    "Plug 'kovisoft/paredit', {'for': ['lisp', 'clojure']}
     "Plug 'kovisoft/slimv', {'for': 'lisp'}
     "Plug 'fvictorio/vim-textobj-backticks'
     Plug 'godlygeek/tabular'
@@ -362,7 +366,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'roblillack/vim-bufferlist'
     "Plug 'rust-lang/rust.vim', { 'for': ['rust', 'toml'] }
     Plug 'ryanoasis/vim-devicons'
-    Plug 'sakhnik/nvim-gdb', { 'do': './install.sh' }
+    "Plug 'sakhnik/nvim-gdb', { 'do': './install.sh' }
     Plug 'scrooloose/nerdcommenter'
     Plug 'scrooloose/nerdtree' ", { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
     Plug 'sebdah/vim-delve', { 'for' : 'go' }
@@ -386,8 +390,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'tpope/vim-markdown'
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-rhubarb'
-    Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'lisp' }
-    "Plug 'guns/vim-sexp', { 'for': 'lisp' }
+    "Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'lisp' }
+    Plug 'guns/vim-sexp', { 'for': 'lisp' }
     Plug 'tpope/vim-sleuth'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-unimpaired'
@@ -747,18 +751,17 @@ autocmd FileType python nmap <silent> <leader>tn <c-w>o:wa<cr>:Topen<cr>:exec 'T
 autocmd FileType python nmap <silent> <leader>tN <c-w>o:wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestNearest -s --pdb<CR>
 autocmd FileType python nmap <silent> <leader>tf :wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestFile<CR>
 autocmd FileType python nmap <silent> <leader>tF :wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestFile -s<CR>
-autocmd FileType python nmap <silent> gh 
 "autocmd FileType python nmap <silent> <C-.> <Plug>(pydocstring)
 "autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . $target<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
 autocmd FileType just,cpp,cmake,cuda,c,make,prm nnoremap <buffer> <s-F6> <c-w>o:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:Tkill<cr>:wa<cr>:T just clean<cr>
-autocmd FileType just,cpp,cmake,cuda,c,make,prm nnoremap <buffer> <F7> <c-w>o:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:Tkill<cr>:wa<cr>:T just release-run<cr>
+autocmd FileType just,cpp,cmake,cuda,c,make,prm nnoremap <buffer> <F7> <c-w>o:Topen<cr>:Tclear<cr>:exec 'T cd' FindRootDirectory()<cr>:Tkill<cr>:wa<cr>:T just release-run<cr>
 autocmd FileType just,cpp,cmake,cuda,c,make,prm nnoremap <buffer> <s-F7> <c-w>o:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:Tkill<cr>:wa<cr>:T just release<cr>
-autocmd FileType just,cpp,cmake,cuda,c,make,prm nnoremap <buffer> <F6> <c-w>o:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:Tkill<cr>:wa<cr>:T just build<cr>
-autocmd FileType just,cpp,cmake,cuda,c,make,prm nnoremap <buffer> <F5> <c-w>o:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
+autocmd FileType just,cpp,cmake,cuda,c,make,prm nnoremap <buffer> <F6> <c-w>o:Topen<cr>:Tclear<cr>:exec 'T cd' FindRootDirectory()<cr>:Tkill<cr>:wa<cr>:T just build<cr>
+autocmd FileType just,cpp,cmake,cuda,c,make,prm,latex,tex nnoremap <buffer> <F5> <c-w>o:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
 autocmd FileType java nnoremap <buffer> <F6> :Topen<cr>:let $last_execution='pyconrad_run ' . expand('%:r',1)<cr>:Tkill<cr>:wa<cr>:T pyconrad_run %:r<cr>
 autocmd FileType java nnoremap <buffer> <F4> :Topen<cr>:let $last_execution='pyconrad_run --gui ' . expand('%:r',1)<cr>:Tkill<cr>:wa<cr>:T pyconrad_run --gui %:r<cr>
 autocmd FileType java nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='gradle run'<cr>:Tkill<cr>:wa<cr>:T gradle run<cr>
-autocmd FileType tex,latex nnoremap <buffer> <F5> val<plug>(vimtex-compile-selected)
+autocmd FileType tex,latex nnoremap <buffer> <F3> val<plug>(vimtex-compile-selected)
 autocmd FileType tex,latex nnoremap <buffer> <F4> :VimtexCompileSS<cr>
 autocmd FileType rust,toml nmap <buffer> <F5> :exec 'T cd' FindRootDirectory()<cr><c-w>o:let $last_execution='cargo run'<cr>:Tkill<cr>:wa<cr>:T cargo run<cr>:Topen<cr>
 autocmd FileType rust,toml nmap <buffer> <F7> :exec 'T cd' FindRootDirectory()<cr><c-w>o:Tkill<cr>:wa<cr>:T cargo run 
@@ -767,8 +770,8 @@ autocmd FileType rust,toml nmap <buffer> <F6> :exec 'T cd' FindRootDirectory()<c
 autocmd FileType rust nmap <silent> <leader>tn :wa<cr>:RustTest<cr>
 autocmd FileType rust nmap <silent> <leader>tN <c-w>o:wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestNearest -- --nocapture<CR>
 
-autocmd FileType kotlin nnoremap <buffer> <F5> :wa<cr>:Topen<cr>:T ./gradlew run<cr>
-autocmd FileType groovy nnoremap <buffer> <F5> :wa<cr>:Topen<cr>:T ./gradlew run<cr>
+autocmd FileType kotlin nnoremap <buffer> <F5> :wa<cr>:Topen<cr>:T gradle run<cr>
+autocmd FileType groovy nnoremap <buffer> <F5> :wa<cr>:Topen<cr>:T gradle run<cr>
 
 autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
 autocmd BufRead *.prm :setfiletype prm
@@ -783,9 +786,13 @@ autocmd FileType cpp nnoremap <buffer> ]f :call
 ":let last_execution=@%<cr>
 "
 autocmd FileType go nmap <buffer> <c-a-p> :cd $GOPATH/src<cr>:Files<cr>
-autocmd FileType lisp nmap <buffer> <c-a-p> :cd ~/quicklisp/local-projects<cr>:Files<cr>
-autocmd FileType lisp nmap <buffer> :maplocalleader ','
-autocmd FileType lisp nmap <buffer> <c-a-q> :cd ~/quicklisp/dists/quicklisp/software<cr>:Files<cr>
+"autocmd FileType lisp nmap <buffer> <c-a-p> :cd ~/quicklisp/local-projects<cr>:Files<cr>
+autocmd FileType lisp nmap <buffer> :let maplocalleader = ','
+autocmd FileType lisp nmap <buffer> <leader>w :wa<cr>
+autocmd FileType lisp nmap <silent> <buffer> <tab> <c-x><c-o>
+"autocmd FileType lisp nmap call deoplete#custom#option('auto_complete', v:false)
+
+
 autocmd FileType lisp nmap <buffer> <s-enter> <space>of
 autocmd FileType lisp nmap <silent> call vlime#plugin#InteractionMode(v:true)
 autocmd FileType clojure nmap <buffer> <enter> <Plug>(iced_eval_outer_top_list)
@@ -888,9 +895,12 @@ let g:LanguageClient_serverCommands = {
     \ 'go': ['gopls'],
     \ 'dockerfile': ['docker-langserver', '--stdio'],
     \ 'd': ['dls'],
+    \ 'crystal': ['/home/stephan/projects/scry/scry/bin/scry'],
     \ 'gluon': ['gluon_language-server']
     \ }
+    "\ 'lisp': ['sbcl', '--script', '/home/stephan/quicklisp/local-projects/cl-lsp/start-that-shit.lisp']
     "\ 'lisp': ['/home/stephan/projects/cl-language-server/target/debug/cl-language-server'],
+    "\ 'lisp': ['cl-language-server']
 "
     "\ 'cpp': ['clangd-9', '-clang-tidy'],
     "\ 'tex': ['texlab'],
@@ -922,7 +932,7 @@ let g:LanguageClient_serverCommands = {
 function! LC_maps()
    if has_key(g:LanguageClient_serverCommands, &filetype)
         call deoplete#custom#option('auto_complete', v:true)
-         if &filetype != "python" && &filetype != "tex" && &filetype != "bib"&& &filetype != "go"&& &filetype != "lua"
+         if &filetype != "python" && &filetype != "tex" && &filetype != "bib"&& &filetype != "go"&& &filetype != "lua"&& &filetype != "lisp"
              autocmd CursorHold <buffer> silent call LanguageClient#textDocument_documentHighlight()
          endif
  "&& &filetype != "go"
@@ -1184,8 +1194,8 @@ let g:LanguageClient_diagnosticsList = "Location"
      nmap <silent> <buffer>  <leader>le <Plug>(coc-codelens-action)
      nmap <silent> <buffer>  <c-s> :call CocAction('format')<cr>
    endif
-     vmap <buffer> <leader>a   <Plug>(coc-codeaction-selected)
-     nmap <buffer> <leader>a <Plug>(coc-codeaction-selected)
+     vmap <buffer> <leader>ca   <Plug>(coc-codeaction-selected)
+     nmap <buffer> <leader>ca <Plug>(coc-codeaction-selected)
      "nmap <buffer> <leader>hp :CocCommand git.chunkpreview<cr>
 xmap <silent> <buffer> if <Plug>(coc-funcobj-i)
 xmap <silent> <buffer> af <Plug>(coc-funcobj-a)
@@ -1499,7 +1509,7 @@ nmap     <C-F>p <Plug>CtrlSFPwordPath
 nnoremap <C-F>o :CtrlSFOpen<CR>
 nnoremap <C-F>t :CtrlSFToggle<CR>
 inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
-"set completeopt=menuone,menu,longest,preview,noinsert,noselect
+"set completeopt=menuone,menu,longest,noinsert
 set completeopt=menuone,menu,longest
 
 " Highlight (inofficial) json comments
@@ -1583,6 +1593,7 @@ autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
 autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
 
 nnoremap <localleader>fzf :call vimtex#fzf#run()<cr>
+let maplocalleader = ','
 
 
 if has('nvim')
@@ -1702,7 +1713,9 @@ if has('nvim')
 let g:email='stephan.seitz@fau.de'
 let g:username='Stephan Seitz'
 
-call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*', 'python': '[^. *\t(]\.\w*' })
+call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*',
+  \ 'python': '[^. *\t(]\.\w*',
+  \      'lisp': '[(\s]\w*'})
 
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
@@ -1912,7 +1925,7 @@ let g:gitgutter_max_signs=3000
 
 luafile ~/.config/nvim/init.lua
 
-let g:vlime_contribs = ['SWANK-ASDF', 'SWANK-PACKAGE-FU',
+let g:vlime_contribs = ['SWANK-QUICKLISP', 'SWANK-ASDF', 'SWANK-PACKAGE-FU',
                       \ 'SWANK-PRESENTATIONS', 'SWANK-FANCY-INSPECTOR',
                       \ 'SWANK-C-P-C', 'SWANK-ARGLISTS', 'SWANK-REPL',
                       \ 'SWANK-FUZZY', 'SWANK-TRACE-DIALOG']
@@ -1971,8 +1984,8 @@ function! OpenTerm(cmd, ...) abort
   normal i
 endfunction
 
-nmap ,k :SplitjoinSplit<cr>
-nmap ,j :SplitjoinJoin<cr>
+"nmap ,k :SplitjoinSplit<cr>
+"nmap ,j :SplitjoinJoin<cr>
 
 
 nnoremap <silent> <Up>    :call animate#window_delta_height(10)<CR>
@@ -2014,3 +2027,31 @@ nnoremap <leader>tQ :setlocal errorformat=
 	\%-G%.%#<cr>:cgetbuffer<cr>:copen<cr>
 
 let g:completion_confirm_key = "\<C-y>"
+let g:sexp_enable_insert_mode_mappings=1
+nnoremap gb `[v`]
+
+
+let g:vlime_compiler_policy={"DEBUG": 3, "SPEED": 0}
+
+
+augroup CustomVlimeInputBuffer
+    autocmd!
+    autocmd FileType vlime_input inoremap <silent> <buffer> <tab> <c-r>=vlime#plugin#VlimeKey("tab")<cr>
+    autocmd FileType vlime_input setlocal omnifunc=vlime#plugin#CompleteFunc
+    autocmd FileType vlime_input setlocal indentexpr=vlime#plugin#CalcCurIndent()
+    autocmd BufEnter vlime_input i
+augroup end
+
+nnoremap <c-g> :InfoWindowToggle<cr>
+nnoremap <a-s-k> "ayy"aP
+nnoremap <a-s-j> "ayy"ap
+
+"" invert that dictionary to create one mapping names to codepoints
+"let unicodeIndex = {}
+"for codepoint in keys(g:unicode#unicode#data)
+  "let char = nr2char(codepoint)
+  "let unicodeIndex[g:unicode#unicode#data[codepoint] . ' ' . char] = char
+"endfor
+
+"" shamelessly shadow the default i_CTRL-U (clear to beginning of line) mapping because I never use it.
+"inoremap <C-s-U> <C-R>=join(map(fzf#run({'source': keys(unicodeIndex), 'down': '10' }), 'unicodeIndex[v:val]'))<CR><Esc>
