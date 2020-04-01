@@ -30,5 +30,9 @@
 			]
 		}
 	},
-	"java.errors.incompleteClasspath.severity": "ignore"
+	"java.errors.incompleteClasspath.severity": "ignore",
+	"java.referencesCodeLens.enabled": true,
+	"java.import.gradle.enabled": true,
+	"java.import.gradle.enabled": true,
+	"java.implementationsCodeLens.enabled": true
 }
