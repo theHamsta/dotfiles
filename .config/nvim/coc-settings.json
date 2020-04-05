@@ -34,5 +34,8 @@
 	"java.referencesCodeLens.enabled": true,
 	"java.import.gradle.enabled": true,
 	"java.import.gradle.enabled": true,
-	"java.implementationsCodeLens.enabled": true
+	"java.implementationsCodeLens.enabled": true,
+	"rust.clippy_preference": "on",
+	"rust-analyzer.displayInlayHints": true,
+	"pyls.plugins.pydocstyle.enabled": true
 }

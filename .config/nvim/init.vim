@@ -236,6 +236,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
     "Plug 'wellle/context.vim'
     Plug 'rhysd/vim-crystal'
+    "Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+    Plug 'dm1try/git_fastfix'
     Plug 'haorenW1025/completion-nvim'
     "Plug 'chrisbra/unicode.vim'
     Plug 'bergercookie/vim-deb-preview'
@@ -252,8 +254,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'Olical/nvim-local-fennel'
     Plug 'bakpakin/fennel.vim'
     Plug 'Olical/aniseed'
-    Plug 'camspiers/lens.vim'
-    "Plug 'camspiers/animate.vim'
+    "Plug 'camspiers/lens.vim'
+    Plug 'camspiers/animate.vim'
     "Plug 'AndrewRadev/splitjoin.vim'
     Plug 'wincent/vcs-jump'
     Plug 'neovim/nvim-lsp'
@@ -408,8 +410,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'Shougo/neosnippet.vim'
 "Plug 'vim-pandoc/vim-pandoc'
     "Plug 'amix/vim-zenroom2'
-    "Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}, 'for': ['java']}
-    Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'tex', 'bib', 'json', 'cs']}
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+    "Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'tex', 'bib', 'json', 'cs']}
     Plug 'autozimu/LanguageClient-neovim', {
             \ 'branch': 'next',
             \ 'do': ':T cargo build --release && cp target/release/languageclient bin -f',
@@ -512,9 +514,9 @@ let g:tex_conceal='abdmg'
 let g:tex_flavor='latex'
 
 let g:deoplete#enable_at_startup = 1
-call deoplete#custom#var('omni', 'input_patterns', {
-            \ 'tex': g:vimtex#re#deoplete
-            \})
+"call deoplete#custom#var('omni', 'input_patterns', {
+            "\ 'tex': g:vimtex#re#deoplete
+            "\})
 
 
 "let g:deoplete#sources#clang#executable='/usr/bin/clang'
@@ -763,6 +765,7 @@ autocmd FileType java nnoremap <buffer> <F4> :Topen<cr>:let $last_execution='pyc
 autocmd FileType java nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='gradle run'<cr>:Tkill<cr>:wa<cr>:T gradle run<cr>
 autocmd FileType tex,latex nnoremap <buffer> <F3> val<plug>(vimtex-compile-selected)
 autocmd FileType tex,latex nnoremap <buffer> <F4> :VimtexCompileSS<cr>
+autocmd FileType tex,latex :setlocal maplocalleader=<space> 
 autocmd FileType rust,toml nmap <buffer> <F5> :exec 'T cd' FindRootDirectory()<cr><c-w>o:let $last_execution='cargo run'<cr>:Tkill<cr>:wa<cr>:T cargo run<cr>:Topen<cr>
 autocmd FileType rust,toml nmap <buffer> <F7> :exec 'T cd' FindRootDirectory()<cr><c-w>o:Tkill<cr>:wa<cr>:T cargo run 
 autocmd FileType rust,toml nmap <buffer> <F4> :exec 'T cd' FindRootDirectory()<cr><c-w>o:let $last_execution='cargo build'<cr>:Tkill<cr>:Topen<cr>:wa<cr>:T cargo build<cr>:Topen<cr>
@@ -896,6 +899,8 @@ let g:LanguageClient_serverCommands = {
     \ 'dockerfile': ['docker-langserver', '--stdio'],
     \ 'd': ['dls'],
     \ 'crystal': ['/home/stephan/projects/scry/scry/bin/scry'],
+    \ 'tex': ['texlab'],
+    \ 'bib': ['texlab'],
     \ 'gluon': ['gluon_language-server']
     \ }
     "\ 'lisp': ['sbcl', '--script', '/home/stephan/quicklisp/local-projects/cl-lsp/start-that-shit.lisp']
@@ -1169,6 +1174,7 @@ let g:LanguageClient_diagnosticsList = "Location"
 
  function! ActivateCoc()
      call deoplete#custom#option('auto_complete', v:false)
+     set completeopt +=preview
      autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
      if &filetype != "python" && &filetype != "tex" && &filetype != "bib" && &filetype != "go" && &filetype != "kotlin"&& &filetype != "kt"&& &filetype != "rust"
          autocmd  CursorHold <buffer> silent call CocActionAsync('highlight')
@@ -1203,7 +1209,7 @@ omap <silent> <buffer> if <Plug>(coc-funcobj-i)
 omap  <silent> <buffer> af <Plug>(coc-funcobj-a)
  endfunction()
 
-autocmd FileType java,json,tex,bib,yaml,vim,bash,sh,cs call ActivateCoc()
+autocmd FileType java,json,yaml,vim,bash,sh,cs call ActivateCoc()
 
  "inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 
@@ -2028,7 +2034,6 @@ nnoremap <leader>tQ :setlocal errorformat=
 
 let g:completion_confirm_key = "\<C-y>"
 let g:sexp_enable_insert_mode_mappings=1
-nnoremap gb `[v`]
 
 
 let g:vlime_compiler_policy={"DEBUG": 3, "SPEED": 0}
@@ -2055,3 +2060,19 @@ nnoremap <a-s-j> "ayy"ap
 
 "" shamelessly shadow the default i_CTRL-U (clear to beginning of line) mapping because I never use it.
 "inoremap <C-s-U> <C-R>=join(map(fzf#run({'source': keys(unicodeIndex), 'down': '10' }), 'unicodeIndex[v:val]'))<CR><Esc>
+
+lua require'git_fastfix'
+nn <silent> <leader>gf :lua OpenGitFastFixWindow()<cr>
+
+"nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+"
+"function! JavaStartDebugCallback(err, port)
+  "execute "cexpr! 'Java debug started on port: " . a:port . "'"
+  "call vimspector#LaunchWithSettings({ "configuration": "Java Attach", "AdapterPort": a:port })
+"endfunction
+
+"function JavaStartDebug()
+  "call CocActionAsync('runCommand', 'vscode.java.startDebugSession', function('JavaStartDebugCallback'))
+"endfunction
+
+"nmap <F1> :call JavaStartDebug()<CR>
