@@ -242,6 +242,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'chrisbra/unicode.vim'
     "Plug 'bergercookie/vim-deb-preview'
     Plug 'doums/coBra'
+    Plug 'uiiaoo/java-syntax.vim'
     Plug 'tree-sitter/tree-sitter-python', { 'do': 'mkdir -p parser && cc -O3 -o parser/python.so -shared src/parser.c src/scanner.cc -I./src' }
     Plug 'Azganoth/tree-sitter-lua', { 'do': 'mkdir -p parser && cc -O3 -o parser/lua.so -shared src/parser.c src/scanner.cc -I./src' }
     Plug 'tree-sitter/tree-sitter-cpp', { 'do': 'mkdir -p parser && cc -O3 -o parser/cpp.so -shared src/parser.c src/scanner.cc -I./src' }
@@ -2091,3 +2092,7 @@ let g:completion_chain_complete_list = {
 
 " Highlight the node at point, its usages and definition when cursor holds
 let g:complete_ts_highlight_at_point = 1
+
+nnoremap <silent> <c-ScrollWheelUp> :lua require'my_gui'.increase_fontsize()<cr>
+nnoremap <silent> <c-ScrollWheelDown> :lua require'my_gui'.decrease_fontsize()<cr>
+nnoremap <silent> <c-0> :lua require'my_gui'.reset_fontsize()<cr>
