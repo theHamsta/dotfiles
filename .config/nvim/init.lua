@@ -8,7 +8,9 @@
 
 --require'nvim_lsp'.clangd.setup{}
 --require'nvim_lsp'.pyls.setup{}
- nvim_lsp.clangd.setup({
-      cmd={"clangd-11", "--clang-tidy", "--header-insertion=iwyu", "--background-index", "--suggest-missing-includes"}
-  })
+nvim_lsp  =require'nvim_lsp'
+
+nvim_lsp.clangd.setup({
+    cmd={"clangd-11", "--clang-tidy", "--header-insertion=iwyu", "--background-index", "--suggest-missing-includes"}
+})
 
