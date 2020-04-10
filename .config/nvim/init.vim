@@ -224,7 +224,6 @@ function! BuildComposer(info)
     endif
   endif
 endfunction
-
 call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'beloglazov/vim-online-thesaurus'
     "Plug 'garbas/vim-snipmate'
@@ -238,9 +237,16 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'rhysd/vim-crystal'
     "Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
     Plug 'dm1try/git_fastfix'
-    Plug 'haorenW1025/completion-nvim'
+    "Plug 'vigoux/completion-treesitter'
+    "Plug 'haorenW1025/completion-nvim'
     "Plug 'chrisbra/unicode.vim'
-    Plug 'bergercookie/vim-deb-preview'
+    "Plug 'bergercookie/vim-deb-preview'
+    Plug 'doums/coBra'
+    Plug 'tree-sitter/tree-sitter-python', { 'do': 'mkdir -p parser && cc -O3 -o parser/python.so -shared src/parser.c src/scanner.cc -I./src' }
+    Plug 'Azganoth/tree-sitter-lua', { 'do': 'mkdir -p parser && cc -O3 -o parser/lua.so -shared src/parser.c src/scanner.cc -I./src' }
+    Plug 'tree-sitter/tree-sitter-cpp', { 'do': 'mkdir -p parser && cc -O3 -o parser/cpp.so -shared src/parser.c src/scanner.cc -I./src' }
+    Plug 'tree-sitter/tree-sitter-java', { 'do': 'mkdir -p parser && cc -O3 -o parser/java.so  -shared src/parser.c -I./src' }
+    Plug 'tree-sitter/tree-sitter-javascript', { 'do': 'mkdir -p parser && cc -O3 -o parser/javascript.so  -shared src/parser.c src/scanner.c -I./src' }
     Plug 'zoxves/LightningFileExplorer'
     Plug 'mcchrish/info-window.nvim'
     Plug 'gluon-lang/vim-gluon'
@@ -336,7 +342,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'junegunn/goyo.vim'
     Plug 'junegunn/gv.vim'
     Plug 'junegunn/limelight.vim'
-    Plug 'justinmk/vim-gtfo'
+    "Plug 'justinmk/vim-gtfo'
     Plug 'justinmk/vim-sneak'
     Plug 'kana/vim-textobj-function'
     Plug 'kana/vim-textobj-user'
@@ -410,7 +416,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'Shougo/neosnippet.vim'
 "Plug 'vim-pandoc/vim-pandoc'
     "Plug 'amix/vim-zenroom2'
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'json', 'cs']}
     "Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'tex', 'bib', 'json', 'cs']}
     Plug 'autozimu/LanguageClient-neovim', {
             \ 'branch': 'next',
@@ -726,34 +732,7 @@ let g:vebugger_leader =','
 "let g:deoplete#sources#jedi#extra_path =['', '/usr/lib/python2.7', '/usr/lib/python2.7/plat-x86_64-linux-gnu', '/usr/lib/python27/lib-tk', '/usr/lib/python2.7/lib-old', '/usr/lib/python2.7/lib-dynload', '/home/stepha/.local/lib/python2.7/site-packages', '/usr/local/lib/python2.7/dist-packages', '/usr/li/python2.7/dist-packages', '/usr/lib/python2.7/dist-packages/PILcompat', '/usr/lib/pytho2.7/dist-packages/gtk-2.0', '/usr/lib/python2.7/dist-packages/wx-3.0-gtk2']
 nnoremap <F3> <c-w>o:Tkill<cr>:Topen<cr>:wa<cr>:exec 'T' expand($last_execution,1)<cr>
 nnoremap <s-F3> :Tkill<cr>:wa<cr>:exec expand($last_execution,1)<cr>
-"autocmd FileType python nnoremap <buffer> <F6> :VBGstartPDB3 %<cr>
-"autocmd FileType python nnoremap <buffer> <space>deb :VBGstartPDB3 %<cr>
-"autocmd FileType python nnoremap <buffer> <c-f5> :VBGcontinue %<cr>
-"autocmd FileType python nnoremap <buffer> <F7> :VBGcontinue<cr>
-"autocmd FileType python nnoremap <buffer> <F9> :VBGtoggleBreakpointThisLine<cr>
-"autocmd FileType python nnoremap <buffer> <c-a-b> :VBGtoggleBreakpointThisLine<cr>
-"autocmd FileType python nnoremap <buffer> <F10> :VBGstepOver<cr>
-"autocmd FileType python nnoremap <buffer> <F11> :VBGstepIn<cr>
-"autocmd FileType python nnoremap <buffer> <F12> :VBGstepOver<cr>
-"nnoremap <leader>tt :<c-u>exec v:count . 'T '
 "
-autocmd FileType python nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:T python3 %<cr>
-autocmd FileType python nnoremap <buffer> <s-F5> :let $last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:execute ':GdbStartPDB python3 -m pdb ' . expand('%:p',1)<cr>
-autocmd FileType python nnoremap <buffer> <F7> :let $last_execution='python3 -m pdb -c continue ' . expand('%:p',1)<cr>:wa<cr>:T python3 -m pdb -c continue %<cr>
-autocmd FileType python nnoremap <buffer> <F4> :let $last_execution='ipython3 ' . expand('%:p',1)<cr>:wa<cr>:T ipython3 %<cr>
-"autocmd FileType python <buffer> nmap <cr> <Plug>(IPy-RunCell)
-"autocmd FileType python map <leader>pa <Plug>(IPy-RunAll)
-
-autocmd FileType python nmap <silent> <enter> <Plug>(IPy-Run)
-autocmd FileType python nmap <silent> <leader>rr <Plug>(IPy-RunAll)
-autocmd FileType python nmap <silent> <c-f> <Plug>(IPy-Complete)
-autocmd FileType python nmap <silent> <s-enter> <Plug>(IPy-RunCell)
-autocmd FileType python nmap <silent> <leader>? <Plug>(IPy-WordObjInfo)
-autocmd FileType python nmap <silent> <leader>tn <c-w>o:wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestNearest -s<CR>
-autocmd FileType python nmap <silent> <leader>tN <c-w>o:wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestNearest -s --pdb<CR>
-autocmd FileType python nmap <silent> <leader>tf :wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestFile<CR>
-autocmd FileType python nmap <silent> <leader>tF :wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestFile -s<CR>
-"autocmd FileType python nmap <silent> <C-.> <Plug>(pydocstring)
 "autocmd FileType cpp nnoremap <buffer> <F5> :let $last_execution='./build/' . $target<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($last_execution,1)<cr>
 autocmd FileType just,cpp,cmake,cuda,c,make,prm nnoremap <buffer> <s-F6> <c-w>o:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:Tkill<cr>:wa<cr>:T just clean<cr>
 autocmd FileType just,cpp,cmake,cuda,c,make,prm nnoremap <buffer> <F7> <c-w>o:Topen<cr>:Tclear<cr>:exec 'T cd' FindRootDirectory()<cr>:Tkill<cr>:wa<cr>:T just release-run<cr>
@@ -762,10 +741,10 @@ autocmd FileType just,cpp,cmake,cuda,c,make,prm nnoremap <buffer> <F6> <c-w>o:To
 autocmd FileType just,cpp,cmake,cuda,c,make,prm,latex,tex nnoremap <buffer> <F5> <c-w>o:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
 autocmd FileType java nnoremap <buffer> <F6> :Topen<cr>:let $last_execution='pyconrad_run ' . expand('%:r',1)<cr>:Tkill<cr>:wa<cr>:T pyconrad_run %:r<cr>
 autocmd FileType java nnoremap <buffer> <F4> :Topen<cr>:let $last_execution='pyconrad_run --gui ' . expand('%:r',1)<cr>:Tkill<cr>:wa<cr>:T pyconrad_run --gui %:r<cr>
-autocmd FileType java nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='gradle run'<cr>:Tkill<cr>:wa<cr>:T gradle run<cr>
+autocmd FileType java,kotlin,groovy nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='./gradlew run'<cr>:Tkill<cr>:wa<cr>:T ./gradlew run<cr>
 autocmd FileType tex,latex nnoremap <buffer> <F3> val<plug>(vimtex-compile-selected)
 autocmd FileType tex,latex nnoremap <buffer> <F4> :VimtexCompileSS<cr>
-autocmd FileType tex,latex :setlocal maplocalleader=<space> 
+"autocmd FileType tex,latex :let  maplocalleader="<space>"
 autocmd FileType rust,toml nmap <buffer> <F5> :exec 'T cd' FindRootDirectory()<cr><c-w>o:let $last_execution='cargo run'<cr>:Tkill<cr>:wa<cr>:T cargo run<cr>:Topen<cr>
 autocmd FileType rust,toml nmap <buffer> <F7> :exec 'T cd' FindRootDirectory()<cr><c-w>o:Tkill<cr>:wa<cr>:T cargo run 
 autocmd FileType rust,toml nmap <buffer> <F4> :exec 'T cd' FindRootDirectory()<cr><c-w>o:let $last_execution='cargo build'<cr>:Tkill<cr>:Topen<cr>:wa<cr>:T cargo build<cr>:Topen<cr>
@@ -773,8 +752,6 @@ autocmd FileType rust,toml nmap <buffer> <F6> :exec 'T cd' FindRootDirectory()<c
 autocmd FileType rust nmap <silent> <leader>tn :wa<cr>:RustTest<cr>
 autocmd FileType rust nmap <silent> <leader>tN <c-w>o:wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestNearest -- --nocapture<CR>
 
-autocmd FileType kotlin nnoremap <buffer> <F5> :wa<cr>:Topen<cr>:T gradle run<cr>
-autocmd FileType groovy nnoremap <buffer> <F5> :wa<cr>:Topen<cr>:T gradle run<cr>
 
 autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
 autocmd BufRead *.prm :setfiletype prm
@@ -805,7 +782,6 @@ autocmd FileType cmake SemanticHighlight
 autocmd FileType lua nnoremap <buffer> <F5> :exec '!lua' shellescape(@%:p, 1)<cr>:let last_execution=@%:p <cr>
 
 autocmd FileType tex,latex nnoremap <buffer> <c-s> :w<cr>:silent !latexindent % -w<cr>:e<cr>
-autocmd FileType python command! Flynt !flynt %:p
 "autocmd FileType tex,latex call neomake#configure#automake('w')
 autocmd FileType rst call neomake#configure#automake('w')
 autocmd FileType tex,latex nnoremap <buffer> <c-a-o> :call vimtex#fzf#run()<cr>
@@ -818,13 +794,7 @@ autocmd FileType bib command! Format normal :w<cr>:silent !latexindent % -w<cr>:
 "<cr>:e
 
 let g:ag_working_path_mode="r"
-"let g:deoplete#sources#jedi#python_path='/usr/bin/python3'
 
-
-"let g:ale_fixers = {'python': ['pylint']}
-
-"let g:ale_python_flake8_executable = 'python3'
-"let g:ale_python_flake8_args = '-m flake8'
 
 " Put plugins and dictionaries in this dir (also on Windows)
 let vimDir = '$HOME/.vim'
@@ -874,8 +844,6 @@ let g:slimv_repl_simple_eval=1
     "\ 'rust': ['rls'],
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['ra_lsp_server'],
-    \ 'javascript': ['javascript-typescript-stdio'],
-    \ 'javascript.jsx': ['javascript-typescript-stdio'],
     \   'julia': ['julia', '--startup-file=no', '--history-file=no', '-e', '
     \       using LanguageServer;
     \       using Pkg;
@@ -891,8 +859,8 @@ let g:LanguageClient_serverCommands = {
     \ 'haskell': ['hie-wrapper', '--lsp'],
     \ 'python': ['pyls'],
     \ 'cpp': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
-    \ 'cuda': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     \ 'c': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
+    \ 'cuda': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     \ 'lua': ['lua-lsp'],
     \ 'kotlin': ['kotlin-language-server', '.'],
     \ 'go': ['gopls'],
@@ -903,6 +871,8 @@ let g:LanguageClient_serverCommands = {
     \ 'bib': ['texlab'],
     \ 'gluon': ['gluon_language-server']
     \ }
+    "\ 'javascript': ['javascript-typescript-stdio'],
+    "\ 'javascript.jsx': ['javascript-typescript-stdio'],
     "\ 'lisp': ['sbcl', '--script', '/home/stephan/quicklisp/local-projects/cl-lsp/start-that-shit.lisp']
     "\ 'lisp': ['/home/stephan/projects/cl-language-server/target/debug/cl-language-server'],
     "\ 'lisp': ['cl-language-server']
@@ -979,7 +949,6 @@ function! NvimLspMaps()
   nnoremap <buffer><silent> gS <cmd>lua vim.lsp.buf.signature_help()<CR>
   inoremap <buffer><silent> ( <cmd>lua vim.lsp.buf.signature_help()<CR>(
   nnoremap <buffer><silent> gt   <cmd>lua vim.lsp.buf.type_definition()<CR>
-  " Use LSP omni-completion in Python files.
    setlocal omnifunc=v:lua.vim.lsp.omnifunc
 endfunction
 
@@ -1011,11 +980,6 @@ nmap <silent> <c-t> :Tags<cr>
     "nnoremap <leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
     "nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>
 "endfunction()
-
-"augroup LSP
-"autocmd!
-"autocmd FileType cpp,c,python,go,rust call SetLSPShortcuts()
-"augroup END
 
 noremap <leader>rn :call LanguageClient#textDocument_rename()<CR>
 
@@ -1196,6 +1160,7 @@ let g:LanguageClient_diagnosticsList = "Location"
      nmap <silent> <buffer>  gI <c-w>v<Plug>(coc-implementation)
      nmap <silent> <buffer>  gr <Plug>(coc-references)
      nmap <silent> <buffer>  gh :call CocAction('doHover')<cr>
+     nmap <buffer> <leader>qf  <Plug>(coc-fix-current)
      if &filetype != "tex" && &filetype != "bib"
      nmap <silent> <buffer>  <leader>le <Plug>(coc-codelens-action)
      nmap <silent> <buffer>  <c-s> :call CocAction('format')<cr>
@@ -1240,7 +1205,7 @@ nnoremap <leader>date :r!date<cr>
 autocmd FileType tex nnoremap <buffer> ,lv :let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'<cr>:VimtexView<cr>:let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex --noraise'<cr>
 autocmd FileType tex nnoremap <buffer> <cr> :let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'<cr>:VimtexView<cr>:let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex --noraise'<cr>
 "autocmd FileType tex nnomap <buffer>  <cr> <leader>lv
-autocmd FileType tex nnoremap <buffer> <c-cr> :T okular output.pdf --unique &<cr><c-w>o
+autocmd FileType tex nnoremap <buffer> <c-cr> normal ":T okular " .  %:p:h . "/output.pdf --unique &<cr><c-w>o"
 nnoremap ,lc :VimtexCompile<cr>
 nnoremap <leader>zen :Goyo<cr>
 nnoremap <leader>buf :Buffers<cr>
@@ -1488,7 +1453,9 @@ function! Multiple_cursors_before()
   call deoplete#custom#option('auto_complete', v:false)
 endfunction
 function! Multiple_cursors_after()
+ if &filetype != "java"
   call deoplete#custom#option('auto_complete', v:true)
+endif
 endfunction
 
 let g:lt_location_list_toggle_map = '<leader>qe'
@@ -2076,3 +2043,51 @@ nn <silent> <leader>gf :lua OpenGitFastFixWindow()<cr>
 "endfunction
 
 "nmap <F1> :call JavaStartDebug()<CR>
+let g:gtfo#terminals = { 'unix': 'konsole' }
+
+nnoremap gtf :Tnew<cr>:T dolphin %:p:h 2>&1 >> /dev/null &<cr>:Tclose<cr>
+"let g:vimspector_enable_mappings = 'HUMAN'
+
+autocmd! BufEnter vimspector.Console nnoremap <buffer> n :call vimspector#StepOver()<cr>
+"function VimspectorLaunch()
+nnoremap <s-f9> :call vimspector#ToggleBreakpoint()<cr>
+nnoremap <s-f8> :call vimspector#StepOver()<cr>
+nnoremap <f9> :call vimspector#StepInto()<cr>
+nnoremap <f10> :call vimspector#StepOut()<cr>
+nnoremap <s-f10> :call vimspector#Restart()<cr>
+nnoremap  <f11> :call vimspector#Continue()<cr>
+nnoremap <s-f11> :call vimspector#Stop()<cr>
+"endfunction
+
+command! WorkingDirToCurrentFile cd %:p:h
+command! CdToCurrentFile cd %:p:h
+command! CdToCurrentFile cd %:p:h
+command! SwitchWorkingDirToCurrentFile cd %:p:h
+
+" Configure the completion chains
+let g:completion_chain_complete_list = {
+			\'default' : {
+			\	'default' : [
+			\		{'complete_items' : ['lsp', 'snippet']},
+			\		{'mode' : 'file'}
+			\	],
+			\	'comment' : [],
+			\	'string' : []
+			\	},
+			\'vim' : [
+			\	{'complete_items': ['snippet']},
+			\	{'mode' : 'cmd'}
+			\	],
+			\'c' : [
+			\	{'complete_items': ['ts']}
+			\	],
+			\'python' : [
+			\	{'complete_items': ['ts']}
+			\	],
+			\'lua' : [
+			\	{'complete_items': ['ts']}
+			\	],
+			\}
+
+" Highlight the node at point, its usages and definition when cursor holds
+let g:complete_ts_highlight_at_point = 1
