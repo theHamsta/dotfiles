@@ -175,8 +175,6 @@ nnoremap <Leader>bp :bN<cr>
 nnoremap <Leader>bn :bn<cr>
 nnoremap <Leader>tab :tabnew<cr>
 nnoremap <Leader>tc :tabclose<cr>
-nnoremap <Leader>nt :NERDTreeToggle<cr>
-nnoremap <Leader>nf :NERDTreeFind<cr>
   "let g:NERDTreeShowIgnoredStatus = 1
 nnoremap <Leader>oo :only<cr>
 "nmap <silent> <C-k> <Plug>(ale_previous_wrap)
@@ -237,18 +235,18 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'rhysd/vim-crystal'
     "Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
     Plug 'dm1try/git_fastfix'
-    "Plug 'vigoux/completion-treesitter'
-    "Plug 'haorenW1025/completion-nvim'
+    Plug 'vigoux/completion-treesitter'
+    Plug 'haorenW1025/completion-nvim'
     "Plug 'chrisbra/unicode.vim'
     "Plug 'bergercookie/vim-deb-preview'
-    Plug 'doums/coBra'
-    Plug 'uiiaoo/java-syntax.vim'
+    "Plug 'doums/coBra'
     Plug 'tree-sitter/tree-sitter-python', { 'do': 'mkdir -p parser && cc -O3 -o parser/python.so -shared src/parser.c src/scanner.cc -I./src' }
     Plug 'Azganoth/tree-sitter-lua', { 'do': 'mkdir -p parser && cc -O3 -o parser/lua.so -shared src/parser.c src/scanner.cc -I./src' }
     Plug 'tree-sitter/tree-sitter-cpp', { 'do': 'mkdir -p parser && cc -O3 -o parser/cpp.so -shared src/parser.c src/scanner.cc -I./src' }
     Plug 'tree-sitter/tree-sitter-java', { 'do': 'mkdir -p parser && cc -O3 -o parser/java.so  -shared src/parser.c -I./src' }
     Plug 'tree-sitter/tree-sitter-javascript', { 'do': 'mkdir -p parser && cc -O3 -o parser/javascript.so  -shared src/parser.c src/scanner.c -I./src' }
     Plug 'zoxves/LightningFileExplorer'
+    Plug 'theHamsta/nvim-tree.lua', {'branch': 'exa'}
     Plug 'mcchrish/info-window.nvim'
     Plug 'gluon-lang/vim-gluon'
     Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
@@ -520,7 +518,7 @@ set conceallevel=2
 let g:tex_conceal='abdmg'
 let g:tex_flavor='latex'
 
-let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 0
 "call deoplete#custom#var('omni', 'input_patterns', {
             "\ 'tex': g:vimtex#re#deoplete
             "\})
@@ -560,7 +558,7 @@ nnoremap gf gF
 nnoremap gF <c-w>gF
 nnoremap gP :call GotoPython()<cr>
 
-set wildignore+=_minted-*,*/tmp/*,*.so,*.swp,*.zip,*.log,*/CMakeFiles/*,*.aux,*.lof,*.lot,*.gz,*.fls,*.fdb_latexmk,*.toc,__*__,*/pybind11/*,*[0-9]+,*.class,*.bak?,*.bak??,*.md5,*.snm,*.bbl,*.nav,*.out,*.run.xml,*.bcf,*.blg,*.auxlock,*.dvi,*.glo,*.glg,*.ist
+set wildignore+=tags,_minted-*,*.egg-info,tmp,*.so,*.swp,*.zip,*.log,*/CMakeFiles/*,*.aux,*.lof,*.lot,*.gz,*.fls,*.fdb_latexmk,*.toc,__*__,*/pybind11/*,*[0-9]+,*.class,*.bak?,*.bak??,*.md5,*.snm,*.bbl,*.nav,*.out,*.run.xml,*.bcf,*.blg,*.auxlock,*.dvi,*.glo,*.glg,*.ist
 
 set lazyredraw
 set ttyfast
@@ -755,8 +753,9 @@ autocmd FileType rust nmap <silent> <leader>tN <c-w>o:wa<cr>:Topen<cr>:exec 'T c
 
 
 autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
-autocmd BufRead *.prm :setfiletype prm
 autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
+
+autocmd BufRead *.prm :setfiletype prm
 " jump to the previous function
 autocmd FileType cpp nnoremap <buffer> [f :call
 \ search('\(\(if\\|for\\|while\\|switch\\|catch\)\_s*\)\@64<!(\_[^)]*)\_[^;{}()]*\zs{', "bw")<CR>
@@ -859,8 +858,6 @@ let g:LanguageClient_serverCommands = {
     \   '],
     \ 'haskell': ['hie-wrapper', '--lsp'],
     \ 'python': ['pyls'],
-    \ 'cpp': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
-    \ 'c': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     \ 'cuda': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     \ 'lua': ['lua-lsp'],
     \ 'kotlin': ['kotlin-language-server', '.'],
@@ -872,6 +869,8 @@ let g:LanguageClient_serverCommands = {
     \ 'bib': ['texlab'],
     \ 'gluon': ['gluon_language-server']
     \ }
+    "\ 'cpp': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
+    "\ 'c': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     "\ 'javascript': ['javascript-typescript-stdio'],
     "\ 'javascript.jsx': ['javascript-typescript-stdio'],
     "\ 'lisp': ['sbcl', '--script', '/home/stephan/quicklisp/local-projects/cl-lsp/start-that-shit.lisp']
@@ -1058,7 +1057,7 @@ augroup END
 
 nnoremap <a-t> :Switch<CR>
 
-au VimEnter * RainbowParenthesesToggle
+au VimEnter * RainbowParenthesesActivate
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
@@ -1074,9 +1073,6 @@ nnoremap <a-o> :CtrlPSameName<cr>
 
 nnoremap <c-a-h> call feedkeys(":CtrlP\<cr>".expand('%:t:r') . ".h", "t")
 set path=.,**
-"horizontal split below
-let g:slimv_repl_split=2
-let g:slimv_swank_cmd = '! konsole -e sbcl --load /home/stephan/quicklisp/dists/quicklisp/software/slime-v2.24/start-swank.lisp &'
 
 
 nnoremap <leader>E <Plug>(neoterm-repl-send)
@@ -1198,7 +1194,7 @@ au CursorHold * checktime
 
 set shortmess+=c
 nnoremap <leader>yp :let @+ = expand("%:p")<cr>
-let g:rooter_change_directory_for_non_project_files = ''
+"let g:rooter_change_directory_for_non_project_files = ''
 
 "let g:livepreview_previewer = 'okular'
 
@@ -2096,3 +2092,41 @@ let g:complete_ts_highlight_at_point = 1
 nnoremap <silent> <c-ScrollWheelUp> :lua require'my_gui'.increase_fontsize()<cr>
 nnoremap <silent> <c-ScrollWheelDown> :lua require'my_gui'.decrease_fontsize()<cr>
 nnoremap <silent> <c-0> :lua require'my_gui'.reset_fontsize()<cr>
+
+let g:lua_tree_side = 'left' " | 'left' left by default
+let g:lua_tree_size = 50 "30 by default
+let g:lua_tree_ignore = [ '.git', 'node_modules', '.cache', '__pycache__', '__init__.pyc','*.egg-info', ] "empty by default, not working on mac atm
+let g:lua_tree_auto_open = 0 "0 by default, opens the tree when typing `vim $DIR` or `vim`
+let g:lua_tree_auto_close = 1 "0 by default, closes the tree when it's the last window
+let g:lua_tree_follow = 1 "0 by default, this option will bind BufEnter to the LuaTreeFindFile command
+" :help LuaTreeFindFile for more info
+let g:lua_tree_show_icons = {
+    \ 'git': 1,
+    \ 'folders': 1,
+    \ 'files': 1,
+    \}
+let g:lua_tree_use_wildignore = 1
+"If 0, do not show the icons for one of 'git' 'folder' and 'files'
+"1 by default, notice that if 'files' is 1, it will only display
+"if web-devicons is installed and on your runtimepath
+
+" You can edit keybindings be defining this variable
+" You don't have to define all keys.
+" NOTE: the 'edit' key will wrap/unwrap a folder and open a file
+let g:lua_tree_bindings = {
+    \ 'edit':        '<CR>',
+    \ 'edit_vsplit': '<C-v>',
+    \ 'edit_split':  '<C-x>',
+    \ 'edit_tab':    '<C-t>',
+    \ 'cd':          '.',
+    \ 'create':      'a',
+    \ 'remove':      'd',
+    \ 'rename':      'r'
+    \ }
+
+nnoremap <Leader>nt :LuaTreeToggle<CR>
+nnoremap <Leader>nf :LuaTreeFindFile<cr>:LuaTreeShow<CR>
+"nnoremap <Leader>nt :NERDTreeToggle<cr>
+"nnoremap <Leader>nf :NERDTreeFind<cr>
+"
+autocmd BufEnter * lua require'completion'.on_attach()

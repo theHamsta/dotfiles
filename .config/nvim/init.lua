@@ -14,3 +14,10 @@ nvim_lsp.clangd.setup({
     cmd={"clangd-11", "--clang-tidy", "--header-insertion=iwyu", "--background-index", "--suggest-missing-includes"}
 })
 
+require 'colorizer'.setup {
+  'css';
+  'javascript';
+  'tex'; 
+  'html'; 
+  'tex';
+}
