@@ -297,7 +297,6 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'Shougo/vimproc.vim', {'do' : 'make'}
     Plug 'SirVer/ultisnips'
     Plug 'Valloric/ListToggle'
-    Plug 'Xuyuanp/nerdtree-git-plugin' " , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
     Plug 'airblade/vim-gitgutter'
     Plug 'airblade/vim-rooter'
     Plug 'akiyosi/gonvim-fuzzy'
@@ -330,7 +329,10 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'henrynewcomer/vim-theme-papaya'
     Plug 'hotwatermorning/auto-git-diff'
     Plug 'idanarye/vim-merginal'
-    Plug 'ivalkeen/nerdtree-execute' "  , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    "Plug 'ivalkeen/nerdtree-execute' "  , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    "Plug 'Xuyuanp/nerdtree-git-plugin' " , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    "Plug 'scrooloose/nerdtree' ", { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    "Plug 'tiagofumo/vim-nerdtree-syntax-highlight' ", { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
     Plug 'jackguo380/vim-lsp-cxx-highlight'
     Plug 'janko/vim-test'
     Plug 'jaxbot/semantic-highlight.vim'
@@ -375,7 +377,6 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'ryanoasis/vim-devicons'
     "Plug 'sakhnik/nvim-gdb', { 'do': './install.sh' }
     Plug 'scrooloose/nerdcommenter'
-    Plug 'scrooloose/nerdtree' ", { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
     Plug 'sebdah/vim-delve', { 'for' : 'go' }
     Plug 'sgur/ctrlp-extensions.vim'
     Plug 'sgur/vim-textobj-parameter'
@@ -390,7 +391,6 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'theHamsta/vim-template'
     Plug 'theHamsta/vim-textobj-entire'
     Plug 'theHamsta/vim-rebase-mode'
-    Plug 'tiagofumo/vim-nerdtree-syntax-highlight' ", { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
     Plug 'tpope/vim-abolish'
     Plug 'tpope/vim-eunuch'
     Plug 'tpope/vim-fugitive'
@@ -2061,33 +2061,34 @@ command! CdToCurrentFile cd %:p:h
 command! CdToCurrentFile cd %:p:h
 command! SwitchWorkingDirToCurrentFile cd %:p:h
 
-" Configure the completion chains
-let g:completion_chain_complete_list = {
-			\'default' : {
-			\	'default' : [
-			\		{'complete_items' : ['lsp', 'snippet']},
-			\		{'mode' : 'file'}
-			\	],
-			\	'comment' : [],
-			\	'string' : []
-			\	},
-			\'vim' : [
-			\	{'complete_items': ['snippet']},
-			\	{'mode' : 'cmd'}
-			\	],
-			\'c' : [
-			\	{'complete_items': ['ts']}
-			\	],
-			\'python' : [
-			\	{'complete_items': ['ts']}
-			\	],
-			\'lua' : [
-			\	{'complete_items': ['ts']}
-			\	],
-			\}
+"" Configure the completion chains
+"let g:completion_chain_complete_list = {
+			"\'default' : {
+			"\	'default' : [
+			"\		{'complete_items' : ['lsp', 'snippet']},
+			"\		{'mode' : 'file'}
+			"\	],
+			"\	'comment' : [],
+			"\	'string' : []
+			"\	},
+			"\'vim' : [
+			"\	{'complete_items': ['snippet']},
+			"\	{'mode' : 'cmd'}
+			"\	],
+			"\'c' : [
+			"\	{'complete_items': ['ts']}
+			"\	],
+			"\'python' : [
+			"\	{'complete_items': ['ts']}
+			"\	],
+			"\'lua' : [
+			"\	{'complete_items': ['ts']}
+			"\	],
+			"\}
+"autocmd BufEnter * lua require'completion'.on_attach()
 
-" Highlight the node at point, its usages and definition when cursor holds
-let g:complete_ts_highlight_at_point = 1
+"" Highlight the node at point, its usages and definition when cursor holds
+"let g:complete_ts_highlight_at_point = 1
 
 nnoremap <silent> <c-ScrollWheelUp> :lua require'my_gui'.increase_fontsize()<cr>
 nnoremap <silent> <c-ScrollWheelDown> :lua require'my_gui'.decrease_fontsize()<cr>
@@ -2129,4 +2130,3 @@ nnoremap <Leader>nf :LuaTreeFindFile<cr>:LuaTreeShow<CR>
 "nnoremap <Leader>nt :NERDTreeToggle<cr>
 "nnoremap <Leader>nf :NERDTreeFind<cr>
 "
-autocmd BufEnter * lua require'completion'.on_attach()
