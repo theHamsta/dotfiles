@@ -235,8 +235,9 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'rhysd/vim-crystal'
     "Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
     Plug 'dm1try/git_fastfix'
-    Plug 'vigoux/completion-treesitter'
-    Plug 'haorenW1025/completion-nvim'
+
+    "Plug 'haorenW1025/completion-nvim'
+    "Plug 'vigoux/completion-treesitter'
     "Plug 'chrisbra/unicode.vim'
     "Plug 'bergercookie/vim-deb-preview'
     "Plug 'doums/coBra'
@@ -518,7 +519,7 @@ set conceallevel=2
 let g:tex_conceal='abdmg'
 let g:tex_flavor='latex'
 
-let g:deoplete#enable_at_startup = 0
+let g:deoplete#enable_at_startup = 1
 "call deoplete#custom#var('omni', 'input_patterns', {
             "\ 'tex': g:vimtex#re#deoplete
             "\})
