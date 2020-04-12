@@ -15,7 +15,7 @@ if not original_fontsize then
 end
 
 local update_font = function()
-    vim.api.nvim_command("call rpcnotify(1, 'Gui', 'Font', '" .. vim.g.my_font .. " " .. vim.g.my_fontsize .. "')")
+    vim.cmd("call rpcnotify(1, 'Gui', 'Font', '" .. vim.g.my_font .. " " .. vim.g.my_fontsize .. "')")
 end
 
 M.increase_fontsize = function()
