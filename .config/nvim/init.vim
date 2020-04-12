@@ -51,11 +51,17 @@ set mouse=a
 
 let g:use_line_numbers=0
 
+if g:use_line_numbers
+  let g:use_line_numbers=0
+  set nonumber
+  set norelativenumber
+endif
+
 function! Toggle_line_numbers()
     if g:use_line_numbers
         let g:use_line_numbers=0
-        set number
-        set relativenumber
+        set nonumber
+        set norelativenumber
 
         " Always show line numbers, but only in current window.
         "set number
@@ -65,8 +71,8 @@ function! Toggle_line_numbers()
         "au WinLeave * :setlocal number
     else
         let g:use_line_numbers=1
-        set nonumber
-        set norelativenumber
+        set number
+        set relativenumber
 
         " Always show line numbers, but only in current window.
         ""set number
@@ -76,7 +82,6 @@ function! Toggle_line_numbers()
         "au WinLeave * :setlocal nonumber
     endif
 endfunction
-call Toggle_line_numbers()
 command! LineNumbers call Toggle_line_numbers()
 
 
@@ -102,6 +107,7 @@ function! s:goyo_enter()
   set nonumber
   set norelativenumber
   set scrolloff=999
+  lua require'my_gui'.set_fontsize(12)
   Limelight
   nnoremap <buffer> j gj
   nnoremap <buffer> k gk
@@ -111,6 +117,7 @@ function! s:goyo_leave()
   set showmode
   set showcmd
   set scrolloff=5
+  lua require'my_gui'.set_fontsize(12)
     if g:use_line_numbers
       set number
       set relativenumber
@@ -235,6 +242,10 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'rhysd/vim-crystal'
     "Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
     Plug 'dm1try/git_fastfix'
+    Plug 'haorenW1025/diagnostic-nvim'
+    Plug 'rafcamlet/nvim-luapad'
+    "Plug 'mhinz/vim-grepper'
+    "Plug 'https://gitlab.com/mcepl/vim-fzfspell.git'
 
     "Plug 'haorenW1025/completion-nvim'
     "Plug 'vigoux/completion-treesitter'
@@ -330,10 +341,10 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'henrynewcomer/vim-theme-papaya'
     Plug 'hotwatermorning/auto-git-diff'
     Plug 'idanarye/vim-merginal'
-    "Plug 'ivalkeen/nerdtree-execute' "  , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-    "Plug 'Xuyuanp/nerdtree-git-plugin' " , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-    "Plug 'scrooloose/nerdtree' ", { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-    "Plug 'tiagofumo/vim-nerdtree-syntax-highlight' ", { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    Plug 'ivalkeen/nerdtree-execute' "  , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    Plug 'Xuyuanp/nerdtree-git-plugin' " , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    Plug 'scrooloose/nerdtree' ", { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    Plug 'tiagofumo/vim-nerdtree-syntax-highlight' ", { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
     Plug 'jackguo380/vim-lsp-cxx-highlight'
     Plug 'janko/vim-test'
     Plug 'jaxbot/semantic-highlight.vim'
@@ -767,7 +778,7 @@ autocmd FileType cpp nnoremap <buffer> ]f :call
 ":let last_execution=@%<cr>
 "
 autocmd FileType go nmap <buffer> <c-a-p> :cd $GOPATH/src<cr>:Files<cr>
-"autocmd FileType lisp nmap <buffer> <c-a-p> :cd ~/quicklisp/local-projects<cr>:Files<cr>
+autocmd FileType lisp nmap <buffer> <c-a-p> :cd ~/quicklisp/local-projects<cr>:Files<cr>
 autocmd FileType lisp nmap <buffer> :let maplocalleader = ','
 autocmd FileType lisp nmap <buffer> <leader>w :wa<cr>
 autocmd FileType lisp nmap <silent> <buffer> <tab> <c-x><c-o>
@@ -2097,7 +2108,6 @@ nnoremap <silent> <c-0> :lua require'my_gui'.reset_fontsize()<cr>
 
 let g:lua_tree_side = 'left' " | 'left' left by default
 let g:lua_tree_size = 50 "30 by default
-let g:lua_tree_ignore = [ '.git', 'node_modules', '.cache', '__pycache__', '__init__.pyc','*.egg-info', ] "empty by default, not working on mac atm
 let g:lua_tree_auto_open = 0 "0 by default, opens the tree when typing `vim $DIR` or `vim`
 let g:lua_tree_auto_close = 1 "0 by default, closes the tree when it's the last window
 let g:lua_tree_follow = 1 "0 by default, this option will bind BufEnter to the LuaTreeFindFile command
@@ -2125,9 +2135,31 @@ let g:lua_tree_bindings = {
     \ 'remove':      'd',
     \ 'rename':      'r'
     \ }
+let g:lua_tree_ignore = [ '.git', 'node_modules', '.cache', '__pycache__' ]
 
 nnoremap <Leader>nt :LuaTreeToggle<CR>
 nnoremap <Leader>nf :LuaTreeFindFile<cr>:LuaTreeShow<CR>
-"nnoremap <Leader>nt :NERDTreeToggle<cr>
-"nnoremap <Leader>nf :NERDTreeFind<cr>
+nnoremap <Leader>nT :NERDTreeToggle<cr>
+nnoremap <Leader>nF :NERDTreeFind<cr>
 "
+let g:diagnostic_insert_delay = 1
+
+
+function! FzfProjectSink(word)
+  exe ':e ~/projects/' .  a:word
+endfunction
+function! FzfProjectSearch()
+  let suggestions = systemlist("ls ~/projects")
+  return fzf#run({'source': suggestions, 'sink': function("FzfProjectSink"), 'window': 'call FloatingFZF()'})
+endfunction
+
+function! FzfSpellSink(word)
+  exe 'normal! "_ciw'.a:word
+endfunction
+function! FzfSpell()
+  let suggestions = spellsuggest(expand("<cword>"))
+  return fzf#run({'source': suggestions, 'sink': function("FzfSpellSink"), 'window': 'call FloatingFZF()'})
+endfunction
+
+nnoremap <space>pr :call FzfProjectSearch()<CR>
+nnoremap z= :call FzfSpell()<CR>

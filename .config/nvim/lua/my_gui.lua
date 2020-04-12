@@ -30,6 +30,7 @@ end
 
 M.set_fontsize = function(value)
     vim.g.my_fontsize = value
+    update_font()
 end
 
 M.reset_fontsize = function()
