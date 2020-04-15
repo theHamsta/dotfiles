@@ -1,4 +1,4 @@
-set tags=./tags;tags
+set tags=./tags,tags
 set encoding=UTF-8
 set shell=/usr/bin/zsh
 if has('vim_starting')
@@ -52,35 +52,13 @@ set mouse=a
 let g:use_line_numbers=0
 
 if g:use_line_numbers
-  let g:use_line_numbers=0
-  set nonumber
-  set norelativenumber
+  set number
+  set relativenumber
 endif
 
 function! Toggle_line_numbers()
-    if g:use_line_numbers
-        let g:use_line_numbers=0
-        set nonumber
-        set norelativenumber
-
-        " Always show line numbers, but only in current window.
-        "set number
-        "au WinEnter * :setlocal number
-        "au WinEnter * :setlocal relativenumber
-        "au WinLeave * :setlocal norelativenumber
-        "au WinLeave * :setlocal number
-    else
-        let g:use_line_numbers=1
-        set number
-        set relativenumber
-
-        " Always show line numbers, but only in current window.
-        ""set number
-        "au WinEnter * :setlocal nonumber
-        "au WinEnter * :setlocal norelativenumber
-        "au WinLeave * :setlocal norelativenumber
-        "au WinLeave * :setlocal nonumber
-    endif
+       windo set number!
+       windo set relativenumber!
 endfunction
 command! LineNumbers call Toggle_line_numbers()
 
@@ -240,10 +218,16 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
     "Plug 'wellle/context.vim'
     Plug 'rhysd/vim-crystal'
+    Plug 'mfussenegger/nvim-dap'
     "Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
     Plug 'dm1try/git_fastfix'
+    Plug 'wookayin/vim-autoimport'
+'
     Plug 'haorenW1025/diagnostic-nvim'
     Plug 'rafcamlet/nvim-luapad'
+    Plug 'theHamsta/nvim_rocks', {'do': 'pip3 install --user hererocks && hererocks . -j2.1.0-beta3 -r3.0.0 && cp nvim_rocks.lua lua'}
+    "Plug 'Yonaba/30log', {'do': 'mkdir -p lua && cp *.lua lua'}
+    "Plug 'lua-stdlib/lua-stdlib', {'do': 'cp -r lib lua'}
     "Plug 'mhinz/vim-grepper'
     "Plug 'https://gitlab.com/mcepl/vim-fzfspell.git'
 
@@ -336,7 +320,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'kovisoft/slimv', {'for': 'lisp'}
     "Plug 'fvictorio/vim-textobj-backticks'
     Plug 'godlygeek/tabular'
-    Plug 'gregf/ultisnips-chef'
+    "Plug 'gregf/ultisnips-chef'
     "Plug 'heavenshell/vim-pydocstring'
     Plug 'henrynewcomer/vim-theme-papaya'
     Plug 'hotwatermorning/auto-git-diff'
@@ -634,8 +618,8 @@ nmap <Leader>gd <c-w>O:Gdiff<CR>
 nmap <Leader>gD <c-w>O:Gvdiffsplit :%<left><left>
 nmap <Leader>gt :call TimeMachine()<CR>
 nmap <Leader>gr :Gread<CR>
-nmap <Leader>gp :!git push<CR>
-nmap <Leader>gP :!git push -f<CR>
+nmap <Leader>gp :GitPushAsync<CR>
+nmap <Leader>gP :GitPushAsyncForce<CR>
 nmap <Leader>gl :Git pull<CR>
 vnoremap // y/<C-R>"<CR>
 
@@ -1456,7 +1440,7 @@ let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
 nmap Q @q
 inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
-let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'cpp', 'rust', 'java', 'go']
+let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'cpp', 'rust', 'java', 'go', 'lua']
 
 function! Multiple_cursors_before()
   call deoplete#custom#option('auto_complete', v:false)
@@ -2163,3 +2147,6 @@ endfunction
 
 nnoremap <space>pr :call FzfProjectSearch()<CR>
 nnoremap z= :call FzfSpell()<CR>
+
+command! GitPushAsync lua require'my_commands'.git_push()
+command! GitPushAsyncForce lua require'my_commands'.git_push(true)
