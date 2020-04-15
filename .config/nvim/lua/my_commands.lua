@@ -13,7 +13,7 @@ M = {}
 
 M.git_push  = function(force) 
   local git_push = luajob:new({
-    cmd = 'git push'..(force and ' -f'),
+    cmd = 'git push'..(force and ' -f' or ''),
     on_stdout = function(err, data)
       if err then
         vim.cmd.echoerr('error: ', err)
