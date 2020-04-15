@@ -12,16 +12,11 @@ local luajob = require('luajob')
 M = {}
 
 M.git_push  = function(force) 
-  if force then 
-    suffix = ' -f'
-  else
-    suffix = ''
-  end
   local git_push = luajob:new({
-    cmd = 'git push'..suffix,
+    cmd = 'git push'..(force and ' -f'),
     on_stdout = function(err, data)
       if err then
-        print('error: ', err)
+        vim.cmd.echoerr('error: ', err)
       elseif data then
         lines = vim.fn.split(data, '\n')
         for _, line in ipairs(lines) do
@@ -32,8 +27,6 @@ M.git_push  = function(force)
     on_exit = function(code, signal)
       if code == 0 then
         print('Git push succeeded!')
-      else
-        print('Git push failed!')
       end
     end
   })
