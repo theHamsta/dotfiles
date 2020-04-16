@@ -219,6 +219,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'wellle/context.vim'
     Plug 'rhysd/vim-crystal'
     Plug 'mfussenegger/nvim-dap'
+    Plug 'haorenW1025/diagnostic-nvim'
     "Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
     Plug 'dm1try/git_fastfix'
     Plug 'wookayin/vim-autoimport'
@@ -855,7 +856,6 @@ let g:LanguageClient_serverCommands = {
     \ 'haskell': ['hie-wrapper', '--lsp'],
     \ 'python': ['pyls'],
     \ 'cuda': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
-    \ 'lua': ['lua-lsp'],
     \ 'kotlin': ['kotlin-language-server', '.'],
     \ 'go': ['gopls'],
     \ 'dockerfile': ['docker-langserver', '--stdio'],
@@ -865,6 +865,7 @@ let g:LanguageClient_serverCommands = {
     \ 'bib': ['texlab'],
     \ 'gluon': ['gluon_language-server']
     \ }
+    "\ 'lua': ['lua-lsp'],
     "\ 'cpp': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     "\ 'c': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     "\ 'javascript': ['javascript-typescript-stdio'],
@@ -952,6 +953,8 @@ nmap <silent> <C-k> :lprevious<cr>
 nmap <silent> <C-j> :lnext<cr>
 
 autocmd FileType * call LC_maps()
+autocmd FileType lua call NvimLspMaps()
+
 
 
 nnoremap <silent> <leader>f0 :set foldlevel=0<CR>
@@ -2152,5 +2155,22 @@ nnoremap z= :call FzfSpell()<CR>
 command! GitPushAsync lua require'my_commands'.git_push()
 command! GitPushAsyncForce lua require'my_commands'.git_push(true)
 command! PyTest lua require'my_commands'.custom_command('pytest')
+
+function! ProjectFilesSink(word)
+  exe ':e '. a:word
+endfunction
+function! ProjectFilesSearch()
+  let suggestions = luaeval("require'my_projects'.get_project_files()")
+  return fzf#run({'source': suggestions, 'sink': function("ProjectFilesSink"), 'window': 'call FloatingFZF()'})
+endfunction
+
+function! ProjectFoldersSearch()
+  let suggestions = luaeval("require'my_projects'.get_project_list()")
+  return fzf#run({'source': suggestions, 'sink': function("ProjectFilesSink"), 'window': 'call FloatingFZF()'})
+endfunction
+
+command! ProjectClose lua require'my_projects'.close_project()
+command! ProjectFiles call ProjectFilesSearch()
+command! ProjectFolders call ProjectFoldersSearch()
 
 

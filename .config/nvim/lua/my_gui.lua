@@ -11,7 +11,7 @@ local M = {}
 local original_fontsize
 
 if not original_fontsize then
-    original_fontsize = vim.g.my_fontsize 
+    original_fontsize = vim.g.my_fontsize
 end
 
 local update_font = function()

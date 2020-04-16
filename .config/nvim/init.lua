@@ -14,11 +14,13 @@ nvim_lsp  =require'nvim_lsp'
     --cmd={"clangd-11", "--clang-tidy", "--header-insertion=iwyu", "--background-index", "--suggest-missing-includes"}
 --})
 
+require'nvim_lsp'.sumneko_lua.setup{on_attach=require'diagnostic'.on_attach}
+
 require 'colorizer'.setup {
   'css';
   'javascript';
-  'tex'; 
-  'html'; 
+  'tex';
+  'html';
   'tex';
 }
 
