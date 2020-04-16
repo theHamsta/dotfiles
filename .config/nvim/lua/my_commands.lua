@@ -9,6 +9,21 @@
 
 local luajob = require('luajob')
 
+local function endswith(str, ending)
+   return ending == "" or str:sub(-#ending) == ending
+end
+
+local function close_git_status()
+  local wins = vim.api.nvim_list_wins()
+  for _, win in ipairs(wins) do 
+    local buf = vim.api.nvim_win_get_buf(win)
+    local buf_name = vim.api.nvim_buf_get_name(buf)
+    if endswith(buf_name, '.git/index') then
+      vim.api.nvim_win_close(win, false)
+    end
+  end
+end
+
 M = {}
 
 M.git_push  = function(force) 
@@ -31,9 +46,33 @@ M.git_push  = function(force)
     end
   })
   git_push:start()
+  close_git_status()
 end
 
 
+M.custom_command  = function(command, silent) 
+  local job = luajob:new({
+    cmd = command,
+    on_stdout = function(err, data)
+      if err then
+        vim.cmd.echoerr('error: ', err)
+      elseif data then
+        lines = vim.fn.split(data, '\n')
+        if not silent then
+          for _, line in ipairs(lines) do
+            print(line)
+          end
+        end
+      end
+    end,
+    on_exit = function(code, signal)
+      if code == 0 then
+        print('"'..command..'" succeeded!')
+      end
+    end
+  })
+  job:start()
+end
 
 
 return M

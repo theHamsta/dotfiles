@@ -1475,6 +1475,7 @@ nmap     <C-F>p <Plug>CtrlSFPwordPath
 nnoremap <C-F>o :CtrlSFOpen<CR>
 nnoremap <C-F>t :CtrlSFToggle<CR>
 inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
+
 "set completeopt=menuone,menu,longest,noinsert
 set completeopt=menuone,menu,longest
 
@@ -2150,3 +2151,6 @@ nnoremap z= :call FzfSpell()<CR>
 
 command! GitPushAsync lua require'my_commands'.git_push()
 command! GitPushAsyncForce lua require'my_commands'.git_push(true)
+command! PyTest lua require'my_commands'.custom_command('pytest')
+
+
