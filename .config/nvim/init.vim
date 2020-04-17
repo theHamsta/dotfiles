@@ -223,6 +223,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
     Plug 'dm1try/git_fastfix'
     Plug 'wookayin/vim-autoimport'
+    Plug 'svermeulen/vim-easyclip'
 '
     Plug 'haorenW1025/diagnostic-nvim'
     Plug 'rafcamlet/nvim-luapad'
@@ -418,7 +419,7 @@ Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'for': ['java
             \ 'branch': 'next',
             \ 'do': ':T cargo build --release && cp target/release/languageclient bin -f',
             \ }
-    Plug 'puremourning/vimspector', { 'do': ':UpdateRemotePlugins'}
+    "Plug 'puremourning/vimspector', { 'do': ':UpdateRemotePlugins'}
 
     if has('nvim')
         Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -1386,7 +1387,8 @@ nmap ,CO :execute '!code-insiders -r ' getcwd()<cr>:!code-insiders -r %<cr>
 
 "nnoremap <c-p> :CtrlPMixed<cr>
 let g:ctrlp_map = ''
-nnoremap <c-p> :Files .<CR>
+nnoremap <c-p> :ProjectFiles<CR>
+nnoremap <c-a-m> :ProjectFolders<CR>
 
 " ripgrep
 if executable('rg')
@@ -2045,15 +2047,15 @@ let g:gtfo#terminals = { 'unix': 'konsole' }
 nnoremap gtf :Tnew<cr>:T dolphin %:p:h 2>&1 >> /dev/null &<cr>:Tclose<cr>
 "let g:vimspector_enable_mappings = 'HUMAN'
 
-autocmd! BufEnter vimspector.Console nnoremap <buffer> n :call vimspector#StepOver()<cr>
-"function VimspectorLaunch()
-nnoremap <s-f9> :call vimspector#ToggleBreakpoint()<cr>
-nnoremap <s-f8> :call vimspector#StepOver()<cr>
-nnoremap <f9> :call vimspector#StepInto()<cr>
-nnoremap <f10> :call vimspector#StepOut()<cr>
-nnoremap <s-f10> :call vimspector#Restart()<cr>
-nnoremap  <f11> :call vimspector#Continue()<cr>
-nnoremap <s-f11> :call vimspector#Stop()<cr>
+"autocmd! BufEnter vimspector.Console nnoremap <buffer> n :call vimspector#StepOver()<cr>
+""function VimspectorLaunch()
+"nnoremap <s-f9> :call vimspector#ToggleBreakpoint()<cr>
+"nnoremap <s-f8> :call vimspector#StepOver()<cr>
+"nnoremap <f9> :call vimspector#StepInto()<cr>
+"nnoremap <f10> :call vimspector#StepOut()<cr>
+"nnoremap <s-f10> :call vimspector#Restart()<cr>
+"nnoremap  <f11> :call vimspector#Continue()<cr>
+"nnoremap <s-f11> :call vimspector#Stop()<cr>
 "endfunction
 
 command! WorkingDirToCurrentFile cd %:p:h
@@ -2173,4 +2175,6 @@ command! ProjectClose lua require'my_projects'.close_project()
 command! ProjectFiles call ProjectFilesSearch()
 command! ProjectFolders call ProjectFoldersSearch()
 
+
+nnoremap gm m
 

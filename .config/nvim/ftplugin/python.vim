@@ -13,3 +13,18 @@ nmap <buffer> <silent> <leader>tN <c-w>o:wa<cr>:Topen<cr>:exec 'T cd' FindRootDi
 nmap <buffer> <silent> <leader>tf :wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestFile<CR>
 nmap <buffer> <silent> <leader>tF :wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestFile -s<CR>
 command! Flynt !flynt %:p
+
+if has('nvim-0.5')
+    nnoremap <buffer> <silent> <F3> :lua require'dap'.stop()<CR>
+    nnoremap <buffer> <silent> <c-F8> :lua require'dap'.restart()<CR>
+    nnoremap <buffer> <silent> <c-F8> :lua require'dap'.continue()<CR>
+    nnoremap <buffer> <silent> <F8> :lua require'dap'.step_over()<CR>
+    nnoremap <buffer> <silent> <F9> :lua require'dap'.step_into()<CR>
+    nnoremap <buffer> <silent> <F10> :lua require'dap'.step_out()<CR>
+    nnoremap <buffer> <silent> <leader>bb :lua require'dap'.toggle_breakpoint()<CR>
+endif
+
+nmap <buffer> <silent> <leader>tF :wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestFile -s<CR>
+nmap <buffer> <silent> <leader>db :wa<cr>:lua require 'my_debug'.start_python_debugger()<cr>
+nmap <buffer> <silent> <leader>dB :wa<cr>:lua require 'my_debug'.start_python_debugger(true)<cr>
+

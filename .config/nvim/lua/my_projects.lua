@@ -77,7 +77,11 @@ end
 
 local function close_project(buf)
     local buf = buf or 0
-    local maybe_root = util.find_git_ancestor(util.path.dirname(vim.api.nvim_buf_get_name(buf or 0)))
+    local buf_name = vim.api.nvim_buf_get_name(buf or 0)
+    if util.path.is_dir(buf_name) then 
+      return
+    end
+    local maybe_root = util.find_git_ancestor(util.path.dirname(buf_name))
     local bufs = vim.api.nvim_list_bufs()
     for _, buf in ipairs(bufs) do
       local root = util.find_git_ancestor(util.path.dirname(vim.api.nvim_buf_get_name(buf))) 
