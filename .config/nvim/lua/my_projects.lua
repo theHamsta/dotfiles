@@ -76,8 +76,7 @@ function buf_kill(target_buf, should_force)
 end
 
 local function close_project(buf)
-    local buf = buf or 0
-    local buf_name = vim.api.nvim_buf_get_name(buf or 0)
+    local buf_name = vim.api.nvim_buf_get_name(buf)
     if util.path.is_dir(buf_name) then 
       return
     end
