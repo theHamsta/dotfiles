@@ -25,10 +25,10 @@ end
 local function get_project_files()
   local roots = get_projects()
   local result = {}
-  for k, _ in pairs(roots) do
-    local files = vim.fn.systemlist("cd "..k.." && git ls-files")
+  for dir, _ in pairs(roots) do
+    local files = vim.fn.systemlist("cd "..dir.." && git ls-files")
     for _, file in ipairs(files) do
-      table.insert(result, file)
+      table.insert(result, dir..'/'..file)
     end
   end
   return result

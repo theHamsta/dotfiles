@@ -218,12 +218,16 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
     "Plug 'wellle/context.vim'
     Plug 'rhysd/vim-crystal'
+    Plug 'mfussenegger/nvim-jdtls'
     Plug 'mfussenegger/nvim-dap'
     Plug 'haorenW1025/diagnostic-nvim'
+    "Plug 'nvim-treesitter/highlight.lua'
+    Plug 'nvim-treesitter/nvim-treesitter'
+    "Plug 'nvim-treesitter/completion-treesitter'
     "Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
     Plug 'dm1try/git_fastfix'
     Plug 'wookayin/vim-autoimport'
-    Plug 'svermeulen/vim-easyclip'
+    "Plug 'svermeulen/vim-easyclip'
 '
     Plug 'haorenW1025/diagnostic-nvim'
     Plug 'rafcamlet/nvim-luapad'
@@ -250,7 +254,6 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
     "Plug 'OmniSharp/omnisharp-vim'
     Plug 'neomake/neomake' ", {'for': 'rst'}
-    "Plug 'kyazdani42/highlight.lua'
     "Plug 'SkyLeach/pudb.vim'
     Plug 'romgrk/searchReplace.vim'
     Plug 'dbridges/vim-markdown-runner'
@@ -417,7 +420,7 @@ Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'for': ['java
     "Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'tex', 'bib', 'json', 'cs']}
     Plug 'autozimu/LanguageClient-neovim', {
             \ 'branch': 'next',
-            \ 'do': ':T cargo build --release && cp target/release/languageclient bin -f',
+            \ 'do': ':T make release',
             \ }
     "Plug 'puremourning/vimspector', { 'do': ':UpdateRemotePlugins'}
 
@@ -2176,5 +2179,19 @@ command! ProjectFiles call ProjectFilesSearch()
 command! ProjectFolders call ProjectFoldersSearch()
 
 
-nnoremap gm m
-
+"nnoremap gm m
+"nnoremap d d
+function! s:get_visual_selection()
+    "cp https://stackoverflow.com/questions/1533565/how-to-get-visually-selected-text-in-vimscript
+    let [line_start, column_start] = getpos("'<")[1:2]
+    let [line_end, column_end] = getpos("'>")[1:2]
+    let lines = getline(line_start, line_end)
+    if len(lines) == 0
+        return ''
+    endif
+    let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+    let lines[0] = lines[0][column_start - 1:]
+    call setreg('+', lines, 'l')
+    1T %paste
+endfunction
+command! -nargs=* PasteVisualSel call s:get_visual_selection()

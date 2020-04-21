@@ -14,17 +14,25 @@ nmap <buffer> <silent> <leader>tf :wa<cr>:Topen<cr>:exec 'T cd' FindRootDirector
 nmap <buffer> <silent> <leader>tF :wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestFile -s<CR>
 command! Flynt !flynt %:p
 
-if has('nvim-0.5')
-    nnoremap <buffer> <silent> <F3> :lua require'dap'.stop()<CR>
-    nnoremap <buffer> <silent> <c-F8> :lua require'dap'.restart()<CR>
-    nnoremap <buffer> <silent> <c-F8> :lua require'dap'.continue()<CR>
-    nnoremap <buffer> <silent> <F8> :lua require'dap'.step_over()<CR>
-    nnoremap <buffer> <silent> <F9> :lua require'dap'.step_into()<CR>
-    nnoremap <buffer> <silent> <F10> :lua require'dap'.step_out()<CR>
-    nnoremap <buffer> <silent> <leader>bb :lua require'dap'.toggle_breakpoint()<CR>
-endif
 
 nmap <buffer> <silent> <leader>tF :wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestFile -s<CR>
 nmap <buffer> <silent> <leader>db :wa<cr>:lua require 'my_debug'.start_python_debugger()<cr>
 nmap <buffer> <silent> <leader>dB :wa<cr>:lua require 'my_debug'.start_python_debugger(true)<cr>
+nmap <buffer> <silent> <leader>bp :wa<cr>:lua require 'my_debug'.start_python_debugger(true, true)<cr>
+command! DebugRepl :lua require'dap'.repl()<cr>
+
+nnoremap <buffer> <silent> <F3> :lua require'dap'.stop()<CR>
+nnoremap <buffer> <silent> <F8> :lua require'dap'.step_over()<CR>
+nnoremap <buffer> <silent> <F9> :lua require'dap'.step_into()<CR>
+nnoremap <buffer> <silent> <F10> :lua require'dap'.step_out()<CR>
+
+nmap <buffer> <silent> <leader>bt :wa<cr>:lua require 'my_debug'.start_python_debugger(true)<cr>
+
+nmap <buffer> <silent> <leader>bb :lua require'dap'.toggle_breakpoint()<CR>
+nmap <buffer> <silent> <leader>br :lua require'dap'.restart()<CR>
+nmap <buffer> <silent> <leader>bc :lua require'dap'.continue()<CR>
+nmap <buffer> <silent> <leader>bn :lua require'dap'.step_over()<CR>
+nmap <buffer> <silent> <leader>bi :lua require'dap'.step_into()<CR>
+nmap <buffer> <silent> <leader>bo :lua require'dap'.step_out()<CR>
+nmap <buffer> <silent> <leader>bm :DebugRepl<cr>
 

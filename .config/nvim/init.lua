@@ -10,6 +10,7 @@
 --require'nvim_lsp'.pyls.setup{}
 nvim_lsp  =require'nvim_lsp'
 
+a = vim.cmd("echo 'hs'")
 --nvim_lsp.clangd.setup({
     --cmd={"clangd-11", "--clang-tidy", "--header-insertion=iwyu", "--background-index", "--suggest-missing-includes"}
 --})
@@ -24,4 +25,32 @@ require 'colorizer'.setup {
   'tex';
 }
 
+local dap = require('dap')
+dap.adapters.python = {
+  type = 'executable';
+  command = 'python3';
+  args = { '-m', 'debugpy.adapter' };
+}
 
+dap.configurations.python ={
+  {
+    type = 'python';
+    request = 'launch';
+    name = "Launch file";
+    program = "${file}";
+    pythonPath = function()
+      return '/usr/bin/python3'
+    end;
+  },
+  {
+    type = 'python';
+    request = 'launch';
+    name = "Pytest file";
+    program = "-m pytest ${file}";
+    pythonPath = function()
+      return '/usr/bin/python3'
+    end;
+  },
+}
+
+vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''})

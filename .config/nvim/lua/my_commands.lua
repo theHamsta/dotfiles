@@ -24,21 +24,24 @@ local function close_git_status()
   end
 end
 
+local function luajob_on_stdout(err, data)
+  if err then
+    vim.cmd.echoerr('error: ', err)
+  elseif data then
+    lines = vim.fn.split(data, '\n')
+    for _, line in ipairs(lines) do
+      print(line)
+    end
+  end
+end 
+
 M = {}
 
 M.git_push  = function(force) 
   local git_push = luajob:new({
     cmd = 'git push'..(force and ' -f' or ''),
-    on_stdout = function(err, data)
-      if err then
-        vim.cmd.echoerr('error: ', err)
-      elseif data then
-        lines = vim.fn.split(data, '\n')
-        for _, line in ipairs(lines) do
-          print(line)
-        end
-      end
-    end,
+    on_stdout = luajob_on_stdout,
+    on_stderr = luajob_on_stdout,
     on_exit = function(code, signal)
       if code == 0 then
         print('Git push succeeded!')
