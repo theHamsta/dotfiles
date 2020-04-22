@@ -1390,7 +1390,8 @@ nmap ,CO :execute '!code-insiders -r ' getcwd()<cr>:!code-insiders -r %<cr>
 
 "nnoremap <c-p> :CtrlPMixed<cr>
 let g:ctrlp_map = ''
-nnoremap <c-p> :ProjectFiles<CR>
+nnoremap <c-p> :Files<CR>
+nnoremap <c-s-o> :ProjectFiles<CR>
 nnoremap <c-a-m> :ProjectFolders<CR>
 
 " ripgrep
