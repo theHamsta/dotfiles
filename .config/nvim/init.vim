@@ -207,6 +207,7 @@ function! BuildComposer(info)
     endif
   endif
 endfunction
+
 call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'beloglazov/vim-online-thesaurus'
     "Plug 'garbas/vim-snipmate'
@@ -220,7 +221,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'rhysd/vim-crystal'
     Plug 'mfussenegger/nvim-jdtls'
     Plug 'mfussenegger/nvim-dap'
-    Plug 'haorenW1025/diagnostic-nvim'
+"    Plug 'haorenW1025/diagnostic-nvim'
     "Plug 'nvim-treesitter/highlight.lua'
     Plug 'nvim-treesitter/nvim-treesitter'
     "Plug 'nvim-treesitter/completion-treesitter'
@@ -228,8 +229,6 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'dm1try/git_fastfix'
     Plug 'wookayin/vim-autoimport'
     "Plug 'svermeulen/vim-easyclip'
-'
-    Plug 'haorenW1025/diagnostic-nvim'
     Plug 'rafcamlet/nvim-luapad'
     Plug 'theHamsta/nvim_rocks', {'do': 'pip3 install --user hererocks && hererocks . -j2.1.0-beta3 -r3.0.0 && cp nvim_rocks.lua lua'}
     "Plug 'Yonaba/30log', {'do': 'mkdir -p lua && cp *.lua lua'}
@@ -243,10 +242,10 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'bergercookie/vim-deb-preview'
     "Plug 'doums/coBra'
     Plug 'tree-sitter/tree-sitter-python', { 'do': 'mkdir -p parser && cc -O3 -o parser/python.so -shared src/parser.c src/scanner.cc -I./src' }
-    Plug 'Azganoth/tree-sitter-lua', { 'do': 'mkdir -p parser && cc -O3 -o parser/lua.so -shared src/parser.c src/scanner.cc -I./src' }
-    Plug 'tree-sitter/tree-sitter-cpp', { 'do': 'mkdir -p parser && cc -O3 -o parser/cpp.so -shared src/parser.c src/scanner.cc -I./src' }
-    Plug 'tree-sitter/tree-sitter-java', { 'do': 'mkdir -p parser && cc -O3 -o parser/java.so  -shared src/parser.c -I./src' }
-    Plug 'tree-sitter/tree-sitter-javascript', { 'do': 'mkdir -p parser && cc -O3 -o parser/javascript.so  -shared src/parser.c src/scanner.c -I./src' }
+    "Plug 'Azganoth/tree-sitter-lua', { 'do': 'mkdir -p parser && cc -O3 -o parser/lua.so -shared src/parser.c src/scanner.cc -I./src' }
+    "Plug 'tree-sitter/tree-sitter-cpp', { 'do': 'mkdir -p parser && cc -O3 -o parser/cpp.so -shared src/parser.c src/scanner.cc -I./src' }
+    "Plug 'tree-sitter/tree-sitter-java', { 'do': 'mkdir -p parser && cc -O3 -o parser/java.so  -shared src/parser.c -I./src' }
+    "Plug 'tree-sitter/tree-sitter-javascript', { 'do': 'mkdir -p parser && cc -O3 -o parser/javascript.so  -shared src/parser.c src/scanner.c -I./src' }
     Plug 'zoxves/LightningFileExplorer'
     Plug 'theHamsta/nvim-tree.lua', {'branch': 'exa'}
     Plug 'mcchrish/info-window.nvim'
@@ -416,7 +415,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'Shougo/neosnippet.vim'
 "Plug 'vim-pandoc/vim-pandoc'
     "Plug 'amix/vim-zenroom2'
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'json', 'cs']}
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'json', 'cs', 'cmake']}
     "Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'tex', 'bib', 'json', 'cs']}
     Plug 'autozimu/LanguageClient-neovim', {
             \ 'branch': 'next',
@@ -812,34 +811,9 @@ if has('persistent_undo')
 endif
 
 
-"imap <C-J> <Plug>snipMateNextOrTrigger
-"smap <C-J> <Plug>snipMateNextOrTrigger
-"imap <C-j> <Plug>snipMateTrigger
-"smap <C-j> <Plug>snipMateTrigger
-"smap <s-tab> <Plug>snipMateBack
-"imap <s-tab> <Plug>snipMateBack
-
-let g:vlime_leader = ","
-let g:vlime_leader='<space>'
-let g:vlime_cl_use_terminal=v:true
-let g:vlime_enable_autodoc = v:true
-let g:vlime_window_settings = {'sldb': {'pos': 'belowright', 'vertical': v:true}, 'inspector': {'pos': 'belowright', 'vertical': v:true}, 'preview': {'pos': 'belowright', 'size': v:null, 'vertical': v:true}}
-
 "let g:slimv_leader='<space>'
 let g:slimv_leader=','
 let g:slimv_repl_simple_eval=1
-
-"autocmd FileType lisp nmap <buffer> <enter> :call SlimvEvalExp()<cr>
-"autocmd FileType lisp nmap <buffer> <s-enter> :call SlimvEvalBuffer()<cr>
-"autocmd FileType vlime_input i
-"autocmd FileType vlime_input  inoremap <buffer> <enter> )<esc><enter>
-
-"autocmd FileType lisp nmap <silent> <buffer> <enter>  :call vlime#plugin#SendToREPL(vlime#ui#CurExprOrAtom())<cr>
-"autocmd FileType lisp nmap <silent> <buffer> <enter> ,d<cr>
-"autocmd FileType lisp nmap <silent> <buffer> <leader>xx  :call vlime#plugin#SendToREPL('()')<left><left><left>
-"autocmd FileType lisp imap <buffer> ( (<c-x><c-o>
-"autocmd FileType lisp  set <local> completeopt=menu,noinsert
-"let g:vlime_cl_impl = "sbcl_swank"
 
     "\ 'clojure': ['clojure-lsp'],
     "\ 'rust': ['rls'],
@@ -1174,7 +1148,7 @@ omap <silent> <buffer> if <Plug>(coc-funcobj-i)
 omap  <silent> <buffer> af <Plug>(coc-funcobj-a)
  endfunction()
 
-autocmd FileType java,json,yaml,vim,bash,sh,cs call ActivateCoc()
+autocmd FileType java,json,yaml,vim,bash,sh,cmake,cs call ActivateCoc()
 
  "inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 
