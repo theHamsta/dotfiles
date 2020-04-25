@@ -8,6 +8,8 @@
 
 local util = require'nvim_lsp.util'
 
+local last_java_main
+
 
 local function get_projects()
   local roots = {}
@@ -50,7 +52,7 @@ end
 
 -- from
 -- Kill the target buffer (or the current one if 0/nil)
-function buf_kill(target_buf, should_force)
+local function buf_kill(target_buf, should_force)
   if not should_force and vim.bo.modified then
     return api.nvim_err_writeln('Buffer is modified. Force required.')
   end
@@ -77,13 +79,13 @@ end
 
 local function close_project(buf)
     local buf_name = vim.api.nvim_buf_get_name(buf)
-    if util.path.is_dir(buf_name) then 
+    if util.path.is_dir(buf_name) then
       return
     end
     local maybe_root = util.find_git_ancestor(util.path.dirname(buf_name))
     local bufs = vim.api.nvim_list_bufs()
     for _, buf in ipairs(bufs) do
-      local root = util.find_git_ancestor(util.path.dirname(vim.api.nvim_buf_get_name(buf))) 
+      local root = util.find_git_ancestor(util.path.dirname(vim.api.nvim_buf_get_name(buf)))
       if root == maybe_root then
         buf_kill(buf)
       end
@@ -100,9 +102,11 @@ local function get_project_list()
 end
 
 
+
 return {
   get_projects = get_projects,
   get_project_list = get_project_list,
   get_project_files = get_project_files,
+  get_java_main_classes = get_java_main_classes,
   close_project = close_project
 }

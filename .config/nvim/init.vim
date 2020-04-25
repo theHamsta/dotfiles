@@ -219,12 +219,13 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
     "Plug 'wellle/context.vim'
     Plug 'rhysd/vim-crystal'
+    Plug 'chuling/vim-equinusocio-material'
     Plug 'mfussenegger/nvim-jdtls'
     Plug 'mfussenegger/nvim-dap'
 "    Plug 'haorenW1025/diagnostic-nvim'
-    "Plug 'nvim-treesitter/highlight.lua'
+    Plug 'nvim-treesitter/highlight.lua'
     Plug 'nvim-treesitter/nvim-treesitter'
-    "Plug 'nvim-treesitter/completion-treesitter'
+    Plug 'nvim-treesitter/completion-treesitter'
     "Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
     Plug 'dm1try/git_fastfix'
     Plug 'wookayin/vim-autoimport'
@@ -241,7 +242,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'chrisbra/unicode.vim'
     "Plug 'bergercookie/vim-deb-preview'
     "Plug 'doums/coBra'
-    Plug 'tree-sitter/tree-sitter-python', { 'do': 'mkdir -p parser && cc -O3 -o parser/python.so -shared src/parser.c src/scanner.cc -I./src' }
+    "Plug 'tree-sitter/tree-sitter-python', { 'do': 'mkdir -p parser && cc -O3 -o parser/python.so -shared src/parser.c src/scanner.cc -I./src' }
     "Plug 'Azganoth/tree-sitter-lua', { 'do': 'mkdir -p parser && cc -O3 -o parser/lua.so -shared src/parser.c src/scanner.cc -I./src' }
     "Plug 'tree-sitter/tree-sitter-cpp', { 'do': 'mkdir -p parser && cc -O3 -o parser/cpp.so -shared src/parser.c src/scanner.cc -I./src' }
     "Plug 'tree-sitter/tree-sitter-java', { 'do': 'mkdir -p parser && cc -O3 -o parser/java.so  -shared src/parser.c -I./src' }
@@ -738,9 +739,10 @@ autocmd FileType just,cpp,cmake,cuda,c,make,prm nnoremap <buffer> <F7> <c-w>o:To
 autocmd FileType just,cpp,cmake,cuda,c,make,prm nnoremap <buffer> <s-F7> <c-w>o:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:Tkill<cr>:wa<cr>:T just release<cr>
 autocmd FileType just,cpp,cmake,cuda,c,make,prm nnoremap <buffer> <F6> <c-w>o:Topen<cr>:Tclear<cr>:exec 'T cd' FindRootDirectory()<cr>:Tkill<cr>:wa<cr>:T just build<cr>
 autocmd FileType just,cpp,cmake,cuda,c,make,prm,latex,tex nnoremap <buffer> <F5> <c-w>o:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:let $last_execution='just run'<cr>:Tkill<cr>:wa<cr>:T just run<cr>
-autocmd FileType java nnoremap <buffer> <F6> :Topen<cr>:let $last_execution='pyconrad_run ' . expand('%:r',1)<cr>:Tkill<cr>:wa<cr>:T pyconrad_run %:r<cr>
-autocmd FileType java nnoremap <buffer> <F4> :Topen<cr>:let $last_execution='pyconrad_run --gui ' . expand('%:r',1)<cr>:Tkill<cr>:wa<cr>:T pyconrad_run --gui %:r<cr>
-autocmd FileType java,kotlin,groovy nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='./gradlew run'<cr>:Tkill<cr>:wa<cr>:T ./gradlew run<cr>
+"autocmd FileType java nnoremap <buffer> <F6> :Topen<cr>:let $last_execution='pyconrad_run ' . expand('%:r',1)<cr>:Tkill<cr>:wa<cr>:T pyconrad_run %:r<cr>
+"autocmd FileType java nnoremap <buffer> <F4> :Topen<cr>:let $last_execution='pyconrad_run --gui ' . expand('%:r',1)<cr>:Tkill<cr>:wa<cr>:T pyconrad_run --gui %:r<cr>
+autocmd FileType java,kotlin,groovy nnoremap <buffer> <F5> <c-w>o:Topen<cr>:let $last_execution='./gradlew run'<cr>:Tkill<cr>:wa<cr>:T ./gradlew run<cr>
+autocmd FileType java,kotlin,groovy nnoremap <buffer> <F6> <c-w>o:Topen<cr>:let $last_execution='./gradlew test'<cr>:Tkill<cr>:wa<cr>:T ./gradlew test<cr>
 autocmd FileType tex,latex nnoremap <buffer> <F3> val<plug>(vimtex-compile-selected)
 autocmd FileType tex,latex nnoremap <buffer> <F4> :VimtexCompileSS<cr>
 "autocmd FileType tex,latex :let  maplocalleader="<space>"
@@ -766,7 +768,7 @@ autocmd FileType cpp nnoremap <buffer> ]f :call
 ":let last_execution=@%<cr>
 "
 autocmd FileType go nmap <buffer> <c-a-p> :cd $GOPATH/src<cr>:Files<cr>
-autocmd FileType lisp nmap <buffer> <c-a-p> :cd ~/quicklisp/local-projects<cr>:Files<cr>
+"autocmd FileType lisp nmap <buffer> <c-a-p> :cd ~/quicklisp/local-projects<cr>:Files<cr>
 autocmd FileType lisp nmap <buffer> :let maplocalleader = ','
 autocmd FileType lisp nmap <buffer> <leader>w :wa<cr>
 autocmd FileType lisp nmap <silent> <buffer> <tab> <c-x><c-o>
@@ -916,15 +918,15 @@ function! LC_maps()
 endfunction
 
 function! NvimLspMaps()
-
   nnoremap <buffer><silent> gk    <cmd>lua vim.lsp.buf.declaration()<CR>
-  nnoremap <buffer> <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
-  nnoremap <buffer><silent> gh     <cmd>lua vim.lsp.buf.hover()<CR>
+  nnoremap <buffer> <silent> gd   <cmd>lua vim.lsp.buf.definition()<CR>
+  nnoremap <buffer><silent> gh    <cmd>lua vim.lsp.buf.hover()<CR>
   nnoremap <buffer><silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-  nnoremap <buffer><silent> gS <cmd>lua vim.lsp.buf.signature_help()<CR>
-  inoremap <buffer><silent> ( <cmd>lua vim.lsp.buf.signature_help()<CR>(
-  nnoremap <buffer><silent> gt   <cmd>lua vim.lsp.buf.type_definition()<CR>
-   setlocal omnifunc=v:lua.vim.lsp.omnifunc
+  nnoremap <buffer><silent> gS    <cmd>lua vim.lsp.buf.signature_help()<CR>
+  inoremap <buffer><silent> (     <cmd>lua vim.lsp.buf.signature_help()<CR>(
+  nnoremap <buffer><silent> gt    <cmd>lua vim.lsp.buf.type_definition()<CR>
+  "nnoremap <buffer><silent> <c-s> <cmd>lua vim.lsp.buf.formatting()<cr>
+  setlocal omnifunc=v:lua.vim.lsp.omnifunc
 endfunction
 
 nmap <silent> <C-k> :lprevious<cr>
@@ -1125,7 +1127,7 @@ let g:LanguageClient_diagnosticsList = "Location"
      nmap <silent> <buffer>  <c-j> <Plug>(coc-diagnostic-next)
      nmap <silent> <buffer>  gd <Plug>(coc-definition)
      nmap <silent> <buffer>  <leader>la :CocAction<cr>
-     nmap <silent> <buffer>  <leader>ca <Plug>(coc-codeaction-selected)
+     nmap <silent> <buffer>  <leader>ca <Plug>(coc-codeaction-selected)<cr>
      nmap <silent> <buffer> <f2> <Plug>(coc-rename)
      nmap <silent> <buffer>  gD <c-w>v<Plug>(coc-definition)
      nmap <silent> <buffer>  gt <Plug>(coc-type-definition)
@@ -1365,7 +1367,7 @@ nmap ,CO :execute '!code-insiders -r ' getcwd()<cr>:!code-insiders -r %<cr>
 "nnoremap <c-p> :CtrlPMixed<cr>
 let g:ctrlp_map = ''
 nnoremap <c-p> :Files<CR>
-nnoremap <c-s-o> :ProjectFiles<CR>
+nnoremap <c-a-ä> :ProjectFiles<CR>
 nnoremap <c-a-m> :ProjectFolders<CR>
 
 " ripgrep
@@ -1491,7 +1493,7 @@ let g:LanguageClient_diagnosticsDisplay= {
             \       1: {
             \           "name": "Error",
             \           "texthl": "LspError",
-            \           "signText": "✖",
+            \           "signText": "❌",
             \           "signTexthl": "ALEErrorSign",
             \           "virtualTexthl": "Error",
             \       },
@@ -1505,19 +1507,25 @@ let g:LanguageClient_diagnosticsDisplay= {
             \       3: {
             \           "name": "Information",
             \           "texthl": "information",
-            \           "signText": "➤",
+            \           "signText": "🔎",
             \           "signTexthl": "ALEInfoSign",
             \           "virtualTexthl": "Todo",
             \       },
             \       4: {
             \           "name": "Hint",
             \           "texthl": "ALEInfo",
-        \           "signText": "➤",
+        \           "signText": "💡",
             \           "signTexthl": "ALEInfoSign",
             \           "virtualTexthl": "Todo",
             \       },
             \   }
             \
+
+let g:LspDiagnosticsErrorSign = '❌'
+let g:LspDiagnosticsWarningSign = '⚠️'
+let g:LspDiagnosticsInformationSign = '🔎'
+let g:LspDiagnosticsHintSign = '💡'
+
 nnoremap <leader>op :!xdg-open % &<cr>
 nnoremap gX :!xdg-open % &<cr>
 set signcolumn=yes
@@ -2139,6 +2147,7 @@ command! PyTest lua require'my_commands'.custom_command('pytest')
 function! ProjectFilesSink(word)
   exe ':e '. a:word
 endfunction
+
 function! ProjectFilesSearch()
   let suggestions = luaeval("require'my_projects'.get_project_files()")
   return fzf#run({'source': suggestions, 'sink': function("ProjectFilesSink"), 'window': 'call FloatingFZF()'})
@@ -2149,9 +2158,21 @@ function! ProjectFoldersSearch()
   return fzf#run({'source': suggestions, 'sink': function("ProjectFilesSink"), 'window': 'call FloatingFZF()'})
 endfunction
 
+function! RunJavaSink(main_class)
+  exe "lua require'my_java_projects'.launch_java_main('" . a:main_class ."')"
+  "exe "T ./gradlew run -PmainClass=" . a:main_class 
+endfunction
+
+
+function! RunJavaMain()
+  let mains = luaeval("require'my_java_projects'.get_java_main_classes()")
+  return fzf#run({'source': mains, 'sink': function("RunJavaSink"), 'window': 'call FloatingFZF()'})
+endfunction
+
 command! ProjectClose lua require'my_projects'.close_project()
 command! ProjectFiles call ProjectFilesSearch()
 command! ProjectFolders call ProjectFoldersSearch()
+command! RunJavaMain call RunJavaMain()
 
 
 "nnoremap gm m
@@ -2170,3 +2191,25 @@ function! s:get_visual_selection()
     1T %paste
 endfunction
 command! -nargs=* PasteVisualSel call s:get_visual_selection()
+
+
+let g:vlime_leader = ","
+let g:vlime_leader='<space>'
+let g:vlime_cl_use_terminal=v:true
+let g:vlime_enable_autodoc = v:true
+let g:vlime_window_settings = {'sldb': {'pos': 'belowright', 'vertical': v:true}, 'inspector': {'pos': 'belowright', 'vertical': v:true}, 'preview': {'pos': 'belowright', 'size': v:null, 'vertical': v:true}}
+
+inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
+
+
+"let g:equinusocio_material_darker = 1
+
+"" make vertsplit invisible
+"let g:equinusocio_material_hide_vertsplit = 1
+
+"colorscheme equinusocio_material
+
+"" this theme has a buildin lightline theme, you can turn it on
+"let g:lightline = {
+  "\ 'colorscheme': 'equinusocio_material',
+  "\ }

@@ -8,13 +8,15 @@
 
 --require'nvim_lsp'.clangd.setup{}
 --require'nvim_lsp'.pyls.setup{}
-nvim_lsp  =require'nvim_lsp'
+local nvim_lsp  =require'nvim_lsp'
 
 --nvim_lsp.clangd.setup({
     --cmd={"clangd-11", "--clang-tidy", "--header-insertion=iwyu", "--background-index", "--suggest-missing-includes"}
 --})
 
-require'nvim_lsp'.sumneko_lua.setup{}
+require'nvim_lsp'.sumneko_lua.setup{
+  settings = {Lua = { diagnostics = {globals = {'vim'}}}}
+}
 
 require 'colorizer'.setup {
   'css';
@@ -57,4 +59,6 @@ vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''
 
 --require'nvim-treesitter'.setup('rust')
 --require'nvim-treesitter'.setup('cpp')
---require'nvim-treesitter'.setup('lua')
+----r'equire'nvim-treesitter'.setup('ruby')
+--
+require'nvim_rocks'.ensure_installed({'fun', '30log', 'lua-toml'})
