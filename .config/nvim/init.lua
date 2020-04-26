@@ -19,6 +19,8 @@ nvim_lsp.sumneko_lua.setup{
 }
 
 nvim_lsp.vimls.setup{}
+nvim_lsp.yamlls.setup{}
+nvim_lsp.jsonls.setup{}
 --nvim_lsp.rust_analyzer.setup({})
 
 nvim_lsp.texlab.setup{

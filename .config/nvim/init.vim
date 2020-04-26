@@ -416,7 +416,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'Shougo/neosnippet.vim'
 "Plug 'vim-pandoc/vim-pandoc'
     "Plug 'amix/vim-zenroom2'
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'for': ['java', 'yaml', 'bash','sh', 'json', 'cs', 'cmake']}
+    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'for': ['java', 'bash','sh', 'cs', 'cmake']}
     "Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'tex', 'bib', 'json', 'cs']}
     Plug 'autozimu/LanguageClient-neovim', {
             \ 'branch': 'next',
@@ -1150,7 +1150,7 @@ omap <silent> <buffer> if <Plug>(coc-funcobj-i)
 omap  <silent> <buffer> af <Plug>(coc-funcobj-a)
  endfunction()
 
-autocmd FileType java,json,yaml,bash,sh,cmake,cs call ActivateCoc()
+autocmd FileType java,,bash,sh,cmake,cs call ActivateCoc()
 
  "inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 
@@ -2202,8 +2202,7 @@ let g:vlime_window_settings = {'sldb': {'pos': 'belowright', 'vertical': v:true}
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 vnoremap <enter> :lua require'nvim-treesitter/textobj'.scope_incremental()<cr>
-nnore map <enter> viw
-
+nnoremap <enter> viw
 "let g:equinusocio_material_darker = 1
 
 "" make vertsplit invisible
