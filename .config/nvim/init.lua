@@ -14,9 +14,25 @@ local nvim_lsp  =require'nvim_lsp'
     --cmd={"clangd-11", "--clang-tidy", "--header-insertion=iwyu", "--background-index", "--suggest-missing-includes"}
 --})
 
-require'nvim_lsp'.sumneko_lua.setup{
-  settings = {Lua = { diagnostics = {globals = {'vim'}}}}
+nvim_lsp.sumneko_lua.setup{
+  settings = { Lua = { diagnostics = {globals = {'vim'}}}}
 }
+
+--nvim_lsp.rust_analyzer.setup({})
+
+nvim_lsp.texlab.setup{
+  settings = {
+    latex = {
+      build = {
+        onSave = false;
+      },
+      lint = {
+        onChange = true
+      }
+    }
+  }
+}
+--nvim_lsp.texlab.buf_build({bufnr})
 
 require 'colorizer'.setup {
   'css';
@@ -57,8 +73,11 @@ dap.configurations.python ={
 vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''})
 
 
---require'nvim-treesitter'.setup('rust')
---require'nvim-treesitter'.setup('cpp')
-----r'equire'nvim-treesitter'.setup('ruby')
+require'nvim-treesitter'.setup('lua')
+require'nvim-treesitter'.setup('rust')
+require'nvim-treesitter'.setup('python')
+require'nvim-treesitter'.setup('cpp')
+require'nvim-treesitter'.setup('ruby')
+require'nvim-treesitter'.setup('java')
 --
 require'nvim_rocks'.ensure_installed({'fun', '30log', 'lua-toml'})

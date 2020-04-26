@@ -242,7 +242,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'chrisbra/unicode.vim'
     "Plug 'bergercookie/vim-deb-preview'
     "Plug 'doums/coBra'
-    "Plug 'tree-sitter/tree-sitter-python', { 'do': 'mkdir -p parser && cc -O3 -o parser/python.so -shared src/parser.c src/scanner.cc -I./src' }
+    "Plug 'tree-sitter/tree-sitter-python', { 'do': 'mkdir -p parser && g++ -O2 -o parser/python.so -shared src/parser.c src/scanner.cc -I./src' }
     "Plug 'Azganoth/tree-sitter-lua', { 'do': 'mkdir -p parser && cc -O3 -o parser/lua.so -shared src/parser.c src/scanner.cc -I./src' }
     "Plug 'tree-sitter/tree-sitter-cpp', { 'do': 'mkdir -p parser && cc -O3 -o parser/cpp.so -shared src/parser.c src/scanner.cc -I./src' }
     "Plug 'tree-sitter/tree-sitter-java', { 'do': 'mkdir -p parser && cc -O3 -o parser/java.so  -shared src/parser.c -I./src' }
@@ -783,7 +783,7 @@ autocmd FileType clojure nmap <buffer> <enter> <Plug>(iced_eval_outer_top_list)
 autocmd FileType cmake SemanticHighlight
 autocmd FileType lua nnoremap <buffer> <F5> :exec '!lua' shellescape(@%:p, 1)<cr>:let last_execution=@%:p <cr>
 
-autocmd FileType tex,latex nnoremap <buffer> <c-s> :w<cr>:silent !latexindent % -w<cr>:e<cr>
+"autocmd FileType tex,latex nnoremap <buffer> <c-s> :w<cr>:silent !latexindent % -w<cr>:e<cr>
 "autocmd FileType tex,latex call neomake#configure#automake('w')
 autocmd FileType rst call neomake#configure#automake('w')
 autocmd FileType tex,latex nnoremap <buffer> <c-a-o> :call vimtex#fzf#run()<cr>
@@ -820,7 +820,7 @@ let g:slimv_repl_simple_eval=1
     "\ 'clojure': ['clojure-lsp'],
     "\ 'rust': ['rls'],
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['ra_lsp_server'],
+    \ 'rust': ['rust-analyzer'],
     \   'julia': ['julia', '--startup-file=no', '--history-file=no', '-e', '
     \       using LanguageServer;
     \       using Pkg;
@@ -841,10 +841,10 @@ let g:LanguageClient_serverCommands = {
     \ 'dockerfile': ['docker-langserver', '--stdio'],
     \ 'd': ['dls'],
     \ 'crystal': ['/home/stephan/projects/scry/scry/bin/scry'],
-    \ 'tex': ['texlab'],
-    \ 'bib': ['texlab'],
     \ 'gluon': ['gluon_language-server']
     \ }
+    " 'tex': ['texlab'],
+    "\ 'bib': ['texlab'],
     "\ 'lua': ['lua-lsp'],
     "\ 'cpp': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     "\ 'c': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
@@ -884,9 +884,9 @@ let g:LanguageClient_serverCommands = {
 function! LC_maps()
    if has_key(g:LanguageClient_serverCommands, &filetype)
         call deoplete#custom#option('auto_complete', v:true)
-         if &filetype != "python" && &filetype != "tex" && &filetype != "bib"&& &filetype != "go"&& &filetype != "lua"&& &filetype != "lisp"
-             autocmd CursorHold <buffer> silent call LanguageClient#textDocument_documentHighlight()
-         endif
+         "if &filetype != "python" && &filetype != "tex" && &filetype != "bib"&& &filetype != "go"&& &filetype != "lua"&& &filetype != "lisp"
+             "autocmd CursorHold <buffer> silent call LanguageClient#textDocument_documentHighlight()
+         "endif
  "&& &filetype != "go"
       "&& &filetype != "cpp"
         nnoremap <buffer> <leader>la :call LanguageClient_contextMenu()<CR>
@@ -925,7 +925,7 @@ function! NvimLspMaps()
   nnoremap <buffer><silent> gS    <cmd>lua vim.lsp.buf.signature_help()<CR>
   inoremap <buffer><silent> (     <cmd>lua vim.lsp.buf.signature_help()<CR>(
   nnoremap <buffer><silent> gt    <cmd>lua vim.lsp.buf.type_definition()<CR>
-  "nnoremap <buffer><silent> <c-s> <cmd>lua vim.lsp.buf.formatting()<cr>
+  nnoremap <buffer><silent> <c-s> <cmd>lua vim.lsp.buf.formatting()<cr>
   setlocal omnifunc=v:lua.vim.lsp.omnifunc
 endfunction
 
@@ -933,7 +933,7 @@ nmap <silent> <C-k> :lprevious<cr>
 nmap <silent> <C-j> :lnext<cr>
 
 autocmd FileType * call LC_maps()
-autocmd FileType lua call NvimLspMaps()
+autocmd FileType lua,tex,bib call NvimLspMaps()
 
 
 
@@ -2201,6 +2201,8 @@ let g:vlime_window_settings = {'sldb': {'pos': 'belowright', 'vertical': v:true}
 
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
+vnoremap <enter> :lua require'nvim-treesitter/textobj'.scope_incremental()<cr>
+nnoremap <enter> viw
 
 "let g:equinusocio_material_darker = 1
 
