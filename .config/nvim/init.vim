@@ -43,6 +43,9 @@ endif
 
 set runtimepath+=$HOME/.space-vim/core
 
+let g:xcodedark_green_comments = 1
+let g:xcodedark_emph_funcs = 1
+let g:xcodedark_emph_idents = 1
 
 map <SPACE> <leader>
 
@@ -257,6 +260,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'SkyLeach/pudb.vim'
     Plug 'romgrk/searchReplace.vim'
     Plug 'dbridges/vim-markdown-runner'
+    Plug 'arzg/vim-colors-xcode'
     Plug 'Olical/nvim-local-fennel'
     Plug 'bakpakin/fennel.vim'
     Plug 'Olical/aniseed'
@@ -363,7 +367,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'michaeljsmith/vim-indent-object'
     "Plug 'mileszs/ack.vim'
     Plug 'moll/vim-bbye'
-    "Plug 'neomake/neomake'
+    "Plug 'neomake/neomake',{'for': 'rst'}
     Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
     Plug 'pboettch/vim-cmake-syntax'
     Plug 'peterhoeg/vim-qml', { 'for' : 'qml' }
@@ -651,6 +655,7 @@ set background =dark
 " Call the theme one
 set termguicolors     " enable true colors support
 colorscheme one
+"colorscheme xcodedark
 "colorscheme papaya
 let g:papaya_gui_color='blue'
 "colorscheme apprentice
@@ -785,7 +790,7 @@ autocmd FileType lua nnoremap <buffer> <F5> :exec '!lua' shellescape(@%:p, 1)<cr
 
 "autocmd FileType tex,latex nnoremap <buffer> <c-s> :w<cr>:silent !latexindent % -w<cr>:e<cr>
 "autocmd FileType tex,latex call neomake#configure#automake('w')
-autocmd FileType rst call neomake#configure#automake('w')
+"autocmd FileType rst call neomake#configure#automake('w')
 autocmd FileType tex,latex nnoremap <buffer> <c-a-o> :call vimtex#fzf#run()<cr>
 autocmd FileType markdown nnoremap <buffer> <cr> :ComposerStart<cr>:ComposerOpen<cr>
 autocmd FileType markdown nnoremap <buffer> <leader>ll :ComposerStart<cr>
@@ -1971,6 +1976,7 @@ nnoremap K :s/,/,\r/g<cr>
 "highlight! JavaMemberVariable ctermfg=White cterm=italic guifg=White gui=italic
 command! YankFilename :let @+ = expand("%:p")
 packadd termdebug
+"
 "let g:pudb_python='/usr/bin/python3'
 "
 nnoremap <leader>tq  :cgetbuffer<cr>:copen<cr>
