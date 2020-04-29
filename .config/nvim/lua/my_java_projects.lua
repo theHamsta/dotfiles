@@ -11,7 +11,7 @@ M = {}
 M.get_java_main_classes = function()
     local main_files = vim.fn.systemlist('rg "(public|static)\\s*(public|static)\\s*void\\s*main" -l')
     for i, f in ipairs(main_files) do
-      main_files[i] = string.gsub(string.gsub(f, '/', '.'), '(.*%.java%.)(.*)', '%2')
+      main_files[i] = string.gsub(string.gsub(f, '/', '.'), '(.*%.java%.)(.*).java', '%2')
     end
     return main_files
 end

@@ -1545,7 +1545,8 @@ nmap <silent> <leader>tv :TestVisit<CR>
 nnoremap <leader>te :set shell=/usr/bin/zsh<cr>:Topen<Cr>
 nnoremap <leader>to :Topen<cr>
 nnoremap <leader>tt :T<space>
-nnoremap <leader>22 :T<space>!!<enter>:T && echo ""<enter>
+"nnoremap <leader>22 :T<space>!!<enter>:T && echo ""<enter>
+
 let test#strategy = "neoterm"
 
 
@@ -2208,7 +2209,7 @@ let g:vlime_window_settings = {'sldb': {'pos': 'belowright', 'vertical': v:true}
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 vnoremap <enter> :lua require'nvim-treesitter/textobj'.scope_incremental()<cr>
-nnoremap <enter> viw
+"nnoremap <enter> vaw
 "let g:equinusocio_material_darker = 1
 
 "" make vertsplit invisible
