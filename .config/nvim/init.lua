@@ -83,4 +83,15 @@ require'nvim-treesitter'.setup('cpp')
 require'nvim-treesitter'.setup('ruby')
 require'nvim-treesitter'.setup('java')
 --
+  require'nvim-treesitter.configs'.setup {
+      highlight = {
+          enable = true,             -- false will disable the whole extension
+          disable = {}, -- list of language that will be disabled
+      },
+      textobj = {                        -- this enables incremental selection
+          enable = true,
+          disable = {},
+      }
+  }
+
 require'nvim_rocks'.ensure_installed({'fun', '30log', 'lua-toml'})
