@@ -45,53 +45,53 @@ require 'colorizer'.setup {
   'tex';
 }
 
-local dap = require('dap')
-dap.adapters.python = {
-  type = 'executable';
-  command = 'python3';
-  args = { '-m', 'debugpy.adapter' };
-}
+local ok, dap = pcall(require,'dap')
+if ok then
+  dap.adapters.python = {
+    type = 'executable';
+    command = 'python3';
+    args = { '-m', 'debugpy.adapter' };
+  }
 
-dap.configurations.python ={
-  {
-    type = 'python';
-    request = 'launch';
-    name = "Launch file";
-    program = "${file}";
-    pythonPath = function()
-      return '/usr/bin/python3'
-    end;
-  },
-  {
-    type = 'python';
-    request = 'launch';
-    name = "Pytest file";
-    program = "-m pytest ${file}";
-    pythonPath = function()
-      return '/usr/bin/python3'
-    end;
-  },
-}
+  dap.configurations.python ={
+    {
+      type = 'python';
+      request = 'launch';
+      name = "Launch file";
+      program = "${file}";
+      pythonPath = function()
+        return '/usr/bin/python3'
+      end;
+    },
+    {
+      type = 'python';
+      request = 'launch';
+      name = "Pytest file";
+      program = "-m pytest ${file}";
+      pythonPath = function()
+        return '/usr/bin/python3'
+      end;
+    },
+  }
+end
 
 vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''})
 
-
-require'nvim-treesitter'.setup('lua')
-require'nvim-treesitter'.setup('rust')
-require'nvim-treesitter'.setup('python')
-require'nvim-treesitter'.setup('cpp')
-require'nvim-treesitter'.setup('ruby')
-require'nvim-treesitter'.setup('java')
---
-  require'nvim-treesitter.configs'.setup {
-      highlight = {
-          enable = true,             -- false will disable the whole extension
-          disable = {}, -- list of language that will be disabled
-      },
-      textobj = {                        -- this enables incremental selection
-          enable = true,
-          disable = {},
-      }
-  }
+local ok, nvim_treesitter = pcall(require,'nvim-treesitter.configs')
+if ok then
+  require'nvim-treesitter.configs'.setup({
+    highlight = {
+      enable = true,             -- false will disable the whole extension
+      disable = {}, -- list of language that will be disabled
+    },
+    textobj = {                        -- this enables incremental selection
+    enable = true,
+    disable = {},
+  },
+  ensure_installed = 'all'
+})
+require'nvim-treesitter'.setup()
 
 require'nvim_rocks'.ensure_installed({'fun', '30log', 'lua-toml'})
+end
+

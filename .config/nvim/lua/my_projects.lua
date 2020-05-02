@@ -8,9 +8,6 @@
 
 local util = require'nvim_lsp.util'
 
-local last_java_main
-
-
 local function get_projects()
   local roots = {}
   local bufs = vim.api.nvim_list_bufs()
@@ -101,12 +98,17 @@ local function get_project_list()
   return result
 end
 
+local function get_plugin_readmes()
+  local readmes = api.nvim_get_runtime_file('README.md', true)
 
+  return readmes
+end
 
 return {
   get_projects = get_projects,
+  get_plugin_readmes = get_plugin_readmes,
   get_project_list = get_project_list,
   get_project_files = get_project_files,
-  get_java_main_classes = get_java_main_classes,
   close_project = close_project
 }
+

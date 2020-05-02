@@ -226,7 +226,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'mfussenegger/nvim-jdtls'
     Plug 'mfussenegger/nvim-dap'
 "    Plug 'haorenW1025/diagnostic-nvim'
-    Plug 'nvim-treesitter/highlight.lua'
+    "Plug 'nvim-treesitter/highlight.lua'
+    Plug 'kyazdani42/nvim-palenight.lua'
     Plug 'nvim-treesitter/nvim-treesitter'
     Plug 'nvim-treesitter/completion-treesitter'
     "Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
@@ -278,10 +279,10 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'atelierbram/vim-colors_atelier-schemes'
     Plug 'Shougo/deoplete-lsp'
     "Plug 'wellle/context.vim'
-    Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' } 
+    Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
     Plug 'udalov/kotlin-vim'
     "Plug 'glacambre/firenvim'
-    Plug 'rhysd/accelerated-jk' 
+    Plug 'rhysd/accelerated-jk'
     Plug  'lambdalisue/suda.vim'
     Plug  'szymonmaszke/vimpyter'
     Plug 'norcalli/nvim-colorizer.lua'
@@ -665,7 +666,8 @@ let g:papaya_gui_color='blue'
 "colorscheme ayu
 
 " Don't forget set the airline theme as well.
-let g:airline_theme = 'one'
+"let g:airline_theme = 'one'
+let g:airline_theme = 'murmur'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
@@ -752,7 +754,7 @@ autocmd FileType tex,latex nnoremap <buffer> <F3> val<plug>(vimtex-compile-selec
 autocmd FileType tex,latex nnoremap <buffer> <F4> :VimtexCompileSS<cr>
 "autocmd FileType tex,latex :let  maplocalleader="<space>"
 autocmd FileType rust,toml nmap <buffer> <F5> :exec 'T cd' FindRootDirectory()<cr><c-w>o:let $last_execution='cargo run'<cr>:Tkill<cr>:wa<cr>:T cargo run<cr>:Topen<cr>
-autocmd FileType rust,toml nmap <buffer> <F7> :exec 'T cd' FindRootDirectory()<cr><c-w>o:Tkill<cr>:wa<cr>:T cargo run 
+autocmd FileType rust,toml nmap <buffer> <F7> :exec 'T cd' FindRootDirectory()<cr><c-w>o:Tkill<cr>:wa<cr>:T cargo run
 autocmd FileType rust,toml nmap <buffer> <F4> :exec 'T cd' FindRootDirectory()<cr><c-w>o:let $last_execution='cargo build'<cr>:Tkill<cr>:Topen<cr>:wa<cr>:T cargo build<cr>:Topen<cr>
 autocmd FileType rust,toml nmap <buffer> <F6> :exec 'T cd' FindRootDirectory()<cr><c-w>o:let $last_execution='cargo test -- --nocapture'<cr>:Tkill<cr>:Topen<cr>:wa<cr>:T cargo test -- --nocapture<cr>
 autocmd FileType rust nmap <silent> <leader>tn :wa<cr>:RustTest<cr>
@@ -1163,7 +1165,7 @@ autocmd FileType java,,bash,sh,cmake,cs call ActivateCoc()
 
 
  set autoread
-au CursorHold * checktime  
+au CursorHold * checktime
  "au FocusLost,WinLeave * :silent! noautocmd w
  "
  imap <c-x><c-k> <plug>(fzf-complete-word)
@@ -1341,8 +1343,8 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standar
 
 command! -bang -nargs=? -complete=dir Files :call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 nnoremap <c-f> :Files<cr>
-nnoremap <a-l> "zyy"zp
-nnoremap <a-h> "zyy"zP
+"nnoremap <a-l> "zyy"zp
+"nnoremap <a-h> "zyy"zP
 
 let g:ctrlp_switch_buffer=0
 
@@ -1445,7 +1447,7 @@ let g:lt_location_list_toggle_map = '<leader>qe'
 let g:lt_quickfix_list_toggle_map = '<leader>ql'
 "au! FileType cmake unmap <buffer> <silent> gh
 "au! FileType cmake nmap <buffer> <silent> <unique> gh <Plug>CMakeCompleteHelp
-nmap <leader>ch :Cheat! 
+nmap <leader>ch :Cheat!
 
 
 let g:netrw_browsex_viewer='xdg-open'
@@ -1796,12 +1798,12 @@ call textobj#user#plugin('latex', {
 \     'select-a': 'al',
 \     'select-i': 'il',
 \   }
-\ })                                                                    
-                                                                        
+\ })
+
 autocmd Filetype ipynb nmap <silent><Leader>b :VimpyterInsertPythonBlock<CR>
-autocmd Filetype ipynb nmap <silent><Leader>j :VimpyterStartJupyter<CR> 
-autocmd Filetype ipynb nmap <silent><Leader>n :VimpyterStartNteract<CR> 
-                                                                        
+autocmd Filetype ipynb nmap <silent><Leader>j :VimpyterStartJupyter<CR>
+autocmd Filetype ipynb nmap <silent><Leader>n :VimpyterStartNteract<CR>
+
 command! Emoji %s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g
 
 command! SBCL normal :T sbcl --load ~/.local/share/nvim/plugged/vlime/lisp/start-vlime.lisp<cr>
@@ -1878,7 +1880,7 @@ let g:gitgutter_max_signs=3000
  "let g:LanguageClient_virtualTextPrefix = ''
  "let g:LanguageClient_loggingFile = expand('~/.local/share/nvim/LanguageClient.log')
  "let g:LanguageClient_serverStderr = expand('~/.local/share/nvim/LanguageServer.log')
- 
+
 "let g:context_enabled = 1
 
 "autocmd VimEnter     * ContextActivate
@@ -1983,13 +1985,13 @@ packadd termdebug
 nnoremap <leader>tq  :cgetbuffer<cr>:copen<cr>
 nnoremap <leader>tQ :setlocal errorformat=
     \%A\ \ File\ \"%f\"\\\,\ line\ %l\\\,%m,
-	\%C\ \ \ \ %.%#,
-	\%+Z%.%#Error\:\ %.%#,
-	\%A\ \ File\ \"%f\"\\\,\ line\ %l,
-	\%+C\ \ %.%#,
-	\%-C%p^,
-	\%Z%m,
-	\%-G%.%#<cr>:cgetbuffer<cr>:copen<cr>
+    \%C\ \ \ \ %.%#,
+    \%+Z%.%#Error\:\ %.%#,
+    \%A\ \ File\ \"%f\"\\\,\ line\ %l,
+    \%+C\ \ %.%#,
+    \%-C%p^,
+    \%Z%m,
+    \%-G%.%#<cr>:cgetbuffer<cr>:copen<cr>
 
 let g:completion_confirm_key = "\<C-y>"
 let g:sexp_enable_insert_mode_mappings=1
@@ -2058,28 +2060,28 @@ command! SwitchWorkingDirToCurrentFile cd %:p:h
 
 "" Configure the completion chains
 "let g:completion_chain_complete_list = {
-			"\'default' : {
-			"\	'default' : [
-			"\		{'complete_items' : ['lsp', 'snippet']},
-			"\		{'mode' : 'file'}
-			"\	],
-			"\	'comment' : [],
-			"\	'string' : []
-			"\	},
-			"\'vim' : [
-			"\	{'complete_items': ['snippet']},
-			"\	{'mode' : 'cmd'}
-			"\	],
-			"\'c' : [
-			"\	{'complete_items': ['ts']}
-			"\	],
-			"\'python' : [
-			"\	{'complete_items': ['ts']}
-			"\	],
-			"\'lua' : [
-			"\	{'complete_items': ['ts']}
-			"\	],
-			"\}
+            "\'default' : {
+            "\  'default' : [
+            "\      {'complete_items' : ['lsp', 'snippet']},
+            "\      {'mode' : 'file'}
+            "\  ],
+            "\  'comment' : [],
+            "\  'string' : []
+            "\  },
+            "\'vim' : [
+            "\  {'complete_items': ['snippet']},
+            "\  {'mode' : 'cmd'}
+            "\  ],
+            "\'c' : [
+            "\  {'complete_items': ['ts']}
+            "\  ],
+            "\'python' : [
+            "\  {'complete_items': ['ts']}
+            "\  ],
+            "\'lua' : [
+            "\  {'complete_items': ['ts']}
+            "\  ],
+            "\}
 "autocmd BufEnter * lua require'completion'.on_attach()
 
 "" Highlight the node at point, its usages and definition when cursor holds
@@ -2167,9 +2169,14 @@ endfunction
 
 function! RunJavaSink(main_class)
   exe "lua require'my_java_projects'.launch_java_main('" . a:main_class ."')"
-  "exe "T ./gradlew run -PmainClass=" . a:main_class 
+  "exe "T ./gradlew run -PmainClass=" . a:main_class
 endfunction
 
+
+function! PluginReadmes()
+  let files = luaeval("require'my_projects'.get_plugin_readmes()")
+  return fzf#run({'source': files, 'sink': function("ProjectFilesSink"), 'window': 'call FloatingFZF()'})
+endfunction
 
 function! RunJavaMain()
   let mains = luaeval("require'my_java_projects'.get_java_main_classes()")
@@ -2180,6 +2187,7 @@ command! ProjectClose lua require'my_projects'.close_project()
 command! ProjectFiles call ProjectFilesSearch()
 command! ProjectFolders call ProjectFoldersSearch()
 command! RunJavaMain call RunJavaMain()
+command! PluginReadmes call PluginReadmes()
 
 
 "nnoremap gm m
@@ -2209,6 +2217,16 @@ let g:vlime_window_settings = {'sldb': {'pos': 'belowright', 'vertical': v:true}
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 vnoremap <enter> :lua require'nvim-treesitter/textobj'.scope_incremental()<cr>
+
+nmap <a-k> :lua require'nvim-treesitter/node-movement'.move_up()<cr>
+nmap <a-h> :lua require'nvim-treesitter/node-movement'.move_left()<cr>
+nmap <a-l> :lua require'nvim-treesitter/node-movement'.move_right()<cr>
+nmap <a-j> :lua require'nvim-treesitter/node-movement'.move_down()<cr>
+
+vmap <a-k> :lua require'nvim-treesitter/node-movement'.move_up()<cr>
+vmap <a-h> :lua require'nvim-treesitter/node-movement'.move_left()<cr>
+vmap <a-l> :lua require'nvim-treesitter/node-movement'.move_right()<cr>
+vmap <a-j> :lua require'nvim-treesitter/node-movement'.move_down()<cr>
 "nnoremap <enter> vaw
 "let g:equinusocio_material_darker = 1
 
@@ -2221,3 +2239,7 @@ vnoremap <enter> :lua require'nvim-treesitter/textobj'.scope_incremental()<cr>
 "let g:lightline = {
   "\ 'colorscheme': 'equinusocio_material',
   "\ }
+"
+"
+colorscheme palenight
+let g:lightline = { 'colorscheme': 'palenight' }
