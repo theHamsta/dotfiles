@@ -37,13 +37,17 @@ nvim_lsp.texlab.setup{
 }
 --nvim_lsp.texlab.buf_build({bufnr})
 
-require 'colorizer'.setup {
+local ok, colorizer = pcall(require, 'colorizer')
+if ok then
+colorizer.setup {
   'css';
   'javascript';
   'tex';
   'html';
+  'vim';
   'tex';
 }
+end
 
 local ok, dap = pcall(require,'dap')
 if ok then
@@ -79,17 +83,33 @@ vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''
 
 local ok, nvim_treesitter = pcall(require,'nvim-treesitter.configs')
 if ok then
-  require'nvim-treesitter.configs'.setup({
-    highlight = {
-      enable = true,             -- false will disable the whole extension
-      disable = {}, -- list of language that will be disabled
+  require'nvim-treesitter.configs'.setup(
+    {
+      highlight = {
+          enable = false,             -- false will disable the whole extension
+          disable = {}, -- list of language that will be disabled
+      },
+      incremental_selection = {             -- this enables incremental selection
+          enable = true,
+          disable = {},
+          keymaps = {                       -- mappings for incremental selection (visual mappings)
+            node_incremental = "<a-k>", -- "grn" by default,
+            scope_incremental = "<a-j>" -- "grc" by default
+          }
+      },
+      node_movement = {                        -- this enables incremental selection
+      enable = true,
+      disable = {},
+      keymaps = {
+        move_up = "<a-k>",
+        move_down = "<a-j>",
+        move_left = "<a-h>",
+        move_right = "<a-l>",
+        select_current_node = "<leader>ff",
+      },
     },
-    textobj = {                        -- this enables incremental selection
-    enable = true,
-    disable = {},
-  },
-  ensure_installed = 'all'
-})
+    ensure_installed = 'all'
+  } )
 require'nvim-treesitter'.setup()
 
 require'nvim_rocks'.ensure_installed({'fun', '30log', 'lua-toml'})

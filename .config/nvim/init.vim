@@ -356,7 +356,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'kassio/neoterm'
     Plug 'kien/rainbow_parentheses.vim'
     Plug 'lervag/vimtex', { 'for': 'tex' }
-    Plug 'machakann/vim-highlightedyank'
+    "Plug 'machakann/vim-highlightedyank'
     Plug 'machakann/vim-swap'
     Plug 'majutsushi/tagbar'
     Plug 'maralla/vim-toml-enhance', {'for': 'toml'}
@@ -651,9 +651,9 @@ endif
 
 
 " Set the background theme to dark
-set background =dark
 
 " Call the theme one
+"set background =dark
 set termguicolors     " enable true colors support
 colorscheme one
 "colorscheme xcodedark
@@ -666,8 +666,8 @@ let g:papaya_gui_color='blue'
 "colorscheme ayu
 
 " Don't forget set the airline theme as well.
-"let g:airline_theme = 'one'
-let g:airline_theme = 'murmur'
+let g:airline_theme = 'one'
+"let g:airline_theme = 'murmur'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
@@ -1432,7 +1432,7 @@ let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
 nmap Q @q
 inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
-let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'cpp', 'rust', 'java', 'go', 'lua']
+let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'cpp', 'rust', 'java', 'go', 'lua', 'vim']
 
 function! Multiple_cursors_before()
   call deoplete#custom#option('auto_complete', v:false)
@@ -1528,10 +1528,10 @@ let g:LanguageClient_diagnosticsDisplay= {
             \   }
             \
 
-let g:LspDiagnosticsErrorSign = '❌'
-let g:LspDiagnosticsWarningSign = '⚠️'
-let g:LspDiagnosticsInformationSign = '🔎'
-let g:LspDiagnosticsHintSign = '💡'
+sign define LspDiagnosticsErrorSign text=❌ texthl=LspDiagnosticsError linehl= numhl=
+sign define LspDiagnosticsWarningSign text=⚠️ texthl=LspDiagnosticsWarning linehl= numhl=
+sign define LspDiagnosticsInformationSign text=🔎 texthl=LspDiagnosticsInformation linehl= numhl=
+sign define LspDiagnosticsHintSign text=💡 texthl=LspDiagnosticsHint linehl= numhl=
 
 nnoremap <leader>op :!xdg-open % &<cr>
 nnoremap gX :!xdg-open % &<cr>
@@ -1808,7 +1808,6 @@ command! Emoji %s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g
 
 command! SBCL normal :T sbcl --load ~/.local/share/nvim/plugged/vlime/lisp/start-vlime.lisp<cr>
 
-"lua require'colorizer'.setup()
 
 let g:tagbar_type_markdown = {
     \ 'ctagstype': 'markdown',
@@ -2218,15 +2217,15 @@ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 vnoremap <enter> :lua require'nvim-treesitter/textobj'.scope_incremental()<cr>
 
-nmap <a-k> :lua require'nvim-treesitter/node-movement'.move_up()<cr>
-nmap <a-h> :lua require'nvim-treesitter/node-movement'.move_left()<cr>
-nmap <a-l> :lua require'nvim-treesitter/node-movement'.move_right()<cr>
-nmap <a-j> :lua require'nvim-treesitter/node-movement'.move_down()<cr>
+nmap <s-a-k> :lua require'nvim-treesitter/node_movement'.node_move_up()<cr>
+nmap <s-a-h> :lua require'nvim-treesitter/node_movement'.node_move_left()<cr>
+nmap <s-a-l> :lua require'nvim-treesitter/node_movement'.node_move_right()<cr>
+nmap <s-a-j> :lua require'nvim-treesitter/node_movement'.node_move_down()<cr>
 
-vmap <a-k> :lua require'nvim-treesitter/node-movement'.move_up()<cr>
-vmap <a-h> :lua require'nvim-treesitter/node-movement'.move_left()<cr>
-vmap <a-l> :lua require'nvim-treesitter/node-movement'.move_right()<cr>
-vmap <a-j> :lua require'nvim-treesitter/node-movement'.move_down()<cr>
+vmap <a-k> :lua require'nvim-treesitter/node_movement'.move_up()<cr>
+vmap <a-h> :lua require'nvim-treesitter/node_movement'.move_left()<cr>
+vmap <a-l> :lua require'nvim-treesitter/node_movement'.move_right()<cr>
+vmap <a-j> :lua require'nvim-treesitter/node_movement'.move_down()<cr>
 "nnoremap <enter> vaw
 "let g:equinusocio_material_darker = 1
 
@@ -2241,5 +2240,33 @@ vmap <a-j> :lua require'nvim-treesitter/node-movement'.move_down()<cr>
   "\ }
 "
 "
-colorscheme palenight
-let g:lightline = { 'colorscheme': 'palenight' }
+"colorscheme palenight
+"let g:lightline = { 'colorscheme': 'palenight' }
+function! s:hlyank(operator, regtype, inclusive) abort
+    if a:operator !=# 'y' || a:regtype ==# ''
+        return
+    endif
+
+    let bnr = bufnr('%')
+    let ns = nvim_create_namespace('')
+    call nvim_buf_clear_namespace(bnr, ns, 0, -1)
+
+    let [_, lin1, col1, off1] = getpos("'[")
+    let [lin1, col1] = [lin1 - 1, col1 - 1]
+    let [_, lin2, col2, off2] = getpos("']")
+    let [lin2, col2] = [lin2 - 1, col2 - (a:inclusive ? 0 : 1)]
+    for l in range(lin1, lin1 + (lin2 - lin1))
+        let is_first = (l == lin1)
+        let is_last = (l == lin2)
+        let c1 = is_first || a:regtype[0] ==# "\<C-v>" ? (col1 + off1) : 0
+        let c2 = is_last || a:regtype[0] ==# "\<C-v>" ? (col2 + off2) : -1
+        call nvim_buf_add_highlight(bnr, ns, 'TextYank', l, c1, c2)
+    endfor
+    call timer_start(100, {-> nvim_buf_is_valid(bnr) && nvim_buf_clear_namespace(bnr, ns, 0, -1)})
+endfunc
+highlight default link TextYank IncSearch
+autocmd TextYankPost * call s:hlyank(v:event.operator, v:event.regtype, v:event.inclusive)
+
+
+highlight NvimTreesitterCurrentNode guibg=#444400
+
