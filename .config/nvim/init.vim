@@ -222,6 +222,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
     "Plug 'wellle/context.vim'
     Plug 'rhysd/vim-crystal'
+    Plug 'vigoux/LanguageTool.nvim'
     Plug 'chuling/vim-equinusocio-material'
     Plug 'mfussenegger/nvim-jdtls'
     Plug 'mfussenegger/nvim-dap'
@@ -930,7 +931,10 @@ function! NvimLspMaps()
   nnoremap <buffer><silent> gh    <cmd>lua vim.lsp.buf.hover()<CR>
   nnoremap <buffer><silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
   nnoremap <buffer><silent> gS    <cmd>lua vim.lsp.buf.signature_help()<CR>
-  inoremap <buffer><silent> (     <cmd>lua vim.lsp.buf.signature_help()<CR>(
+
+  if &filetype != "tex" 
+    inoremap <buffer><silent> (     <cmd>lua vim.lsp.buf.signature_help()<CR>(
+  endif
   nnoremap <buffer><silent> gt    <cmd>lua vim.lsp.buf.type_definition()<CR>
   nnoremap <buffer><silent> <c-s> <cmd>lua vim.lsp.buf.formatting()<cr>
   setlocal omnifunc=v:lua.vim.lsp.omnifunc
@@ -1343,8 +1347,8 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standar
 
 command! -bang -nargs=? -complete=dir Files :call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 nnoremap <c-f> :Files<cr>
-"nnoremap <a-l> "zyy"zp
-"nnoremap <a-h> "zyy"zP
+nnoremap <a-s-l> "zyy"zp
+nnoremap <a-s-h> "zyy"zP
 
 let g:ctrlp_switch_buffer=0
 
@@ -2217,10 +2221,10 @@ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 vnoremap <enter> :lua require'nvim-treesitter/textobj'.scope_incremental()<cr>
 
-nmap <s-a-k> :lua require'nvim-treesitter/node_movement'.node_move_up()<cr>
-nmap <s-a-h> :lua require'nvim-treesitter/node_movement'.node_move_left()<cr>
-nmap <s-a-l> :lua require'nvim-treesitter/node_movement'.node_move_right()<cr>
-nmap <s-a-j> :lua require'nvim-treesitter/node_movement'.node_move_down()<cr>
+"nmap <s-a-k> :lua require'nvim-treesitter/node_movement'.node_move_up()<cr>
+"nmap <s-a-h> :lua require'nvim-treesitter/node_movement'.node_move_left()<cr>
+"nmap <s-a-l> :lua require'nvim-treesitter/node_movement'.node_move_right()<cr>
+"nmap <s-a-j> :lua require'nvim-treesitter/node_movement'.node_move_down()<cr>
 
 vmap <a-k> :lua require'nvim-treesitter/node_movement'.move_up()<cr>
 vmap <a-h> :lua require'nvim-treesitter/node_movement'.move_left()<cr>
@@ -2269,4 +2273,8 @@ autocmd TextYankPost * call s:hlyank(v:event.operator, v:event.regtype, v:event.
 
 
 highlight NvimTreesitterCurrentNode guibg=#444400
+
+
+let g:languagetool_server=expand('~') . '/opt/LanguageTool-4.9.1/languagetool-server.jar'
+
 
