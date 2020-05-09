@@ -60,22 +60,34 @@ if ok then
     dap.configurations.python = {
         {
             type = "python",
-            request = "launch",
+            request = "attach",
             name = "Launch file",
-            program = "${file}",
-            pythonPath = function()
-                return "/usr/bin/python3"
-            end
+            program = "${file}"
+            --pythonPath = function()
+            --return "/usr/bin/python3"
+            --end
         },
         {
             type = "python",
-            request = "launch",
+            request = "attach",
             name = "Pytest file",
-            program = "-m pytest ${file}",
-            pythonPath = function()
-                return "/usr/bin/python3"
-            end
+            program = "-m pytest ${file}"
+            --pythonPath = function()
+            --return "/usr/bin/python3"
+            --end
         }
+    }
+    dap.repl.commands = {
+        continue = {".continue", "c"},
+        next_ = {".next", "n"},
+        into = {".into", "s"},
+        out = {".out", "r"},
+        scopes = {".scopes", "a"},
+        threads = {".threads"},
+        frames = {".frames", "f"},
+        exit = {"exit", ".exit"},
+        up = {".up", "up"},
+        down = {".down", "down"},
     }
 end
 
@@ -83,6 +95,12 @@ vim.fn.sign_define("DapBreakpoint", {text = "🛑", texthl = "", linehl = "", nu
 
 local ok, nvim_treesitter = pcall(require, "nvim-treesitter.configs")
 if ok then
+    require "nvim-treesitter.configs".get_parser_configs().lisp = {
+        install_info = {
+            url = "https://github.com/theHamsta/tree-sitter-clojure",
+            files = {"src/parser.c"}
+        }
+    }
     require "nvim-treesitter.configs".setup(
         {
             highlight = {

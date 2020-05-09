@@ -405,7 +405,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-rhubarb'
     "Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'lisp' }
-    Plug 'guns/vim-sexp', { 'for': 'lisp' }
+    "Plug 'guns/vim-sexp', { 'for': 'lisp' }
     Plug 'tpope/vim-sleuth'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-unimpaired'
@@ -791,7 +791,7 @@ autocmd FileType clojure nmap <buffer> <enter> <Plug>(iced_eval_outer_top_list)
 autocmd FileType cmake SemanticHighlight
 autocmd FileType lua nnoremap <buffer> <F5> :exec '!lua' shellescape(@%:p, 1)<cr>:let last_execution=@%:p <cr>
 
-autocmd FileType lua nnoremap <buffer> <c-s> :w<cr>:%!luafmt --stdin<cr>
+autocmd FileType lua nnoremap <buffer> <c-s> ma:w<cr>:%!luafmt --stdin<cr>'azz
 "autocmd FileType tex,latex nnoremap <buffer> <c-s> :w<cr>:silent !latexindent % -w<cr>:e<cr>
 "autocmd FileType tex,latex call neomake#configure#automake('w')
 "autocmd FileType rst call neomake#configure#automake('w')
@@ -937,7 +937,9 @@ function! NvimLspMaps()
     inoremap <buffer><silent> (     <cmd>lua vim.lsp.buf.signature_help()<CR>(
   endif
   nnoremap <buffer><silent> gt    <cmd>lua vim.lsp.buf.type_definition()<CR>
-  nnoremap <buffer><silent> <c-s> <cmd>lua vim.lsp.buf.formatting()<cr>
+  if &filetype != "lua" 
+    nnoremap <buffer><silent> <c-s> <cmd>lua vim.lsp.buf.formatting()<cr>
+  endif
   setlocal omnifunc=v:lua.vim.lsp.omnifunc
 endfunction
 

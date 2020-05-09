@@ -41,7 +41,7 @@ M.start_debugpy = function(target, port)
             end
         }
     )
-    M.debugpy:start()
+    M.debugpy.start()
 end
 
 M.start_python_debugger = function(use_this_file, is_pytest)
@@ -62,6 +62,7 @@ M.start_python_debugger = function(use_this_file, is_pytest)
     local dap = require "dap"
     dap.attach("127.0.0.1", M.default_port, dap.configurations.python[1])
     M.default_port = M.default_port + 1
+    dap.repl.open()
 end
 
 return M
