@@ -522,7 +522,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 call plug#end()
 
 set conceallevel=2
-let g:tex_conceal='abdmg'
+"let g:tex_conceal='abdmg'
 let g:tex_flavor='latex'
 
 let g:deoplete#enable_at_startup = 1
@@ -791,6 +791,7 @@ autocmd FileType clojure nmap <buffer> <enter> <Plug>(iced_eval_outer_top_list)
 autocmd FileType cmake SemanticHighlight
 autocmd FileType lua nnoremap <buffer> <F5> :exec '!lua' shellescape(@%:p, 1)<cr>:let last_execution=@%:p <cr>
 
+autocmd FileType lua nnoremap <buffer> <c-s> :w<cr>:%!luafmt --stdin<cr>
 "autocmd FileType tex,latex nnoremap <buffer> <c-s> :w<cr>:silent !latexindent % -w<cr>:e<cr>
 "autocmd FileType tex,latex call neomake#configure#automake('w')
 "autocmd FileType rst call neomake#configure#automake('w')
@@ -1188,37 +1189,6 @@ nnoremap <leader>yp :let @+ = expand("%:p")<cr>
 
 "let g:livepreview_previewer = 'okular'
 
-nnoremap <leader>date :r!date<cr>
-autocmd FileType tex nnoremap <buffer> ,lv :let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'<cr>:VimtexView<cr>:let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex --noraise'<cr>
-autocmd FileType tex nnoremap <buffer> <cr> :let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'<cr>:VimtexView<cr>:let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex --noraise'<cr>
-"autocmd FileType tex nnomap <buffer>  <cr> <leader>lv
-autocmd FileType tex nnoremap <buffer> <c-cr> normal ":T okular " .  %:p:h . "/output.pdf --unique &<cr><c-w>o"
-nnoremap ,lc :VimtexCompile<cr>
-nnoremap <leader>zen :Goyo<cr>
-nnoremap <leader>buf :Buffers<cr>
-nnoremap <leader>save :saveas
-
-"let g:vimtex_view_method ='zathura'
-"let g:vimtex_view_general_viewer = 'zathura'
-"let g:vimtex_view_general_options = '--synctex-forward @line:@col:@pdf'
-
-"--synctex-forward " . line('.') . ":" . col('.') . ":" . bufname('%') .
-let g:vimtex_view_general_viewer = 'okular'
-let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex --noraise'
-let g:vimtex_view_general_options_latexmk = '--unique'
-"let g:vimtex_compiler_progname = 'nvr'
-let g:vimtex_latexmk_options = '-pdf -shell-escape -verbose -file-line-error -synctex=1 -interaction=nonstopmode'
-
-let g:vimtex_compiler_latexmk = {
-    \ 'options' : [
-    \   '-pdf',
-    \   '-shell-escape',
-    \   '-verbose',
-    \   '-file-line-error',
-    \   '-synctex=1',
-    \   '-interaction=nonstopmode',
-    \ ],
-    \}
 "colorscheme NeoSolarized
 "set background=dark
 "let g:neosolarized_contrast = "high"
@@ -1347,8 +1317,8 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standar
 
 command! -bang -nargs=? -complete=dir Files :call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 nnoremap <c-f> :Files<cr>
-nnoremap <a-s-l> "zyy"zp
-nnoremap <a-s-h> "zyy"zP
+"nnoremap <a-s-l> "zyy"zp
+"nnoremap <a-s-h> "zyy"zP
 
 let g:ctrlp_switch_buffer=0
 
@@ -1436,7 +1406,7 @@ let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
 nmap Q @q
 inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
-let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'cpp', 'rust', 'java', 'go', 'lua', 'vim']
+let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'sh', 'cpp', 'rust', 'java', 'go', 'lua', 'vim']
 
 function! Multiple_cursors_before()
   call deoplete#custom#option('auto_complete', v:false)
@@ -2012,8 +1982,8 @@ augroup CustomVlimeInputBuffer
 augroup end
 
 nnoremap <c-g> :InfoWindowToggle<cr>
-nnoremap <a-s-k> "ayy"aP
-nnoremap <a-s-j> "ayy"ap
+"nnoremap <a-s-k> "ayy"aP
+"nnoremap <a-s-j> "ayy"ap
 
 "" invert that dictionary to create one mapping names to codepoints
 "let unicodeIndex = {}
@@ -2221,15 +2191,15 @@ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 vnoremap <enter> :lua require'nvim-treesitter/textobj'.scope_incremental()<cr>
 
-"nmap <s-a-k> :lua require'nvim-treesitter/node_movement'.node_move_up()<cr>
-"nmap <s-a-h> :lua require'nvim-treesitter/node_movement'.node_move_left()<cr>
-"nmap <s-a-l> :lua require'nvim-treesitter/node_movement'.node_move_right()<cr>
-"nmap <s-a-j> :lua require'nvim-treesitter/node_movement'.node_move_down()<cr>
+nmap <s-a-k> :lua require'nvim-treesitter/node_movement'.node_move_up()<cr>
+nmap <s-a-h> :lua require'nvim-treesitter/node_movement'.node_move_left()<cr>
+nmap <s-a-l> :lua require'nvim-treesitter/node_movement'.node_move_right()<cr>
+nmap <s-a-j> :lua require'nvim-treesitter/node_movement'.node_move_down()<cr>
 
-vmap <a-k> :lua require'nvim-treesitter/node_movement'.move_up()<cr>
-vmap <a-h> :lua require'nvim-treesitter/node_movement'.move_left()<cr>
-vmap <a-l> :lua require'nvim-treesitter/node_movement'.move_right()<cr>
-vmap <a-j> :lua require'nvim-treesitter/node_movement'.move_down()<cr>
+"vmap <a-k> :lua require'nvim-treesitter/node_movement'.move_up()<cr>
+"vmap <a-h> :lua require'nvim-treesitter/node_movement'.move_left()<cr>
+"vmap <a-l> :lua require'nvim-treesitter/node_movement'.move_right()<cr>
+"vmap <a-j> :lua require'nvim-treesitter/node_movement'.move_down()<cr>
 "nnoremap <enter> vaw
 "let g:equinusocio_material_darker = 1
 
@@ -2276,5 +2246,4 @@ highlight NvimTreesitterCurrentNode guibg=#444400
 
 
 let g:languagetool_server=expand('~') . '/opt/LanguageTool-4.9.1/languagetool-server.jar'
-
 
