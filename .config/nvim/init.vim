@@ -405,7 +405,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-rhubarb'
     "Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'lisp' }
-    "Plug 'guns/vim-sexp', { 'for': 'lisp' }
+    Plug 'guns/vim-sexp', { 'for': ['lisp', 'clojure', 'scheme'] }
     Plug 'tpope/vim-sleuth'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-unimpaired'

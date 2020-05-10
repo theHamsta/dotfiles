@@ -13,7 +13,14 @@ local nvim_lsp = require "nvim_lsp"
 --nvim_lsp.clangd.setup({
 --cmd={"clangd-11", "--clang-tidy", "--header-insertion=iwyu", "--background-index", "--suggest-missing-includes"}
 --})
-
+ local function pcall_ret(status, ...)
+    if status then return ... end
+  end
+  local function nil_wrap(fn)
+    return function(...)
+      return pcall_ret(pcall(fn, ...))
+    end
+  end
 nvim_lsp.sumneko_lua.setup {
     settings = {Lua = {diagnostics = {globals = {"vim"}}}}
 }
@@ -89,6 +96,7 @@ if ok then
         up = {".up", "up"},
         down = {".down", "down"},
     }
+    vim.g.dap_virtual_text = 'all frames'
 end
 
 vim.fn.sign_define("DapBreakpoint", {text = "🛑", texthl = "", linehl = "", numhl = ""})
