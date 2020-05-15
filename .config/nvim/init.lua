@@ -69,7 +69,8 @@ if ok then
             type = "python",
             request = "attach",
             name = "Launch file",
-            program = "${file}"
+            program = "${file}",
+            console = "externalTerminal",
             --pythonPath = function()
             --return "/usr/bin/python3"
             --end
@@ -90,13 +91,14 @@ if ok then
         into = {".into", "s"},
         out = {".out", "r"},
         scopes = {".scopes", "a"},
-        threads = {".threads"},
+        threads = {".threads", "t"},
         frames = {".frames", "f"},
         exit = {"exit", ".exit"},
         up = {".up", "up"},
         down = {".down", "down"},
+        goto_ = {".goto", "j"},
     }
-    vim.g.dap_virtual_text = 'all frames'
+    vim.g.dap_virtual_text = true
 end
 
 vim.fn.sign_define("DapBreakpoint", {text = "🛑", texthl = "", linehl = "", numhl = ""})

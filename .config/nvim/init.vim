@@ -223,13 +223,13 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'wellle/context.vim'
     Plug 'rhysd/vim-crystal'
     Plug 'vigoux/LanguageTool.nvim'
-    Plug 'chuling/vim-equinusocio-material'
+    "Plug 'chuling/vim-equinusocio-material'
     Plug 'mfussenegger/nvim-jdtls'
     Plug 'mfussenegger/nvim-dap'
 "    Plug 'haorenW1025/diagnostic-nvim'
     "Plug 'nvim-treesitter/highlight.lua'
     Plug 'kyazdani42/nvim-palenight.lua'
-    Plug 'nvim-treesitter/nvim-treesitter'
+    Plug 'theHamsta/nvim-treesitter'
     Plug 'nvim-treesitter/completion-treesitter'
     "Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
     Plug 'dm1try/git_fastfix'
@@ -307,7 +307,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'airblade/vim-gitgutter'
     Plug 'airblade/vim-rooter'
     Plug 'akiyosi/gonvim-fuzzy'
-    Plug 'arp242/jumpy.vim'
+    "Plug 'arp242/jumpy.vim'
     "Plug 'bfredl/nvim-ipy',  {'on':  [ 'IPython'], 'do': ':UpdateRemotePlugins'}
     Plug 'bfrg/vim-cpp-modern'
     Plug 'bkad/CamelCaseMotion'
@@ -405,7 +405,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-rhubarb'
     "Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'lisp' }
-    Plug 'guns/vim-sexp', { 'for': ['lisp', 'clojure', 'scheme'] }
+    Plug 'guns/vim-sexp', { 'for': ['lisp', 'clojure', 'scheme', 'vlime_repl'] }
     Plug 'tpope/vim-sleuth'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-unimpaired'
@@ -792,7 +792,7 @@ autocmd FileType cmake SemanticHighlight
 autocmd FileType lua nnoremap <buffer> <F5> :exec '!lua' shellescape(@%:p, 1)<cr>:let last_execution=@%:p <cr>
 
 autocmd FileType lua nnoremap <buffer> <c-s> ma:w<cr>:%!luafmt --stdin<cr>'azz
-"autocmd FileType tex,latex nnoremap <buffer> <c-s> :w<cr>:silent !latexindent % -w<cr>:e<cr>
+autocmd FileType tex,latex nnoremap <buffer> <c-s> :w<cr>:silent !latexindent % -w<cr>:e<cr>
 "autocmd FileType tex,latex call neomake#configure#automake('w')
 "autocmd FileType rst call neomake#configure#automake('w')
 autocmd FileType tex,latex nnoremap <buffer> <c-a-o> :call vimtex#fzf#run()<cr>
@@ -850,10 +850,10 @@ let g:LanguageClient_serverCommands = {
     \ 'dockerfile': ['docker-langserver', '--stdio'],
     \ 'd': ['dls'],
     \ 'crystal': ['/home/stephan/projects/scry/scry/bin/scry'],
-    \ 'gluon': ['gluon_language-server']
+    \ 'gluon': ['gluon_language-server'],
     \ }
-    " 'tex': ['texlab'],
-    "\ 'bib': ['texlab'],
+    "\ 'tex': ['texlab'],
+    "\ 'bib': ['texlab']
     "\ 'lua': ['lua-lsp'],
     "\ 'cpp': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     "\ 'c': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
@@ -999,6 +999,7 @@ set colorcolumn=120
 
 command! Q :q
 command! Qa :qa
+"command! Qa! :qa!
 "
 "fu! C_init()
       "setl formatexpr=LanguageClient#textDocument_rangeFormatting()
@@ -1550,7 +1551,7 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 autocmd BufReadPre *.pdf silent set ro
-autocmd BufReadPre *.pdf silent %!xdg-open "%"
+autocmd BufReadPre *.pdf silent :T okular "%"
 autocmd BufReadPost *.pdf silent %!pdftotext -nopgbrk -layout -q -eol unix "%" - | fmt -w78
 
 autocmd BufReadPre *.png silent %!xdg-open "%"
@@ -2246,6 +2247,8 @@ autocmd TextYankPost * call s:hlyank(v:event.operator, v:event.regtype, v:event.
 
 highlight NvimTreesitterCurrentNode guibg=#444400
 
+let g:sexp_filetypes = 'clojure,scheme,lisp,timl,vlime_repl'
 
 let g:languagetool_server=expand('~') . '/opt/LanguageTool-4.9.1/languagetool-server.jar'
 
+nmap <f1> :lua require'dap'.goto_()<cr>
