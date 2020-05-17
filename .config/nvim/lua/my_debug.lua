@@ -57,10 +57,21 @@ M.start_python_debugger = function(use_this_file, is_pytest)
         vim.cmd('echoerr "No debug target set!"')
     end
 
-    M.start_debugpy(M.debug_target, M.default_port)
-    os.execute("sleep 1.2")
+    --M.start_debugpy(M.debug_target, M.default_port)
+    --os.execute("sleep 1.2")
     local dap = require "dap"
-    dap.attach("127.0.0.1", M.default_port, dap.configurations.python[1])
+    --dap.attach("127.0.0.1", M.default_port, dap.configurations.python[1])
+
+    dap.launch(dap.adapters.python,   {
+            type = "python",
+            request = "launch",
+            name = "Launch file",
+            program = M.debug_target,
+            console = "integratedTerminal"
+            --pythonPath = function()
+            --return "/usr/bin/python3"
+            --end
+        })
     M.default_port = M.default_port + 1
     dap.repl.open()
 end

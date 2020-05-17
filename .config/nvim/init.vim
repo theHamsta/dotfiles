@@ -211,6 +211,9 @@ function! BuildComposer(info)
   endif
 endfunction
 
+augroup NvimTreesitter
+augroup END
+ 
 call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'beloglazov/vim-online-thesaurus'
     "Plug 'garbas/vim-snipmate'
@@ -225,7 +228,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'vigoux/LanguageTool.nvim'
     "Plug 'chuling/vim-equinusocio-material'
     Plug 'mfussenegger/nvim-jdtls'
-    Plug 'mfussenegger/nvim-dap'
+    Plug 'theHamsta/nvim-dap', { 'branch' : 'fork' }
 "    Plug 'haorenW1025/diagnostic-nvim'
     "Plug 'nvim-treesitter/highlight.lua'
     Plug 'kyazdani42/nvim-palenight.lua'
@@ -370,7 +373,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'mileszs/ack.vim'
     Plug 'moll/vim-bbye'
     "Plug 'neomake/neomake',{'for': 'rst'}
-    Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+    "Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
     Plug 'pboettch/vim-cmake-syntax'
     Plug 'peterhoeg/vim-qml', { 'for' : 'qml' }
     Plug 'rbonvall/snipmate-snippets-bib'
@@ -843,12 +846,12 @@ let g:LanguageClient_serverCommands = {
     \       run(server);
     \   '],
     \ 'haskell': ['hie-wrapper', '--lsp'],
-    \ 'python': ['pyls'],
     \ 'cuda': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     \ 'kotlin': ['kotlin-language-server', '.'],
     \ 'go': ['gopls'],
     \ 'dockerfile': ['docker-langserver', '--stdio'],
     \ 'd': ['dls'],
+    \ 'python': ['pyls'],
     \ 'crystal': ['/home/stephan/projects/scry/scry/bin/scry'],
     \ 'gluon': ['gluon_language-server'],
     \ }
@@ -2252,3 +2255,4 @@ let g:sexp_filetypes = 'clojure,scheme,lisp,timl,vlime_repl'
 let g:languagetool_server=expand('~') . '/opt/LanguageTool-4.9.1/languagetool-server.jar'
 
 nmap <f1> :lua require'dap'.goto_()<cr>
+nmap <f2> :lua require'nvim-treesitter/playground'.play_with()<cr>
