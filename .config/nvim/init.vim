@@ -265,7 +265,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'SkyLeach/pudb.vim'
     Plug 'romgrk/searchReplace.vim'
     Plug 'dbridges/vim-markdown-runner'
-    Plug 'arzg/vim-colors-xcode'
+    "Plug 'arzg/vim-colors-xcode'
     Plug 'Olical/nvim-local-fennel'
     Plug 'bakpakin/fennel.vim'
     Plug 'Olical/aniseed'
@@ -373,7 +373,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'mileszs/ack.vim'
     Plug 'moll/vim-bbye'
     "Plug 'neomake/neomake',{'for': 'rst'}
-    "Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+    Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
     Plug 'pboettch/vim-cmake-syntax'
     Plug 'peterhoeg/vim-qml', { 'for' : 'qml' }
     Plug 'rbonvall/snipmate-snippets-bib'

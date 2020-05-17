@@ -9,50 +9,50 @@
 --require'nvim_lsp'.pyls.setup{}
 --require'nvim_lsp'.pyls_ms.setup{}
 -- Courtesy of @norcalli
-local function plug(path, config)
-    vim.validate {
-        path = {path, "s"},
-        config = {config, vim.tbl_islist, "an array of packages"}
-    }
-    vim.fn["plug#begin"](path)
-    for _, v in ipairs(config) do
-        if type(v) == "string" then
-            vim.fn["plug#"](v)
-        elseif type(v) == "table" then
-            local p = v[1]
-            assert(p, "Must specify package as first index.")
-            v[1] = nil
-            vim.fn["plug#"](p, v)
-            v[1] = p
-        end
-    end
-    vim.fn["plug#end"]()
-    vim._update_package_paths()
-end
+--local function plug(path, config)
+    --vim.validate {
+        --path = {path, "s"},
+        --config = {config, vim.tbl_islist, "an array of packages"}
+    --}
+    --vim.fn["plug#begin"](path)
+    --for _, v in ipairs(config) do
+        --if type(v) == "string" then
+            --vim.fn["plug#"](v)
+        --elseif type(v) == "table" then
+            --local p = v[1]
+            --assert(p, "Must specify package as first index.")
+            --v[1] = nil
+            --vim.fn["plug#"](p, v)
+            --v[1] = p
+        --end
+    --end
+    --vim.fn["plug#end"]()
+    --vim._update_package_paths()
+--end
 
-vim.api.nvim_command [[
-    function! DeleteTrailingWS()
-      exe 'normal mz'
-      %s/\s\+$//ge
-      exe 'normal `z'
-    endfunction
-]]
+--vim.api.nvim_command [[
+    --function! DeleteTrailingWS()
+      --exe 'normal mz'
+      --%s/\s\+$//ge
+      --exe 'normal `z'
+    --endfunction
+--]]
 local nvim_lsp = require "nvim_lsp"
 
---nvim_lsp.clangd.setup({
---cmd={"clangd-11", "--clang-tidy", "--header-insertion=iwyu", "--background-index", "--suggest-missing-includes"}
---})
-local function pcall_ret(status, ...)
-    if status then
-        return ...
-    end
-end
+----nvim_lsp.clangd.setup({
+----cmd={"clangd-11", "--clang-tidy", "--header-insertion=iwyu", "--background-index", "--suggest-missing-includes"}
+----})
+--local function pcall_ret(status, ...)
+    --if status then
+        --return ...
+    --end
+--end
 
-local function nil_wrap(fn)
-    return function(...)
-        return pcall_ret(pcall(fn, ...))
-    end
-end
+--local function nil_wrap(fn)
+    --return function(...)
+        --return pcall_ret(pcall(fn, ...))
+    --end
+--end
 nvim_lsp.sumneko_lua.setup {
     settings = {Lua = {diagnostics = {globals = {"vim"}}}}
 }
@@ -155,11 +155,17 @@ if ok then
             files = {"src/parser.c"}
         }
     }
+    require "nvim-treesitter.configs".get_parser_configs().clojure = {
+        install_info = {
+            url = "https://github.com/oakmac/tree-sitter-clojure",
+            files = {"src/parser.c"}
+        }
+    }
     require "nvim-treesitter.configs".setup(
         {
             highlight = {
                 enable = true, -- false will disable the whole extension
-                disable = {} -- list of language that will be disabled
+                disable = {'lua'} -- list of language that will be disabled
             },
             incremental_selection = {
                 -- this enables incremental selection
@@ -189,5 +195,47 @@ if ok then
     )
     require "nvim-treesitter".setup()
 
-    require "nvim_rocks".ensure_installed({"fun", "30log", "lua-toml"})
+    require "nvim_rocks".ensure_installed({"luasec", "fun", "30log", "lua-toml", 'template'})
 end
+
+require "nvim-treesitter.highlight"
+local hlmap = vim.treesitter.TSHighlighter.hl_map
+
+-- Misc
+hlmap.error = "Error"
+hlmap["punctuation.delimiter"] = "Delimiter"
+hlmap["punctuation.bracket"] = "Delimiter"
+
+-- Constants
+hlmap["constant"] = "Constant"
+hlmap["constant.builtin"] = "Special"
+hlmap["constant.macro"] = "Define"
+hlmap["string"] = "String"
+hlmap["string.regex"] = "String"
+hlmap["string.escape"] = "SpecialChar"
+hlmap["character"] = "Character"
+hlmap["number"] = "Number"
+hlmap["boolean"] = "Boolean"
+hlmap["float"] = "Float"
+
+-- Functions
+hlmap["function"] = "Function"
+hlmap["function.builtin"] = "Special"
+hlmap["function.macro"] = "Macro"
+hlmap["parameter"] = "Identifier"
+hlmap["method"] = "Function"
+hlmap["field"] = "Identifier"
+hlmap["property"] = "Identifier"
+hlmap["constructor"] = "Special"
+
+-- Keywords
+hlmap["conditional"] = "Conditional"
+hlmap["repeat"] = "Repeat"
+hlmap["label"] = "Label"
+hlmap["operator"] = "Operator"
+hlmap["keyword"] = "Repeat"
+hlmap["exception"] = "Exception"
+
+hlmap["type"] = "Type"
+hlmap["type.builtin"] = "Type"
+hlmap["structure"] = "Structure"
