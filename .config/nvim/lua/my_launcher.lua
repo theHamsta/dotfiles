@@ -20,7 +20,7 @@ M.term_run = function(cmd)
     local win = vim.api.nvim_get_current_win()
     vim.cmd("normal <c-w>o")
     vim.cmd("vert new")
-    local term_win = vim.api.nvim_get_current_win()
+    --local term_win = vim.api.nvim_get_current_win()
 
     local opts = {
         clear_env = false,
