@@ -7,7 +7,7 @@ M.list_just_targets = function()
     table.remove(just_files, 1)
     for i, v in map(
         function(s)
-            return s:gsub("^%s+(%w*).*", "%1")
+            return s:gsub("^%s+(%S*).*", "%1")
         end,
         just_files
     ) do
@@ -27,7 +27,7 @@ M.term_run = function(cmd)
         detach = true
     }
     local _ = vim.fn.termopen(cmd, opts)
-    --vim.bo.bufhidden = "wipe"
+    vim.bo.bufhidden = "wipe"
     vim.api.nvim_set_current_win(win)
 end
 
