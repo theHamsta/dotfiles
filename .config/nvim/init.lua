@@ -239,3 +239,14 @@ hlmap["exception"] = "Exception"
 hlmap["type"] = "Type"
 hlmap["type.builtin"] = "Type"
 hlmap["structure"] = "Structure"
+--
+vim.cmd("command! JustTargets lua require'my_launcher'.fuzzy_just()<cr>")
+
+
+vim.api.nvim_command [[
+    command! -nargs=1 JustRun lua require "my_launcher".run_just_task(<f-args>)
+]]
+
+--vim.api.nvim_command [[
+    --command! -nargs=1 JustTargets lua require "my_launcher".fuzzy_just(<f-args>)
+--]]

@@ -250,11 +250,6 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'chrisbra/unicode.vim'
     "Plug 'bergercookie/vim-deb-preview'
     "Plug 'doums/coBra'
-    "Plug 'tree-sitter/tree-sitter-python', { 'do': 'mkdir -p parser && g++ -O2 -o parser/python.so -shared src/parser.c src/scanner.cc -I./src' }
-    "Plug 'Azganoth/tree-sitter-lua', { 'do': 'mkdir -p parser && cc -O3 -o parser/lua.so -shared src/parser.c src/scanner.cc -I./src' }
-    "Plug 'tree-sitter/tree-sitter-cpp', { 'do': 'mkdir -p parser && cc -O3 -o parser/cpp.so -shared src/parser.c src/scanner.cc -I./src' }
-    "Plug 'tree-sitter/tree-sitter-java', { 'do': 'mkdir -p parser && cc -O3 -o parser/java.so  -shared src/parser.c -I./src' }
-    "Plug 'tree-sitter/tree-sitter-javascript', { 'do': 'mkdir -p parser && cc -O3 -o parser/javascript.so  -shared src/parser.c src/scanner.c -I./src' }
     Plug 'zoxves/LightningFileExplorer'
     Plug 'theHamsta/nvim-tree.lua', {'branch': 'exa'}
     Plug 'mcchrish/info-window.nvim'
@@ -1678,7 +1673,7 @@ let g:gitgutter_max_signs=1000
 let g:fugitive_gitlab_domains = ['https://i10git.cs.fau.de/']
 
 let g:rooter_patterns = ['.git/', '_darcs/', '.hg/', '.bzr/', '.svn/']
-nnoremap <leader>ju :Topen<cr>:T just<space>
+nnoremap <leader>ju :JustTargets<cr>
 
 
 let g:auto_git_diff_disable_auto_update=1
@@ -2222,7 +2217,7 @@ nmap <s-a-j> :lua require'nvim-treesitter/node_movement'.node_move_down()<cr>
 "
 "colorscheme palenight
 "let g:lightline = { 'colorscheme': 'palenight' }
-function! s:hlyank(operator, regtype, inclusive) abort
+function! s:hlyank(operator, regtype, inclusive)
     if a:operator !=# 'y' || a:regtype ==# ''
         return
     endif

@@ -7,6 +7,7 @@
 --
 
 M = {}
+local launcher = require'my_launcher'
 
 M.get_java_main_classes = function()
     local main_files = vim.fn.systemlist('rg "(public|static)\\s*(public|static)\\s*void\\s*main" -l')
@@ -18,12 +19,12 @@ end
 
 M.launch_java_main = function(main_class)
   M.last_main = main_class
-  vim.cmd('T ./gradlew run -PmainClass='..main_class)
+  launcher.term_run('./gradlew run -PmainClass='..main_class)
 end
 
 M.launch_java_main = function(main_class)
   M.last_main = main_class
-  vim.cmd('T ./gradlew run -PmainClass='..main_class)
+  launcher.term_run('./gradlew run -PmainClass='..main_class)
 end
 
 return M
