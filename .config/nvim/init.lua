@@ -54,7 +54,7 @@ local nvim_lsp = require "nvim_lsp"
     --end
 --end
 nvim_lsp.sumneko_lua.setup {
-    settings = {Lua = {diagnostics = {globals = {"vim"}}}}
+    settings = {Lua = {diagnostics = {globals = {"vim", "map", "filter", "range", "reduce"}}}}
 }
 
 nvim_lsp.vimls.setup {}
