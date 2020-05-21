@@ -208,7 +208,7 @@ hlmap["punctuation.bracket"] = "Delimiter"
 
 -- Constants
 hlmap["constant"] = "Constant"
-hlmap["constant.builtin"] = "Special"
+hlmap["constant.builtin"] = "Type"
 hlmap["constant.macro"] = "Define"
 hlmap["string"] = "String"
 hlmap["string.regex"] = "String"
@@ -226,7 +226,7 @@ hlmap["parameter"] = "Identifier"
 hlmap["method"] = "Function"
 hlmap["field"] = "Identifier"
 hlmap["property"] = "Identifier"
-hlmap["constructor"] = "Special"
+hlmap["constructor"] = "Type"
 
 -- Keywords
 hlmap["conditional"] = "Conditional"
