@@ -1674,6 +1674,7 @@ let g:fugitive_gitlab_domains = ['https://i10git.cs.fau.de/']
 
 let g:rooter_patterns = ['.git/', '_darcs/', '.hg/', '.bzr/', '.svn/']
 nnoremap <leader>ju :JustTargets<cr>
+nnoremap <leader>JU :JustTargetsAsync<cr>
 
 
 let g:auto_git_diff_disable_auto_update=1
@@ -2217,30 +2218,7 @@ nmap <s-a-j> :lua require'nvim-treesitter/node_movement'.node_move_down()<cr>
 "
 "colorscheme palenight
 "let g:lightline = { 'colorscheme': 'palenight' }
-function! s:hlyank(operator, regtype, inclusive)
-    if a:operator !=# 'y' || a:regtype ==# ''
-        return
-    endif
-
-    let bnr = bufnr('%')
-    let ns = nvim_create_namespace('')
-    call nvim_buf_clear_namespace(bnr, ns, 0, -1)
-
-    let [_, lin1, col1, off1] = getpos("'[")
-    let [lin1, col1] = [lin1 - 1, col1 - 1]
-    let [_, lin2, col2, off2] = getpos("']")
-    let [lin2, col2] = [lin2 - 1, col2 - (a:inclusive ? 0 : 1)]
-    for l in range(lin1, lin1 + (lin2 - lin1))
-        let is_first = (l == lin1)
-        let is_last = (l == lin2)
-        let c1 = is_first || a:regtype[0] ==# "\<C-v>" ? (col1 + off1) : 0
-        let c2 = is_last || a:regtype[0] ==# "\<C-v>" ? (col2 + off2) : -1
-        call nvim_buf_add_highlight(bnr, ns, 'TextYank', l, c1, c2)
-    endfor
-    call timer_start(100, {-> nvim_buf_is_valid(bnr) && nvim_buf_clear_namespace(bnr, ns, 0, -1)})
-endfunc
-highlight default link TextYank IncSearch
-autocmd TextYankPost * call s:hlyank(v:event.operator, v:event.regtype, v:event.inclusive)
+au TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 150)
 
 
 highlight NvimTreesitterCurrentNode guibg=#444400
@@ -2251,3 +2229,10 @@ let g:languagetool_server=expand('~') . '/opt/LanguageTool-4.9.1/languagetool-se
 
 nmap <f1> :lua require'dap'.goto_()<cr>
 nmap <f2> :lua require'nvim-treesitter/playground'.play_with()<cr>
+
+augroup test
+  autocmd!
+  autocmd BufWrite * if test#exists() |
+        \   TestFile |
+        \ endif
+augroup END

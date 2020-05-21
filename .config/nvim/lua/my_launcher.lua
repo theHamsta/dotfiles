@@ -1,4 +1,5 @@
 require "fun"()
+local my_commands = require "my_commands"
 
 M = {}
 
@@ -31,18 +32,23 @@ M.term_run = function(cmd)
     vim.api.nvim_set_current_win(win)
 end
 
-M.run_just_task = function(task)
-    M.term_run("just " .. task)
+M.run_just_task = function(task, async)
+    if async then
+        my_commands.do_luajob("just " .. task)
+    else
+        M.term_run("just " .. task)
+    end
 end
 
-M.fuzzy_just = function()
+M.fuzzy_just = function(async)
     vim.fn["fzf#run"](
         {
             source = M.list_just_targets(),
-            sink = "JustRun",
+            sink = async and "JustRunAsync" or "JustRun",
             window = "call FloatingFZF()"
         }
     )
 end
+
 
 return M

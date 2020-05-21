@@ -10,70 +10,83 @@
 --require'nvim_lsp'.pyls_ms.setup{}
 -- Courtesy of @norcalli
 --local function plug(path, config)
-    --vim.validate {
-        --path = {path, "s"},
-        --config = {config, vim.tbl_islist, "an array of packages"}
-    --}
-    --vim.fn["plug#begin"](path)
-    --for _, v in ipairs(config) do
-        --if type(v) == "string" then
-            --vim.fn["plug#"](v)
-        --elseif type(v) == "table" then
-            --local p = v[1]
-            --assert(p, "Must specify package as first index.")
-            --v[1] = nil
-            --vim.fn["plug#"](p, v)
-            --v[1] = p
-        --end
-    --end
-    --vim.fn["plug#end"]()
-    --vim._update_package_paths()
+--vim.validate {
+--path = {path, "s"},
+--config = {config, vim.tbl_islist, "an array of packages"}
+--}
+--vim.fn["plug#begin"](path)
+--for _, v in ipairs(config) do
+--if type(v) == "string" then
+--vim.fn["plug#"](v)
+--elseif type(v) == "table" then
+--local p = v[1]
+--assert(p, "Must specify package as first index.")
+--v[1] = nil
+--vim.fn["plug#"](p, v)
+--v[1] = p
+--end
+--end
+--vim.fn["plug#end"]()
+--vim._update_package_paths()
 --end
 
 --vim.api.nvim_command [[
-    --function! DeleteTrailingWS()
-      --exe 'normal mz'
-      --%s/\s\+$//ge
-      --exe 'normal `z'
-    --endfunction
+--function! DeleteTrailingWS()
+--exe 'normal mz'
+--%s/\s\+$//ge
+--exe 'normal `z'
+--endfunction
 --]]
-local nvim_lsp = require "nvim_lsp"
+--
+local ok, nvim_lsp = pcall(require, "nvim_lsp")
 
+if ok then
+    pcall(require, "nvim_lsp/sumneko_lua")
+    if not require("nvim_lsp/configs").sumneko_lua.install_info().is_installed then
+        vim.cmd("LspInstall sumneko_lua")
+    end
+
+    nvim_lsp.sumneko_lua.setup {
+        settings = {
+            Lua = {
+                diagnostics = {globals = {"vim", "map", "filter", "range", "reduce"}},
+                runtime = {version = "LuaJIT"}
+            }
+        }
+    }
+
+    nvim_lsp.vimls.setup {}
+    nvim_lsp.yamlls.setup {}
+    nvim_lsp.jsonls.setup {}
+    --nvim_lsp.rust_analyzer.setup({})
+
+    nvim_lsp.texlab.setup {
+        settings = {
+            latex = {
+                build = {
+                    onSave = false
+                },
+                lint = {
+                    onChange = true
+                }
+            }
+        }
+    }
 ----nvim_lsp.clangd.setup({
 ----cmd={"clangd-11", "--clang-tidy", "--header-insertion=iwyu", "--background-index", "--suggest-missing-includes"}
 ----})
 --local function pcall_ret(status, ...)
-    --if status then
-        --return ...
-    --end
+--if status then
+--return ...
+--end
 --end
 
 --local function nil_wrap(fn)
-    --return function(...)
-        --return pcall_ret(pcall(fn, ...))
-    --end
+--return function(...)
+--return pcall_ret(pcall(fn, ...))
 --end
-nvim_lsp.sumneko_lua.setup {
-    settings = {Lua = {diagnostics = {globals = {"vim", "map", "filter", "range", "reduce"}}}}
-}
-
-nvim_lsp.vimls.setup {}
-nvim_lsp.yamlls.setup {}
-nvim_lsp.jsonls.setup {}
---nvim_lsp.rust_analyzer.setup({})
-
-nvim_lsp.texlab.setup {
-    settings = {
-        latex = {
-            build = {
-                onSave = false
-            },
-            lint = {
-                onChange = true
-            }
-        }
-    }
-}
+--end
+end
 --nvim_lsp.texlab.buf_build({bufnr})
 
 local ok, colorizer = pcall(require, "colorizer")
@@ -95,9 +108,9 @@ if ok then
         command = "python3",
         args = {"-m", "debugpy.adapter"}
     }
-                --"internalConsole",
-                --"integratedTerminal",
-                --"externalTerminal",
+    --"internalConsole",
+    --"integratedTerminal",
+    --"externalTerminal",
     dap.configurations.python = {
         {
             type = "python",
@@ -127,7 +140,7 @@ if ok then
             --pythonPath = function()
             --return "/usr/bin/python3"
             --end
-        },
+        }
     }
     dap.repl.commands = {
         continue = {".continue", "c"},
@@ -165,7 +178,7 @@ if ok then
         {
             highlight = {
                 enable = true, -- false will disable the whole extension
-                disable = {'lua'} -- list of language that will be disabled
+                disable = {"lua"} -- list of language that will be disabled
             },
             incremental_selection = {
                 -- this enables incremental selection
@@ -173,8 +186,8 @@ if ok then
                 disable = {},
                 keymaps = {
                     -- mappings for incremental selection (visual mappings)
-                    node_incremental = "<a-k>", -- "grn" by default,
-                    scope_incremental = "<a-j>" -- "grc" by default
+                    node_incremental = "ts", -- "grn" by default,
+                    scope_incremental = "tS" -- "grc" by default
                 }
             },
             node_movement = {
@@ -195,7 +208,7 @@ if ok then
     )
     require "nvim-treesitter".setup()
 
-    require "nvim_rocks".ensure_installed({"luasec", "fun", "30log", "lua-toml", 'template'})
+    require "nvim_rocks".ensure_installed({"luasec", "fun", "30log", "lua-toml", "template"})
 end
 
 require "nvim-treesitter.highlight"
@@ -240,13 +253,20 @@ hlmap["type"] = "Type"
 hlmap["type.builtin"] = "Type"
 hlmap["structure"] = "Structure"
 --
-vim.cmd("command! JustTargets lua require'my_launcher'.fuzzy_just()<cr>")
 
-
-vim.api.nvim_command [[
+vim.cmd [[
+    command! JustTargets lua require'my_launcher'.fuzzy_just()<cr>
+]]
+vim.cmd [[
+    command! JustTargetsAsync lua require'my_launcher'.fuzzy_just(true)<cr>
+]]
+vim.cmd [[
     command! -nargs=1 JustRun lua require "my_launcher".run_just_task(<f-args>)
+]]
+vim.cmd [[
+    command! -nargs=1 JustRunAsync lua require "my_launcher".run_just_task(<f-args>, true)
 ]]
 
 --vim.api.nvim_command [[
-    --command! -nargs=1 JustTargets lua require "my_launcher".fuzzy_just(<f-args>)
+--command! -nargs=1 JustTargets lua require "my_launcher".fuzzy_just(<f-args>)
 --]]
