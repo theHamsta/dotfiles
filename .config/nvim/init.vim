@@ -426,7 +426,7 @@ call plug#begin('~/.local/share/nvim/plugged')
             \ 'branch': 'next',
             \ 'do': ':T make release',
             \ }
-    "Plug 'puremourning/vimspector', { 'do': ':UpdateRemotePlugins'}
+    Plug 'puremourning/vimspector', { 'do': 'python3 install_gadget.py --all'}
 
     if has('nvim')
         Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }

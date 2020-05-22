@@ -156,6 +156,45 @@ if ok then
         goto_ = {".goto", "j"}
     }
     vim.g.dap_virtual_text = true
+
+    dap.adapters.cpp = {
+        name = "cppdbg",
+        command= vim.api.nvim_get_runtime_file("gadgets/linux/vscode-cpptools/debugAdapters/OpenDebugAD7", false)[1],
+        args = {},
+        attach= {
+          pidProperty = "processId",
+          pidSelect = "ask"
+        },
+        configuration= {
+          type= "cppdbg",
+          args= {},
+          cwd= "${workspaceRoot}",
+          environment= {},
+        }
+      }
+    dap.configurations.cpp = {
+    launch= {
+        name= "launc",
+        type= "cppdbg",
+        request= "launch",
+        program= "<path to binary>",
+        args= {},
+        cwd= "<working directory>",
+        environment= {},
+        externalConsole= true,
+        MIMode= "lldb"
+    },
+}
+    --"<name>: Attach": {
+      --"adapter": "vscode-cpptools",
+      --"configuration": {
+        --"name": "<name>: Attach",
+        --"type": "cppdbg",
+        --"request": "attach",
+        --"program": "<path to binary>",
+        --"MIMode": "lldb"
+      --}
+    --}
 end
 
 vim.fn.sign_define("DapBreakpoint", {text = "🛑", texthl = "", linehl = "", numhl = ""})
@@ -208,8 +247,8 @@ if ok then
     )
     require "nvim-treesitter".setup()
 
-    require "nvim_rocks".ensure_installed({"luasec", "fun", "30log", "lua-toml", "template"})
 end
+--require "nvim_rocks".ensure_installed({"luasec", "fun", "30log", "lua-toml", "template"})
 
 require "nvim-treesitter.highlight"
 local hlmap = vim.treesitter.TSHighlighter.hl_map
@@ -265,6 +304,9 @@ vim.cmd [[
 ]]
 vim.cmd [[
     command! -nargs=1 JustRunAsync lua require "my_launcher".run_just_task(<f-args>, true)
+]]
+vim.cmd [[
+    command! -complete=file -nargs=* DebugC lua require "my_debug".start_c_debugger({<f-args>}, "gdb")
 ]]
 
 --vim.api.nvim_command [[

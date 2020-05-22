@@ -76,4 +76,25 @@ M.start_python_debugger = function(use_this_file, is_pytest)
     dap.repl.open()
 end
 
+M.start_c_debugger = function(args, mi_mode)
+    if not mi_mode then mi_mode = "gdb" end
+    local dap = require "dap"
+    if not args or #args > 0 then
+        dap.configurations.cpp[1] = {
+            type = "cpp",
+            name= args[1],
+            request= "launch",
+            program= table.remove(args, 1),
+            args= args,
+            cwd= vim.fn.getcwd(),
+            environment= {},
+            externalConsole= true,
+            MIMode= mi_mode
+          }
+    end
+
+    dap.launch(dap.adapters.cpp, dap.configurations.cpp[1])
+    dap.repl.open()
+end
+
 return M

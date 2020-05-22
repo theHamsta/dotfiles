@@ -1,3 +1,4 @@
+require "nvim_rocks".ensure_installed({"luasec", "fun" })
 require "fun"()
 local my_commands = require "my_commands"
 
