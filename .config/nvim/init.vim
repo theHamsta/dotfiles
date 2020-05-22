@@ -1444,7 +1444,7 @@ nnoremap <C-F>t :CtrlSFToggle<CR>
 inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 
 "set completeopt=menuone,menu,longest,noinsert
-set completeopt=menuone,menu,longest
+set completeopt=menuone,menu,longest,noselect
 
 " Highlight (inofficial) json comments
  autocmd FileType json syntax match Comment +\/\/.\+$+
@@ -1654,9 +1654,9 @@ if has('nvim')
 let g:email='stephan.seitz@fau.de'
 let g:username='Stephan Seitz'
 
-call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*',
-  \ 'python': '[^. *\t(]\.\w*',
-  \      'lisp': '[(\s]\w*'})
+"call deoplete#custom#option('omni_patterns', { 
+  "\ 'python': '[^. *\t(]\.\w*'})
+  "\      'lisp': '[\w#]*', 'vlime_repl': '[\w#]*'})
 
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
@@ -2230,9 +2230,9 @@ let g:languagetool_server=expand('~') . '/opt/LanguageTool-4.9.1/languagetool-se
 nmap <f1> :lua require'dap'.goto_()<cr>
 nmap <f2> :lua require'nvim-treesitter/playground'.play_with()<cr>
 
-augroup test
-  autocmd!
-  autocmd BufWrite * if test#exists() |
-        \   TestFile |
-        \ endif
-augroup END
+"augroup test
+  "autocmd!
+  "autocmd BufWrite * if test#exists() |
+        "\   TestFile |
+        "\ endif
+"augroup END
