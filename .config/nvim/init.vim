@@ -528,6 +528,9 @@ let g:deoplete#enable_at_startup = 1
             "\ 'tex': g:vimtex#re#deoplete
             "\})
 
+call deoplete#custom#var('omni', 'input_patterns', {
+            \ 'vlime_repl': '[\w:]*'
+            \})
 
 "let g:deoplete#sources#clang#executable='/usr/bin/clang'
 

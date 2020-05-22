@@ -14,6 +14,11 @@ release:
     cd release && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=YES -DCMAKE_BUILD_TYPE=Release -G Ninja -DCMAKE_CXX_FLAGS=-fcolor-diagnostics -DCMAKE_C_FLAGS=-fcolor-diagnostics ..
     cd release && cmake --build . -- -j8
 
+gcc-release:
+    mkdir -p gcc-release
+    export CXX=g++ && export CC=gcc && cd gcc-release && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=YES -DCMAKE_BUILD_TYPE=Release -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color -DCMAKE_C_FLAGS=-fdiagnostics-color ..
+    cd release && cmake --build . -- -j8
+
 release-run: release
     release/pystencils_gui
 
@@ -25,3 +30,6 @@ clean-build: clean build
 
 install: release
     cd release && sudo ninja install
+
+gcc-install: gcc-release
+    cd gcc-release && sudo ninja install
