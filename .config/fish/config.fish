@@ -46,3 +46,10 @@ alias r="sudo apt remove"
 alias apt="sudo apt"
 alias autoremove="sudo apt auto-remove"
 alias g="sudo apt update && apt upgrade"
+
+alias vi=nvim
+alias vim=nvim
+
+
+
+alias ju='just --justfile ~/.justfile --working-directory .'
