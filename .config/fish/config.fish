@@ -37,3 +37,12 @@ alias gra='git remote add'
 alias grb='git rebase'
 alias grba='git rebase --abort'
 alias glog='git log --oneline --decorate --graph'
+
+alias ls=exa
+alias tree="exa --tree"
+
+alias i="sudo apt install"
+alias r="sudo apt remove"
+alias apt="sudo apt"
+alias autoremove="sudo apt auto-remove"
+alias g="sudo apt update && apt upgrade"
