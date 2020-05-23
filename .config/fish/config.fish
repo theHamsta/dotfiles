@@ -20,6 +20,8 @@ alias gbsg='git bisect good'
 alias gbsr='git bisect reset'
 alias gbss='git bisect start'
 
+alias gcl='git clone --recurse-submodules'
+alias gclean='git clean -id'
 alias gc='git commit -v'
 
 alias gd='git diff'
