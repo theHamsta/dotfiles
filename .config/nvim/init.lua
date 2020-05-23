@@ -159,42 +159,42 @@ if ok then
 
     dap.adapters.cpp = {
         name = "cppdbg",
-        command= vim.api.nvim_get_runtime_file("gadgets/linux/vscode-cpptools/debugAdapters/OpenDebugAD7", false)[1],
+        command = vim.api.nvim_get_runtime_file("gadgets/linux/vscode-cpptools/debugAdapters/OpenDebugAD7", false)[1],
         args = {},
-        attach= {
-          pidProperty = "processId",
-          pidSelect = "ask"
+        attach = {
+            pidProperty = "processId",
+            pidSelect = "ask"
         },
-        configuration= {
-          type= "cppdbg",
-          args= {},
-          cwd= "${workspaceRoot}",
-          environment= {},
+        configuration = {
+            type = "cppdbg",
+            args = {},
+            cwd = "${workspaceRoot}",
+            environment = {}
         }
-      }
+    }
     dap.configurations.cpp = {
-    launch= {
-        name= "launc",
-        type= "cppdbg",
-        request= "launch",
-        program= "<path to binary>",
-        args= {},
-        cwd= "<working directory>",
-        environment= {},
-        externalConsole= true,
-        MIMode= "lldb"
-    },
-}
-    --"<name>: Attach": {
-      --"adapter": "vscode-cpptools",
-      --"configuration": {
-        --"name": "<name>: Attach",
-        --"type": "cppdbg",
-        --"request": "attach",
-        --"program": "<path to binary>",
-        --"MIMode": "lldb"
-      --}
-    --}
+        launch = {
+            name = "launc",
+            type = "cppdbg",
+            request = "launch",
+            program = "<path to binary>",
+            args = {},
+            cwd = "<working directory>",
+            environment = {},
+            externalConsole = true,
+            MIMode = "lldb"
+        }
+    }
+--"<name>: Attach": {
+--"adapter": "vscode-cpptools",
+--"configuration": {
+--"name": "<name>: Attach",
+--"type": "cppdbg",
+--"request": "attach",
+--"program": "<path to binary>",
+--"MIMode": "lldb"
+--}
+--}
 end
 
 vim.fn.sign_define("DapBreakpoint", {text = "🛑", texthl = "", linehl = "", numhl = ""})
@@ -246,7 +246,6 @@ if ok then
         }
     )
     require "nvim-treesitter".setup()
-
 end
 --require "nvim_rocks".ensure_installed({"luasec", "fun", "30log", "lua-toml", "template"})
 
@@ -307,6 +306,9 @@ vim.cmd [[
 ]]
 vim.cmd [[
     command! -complete=file -nargs=* DebugC lua require "my_debug".start_c_debugger({<f-args>}, "gdb")
+]]
+vim.cmd [[
+    command! -complete=file -nargs=* DebugRust lua require "my_debug".start_c_debugger({<f-args>}, "gdb", "rust-gdb")
 ]]
 
 --vim.api.nvim_command [[
