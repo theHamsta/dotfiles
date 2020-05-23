@@ -172,6 +172,17 @@ if ok then
             --environment = {}
         --}
     }
+    dap.adapters.lldb = {
+      attach = {
+        pidProperty = "pid",
+        pidSelect = "ask"
+      },
+      command = 'lldb-vscode-11',
+      env = {
+        LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES"
+      },
+      name = "lldb"
+    }
     dap.configurations.cpp = {
         launch = {
             name = "launc",
@@ -309,6 +320,9 @@ vim.cmd [[
 ]]
 vim.cmd [[
     command! -complete=file -nargs=* DebugRust lua require "my_debug".start_c_debugger({<f-args>}, "gdb", "rust-gdb")
+]]
+vim.cmd [[
+    command! -complete=file -nargs=* DebugLLDB lua require "my_debug".start_vscode_lldb({<f-args>})
 ]]
 
 --vim.api.nvim_command [[

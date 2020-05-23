@@ -1,4 +1,4 @@
-lua vim.g.todoist_api_key = require 'todoist_api'
+lua _ , vim.g.todoist_api_key = pcall(require,'todoist_api')
 set tags=./tags,tags
 set encoding=UTF-8
 set shell=/usr/bin/zsh
