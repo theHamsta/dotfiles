@@ -1,3 +1,4 @@
+lua vim.g.todoist_api_key = require 'todoist_api'
 set tags=./tags,tags
 set encoding=UTF-8
 set shell=/usr/bin/zsh
@@ -233,6 +234,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'nvim-treesitter/highlight.lua'
     Plug 'kyazdani42/nvim-palenight.lua'
     Plug 'theHamsta/nvim-treesitter'
+    Plug 'romgrk/todoist.vim', { 'do': 'UpdateRemotePlugins' }
     Plug 'nvim-treesitter/completion-treesitter'
     "Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
     Plug 'dm1try/git_fastfix'
