@@ -309,7 +309,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'akiyosi/gonvim-fuzzy'
     "Plug 'arp242/jumpy.vim'
     "Plug 'bfredl/nvim-ipy',  {'on':  [ 'IPython'], 'do': ':UpdateRemotePlugins'}
-    Plug 'bfrg/vim-cpp-modern'
+    "Plug 'bfrg/vim-cpp-modern'
     Plug 'bkad/CamelCaseMotion'
     Plug 'bronson/vim-visual-star-search'
     "Plug 'brooth/far.vim'
@@ -428,7 +428,7 @@ call plug#begin('~/.local/share/nvim/plugged')
             \ 'branch': 'next',
             \ 'do': ':T make release',
             \ }
-    Plug 'puremourning/vimspector', { 'do': 'python3 install_gadget.py --all'}
+    "Plug 'puremourning/vimspector', { 'do': 'python3 install_gadget.py --all'}
 
     if has('nvim')
         Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -847,6 +847,8 @@ let g:LanguageClient_serverCommands = {
     \   '],
     \ 'haskell': ['hie-wrapper', '--lsp'],
     \ 'cuda': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
+    \ 'cpp': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
+    \ 'c': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     \ 'kotlin': ['kotlin-language-server', '.'],
     \ 'go': ['gopls'],
     \ 'dockerfile': ['docker-langserver', '--stdio'],
@@ -858,8 +860,6 @@ let g:LanguageClient_serverCommands = {
     "\ 'tex': ['texlab'],
     "\ 'bib': ['texlab']
     "\ 'lua': ['lua-lsp'],
-    "\ 'cpp': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
-    "\ 'c': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     "\ 'javascript': ['javascript-typescript-stdio'],
     "\ 'javascript.jsx': ['javascript-typescript-stdio'],
     "\ 'lisp': ['sbcl', '--script', '/home/stephan/quicklisp/local-projects/cl-lsp/start-that-shit.lisp']

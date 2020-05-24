@@ -153,7 +153,8 @@ if ok then
         exit = {"exit", ".exit"},
         up = {".up", "up"},
         down = {".down", "down"},
-        goto_ = {".goto", "j"}
+        goto_ = {".goto", "j"},
+        into_targets = {'.into_targets', 't'},
     }
     vim.g.dap_virtual_text = true
 
@@ -183,18 +184,11 @@ if ok then
       },
       name = "lldb"
     }
-    dap.configurations.cpp = {
-        launch = {
-            name = "launc",
-            type = "cppdbg",
-            request = "launch",
-            program = "<path to binary>",
-            args = {},
-            cwd = "<working directory>",
-            environment = {},
-            externalConsole = true,
-            MIMode = "lldb"
-        }
+    dap.adapters.markdown = {
+        name = "cppdbg",
+        command = 'npm',
+        args = {'run'},
+        cwd = "/home/stephan/projects/vscode-mock-debug/"
     }
 --"<name>: Attach": {
 --"adapter": "vscode-cpptools",
@@ -257,50 +251,51 @@ if ok then
         }
     )
     require "nvim-treesitter".setup()
+    require "nvim-treesitter.highlight"
+    local hlmap = vim.treesitter.TSHighlighter.hl_map
+
+    -- Misc
+    hlmap.error = "Error"
+    hlmap["punctuation.delimiter"] = "Delimiter"
+    hlmap["punctuation.bracket"] = "Delimiter"
+
+    -- Constants
+    hlmap["constant"] = "Constant"
+    hlmap["constant.builtin"] = "Type"
+    hlmap["constant.macro"] = "Define"
+    hlmap["string"] = "String"
+    hlmap["string.regex"] = "String"
+    hlmap["string.escape"] = "SpecialChar"
+    hlmap["character"] = "Character"
+    hlmap["number"] = "Number"
+    hlmap["boolean"] = "Boolean"
+    hlmap["float"] = "Float"
+
+    -- Functions
+    hlmap["function"] = "Function"
+    hlmap["function.builtin"] = "Special"
+    hlmap["function.macro"] = "Macro"
+    hlmap["parameter"] = "Identifier"
+    hlmap["method"] = "Function"
+    hlmap["field"] = "Identifier"
+    hlmap["property"] = "Identifier"
+    hlmap["constructor"] = "Type"
+
+    -- Keywords
+    hlmap["conditional"] = "Conditional"
+    hlmap["repeat"] = "Repeat"
+    hlmap["label"] = "Label"
+    hlmap["operator"] = "Operator"
+    hlmap["keyword"] = "Repeat"
+    hlmap["exception"] = "Exception"
+    hlmap["include"] = "Include"
+
+    hlmap["type"] = "Type"
+    hlmap["type.builtin"] = "Type"
+    hlmap["structure"] = "Structure"
 end
 --require "nvim_rocks".ensure_installed({"luasec", "fun", "30log", "lua-toml", "template"})
 
-require "nvim-treesitter.highlight"
-local hlmap = vim.treesitter.TSHighlighter.hl_map
-
--- Misc
-hlmap.error = "Error"
-hlmap["punctuation.delimiter"] = "Delimiter"
-hlmap["punctuation.bracket"] = "Delimiter"
-
--- Constants
-hlmap["constant"] = "Constant"
-hlmap["constant.builtin"] = "Type"
-hlmap["constant.macro"] = "Define"
-hlmap["string"] = "String"
-hlmap["string.regex"] = "String"
-hlmap["string.escape"] = "SpecialChar"
-hlmap["character"] = "Character"
-hlmap["number"] = "Number"
-hlmap["boolean"] = "Boolean"
-hlmap["float"] = "Float"
-
--- Functions
-hlmap["function"] = "Function"
-hlmap["function.builtin"] = "Special"
-hlmap["function.macro"] = "Macro"
-hlmap["parameter"] = "Identifier"
-hlmap["method"] = "Function"
-hlmap["field"] = "Identifier"
-hlmap["property"] = "Identifier"
-hlmap["constructor"] = "Type"
-
--- Keywords
-hlmap["conditional"] = "Conditional"
-hlmap["repeat"] = "Repeat"
-hlmap["label"] = "Label"
-hlmap["operator"] = "Operator"
-hlmap["keyword"] = "Repeat"
-hlmap["exception"] = "Exception"
-
-hlmap["type"] = "Type"
-hlmap["type.builtin"] = "Type"
-hlmap["structure"] = "Structure"
 --
 
 vim.cmd [[
@@ -323,6 +318,12 @@ vim.cmd [[
 ]]
 vim.cmd [[
     command! -complete=file -nargs=* DebugLLDB lua require "my_debug".start_vscode_lldb({<f-args>})
+]]
+vim.cmd [[
+    command! -complete=file -nargs=* ReverseDebug lua require "my_debug".reverse_debug({<f-args>})
+]]
+vim.cmd [[
+    command! MockDebug lua require "my_debug".mock_debug()
 ]]
 
 --vim.api.nvim_command [[

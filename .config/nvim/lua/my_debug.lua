@@ -62,7 +62,9 @@ M.start_python_debugger = function(use_this_file, is_pytest)
     local dap = require "dap"
     --dap.attach("127.0.0.1", M.default_port, dap.configurations.python[1])
 
-    dap.launch(dap.adapters.python,   {
+    dap.launch(
+        dap.adapters.python,
+        {
             type = "python",
             request = "launch",
             name = "Launch file",
@@ -71,7 +73,8 @@ M.start_python_debugger = function(use_this_file, is_pytest)
             --pythonPath = function()
             --return "/usr/bin/python3"
             --end
-        })
+        }
+    )
     M.default_port = M.default_port + 1
     dap.repl.open()
 end
@@ -92,7 +95,7 @@ M.start_c_debugger = function(args, mi_mode, mi_debugger_path)
             externalConsole = true,
             MIMode = mi_mode or "gdb",
             MIDebuggerPath = mi_debugger_path
-          }
+        }
     end
 
     if not last_gdb_config then
@@ -119,7 +122,7 @@ M.start_vscode_lldb = function(args, mi_mode, mi_debugger_path)
             externalConsole = true,
             MIMode = mi_mode or "lldb",
             MIDebuggerPath = mi_debugger_path
-          }
+        }
     end
 
     if not last_lldb_config then
@@ -129,6 +132,43 @@ M.start_vscode_lldb = function(args, mi_mode, mi_debugger_path)
 
     dap.launch(dap.adapters.lldb, last_lldb_config)
     dap.repl.open()
+end
+
+local rr_port = 232322
+
+M.reverse_debug = function(args, mi_mode, mi_debugger_path)
+    local dap = require "dap"
+    if args and #args > 0 then
+        last_lldb_config = {
+            name = "Replay",
+            type = "lldb",
+            request = "custom",
+            targetCreateCommands = {"target create " .. args[1]},
+            processCreateCommands = {"gdbserver 127.0.0.1:" .. rr_port},
+            reverseDebugging = true
+        }
+    end
+
+    if not last_lldb_config then
+        print('No binary to debug set! Use ":DebugLLDB <binary> <args>"')
+        return
+    end
+
+    dap.launch(dap.adapters.lldb, last_lldb_config)
+    dap.repl.open()
+end
+
+M.mock_debug = function()
+    local dap = require "dap"
+    local config = {
+        type = "mock",
+        request = "launch",
+        name = "mock test",
+        program = "/home/stephan/projects/vscode-mock-debug/readme.md",
+        stopOnEntry = true,
+        debugServer = 4711
+    }
+    dap.launch(dap.adapters.markdown, config)
 end
 
 return M
