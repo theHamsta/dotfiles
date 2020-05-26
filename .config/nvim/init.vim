@@ -756,6 +756,7 @@ autocmd FileType java,kotlin,groovy nnoremap <buffer> <F5> <c-w>o:Topen<cr>:let 
 autocmd FileType java,kotlin,groovy nnoremap <buffer> <F6> <c-w>o:Topen<cr>:let $last_execution='./gradlew test'<cr>:Tkill<cr>:wa<cr>:T ./gradlew test<cr>
 autocmd FileType tex,latex nnoremap <buffer> <F3> val<plug>(vimtex-compile-selected)
 autocmd FileType tex,latex nnoremap <buffer> <F4> :VimtexCompileSS<cr>
+autocmd FileType tex,latex setlocal foldmethod=indent
 "autocmd FileType tex,latex :let  maplocalleader="<space>"
 autocmd FileType rust,toml nmap <buffer> <F5> :exec 'T cd' FindRootDirectory()<cr><c-w>o:let $last_execution='cargo run'<cr>:Tkill<cr>:wa<cr>:T cargo run<cr>:Topen<cr>
 autocmd FileType rust,toml nmap <buffer> <F7> :exec 'T cd' FindRootDirectory()<cr><c-w>o:Tkill<cr>:wa<cr>:T cargo run
@@ -2226,6 +2227,7 @@ nmap <s-a-j> :lua require'nvim-treesitter/node_movement'.node_move_down()<cr>
 au TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 150)
 
 
+set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()
 highlight NvimTreesitterCurrentNode guibg=#444400
 
 let g:sexp_filetypes = 'clojure,scheme,lisp,timl,vlime_repl'
