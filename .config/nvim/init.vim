@@ -227,6 +227,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'wellle/context.vim'
     Plug 'rhysd/vim-crystal'
     Plug 'vigoux/LanguageTool.nvim'
+    Plug 'rhysd/vim-grammarous'
     "Plug 'chuling/vim-equinusocio-material'
     Plug 'mfussenegger/nvim-jdtls'
     Plug 'theHamsta/nvim-dap', { 'branch' : 'fork' }
