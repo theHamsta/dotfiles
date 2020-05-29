@@ -1011,7 +1011,7 @@ command! Qa :qa
 "endf
 "au FileType c,cpp,cuda,objc :call C_init()
 nnoremap <c-h> :History<Cr>
-set shell=/usr/bin/zsh
+set shell=/usr/bin/fish
 noremap <Esc> <C-\><C-n>
 if has('nvim')
     tnoremap jk <C-\><C-n>
