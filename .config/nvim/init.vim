@@ -54,6 +54,9 @@ set history=1000
 set mouse=a
 set splitbelow
 set splitright
+set smartcase
+set ignorecase
+set spell
 
 let g:use_line_numbers=0
 
@@ -68,17 +71,6 @@ function! Toggle_line_numbers()
 endfunction
 command! LineNumbers call Toggle_line_numbers()
 
-
-function! ConfigSlurmTerm()
-    let l:term_id = b:terminal_job_id
-    execute SlimeConfig
-    execute
-endfunction
-command! GetTermJobId echo b:terminal_job_id
-
-
-
-"au! WinEnter * SemanticHighlight
 
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
@@ -849,7 +841,6 @@ command! Qa :qa
 "endfunction
 
 
-"set spell
 
 "let g:slime_target = "neovim"
 "let g:slime_python_ipython = 1
@@ -1562,6 +1553,4 @@ let g:sexp_filetypes = 'clojure,scheme,lisp,timl,vlime_repl'
 nmap <f1> :lua require'dap'.goto_()<cr>
 "nmap <f2> :lua require'nvim-treesitter/playground'.play_with()<cr>
 
-set smartcase
-set ignorecase
 
