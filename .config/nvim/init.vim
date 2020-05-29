@@ -324,7 +324,6 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'dyng/ctrlsf.vim'
     Plug 'easymotion/vim-easymotion'
     Plug 'editorconfig/editorconfig-vim'
-    Plug 'equalsraf/neovim-gui-shim'
     Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
     Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoInstallBinaries'}
     Plug 'junegunn/vim-emoji'
@@ -336,7 +335,6 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'godlygeek/tabular'
     "Plug 'gregf/ultisnips-chef'
     "Plug 'heavenshell/vim-pydocstring'
-    Plug 'henrynewcomer/vim-theme-papaya'
     Plug 'hotwatermorning/auto-git-diff'
     Plug 'idanarye/vim-merginal'
     Plug 'ivalkeen/nerdtree-execute'   , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
@@ -417,7 +415,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'vim-scripts/SearchComplete'
     "Plug 'wellle/targets.vim'
     "Plug 'whiteinge/diffconflicts'
-    "Plug 'TravonteD/luajob'
+    Plug 'TravonteD/luajob'
     ""Plug 'zchee/deoplete-go', { 'do': 'make'}
     ""
     ""Plug 'rkulla/pydiction'
@@ -1473,8 +1471,8 @@ nnoremap <silent> <c-0> :lua require'my_gui'.reset_fontsize()<cr>
 "nnoremap <space>pr :call FzfProjectSearch()<CR>
 "nnoremap z= :call FzfSpell()<CR>
 
-"command! GitPushAsync lua require'my_commands'.git_push()
-"command! GitPushAsyncForce lua require'my_commands'.git_push(true)
+command! GitPushAsync lua require'my_commands'.git_push()
+command! GitPushAsyncForce lua require'my_commands'.git_push(true)
 "command! PyTest lua require'my_commands'.custom_command('pytest')
 
 "function! ProjectFilesSink(word)
