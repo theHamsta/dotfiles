@@ -1192,7 +1192,7 @@ function! FloatingFZF()
 
   call nvim_open_win(buf, v:true, opts)
 endfunction
-au FileType fzf set nonu nornu
+au FileType fzf setlocal nonu nornu signcolumn="non"
 ""noremap <c-j> <c-w>w
 ""noremap <c-k> <c-w>W
 
@@ -1561,4 +1561,7 @@ let g:sexp_filetypes = 'clojure,scheme,lisp,timl,vlime_repl'
 
 nmap <f1> :lua require'dap'.goto_()<cr>
 "nmap <f2> :lua require'nvim-treesitter/playground'.play_with()<cr>
+
+set smartcase
+set ignorecase
 
