@@ -294,7 +294,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'Shougo/echodoc.vim'
     "Plug 'Shougo/vimproc.vim', {'do' : 'make'}
     Plug 'SirVer/ultisnips'
-    "Plug 'Valloric/ListToggle'
+    Plug 'Valloric/ListToggle'
     Plug 'airblade/vim-gitgutter'
     Plug 'airblade/vim-rooter'
     "Plug 'akiyosi/gonvim-fuzzy'
@@ -629,10 +629,10 @@ nmap <a-p> :cd ~/projects<cr>:Buffers<cr>
 ""autocmd FileType tex,latex call neomake#configure#automake('w')
 ""autocmd FileType rst call neomake#configure#automake('w')
 "autocmd FileType tex,latex nnoremap <buffer> <c-a-o> :call vimtex#fzf#run()<cr>
-"autocmd FileType markdown nnoremap <buffer> <cr> :ComposerStart<cr>:ComposerOpen<cr>
-"autocmd FileType markdown nnoremap <buffer> <leader>ll :ComposerStart<cr>
-"autocmd FileType markdown nnoremap <buffer> <leader>lv :ComposerOpen<cr>
-""autocmd FileType markdown <buffer> set conceallevel=1
+autocmd FileType markdown nnoremap <buffer> <cr> :ComposerStart<cr>:ComposerOpen<cr>
+autocmd FileType markdown nnoremap <buffer> <leader>ll :ComposerStart<cr>
+autocmd FileType markdown nnoremap <buffer> <leader>lv :ComposerOpen<cr>
+"autocmd FileType markdown <buffer> set conceallevel=1
 
 "autocmd FileType bib command! Format normal :w<cr>:silent !latexindent % -w<cr>:e<cr>
 ""<cr>:e
@@ -745,7 +745,7 @@ nmap <silent> <C-j> :lnext<cr>
 autocmd FileType * call LC_maps()
 autocmd FileType lua,tex,bib call NvimLspMaps()
 
-
+set foldlevel=99
 
 nnoremap <silent> <leader>f0 :set foldlevel=0<CR>
 nnoremap <silent> <leader>ff :set foldlevel=99<CR>
@@ -1010,6 +1010,7 @@ au! BufRead,BufNewFile *.asd,.spacemacs set filetype=lisp
 "nmap Q @q
 "inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'sh', 'cpp', 'rust', 'java', 'go', 'lua', 'vim']
+let g:vim_markdown_math = 1
 
 function! Multiple_cursors_before()
   call deoplete#custom#option('auto_complete', v:false)
@@ -1157,7 +1158,7 @@ autocmd BufReadPre *.bmp silent %!xdg-open "%"
 
 "nmap  <leader>cw  <Plug>(choosewin)
 "let g:choosewin_overlay_enable = 1
-"let $FZF_DEFAULT_OPTS='--layout=reverse'
+let $FZF_DEFAULT_OPTS='--layout=reverse'
 let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 
 function! FloatingFZF()
@@ -1178,7 +1179,7 @@ function! FloatingFZF()
 
   call nvim_open_win(buf, v:true, opts)
 endfunction
-au FileType fzf setlocal nonu nornu signcolumn="non"
+au FileType fzf setlocal nonu nornu signcolumn="no"
 ""noremap <c-j> <c-w>w
 ""noremap <c-k> <c-w>W
 
@@ -1549,4 +1550,8 @@ let g:sexp_filetypes = 'clojure,scheme,lisp,timl,vlime_repl'
 nmap <f1> :lua require'dap'.goto_()<cr>
 "nmap <f2> :lua require'nvim-treesitter/playground'.play_with()<cr>
 
+"nmap j <Plug>(accelerated_jk_gj)
+"nmap k <Plug>(accelerated_jk_gk)
+
+let g:markdown_composer_autostart=0
 
