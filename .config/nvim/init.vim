@@ -647,18 +647,16 @@ nmap <c-a-p> :cd ~/projects<cr>:Files<cr>
 
 
 "" Put plugins and dictionaries in this dir (also on Windows)
-"let vimDir = '$HOME/.vim'
 "let &runtimepath.=','.vimDir
 
 "" Keep undo history across sessions by storing it in a file
-"if has('persistent_undo')
-    "let myUndoDir = expand(vimDir . '/undodir')
-    "" Create dirs
-    "call system('mkdir ' . vimDir)
-    "call system('mkdir ' . myUndoDir)
-    "let &undodir = myUndoDir
-    "set undofile
-"endif
+if has('persistent_undo')
+    let myUndoDir = expand('$HOME/.cache' . '/undodir')
+    " Create dirs
+    call system('mkdir ' . myUndoDir)
+    let &undodir = myUndoDir
+    set undofile
+endif
 
 
 ""let g:slimv_leader='<space>'
