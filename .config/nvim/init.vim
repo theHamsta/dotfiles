@@ -57,6 +57,8 @@ set splitright
 set smartcase
 set ignorecase
 set spell
+set bufhidden=hide
+set signcolumn=yes
 
 let g:use_line_numbers=0
 
@@ -417,10 +419,10 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'amix/vim-zenroom2'
     "Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'for': ['java', 'bash','sh', 'cs', 'cmake']}
     ""Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'tex', 'bib', 'json', 'cs']}
-    "Plug 'autozimu/LanguageClient-neovim', {
-            "\ 'branch': 'next',
-            "\ 'do': ':T make release',
-            "\ }
+    Plug 'autozimu/LanguageClient-neovim', {
+            \ 'branch': 'next',
+            \ 'do': ':T make release',
+            \ }
     "Plug 'puremourning/vimspector', { 'do': 'python3 install_gadget.py --all'}
 
     if has('nvim')
@@ -1257,9 +1259,9 @@ let g:gitgutter_max_signs=3000
 
 
 """ Always draw sign column. Prevent buffer moving when adding/deleting sign.
-set signcolumn=yes
 
-""let g:deoplete#enable_at_startup = 1
+"call deoplete#custom#option('auto_complete', v:true)
+let g:deoplete#enable_at_startup = 1
  ""let g:LanguageClient_serverCommands = {
      ""\ 'cpp': ['clangd-9', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes']
          ""\ }
