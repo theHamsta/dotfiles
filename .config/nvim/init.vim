@@ -187,7 +187,6 @@ set expandtab
 inoremap <c-V> <C-R><C-R>+
 cnoremap <c-V> <C-R>+
 
-
 "inoremap II <Esc>I
 "inoremap AA <Esc>A
 "inoremap OO <Esc>O
@@ -239,11 +238,6 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'svermeulen/vim-easyclip'
     Plug 'rafcamlet/nvim-luapad'
     Plug 'theHamsta/nvim_rocks', {'do': 'pip3 install --user hererocks && hererocks . -j2.1.0-beta3 -r3.0.0 && cp nvim_rocks.lua lua'}
-    "Plug 'Yonaba/30log', {'do': 'mkdir -p lua && cp *.lua lua'}
-    "Plug 'lua-stdlib/lua-stdlib', {'do': 'cp -r lib lua'}
-    "Plug 'mhinz/vim-grepper'
-    "Plug 'https://gitlab.com/mcepl/vim-fzfspell.git'
-
     "Plug 'haorenW1025/completion-nvim'
     "Plug 'vigoux/completion-treesitter'
     "Plug 'chrisbra/unicode.vim'
@@ -313,7 +307,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'burke/matcher'
     Plug 'cespare/vim-toml', {'for': 'toml'}
     Plug 'chaoren/vim-wordmotion'
-    Plug 'ctrlpvim/ctrlp.vim'
+    "Plug 'ctrlpvim/ctrlp.vim'
     Plug 'dbeniamine/cheat.sh-vim', { 'on':  [ 'Cheat!'] }
     Plug 'dyng/ctrlsf.vim'
     Plug 'easymotion/vim-easymotion'
@@ -352,7 +346,6 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'kassio/neoterm'
     "Plug 'kien/rainbow_parentheses.vim'
     Plug 'lervag/vimtex', { 'for': 'tex' }
-    "Plug 'machakann/vim-highlightedyank'
     Plug 'machakann/vim-swap'
     Plug 'majutsushi/tagbar'
     Plug 'maralla/vim-toml-enhance', {'for': 'toml'}
@@ -394,7 +387,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'theHamsta/vim-textobj-entire'
     Plug 'theHamsta/vim-rebase-mode'
     "Plug 'tpope/vim-abolish'
-    "Plug 'tpope/vim-eunuch'
+    Plug 'tpope/vim-eunuch'
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-markdown'
     Plug 'tpope/vim-repeat'
@@ -417,7 +410,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'Shougo/neosnippet.vim'
 ""Plug 'vim-pandoc/vim-pandoc'
     ""Plug 'amix/vim-zenroom2'
-    "Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'for': ['java', 'bash','sh', 'cs', 'cmake']}
+    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'for': ['java', 'bash','sh', 'cs', 'cmake']}
     ""Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'tex', 'bib', 'json', 'cs']}
     Plug 'autozimu/LanguageClient-neovim', {
             \ 'branch': 'next',
@@ -590,7 +583,7 @@ autocmd FileType java,kotlin,groovy nnoremap <buffer> <F5> <c-w>o:Topen<cr>:let 
 autocmd FileType java,kotlin,groovy nnoremap <buffer> <F6> <c-w>o:Topen<cr>:let $last_execution='./gradlew test'<cr>:Tkill<cr>:wa<cr>:T ./gradlew test<cr>
 autocmd FileType tex,latex nnoremap <buffer> <F3> val<plug>(vimtex-compile-selected)
 autocmd FileType tex,latex nnoremap <buffer> <F4> :VimtexCompileSS<cr>
-autocmd FileType tex,latex setlocal foldmethod=indent
+autocmd FileType tex,latex,vim setlocal foldmethod=indent
 "autocmd FileType tex,latex :let  maplocalleader="<space>"
 autocmd FileType rust,toml nmap <buffer> <F5> :exec 'T cd' FindRootDirectory()<cr><c-w>o:let $last_execution='cargo run'<cr>:Tkill<cr>:wa<cr>:T cargo run<cr>:Topen<cr>
 autocmd FileType rust,toml nmap <buffer> <F7> :exec 'T cd' FindRootDirectory()<cr><c-w>o:Tkill<cr>:wa<cr>:T cargo run
@@ -604,6 +597,7 @@ autocmd FileType rust nmap <silent> <leader>tN <c-w>o:wa<cr>:Topen<cr>:exec 'T c
 autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
 
 nmap <c-a-p> :cd ~/projects<cr>:Files<cr>
+nmap <a-p> :cd ~/projects<cr>:Buffers<cr>
 "autocmd BufRead *.prm :setfiletype prm
 "" jump to the previous function
 "autocmd FileType cpp nnoremap <buffer> [f :call
@@ -786,15 +780,16 @@ set colorcolumn=120
 command! Q :q
 command! Qa :qa
 
+noremap <end> <c-w>o:Topen<cr><c-w>wi
 
-"let g:neoterm_default_mod='vert'
+let g:neoterm_default_mod='vert'
 "let g:neoterm_open_in_all_tabs=0
-""autocmd BufWinEnter,WinEnter term://* startinsert
-"augroup terminal
-    "autocmd TermOpen * set bufhidden=hide
-    ""autocmd TermOpen * set syntax=cpp
-    "autocmd TermOpen * setlocal nospell
-"augroup END
+"autocmd BufWinEnter,WinEnter term://* startinsert
+augroup terminal
+    autocmd TermOpen * set bufhidden=hide
+    "autocmd TermOpen * set syntax=cpp
+    autocmd TermOpen * setlocal nospell
+augroup END
 
     ""tnoremap <C-v>a <C-\><C-n>"aPi
 
@@ -831,7 +826,7 @@ command! Qa :qa
 "xmap gq <Plug>(neoterm-repl-send)
 
 "set noshowmode
-"set clipboard=unnamedplus
+set clipboard=unnamedplus
 
 "function! GotoPython()
     "let current_line = getline('.')
@@ -955,7 +950,7 @@ xmap ah <Plug>GitGutterTextObjectOuterVisual
 
 ""nnoremap <c-p> :CtrlPMixed<cr>
 "let g:ctrlp_map = ''
-"nnoremap <c-p> :Files<CR>
+nnoremap <c-p> :Files<CR>
 "nnoremap <c-a-ä> :ProjectFiles<CR>
 "nnoremap <c-a-m> :ProjectFolders<CR>
 
@@ -1235,6 +1230,7 @@ nnoremap <silent> <PageDown> :FloatermToggle<cr>
 nnoremap <silent> <leader>fl :FloatermToggle<cr>
 tnoremap <silent> <PageDown> <C-\><C-n>:FloatermToggle<cr>
 tnoremap <silent> <leader>fl <C-\><C-n>:FloatermToggle<cr>
+tnoremap <silent> jk <C-\><C-n>
 
 if exists('g:GuiLoaded')
   let g:float_preview#docked = 1
@@ -1380,7 +1376,7 @@ nnoremap <a-s-j> "ayy"ap
 ""nmap <F1> :call JavaStartDebug()<CR>
 "let g:gtfo#terminals = { 'unix': 'konsole' }
 
-"nnoremap gtf :Tnew<cr>:T dolphin %:p:h 2>&1 >> /dev/null &<cr>:Tclose<cr>
+nnoremap gtf :Tnew<cr>:T dolphin %:p:h 2>&1 >> /dev/null &<cr>:Tclose<cr>
 ""let g:vimspector_enable_mappings = 'HUMAN'
 
 ""autocmd! BufEnter vimspector.Console nnoremap <buffer> n :call vimspector#StepOver()<cr>
