@@ -568,7 +568,7 @@ vnoremap // y/<C-R>"<CR>
 
 
 
-""inoremap <expr><cr> pumvisible() ? "\<c-n>" : "\<cr>"
+inoremap <expr><cr> pumvisible() ? "\<c-n>" : "\<cr>"
 set termguicolors     " enable true colors support
 colorscheme one
 
