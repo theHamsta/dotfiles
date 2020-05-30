@@ -1,7 +1,7 @@
 "lua _ , vim.g.todoist_api_key = pcall(require,'todoist_api')
 set tags=./tags,tags
 set encoding=UTF-8
-set shell=/usr/bin/zsh
+set shell=/usr/bin/fish
 if has('vim_starting')
     set nocompatible               " Be iMproved
 endif
@@ -306,7 +306,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'brooth/far.vim'
     "Plug 'burke/matcher'
     Plug 'cespare/vim-toml', {'for': 'toml'}
-    Plug 'chaoren/vim-wordmotion'
+    "Plug 'chaoren/vim-wordmotion'
     "Plug 'ctrlpvim/ctrlp.vim'
     Plug 'dbeniamine/cheat.sh-vim', { 'on':  [ 'Cheat!'] }
     Plug 'dyng/ctrlsf.vim'
@@ -410,7 +410,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'Shougo/neosnippet.vim'
 ""Plug 'vim-pandoc/vim-pandoc'
     ""Plug 'amix/vim-zenroom2'
-    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'for': ['java', 'bash','sh', 'cs', 'cmake']}
+    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'for': ['java', 'bash','sh', 'cs', 'cmake', 'javascript', 'tsx']}
     ""Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'tex', 'bib', 'json', 'cs']}
     Plug 'autozimu/LanguageClient-neovim', {
             \ 'branch': 'next',
@@ -563,7 +563,7 @@ vnoremap // y/<C-R>"<CR>
 
 
 
-inoremap <expr><cr> pumvisible() ? "\<c-n>" : "\<cr>"
+"inoremap <expr><cr> pumvisible() ? "\<c-n>" : "\<cr>"
 set termguicolors     " enable true colors support
 colorscheme one
 
@@ -908,7 +908,7 @@ omap <silent> <buffer> if <Plug>(coc-funcobj-i)
 omap  <silent> <buffer> af <Plug>(coc-funcobj-a)
  endfunction()
 
-autocmd FileType java,,bash,sh,cmake,cs call ActivateCoc()
+autocmd FileType java,,bash,sh,cmake,cs,javascript,tsx call ActivateCoc()
 
  ""inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 let g:multi_cursor_exit_from_insert_mode=0
@@ -1555,3 +1555,4 @@ nmap <f1> :lua require'dap'.goto_()<cr>
 
 let g:markdown_composer_autostart=0
 
+nnoremap <c-h> :History<cr>
