@@ -38,23 +38,67 @@
 --endfunction
 --]]
 --
+--
+--
+local ok, _  = pcall(require 'fun')
+if ok then
+    vim.o.shell = head(filter( vim.fn.executable, { 'fish', 'zsh', 'bash' }))
+end
+
 local ok, nvim_lsp = pcall(require, "nvim_lsp")
 
 if ok then
     pcall(require, "nvim_lsp/sumneko_lua")
     if not require("nvim_lsp/configs").sumneko_lua.install_info().is_installed then
-        vim.cmd("LspInstall sumneko_lua")
+        require("nvim_lsp/configs").sumneko_lua.install()
     end
 
     nvim_lsp.sumneko_lua.setup {
         settings = {
             Lua = {
-                diagnostics = {globals = {"vim", "map", "filter", "range", "reduce"}},
+                diagnostics = {
+                    globals = {"vim", "map", "filter", "range", "reduce", "head", "tail", "nth"},
+                    disable = {"redefined-local"}
+                },
                 runtime = {version = "LuaJIT"}
             }
         }
     }
 
+    local java = function()
+        pcall(require, "nvim_lsp/jdtls")
+        if not require("nvim_lsp/configs").jdtls.install_info().is_installed then
+            require("nvim_lsp/configs").jdtls.install()
+        end
+        --if not nvim_lsp.jdtls.is_installed() then
+            --nvim_lsp.jdtls.install()
+        --end
+        local capabilities = vim.lsp.protocol.make_client_capabilities()
+        capabilities.textDocument.completion.completionItem.snippetSupport = true
+        capabilities.textDocument.codeAction = {
+            dynamicRegistration = false;
+            codeActionLiteralSupport = {
+                codeActionKind = {
+                    valueSet = {
+                        "source.generate.toString",
+                        "source.generate.hashCodeEquals",
+                        "source.organizeImports",
+                    };
+                };
+            };
+        }
+        nvim_lsp.jdtls.setup {
+            init_options = {
+                bundles = {
+                    vim.fn.glob("~/.local/share/nvim/plugged/nvim-jdtls/*.jar")
+                },
+            },
+            capabilities = capabilities,
+            on_attach = require('jdtls').setup_dap()
+        }
+    end
+    --pcall(java)
+    java()
     nvim_lsp.vimls.setup {}
     nvim_lsp.yamlls.setup {}
     nvim_lsp.jsonls.setup {}

@@ -1,7 +1,6 @@
 "lua _ , vim.g.todoist_api_key = pcall(require,'todoist_api')
 set tags=./tags,tags
 set encoding=UTF-8
-set shell=/usr/bin/fish
 if has('vim_starting')
     set nocompatible               " Be iMproved
 endif
@@ -186,6 +185,8 @@ set expandtab
 "inoremap <A-v> <C-R><C-R>+
 inoremap <c-V> <C-R><C-R>+
 cnoremap <c-V> <C-R>+
+nnoremap p "+p
+nnoremap P "+P
 
 "inoremap II <Esc>I
 "inoremap AA <Esc>A
@@ -224,7 +225,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'vigoux/LanguageTool.nvim'
     "Plug 'rhysd/vim-grammarous'
     "Plug 'chuling/vim-equinusocio-material'
-    "Plug 'mfussenegger/nvim-jdtls'
+    Plug 'mfussenegger/nvim-jdtls'
     Plug 'theHamsta/nvim-dap', { 'branch' : 'fork' }
 "    Plug 'haorenW1025/diagnostic-nvim'
     "Plug 'nvim-treesitter/highlight.lua'
@@ -312,7 +313,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'dyng/ctrlsf.vim'
     Plug 'easymotion/vim-easymotion'
     Plug 'editorconfig/editorconfig-vim'
-    Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
+    Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer'),  'on': ':ComposerStart' }
     Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoInstallBinaries'}
     Plug 'junegunn/vim-emoji'
     Plug 'fszymanski/deoplete-emoji'
@@ -410,7 +411,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'Shougo/neosnippet.vim'
 ""Plug 'vim-pandoc/vim-pandoc'
     ""Plug 'amix/vim-zenroom2'
-    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'for': ['java', 'bash','sh', 'cs', 'cmake', 'javascript', 'tsx']}
+    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'for': ['bash','sh', 'cs', 'cmake', 'javascript', 'tsx']}
     ""Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'tex', 'bib', 'json', 'cs']}
     Plug 'autozimu/LanguageClient-neovim', {
             \ 'branch': 'next',
@@ -728,12 +729,15 @@ function! NvimLspMaps()
   nnoremap <buffer><silent> gh    <cmd>lua vim.lsp.buf.hover()<CR>
   nnoremap <buffer><silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
   nnoremap <buffer><silent> gS    <cmd>lua vim.lsp.buf.signature_help()<CR>
+  nnoremap <buffer><silent> <leader>ca    <cmd>lua vim.lsp.buf.code_action()<CR>
 
   if &filetype != "tex" 
     inoremap <buffer><silent> (     <cmd>lua vim.lsp.buf.signature_help()<CR>(
   endif
   nnoremap <buffer><silent> gt    <cmd>lua vim.lsp.buf.type_definition()<CR>
-  if &filetype != "lua" 
+  if &filetype == "java" 
+    nnoremap <buffer><silent> <c-s> <cmd>lua vim.lsp.buf.formatting();require'jdtls'.organize_imports()<cr>
+  elseif &filetype != "lua" 
     nnoremap <buffer><silent> <c-s> <cmd>lua vim.lsp.buf.formatting()<cr>
   endif
   setlocal omnifunc=v:lua.vim.lsp.omnifunc
@@ -743,7 +747,7 @@ nmap <silent> <C-k> :lprevious<cr>
 nmap <silent> <C-j> :lnext<cr>
 
 autocmd FileType * call LC_maps()
-autocmd FileType lua,tex,bib call NvimLspMaps()
+autocmd FileType lua,tex,bib,java call NvimLspMaps()
 
 set foldlevel=99
 
@@ -786,9 +790,10 @@ let g:neoterm_default_mod='vert'
 "let g:neoterm_open_in_all_tabs=0
 "autocmd BufWinEnter,WinEnter term://* startinsert
 augroup terminal
-    autocmd TermOpen * set bufhidden=hide
+    autocmd TermOpen * setlocal bufhidden=hide
     "autocmd TermOpen * set syntax=cpp
     autocmd TermOpen * setlocal nospell
+    autocmd TermOpen * nmap <silent> <buffer> <c-d> :bd!<cr>
 augroup END
 
     ""tnoremap <C-v>a <C-\><C-n>"aPi
@@ -908,7 +913,7 @@ omap <silent> <buffer> if <Plug>(coc-funcobj-i)
 omap  <silent> <buffer> af <Plug>(coc-funcobj-a)
  endfunction()
 
-autocmd FileType java,,bash,sh,cmake,cs,javascript,tsx call ActivateCoc()
+autocmd FileType cmake,cs,javascript,tsx call ActivateCoc()
 
  ""inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 let g:multi_cursor_exit_from_insert_mode=0
@@ -1016,7 +1021,7 @@ function! Multiple_cursors_before()
   call deoplete#custom#option('auto_complete', v:false)
 endfunction
 function! Multiple_cursors_after()
- if &filetype != "java"
+ if &filetype != "java" && &filetype != "javascript"
   call deoplete#custom#option('auto_complete', v:true)
 endif
 endfunction
@@ -1047,7 +1052,7 @@ nmap <leader>ch :Cheat!
 "inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 
 ""set completeopt=menuone,menu,longest,noinsert
-set completeopt=menuone,menu,longest,noselect,noinsert
+set completeopt=menuone,menu,longest,noselect
 
 "" Highlight (inofficial) json comments
  autocmd FileType json syntax match Comment +\/\/.\+$+
@@ -1191,8 +1196,8 @@ let g:gitgutter_sign_modified_removed = '▐_'
 
 if has('nvim')
   let $GIT_EDITOR = 'nvr -cc split --remote-wait'
-  autocmd FileType gitcommit set bufhidden=delete
-  autocmd FileType gitrebase set bufhidden=delete
+  autocmd FileType gitcommit setlocal bufhidden=delete
+  autocmd FileType gitrebase setlocal bufhidden=delete
 endif
 
 let g:email='stephan.seitz@fau.de'
@@ -1232,6 +1237,7 @@ nnoremap <silent> <leader>fl :FloatermToggle<cr>
 tnoremap <silent> <PageDown> <C-\><C-n>:FloatermToggle<cr>
 tnoremap <silent> <leader>fl <C-\><C-n>:FloatermToggle<cr>
 tnoremap <silent> jk <C-\><C-n>
+tnoremap <silent> <c-d> <C-\><C-n>:bd!<cr>
 
 if exists('g:GuiLoaded')
   let g:float_preview#docked = 1
@@ -1242,6 +1248,7 @@ let g:doge_doc_standard_python='google'
 "autocmd Filetype ipynb nmap <silent><Leader>b :VimpyterInsertPythonBlock<CR>
 "autocmd Filetype ipynb nmap <silent><Leader>j :VimpyterStartJupyter<CR>
 "autocmd Filetype ipynb nmap <silent><Leader>n :VimpyterStartNteract<CR>
+autocmd FileType * setlocal bufhidden=hide
 
 command! Emoji %s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g
 
@@ -1274,7 +1281,6 @@ let g:deoplete#enable_at_startup = 1
 ""autocmd CursorMoved  * call context#update(0, 'CursorMoved')
 ""autocmd User GitGutter call context#update_padding('GitGutter')
 
-luafile ~/.config/nvim/init.lua
 
 let g:vlime_contribs = ['SWANK-QUICKLISP', 'SWANK-ASDF', 'SWANK-PACKAGE-FU',
                       \ 'SWANK-PRESENTATIONS', 'SWANK-FANCY-INSPECTOR',
@@ -1556,3 +1562,4 @@ nmap <f1> :lua require'dap'.goto_()<cr>
 let g:markdown_composer_autostart=0
 
 nnoremap <c-h> :History<cr>
+luafile ~/.config/nvim/init.lua
