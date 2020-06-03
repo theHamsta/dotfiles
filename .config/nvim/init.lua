@@ -40,9 +40,11 @@
 --
 --
 --
-local ok, _  = pcall(require 'fun')
-if ok then
-    vim.o.shell = head(filter( vim.fn.executable, { 'fish', 'zsh', 'bash' }))
+if not filter then
+    local ok, _  = pcall(require 'fun')
+    if ok then
+        vim.o.shell = head(filter( vim.fn.executable, { 'zsh', 'fish', 'bash' }))
+    end
 end
 
 local ok, nvim_lsp = pcall(require, "nvim_lsp")
@@ -70,9 +72,6 @@ if ok then
         if not require("nvim_lsp/configs").jdtls.install_info().is_installed then
             require("nvim_lsp/configs").jdtls.install()
         end
-        --if not nvim_lsp.jdtls.is_installed() then
-            --nvim_lsp.jdtls.install()
-        --end
         local capabilities = vim.lsp.protocol.make_client_capabilities()
         capabilities.textDocument.completion.completionItem.snippetSupport = true
         capabilities.textDocument.codeAction = {
@@ -97,8 +96,7 @@ if ok then
             on_attach = require('jdtls').setup_dap()
         }
     end
-    --pcall(java)
-    java()
+    pcall(java)
     nvim_lsp.vimls.setup {}
     nvim_lsp.yamlls.setup {}
     nvim_lsp.jsonls.setup {}

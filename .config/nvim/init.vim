@@ -58,7 +58,8 @@ set ignorecase
 set spell
 set bufhidden=hide
 set signcolumn=yes
-
+set noshowmode
+set shortmess+=c
 let g:use_line_numbers=0
 
 if g:use_line_numbers
@@ -736,9 +737,9 @@ function! NvimLspMaps()
   endif
   nnoremap <buffer><silent> gt    <cmd>lua vim.lsp.buf.type_definition()<CR>
   if &filetype == "java" 
-    nnoremap <buffer><silent> <c-s> <cmd>lua vim.lsp.buf.formatting();require'jdtls'.organize_imports()<cr>
+    nnoremap <buffer><silent> <c-s> :w<cmd>lua vim.lsp.buf.formatting();require'jdtls'.organize_imports()<cr>
   elseif &filetype != "lua" 
-    nnoremap <buffer><silent> <c-s> <cmd>lua vim.lsp.buf.formatting()<cr>
+    nnoremap <buffer><silent> <c-s> :w<cmd>lua vim.lsp.buf.formatting()<cr>
   endif
   setlocal omnifunc=v:lua.vim.lsp.omnifunc
 endfunction
@@ -757,9 +758,9 @@ nnoremap <silent> <leader>ff :set foldlevel=99<CR>
 "nnoremap <silent> z9 :set foldlevel=99<CR>
 
 ""nmap <silent> <C-a-o> :call LanguageClient#textDocument_documentSymbol()<cr>
-"nmap <silent> <C-a-o> :BTags<cr>
+nmap <silent> <C-a-o> :BTags<cr>
 "nmap <silent> <leader>tag :Tags<cr>
-"nmap <silent> <c-t> :Tags<cr>
+nmap <silent> <c-t> :Tags<cr>
 
 ""function SetLSPShortcuts()
     ""nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
@@ -1438,10 +1439,10 @@ nnoremap <silent> <c-0> :lua require'my_gui'.reset_fontsize()<cr>
     "\ }
 "let g:lua_tree_ignore = [ '.git', 'node_modules', '.cache', '__pycache__' ]
 
-"nnoremap <Leader>nt :LuaTreeToggle<CR>
-"nnoremap <Leader>nf :LuaTreeFindFile<cr>:LuaTreeShow<CR>
-"nnoremap <Leader>nT :NERDTreeToggle<cr>
-"nnoremap <Leader>nF :NERDTreeFind<cr>
+nnoremap <Leader>nt :LuaTreeToggle<CR>
+nnoremap <Leader>nf :LuaTreeFindFile<cr>:LuaTreeShow<CR>
+nnoremap <Leader>nT :NERDTreeToggle<cr>
+nnoremap <Leader>nF :NERDTreeFind<cr>
 ""
 "let g:diagnostic_insert_delay = 1
 
