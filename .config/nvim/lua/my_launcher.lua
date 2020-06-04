@@ -21,6 +21,7 @@ M.list_just_targets = function()
 end
 
 M.term_run = function(cmd)
+    vim.g.last_execution = cmd
     local win = vim.api.nvim_get_current_win()
     vim.cmd("normal <c-w>o")
     vim.cmd("vert new")

@@ -36,6 +36,7 @@ end
 M = {}
 
 function M.do_luajob(cmd)
+    vim.g.last_execution = cmd
     local output = ""
     local on_output = function(err, data)
         if err then
