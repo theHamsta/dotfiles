@@ -1531,7 +1531,7 @@ let g:vlime_cl_use_terminal=v:true
 let g:vlime_enable_autodoc = v:true
 let g:vlime_window_settings = {'sldb': {'pos': 'belowright', 'vertical': v:true}, 'inspector': {'pos': 'belowright', 'vertical': v:true}, 'preview': {'pos': 'belowright', 'size': v:null, 'vertical': v:true}}
 
-"inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
+inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 "vnoremap <enter> :lua require'nvim-treesitter/textobj'.scope_incremental()<cr>
 
