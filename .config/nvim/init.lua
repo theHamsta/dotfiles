@@ -335,6 +335,7 @@ if ok then
     hlmap["type"] = "Type"
     hlmap["type.builtin"] = "Type"
     hlmap["structure"] = "Structure"
+    --hlmap["variable"] = "Normal"
 end
 --require "nvim_rocks".ensure_installed({"luasec", "fun", "30log", "lua-toml", "template"})
 

@@ -127,3 +127,6 @@ zips
 extractall
 zips
 z
+staticmethod
+Enum
+class
