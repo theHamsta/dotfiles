@@ -741,9 +741,9 @@ function! NvimLspMaps()
   endif
   nnoremap <buffer><silent> gt    <cmd>lua vim.lsp.buf.type_definition()<CR>
   if &filetype == "java" 
-    nnoremap <buffer><silent> <c-s> :w<cmd>lua vim.lsp.buf.formatting();require'jdtls'.organize_imports()<cr>
+    nnoremap <buffer><silent> <c-s> :w<cr><cmd>lua vim.lsp.buf.formatting();require'jdtls'.organize_imports()<cr>
   elseif &filetype != "lua" 
-    nnoremap <buffer><silent> <c-s> :w<cmd>lua vim.lsp.buf.formatting()<cr>
+    nnoremap <buffer><silent> <c-s> :w<cr><cmd>lua vim.lsp.buf.formatting()<cr>
   endif
   setlocal omnifunc=v:lua.vim.lsp.omnifunc
 endfunction
@@ -760,11 +760,6 @@ nnoremap <silent> <leader>f0 :set foldlevel=0<CR>
 nnoremap <silent> <leader>ff :set foldlevel=99<CR>
 "nnoremap <silent> z0 :set foldlevel=0<CR>
 "nnoremap <silent> z9 :set foldlevel=99<CR>
-
-""nmap <silent> <C-a-o> :call LanguageClient#textDocument_documentSymbol()<cr>
-nmap <silent> <C-a-o> :BTags<cr>
-"nmap <silent> <leader>tag :Tags<cr>
-nmap <silent> <c-t> :Tags<cr>
 
 ""function SetLSPShortcuts()
     ""nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
@@ -1568,5 +1563,5 @@ let g:markdown_composer_autostart=0
 
 nnoremap <c-h> :History<cr>
 nnoremap <c-t> :Tags<cr>
-nnoremap <c-a-o> :Tags<cr>
+nnoremap <c-a-o> :BTags<cr>
 luafile ~/.config/nvim/init.lua
