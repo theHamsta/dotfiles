@@ -130,3 +130,5 @@ z
 staticmethod
 Enum
 class
+variadic
+type

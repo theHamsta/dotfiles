@@ -335,7 +335,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'janko/vim-test'
     Plug 'jaxbot/semantic-highlight.vim'
     Plug 'jceb/vim-orgmode'
-    Plug 'jpalardy/vim-slime'
+    "Plug 'jpalardy/vim-slime'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
     Plug 'junegunn/goyo.vim'
@@ -355,7 +355,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'mbbill/undotree', { 'on':  [ 'UndotreeToggle'] }
     "Plug 'meain/vim-package-info', { 'do': 'npm install' }
     "Plug 'mhinz/neovim-remote'
-    "Plug 'mhinz/vim-startify'
+    Plug 'mhinz/vim-startify'
     Plug 'michaeljsmith/vim-indent-object'
     "Plug 'mileszs/ack.vim'
     Plug 'moll/vim-bbye'
@@ -412,7 +412,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'Shougo/neosnippet.vim'
 ""Plug 'vim-pandoc/vim-pandoc'
     ""Plug 'amix/vim-zenroom2'
-    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'for': ['bash','sh', 'cs', 'cmake', 'javascript', 'tsx']}
+    "Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'for': ['bash','sh', 'cs', 'cmake', 'javascript', 'tsx']}
     ""Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'tex', 'bib', 'json', 'cs']}
     Plug 'autozimu/LanguageClient-neovim', {
             \ 'branch': 'next',
@@ -725,12 +725,16 @@ function! LC_maps()
 endfunction
 
 function! NvimLspMaps()
-  nnoremap <buffer><silent> gk    <cmd>lua vim.lsp.buf.declaration()<CR>
-  nnoremap <buffer> <silent> gd   <cmd>lua vim.lsp.buf.definition()<CR>
-  nnoremap <buffer><silent> gh    <cmd>lua vim.lsp.buf.hover()<CR>
-  nnoremap <buffer><silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-  nnoremap <buffer><silent> gS    <cmd>lua vim.lsp.buf.signature_help()<CR>
-  nnoremap <buffer><silent> <leader>ca    <cmd>lua vim.lsp.buf.code_action()<CR>
+  nnoremap <buffer><silent> <f2>         <cmd>lua vim.lsp.buf.rename()<CR>
+  nnoremap <buffer><silent> gk         <cmd>lua vim.lsp.buf.declaration()<CR>
+  nnoremap <buffer><silent> gr         <cmd>lua vim.lsp.buf.references()<CR>
+  nnoremap <buffer> <silent> gd        <cmd>lua vim.lsp.buf.definition()<CR>
+  nnoremap <buffer><silent> gh         <cmd>lua vim.lsp.buf.hover()<CR>
+  nnoremap <buffer><silent> gD         <cmd>lua vim.lsp.buf.implementation()<CR>
+  nnoremap <buffer><silent> gS         <cmd>lua vim.lsp.buf.signature_help()<CR>
+  nnoremap <buffer><silent> <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
+  nnoremap <buffer><silent> <leader>ss :lua vim.lsp.buf.workspace_symbols()<cr>
+
 
   if &filetype != "tex" 
     inoremap <buffer><silent> (     <cmd>lua vim.lsp.buf.signature_help()<CR>(
@@ -748,7 +752,7 @@ nmap <silent> <C-k> :lprevious<cr>
 nmap <silent> <C-j> :lnext<cr>
 
 autocmd FileType * call LC_maps()
-autocmd FileType lua,tex,bib,java call NvimLspMaps()
+autocmd FileType lua,tex,bib,java,vim,bash,sh call NvimLspMaps()
 
 set foldlevel=99
 
@@ -1042,15 +1046,15 @@ nmap <leader>ch :Cheat!
 ""let g:oceanic_next_terminal_italic = 1
 ""colorscheme OceanicNext
 
-"nmap     <C-F>f <Plug>CtrlSFPrompt
-"vmap     <C-F>f <Plug>CtrlSFVwordPath
-"vmap     <C-F>n <Plug>CtrlSFVwordPath
-"vmap     <C-F>F <Plug>CtrlSFVwordExec
-"nmap     <C-F>n <Plug>CtrlSFCwordPath
-"nmap     <C-F>p <Plug>CtrlSFPwordPath
-"nnoremap <C-F>o :CtrlSFOpen<CR>
-"nnoremap <C-F>t :CtrlSFToggle<CR>
-"inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
+nmap     <C-F>f <Plug>CtrlSFPrompt
+vmap     <C-F>f <Plug>CtrlSFVwordPath
+vmap     <C-F>n <Plug>CtrlSFVwordPath
+vmap     <C-F>F <Plug>CtrlSFVwordExec
+nmap     <C-F>n <Plug>CtrlSFCwordPath
+nmap     <C-F>p <Plug>CtrlSFPwordPath
+nnoremap <C-F>o :CtrlSFOpen<CR>
+nnoremap <C-F>t :CtrlSFToggle<CR>
+inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 
 ""set completeopt=menuone,menu,longest,noinsert
 set completeopt=menuone,menu,longest,noselect
@@ -1563,4 +1567,6 @@ nmap <f1> :lua require'dap'.goto_()<cr>
 let g:markdown_composer_autostart=0
 
 nnoremap <c-h> :History<cr>
+nnoremap <c-t> :Tags<cr>
+nnoremap <c-a-o> :Tags<cr>
 luafile ~/.config/nvim/init.lua

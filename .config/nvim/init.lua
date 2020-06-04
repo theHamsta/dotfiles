@@ -215,6 +215,15 @@ if ok then
             --environment = {}
         --}
     }
+    dap.configurations.java = {
+        {
+            type = 'java';
+            request = 'attach';
+            name = "Debug (Attach) - Remote";
+            hostName = "127.0.0.1";
+            port = 5005;
+        },
+    }
     dap.adapters.lldb = {
       attach = {
         pidProperty = "pid",
@@ -257,6 +266,12 @@ if ok then
     require "nvim-treesitter.configs".get_parser_configs().clojure = {
         install_info = {
             url = "https://github.com/oakmac/tree-sitter-clojure",
+            files = {"src/parser.c"}
+        }
+    }
+    require "nvim-treesitter.configs".get_parser_configs().regex = {
+        install_info = {
+            url = "https://github.com/tree-sitter/tree-sitter-regex",
             files = {"src/parser.c"}
         }
     }
