@@ -403,7 +403,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'vim-airline/vim-airline-themes'
     "Plug 'vim-scripts/SearchComplete'
     "Plug 'wellle/targets.vim'
-    "Plug 'whiteinge/diffconflicts'
+    Plug 'whiteinge/diffconflicts'
     Plug 'TravonteD/luajob'
     ""Plug 'zchee/deoplete-go', { 'do': 'make'}
     ""
