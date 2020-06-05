@@ -675,9 +675,6 @@ let g:LanguageClient_serverCommands = {
     \       run(server);
     \   '],
     \ 'haskell': ['hie-wrapper', '--lsp'],
-    \ 'cuda': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
-    \ 'cpp': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
-    \ 'c': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     \ 'kotlin': ['kotlin-language-server', '.'],
     \ 'go': ['gopls'],
     \ 'dockerfile': ['docker-langserver', '--stdio'],
@@ -686,6 +683,9 @@ let g:LanguageClient_serverCommands = {
     \ 'crystal': ['/home/stephan/projects/scry/scry/bin/scry'],
     \ 'gluon': ['gluon_language-server'],
     \ }
+    "\ 'cuda': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
+    "\ 'cpp': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
+    "\ 'c': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
 
 function! LC_maps()
    if has_key(g:LanguageClient_serverCommands, &filetype)
@@ -1566,8 +1566,8 @@ nnoremap <c-a-o> :BTags<cr>
 luafile ~/.config/nvim/init.lua
 
 
-"fun! IgnoreCamelCaseSpell()
-  "syn match CamelCase /\<[A-Z][a-z]\+[A-Z].\{-}\>/ contains=@NoSpell transparent
-  "syn cluster Spell add=CamelCase
-"endfun
-"autocmd BufEnter,BufReadPost,BufWritePost,BufNewFile *.go :call IgnoreCamelCaseSpell()
+fun! IgnoreCamelCaseSpell()
+  syn match CamelCase /\<[A-Z][a-z]\+[A-Z].\{-}\>/ contains=@NoSpell transparent
+  syn cluster Spell add=CamelCase
+endfun
+autocmd BufEnter,BufReadPost,BufWritePost,BufNewFile * :call IgnoreCamelCaseSpell()

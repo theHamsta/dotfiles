@@ -30,13 +30,13 @@
 --vim._update_package_paths()
 --end
 
---vim.api.nvim_command [[
---function! DeleteTrailingWS()
---exe 'normal mz'
---%s/\s\+$//ge
---exe 'normal `z'
---endfunction
---]]
+vim.api.nvim_command [[
+function! DeleteTrailingWS()
+exe 'normal mz'
+%s/\s\+$//ge
+exe 'normal `z'
+endfunction
+]]
 --
 --
 --
@@ -93,7 +93,7 @@ if ok then
                 },
             },
             capabilities = capabilities,
-            on_attach = require('jdtls').setup_dap()
+            on_attach = require('jdtls').setup_dap
         }
     end
     pcall(java)
@@ -279,7 +279,7 @@ if ok then
         {
             highlight = {
                 enable = true, -- false will disable the whole extension
-                disable = {"lua"} -- list of language that will be disabled
+                disable = {"html", "lua"} -- list of language that will be disabled
             },
             incremental_selection = {
                 -- this enables incremental selection
@@ -312,44 +312,44 @@ if ok then
     local hlmap = vim.treesitter.TSHighlighter.hl_map
 
     -- Misc
-    hlmap.error = "Error"
-    hlmap["punctuation.delimiter"] = "Delimiter"
-    hlmap["punctuation.bracket"] = "Delimiter"
+    --hlmap.error = "Normal"
+    --hlmap["punctuation.delimiter"] = "Delimiter"
+    --hlmap["punctuation.bracket"] = "Delimiter"
 
-    -- Constants
-    hlmap["constant"] = "Constant"
-    hlmap["constant.builtin"] = "Type"
-    hlmap["constant.macro"] = "Define"
-    hlmap["string"] = "String"
-    hlmap["string.regex"] = "String"
-    hlmap["string.escape"] = "SpecialChar"
-    hlmap["character"] = "Character"
-    hlmap["number"] = "Number"
-    hlmap["boolean"] = "Boolean"
-    hlmap["float"] = "Float"
+    ---- Constants
+    --hlmap["constant"] = "Constant"
+    --hlmap["constant.builtin"] = "Type"
+    --hlmap["constant.macro"] = "Define"
+    --hlmap["string"] = "String"
+    --hlmap["string.regex"] = "String"
+    --hlmap["string.escape"] = "SpecialChar"
+    --hlmap["character"] = "Character"
+    --hlmap["number"] = "Number"
+    --hlmap["boolean"] = "Boolean"
+    --hlmap["float"] = "Float"
 
-    -- Functions
-    hlmap["function"] = "Function"
-    hlmap["function.builtin"] = "Special"
-    hlmap["function.macro"] = "Macro"
-    hlmap["parameter"] = "Identifier"
-    hlmap["method"] = "Function"
-    hlmap["field"] = "Identifier"
-    hlmap["property"] = "Identifier"
-    hlmap["constructor"] = "Type"
+    ---- Functions
+    --hlmap["function"] = "Function"
+    --hlmap["function.builtin"] = "Special"
+    --hlmap["function.macro"] = "Macro"
+    --hlmap["parameter"] = "Identifier"
+    --hlmap["method"] = "Function"
+    --hlmap["field"] = "Identifier"
+    --hlmap["property"] = "Identifier"
+    --hlmap["constructor"] = "Type"
 
-    -- Keywords
-    hlmap["conditional"] = "Conditional"
-    hlmap["repeat"] = "Repeat"
-    hlmap["label"] = "Label"
-    hlmap["operator"] = "Operator"
-    hlmap["keyword"] = "Repeat"
-    hlmap["exception"] = "Exception"
-    hlmap["include"] = "Include"
+    ---- Keywords
+    --hlmap["conditional"] = "Conditional"
+    --hlmap["repeat"] = "Repeat"
+    --hlmap["label"] = "Label"
+    --hlmap["operator"] = "Operator"
+    --hlmap["keyword"] = "Repeat"
+    --hlmap["exception"] = "Exception"
+    --hlmap["include"] = "Include"
 
-    hlmap["type"] = "Type"
-    hlmap["type.builtin"] = "Type"
-    hlmap["structure"] = "Structure"
+    --hlmap["type"] = "Type"
+    --hlmap["type.builtin"] = "Type"
+    --hlmap["structure"] = "Structure"
     --hlmap["variable"] = "Normal"
 end
 --require "nvim_rocks".ensure_installed({"luasec", "fun", "30log", "lua-toml", "template"})
