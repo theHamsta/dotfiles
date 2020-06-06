@@ -47,13 +47,13 @@ if not filter then
     end
 end
 
-local function collect(iterator)
-    local rtn = {}
-    for _, e in iterator do
-        table.insert(rtn, e)
-    end
-    return rtn
-end
+--local function collect(iterator)
+--local rtn = {}
+--for _, e in iterator do
+--table.insert(rtn, e)
+--end
+--return rtn
+--end
 
 local ok, nvim_lsp = pcall(require, "nvim_lsp")
 
@@ -323,7 +323,7 @@ end
 
 vim.fn.sign_define("DapBreakpoint", {text = "🛑", texthl = "", linehl = "", numhl = ""})
 
-local ok, nvim_treesitter = pcall(require, "nvim-treesitter.configs")
+local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
     require "nvim-treesitter.configs".get_parser_configs().lisp = {
         install_info = {
