@@ -80,13 +80,15 @@ if ok then
         end
 
         vim.lsp.util.set_loclist(items)
-        if #items > 0 then
-            local current_win = vim.api.nvim_get_current_win()
-            vim.cmd("lopen")
-            vim.api.nvim_set_current_win(current_win)
-        else
-            vim.cmd("lcl")
-            vim.cmd("lcl")
+        if vim.api.nvim_get_mode().mode == "n" then
+            if #items > 0 then
+                local current_win = vim.api.nvim_get_current_win()
+                vim.cmd("lopen")
+                vim.api.nvim_set_current_win(current_win)
+            else
+                vim.cmd("lcl")
+                vim.cmd("lcl")
+            end
         end
     end
     local function on_attach(_)
@@ -414,7 +416,6 @@ if ok then
     hlmap["keyword"] = "Repeat"
     hlmap["exception"] = "Exception"
     hlmap["include"] = "Include"
-
     hlmap["type"] = "Type"
     hlmap["type.builtin"] = "Type"
     hlmap["structure"] = "Structure"
