@@ -65,9 +65,13 @@ if ok then
 
         local items = {}
         for bufnr, d in pairs(diagnostics) do
-            table.sort(d, function(a,b) return a.range.start.line < b.range.start.line end)
+            table.sort(
+                d,
+                function(a, b)
+                    return a.range.start.line < b.range.start.line
+                end
+            )
             for _, element in ipairs(d) do
-
                 table.insert(
                     items,
                     {
@@ -80,7 +84,6 @@ if ok then
                 )
             end
         end
-
 
         vim.lsp.util.set_loclist(items)
         if vim.api.nvim_get_mode().mode == "n" then
@@ -125,6 +128,164 @@ if ok then
                 checkOnSave = {
                     command = "clippy"
                 }
+            },
+            capabilities = {
+                offsetEncoding = {"utf-8", "utf-16"},
+                textDocument = {
+                    codeAction = {
+                        codeActionLiteralSupport = {
+                            codeActionKind = {
+                                valueSet = {}
+                            }
+                        },
+                        dynamicRegistration = false
+                    },
+                    completion = {
+                        completionItem = {
+                            commitCharactersSupport = false,
+                            deprecatedSupport = false,
+                            documentationFormat = {"markdown", "plaintext"},
+                            preselectSupport = false,
+                            snippetSupport = false
+                        },
+                        completionItemKind = {
+                            valueSet = {
+                                1,
+                                2,
+                                3,
+                                4,
+                                5,
+                                6,
+                                7,
+                                8,
+                                9,
+                                10,
+                                11,
+                                12,
+                                13,
+                                14,
+                                15,
+                                16,
+                                17,
+                                18,
+                                19,
+                                20,
+                                21,
+                                22,
+                                23,
+                                24,
+                                25
+                            }
+                        },
+                        contextSupport = false,
+                        dynamicRegistration = false
+                    },
+                    declaration = {
+                        linkSupport = true
+                    },
+                    definition = {
+                        linkSupport = true
+                    },
+                    documentHighlight = {
+                        dynamicRegistration = false
+                    },
+                    documentSymbol = {
+                        dynamicRegistration = false,
+                        hierarchicalDocumentSymbolSupport = true,
+                        symbolKind = {
+                            valueSet = {
+                                1,
+                                2,
+                                3,
+                                4,
+                                5,
+                                6,
+                                7,
+                                8,
+                                9,
+                                10,
+                                11,
+                                12,
+                                13,
+                                14,
+                                15,
+                                16,
+                                17,
+                                18,
+                                19,
+                                20,
+                                21,
+                                22,
+                                23,
+                                24,
+                                25,
+                                26
+                            }
+                        }
+                    },
+                    hover = {
+                        contentFormat = {"markdown", "plaintext"},
+                        dynamicRegistration = false
+                    },
+                    implementation = {
+                        linkSupport = true
+                    },
+                    references = {
+                        dynamicRegistration = false
+                    },
+                    signatureHelp = {
+                        dynamicRegistration = false,
+                        signatureInformation = {
+                            documentationFormat = {"markdown", "plaintext"}
+                        }
+                    },
+                    synchronization = {
+                        didSave = true,
+                        dynamicRegistration = false,
+                        willSave = false,
+                        willSaveWaitUntil = false
+                    },
+                    typeDefinition = {
+                        linkSupport = true
+                    }
+                },
+                workspace = {
+                    applyEdit = true,
+                    symbol = {
+                        dynamicRegistration = false,
+                        hierarchicalWorkspaceSymbolSupport = true,
+                        symbolKind = {
+                            valueSet = {
+                                1,
+                                2,
+                                3,
+                                4,
+                                5,
+                                6,
+                                7,
+                                8,
+                                9,
+                                10,
+                                11,
+                                12,
+                                13,
+                                14,
+                                15,
+                                16,
+                                17,
+                                18,
+                                19,
+                                20,
+                                21,
+                                22,
+                                23,
+                                24,
+                                25,
+                                26
+                            }
+                        }
+                    }
+                }
             }
         },
         on_attach = on_attach
@@ -157,8 +318,8 @@ if ok then
             },
             capabilities = capabilities,
             on_attach = function(client)
-                require("jdtls").setup_dap()
                 on_attach(client)
+                require('jdtls').setup_dap()
             end
         }
     end

@@ -29,7 +29,6 @@ if !filereadable(vimplug_exists)
 
     autocmd VimEnter * PlugInstall
 endif
-
 "vim-scripts/VimPdb Identify platform {
 let g:MAC = has('macunix')
 let g:LINUX = has('unix') && !has('macunix') && !has('win32unix')
@@ -43,7 +42,6 @@ if g:WINDOWS
     set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
 endif
 " }
-
 set runtimepath+=$HOME/.space-vim/core
 
 let g:xcodedark_green_comments = 1
@@ -167,8 +165,8 @@ nnoremap <Leader>tc :tabclose<cr>
 nnoremap <Leader>oo :only<cr>
 "nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 "nmap <silent> <C-j> <Plug>(ale_next_wrap)
-nmap <silent> <leader><C-k> :lprevious<cr>
-nmap <silent> <leader><C-j> :lnext<cr>
+nmap <silent> <C-k> [L
+nmap <silent> <C-j> ]L
 "nmap <silent> <C-k> [m<cr>
 "nmap <silent> <C-j> ]m<cr>
 nmap <leader>bl :BLines<cr>
@@ -195,8 +193,6 @@ nnoremap P "+P
 "inoremap II <Esc>I
 "inoremap AA <Esc>A
 "inoremap OO <Esc>O
-inoremap <c-h> <Esc>gea
-inoremap <c-l> <Esc>ea
 inoremap jk <Esc>
 "vnoremap jk <Esc>
 smap <c-n> <Esc>a<tab>
@@ -229,8 +225,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'vigoux/LanguageTool.nvim'
     "Plug 'rhysd/vim-grammarous'
     "Plug 'chuling/vim-equinusocio-material'
-    "Plug 'mfussenegger/nvim-jdtls'
-    "Plug 'theHamsta/nvim-dap', { 'branch' : 'fork' }
+    Plug 'mfussenegger/nvim-jdtls'
+    Plug 'theHamsta/nvim-dap', { 'branch' : 'fork' }
     "Plug 'haorenW1025/diagnostic-nvim'
     "Plug 'nvim-treesitter/highlight.lua'
     "Plug 'kyazdani42/nvim-palenight.lua'
@@ -401,7 +397,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'guns/vim-sexp', { 'for': ['lisp', 'clojure', 'scheme', 'vlime_repl'] }
     "Plug 'tpope/vim-sleuth'
     Plug 'tpope/vim-surround'
-    "Plug 'tpope/vim-unimpaired'
+    Plug 'tpope/vim-unimpaired'
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     "Plug 'vim-scripts/SearchComplete'
@@ -735,6 +731,7 @@ function! NvimLspMaps()
   nnoremap <buffer><silent> gD         <cmd>lua vim.lsp.buf.implementation()<CR>
   nnoremap <buffer><silent> gS         <cmd>lua vim.lsp.buf.signature_help()<CR>
   nnoremap <buffer><silent> <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
+  vnoremap <buffer><silent> <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
   nnoremap <buffer><silent> <leader>ss :lua vim.lsp.buf.workspace_symbols()<cr>
 
 
@@ -753,9 +750,6 @@ function! NvimLspMaps()
   endif
   setlocal omnifunc=v:lua.vim.lsp.omnifunc
 endfunction
-
-nmap <silent> <C-k> :lprevious<cr>
-nmap <silent> <C-j> :lnext<cr>
 
 autocmd FileType * call LC_maps()
 "autocmd FileType lua,tex,bib,java,vim,bash,sh,rust 
@@ -804,7 +798,7 @@ augroup END
 
     ""tnoremap <C-v>a <C-\><C-n>"aPi
 
-"nnoremap <a-t> :Switch<CR>
+nnoremap <a-t> :Switch<CR>
 
 ""au VimEnter * RainbowParenthesesActivate
 ""au Syntax * RainbowParenthesesLoadRound
@@ -1527,8 +1521,6 @@ command! GitPushAsyncForce lua require'my_commands'.git_push(true)
     "1T %paste
 "endfunction
 "command! -nargs=* PasteVisualSel call s:get_visual_selection()
-
-
 let g:vlime_leader = ","
 "let g:vlime_leader='<space>'
 let g:vlime_cl_use_terminal=v:true
@@ -1552,7 +1544,6 @@ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 ""let g:lightline = { 'colorscheme': 'palenight' }
 au TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 150)
 
-
 set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()
 "highlight NvimTreesitterCurrentNode guibg=#444400
 
@@ -1571,9 +1562,14 @@ nnoremap <c-t> :Tags<cr>
 nnoremap <c-a-o> :BTags<cr>
 luafile ~/.config/nvim/init.lua
 
-
 fun! IgnoreCamelCaseSpell()
   syn match CamelCase /\<[A-Z][a-z]\+[A-Z].\{-}\>/ contains=@NoSpell transparent
   syn cluster Spell add=CamelCase
 endfun
 autocmd BufEnter,BufReadPost,BufWritePost,BufNewFile * :call IgnoreCamelCaseSpell()
+
+command! -buffer JdtCompile lua require('jdtls').compile()
+command! -buffer JdtUpdateConfig lua require('jdtls').update_project_config()
+command! -buffer JdtJol lua require('jdtls').jol()
+command! -buffer JdtBytecode lua require('jdtls').javap()
+command! -buffer JdtJshell lua require('jdtls').jshell()
