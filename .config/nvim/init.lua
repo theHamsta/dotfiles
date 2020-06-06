@@ -66,26 +66,27 @@ if ok then
         local items = {}
         for bufnr, d in pairs(diagnostics) do
             for _, element in pairs(d) do
-
-                table.insert(items,{
-                    bufnr = bufnr,
-                    lnum = element.range.start.line + 1,
-                    vcol = 1,
-                    col = element.range.start.character + 1,
-                    text = element.message
-                })
-
+                table.insert(
+                    items,
+                    {
+                        bufnr = bufnr,
+                        lnum = element.range.start.line + 1,
+                        vcol = 1,
+                        col = element.range.start.character + 1,
+                        text = element.message
+                    }
+                )
             end
         end
 
         vim.lsp.util.set_loclist(items)
         if #items > 0 then
-          local current_win = vim.api.nvim_get_current_win()
-          vim.cmd('lopen')
-          vim.api.nvim_set_current_win(current_win)
+            local current_win = vim.api.nvim_get_current_win()
+            vim.cmd("lopen")
+            vim.api.nvim_set_current_win(current_win)
         else
-            vim.cmd('lcl')
-            vim.cmd('lcl')
+            vim.cmd("lcl")
+            vim.cmd("lcl")
         end
     end
     local function on_attach(_)
