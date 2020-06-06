@@ -1,4 +1,5 @@
 {
     "rust.clippy_preference": "on",
-    "pyls.plugins.pydocstyle.enabled": true
+    "pyls.plugins.pydocstyle.enabled": true,
+    "rust-analyzer.checkOnSave.command": "clippy"
 }

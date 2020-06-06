@@ -41,15 +41,57 @@ endfunction
 --
 --
 if not filter then
-    local ok, _  = pcall(require 'fun')
+    local ok, _ = pcall(require "fun")
     if ok then
-        vim.o.shell = head(filter( vim.fn.executable, { 'zsh', 'fish', 'bash' }))
+        vim.o.shell = head(filter(vim.fn.executable, {"zsh", "fish", "bash"}))
     end
+end
+
+local function collect(iterator)
+    local rtn = {}
+    for _, e in iterator do
+        table.insert(rtn, e)
+    end
+    return rtn
 end
 
 local ok, nvim_lsp = pcall(require, "nvim_lsp")
 
 if ok then
+    local default_callback = vim.lsp.callbacks["textDocument/publishDiagnostics"]
+    vim.lsp.callbacks["textDocument/publishDiagnostics"] = function(...)
+        default_callback(...)
+        local diagnostics = vim.lsp.util.diagnostics_by_buf
+
+        local items = {}
+        for bufnr, d in pairs(diagnostics) do
+            for _, element in pairs(d) do
+
+                table.insert(items,{
+                    bufnr = bufnr,
+                    lnum = element.range.start.line + 1,
+                    vcol = 1,
+                    col = element.range.start.character + 1,
+                    text = element.message
+                })
+
+            end
+        end
+
+        vim.lsp.util.set_loclist(items)
+        if #items > 0 then
+          local current_win = vim.api.nvim_get_current_win()
+          vim.cmd('lopen')
+          vim.api.nvim_set_current_win(current_win)
+        else
+            vim.cmd('lcl')
+            vim.cmd('lcl')
+        end
+    end
+    local function on_attach(_)
+        vim.fn.NvimLspMaps()
+    end
+
     pcall(require, "nvim_lsp/sumneko_lua")
     if not require("nvim_lsp/configs").sumneko_lua.install_info().is_installed then
         require("nvim_lsp/configs").sumneko_lua.install()
@@ -64,7 +106,22 @@ if ok then
                 },
                 runtime = {version = "LuaJIT"}
             }
-        }
+        },
+        on_attach = on_attach
+    }
+    nvim_lsp.html.setup {
+        on_attach = on_attach
+    }
+
+    nvim_lsp.rust_analyzer.setup {
+        settings = {
+            ["rust-analyzer"] = {
+                checkOnSave = {
+                    command = "clippy"
+                }
+            }
+        },
+        on_attach = on_attach
     }
 
     local java = function()
@@ -75,31 +132,40 @@ if ok then
         local capabilities = vim.lsp.protocol.make_client_capabilities()
         capabilities.textDocument.completion.completionItem.snippetSupport = true
         capabilities.textDocument.codeAction = {
-            dynamicRegistration = false;
+            dynamicRegistration = false,
             codeActionLiteralSupport = {
                 codeActionKind = {
                     valueSet = {
                         "source.generate.toString",
                         "source.generate.hashCodeEquals",
-                        "source.organizeImports",
-                    };
-                };
-            };
+                        "source.organizeImports"
+                    }
+                }
+            }
         }
         nvim_lsp.jdtls.setup {
             init_options = {
                 bundles = {
                     vim.fn.glob("~/.local/share/nvim/plugged/nvim-jdtls/*.jar")
-                },
+                }
             },
             capabilities = capabilities,
-            on_attach = require('jdtls').setup_dap
+            on_attach = function(client)
+                require("jdtls").setup_dap()
+                on_attach(client)
+            end
         }
     end
     pcall(java)
-    nvim_lsp.vimls.setup {}
-    nvim_lsp.yamlls.setup {}
-    nvim_lsp.jsonls.setup {}
+    nvim_lsp.vimls.setup {
+        on_attach = on_attach
+    }
+    nvim_lsp.yamlls.setup {
+        on_attach = on_attach
+    }
+    nvim_lsp.jsonls.setup {
+        on_attach = on_attach
+    }
     --nvim_lsp.rust_analyzer.setup({})
 
     nvim_lsp.texlab.setup {
@@ -112,7 +178,8 @@ if ok then
                     onChange = true
                 }
             }
-        }
+        },
+        on_attach = on_attach
     }
 ----nvim_lsp.clangd.setup({
 ----cmd={"clangd-11", "--clang-tidy", "--header-insertion=iwyu", "--background-index", "--suggest-missing-includes"}
@@ -196,7 +263,7 @@ if ok then
         up = {".up", "up"},
         down = {".down", "down"},
         goto_ = {".goto", "j"},
-        into_targets = {'.into_targets', 't'},
+        into_targets = {".into_targets", "t"}
     }
     vim.g.dap_virtual_text = true
 
@@ -207,38 +274,38 @@ if ok then
         attach = {
             pidProperty = "processId",
             pidSelect = "ask"
-        },
+        }
         --configuration = {
-            --type = "cppdbg",
-            --args = {},
-            --cwd = "${workspaceRoot}",
-            --environment = {}
+        --type = "cppdbg",
+        --args = {},
+        --cwd = "${workspaceRoot}",
+        --environment = {}
         --}
     }
     dap.configurations.java = {
         {
-            type = 'java';
-            request = 'attach';
-            name = "Debug (Attach) - Remote";
-            hostName = "127.0.0.1";
-            port = 5005;
-        },
+            type = "java",
+            request = "attach",
+            name = "Debug (Attach) - Remote",
+            hostName = "127.0.0.1",
+            port = 5005
+        }
     }
     dap.adapters.lldb = {
-      attach = {
-        pidProperty = "pid",
-        pidSelect = "ask"
-      },
-      command = 'lldb-vscode-11',
-      env = {
-        LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES"
-      },
-      name = "lldb"
+        attach = {
+            pidProperty = "pid",
+            pidSelect = "ask"
+        },
+        command = "lldb-vscode-11",
+        env = {
+            LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES"
+        },
+        name = "lldb"
     }
     dap.adapters.markdown = {
         name = "cppdbg",
-        command = 'npm',
-        args = {'run'},
+        command = "npm",
+        args = {"run"},
         cwd = "/home/stephan/projects/vscode-mock-debug/"
     }
 --"<name>: Attach": {
@@ -311,46 +378,46 @@ if ok then
     require "nvim-treesitter.highlight"
     local hlmap = vim.treesitter.TSHighlighter.hl_map
 
-    -- Misc
-    --hlmap.error = "Normal"
-    --hlmap["punctuation.delimiter"] = "Delimiter"
-    --hlmap["punctuation.bracket"] = "Delimiter"
+    --Misc
+    hlmap.error = "Normal"
+    hlmap["punctuation.delimiter"] = "Delimiter"
+    hlmap["punctuation.bracket"] = "Delimiter"
 
-    ---- Constants
-    --hlmap["constant"] = "Constant"
-    --hlmap["constant.builtin"] = "Type"
-    --hlmap["constant.macro"] = "Define"
-    --hlmap["string"] = "String"
-    --hlmap["string.regex"] = "String"
-    --hlmap["string.escape"] = "SpecialChar"
-    --hlmap["character"] = "Character"
-    --hlmap["number"] = "Number"
-    --hlmap["boolean"] = "Boolean"
-    --hlmap["float"] = "Float"
+    -- Constants
+    hlmap["constant"] = "Constant"
+    hlmap["constant.builtin"] = "Type"
+    hlmap["constant.macro"] = "Define"
+    hlmap["string"] = "String"
+    hlmap["string.regex"] = "String"
+    hlmap["string.escape"] = "SpecialChar"
+    hlmap["character"] = "Character"
+    hlmap["number"] = "Number"
+    hlmap["boolean"] = "Boolean"
+    hlmap["float"] = "Float"
 
-    ---- Functions
-    --hlmap["function"] = "Function"
-    --hlmap["function.builtin"] = "Special"
-    --hlmap["function.macro"] = "Macro"
-    --hlmap["parameter"] = "Identifier"
-    --hlmap["method"] = "Function"
-    --hlmap["field"] = "Identifier"
-    --hlmap["property"] = "Identifier"
-    --hlmap["constructor"] = "Type"
+    -- Functions
+    hlmap["function"] = "Function"
+    hlmap["function.builtin"] = "Special"
+    hlmap["function.macro"] = "Macro"
+    hlmap["parameter"] = "Identifier"
+    hlmap["method"] = "Function"
+    hlmap["field"] = "Identifier"
+    hlmap["property"] = "Identifier"
+    hlmap["constructor"] = "Type"
 
-    ---- Keywords
-    --hlmap["conditional"] = "Conditional"
-    --hlmap["repeat"] = "Repeat"
-    --hlmap["label"] = "Label"
-    --hlmap["operator"] = "Operator"
-    --hlmap["keyword"] = "Repeat"
-    --hlmap["exception"] = "Exception"
-    --hlmap["include"] = "Include"
+    -- Keywords
+    hlmap["conditional"] = "Conditional"
+    hlmap["repeat"] = "Repeat"
+    hlmap["label"] = "Label"
+    hlmap["operator"] = "Operator"
+    hlmap["keyword"] = "Repeat"
+    hlmap["exception"] = "Exception"
+    hlmap["include"] = "Include"
 
-    --hlmap["type"] = "Type"
-    --hlmap["type.builtin"] = "Type"
-    --hlmap["structure"] = "Structure"
-    --hlmap["variable"] = "Normal"
+    hlmap["type"] = "Type"
+    hlmap["type.builtin"] = "Type"
+    hlmap["structure"] = "Structure"
+    hlmap["variable"] = "Normal"
 end
 --require "nvim_rocks".ensure_installed({"luasec", "fun", "30log", "lua-toml", "template"})
 
@@ -382,6 +449,9 @@ vim.cmd [[
 ]]
 vim.cmd [[
     command! MockDebug lua require "my_debug".mock_debug()
+]]
+vim.cmd [[
+    command! -nargs=* DebugJava lua require "my_debug".debug_java({<f-args>})
 ]]
 
 --vim.api.nvim_command [[

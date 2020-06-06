@@ -158,6 +158,24 @@ M.reverse_debug = function(args, mi_mode, mi_debugger_path)
     dap.repl.open()
 end
 
+local last_java_config
+M.debug_java = function(last)
+    local dap = require "dap"
+    local dap_ui = require "dap/ui"
+
+    last_java_config = dap_ui.pick_one(dap.configurations.java, "Main Class", function(it) return it.mainClass end)
+
+
+    if not last_java_config then
+        print('No Java config set!')
+        return
+    end
+    dap.adapters.java(function(adapter)
+        dap.attach(adapter.host, adapter.port, last_java_config)
+      end)
+    --dap.repl.open()
+end
+
 M.mock_debug = function()
     local dap = require "dap"
     local config = {

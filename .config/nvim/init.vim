@@ -14,6 +14,9 @@ let g:vim_bootstrap_editor = "nvim"             " nvim or vim
 "let g:fzf_command_prefix = 'fzf'
 let g:sexp_insert_after_wrap = 0
 
+let g:LanguageClient_settingsPath = expand('~').'.config/nvim/settings.json'
+
+
 if !filereadable(vimplug_exists)
     if !executable("curl")
         echoerr "You have to install curl or first install vim-plug yourself!"
@@ -226,9 +229,9 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'vigoux/LanguageTool.nvim'
     "Plug 'rhysd/vim-grammarous'
     "Plug 'chuling/vim-equinusocio-material'
-    Plug 'mfussenegger/nvim-jdtls'
-    Plug 'theHamsta/nvim-dap', { 'branch' : 'fork' }
-"    Plug 'haorenW1025/diagnostic-nvim'
+    "Plug 'mfussenegger/nvim-jdtls'
+    "Plug 'theHamsta/nvim-dap', { 'branch' : 'fork' }
+    Plug 'haorenW1025/diagnostic-nvim'
     "Plug 'nvim-treesitter/highlight.lua'
     "Plug 'kyazdani42/nvim-palenight.lua'
     Plug 'theHamsta/nvim-treesitter'
@@ -370,7 +373,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'rliang/nvim-pygtk3', {'do': 'make install'}
     "Plug 'rliang/termedit.nvim'
     "Plug 'roblillack/vim-bufferlist'
-    "Plug 'rust-lang/rust.vim', { 'for': ['rust', 'toml'] }
+    Plug 'rust-lang/rust.vim', { 'for': ['rust', 'toml'] }
     Plug 'ryanoasis/vim-devicons'
     "Plug 'sakhnik/nvim-gdb', { 'do': './install.sh' }
     Plug 'scrooloose/nerdcommenter'
@@ -625,7 +628,7 @@ nmap <a-p> :cd ~/projects<cr>:Buffers<cr>
 "autocmd FileType cmake SemanticHighlight
 "autocmd FileType lua nnoremap <buffer> <F5> :exec '!lua' shellescape(@%:p, 1)<cr>:letg:last_execution=@%:p <cr>
 
-"autocmd FileType lua nnoremap <buffer> <c-s> ma:w<cr>:%!luafmt --stdin<cr>'azz
+autocmd FileType lua nnoremap <buffer> <c-s> ma:w<cr>:%!luafmt --stdin<cr>'azz
 "autocmd FileType tex,latex nnoremap <buffer> <c-s> :w<cr>:silent !latexindent % -w<cr>:e<cr>
 ""autocmd FileType tex,latex call neomake#configure#automake('w')
 ""autocmd FileType rst call neomake#configure#automake('w')
@@ -660,8 +663,8 @@ endif
 
     ""\ 'clojure': ['clojure-lsp'],
     ""\ 'rust': ['rls'],
+    "\ 'rust': ['rust-analyzer'],
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rust-analyzer'],
     \   'julia': ['julia', '--startup-file=no', '--history-file=no', '-e', '
     \       using LanguageServer;
     \       using Pkg;
@@ -682,10 +685,10 @@ let g:LanguageClient_serverCommands = {
     \ 'python': ['pyls'],
     \ 'crystal': ['/home/stephan/projects/scry/scry/bin/scry'],
     \ 'gluon': ['gluon_language-server'],
+    \ 'cuda': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
+    \ 'cpp': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
+    \ 'c': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     \ }
-    "\ 'cuda': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
-    "\ 'cpp': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
-    "\ 'c': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
 
 function! LC_maps()
    if has_key(g:LanguageClient_serverCommands, &filetype)
@@ -740,9 +743,11 @@ function! NvimLspMaps()
   endif
   nnoremap <buffer><silent> gt    <cmd>lua vim.lsp.buf.type_definition()<CR>
   if &filetype == "java" 
-    nnoremap <buffer><silent> <c-s> :w<cr><cmd>lua vim.lsp.buf.formatting();require'jdtls'.organize_imports()<cr>
-  elseif &filetype != "lua" 
-    nnoremap <buffer><silent> <c-s> :w<cr><cmd>lua vim.lsp.buf.formatting()<cr>
+    nnoremap <buffer><silent> <c-s> :wa<cr><cmd>lua vim.lsp.buf.formatting();require'jdtls'.organize_imports()<cr>
+  elseif &filetype == "lua" 
+
+  else 
+    nnoremap <buffer><silent> <c-s> :wa<cr><cmd>lua vim.lsp.buf.formatting()<cr>
   endif
   setlocal omnifunc=v:lua.vim.lsp.omnifunc
 endfunction
@@ -751,7 +756,7 @@ nmap <silent> <C-k> :lprevious<cr>
 nmap <silent> <C-j> :lnext<cr>
 
 autocmd FileType * call LC_maps()
-autocmd FileType lua,tex,bib,java,vim,bash,sh call NvimLspMaps()
+"autocmd FileType lua,tex,bib,java,vim,bash,sh,rust 
 
 set foldlevel=99
 
@@ -1025,8 +1030,8 @@ function! Multiple_cursors_after()
 endif
 endfunction
 
-let g:lt_location_list_toggle_map = '<leader>qe'
-let g:lt_quickfix_list_toggle_map = '<leader>ql'
+let g:lt_location_list_toggle_map = '<leader>ql'
+let g:lt_quickfix_list_toggle_map = '<leader>qe'
 ""au! FileType cmake unmap <buffer> <silent> gh
 ""au! FileType cmake nmap <buffer> <silent> <unique> gh <Plug>CMakeCompleteHelp
 nmap <leader>ch :Cheat!
@@ -1209,8 +1214,8 @@ nnoremap <leader>ju :JustTargets<cr>
 nnoremap <leader>JU :JustTargetsAsync<cr>
 
 
-"let g:auto_git_diff_disable_auto_update=1
-"let g:auto_git_diff_show_window_at_right=1
+let g:auto_git_diff_disable_auto_update=1
+let g:auto_git_diff_show_window_at_right=1
 
 "function! s:setup_auto_git_diff() abort
     "nmap <buffer> <C-l> <Plug>(auto_git_diff_scroll_manual_update)
