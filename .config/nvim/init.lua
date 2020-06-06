@@ -65,7 +65,9 @@ if ok then
 
         local items = {}
         for bufnr, d in pairs(diagnostics) do
-            for _, element in pairs(d) do
+            table.sort(d, function(a,b) return a.range.start.line < b.range.start.line end)
+            for _, element in ipairs(d) do
+
                 table.insert(
                     items,
                     {
@@ -78,6 +80,7 @@ if ok then
                 )
             end
         end
+
 
         vim.lsp.util.set_loclist(items)
         if vim.api.nvim_get_mode().mode == "n" then

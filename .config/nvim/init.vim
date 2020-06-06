@@ -231,7 +231,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'chuling/vim-equinusocio-material'
     "Plug 'mfussenegger/nvim-jdtls'
     "Plug 'theHamsta/nvim-dap', { 'branch' : 'fork' }
-    Plug 'haorenW1025/diagnostic-nvim'
+    "Plug 'haorenW1025/diagnostic-nvim'
     "Plug 'nvim-treesitter/highlight.lua'
     "Plug 'kyazdani42/nvim-palenight.lua'
     Plug 'theHamsta/nvim-treesitter'
@@ -741,13 +741,15 @@ function! NvimLspMaps()
   if &filetype != "tex" 
     inoremap <buffer><silent> (     <cmd>lua vim.lsp.buf.signature_help()<CR>(
   endif
+
   nnoremap <buffer><silent> gt    <cmd>lua vim.lsp.buf.type_definition()<CR>
+
   if &filetype == "java" 
-    nnoremap <buffer><silent> <c-s> :wa<cr><cmd>lua vim.lsp.buf.formatting();require'jdtls'.organize_imports()<cr>
+    nnoremap <buffer><silent> <c-s> :w<cr><cmd>lua vim.lsp.buf.formatting();require'jdtls'.organize_imports()<cr>
   elseif &filetype == "lua" 
 
   else 
-    nnoremap <buffer><silent> <c-s> :wa<cr><cmd>lua vim.lsp.buf.formatting()<cr>
+    nnoremap <buffer><silent> <c-s> :w<cr><cmd>lua vim.lsp.buf.formatting()<cr>
   endif
   setlocal omnifunc=v:lua.vim.lsp.omnifunc
 endfunction
@@ -875,7 +877,7 @@ set clipboard=unnamedplus
 nnoremap <leader>ag :Ag<cr>
 "nnoremap <leader>fag :FuzzyAg<cr>
 nnoremap <leader>rg :Rg<cr>
-"let g:LanguageClient_diagnosticsList = "Location"
+let g:LanguageClient_diagnosticsList = "Location"
 ""let g:quickr_preview_on_cursor = 1
 
 
@@ -1029,7 +1031,6 @@ function! Multiple_cursors_after()
   call deoplete#custom#option('auto_complete', v:true)
 endif
 endfunction
-
 let g:lt_location_list_toggle_map = '<leader>ql'
 let g:lt_quickfix_list_toggle_map = '<leader>qe'
 ""au! FileType cmake unmap <buffer> <silent> gh
