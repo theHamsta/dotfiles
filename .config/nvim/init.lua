@@ -5,7 +5,6 @@
 -- Distributed under terms of the GPLv3 license.
 --
 
---require'nvim_lsp'.clangd.setup{}
 --require'nvim_lsp'.pyls.setup{}
 --require'nvim_lsp'.pyls_ms.setup{}
 -- Courtesy of @norcalli
@@ -29,7 +28,6 @@
 --vim.fn["plug#end"]()
 --vim._update_package_paths()
 --end
-
 vim.api.nvim_command [[
 function! DeleteTrailingWS()
 exe 'normal mz'
@@ -54,7 +52,6 @@ end
 --end
 --return rtn
 --end
-
 local ok, nvim_lsp = pcall(require, "nvim_lsp")
 
 if ok then
@@ -86,11 +83,22 @@ if ok then
         end
 
         vim.lsp.util.set_loclist(items)
+        --vim.fn.setloclist(
+            --0,
+            --{},
+            --" ",
+            --{
+                --title = "Language Server " ..
+                    --vim.lsp.util.buf_diagnostics_count("Error") ..
+                        --"❌ " .. vim.lsp.util.buf_diagnostics_count("Warning") .. "⚠️",
+                --items = items
+            --}
+        --)
         if vim.api.nvim_get_mode().mode == "n" then
             if #items > 0 then
-                local current_win = vim.api.nvim_get_current_win()
-                vim.cmd("lopen")
-                vim.api.nvim_set_current_win(current_win)
+                --local current_win = vim.api.nvim_get_current_win()
+                --vim.cmd("lopen")
+                --vim.api.nvim_set_current_win(current_win)
             else
                 vim.cmd("lcl")
                 vim.cmd("lcl")
@@ -106,6 +114,17 @@ if ok then
         require("nvim_lsp/configs").sumneko_lua.install()
     end
 
+    nvim_lsp.clangd.setup {
+        cmd = {
+            "clangd-11",
+            "--clang-tidy",
+            "--header-insertion=iwyu",
+            "--background-index",
+            "--suggest-missing-includes"
+        },
+        filetypes = {"c", "cpp", "objc", "objcpp", "cuda"},
+        on_attach = on_attach
+    }
     nvim_lsp.sumneko_lua.setup {
         settings = {
             Lua = {
@@ -319,7 +338,7 @@ if ok then
             capabilities = capabilities,
             on_attach = function(client)
                 on_attach(client)
-                require('jdtls').setup_dap()
+                require("jdtls").setup_dap()
             end
         }
     end
@@ -618,6 +637,9 @@ vim.cmd [[
 ]]
 vim.cmd [[
     command! -nargs=* DebugJava lua require "my_debug".debug_java({<f-args>})
+]]
+vim.cmd [[
+    command! SwitchHeaderSource lua require "lsp-ext".switch_header_source()
 ]]
 
 --vim.api.nvim_command [[

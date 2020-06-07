@@ -1,4 +1,3 @@
-"lua _ , vim.g.todoist_api_key = pcall(require,'todoist_api')
 set tags=./tags,tags
 set encoding=UTF-8
 if has('vim_starting')
@@ -42,7 +41,6 @@ if g:WINDOWS
     set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
 endif
 " }
-set runtimepath+=$HOME/.space-vim/core
 
 let g:xcodedark_green_comments = 1
 let g:xcodedark_emph_funcs = 1
@@ -317,7 +315,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoInstallBinaries'}
     Plug 'junegunn/vim-emoji'
     Plug 'fszymanski/deoplete-emoji'
-    Plug 'vlime/vlime', {'rtp': 'vim/', 'for':'lisp'}
+    Plug 'theHamsta/vlime', {'branch': 'prompt', 'rtp': 'vim/', 'for':'lisp'}
     "Plug 'kovisoft/paredit', {'for': ['lisp', 'clojure']}
     "Plug 'kovisoft/slimv', {'for': 'lisp'}
     "Plug 'fvictorio/vim-textobj-backticks'
@@ -681,10 +679,11 @@ let g:LanguageClient_serverCommands = {
     \ 'python': ['pyls'],
     \ 'crystal': ['/home/stephan/projects/scry/scry/bin/scry'],
     \ 'gluon': ['gluon_language-server'],
-    \ 'cuda': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
-    \ 'cpp': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
-    \ 'c': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
+    \ 'lisp': ['~/.roswell/bin/cl-lsp']
     \ }
+    "\ 'cuda': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
+    "\ 'cpp': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
+    "\ 'c': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
 
 function! LC_maps()
    if has_key(g:LanguageClient_serverCommands, &filetype)
@@ -1221,7 +1220,10 @@ let g:auto_git_diff_show_window_at_right=1
 "autocmd FileType gitrebase call <SID>setup_auto_git_diff()
 
 nmap <silent> <c-a-j> <Plug>(GitGutterNextHunk)
+nmap <silent> <c-a-j> <Plug>(GitGutterNextHunk)
 nmap <silent> <c-a-k> <Plug>(GitGutterPrevHunk)
+nmap <silent> <leader>hs <Plug>(GitGutterStageHunk)
+nmap <silent> <leader>hu <Plug>(GitGutterUndoHunk)
 "nmap ]h :call NextHunkAllBuffers()<CR>
 "nmap [h :call PrevHunkAllBuffers()<CR>
 
@@ -1521,8 +1523,8 @@ command! GitPushAsyncForce lua require'my_commands'.git_push(true)
     "1T %paste
 "endfunction
 "command! -nargs=* PasteVisualSel call s:get_visual_selection()
-let g:vlime_leader = ","
-"let g:vlime_leader='<space>'
+"let g:vlime_leader = ","
+let g:vlime_leader='<space>'
 let g:vlime_cl_use_terminal=v:true
 let g:vlime_enable_autodoc = v:true
 let g:vlime_window_settings = {'sldb': {'pos': 'belowright', 'vertical': v:true}, 'inspector': {'pos': 'belowright', 'vertical': v:true}, 'preview': {'pos': 'belowright', 'size': v:null, 'vertical': v:true}}
@@ -1544,7 +1546,7 @@ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 ""let g:lightline = { 'colorscheme': 'palenight' }
 au TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 150)
 
-set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()
+"set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()
 "highlight NvimTreesitterCurrentNode guibg=#444400
 
 let g:sexp_filetypes = 'clojure,scheme,lisp,timl,vlime_repl'
@@ -1573,3 +1575,4 @@ command! -buffer JdtUpdateConfig lua require('jdtls').update_project_config()
 command! -buffer JdtJol lua require('jdtls').jol()
 command! -buffer JdtBytecode lua require('jdtls').javap()
 command! -buffer JdtJshell lua require('jdtls').jshell()
+
