@@ -727,11 +727,12 @@ function! NvimLspMaps()
   nnoremap <buffer><silent> gr         <cmd>lua vim.lsp.buf.references()<CR>
   nnoremap <buffer> <silent> gd        <cmd>lua vim.lsp.buf.definition()<CR>
   nnoremap <buffer><silent> gh         <cmd>lua vim.lsp.buf.hover()<CR>
-  nnoremap <buffer><silent> gD         <cmd>lua vim.lsp.buf.implementation()<CR>
+  nnoremap <buffer><silent> gi         <cmd>lua vim.lsp.buf.implementation()<CR>
   nnoremap <buffer><silent> gS         <cmd>lua vim.lsp.buf.signature_help()<CR>
   nnoremap <buffer><silent> <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
   vnoremap <buffer><silent> <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
   nnoremap <buffer><silent> <leader>ss :lua vim.lsp.buf.workspace_symbols()<cr>
+  nnoremap <buffer><silent> <leader>gd :lua require'lsp-ext'.peek_definition()<cr>
 
 
   if &filetype != "tex" 
