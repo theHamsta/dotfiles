@@ -1547,7 +1547,6 @@ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 ""let g:lightline = { 'colorscheme': 'palenight' }
 au TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 150)
 
-"set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()
 "highlight NvimTreesitterCurrentNode guibg=#444400
 
 let g:sexp_filetypes = 'clojure,scheme,lisp,timl,vlime_repl'
@@ -1577,3 +1576,4 @@ command! -buffer JdtJol lua require('jdtls').jol()
 command! -buffer JdtBytecode lua require('jdtls').javap()
 command! -buffer JdtJshell lua require('jdtls').jshell()
 
+nnoremap <leader>bd :Bdelete<cr>
