@@ -5,7 +5,6 @@
 -- Distributed under terms of the GPLv3 license.
 --
 
---require'nvim_lsp'.pyls.setup{}
 --require'nvim_lsp'.pyls_ms.setup{}
 -- Courtesy of @norcalli
 --local function plug(path, config)
@@ -84,15 +83,15 @@ if ok then
 
         vim.lsp.util.set_loclist(items)
         --vim.fn.setloclist(
-            --0,
-            --{},
-            --" ",
-            --{
-                --title = "Language Server " ..
-                    --vim.lsp.util.buf_diagnostics_count("Error") ..
-                        --"❌ " .. vim.lsp.util.buf_diagnostics_count("Warning") .. "⚠️",
-                --items = items
-            --}
+        --0,
+        --{},
+        --" ",
+        --{
+        --title = "Language Server " ..
+        --vim.lsp.util.buf_diagnostics_count("Error") ..
+        --"❌ " .. vim.lsp.util.buf_diagnostics_count("Warning") .. "⚠️",
+        --items = items
+        --}
         --)
         if vim.api.nvim_get_mode().mode == "n" then
             if #items > 0 then
@@ -114,6 +113,21 @@ if ok then
         require("nvim_lsp/configs").sumneko_lua.install()
     end
 
+    --nvim_lsp.gopls.setup{
+    --on_attach = on_attach
+    --}
+    nvim_lsp.pyls.setup {
+        on_attach = on_attach,
+        settings = {
+            pyls = {
+                plugins = {
+                    pydocstyle = {
+                        enabled = true
+                    }
+                }
+            }
+        }
+    }
     nvim_lsp.clangd.setup {
         cmd = {
             "clangd-11",
@@ -510,8 +524,7 @@ vim.fn.sign_define("DapBreakpoint", {text = "🛑", texthl = "", linehl = "", nu
 
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
-
-    vim.cmd('set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()')
+    vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
     require "nvim-treesitter.configs".get_parser_configs().lisp = {
         install_info = {
             url = "https://github.com/theHamsta/tree-sitter-clojure",
@@ -604,7 +617,6 @@ if ok then
     hlmap["type"] = "Type"
     hlmap["type.builtin"] = "Type"
     hlmap["structure"] = "Structure"
-    hlmap["variable"] = "Normal"
 end
 --require "nvim_rocks".ensure_installed({"luasec", "fun", "30log", "lua-toml", "template"})
 

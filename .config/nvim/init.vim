@@ -343,7 +343,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'kana/vim-textobj-function'
     Plug 'kana/vim-textobj-user'
     Plug 'kassio/neoterm'
-    "Plug 'kien/rainbow_parentheses.vim'
+    Plug 'kien/rainbow_parentheses.vim'
     Plug 'lervag/vimtex', { 'for': 'tex' }
     Plug 'machakann/vim-swap'
     Plug 'majutsushi/tagbar'
@@ -673,14 +673,14 @@ let g:LanguageClient_serverCommands = {
     \   '],
     \ 'haskell': ['hie-wrapper', '--lsp'],
     \ 'kotlin': ['kotlin-language-server', '.'],
-    \ 'go': ['gopls'],
     \ 'dockerfile': ['docker-langserver', '--stdio'],
     \ 'd': ['dls'],
-    \ 'python': ['pyls'],
     \ 'crystal': ['/home/stephan/projects/scry/scry/bin/scry'],
     \ 'gluon': ['gluon_language-server'],
-    \ 'lisp': ['~/.roswell/bin/cl-lsp']
+    \ 'go': ['gopls'],
     \ }
+    "\ 'lisp': ['~/.roswell/bin/cl-lsp']
+    "\ 'python': ['pyls'],
     "\ 'cuda': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     "\ 'cpp': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     "\ 'c': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
@@ -732,7 +732,7 @@ function! NvimLspMaps()
   nnoremap <buffer><silent> <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
   vnoremap <buffer><silent> <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
   nnoremap <buffer><silent> <leader>ss :lua vim.lsp.buf.workspace_symbols()<cr>
-  nnoremap <buffer><silent> <leader>gd :lua require'lsp-ext'.peek_definition()<cr>
+  nnoremap <buffer><silent> <leader>de :lua require'lsp-ext'.peek_definition()<cr>
 
 
   if &filetype != "tex" 
