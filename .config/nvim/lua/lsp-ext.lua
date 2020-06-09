@@ -26,21 +26,6 @@ function M.preview_location(location, context, before_context)
     return vim.lsp.util.open_floating_preview(contents, filetype)
 end
 
-M.switch_header_source = function()
-    vim.lsp.buf_request(
-        0,
-        "textDocument/switchSourceHeader",
-        vim.lsp.util.make_text_document_params(),
-        function(err, _, result, _, _)
-            if err then
-                print(err)
-            else
-                vim.cmd("e " .. vim.uri_to_fname(result))
-            end
-        end
-    )
-end
-
 function M.preview_location_callback(_, method, result)
     local context = 15
     if result == nil or vim.tbl_isempty(result) then

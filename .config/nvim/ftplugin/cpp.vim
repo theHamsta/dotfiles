@@ -7,7 +7,7 @@ nmap <buffer> <silent> <leader>bn :lua require'dap'.step_over()<CR>
 nmap <buffer> <silent> <leader>bi :lua require'dap'.step_into()<CR>
 nmap <buffer> <silent> <leader>bo :lua require'dap'.step_out()<CR>
 nmap <buffer> <silent> <leader>bm :DebugRepl<cr>
-nmap <buffer> <silent> <a-o> :SwitchHeaderSource<cr>
+nmap <buffer> <silent> <a-o> :ClangdSwitchSourceHeader<cr>
 
 
 "fun! IgnoreCamelCaseSpell()
