@@ -29,19 +29,23 @@ end
 function M.preview_location_callback(_, method, result)
     local context = 15
     if result == nil or vim.tbl_isempty(result) then
-        vim.lsp.log.info(method, "No location found")
+        print("No location found: " .. method)
         return nil
     end
     if vim.tbl_islist(result) then
-        M.preview_location(result[1], context)
+        M.floating_buf, M.floating_win = M.preview_location(result[1], context)
     else
-        M.preview_location(result, context)
+        M.floating_buf, M.floating_win = M.preview_location(result, context)
     end
 end
 
 function M.peek_definition()
-    local params = vim.lsp.util.make_position_params()
-    return vim.lsp.buf_request(0, "textDocument/definition", params, M.preview_location_callback)
+    if vim.tbl_contains(vim.api.nvim_list_wins(), M.floating_win) then
+        vim.api.nvim_set_current_win(M.floating_win)
+    else
+        local params = vim.lsp.util.make_position_params()
+        return vim.lsp.buf_request(0, "textDocument/definition", params, M.preview_location_callback)
+    end
 end
 
 return M
