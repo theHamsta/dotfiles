@@ -262,7 +262,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'wincent/vcs-jump'
     Plug 'neovim/nvim-lsp'
     Plug 'tikhomirov/vim-glsl'
-    Plug 'itchyny/calendar.vim'
+    "Plug 'itchyny/calendar.vim'
     Plug 'norcalli/nvim.lua'
     Plug 'tpope/vim-speeddating'
     "Plug 'kchmck/vim-coffee-script'

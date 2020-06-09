@@ -1,7 +1,7 @@
-nnoremap <buffer> <F5> :Topen<cr>:let $last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:T python3 %<cr>
-nnoremap <buffer> <s-F5> :let $last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:execute ':GdbStartPDB python3 -m pdb ' . expand('%:p',1)<cr>
-nnoremap <buffer> <F7> :let $last_execution='python3 -m pdb -c continue ' . expand('%:p',1)<cr>:wa<cr>:T python3 -m pdb -c continue %<cr>
-nnoremap <buffer> <F4> :let $last_execution='ipython3 ' . expand('%:p',1)<cr>:wa<cr>:T ipython3 %<cr>
+nnoremap <buffer> <F5> :Topen<cr>:let g:last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:T python3 %<cr>
+nnoremap <buffer> <s-F5> :let g:last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:execute ':GdbStartPDB python3 -m pdb ' . expand('%:p',1)<cr>
+nnoremap <buffer> <F7> :let g:last_execution='python3 -m pdb -c continue ' . expand('%:p',1)<cr>:wa<cr>:T python3 -m pdb -c continue %<cr>
+nnoremap <buffer> <F4> :let g:last_execution='ipython3 ' . expand('%:p',1)<cr>:wa<cr>:T ipython3 %<cr>
 
 nmap <buffer> <silent> <enter> <Plug>(IPy-Run)
 nmap <buffer> <silent> <leader>rr <Plug>(IPy-RunAll)
@@ -21,7 +21,7 @@ nmap <buffer> <silent> <leader>dB :wa<cr>:lua require 'my_debug'.start_python_de
 nmap <buffer> <silent> <leader>bp :wa<cr>:lua require 'my_debug'.start_python_debugger(true, true)<cr>
 command! DebugRepl :lua require'dap'.repl.open()<cr>
 
-nnoremap <buffer> <silent> <F3> :lua require'dap'.stop()<CR>
+"nnoremap <buffer> <silent> <F3> :lua require'dap'.stop()<CR>
 nnoremap <buffer> <silent> <F8> :lua require'dap'.step_over()<CR>
 nnoremap <buffer> <silent> <F9> :lua require'dap'.step_into()<CR>
 nnoremap <buffer> <silent> <F10> :lua require'dap'.step_out()<CR>
