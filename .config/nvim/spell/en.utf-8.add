@@ -142,3 +142,7 @@ viewport
 isinstance
 clippy
 Sobel
+downloader
+sympyextensions
+kernelparameters
+alignedarray

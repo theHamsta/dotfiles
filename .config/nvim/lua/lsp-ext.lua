@@ -9,7 +9,6 @@ M = {}
 
 function M.preview_location(location, context, before_context)
     -- location may be LocationLink or Location (more useful for the former)
-    context = context or 15
     before_context = before_context or 0
     local uri = location.targetUri or location.uri
     if uri == nil then
@@ -27,7 +26,7 @@ function M.preview_location(location, context, before_context)
 end
 
 function M.preview_location_callback(_, method, result)
-    local context = 15
+    local context = 30
     if result == nil or vim.tbl_isempty(result) then
         print("No location found: " .. method)
         return nil

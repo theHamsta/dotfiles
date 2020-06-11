@@ -229,6 +229,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'nvim-treesitter/highlight.lua'
     "Plug 'kyazdani42/nvim-palenight.lua'
     Plug 'theHamsta/nvim-treesitter'
+    "Plug 'kamykn/spelunker.vim'
     "Plug 'romgrk/todoist.vim', { 'do': 'UpdateRemotePlugins' }
     "Plug 'nvim-treesitter/completion-treesitter'
     "Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
@@ -254,7 +255,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'dbridges/vim-markdown-runner'
     "Plug 'arzg/vim-colors-xcode'
     "Plug 'Olical/nvim-local-fennel'
-    "Plug 'bakpakin/fennel.vim'
+    Plug 'Olical/conjure'
+    Plug 'bakpakin/fennel.vim'
     "Plug 'Olical/aniseed'
     ""Plug 'camspiers/lens.vim'
     "Plug 'camspiers/animate.vim'
@@ -357,7 +359,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'mileszs/ack.vim'
     Plug 'moll/vim-bbye'
     "Plug 'neomake/neomake',{'for': 'rst'}
-    "Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+    Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
     "Plug 'pboettch/vim-cmake-syntax'
     Plug 'peterhoeg/vim-qml', { 'for' : 'qml' }
     Plug 'rbonvall/snipmate-snippets-bib'
@@ -392,7 +394,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-rhubarb'
     ""Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'lisp' }
-    Plug 'guns/vim-sexp', { 'for': ['lisp', 'clojure', 'scheme', 'vlime_repl'] }
+    Plug 'guns/vim-sexp', { 'for': ['lisp', 'clojure', 'scheme', 'vlime_repl', 'fennel'] }
     "Plug 'tpope/vim-sleuth'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-unimpaired'
@@ -553,7 +555,6 @@ nmap <Leader>gv :GV<CR>
 nmap <Leader>gu :Git reset -- %<CR>
 nmap <Leader>gd <c-w>O:Gdiff<CR>
 nmap <Leader>gD <c-w>O:Gvdiffsplit :%<left><left>
-nmap <Leader>gt :call TimeMachine()<CR>
 nmap <Leader>gr :Gread<CR>
 nmap <Leader>gp :GitPushAsync<CR>
 nmap <Leader>gP :GitPushAsyncForce<CR>
@@ -581,7 +582,7 @@ autocmd FileType java,kotlin,groovy nnoremap <buffer> <F5> <c-w>o:Topen<cr>:let 
 autocmd FileType java,kotlin,groovy nnoremap <buffer> <F6> <c-w>o:Topen<cr>:let g:last_execution='./gradlew test'<cr>:Tkill<cr>:wa<cr>:T ./gradlew test<cr>
 autocmd FileType tex,latex nnoremap <buffer> <F3> val<plug>(vimtex-compile-selected)
 autocmd FileType tex,latex nnoremap <buffer> <F4> :VimtexCompileSS<cr>
-autocmd FileType tex,latex,vim setlocal foldmethod=indent
+autocmd FileType tex,latex,vim,cmake setlocal foldmethod=indent
 "autocmd FileType tex,latex :let  maplocalleader="<space>"
 autocmd FileType rust,toml nmap <buffer> <F5> :exec 'T cd' FindRootDirectory()<cr><c-w>o:let g:last_execution='cargo run'<cr>:Tkill<cr>:wa<cr>:T cargo run<cr>:Topen<cr>
 autocmd FileType rust,toml nmap <buffer> <F7> :exec 'T cd' FindRootDirectory()<cr><c-w>o:Tkill<cr>:wa<cr>:T cargo run
@@ -651,10 +652,6 @@ if has('persistent_undo')
 endif
 
 
-""let g:slimv_leader='<space>'
-"let g:slimv_leader=','
-"let g:slimv_repl_simple_eval=1
-
     ""\ 'clojure': ['clojure-lsp'],
     ""\ 'rust': ['rls'],
     "\ 'rust': ['rust-analyzer'],
@@ -678,6 +675,7 @@ let g:LanguageClient_serverCommands = {
     \ 'crystal': ['/home/stephan/projects/scry/scry/bin/scry'],
     \ 'gluon': ['gluon_language-server'],
     \ 'go': ['gopls'],
+    \ 'cmake': ['cmake-language-server'],
     \ }
     "\ 'lisp': ['~/.roswell/bin/cl-lsp']
     "\ 'python': ['pyls'],
@@ -875,45 +873,45 @@ let g:LanguageClient_diagnosticsList = "Location"
 ""let g:quickr_preview_on_cursor = 1
 
 
- function! ActivateCoc()
-     call deoplete#custom#option('auto_complete', v:false)
-     set completeopt +=preview
-     autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-     if &filetype != "python" && &filetype != "tex" && &filetype != "bib" && &filetype != "go" && &filetype != "kotlin"&& &filetype != "kt"&& &filetype != "rust"
-         autocmd  CursorHold <buffer> silent call CocActionAsync('highlight')
-     endif
-     "autocmd <buffer> CursorHold * silent call CocActionAsync('highlight')
-     command! OI -nargs=0 :call CocAction('runCommand', 'editor.action.organizeImport')
-     nmap <silent> <buffer>  <c-k> <Plug>(coc-diagnostic-prev)
-     "nmap <silent> <buffer>  <leader>nt :CocCommand explorer<cr>
-     "nmap <silent> <buffer>  <leader>nf :CocCommand explorer --reveal %<cr>
-     nmap <silent> <buffer>  <c-j> <Plug>(coc-diagnostic-next)
-     nmap <silent> <buffer>  gd <Plug>(coc-definition)
-     nmap <silent> <buffer>  <leader>la :CocAction<cr>
-     nmap <silent> <buffer>  <leader>ca <Plug>(coc-codeaction-selected)<cr>
-     nmap <silent> <buffer> <f2> <Plug>(coc-rename)
-     nmap <silent> <buffer>  gD <c-w>v<Plug>(coc-definition)
-     nmap <silent> <buffer>  gt <Plug>(coc-type-definition)
-     nmap <silent> <buffer>  gT <c-w>v<Plug>(coc-type-definition)
-     nmap <silent> <buffer>  gi <Plug>(coc-implementation)
-     nmap <silent> <buffer>  gI <c-w>v<Plug>(coc-implementation)
-     nmap <silent> <buffer>  gr <Plug>(coc-references)
-     nmap <silent> <buffer>  gh :call CocAction('doHover')<cr>
-     nmap <buffer> <leader>qf  <Plug>(coc-fix-current)
-     if &filetype != "tex" && &filetype != "bib"
-     nmap <silent> <buffer>  <leader>le <Plug>(coc-codelens-action)
-     nmap <silent> <buffer>  <c-s> :call CocAction('format')<cr>
-   endif
-     vmap <buffer> <leader>ca   <Plug>(coc-codeaction-selected)
-     nmap <buffer> <leader>ca <Plug>(coc-codeaction-selected)
-     "nmap <buffer> <leader>hp :CocCommand git.chunkpreview<cr>
-xmap <silent> <buffer> if <Plug>(coc-funcobj-i)
-xmap <silent> <buffer> af <Plug>(coc-funcobj-a)
-omap <silent> <buffer> if <Plug>(coc-funcobj-i)
-omap  <silent> <buffer> af <Plug>(coc-funcobj-a)
- endfunction()
+ "function! ActivateCoc()
+     "call deoplete#custom#option('auto_complete', v:false)
+     "set completeopt +=preview
+     "autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+     "if &filetype != "python" && &filetype != "tex" && &filetype != "bib" && &filetype != "go" && &filetype != "kotlin"&& &filetype != "kt"&& &filetype != "rust"
+         "autocmd  CursorHold <buffer> silent call CocActionAsync('highlight')
+     "endif
+     ""autocmd <buffer> CursorHold * silent call CocActionAsync('highlight')
+     "command! OI -nargs=0 :call CocAction('runCommand', 'editor.action.organizeImport')
+     "nmap <silent> <buffer>  <c-k> <Plug>(coc-diagnostic-prev)
+     ""nmap <silent> <buffer>  <leader>nt :CocCommand explorer<cr>
+     ""nmap <silent> <buffer>  <leader>nf :CocCommand explorer --reveal %<cr>
+     "nmap <silent> <buffer>  <c-j> <Plug>(coc-diagnostic-next)
+     "nmap <silent> <buffer>  gd <Plug>(coc-definition)
+     "nmap <silent> <buffer>  <leader>la :CocAction<cr>
+     "nmap <silent> <buffer>  <leader>ca <Plug>(coc-codeaction-selected)<cr>
+     "nmap <silent> <buffer> <f2> <Plug>(coc-rename)
+     "nmap <silent> <buffer>  gD <c-w>v<Plug>(coc-definition)
+     "nmap <silent> <buffer>  gt <Plug>(coc-type-definition)
+     "nmap <silent> <buffer>  gT <c-w>v<Plug>(coc-type-definition)
+     "nmap <silent> <buffer>  gi <Plug>(coc-implementation)
+     "nmap <silent> <buffer>  gI <c-w>v<Plug>(coc-implementation)
+     "nmap <silent> <buffer>  gr <Plug>(coc-references)
+     "nmap <silent> <buffer>  gh :call CocAction('doHover')<cr>
+     "nmap <buffer> <leader>qf  <Plug>(coc-fix-current)
+     "if &filetype != "tex" && &filetype != "bib"
+     "nmap <silent> <buffer>  <leader>le <Plug>(coc-codelens-action)
+     "nmap <silent> <buffer>  <c-s> :call CocAction('format')<cr>
+   "endif
+     "vmap <buffer> <leader>ca   <Plug>(coc-codeaction-selected)
+     "nmap <buffer> <leader>ca <Plug>(coc-codeaction-selected)
+     ""nmap <buffer> <leader>hp :CocCommand git.chunkpreview<cr>
+"xmap <silent> <buffer> if <Plug>(coc-funcobj-i)
+"xmap <silent> <buffer> af <Plug>(coc-funcobj-a)
+"omap <silent> <buffer> if <Plug>(coc-funcobj-i)
+"omap  <silent> <buffer> af <Plug>(coc-funcobj-a)
+ "endfunction()
 
-autocmd FileType cmake,cs,javascript,tsx call ActivateCoc()
+"autocmd FileType cmake,cs,javascript,tsx call ActivateCoc()
 
  ""inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 let g:multi_cursor_exit_from_insert_mode=0
@@ -1549,7 +1547,7 @@ au TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 150)
 
 "highlight NvimTreesitterCurrentNode guibg=#444400
 
-let g:sexp_filetypes = 'clojure,scheme,lisp,timl,vlime_repl'
+let g:sexp_filetypes = 'clojure,scheme,lisp,timl,vlime_repl,fennel'
 
 nmap <f1> :lua require'dap'.goto_()<cr>
 "nmap <f2> :lua require'nvim-treesitter/playground'.play_with()<cr>
@@ -1577,3 +1575,9 @@ command! -buffer JdtBytecode lua require('jdtls').javap()
 command! -buffer JdtJshell lua require('jdtls').jshell()
 
 nnoremap <leader>bd :Bdelete<cr>
+
+"let g:spelunker_check_type = 2
+"nmap z= Zl
+"nmap zg Zg
+
+"autocmd BufWritePost *.go call spelunker#check_displayed_words()
