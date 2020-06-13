@@ -22,18 +22,7 @@ nmap <buffer> <silent> <leader>bp :wa<cr>:lua require 'my_debug'.start_python_de
 command! DebugRepl :lua require'dap'.repl.open()<cr>
 
 "nnoremap <buffer> <silent> <F3> :lua require'dap'.stop()<CR>
-nnoremap <buffer> <silent> <F8> :lua require'dap'.step_over()<CR>
-nnoremap <buffer> <silent> <F9> :lua require'dap'.step_into()<CR>
-nnoremap <buffer> <silent> <F10> :lua require'dap'.step_out()<CR>
 
 nmap <buffer> <silent> <leader>bt :wa<cr>:lua require 'my_debug'.start_python_debugger(true)<cr>
 
-nmap <buffer> <silent> <leader>bb :lua require'dap'.toggle_breakpoint()<CR>
-nmap <buffer> <silent> <leader>bB :lua require'dap'.toggle_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
-nmap <buffer> <silent> <leader>br :lua require'dap'.restart()<CR>
-nmap <buffer> <silent> <leader>bc :lua require'dap'.continue()<CR>
-nmap <buffer> <silent> <leader>bn :lua require'dap'.step_over()<CR>
-nmap <buffer> <silent> <leader>bi :lua require'dap'.step_into()<CR>
-nmap <buffer> <silent> <leader>bo :lua require'dap'.step_out()<CR>
-nmap <buffer> <silent> <leader>bm :DebugRepl<cr>
-
+call DapMaps()

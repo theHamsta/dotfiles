@@ -44,6 +44,8 @@ if not filter then
     end
 end
 
+function D(...) print(vim.inspect{...}) return ... end
+
 --local function collect(iterator)
 --local rtn = {}
 --for _, e in iterator do

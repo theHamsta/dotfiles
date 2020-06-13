@@ -71,6 +71,7 @@ function! Toggle_line_numbers()
        windo set relativenumber!
 endfunction
 command! LineNumbers call Toggle_line_numbers()
+command! ToggleLineNumbers call Toggle_line_numbers()
 
 
 autocmd! User GoyoEnter Limelight
@@ -1582,3 +1583,19 @@ nnoremap <leader>bd :Bdelete<cr>
 "nmap zg Zg
 
 "autocmd BufWritePost *.go call spelunker#check_displayed_words()
+"
+
+function DapMaps()
+    nnoremap <buffer> <silent> <F8> :lua require'dap'.step_over()<CR>
+    nnoremap <buffer> <silent> <F9> :lua require'dap'.step_into()<CR>
+    nnoremap <buffer> <silent> <F10> :lua require'dap'.step_out()<CR>
+
+    nmap <buffer> <silent> <leader>bb :lua require'dap'.toggle_breakpoint()<CR>
+    nmap <buffer> <silent> <leader>bB :lua require'dap'.toggle_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
+    nmap <buffer> <silent> <leader>br :lua require'dap'.restart()<CR>
+    nmap <buffer> <silent> <leader>bc :lua require'dap'.continue()<CR>
+    nmap <buffer> <silent> <leader>bn :lua require'dap'.step_over()<CR>
+    nmap <buffer> <silent> <leader>bi :lua require'dap'.step_into()<CR>
+    nmap <buffer> <silent> <leader>bo :lua require'dap'.step_out()<CR>
+    nmap <buffer> <silent> <leader>bm :DebugRepl<cr>
+endfunction
