@@ -29,6 +29,7 @@ nnoremap <buffer> <silent> <F10> :lua require'dap'.step_out()<CR>
 nmap <buffer> <silent> <leader>bt :wa<cr>:lua require 'my_debug'.start_python_debugger(true)<cr>
 
 nmap <buffer> <silent> <leader>bb :lua require'dap'.toggle_breakpoint()<CR>
+nmap <buffer> <silent> <leader>bB :lua require'dap'.toggle_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
 nmap <buffer> <silent> <leader>br :lua require'dap'.restart()<CR>
 nmap <buffer> <silent> <leader>bc :lua require'dap'.continue()<CR>
 nmap <buffer> <silent> <leader>bn :lua require'dap'.step_over()<CR>

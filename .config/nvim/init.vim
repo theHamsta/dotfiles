@@ -674,8 +674,8 @@ let g:LanguageClient_serverCommands = {
     \ 'd': ['dls'],
     \ 'crystal': ['/home/stephan/projects/scry/scry/bin/scry'],
     \ 'gluon': ['gluon_language-server'],
-    \ 'go': ['gopls'],
     \ 'cmake': ['cmake-language-server'],
+    \ 'go': ['gopls'],
     \ }
     "\ 'lisp': ['~/.roswell/bin/cl-lsp']
     "\ 'python': ['pyls'],
@@ -720,33 +720,34 @@ function! LC_maps()
 endfunction
 
 function! NvimLspMaps()
-  nnoremap <buffer><silent> <f2>         <cmd>lua vim.lsp.buf.rename()<CR>
-  nnoremap <buffer><silent> gk         <cmd>lua vim.lsp.buf.declaration()<CR>
-  nnoremap <buffer><silent> gr         <cmd>lua vim.lsp.buf.references()<CR>
-  nnoremap <buffer> <silent> gd        <cmd>lua vim.lsp.buf.definition()<CR>
-  nnoremap <buffer><silent> gh         <cmd>lua vim.lsp.buf.hover()<CR>
-  nnoremap <buffer><silent> gi         <cmd>lua vim.lsp.buf.implementation()<CR>
-  nnoremap <buffer><silent> gS         <cmd>lua vim.lsp.buf.signature_help()<CR>
-  nnoremap <buffer><silent> <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
-  vnoremap <buffer><silent> <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
-  nnoremap <buffer><silent> <leader>ss :lua vim.lsp.buf.workspace_symbols()<cr>
-  nnoremap <buffer><silent> <leader>de :lua require'lsp-ext'.peek_definition()<cr>
+    nnoremap <buffer><silent> <f2>         <cmd>lua vim.lsp.buf.rename()<CR>
+    nnoremap <buffer><silent> gk         <cmd>lua vim.lsp.buf.declaration()<CR>
+    nnoremap <buffer><silent> gr         <cmd>lua vim.lsp.buf.references()<CR>
+    nnoremap <buffer> <silent> gd        <cmd>lua vim.lsp.buf.definition()<CR>
+    nnoremap <buffer><silent> gh         <cmd>lua vim.lsp.buf.hover()<CR>
+    nnoremap <buffer><silent> gi         <cmd>lua vim.lsp.buf.implementation()<CR>
+    nnoremap <buffer><silent> gS         <cmd>lua vim.lsp.buf.signature_help()<CR>
+    nnoremap <buffer><silent> <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
+    vnoremap <buffer><silent> <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
+    nnoremap <buffer><silent> <leader>ss :lua vim.lsp.buf.workspace_symbols()<cr>
+    nnoremap <buffer><silent> <leader>de :lua require'lsp-ext'.peek_definition()<cr>
+    nnoremap <buffer> <silent> <2-LeftMouse> <cmd>lua vim.lsp.buf.hover()<CR>
+    nnoremap <buffer> <silent> <c-2-LeftMouse> <cmd>lua vim.lsp.buf.definition()<CR>
 
+    if &filetype != "tex" 
+        inoremap <buffer><silent> (     <cmd>lua vim.lsp.buf.signature_help()<CR>(
+    endif
 
-  if &filetype != "tex" 
-    inoremap <buffer><silent> (     <cmd>lua vim.lsp.buf.signature_help()<CR>(
-  endif
+    nnoremap <buffer><silent> gt    <cmd>lua vim.lsp.buf.type_definition()<CR>
 
-  nnoremap <buffer><silent> gt    <cmd>lua vim.lsp.buf.type_definition()<CR>
+    if &filetype == "java" 
+        nnoremap <buffer><silent> <c-s> :w<cr><cmd>lua vim.lsp.buf.formatting();require'jdtls'.organize_imports()<cr>
+    elseif &filetype == "lua" 
 
-  if &filetype == "java" 
-    nnoremap <buffer><silent> <c-s> :w<cr><cmd>lua vim.lsp.buf.formatting();require'jdtls'.organize_imports()<cr>
-  elseif &filetype == "lua" 
-
-  else 
-    nnoremap <buffer><silent> <c-s> :w<cr><cmd>lua vim.lsp.buf.formatting()<cr>
-  endif
-  setlocal omnifunc=v:lua.vim.lsp.omnifunc
+    else 
+        nnoremap <buffer><silent> <c-s> :w<cr><cmd>lua vim.lsp.buf.formatting()<cr>
+    endif
+    setlocal omnifunc=v:lua.vim.lsp.omnifunc
 endfunction
 
 autocmd FileType * call LC_maps()
@@ -1144,10 +1145,10 @@ if has('nvim')
   "set winblend=10
 endif
 
-"let g:UltiSnipsEnableSnipMate=1
-"let g:UltiSnipsExpandTrigger="<tab>"
-"let g:UltiSnipsJumpForwardTrigger="<tab>"
-"let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsEnableSnipMate=1
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 autocmd BufReadPre *.pdf silent set ro
 autocmd BufReadPre *.pdf silent :T okular "%"

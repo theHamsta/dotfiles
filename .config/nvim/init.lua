@@ -113,8 +113,13 @@ if ok then
         require("nvim_lsp/configs").sumneko_lua.install()
     end
 
-    --nvim_lsp.gopls.setup{
-    --on_attach = on_attach
+    --nvim_lsp.gopls.setup {
+        --on_attach = on_attach,
+        --settings = {
+            --initializationOptions = {
+                --usePlaceholders = false
+            --}
+        --}
     --}
     nvim_lsp.pyls.setup {
         on_attach = on_attach,
@@ -617,7 +622,6 @@ if ok then
     hlmap["type"] = "Type"
     hlmap["type.builtin"] = "Type"
     hlmap["structure"] = "Structure"
-    hlmap["variable"] = "Identifier"
 end
 --require "nvim_rocks".ensure_installed({"luasec", "fun", "30log", "lua-toml", "template"})
 
