@@ -209,6 +209,8 @@ endfunction
 
 augroup NvimTreesitter
 augroup END
+
+let g:vimtex_complete_enabled = 0
  
 call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'beloglazov/vim-online-thesaurus'
@@ -800,10 +802,10 @@ augroup END
 
 nnoremap <a-t> :Switch<CR>
 
-""au VimEnter * RainbowParenthesesActivate
-""au Syntax * RainbowParenthesesLoadRound
-""au Syntax * RainbowParenthesesLoadSquare
-""au Syntax * RainbowParenthesesLoadBraces
+au VimEnter * RainbowParenthesesActivate
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
 ""
 ""
 ""call camelcasemotion#CreateMotionMappings()

@@ -135,6 +135,9 @@ if ok then
             }
         }
     }
+    nvim_lsp.tsserver.setup{
+        on_attach = on_attach
+    }
     nvim_lsp.clangd.setup {
         cmd = {
             "clangd-11",
@@ -382,7 +385,7 @@ if ok then
                     onSave = false
                 },
                 lint = {
-                    onChange = true
+                    onSave = true
                 }
             }
         },
@@ -532,12 +535,12 @@ vim.fn.sign_define("DapBreakpoint", {text = "🛑", texthl = "", linehl = "", nu
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
     vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
-    require "nvim-treesitter.configs".get_parser_configs().lisp = {
-        install_info = {
-            url = "https://github.com/theHamsta/tree-sitter-clojure",
-            files = {"src/parser.c"}
-        }
-    }
+    --require "nvim-treesitter.configs".get_parser_configs().lisp = {
+        --install_info = {
+            --url = "https://github.com/theHamsta/tree-sitter-clojure",
+            --files = {"src/parser.c"}
+        --}
+    --}
     require "nvim-treesitter.configs".get_parser_configs().clojure = {
         install_info = {
             url = "https://github.com/oakmac/tree-sitter-clojure",
@@ -561,9 +564,10 @@ if ok then
                 enable = true,
                 disable = {},
                 keymaps = {
-                    -- mappings for incremental selection (visual mappings)
-                    node_incremental = "ts", -- "grn" by default,
-                    scope_incremental = "tS" -- "grc" by default
+                    init_selection = '<enter>',         -- maps in normal mode to init the node/scope selection
+                    node_incremental = "<enter>",       -- increment to the upper named parent
+                    scope_incremental = "Ts",      -- increment to the upper scope (as defined in locals.scm)
+                    node_decremental = "grm",
                 }
             },
             node_movement = {
@@ -587,7 +591,7 @@ if ok then
     local hlmap = vim.treesitter.TSHighlighter.hl_map
 
     --Misc
-    hlmap.error = "Normal"
+    hlmap.error = "Error"
     hlmap["punctuation.delimiter"] = "Delimiter"
     hlmap["punctuation.bracket"] = "Delimiter"
 
