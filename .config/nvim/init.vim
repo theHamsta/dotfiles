@@ -164,8 +164,10 @@ nnoremap <Leader>tc :tabclose<cr>
 nnoremap <Leader>oo :only<cr>
 "nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 "nmap <silent> <C-j> <Plug>(ale_next_wrap)
-nmap <silent> <C-k> [L
-nmap <silent> <C-j> ]L
+"nmap <silent> <C-k> [L
+"nmap <silent> <C-j> ]L
+nmap <silent> <C-k> :lprevious<cr>
+nmap <silent> <C-j> :lnext<cr>
 "nmap <silent> <C-k> [m<cr>
 "nmap <silent> <C-j> ]m<cr>
 nmap <leader>bl :BLines<cr>
@@ -232,6 +234,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'nvim-treesitter/highlight.lua'
     "Plug 'kyazdani42/nvim-palenight.lua'
     Plug 'theHamsta/nvim-treesitter'
+    "Plug 'DanilaMihailov/vim-wiki-tips'
     "Plug 'kamykn/spelunker.vim'
     "Plug 'romgrk/todoist.vim', { 'do': 'UpdateRemotePlugins' }
     "Plug 'nvim-treesitter/completion-treesitter'
@@ -558,7 +561,7 @@ nmap <Leader>gv :GV<CR>
 nmap <Leader>gu :Git reset -- %<CR>
 nmap <Leader>gd <c-w>O:Gdiff<CR>
 nmap <Leader>gD <c-w>O:Gvdiffsplit :%<left><left>
-nmap <Leader>gr :Gread<CR>
+nmap <Leader>gr :Gread<CR>:w<cr>
 nmap <Leader>gp :GitPushAsync<CR>
 nmap <Leader>gP :GitPushAsyncForce<CR>
 nmap <Leader>gl :Git pull<CR>
