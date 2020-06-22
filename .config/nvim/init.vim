@@ -1252,9 +1252,9 @@ endif
 
 let g:doge_doc_standard_python='google'
 
-"autocmd Filetype ipynb nmap <silent><Leader>b :VimpyterInsertPythonBlock<CR>
-"autocmd Filetype ipynb nmap <silent><Leader>j :VimpyterStartJupyter<CR>
-"autocmd Filetype ipynb nmap <silent><Leader>n :VimpyterStartNteract<CR>
+autocmd Filetype ipynb nmap <silent><Leader>b :VimpyterInsertPythonBlock<CR>
+autocmd Filetype ipynb nmap <silent><Leader>j :VimpyterStartJupyter<CR>
+autocmd Filetype ipynb nmap <silent><Leader>n :VimpyterStartNteract<CR>
 autocmd FileType * setlocal bufhidden=hide
 
 command! Emoji %s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g

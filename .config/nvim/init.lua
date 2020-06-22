@@ -535,19 +535,19 @@ vim.fn.sign_define("DapBreakpoint", {text = "🛑", texthl = "", linehl = "", nu
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
     vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
-    --require "nvim-treesitter.configs".get_parser_configs().lisp = {
-        --install_info = {
-            --url = "https://github.com/theHamsta/tree-sitter-clojure",
-            --files = {"src/parser.c"}
-        --}
-    --}
-    require "nvim-treesitter.configs".get_parser_configs().clojure = {
+    require "nvim-treesitter.parsers".get_parser_configs().lisp = {
+        install_info = {
+            url = "https://github.com/theHamsta/tree-sitter-clojure",
+            files = {"src/parser.c"}
+        }
+    }
+    require "nvim-treesitter.parsers".get_parser_configs().clojure = {
         install_info = {
             url = "https://github.com/oakmac/tree-sitter-clojure",
             files = {"src/parser.c"}
         }
     }
-    require "nvim-treesitter.configs".get_parser_configs().regex = {
+    require "nvim-treesitter.parsers".get_parser_configs().regex = {
         install_info = {
             url = "https://github.com/tree-sitter/tree-sitter-regex",
             files = {"src/parser.c"}
@@ -591,7 +591,7 @@ if ok then
     local hlmap = vim.treesitter.TSHighlighter.hl_map
 
     --Misc
-    hlmap.error = "Error"
+    hlmap.error = nil
     hlmap["punctuation.delimiter"] = "Delimiter"
     hlmap["punctuation.bracket"] = "Delimiter"
 
