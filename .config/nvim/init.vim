@@ -229,6 +229,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'rhysd/vim-grammarous'
     "Plug 'chuling/vim-equinusocio-material'
     Plug 'mfussenegger/nvim-jdtls'
+    Plug 'rhysd/conflict-marker.vim'
     Plug 'theHamsta/nvim-dap', { 'branch' : 'fork' }
     "Plug 'haorenW1025/diagnostic-nvim'
     "Plug 'nvim-treesitter/highlight.lua'
