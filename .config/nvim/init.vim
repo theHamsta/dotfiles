@@ -1211,8 +1211,8 @@ let g:username='Stephan Seitz'
 "let g:gitgutter_max_signs=1000
 
 let g:rooter_patterns = ['.git/', '_darcs/', '.hg/', '.bzr/', '.svn/']
-nnoremap <leader>ju :JustTargets<cr>
-nnoremap <leader>JU :JustTargetsAsync<cr>
+nnoremap <leader>JU :JustTargets<cr>
+nnoremap <leader>ju :JustTargetsAsync<cr>
 
 
 let g:auto_git_diff_disable_auto_update=1

@@ -61,6 +61,7 @@ if ok then
         default_callback(...)
         local diagnostics = vim.lsp.util.diagnostics_by_buf
 
+        vim.fn.setloclist(0, {}, 'r')
         local items = {}
         for bufnr, d in pairs(diagnostics) do
             table.sort(
