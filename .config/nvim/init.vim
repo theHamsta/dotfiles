@@ -245,6 +245,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'svermeulen/vim-easyclip'
     Plug 'rafcamlet/nvim-luapad'
     Plug 'theHamsta/nvim_rocks', {'do': 'pip3 install --user hererocks && hererocks . -j2.1.0-beta3 -r3.0.0 && cp nvim_rocks.lua lua'}
+    Plug 'svermeulen/nvim-moonmaker'
     "Plug 'haorenW1025/completion-nvim'
     "Plug 'vigoux/completion-treesitter'
     "Plug 'chrisbra/unicode.vim'
