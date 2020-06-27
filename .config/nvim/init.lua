@@ -584,17 +584,30 @@ if ok then
                     select_current_node = "<leader>ff"
                 }
             },
+            textobjects = {
+                enable = true,
+                disable = {},
+                keymaps = {
+                    ['il'] = {
+                        python = '(function_definition) @function',
+                        cpp = '(function_definition) @function',
+                        c = '(function_definition) @function',
+                        java = '(method_declaration) @function'
+                    },
+                    ['af'] = '@function.outer',
+                    ['if'] = '@function.inner',
+                }
+            },
             ensure_installed = "all"
         }
     )
-    require "nvim-treesitter".setup()
     require "nvim-treesitter.highlight"
     local hlmap = vim.treesitter.TSHighlighter.hl_map
 
     --Misc
     hlmap.error = nil
     hlmap["punctuation.delimiter"] = "Delimiter"
-    hlmap["punctuation.bracket"] = "Delimiter"
+    hlmap["punctuation.bracket"] = nil
 
     -- Constants
     hlmap["constant"] = "Constant"

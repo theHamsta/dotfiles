@@ -1036,7 +1036,7 @@ let g:lt_location_list_toggle_map = '<leader>ql'
 let g:lt_quickfix_list_toggle_map = '<leader>qe'
 ""au! FileType cmake unmap <buffer> <silent> gh
 ""au! FileType cmake nmap <buffer> <silent> <unique> gh <Plug>CMakeCompleteHelp
-nmap <leader>ch :Cheat!
+nmap <leader>ch :Cheat! 
 
 
 "let g:netrw_browsex_viewer='xdg-open'
@@ -1447,10 +1447,10 @@ nnoremap <silent> <c-0> :lua require'my_gui'.reset_fontsize()<cr>
     "\ }
 "let g:lua_tree_ignore = [ '.git', 'node_modules', '.cache', '__pycache__' ]
 
-nnoremap <Leader>nt :LuaTreeToggle<CR>
-nnoremap <Leader>nf :LuaTreeFindFile<cr>:LuaTreeShow<CR>
-nnoremap <Leader>nT :NERDTreeToggle<cr>
-nnoremap <Leader>nF :NERDTreeFind<cr>
+"nnoremap <Leader>nt :LuaTreeToggle<CR>
+"nnoremap <Leader>nf :LuaTreeFindFile<cr>:LuaTreeShow<CR>
+nnoremap <Leader>nt :NERDTreeToggle<cr>
+nnoremap <Leader>nf :NERDTreeFind<cr>
 ""
 "let g:diagnostic_insert_delay = 1
 
