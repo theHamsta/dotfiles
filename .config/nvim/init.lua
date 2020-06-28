@@ -44,7 +44,10 @@ if not filter then
     end
 end
 
-function D(...) print(vim.inspect{...}) return ... end
+function D(...)
+    print(vim.inspect {...})
+    return ...
+end
 
 --local function collect(iterator)
 --local rtn = {}
@@ -61,7 +64,7 @@ if ok then
         default_callback(...)
         local diagnostics = vim.lsp.util.diagnostics_by_buf
 
-        vim.fn.setloclist(0, {}, 'r')
+        vim.fn.setloclist(0, {}, "r")
         local items = {}
         for bufnr, d in pairs(diagnostics) do
             table.sort(
@@ -117,12 +120,12 @@ if ok then
     end
 
     --nvim_lsp.gopls.setup {
-        --on_attach = on_attach,
-        --settings = {
-            --initializationOptions = {
-                --usePlaceholders = false
-            --}
-        --}
+    --on_attach = on_attach,
+    --settings = {
+    --initializationOptions = {
+    --usePlaceholders = false
+    --}
+    --}
     --}
     nvim_lsp.pyls.setup {
         on_attach = on_attach,
@@ -136,7 +139,7 @@ if ok then
             }
         }
     }
-    nvim_lsp.tsserver.setup{
+    nvim_lsp.tsserver.setup {
         on_attach = on_attach
     }
     nvim_lsp.clangd.setup {
@@ -565,10 +568,10 @@ if ok then
                 enable = true,
                 disable = {},
                 keymaps = {
-                    init_selection = '<enter>',         -- maps in normal mode to init the node/scope selection
-                    node_incremental = "<enter>",       -- increment to the upper named parent
-                    scope_incremental = "Ts",      -- increment to the upper scope (as defined in locals.scm)
-                    node_decremental = "grm",
+                    init_selection = "<enter>", -- maps in normal mode to init the node/scope selection
+                    node_incremental = "<enter>", -- increment to the upper named parent
+                    scope_incremental = "Ts", -- increment to the upper scope (as defined in locals.scm)
+                    node_decremental = "grm"
                 }
             },
             node_movement = {
@@ -588,14 +591,48 @@ if ok then
                 enable = true,
                 disable = {},
                 keymaps = {
-                    ['il'] = {
-                        python = '(function_definition) @function',
-                        cpp = '(function_definition) @function',
-                        c = '(function_definition) @function',
-                        java = '(method_declaration) @function'
+                    ["iL"] = {
+                        python = "(function_definition) @function",
+                        cpp = "(function_definition) @function",
+                        c = "(function_definition) @function",
+                        java = "(method_declaration) @function"
                     },
-                    ['af'] = '@function.outer',
-                    ['if'] = '@function.inner',
+                    ["af"] = "@function.outer",
+                    ["if"] = "@function.inner",
+                    ["aC"] = "@class.outer",
+                    ["iC"] = "@class.inner",
+                    ["ac"] = "@conditional.outer",
+                    ["ic"] = "@conditional.inner",
+                    ["ab"] = "@block.outer",
+                    ["ib"] = "@block.inner",
+                    ["al"] = "@loop.outer",
+                    ["il"] = "@loop.inner",
+                    ["is"] = "@statement.inner",
+                    ["as"] = "@statement.outer",
+                    ["ad"] = "@comment.outer",
+                    ["am"] = "@call.outer",
+                    ["im"] = "@call.inner"
+                }
+            },
+            refactor = {
+                highlight_definitions = {
+                    enable = true,
+                    disable = {},
+                },
+                smart_rename = {
+                    enable = true,
+                    disable = {},
+                    keymaps = {
+                        smart_rename = "grr"
+                    }
+                },
+                navigation = {
+                    enable = true,
+                    disable = {},
+                    keymaps = {
+                        goto_definition = "gnd",
+                        list_definitions = "gnD"
+                    }
                 }
             },
             ensure_installed = "all"

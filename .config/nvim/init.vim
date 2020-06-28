@@ -229,10 +229,11 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'rhysd/vim-grammarous'
     "Plug 'chuling/vim-equinusocio-material'
     Plug 'mfussenegger/nvim-jdtls'
+    Plug 'mattn/emmet-vim'
     Plug 'rhysd/conflict-marker.vim'
     Plug 'theHamsta/nvim-dap', { 'branch' : 'fork' }
     "Plug 'haorenW1025/diagnostic-nvim'
-    "Plug 'nvim-treesitter/highlight.lua'
+   "Plug 'nvim-treesitter/highlight.lua'
     "Plug 'kyazdani42/nvim-palenight.lua'
     Plug 'theHamsta/nvim-treesitter'
     "Plug 'DanilaMihailov/vim-wiki-tips'
@@ -1593,9 +1594,9 @@ nnoremap <leader>bd :Bdelete<cr>
 "
 
 function DapMaps()
-    nnoremap <buffer> <silent> <F8> :lua require'dap'.step_over()<CR>
-    nnoremap <buffer> <silent> <F9> :lua require'dap'.step_into()<CR>
-    nnoremap <buffer> <silent> <F10> :lua require'dap'.step_out()<CR>
+    nnoremap <buffer> <silent> <F9> :lua require'dap'.step_over()<CR>
+    nnoremap <buffer> <silent> <F10> :lua require'dap'.step_into()<CR>
+    nnoremap <buffer> <silent> <F11> :lua require'dap'.step_out()<CR>
 
     nmap <buffer> <silent> <leader>bb :lua require'dap'.toggle_breakpoint()<CR>
     nmap <buffer> <silent> <leader>bB :lua require'dap'.toggle_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
