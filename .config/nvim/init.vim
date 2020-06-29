@@ -4,6 +4,7 @@ if has('vim_starting')
     set nocompatible               " Be iMproved
 endif
 
+highlight link TSError Normal
 let g:paredit_leader=','
 let g:rooter_patterns = ['gitmodules', '.git', '.git/']
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
@@ -368,7 +369,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'mileszs/ack.vim'
     Plug 'moll/vim-bbye'
     "Plug 'neomake/neomake',{'for': 'rst'}
-    Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+    "Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
     "Plug 'pboettch/vim-cmake-syntax'
     Plug 'peterhoeg/vim-qml', { 'for' : 'qml' }
     Plug 'rbonvall/snipmate-snippets-bib'
@@ -1607,3 +1608,7 @@ function DapMaps()
     nmap <buffer> <silent> <leader>bo :lua require'dap'.step_out()<CR>
     nmap <buffer> <silent> <leader>bm :DebugRepl<cr>
 endfunction
+
+highlight link TSError Normal
+
+nnoremap <F8> :Tagbar<CR>
