@@ -272,7 +272,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'bakpakin/fennel.vim'
     "Plug 'Olical/aniseed'
     ""Plug 'camspiers/lens.vim'
-    "Plug 'camspiers/animate.vim'
+    Plug 'camspiers/animate.vim'
     "Plug 'AndrewRadev/splitjoin.vim'
     "Plug 'wincent/vcs-jump'
     Plug 'neovim/nvim-lsp'
@@ -754,6 +754,7 @@ function! NvimLspMaps()
     endif
 
     nnoremap <buffer><silent> gt    <cmd>lua vim.lsp.buf.type_definition()<CR>
+    autocmd BufEnter <buffer> :lua require'lsp-ext'.update_diagnostics()
 
     if &filetype == "java" 
         nnoremap <buffer><silent> <c-s> :w<cr><cmd>lua vim.lsp.buf.formatting();require'jdtls'.organize_imports()<cr>
@@ -847,13 +848,14 @@ au Syntax * RainbowParenthesesLoadBraces
 "set noshowmode
 set clipboard=unnamedplus
 
-"function! GotoPython()
-    "let current_line = getline('.')
-    "let goto_file = matchstr(current_line, '\(File "\)\@<=\(.*\)\("\)\@=')
-    "let goto_line = matchstr(current_line, '\(line \)\@<=[0-9]*')
-    "execute "tabedit +" . goto_line . " " . goto_file
-"endfunction
+function! GotoPython()
+    let current_line = getline('.')
+    let goto_file = matchstr(current_line, '\(File "\)\@<=\(.*\)\("\)\@=')
+    let goto_line = matchstr(current_line, '\(line \)\@<=[0-9]*')
+    execute "tabedit +" . goto_line . " " . goto_file
+endfunction
 
+nnoremap <silent> gP :call GotoPython()<cr>
 
 
 "let g:slime_target = "neovim"
@@ -1319,10 +1321,10 @@ command! CargoPlay :T cargo play %
 
 
 
-"nnoremap <silent> <Up>    :call animate#window_delta_height(10)<CR>
-"nnoremap <silent> <Down>  :call animate#window_delta_height(-10)<CR>
-"nnoremap <silent> <Left>  :call animate#window_delta_width(-25)<CR>
-"nnoremap <silent> <Right> :call animate#window_delta_width(+25)<CR>
+nnoremap <silent> <Up>    :call animate#window_delta_height(10)<CR>
+nnoremap <silent> <Down>  :call animate#window_delta_height(-10)<CR>
+nnoremap <silent> <Left>  :call animate#window_delta_width(-25)<CR>
+nnoremap <silent> <Right> :call animate#window_delta_width(+25)<CR>
 
 nnoremap K :s/,/,\r/g<cr>
 

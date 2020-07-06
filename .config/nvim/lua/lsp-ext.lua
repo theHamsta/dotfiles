@@ -47,4 +47,57 @@ function M.peek_definition()
     end
 end
 
+function M.update_diagnostics()
+    local diagnostics = vim.lsp.util.diagnostics_by_buf
+
+    vim.fn.setloclist(0, {}, "r")
+    local items = {}
+    for bufnr, d in pairs(diagnostics) do
+        local current_buf = vim.api.nvim_get_current_buf()
+        if bufnr ~= current_buf then
+            break
+        end
+        table.sort(
+            d,
+            function(a, b)
+                return a.range.start.line < b.range.start.line
+            end
+        )
+        for _, element in ipairs(d) do
+            table.insert(
+                items,
+                {
+                    bufnr = bufnr,
+                    lnum = element.range.start.line + 1,
+                    vcol = 1,
+                    col = element.range.start.character + 1,
+                    text = element.message
+                }
+            )
+        end
+    end
+
+    vim.lsp.util.set_loclist(items)
+    --vim.fn.setloclist(
+    --0,
+    --{},
+    --" ",
+    --{
+    --title = "Language Server " ..
+    --vim.lsp.util.buf_diagnostics_count("Error") ..
+    --"❌ " .. vim.lsp.util.buf_diagnostics_count("Warning") .. "⚠️",
+    --items = items
+    --}
+    --)
+    if vim.api.nvim_get_mode().mode == "n" then
+        if #items > 0 then
+            --local current_win = vim.api.nvim_get_current_win()
+            --vim.cmd("lopen")
+            --vim.api.nvim_set_current_win(current_win)
+        else
+            vim.cmd("lcl")
+            vim.cmd("lcl")
+        end
+    end
+end
 return M

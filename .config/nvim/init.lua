@@ -38,14 +38,14 @@ endfunction
 --
 --
 --
-local ok, neorocks = pcall(require,'plenary.neorocks')
+local ok, neorocks = pcall(require, "plenary.neorocks")
 if ok then
-    neorocks.ensure_installed('fun')
+    neorocks.ensure_installed("fun")
     neorocks.ensure_installed("luasec", "fun", "30log", "lua-toml", "template", "lua-cjson")
 end
 
 if not filter then
-    local ok, _ = pcall(require,"fun")
+    local ok, _ = pcall(require, "fun")
     if ok then
         require "fun"()
         vim.o.shell = head(filter(vim.fn.executable, {"zsh", "fish", "bash"}))
@@ -74,53 +74,8 @@ if ok then
     local default_callback = vim.lsp.callbacks["textDocument/publishDiagnostics"]
     vim.lsp.callbacks["textDocument/publishDiagnostics"] = function(...)
         default_callback(...)
-        local diagnostics = vim.lsp.util.diagnostics_by_buf
 
-        vim.fn.setloclist(0, {}, "r")
-        local items = {}
-        for bufnr, d in pairs(diagnostics) do
-            table.sort(
-                d,
-                function(a, b)
-                    return a.range.start.line < b.range.start.line
-                end
-            )
-            for _, element in ipairs(d) do
-                table.insert(
-                    items,
-                    {
-                        bufnr = bufnr,
-                        lnum = element.range.start.line + 1,
-                        vcol = 1,
-                        col = element.range.start.character + 1,
-                        text = element.message
-                    }
-                )
-            end
-        end
-
-        vim.lsp.util.set_loclist(items)
-        --vim.fn.setloclist(
-        --0,
-        --{},
-        --" ",
-        --{
-        --title = "Language Server " ..
-        --vim.lsp.util.buf_diagnostics_count("Error") ..
-        --"❌ " .. vim.lsp.util.buf_diagnostics_count("Warning") .. "⚠️",
-        --items = items
-        --}
-        --)
-        if vim.api.nvim_get_mode().mode == "n" then
-            if #items > 0 then
-                --local current_win = vim.api.nvim_get_current_win()
-                --vim.cmd("lopen")
-                --vim.api.nvim_set_current_win(current_win)
-            else
-                vim.cmd("lcl")
-                vim.cmd("lcl")
-            end
-        end
+        require "lsp-ext".update_diagnostics()
     end
     local function on_attach(_)
         vim.fn.NvimLspMaps()
@@ -615,8 +570,8 @@ if ok then
                     ["iC"] = "@class.inner",
                     ["ac"] = "@conditional.outer",
                     ["ic"] = "@conditional.inner",
-                    ["ab"] = "@block.outer",
-                    ["ib"] = "@block.inner",
+                    ["ae"] = "@block.outer",
+                    ["ie"] = "@block.inner",
                     ["al"] = "@loop.outer",
                     ["il"] = "@loop.inner",
                     ["is"] = "@statement.inner",
@@ -629,8 +584,8 @@ if ok then
             },
             refactor = {
                 highlight_definitions = {
-                    enable = true,
-                    disable = {'cpp', 'python'},
+                    enable = false,
+                    disable = {}
                 },
                 smart_rename = {
                     enable = true,
