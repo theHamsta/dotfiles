@@ -37,15 +37,27 @@ endfunction
 --
 --
 --
+--
+local ok, neorocks = pcall(require,'plenary.neorocks')
+if ok then
+    neorocks.ensure_installed('fun')
+    neorocks.ensure_installed("luasec", "fun", "30log", "lua-toml", "template", "lua-cjson")
+end
+
 if not filter then
-    local ok, _ = pcall(require "fun")
+    local ok, _ = pcall(require,"fun")
     if ok then
+        require "fun"()
         vim.o.shell = head(filter(vim.fn.executable, {"zsh", "fish", "bash"}))
     end
 end
 
-function D(...)
-    print(vim.inspect {...})
+function D(a)
+    print(vim.inspect(a))
+    return a
+end
+function E(...)
+    print(vim.inspect({...}))
     return ...
 end
 
@@ -610,6 +622,7 @@ if ok then
                     ["is"] = "@statement.inner",
                     ["as"] = "@statement.outer",
                     ["ad"] = "@comment.outer",
+                    ["id"] = "@comment.inner",
                     ["am"] = "@call.outer",
                     ["im"] = "@call.inner"
                 }
@@ -617,7 +630,7 @@ if ok then
             refactor = {
                 highlight_definitions = {
                     enable = true,
-                    disable = {},
+                    disable = {'cpp', 'python'},
                 },
                 smart_rename = {
                     enable = true,
@@ -680,7 +693,6 @@ if ok then
     hlmap["type.builtin"] = "Type"
     hlmap["structure"] = "Structure"
 end
---require "nvim_rocks".ensure_installed({"luasec", "fun", "30log", "lua-toml", "template"})
 
 --
 

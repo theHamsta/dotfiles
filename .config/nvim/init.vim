@@ -246,7 +246,10 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'wookayin/vim-autoimport'
     "Plug 'svermeulen/vim-easyclip'
     Plug 'rafcamlet/nvim-luapad'
-    Plug 'theHamsta/nvim_rocks', {'do': 'pip3 install --user hererocks && hererocks . -j2.1.0-beta3 -r3.0.0 && cp nvim_rocks.lua lua'}
+    "Plug 'theHamsta/nvim_rocks', {'do': 'pip3 install --user hererocks && hererocks . -j2.1.0-beta3 -r3.0.0 && cp nvim_rocks.lua lua'}
+    Plug 'tjdevries/luvjob.nvim'
+    Plug 'tjdevries/plenary.nvim'
+    ", {'do': ":lua require'plenary.neorocks'.setup_hererocks()"}
     Plug 'svermeulen/nvim-moonmaker'
     "Plug 'haorenW1025/completion-nvim'
     "Plug 'vigoux/completion-treesitter'
@@ -282,7 +285,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'atelierbram/vim-colors_atelier-schemes'
     Plug 'Shougo/deoplete-lsp'
     "Plug 'wellle/context.vim'
-    Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+    "Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
     Plug 'udalov/kotlin-vim'
     "Plug 'glacambre/firenvim'
     "Plug 'rhysd/accelerated-jk'
@@ -742,7 +745,9 @@ function! NvimLspMaps()
     nnoremap <buffer><silent> <leader>ss :lua vim.lsp.buf.workspace_symbols()<cr>
     nnoremap <buffer><silent> <leader>de :lua require'lsp-ext'.peek_definition()<cr>
     nnoremap <buffer> <silent> <2-LeftMouse> <cmd>lua vim.lsp.buf.hover()<CR>
-    nnoremap <buffer> <silent> <c-2-LeftMouse> <cmd>lua vim.lsp.buf.definition()<CR>
+    nnoremap <buffer> <silent> <c-LeftMouse> <cmd>lua vim.lsp.buf.definition()<CR>
+    nnoremap <buffer> <silent> <c-LeftMouse> <cmd>lua vim.lsp.buf.definition()<CR>
+    nnoremap <buffer> <silent> <leader>ld <cmd>lua vim.lsp.util.show_line_diagnostics()<cr>
 
     if &filetype != "tex" 
         inoremap <buffer><silent> (     <cmd>lua vim.lsp.buf.signature_help()<CR>(
