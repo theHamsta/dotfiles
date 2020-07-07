@@ -237,6 +237,7 @@ call plug#begin('~/.local/share/nvim/plugged')
    "Plug 'nvim-treesitter/highlight.lua'
     "Plug 'kyazdani42/nvim-palenight.lua'
     Plug 'theHamsta/nvim-treesitter'
+    Plug 'hardcoreplayers/oceanic-material'
     "Plug 'DanilaMihailov/vim-wiki-tips'
     "Plug 'kamykn/spelunker.vim'
     "Plug 'romgrk/todoist.vim', { 'do': 'UpdateRemotePlugins' }
@@ -740,6 +741,7 @@ function! NvimLspMaps()
     nnoremap <buffer><silent> gh         <cmd>lua vim.lsp.buf.hover()<CR>
     nnoremap <buffer><silent> gi         <cmd>lua vim.lsp.buf.implementation()<CR>
     nnoremap <buffer><silent> gS         <cmd>lua vim.lsp.buf.signature_help()<CR>
+    nnoremap <buffer><silent> <leader>ld <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>
     nnoremap <buffer><silent> <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
     vnoremap <buffer><silent> <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
     nnoremap <buffer><silent> <leader>ss :lua vim.lsp.buf.workspace_symbols()<cr>
@@ -1619,3 +1621,5 @@ endfunction
 highlight link TSError Normal
 
 nnoremap <F8> :Tagbar<CR>
+nmap ,w ysiw)
+nmap ,<s-w> ysiW)

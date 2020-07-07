@@ -113,6 +113,7 @@ if ok then
         cmd = {
             "clangd-11",
             "--clang-tidy",
+            "--all-scopes-completion",
             "--header-insertion=iwyu",
             "--background-index",
             "--suggest-missing-includes"
