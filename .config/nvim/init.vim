@@ -237,7 +237,7 @@ call plug#begin('~/.local/share/nvim/plugged')
    "Plug 'nvim-treesitter/highlight.lua'
     "Plug 'kyazdani42/nvim-palenight.lua'
     Plug 'theHamsta/nvim-treesitter'
-    Plug 'hardcoreplayers/oceanic-material'
+    "Plug 'hardcoreplayers/oceanic-material'
     "Plug 'DanilaMihailov/vim-wiki-tips'
     "Plug 'kamykn/spelunker.vim'
     "Plug 'romgrk/todoist.vim', { 'do': 'UpdateRemotePlugins' }
