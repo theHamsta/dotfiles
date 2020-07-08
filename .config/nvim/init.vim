@@ -1563,7 +1563,7 @@ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 ""vmap <a-j> :lua require'nvim-treesitter/node_movement'.move_down()<cr>
 
 ""let g:lightline = { 'colorscheme': 'palenight' }
-au TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 150)
+au TextYankPost * silent! lua require'vim.highlight'.on_yank({"IncSearch", 150})
 
 "highlight NvimTreesitterCurrentNode guibg=#444400
 

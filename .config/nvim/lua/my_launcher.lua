@@ -1,4 +1,3 @@
-require "nvim_rocks".ensure_installed({"luasec", "fun" })
 if not filter then
     require "fun"()
 end
@@ -6,8 +5,15 @@ local my_commands = require "my_commands"
 
 M = {}
 
+function M.get_just_program()
+    return vim.fn.empty(vim.fn.glob("./justfile")) and
+        "just --justfile " .. vim.fn.expand("~/.justfile") .. " --working-directory ." or
+        "just"
+end
+
 M.list_just_targets = function()
-    local just_files = vim.fn.systemlist("just --list")
+    local just_program = M.get_just_program()
+    local just_files = vim.fn.systemlist(just_program .. " --list")
     table.remove(just_files, 1)
     for i, v in map(
         function(s)
@@ -37,10 +43,11 @@ M.term_run = function(cmd)
 end
 
 M.run_just_task = function(task, async)
+    local just_program = M.get_just_program()
     if async then
-        my_commands.do_luajob("just " .. task)
+        my_commands.do_luajob(just_program .. task)
     else
-        M.term_run("just " .. task)
+        M.term_run(just_program .. task)
     end
 end
 
@@ -53,6 +60,5 @@ M.fuzzy_just = function(async)
         }
     )
 end
-
 
 return M

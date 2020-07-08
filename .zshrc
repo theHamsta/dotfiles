@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/home/stephan/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -58,7 +58,7 @@ HIST_STAMPS="dd/mm/yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git golang  zsh-syntax-highlighting python colored-man-pages fasd  copydir command-not-found extract history cp gitignore pip zsh-256color compleat zsh-bazel-plugin)
+plugins=(git fasd  copydir command-not-found extract history cp gitignore )
 
 source $ZSH/oh-my-zsh.sh
 
@@ -120,7 +120,7 @@ alias ls=exa
 alias tree=exa --tree
 
 alias v='f -e nvim' # quick opening files with vim
-alias o='a -e xdg-open' # quick opening files with xdg-open
+Alias o='a -e xdg-open' # quick opening files with xdg-open
 
 #export CUDA_HOME=/usr/local/cuda-9.0
 #export LD_LOAD_PATH=/usr/local/cuda-9.0/targets/x86_64-linux/lib/:${LD_LOAD_PATH}
@@ -136,11 +136,7 @@ export PATH=/snap/bin/:${PATH}
 
 export SCIPY_PIL_IMAGE_VIEWER=imagecomparer
 
-VMTKHOME=/localhome/local/projects/vmtk/release/Install
-#source "/home/stephan/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
-
-export OMP_NUM_THREADS=4
-export GOPATH=/home/stephan/go
+source ~/.profile
 
 
 

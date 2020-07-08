@@ -13,11 +13,13 @@ end
 
 local function close_git_status()
     local wins = vim.api.nvim_list_wins()
-    for _, win in ipairs(wins) do
-        local buf = vim.api.nvim_win_get_buf(win)
-        local buf_name = vim.api.nvim_buf_get_name(buf)
-        if endswith(buf_name, ".git/index") then
-            vim.api.nvim_win_close(win, false)
+    if #wins > 1 then
+        for _, win in ipairs(wins) do
+            local buf = vim.api.nvim_win_get_buf(win)
+            local buf_name = vim.api.nvim_buf_get_name(buf)
+            if endswith(buf_name, ".git/index") then
+                vim.api.nvim_win_close(win, false)
+            end
         end
     end
 end
@@ -46,7 +48,7 @@ function M.do_luajob(cmd)
             local lines = vim.fn.split(data, "\n")
             for _, line in ipairs(lines) do
                 print(line)
-                output = output ..'\n'.. line
+                output = output .. "\n" .. line
             end
         end
     end
@@ -68,7 +70,10 @@ function M.do_luajob(cmd)
                 else
                     print('"' .. cmd .. '" finished!')
                 end
-            end
+            end,
+            env = {
+                PATH = "/usr/bin/:/bin/:" .. vim.fn.expand("~/.local/bin")
+            }
         }
     )
     job:start()
@@ -113,7 +118,10 @@ M.custom_command = function(command, silent)
                 if code == 0 then
                     print('"' .. command .. '" succeeded!')
                 end
-            end
+            end,
+            env = {
+                PATH = "/usr/bin/:/bin/:" .. vim.fn.expand("~/.local/bin")
+            }
         }
     )
     job:start()
