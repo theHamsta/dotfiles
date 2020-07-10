@@ -210,9 +210,6 @@ function! BuildComposer(info)
   endif
 endfunction
 
-augroup NvimTreesitter
-augroup END
-
 let g:vimtex_complete_enabled = 0
  
 call plug#begin('~/.local/share/nvim/plugged')
