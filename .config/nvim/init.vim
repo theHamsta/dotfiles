@@ -234,13 +234,7 @@ call plug#begin('~/.local/share/nvim/plugged')
    "Plug 'nvim-treesitter/highlight.lua'
     "Plug 'kyazdani42/nvim-palenight.lua'
     Plug 'theHamsta/nvim-treesitter'
-    "Plug 'hardcoreplayers/oceanic-material'
-    "Plug 'DanilaMihailov/vim-wiki-tips'
-    "Plug 'kamykn/spelunker.vim'
-    "Plug 'romgrk/todoist.vim', { 'do': 'UpdateRemotePlugins' }
-    "Plug 'nvim-treesitter/completion-treesitter'
-    "Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
-    "Plug 'dm1try/git_fastfix'
+    Plug 'dm1try/git_fastfix'
     "Plug 'wookayin/vim-autoimport'
     "Plug 'svermeulen/vim-easyclip'
     Plug 'rafcamlet/nvim-luapad'
@@ -249,171 +243,170 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'tjdevries/plenary.nvim'
     ", {'do': ":lua require'plenary.neorocks'.setup_hererocks()"}
     Plug 'svermeulen/nvim-moonmaker'
-    "Plug 'haorenW1025/completion-nvim'
-    "Plug 'vigoux/completion-treesitter'
-    "Plug 'chrisbra/unicode.vim'
-    "Plug 'bergercookie/vim-deb-preview'
-    "Plug 'doums/coBra'
-    "Plug 'zoxves/LightningFileExplorer'
-    Plug 'theHamsta/nvim-tree.lua', {'branch': 'exa'}
-    "Plug 'mcchrish/info-window.nvim'
+    ""Plug 'haorenW1025/completion-nvim'
+    ""Plug 'vigoux/completion-treesitter'
+    ""Plug 'chrisbra/unicode.vim'
+    ""Plug 'bergercookie/vim-deb-preview'
+    ""Plug 'doums/coBra'
+    ""Plug 'zoxves/LightningFileExplorer'
+    "Plug 'theHamsta/nvim-tree.lua', {'branch': 'exa'}
+    ""Plug 'mcchrish/info-window.nvim'
     "Plug 'gluon-lang/vim-gluon'
-    Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
-    "Plug 'OmniSharp/omnisharp-vim'
-    "Plug 'neomake/neomake' ", {'for': 'rst'}
-    "Plug 'SkyLeach/pudb.vim'
-    "Plug 'romgrk/searchReplace.vim'
-    "Plug 'dbridges/vim-markdown-runner'
-    "Plug 'arzg/vim-colors-xcode'
-    "Plug 'Olical/nvim-local-fennel'
+    "Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
+    ""Plug 'OmniSharp/omnisharp-vim'
+    ""Plug 'neomake/neomake' ", {'for': 'rst'}
+    ""Plug 'SkyLeach/pudb.vim'
+    ""Plug 'romgrk/searchReplace.vim'
+    ""Plug 'dbridges/vim-markdown-runner'
+    ""Plug 'arzg/vim-colors-xcode'
+    Plug 'Olical/nvim-local-fennel'
     Plug 'Olical/conjure'
     Plug 'bakpakin/fennel.vim'
-    "Plug 'Olical/aniseed'
-    ""Plug 'camspiers/lens.vim'
+    Plug 'Olical/aniseed'
+    """Plug 'camspiers/lens.vim'
     Plug 'camspiers/animate.vim'
-    "Plug 'AndrewRadev/splitjoin.vim'
-    "Plug 'wincent/vcs-jump'
+    ""Plug 'AndrewRadev/splitjoin.vim'
+    ""Plug 'wincent/vcs-jump'
     Plug 'neovim/nvim-lsp'
-    Plug 'tikhomirov/vim-glsl'
-    "Plug 'itchyny/calendar.vim'
-    Plug 'norcalli/nvim.lua'
-    Plug 'tpope/vim-speeddating'
-    "Plug 'kchmck/vim-coffee-script'
-    "Plug 'arzg/vim-rust-syntax-ext'
-    "Plug 'atelierbram/vim-colors_atelier-schemes'
-    Plug 'Shougo/deoplete-lsp'
-    "Plug 'wellle/context.vim'
-    "Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+    "Plug 'tikhomirov/vim-glsl'
+    ""Plug 'itchyny/calendar.vim'
+    "Plug 'norcalli/nvim.lua'
+    "Plug 'tpope/vim-speeddating'
+    ""Plug 'kchmck/vim-coffee-script'
+    ""Plug 'arzg/vim-rust-syntax-ext'
+    ""Plug 'atelierbram/vim-colors_atelier-schemes'
+    "Plug 'Shougo/deoplete-lsp'
+    ""Plug 'wellle/context.vim'
+    ""Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
     Plug 'udalov/kotlin-vim'
-    "Plug 'glacambre/firenvim'
-    "Plug 'rhysd/accelerated-jk'
-    "Plug  'lambdalisue/suda.vim'
-    Plug  'szymonmaszke/vimpyter'
-    Plug 'norcalli/nvim-colorizer.lua'
-    Plug 'voldikss/vim-floaterm'
+    ""Plug 'glacambre/firenvim'
+    ""Plug 'rhysd/accelerated-jk'
+    ""Plug  'lambdalisue/suda.vim'
+    "Plug  'szymonmaszke/vimpyter'
+    "Plug 'norcalli/nvim-colorizer.lua'
+    "Plug 'voldikss/vim-floaterm'
     Plug 'kkoomen/vim-doge'
-    "Plug 'ncm2/float-preview.nvim'
-    "Plug 'liquidz/vim-iced', {'for': 'clojure'}
-    "Plug 'liquidz/iced-nrepl', {'for': 'clojure'}
-    "Plug 'kamykn/CCSpellCheck.vim'
-    Plug 'AndrewRadev/switch.vim'
-    "Plug 'Chun-Yang/vim-action-ag'
-    "Plug 'JuliaEditorSupport/julia-vim'
+    ""Plug 'ncm2/float-preview.nvim'
+    ""Plug 'liquidz/vim-iced', {'for': 'clojure'}
+    ""Plug 'liquidz/iced-nrepl', {'for': 'clojure'}
+    ""Plug 'kamykn/CCSpellCheck.vim'
+    "Plug 'AndrewRadev/switch.vim'
+    ""Plug 'Chun-Yang/vim-action-ag'
+    ""Plug 'JuliaEditorSupport/julia-vim'
     Plug 'Julian/vim-textobj-variable-segment'
-    "Plug 'KabbAmine/vCoolor.vim'
-    "Plug 'LeafCage/yankround.vim'
-    "Plug 'Olical/vim-enmasse'
+    ""Plug 'KabbAmine/vCoolor.vim'
+    ""Plug 'LeafCage/yankround.vim'
+    ""Plug 'Olical/vim-enmasse'
     Plug 'Shougo/echodoc.vim'
-    "Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-    Plug 'SirVer/ultisnips'
-    Plug 'Valloric/ListToggle'
+    ""Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+    "Plug 'SirVer/ultisnips'
+    "Plug 'Valloric/ListToggle'
     Plug 'airblade/vim-gitgutter'
     Plug 'airblade/vim-rooter'
-    "Plug 'akiyosi/gonvim-fuzzy'
-    "Plug 'arp242/jumpy.vim'
-    "Plug 'bfredl/nvim-ipy',  {'on':  [ 'IPython'], 'do': ':UpdateRemotePlugins'}
-    "Plug 'bfrg/vim-cpp-modern'
-    "Plug 'bkad/CamelCaseMotion'
-    Plug 'bronson/vim-visual-star-search'
-    "Plug 'brooth/far.vim'
-    "Plug 'burke/matcher'
-    Plug 'cespare/vim-toml', {'for': 'toml'}
+    ""Plug 'akiyosi/gonvim-fuzzy'
+    ""Plug 'arp242/jumpy.vim'
+    ""Plug 'bfredl/nvim-ipy',  {'on':  [ 'IPython'], 'do': ':UpdateRemotePlugins'}
+    ""Plug 'bfrg/vim-cpp-modern'
+    ""Plug 'bkad/CamelCaseMotion'
+    "Plug 'bronson/vim-visual-star-search'
+    ""Plug 'brooth/far.vim'
+    ""Plug 'burke/matcher'
+    "Plug 'cespare/vim-toml', {'for': 'toml'}
     "Plug 'chaoren/vim-wordmotion'
-    "Plug 'ctrlpvim/ctrlp.vim'
+    ""Plug 'ctrlpvim/ctrlp.vim'
     Plug 'dbeniamine/cheat.sh-vim', { 'on':  [ 'Cheat!'] }
-    Plug 'dyng/ctrlsf.vim'
-    Plug 'easymotion/vim-easymotion'
+    "Plug 'dyng/ctrlsf.vim'
+    "Plug 'easymotion/vim-easymotion'
     Plug 'editorconfig/editorconfig-vim'
     Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer'),  'on': ':ComposerStart' }
     Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoInstallBinaries'}
-    Plug 'junegunn/vim-emoji'
-    Plug 'fszymanski/deoplete-emoji'
+    "Plug 'junegunn/vim-emoji'
+    "Plug 'fszymanski/deoplete-emoji'
     Plug 'theHamsta/vlime', {'branch': 'prompt', 'rtp': 'vim/', 'for':'lisp'}
-    "Plug 'kovisoft/paredit', {'for': ['lisp', 'clojure']}
-    "Plug 'kovisoft/slimv', {'for': 'lisp'}
-    "Plug 'fvictorio/vim-textobj-backticks'
-    "Plug 'godlygeek/tabular'
-    "Plug 'gregf/ultisnips-chef'
-    "Plug 'heavenshell/vim-pydocstring'
-    Plug 'hotwatermorning/auto-git-diff'
+    ""Plug 'kovisoft/paredit', {'for': ['lisp', 'clojure']}
+    ""Plug 'kovisoft/slimv', {'for': 'lisp'}
+    ""Plug 'fvictorio/vim-textobj-backticks'
+    ""Plug 'godlygeek/tabular'
+    ""Plug 'gregf/ultisnips-chef'
+    ""Plug 'heavenshell/vim-pydocstring'
+    "Plug 'hotwatermorning/auto-git-diff'
     Plug 'idanarye/vim-merginal'
     Plug 'ivalkeen/nerdtree-execute'   , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
     Plug 'Xuyuanp/nerdtree-git-plugin'  , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
     Plug 'scrooloose/nerdtree' , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
     Plug 'tiagofumo/vim-nerdtree-syntax-highlight' , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-    "Plug 'jackguo380/vim-lsp-cxx-highlight'
+    ""Plug 'jackguo380/vim-lsp-cxx-highlight'
     Plug 'janko/vim-test'
-    Plug 'jaxbot/semantic-highlight.vim'
-    Plug 'jceb/vim-orgmode'
-    "Plug 'jpalardy/vim-slime'
+    "Plug 'jaxbot/semantic-highlight.vim'
+    "Plug 'jceb/vim-orgmode'
+    ""Plug 'jpalardy/vim-slime'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
     Plug 'junegunn/goyo.vim'
     Plug 'junegunn/gv.vim'
     Plug 'junegunn/limelight.vim'
-    "Plug 'justinmk/vim-gtfo'
-    "Plug 'justinmk/vim-sneak'
-    "Plug 'kana/vim-textobj-function'
+    Plug 'justinmk/vim-gtfo'
+    ""Plug 'justinmk/vim-sneak'
+    ""Plug 'kana/vim-textobj-function'
     Plug 'kana/vim-textobj-user'
     Plug 'kassio/neoterm'
-    Plug 'kien/rainbow_parentheses.vim'
+   Plug 'kien/rainbow_parentheses.vim'
     Plug 'lervag/vimtex', { 'for': 'tex' }
     Plug 'machakann/vim-swap'
     Plug 'majutsushi/tagbar'
     Plug 'maralla/vim-toml-enhance', {'for': 'toml'}
     Plug 'markonm/traces.vim'
     Plug 'mbbill/undotree', { 'on':  [ 'UndotreeToggle'] }
-    "Plug 'meain/vim-package-info', { 'do': 'npm install' }
-    "Plug 'mhinz/neovim-remote'
+    Plug 'meain/vim-package-info', { 'do': 'npm install' }
+    ""Plug 'mhinz/neovim-remote'
     Plug 'mhinz/vim-startify'
     Plug 'michaeljsmith/vim-indent-object'
-    "Plug 'mileszs/ack.vim'
+    ""Plug 'mileszs/ack.vim'
     Plug 'moll/vim-bbye'
-    "Plug 'neomake/neomake',{'for': 'rst'}
-    "Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-    "Plug 'pboettch/vim-cmake-syntax'
+    ""Plug 'neomake/neomake',{'for': 'rst'}
+    ""Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+    Plug 'pboettch/vim-cmake-syntax'
     Plug 'peterhoeg/vim-qml', { 'for' : 'qml' }
-    Plug 'rbonvall/snipmate-snippets-bib'
-    "Plug 'rhysd/git-messenger.vim'
-    "Plug 'rhysd/rust-doc.vim'
+    "Plug 'rbonvall/snipmate-snippets-bib'
+    Plug 'rhysd/git-messenger.vim'
+    ""Plug 'rhysd/rust-doc.vim'
     Plug 'rking/ag.vim'
-    "Plug 'rliang/nvim-pygtk3', {'do': 'make install'}
-    "Plug 'rliang/termedit.nvim'
-    "Plug 'roblillack/vim-bufferlist'
-    Plug 'rust-lang/rust.vim', { 'for': ['rust', 'toml'] }
-    Plug 'ryanoasis/vim-devicons'
-    "Plug 'sakhnik/nvim-gdb', { 'do': './install.sh' }
+    ""Plug 'rliang/nvim-pygtk3', {'do': 'make install'}
+    ""Plug 'rliang/termedit.nvim'
+    ""Plug 'roblillack/vim-bufferlist'
+    "Plug 'rust-lang/rust.vim', { 'for': ['rust', 'toml'] }
+    "Plug 'ryanoasis/vim-devicons'
+    ""Plug 'sakhnik/nvim-gdb', { 'do': './install.sh' }
     Plug 'scrooloose/nerdcommenter'
-    "Plug 'sebdah/vim-delve', { 'for' : 'go' }
-    "Plug 'sgur/ctrlp-extensions.vim'
-    Plug 'sgur/vim-textobj-parameter'
-    "Plug 'shumphrey/fugitive-gitlab.vim'
-    "Plug 'skywind3000/vim-preview'
-    "Plug 't9md/vim-choosewin'
-    "Plug 'tacahiroy/ctrlp-funky'
-    "Plug 'terryma/vim-expand-region'
+    ""Plug 'sebdah/vim-delve', { 'for' : 'go' }
+    ""Plug 'sgur/ctrlp-extensions.vim'
+    "Plug 'sgur/vim-textobj-parameter'
+    ""Plug 'shumphrey/fugitive-gitlab.vim'
+    Plug 'skywind3000/vim-preview'
+    ""Plug 't9md/vim-choosewin'
+    ""Plug 'tacahiroy/ctrlp-funky'
+    ""Plug 'terryma/vim-expand-region'
     Plug 'terryma/vim-multiple-cursors'
-    Plug 'thalesmello/vim-textobj-methodcall'
+    "Plug 'thalesmello/vim-textobj-methodcall'
     Plug 'theHamsta/vim-snippets'
     Plug 'theHamsta/vim-template'
     Plug 'theHamsta/vim-textobj-entire'
     Plug 'theHamsta/vim-rebase-mode'
-    "Plug 'tpope/vim-abolish'
     Plug 'tpope/vim-eunuch'
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-markdown'
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-rhubarb'
-    ""Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'lisp' }
+    Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'lisp' }
     Plug 'guns/vim-sexp', { 'for': ['lisp', 'clojure', 'scheme', 'vlime_repl', 'fennel'] }
-    "Plug 'tpope/vim-sleuth'
+    Plug 'tpope/vim-sleuth'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-unimpaired'
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
-    "Plug 'vim-scripts/SearchComplete'
-    "Plug 'wellle/targets.vim'
-    Plug 'whiteinge/diffconflicts'
+    ""Plug 'vim-scripts/SearchComplete'
+    Plug 'wellle/targets.vim'
+    "Plug 'whiteinge/diffconflicts'
     Plug 'TravonteD/luajob'
     ""Plug 'zchee/deoplete-go', { 'do': 'make'}
     ""
@@ -474,7 +467,6 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'Vigemus/iron.nvim'
     "Plug 'Vigemus/iron.nvim'
     "Plug 'adolenc/cl-neovim'
-    "Plug 'baskerville/bubblegum'
     "Plug 'bazelbuild/vim-bazel'
     "Plug 'cyansprite/Extract'
     "Plug 'dbeniamine/cheat.sh-vim'

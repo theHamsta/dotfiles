@@ -37,6 +37,7 @@ endfunction
 --
 --
 --
+require'plenary.neorocks'.setup_hererocks()
 --
 local ok, neorocks = pcall(require, "plenary.neorocks")
 if ok then
@@ -530,7 +531,10 @@ if ok then
         {
             highlight = {
                 enable = true, -- false will disable the whole extension
-                disable = {"html", "lua"} -- list of language that will be disabled
+                disable = {"html", "lua"}, -- list of language that will be disabled
+                custom_captures = {
+                    Foo = "Error"
+                } -- list of language that will be disabled
             },
             incremental_selection = {
                 -- this enables incremental selection
@@ -585,8 +589,12 @@ if ok then
                 }
             },
             refactor = {
+                highlight_current_scope = {
+                    enable = true,
+                    disable = {}
+                },
                 highlight_definitions = {
-                    enable = false,
+                    enable = true,
                     disable = {}
                 },
                 smart_rename = {
@@ -649,6 +657,9 @@ if ok then
     hlmap["type"] = "Type"
     hlmap["type.builtin"] = "Type"
     hlmap["structure"] = "Structure"
+
+    
+
 end
 
 --
