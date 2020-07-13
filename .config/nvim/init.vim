@@ -314,7 +314,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'chaoren/vim-wordmotion'
     ""Plug 'ctrlpvim/ctrlp.vim'
     Plug 'dbeniamine/cheat.sh-vim', { 'on':  [ 'Cheat!'] }
-    "Plug 'dyng/ctrlsf.vim'
+    Plug 'dyng/ctrlsf.vim'
     "Plug 'easymotion/vim-easymotion'
     Plug 'editorconfig/editorconfig-vim'
     Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer'),  'on': ':ComposerStart' }
