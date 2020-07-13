@@ -18,7 +18,7 @@ local function luajob_on_stdout(err, data)
     end
 end
 
-M = {
+local M = {
     default_port = 5788
 }
 

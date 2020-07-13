@@ -3,7 +3,7 @@ if not filter then
 end
 local my_commands = require "my_commands"
 
-M = {}
+local M = {}
 
 function M.get_just_program()
     return vim.fn.empty(vim.fn.glob("./justfile")) == 1 and
@@ -13,7 +13,7 @@ end
 
 M.list_just_targets = function()
     local just_program = M.get_just_program()
-    local just_files = vim.fn.systemlist(just_program .. " --list")
+    local just_files = vim.fn.systemlist(just_program.." --list")
     table.remove(just_files, 1)
     for i, v in map(
         function(s)

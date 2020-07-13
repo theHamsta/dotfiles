@@ -6,7 +6,7 @@
 -- Distributed under terms of the GPLv3 license.
 --
 
-M = {}
+local M = {}
 local launcher = require'my_launcher'
 
 M.get_java_main_classes = function()

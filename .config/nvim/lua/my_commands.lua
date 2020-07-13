@@ -35,7 +35,7 @@ local function luajob_on_stdout(err, data)
     end
 end
 
-M = {}
+local M = {}
 
 function M.do_luajob(cmd)
     vim.g.last_execution = cmd

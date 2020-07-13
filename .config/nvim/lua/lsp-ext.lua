@@ -5,7 +5,7 @@
 -- Distributed under terms of the GPLv3 license.
 --
 
-M = {}
+local M = {}
 
 function M.preview_location(location, context, before_context)
     -- location may be LocationLink or Location (more useful for the former)
