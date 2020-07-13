@@ -69,6 +69,13 @@ M.start_python_debugger = function(use_this_file, is_pytest)
             request = "launch",
             name = "Launch file",
             program = M.debug_target,
+            env = function()
+                local variables = {}
+                for k, v in pairs(vim.fn.environ()) do
+                    table.insert(variables, string.format("%s=%s", k, v))
+                end
+                return variables
+            end,
             console = "integratedTerminal"
             --pythonPath = function()
             --return "/usr/bin/python3"
@@ -92,6 +99,13 @@ M.start_c_debugger = function(args, mi_mode, mi_debugger_path)
             args = args,
             cwd = vim.fn.getcwd(),
             environment = {},
+            env = function()
+                local variables = {}
+                for k, v in pairs(vim.fn.environ()) do
+                    table.insert(variables, string.format("%s=%s", k, v))
+                end
+                return variables
+            end,
             externalConsole = true,
             MIMode = mi_mode or "gdb",
             MIDebuggerPath = mi_debugger_path
