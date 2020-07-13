@@ -225,7 +225,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'rhysd/vim-crystal'
     "Plug 'vigoux/LanguageTool.nvim'
     "Plug 'rhysd/vim-grammarous'
-    "Plug 'chuling/vim-equinusocio-material'
+    Plug 'chuling/vim-equinusocio-material'
     Plug 'mfussenegger/nvim-jdtls'
     Plug 'mattn/emmet-vim'
     Plug 'rhysd/conflict-marker.vim'
@@ -565,12 +565,17 @@ vnoremap // y/<C-R>"<CR>
 
 
 
-"inoremap <expr><cr> pumvisible() ? "\<c-n>" : "\<cr>"
 set termguicolors     " enable true colors support
-colorscheme one
 
-nnoremap <F3> <c-w>o:Tkill<cr>:Topen<cr>:wa<cr>:exec 'T ' . g:last_execution<cr>
-"nnoremap <s-F3> :Tkill<cr>:wa<cr>:exec expand(g:last_execution,1)<cr>
+" valid values: 'default' (default), 'darker', 'pure'
+let g:equinusocio_material_style = 'darker'
+colorscheme equinusocio_material
+
+"inoremap <expr><cr> pumvisible() ? "\<c-n>" : "\<cr>"
+"colorscheme one
+
+nnoremap <silent> <s-F3> <c-w>o:Tkill<cr>:Topen<cr>:wa<cr>:exec 'T ' . g:last_execution<cr>
+nnoremap <silent> <F3> :Tkill<cr>:wa<cr>:exec 'T ' . g:last_execution<cr>
 ""
 "autocmd FileType cpp nnoremap <buffer> <F5> :let g:last_execution='./build/' . $target<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($g:last_exection,1)<cr>
 autocmd FileType just,cpp,cmake,cuda,c,make,prm nnoremap <buffer> <s-F6> <c-w>o:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:Tkill<cr>:wa<cr>:T just clean<cr>
