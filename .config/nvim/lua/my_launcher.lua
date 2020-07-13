@@ -6,7 +6,7 @@ local my_commands = require "my_commands"
 M = {}
 
 function M.get_just_program()
-    return vim.fn.empty(vim.fn.glob("./justfile")) and
+    return vim.fn.empty(vim.fn.glob("./justfile")) == 1 and
         "just --justfile " .. vim.fn.expand("~/.justfile") .. " --working-directory ." or
         "just"
 end
@@ -45,9 +45,9 @@ end
 M.run_just_task = function(task, async)
     local just_program = M.get_just_program()
     if async then
-        my_commands.do_luajob(just_program .. task)
+        my_commands.do_luajob(just_program..' '..task)
     else
-        M.term_run(just_program .. task)
+        M.term_run(just_program..' '..task)
     end
 end
 

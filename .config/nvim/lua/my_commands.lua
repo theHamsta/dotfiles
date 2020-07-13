@@ -71,9 +71,7 @@ function M.do_luajob(cmd)
                     print('"' .. cmd .. '" finished!')
                 end
             end,
-            env = {
-                PATH = "/usr/bin/:/bin/:" .. vim.fn.expand("~/.local/bin")
-            }
+            env = vim.fn.environ()
         }
     )
     job:start()
