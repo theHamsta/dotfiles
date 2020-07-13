@@ -71,7 +71,7 @@ function M.do_luajob(cmd)
                     print('"' .. cmd .. '" finished!')
                 end
             end,
-            env = vim.fn.environ()
+            --env = vim.fn.environ()
         }
     )
     job:start()
