@@ -532,9 +532,6 @@ if ok then
             highlight = {
                 enable = true, -- false will disable the whole extension
                 disable = {"html", "lua"}, -- list of language that will be disabled
-                custom_captures = {
-                    Foo = "Error"
-                } -- list of language that will be disabled
             },
             incremental_selection = {
                 -- this enables incremental selection
@@ -591,6 +588,7 @@ if ok then
             refactor = {
                 highlight_current_scope = {
                     enable = true,
+                    inverse_highlighting = true,
                     disable = {}
                 },
                 highlight_definitions = {
@@ -657,8 +655,6 @@ if ok then
     hlmap["type"] = "Type"
     hlmap["type.builtin"] = "Type"
     hlmap["structure"] = "Structure"
-
-    
 
 end
 

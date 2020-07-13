@@ -290,7 +290,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'liquidz/vim-iced', {'for': 'clojure'}
     ""Plug 'liquidz/iced-nrepl', {'for': 'clojure'}
     ""Plug 'kamykn/CCSpellCheck.vim'
-    "Plug 'AndrewRadev/switch.vim'
+    Plug 'AndrewRadev/switch.vim'
     ""Plug 'Chun-Yang/vim-action-ag'
     ""Plug 'JuliaEditorSupport/julia-vim'
     Plug 'Julian/vim-textobj-variable-segment'
@@ -299,8 +299,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'Olical/vim-enmasse'
     Plug 'Shougo/echodoc.vim'
     ""Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-    "Plug 'SirVer/ultisnips'
-    "Plug 'Valloric/ListToggle'
+    Plug 'SirVer/ultisnips'
+    Plug 'Valloric/ListToggle'
     Plug 'airblade/vim-gitgutter'
     Plug 'airblade/vim-rooter'
     ""Plug 'akiyosi/gonvim-fuzzy'
@@ -1612,3 +1612,6 @@ highlight link TSError Normal
 nnoremap <F8> :Tagbar<CR>
 nmap ,w ysiw)
 nmap ,<s-w> ysiW)
+
+command! TSPlayground :lua require"nvim-treesitter.playground".play_with() 
+command! TSStopPlaying :lua require"nvim-treesitter.playground".play_with() 
