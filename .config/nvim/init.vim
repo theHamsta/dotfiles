@@ -241,7 +241,6 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'theHamsta/nvim_rocks', {'do': 'pip3 install --user hererocks && hererocks . -j2.1.0-beta3 -r3.0.0 && cp nvim_rocks.lua lua'}
     Plug 'tjdevries/luvjob.nvim'
     Plug 'tjdevries/plenary.nvim'
-    ", {'do': ":lua require'plenary.neorocks'.setup_hererocks()"}
     Plug 'svermeulen/nvim-moonmaker'
     ""Plug 'haorenW1025/completion-nvim'
     ""Plug 'vigoux/completion-treesitter'
