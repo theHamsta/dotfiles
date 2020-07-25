@@ -211,6 +211,7 @@ function! BuildComposer(info)
 endfunction
 
 let g:vimtex_complete_enabled = 0
+set isfname -==
  
 call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'beloglazov/vim-online-thesaurus'
@@ -226,6 +227,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'vigoux/LanguageTool.nvim'
     "Plug 'rhysd/vim-grammarous'
     Plug 'chuling/vim-equinusocio-material'
+    Plug 'nvim-treesitter/playground'
+    Plug 'nvim-treesitter/nvim-tree-docs'
     Plug 'mfussenegger/nvim-jdtls'
     Plug 'mattn/emmet-vim'
     Plug 'rhysd/conflict-marker.vim'
@@ -248,7 +251,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'bergercookie/vim-deb-preview'
     ""Plug 'doums/coBra'
     ""Plug 'zoxves/LightningFileExplorer'
-    "Plug 'theHamsta/nvim-tree.lua', {'branch': 'exa'}
+    Plug 'theHamsta/nvim-tree.lua', {'branch': 'exa'}
     ""Plug 'mcchrish/info-window.nvim'
     "Plug 'gluon-lang/vim-gluon'
     "Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
@@ -316,7 +319,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'dbeniamine/cheat.sh-vim', { 'on':  [ 'Cheat!'] }
     Plug 'dyng/ctrlsf.vim'
     "Plug 'easymotion/vim-easymotion'
-    Plug 'editorconfig/editorconfig-vim'
+    "Plug 'editorconfig/editorconfig-vim'
     Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer'),  'on': ':ComposerStart' }
     Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoInstallBinaries'}
     "Plug 'junegunn/vim-emoji'
@@ -328,7 +331,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'godlygeek/tabular'
     ""Plug 'gregf/ultisnips-chef'
     ""Plug 'heavenshell/vim-pydocstring'
-    "Plug 'hotwatermorning/auto-git-diff'
+    Plug 'hotwatermorning/auto-git-diff'
     Plug 'idanarye/vim-merginal'
     Plug 'ivalkeen/nerdtree-execute'   , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
     Plug 'Xuyuanp/nerdtree-git-plugin'  , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
@@ -374,12 +377,12 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'rliang/termedit.nvim'
     ""Plug 'roblillack/vim-bufferlist'
     "Plug 'rust-lang/rust.vim', { 'for': ['rust', 'toml'] }
-    "Plug 'ryanoasis/vim-devicons'
+    Plug 'ryanoasis/vim-devicons'
     ""Plug 'sakhnik/nvim-gdb', { 'do': './install.sh' }
     Plug 'scrooloose/nerdcommenter'
     ""Plug 'sebdah/vim-delve', { 'for' : 'go' }
     ""Plug 'sgur/ctrlp-extensions.vim'
-    "Plug 'sgur/vim-textobj-parameter'
+    Plug 'sgur/vim-textobj-parameter'
     ""Plug 'shumphrey/fugitive-gitlab.vim'
     Plug 'skywind3000/vim-preview'
     ""Plug 't9md/vim-choosewin'
@@ -405,7 +408,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'vim-airline/vim-airline-themes'
     ""Plug 'vim-scripts/SearchComplete'
     Plug 'wellle/targets.vim'
-    "Plug 'whiteinge/diffconflicts'
+    Plug 'whiteinge/diffconflicts'
     Plug 'TravonteD/luajob'
     ""Plug 'zchee/deoplete-go', { 'do': 'make'}
     ""
@@ -569,13 +572,13 @@ set termguicolors     " enable true colors support
 
 " valid values: 'default' (default), 'darker', 'pure'
 let g:equinusocio_material_style = 'darker'
-colorscheme equinusocio_material
+"colorscheme equinusocio_material
 
 "inoremap <expr><cr> pumvisible() ? "\<c-n>" : "\<cr>"
-"colorscheme one
+colorscheme one
 
-nnoremap <silent> <s-F3> <c-w>o:Tkill<cr>:Topen<cr>:wa<cr>:exec 'T ' . g:last_execution<cr>
-nnoremap <silent> <F3> :Tkill<cr>:wa<cr>:exec 'T ' . g:last_execution<cr>
+nnoremap <silent> <F3> <c-w>o:Tkill<cr>:Topen<cr>:wa<cr>:exec 'T ' . g:last_execution<cr>
+nnoremap <silent> <s-F3> :Tkill<cr>:wa<cr>:exec 'T ' . g:last_execution<cr>
 ""
 "autocmd FileType cpp nnoremap <buffer> <F5> :let g:last_execution='./build/' . $target<cr>:wa<cr>:CMake<cr>:Neomake!<cr>:exec 'T' expand($g:last_exection,1)<cr>
 autocmd FileType just,cpp,cmake,cuda,c,make,prm nnoremap <buffer> <s-F6> <c-w>o:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:Tkill<cr>:wa<cr>:T just clean<cr>
@@ -589,7 +592,7 @@ autocmd FileType java,kotlin,groovy nnoremap <buffer> <F5> <c-w>o:Topen<cr>:let 
 autocmd FileType java,kotlin,groovy nnoremap <buffer> <F6> <c-w>o:Topen<cr>:let g:last_execution='./gradlew test'<cr>:Tkill<cr>:wa<cr>:T ./gradlew test<cr>
 autocmd FileType tex,latex nnoremap <buffer> <F3> val<plug>(vimtex-compile-selected)
 autocmd FileType tex,latex nnoremap <buffer> <F4> :VimtexCompileSS<cr>
-autocmd FileType tex,latex,vim,cmake setlocal foldmethod=indent
+autocmd FileType tex,latex,vim,cmake,xml setlocal foldmethod=indent
 "autocmd FileType tex,latex :let  maplocalleader="<space>"
 autocmd FileType rust,toml nmap <buffer> <F5> :exec 'T cd' FindRootDirectory()<cr><c-w>o:let g:last_execution='cargo run'<cr>:Tkill<cr>:wa<cr>:T cargo run<cr>:Topen<cr>
 autocmd FileType rust,toml nmap <buffer> <F7> :exec 'T cd' FindRootDirectory()<cr><c-w>o:Tkill<cr>:wa<cr>:T cargo run
@@ -731,6 +734,7 @@ function! NvimLspMaps()
     nnoremap <buffer><silent> gk         <cmd>lua vim.lsp.buf.declaration()<CR>
     nnoremap <buffer><silent> gr         <cmd>lua vim.lsp.buf.references()<CR>
     nnoremap <buffer> <silent> gd        <cmd>lua vim.lsp.buf.definition()<CR>
+    nmap <buffer> <silent> gD  <c-w>vgd
     nnoremap <buffer><silent> gh         <cmd>lua vim.lsp.buf.hover()<CR>
     nnoremap <buffer><silent> gi         <cmd>lua vim.lsp.buf.implementation()<CR>
     nnoremap <buffer><silent> gS         <cmd>lua vim.lsp.buf.signature_help()<CR>
@@ -1043,7 +1047,7 @@ let g:lt_quickfix_list_toggle_map = '<leader>qe'
 nmap <leader>ch :Cheat! 
 
 
-"let g:netrw_browsex_viewer='xdg-open'
+let g:netrw_browsex_viewer='xdg-open'
 "let g:rust_fold = 1
 "let g:cargo_makeprg_params = 'build'
 
@@ -1451,10 +1455,10 @@ nnoremap <silent> <c-0> :lua require'my_gui'.reset_fontsize()<cr>
     "\ }
 "let g:lua_tree_ignore = [ '.git', 'node_modules', '.cache', '__pycache__' ]
 
-"nnoremap <Leader>nt :LuaTreeToggle<CR>
-"nnoremap <Leader>nf :LuaTreeFindFile<cr>:LuaTreeShow<CR>
-nnoremap <Leader>nt :NERDTreeToggle<cr>
-nnoremap <Leader>nf :NERDTreeFind<cr>
+nnoremap <Leader>nt :LuaTreeToggle<CR>
+nnoremap <Leader>nf :LuaTreeFindFile<cr>:LuaTreeShow<CR>
+nnoremap <Leader>nT :NERDTreeToggle<cr>
+nnoremap <Leader>nF :NERDTreeFind<cr>
 ""
 "let g:diagnostic_insert_delay = 1
 
@@ -1558,7 +1562,7 @@ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 ""let g:lightline = { 'colorscheme': 'palenight' }
 au TextYankPost * silent! lua require'vim.highlight'.on_yank({"IncSearch", 150})
 
-"highlight NvimTreesitterCurrentNode guibg=#444400
+"highlight link NvimTreesitterCurrentNode guibg=#444400
 
 let g:sexp_filetypes = 'clojure,scheme,lisp,timl,vlime_repl,fennel'
 
@@ -1575,11 +1579,11 @@ nnoremap <c-t> :Tags<cr>
 nnoremap <c-a-o> :BTags<cr>
 luafile ~/.config/nvim/init.lua
 
-fun! IgnoreCamelCaseSpell()
-  syn match CamelCase /\<[A-Z][a-z]\+[A-Z].\{-}\>/ contains=@NoSpell transparent
-  syn cluster Spell add=CamelCase
-endfun
-autocmd BufEnter,BufReadPost,BufWritePost,BufNewFile * :call IgnoreCamelCaseSpell()
+"fun! IgnoreCamelCaseSpell()
+  "syn match CamelCase /\<[A-Z][a-z]\+[A-Z].\{-}\>/ contains=@NoSpell transparent
+  "syn cluster Spell add=CamelCase
+"endfun
+"autocmd BufEnter,BufReadPost,BufWritePost,BufNewFile * :call IgnoreCamelCaseSpell()
 
 command! -buffer JdtCompile lua require('jdtls').compile()
 command! -buffer JdtUpdateConfig lua require('jdtls').update_project_config()
@@ -1619,3 +1623,4 @@ nmap ,<s-w> ysiW)
 
 command! TSPlayground :lua require"nvim-treesitter.playground".play_with() 
 command! TSStopPlaying :lua require"nvim-treesitter.playground".play_with() 
+

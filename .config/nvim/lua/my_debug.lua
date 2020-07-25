@@ -26,6 +26,14 @@ M.set_debug_target = function(is_pytest)
     M.debug_target = (is_pytest and "-m pytest " or "") .. vim.fn.expand("%:p")
 end
 
+local function mk_env()
+    local variables = {}
+    for k, v in pairs(vim.fn.environ()) do
+        table.insert(variables, string.format("%s=%s", k, v))
+    end
+    return variables
+end
+
 M.start_debugpy = function(target, port)
     M.debugpy =
         luajob:new(
@@ -69,14 +77,8 @@ M.start_python_debugger = function(use_this_file, is_pytest)
             request = "launch",
             name = "Launch file",
             program = M.debug_target,
-            env = function()
-                local variables = {}
-                for k, v in pairs(vim.fn.environ()) do
-                    table.insert(variables, string.format("%s=%s", k, v))
-                end
-                return variables
-            end,
-            console = "integratedTerminal"
+            console = "integratedTerminal",
+            justMyCode = false,
             --pythonPath = function()
             --return "/usr/bin/python3"
             --end
@@ -99,13 +101,7 @@ M.start_c_debugger = function(args, mi_mode, mi_debugger_path)
             args = args,
             cwd = vim.fn.getcwd(),
             environment = {},
-            env = function()
-                local variables = {}
-                for k, v in pairs(vim.fn.environ()) do
-                    table.insert(variables, string.format("%s=%s", k, v))
-                end
-                return variables
-            end,
+            env = mk_env(),
             externalConsole = true,
             MIMode = mi_mode or "gdb",
             MIDebuggerPath = mi_debugger_path
@@ -117,7 +113,7 @@ M.start_c_debugger = function(args, mi_mode, mi_debugger_path)
         return
     end
 
-    dap.launch(dap.adapters.cpp, last_gdb_config)
+    dap.run(last_gdb_config)
     dap.repl.open()
 end
 
@@ -150,7 +146,7 @@ end
 
 local rr_port = 232322
 
-M.reverse_debug = function(args, mi_mode, mi_debugger_path)
+M.reverse_debug = function(args)
     local dap = require "dap"
     if args and #args > 0 then
         last_lldb_config = {
@@ -173,20 +169,28 @@ M.reverse_debug = function(args, mi_mode, mi_debugger_path)
 end
 
 local last_java_config
-M.debug_java = function(last)
+M.debug_java = function()
     local dap = require "dap"
     local dap_ui = require "dap/ui"
 
-    last_java_config = dap_ui.pick_one(dap.configurations.java, "Main Class", function(it) return it.mainClass end)
-
+    last_java_config =
+        dap_ui.pick_one(
+        dap.configurations.java,
+        "Main Class",
+        function(it)
+            return it.mainClass
+        end
+    )
 
     if not last_java_config then
-        print('No Java config set!')
+        print("No Java config set!")
         return
     end
-    dap.adapters.java(function(adapter)
-        dap.attach(adapter.host, adapter.port, last_java_config)
-      end)
+    dap.adapters.java(
+        function(adapter)
+            dap.attach(adapter.host, adapter.port, last_java_config)
+        end
+    )
     --dap.repl.open()
 end
 

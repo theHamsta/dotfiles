@@ -37,10 +37,10 @@ endfunction
 --
 --
 --
-require'plenary.neorocks'.setup_hererocks()
 --
 local ok, neorocks = pcall(require, "plenary.neorocks")
 if ok then
+    require "plenary.neorocks".setup_hererocks()
     neorocks.ensure_installed("fun")
     neorocks.ensure_installed("luasec", "fun", "30log", "lua-toml", "template", "lua-cjson")
 end
@@ -118,7 +118,7 @@ if ok then
             "--all-scopes-completion",
             "--header-insertion=iwyu",
             "--background-index",
-            "--suggest-missing-includes"
+            "--suggest-missing-includes",
         },
         filetypes = {"c", "cpp", "objc", "objcpp", "cuda"},
         on_attach = on_attach
@@ -399,7 +399,10 @@ if ok then
     dap.adapters.python = {
         type = "executable",
         command = "python3",
-        args = {"-m", "debugpy.adapter"}
+        args = {
+            "-m",
+            "debugpy.adapter"
+        }
     }
     --"internalConsole",
     --"integratedTerminal",
@@ -453,6 +456,7 @@ if ok then
 
     dap.adapters.cpp = {
         name = "cppdbg",
+        type = "executable",
         command = vim.api.nvim_get_runtime_file("gadgets/linux/vscode-cpptools/debugAdapters/OpenDebugAD7", false)[1],
         args = {},
         attach = {
@@ -476,6 +480,7 @@ if ok then
         }
     }
     dap.adapters.lldb = {
+        type = "executable",
         attach = {
             pidProperty = "pid",
             pidSelect = "ask"
@@ -505,7 +510,6 @@ if ok then
 end
 
 vim.fn.sign_define("DapBreakpoint", {text = "🛑", texthl = "", linehl = "", numhl = ""})
-
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
     vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
@@ -531,7 +535,20 @@ if ok then
         {
             highlight = {
                 enable = true, -- false will disable the whole extension
-                disable = {"html", "lua"}, -- list of language that will be disabled
+                disable = {"html", "lua"} -- list of language that will be disabled
+            },
+            tree_docs = {
+                enable = true,
+                keymaps = {
+                    doc_node_at_cursor = "gdd",
+                    doc_all_in_range = "gdd"
+                }
+            },
+            playground = {
+                enable = true,
+                keymaps = {
+                  open = '<leader>pl'
+                }
             },
             incremental_selection = {
                 -- this enables incremental selection
@@ -539,7 +556,7 @@ if ok then
                 disable = {},
                 keymaps = {
                     init_selection = "<enter>", -- maps in normal mode to init the node/scope selection
-                    node_incremental = "aq", -- increment to the upper named parent
+                    node_incremental = "<enter>", -- increment to the upper named parent
                     scope_incremental = "Ts", -- increment to the upper scope (as defined in locals.scm)
                     node_decremental = "grm"
                 }
@@ -547,13 +564,17 @@ if ok then
             node_movement = {
                 -- this enables incremental selection
                 enable = true,
-                highlight_current_node = false,
+                highlight_current_node = true,
                 disable = {},
                 keymaps = {
                     move_up = "<a-k>",
                     move_down = "<a-j>",
                     move_left = "<a-h>",
                     move_right = "<a-l>",
+                    swap_up = "<s-a-k>",
+                    swap_down = "<s-a-j>",
+                    swap_left = "<s-a-h>",
+                    swap_right = "<s-a-l>",
                     select_current_node = "<leader>ff"
                 }
             },
@@ -583,13 +604,24 @@ if ok then
                     ["id"] = "@comment.inner",
                     ["am"] = "@call.outer",
                     ["im"] = "@call.inner"
+                },
+                swap_next_keymaps = {
+                    ["<a-n>"] = "@parameter",
+                    gpf = "@function.outer"
+                },
+                swap_previous_keymaps = {
+                    ["<a-p>"] = "@parameter",
+                    gpF = "@function.outer"
                 }
+            },
+            fold = {
+                enable = true
             },
             refactor = {
                 highlight_current_scope = {
-                    enable = true,
+                    enable = false,
                     inverse_highlighting = true,
-                    disable = {}
+                    disable = {"python"}
                 },
                 highlight_definitions = {
                     enable = true,
@@ -656,6 +688,14 @@ if ok then
     hlmap["type.builtin"] = "Type"
     hlmap["structure"] = "Structure"
 
+    local ok, docs = pcall(require, "nvim-tree-docs")
+    if ok then
+        docs.init()
+    end
+    local ok, play = pcall(require, "nvim-treesitter-playground")
+    if ok then
+      play.init()
+    end
 end
 
 --

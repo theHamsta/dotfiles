@@ -4,9 +4,10 @@ call DapMaps()
 
 nmap <buffer> <silent> <a-o> :ClangdSwitchSourceHeader<cr>
 
+setlocal nospell
 
-fun! IgnoreCamelCaseSpell()
-  syn match CamelCase /\<[A-Z][a-z]\+[A-Z].\{-}\>/ contains=@NoSpell transparent
-  syn cluster Spell add=CamelCase
-endfun
-autocmd BufReadPost,BufWritePost,BufNewFile *.cpp :call IgnoreCamelCaseSpell()
+"fun! IgnoreCamelCaseSpell()
+  "syn match CamelCase /\<[A-Z][a-z]\+[A-Z].\{-}\>/ contains=@NoSpell transparent
+  "syn cluster Spell add=CamelCase
+"endfun
+"autocmd BufReadPost,BufWritePost,BufNewFile *.cpp :call IgnoreCamelCaseSpell()

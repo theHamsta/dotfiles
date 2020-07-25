@@ -122,3 +122,4 @@ tikz/*
 _minted-*/
 
 todoist_api.lua
+*.add.spl

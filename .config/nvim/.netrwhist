@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =1
+let g:netrw_dirhist_1='/home/stephan/projects/sympy'
+let g:netrw_dirhist_0='/home/stephan/.local/share/nvim/plugged/nvim-treesitter/.github/workflows'
+let g:netrw_dirhist_9='/home/stephan/.local/share/nvim/plugged/nvim-treesitter/.github'
+let g:netrw_dirhist_8='/home/stephan/projects/example_app'
+let g:netrw_dirhist_7='/home/stephan/projects/walberla/src/module2'
+let g:netrw_dirhist_6='/home/stephan/projects/walberla/src/module2/pybind11/tools'
+let g:netrw_dirhist_5='/home/stephan/projects/walberla/src/module2/pybind11'
+let g:netrw_dirhist_4='/home/stephan/projects/walberla/src/module2/pybind11/pybind11'
+let g:netrw_dirhist_3='/home/stephan/projects/walberla/src/module2/pybind11'
+let g:netrw_dirhist_2='/home/stephan/projects/walberla/src/module2'
