@@ -340,7 +340,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'jackguo380/vim-lsp-cxx-highlight'
     Plug 'janko/vim-test'
     "Plug 'jaxbot/semantic-highlight.vim'
-    "Plug 'jceb/vim-orgmode'
+    Plug 'jceb/vim-orgmode'
     ""Plug 'jpalardy/vim-slime'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
