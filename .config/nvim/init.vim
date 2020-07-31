@@ -333,10 +333,10 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'heavenshell/vim-pydocstring'
     Plug 'hotwatermorning/auto-git-diff'
     Plug 'idanarye/vim-merginal'
-    Plug 'ivalkeen/nerdtree-execute'   , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-    Plug 'Xuyuanp/nerdtree-git-plugin'  , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-    Plug 'scrooloose/nerdtree' , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-    Plug 'tiagofumo/vim-nerdtree-syntax-highlight' , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    "Plug 'ivalkeen/nerdtree-execute'   , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    "Plug 'Xuyuanp/nerdtree-git-plugin'  , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    "Plug 'scrooloose/nerdtree' , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    "Plug 'tiagofumo/vim-nerdtree-syntax-highlight' , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
     ""Plug 'jackguo380/vim-lsp-cxx-highlight'
     Plug 'janko/vim-test'
     "Plug 'jaxbot/semantic-highlight.vim'
@@ -1624,3 +1624,4 @@ nmap ,<s-w> ysiW)
 command! TSPlayground :lua require"nvim-treesitter.playground".play_with() 
 command! TSStopPlaying :lua require"nvim-treesitter.playground".play_with() 
 
+nnoremap <leader>pl :TSPlaygroundToggle<cr>

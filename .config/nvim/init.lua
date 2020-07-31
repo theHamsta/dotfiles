@@ -43,6 +43,7 @@ if ok then
     require "plenary.neorocks".setup_hererocks()
     neorocks.ensure_installed("fun")
     neorocks.ensure_installed("luasec", "fun", "30log", "lua-toml", "template", "lua-cjson")
+    neorocks.ensure_installed("luasocket")
 end
 
 if not filter then
@@ -359,7 +360,8 @@ if ok then
                     onSave = false
                 },
                 lint = {
-                    onSave = true
+                    onSave = false,
+                    onChange = true
                 }
             }
         },
@@ -513,24 +515,25 @@ vim.fn.sign_define("DapBreakpoint", {text = "🛑", texthl = "", linehl = "", nu
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
     vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
-    require "nvim-treesitter.parsers".get_parser_configs().lisp = {
-        install_info = {
-            url = "https://github.com/theHamsta/tree-sitter-clojure",
-            files = {"src/parser.c"}
-        }
-    }
-    require "nvim-treesitter.parsers".get_parser_configs().clojure = {
-        install_info = {
-            url = "https://github.com/oakmac/tree-sitter-clojure",
-            files = {"src/parser.c"}
-        }
-    }
-    require "nvim-treesitter.parsers".get_parser_configs().regex = {
-        install_info = {
-            url = "https://github.com/tree-sitter/tree-sitter-regex",
-            files = {"src/parser.c"}
-        }
-    }
+    --require "nvim-treesitter.parsers".get_parser_configs().lisp = {
+        --install_info = {
+            --url = "https://github.com/theHamsta/tree-sitter-clojure",
+            --files = {"src/parser.c"},
+        --}
+    --}
+    --require "nvim-treesitter.parsers".get_parser_configs().clojure = {
+        --install_info = {
+            --url = "https://github.com/oakmac/tree-sitter-clojure",
+            --files = {"src/parser.c"},
+            ----used_by = { "scheme" },
+        --}
+    --}
+    --require "nvim-treesitter.parsers".get_parser_configs().regex = {
+        --install_info = {
+            --url = "https://github.com/tree-sitter/tree-sitter-regex",
+            --files = {"src/parser.c"}
+        --}
+    --}
     require "nvim-treesitter.configs".setup(
         {
             highlight = {
@@ -546,9 +549,6 @@ if ok then
             },
             playground = {
                 enable = true,
-                keymaps = {
-                  open = '<leader>pl'
-                }
             },
             incremental_selection = {
                 -- this enables incremental selection
