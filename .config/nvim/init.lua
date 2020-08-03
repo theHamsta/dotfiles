@@ -515,12 +515,12 @@ vim.fn.sign_define("DapBreakpoint", {text = "🛑", texthl = "", linehl = "", nu
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
     vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
-    --require "nvim-treesitter.parsers".get_parser_configs().lisp = {
-        --install_info = {
-            --url = "https://github.com/theHamsta/tree-sitter-clojure",
-            --files = {"src/parser.c"},
-        --}
-    --}
+    require "nvim-treesitter.parsers".get_parser_configs().lisp = {
+        install_info = {
+            url = "https://github.com/theHamsta/tree-sitter-clojure",
+            files = {"src/parser.c"},
+        }
+    }
     --require "nvim-treesitter.parsers".get_parser_configs().clojure = {
         --install_info = {
             --url = "https://github.com/oakmac/tree-sitter-clojure",
@@ -605,14 +605,22 @@ if ok then
                     ["am"] = "@call.outer",
                     ["im"] = "@call.inner"
                 },
-                swap_next_keymaps = {
-                    ["<a-n>"] = "@parameter",
-                    gpf = "@function.outer"
+                swap_next = {
+                    ["<a-l>"] = "@parameter.inner",
+                    ["<a-f>"] = "@function.outer",
+                    ["<a-s>"] = "@statement.outer",
                 },
-                swap_previous_keymaps = {
-                    ["<a-p>"] = "@parameter",
-                    gpF = "@function.outer"
-                }
+                swap_previous = {
+                    ["<a-L>"] = "@parameter.inner",
+                    ["<a-F>"] = "@function.outer",
+                    ["<a-S>"] = "@statement.outer",
+                },
+                goto_next_start = {
+                    ["]]"] = "@function.inner",
+                },
+                goto_previous_end = {
+                    ["[["] = "@function.inner",
+                },
             },
             fold = {
                 enable = true
@@ -733,6 +741,10 @@ vim.cmd [[
 vim.cmd [[
     command! SwitchHeaderSource lua require "lsp-ext".switch_header_source()
 ]]
+
+vim.cmd("set guicursor+=a:blinkon333")
+vim.cmd('set guifont="Noto_Sans:h8"')
+
 
 --vim.api.nvim_command [[
 --command! -nargs=1 JustTargets lua require "my_launcher".fuzzy_just(<f-args>)

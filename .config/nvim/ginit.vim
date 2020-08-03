@@ -10,3 +10,4 @@ call rpcnotify(1, 'Gui', 'Font', g:my_font .. ' ' .. string(g:my_fontsize))
 "
 "set completeopt=menuone,menu,longest,preview
 "
+"

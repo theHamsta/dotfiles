@@ -634,6 +634,7 @@ nmap <a-p> :cd ~/projects<cr>:Buffers<cr>
 "autocmd FileType lua nnoremap <buffer> <F5> :exec '!lua' shellescape(@%:p, 1)<cr>:letg:last_execution=@%:p <cr>
 
 autocmd FileType lua nnoremap <buffer> <c-s> ma:w<cr>:%!luafmt --stdin<cr>'azz
+autocmd FileType cmake nnoremap <buffer> <c-s> ma:w<cr>:%!gersemi %<cr>'azz
 "autocmd FileType tex,latex nnoremap <buffer> <c-s> :w<cr>:silent !latexindent % -w<cr>:e<cr>
 ""autocmd FileType tex,latex call neomake#configure#automake('w')
 ""autocmd FileType rst call neomake#configure#automake('w')
@@ -1621,7 +1622,7 @@ nnoremap <F8> :Tagbar<CR>
 nmap ,w ysiw)
 nmap ,<s-w> ysiW)
 
-command! TSPlayground :lua require"nvim-treesitter.playground".play_with() 
-command! TSStopPlaying :lua require"nvim-treesitter.playground".play_with() 
+command! TSPlayground :lua require"nvim-treesitter.playground".play_with()
+command! TSStopPlaying :lua require"nvim-treesitter.playground".play_with()
 
 nnoremap <leader>pl :TSPlaygroundToggle<cr>
