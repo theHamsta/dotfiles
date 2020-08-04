@@ -616,10 +616,10 @@ if ok then
                     ["<a-S>"] = "@statement.outer",
                 },
                 goto_next_start = {
-                    ["]]"] = "@function.inner",
+                    ["öö"] = "@function.inner",
                 },
-                goto_previous_end = {
-                    ["[["] = "@function.inner",
+                goto_previous_start = {
+                    ["üü"] = "@function.inner",
                 },
             },
             fold = {
@@ -633,7 +633,7 @@ if ok then
                 },
                 highlight_definitions = {
                     enable = true,
-                    disable = {}
+                    disable = {"python"}
                 },
                 smart_rename = {
                     enable = true,
