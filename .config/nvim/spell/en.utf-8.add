@@ -165,6 +165,7 @@ textobject
 assert
 pyronn
 pycuda
+sinogram
 uncaughted
 buf
 dict
