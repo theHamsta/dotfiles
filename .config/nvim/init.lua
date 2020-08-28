@@ -38,13 +38,12 @@ endfunction
 --
 --
 --
-local ok, neorocks = pcall(require, "plenary.neorocks")
-if ok then
-    require "plenary.neorocks".setup_hererocks()
-    neorocks.ensure_installed("fun")
-    neorocks.ensure_installed("luasec", "fun", "30log", "lua-toml", "template", "lua-cjson")
-    neorocks.ensure_installed("luasocket")
-end
+--local ok, neorocks = pcall(require, "plenary.neorocks")
+--if ok then
+    --neorocks.ensure_installed("fun")
+    --neorocks.ensure_installed("luasec", "fun", "30log", "lua-toml", "template", "lua-cjson")
+    --neorocks.ensure_installed("luasocket")
+--end
 
 if not filter then
     local ok, _ = pcall(require, "fun")
@@ -89,6 +88,20 @@ if ok then
         require("nvim_lsp/configs").sumneko_lua.install()
     end
 
+    local configs = require 'nvim_lsp.configs'
+    configs.zls = { default_config = {
+        cmd = {
+            "zls"
+        };
+        filetypes = {'zig'};
+        root_dir = function(fname)
+          return require 'nvim_lsp/util'.find_git_ancestor(fname) or vim.loop.os_homedir()
+        end;
+      };
+    }
+   -- nvim_lsp.zls.setup {}
+
+
     --nvim_lsp.gopls.setup {
     --on_attach = on_attach,
     --settings = {
@@ -114,7 +127,7 @@ if ok then
     }
     nvim_lsp.clangd.setup {
         cmd = {
-            "clangd-11",
+            "clangd-12",
             "--clang-tidy",
             "--all-scopes-completion",
             "--header-insertion=iwyu",
@@ -440,7 +453,7 @@ if ok then
             --end
         }
     }
-    dap.repl.commands = {
+    dap.repl.commands = vim.tbl_extend('force', dap.repl.commands, {
         continue = {".continue", "c"},
         next_ = {".next", "n"},
         into = {".into", "s"},
@@ -452,9 +465,15 @@ if ok then
         up = {".up", "up"},
         down = {".down", "down"},
         goto_ = {".goto", "j"},
-        into_targets = {".into_targets", "t"}
-    }
-    vim.g.dap_virtual_text = true
+        into_targets = {".into_targets", "t"},
+        capabilities = {'.capabilities', '.ca'},
+        custom_commands = {
+            ['.echo'] = function(text)
+                dap.repl.append(text)
+            end
+        },
+    })
+    vim.g.dap_virtual_text = true  -- 'all frames'
 
     dap.adapters.cpp = {
         name = "cppdbg",
@@ -487,7 +506,7 @@ if ok then
             pidProperty = "pid",
             pidSelect = "ask"
         },
-        command = "lldb-vscode-11",
+        command = "lldb-vscode-12",
         env = {
             LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES"
         },
@@ -499,6 +518,21 @@ if ok then
         args = {"run"},
         cwd = "/home/stephan/projects/vscode-mock-debug/"
     }
+
+    if dap.custom_event_handlers then
+        dap.custom_event_handlers.event_exited["my handler id"] = function(_, _)
+          dap.repl.close()
+          vim.cmd('stopinsert')
+        end
+
+        dap.custom_response_handlers.gotoTargets["my handler id"] = function(_, body)
+          --dap.repl.append(vim.inspect(body))
+        end
+        dap.custom_event_handlers.event_stopped["my handler id"] = function(session, body)
+          --dap.repl.append(vim.inspect(body))
+          --dap.repl.append(vim.inspect(session))
+        end
+    end
 --"<name>: Attach": {
 --"adapter": "vscode-cpptools",
 --"configuration": {
@@ -512,15 +546,16 @@ if ok then
 end
 
 vim.fn.sign_define("DapBreakpoint", {text = "🛑", texthl = "", linehl = "", numhl = ""})
+vim.fn.sign_define("DapLogPoint", {text = "🏀", texthl = "", linehl = "", numhl = ""})
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
     vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
-    require "nvim-treesitter.parsers".get_parser_configs().lisp = {
-        install_info = {
-            url = "https://github.com/theHamsta/tree-sitter-clojure",
-            files = {"src/parser.c"},
-        }
-    }
+    --require "nvim-treesitter.parsers".get_parser_configs().lisp = {
+        --install_info = {
+            --url = "https://github.com/theHamsta/tree-sitter-clojure",
+            --files = {"src/parser.c"},
+        --}
+    --}
     --require "nvim-treesitter.parsers".get_parser_configs().clojure = {
         --install_info = {
             --url = "https://github.com/oakmac/tree-sitter-clojure",
@@ -579,48 +614,56 @@ if ok then
                 }
             },
             textobjects = {
-                enable = true,
-                disable = {},
-                keymaps = {
-                    ["iL"] = {
-                        python = "(function_definition) @function",
-                        cpp = "(function_definition) @function",
-                        c = "(function_definition) @function",
-                        java = "(method_declaration) @function"
+                select = {
+                    enable = true,
+                    disable = {},
+                    keymaps = {
+                        ["iL"] = {
+                            python = "(function_definition) @function",
+                            cpp = "(function_definition) @function",
+                            c = "(function_definition) @function",
+                            java = "(method_declaration) @function"
+                        },
+                        ["af"] = "@function.outer",
+                        ["if"] = "@function.inner",
+                        ["aC"] = "@class.outer",
+                        ["iC"] = "@class.inner",
+                        ["ac"] = "@conditional.outer",
+                        ["ic"] = "@conditional.inner",
+                        ["ae"] = "@block.outer",
+                        ["ie"] = "@block.inner",
+                        ["al"] = "@loop.outer",
+                        ["il"] = "@loop.inner",
+                        ["is"] = "@statement.inner",
+                        ["as"] = "@statement.outer",
+                        ["ad"] = "@comment.outer",
+                        ["id"] = "@comment.inner",
+                        ["am"] = "@call.outer",
+                        ["im"] = "@call.inner"
                     },
-                    ["af"] = "@function.outer",
-                    ["if"] = "@function.inner",
-                    ["aC"] = "@class.outer",
-                    ["iC"] = "@class.inner",
-                    ["ac"] = "@conditional.outer",
-                    ["ic"] = "@conditional.inner",
-                    ["ae"] = "@block.outer",
-                    ["ie"] = "@block.inner",
-                    ["al"] = "@loop.outer",
-                    ["il"] = "@loop.inner",
-                    ["is"] = "@statement.inner",
-                    ["as"] = "@statement.outer",
-                    ["ad"] = "@comment.outer",
-                    ["id"] = "@comment.inner",
-                    ["am"] = "@call.outer",
-                    ["im"] = "@call.inner"
                 },
-                swap_next = {
-                    ["<a-l>"] = "@parameter.inner",
-                    ["<a-f>"] = "@function.outer",
-                    ["<a-s>"] = "@statement.outer",
+                swap = {
+                    enable = true,
+                    swap_next = {
+                        ["<a-l>"] = "@parameter.inner",
+                        ["<a-f>"] = "@function.outer",
+                        ["<a-s>"] = "@statement.outer",
+                    },
+                    swap_previous = {
+                        ["<a-L>"] = "@parameter.inner",
+                        ["<a-F>"] = "@function.outer",
+                        ["<a-S>"] = "@statement.outer",
+                    },
                 },
-                swap_previous = {
-                    ["<a-L>"] = "@parameter.inner",
-                    ["<a-F>"] = "@function.outer",
-                    ["<a-S>"] = "@statement.outer",
-                },
-                goto_next_start = {
-                    ["öö"] = "@function.inner",
-                },
-                goto_previous_start = {
-                    ["üü"] = "@function.inner",
-                },
+                move = {
+                    enable = true,
+                    goto_next_start = {
+                        ["öö"] = "@function.inner",
+                    },
+                    goto_previous_start = {
+                        ["üü"] = "@function.inner",
+                    },
+                }
             },
             fold = {
                 enable = true
@@ -629,11 +672,11 @@ if ok then
                 highlight_current_scope = {
                     enable = false,
                     inverse_highlighting = true,
-                    disable = {"python"}
+                    disable = {"python", "markdown"}
                 },
                 highlight_definitions = {
                     enable = true,
-                    disable = {"python"}
+                    disable = {"markdown"}
                 },
                 smart_rename = {
                     enable = true,
@@ -647,15 +690,19 @@ if ok then
                     disable = {},
                     keymaps = {
                         goto_definition = "gnd",
-                        list_definitions = "gnD"
+                        list_definitions = "gnD",
+                        goto_next_usage = "<a-*>",
+                        goto_previous_usage = "<a-#>",
                     }
                 }
             },
-            ensure_installed = "all"
+            ensure_installed = "all",
+            disable = {"markdown"}, -- list of language that will be disabled
+            --update_strategy = 'newest'
         }
     )
     require "nvim-treesitter.highlight"
-    local hlmap = vim.treesitter.TSHighlighter.hl_map
+    local hlmap = vim.treesitter.highlighter.hl_map
 
     --Misc
     hlmap.error = nil
@@ -695,6 +742,7 @@ if ok then
     hlmap["type"] = "Type"
     hlmap["type.builtin"] = "Type"
     hlmap["structure"] = "Structure"
+    hlmap["annotation"] = "Macro"
 
     local ok, docs = pcall(require, "nvim-tree-docs")
     if ok then

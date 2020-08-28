@@ -232,7 +232,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'mfussenegger/nvim-jdtls'
     Plug 'mattn/emmet-vim'
     Plug 'rhysd/conflict-marker.vim'
-    Plug 'theHamsta/nvim-dap', { 'branch' : 'fork' }
+    Plug 'mfussenegger/nvim-dap'
+    Plug 'theHamsta/nvim-dap-virtual-text'
     "Plug 'haorenW1025/diagnostic-nvim'
    "Plug 'nvim-treesitter/highlight.lua'
     "Plug 'kyazdani42/nvim-palenight.lua'
@@ -286,7 +287,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug  'lambdalisue/suda.vim'
     "Plug  'szymonmaszke/vimpyter'
     "Plug 'norcalli/nvim-colorizer.lua'
-    "Plug 'voldikss/vim-floaterm'
+    Plug 'voldikss/vim-floaterm'
     Plug 'kkoomen/vim-doge'
     ""Plug 'ncm2/float-preview.nvim'
     ""Plug 'liquidz/vim-iced', {'for': 'clojure'}
@@ -333,10 +334,10 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'heavenshell/vim-pydocstring'
     Plug 'hotwatermorning/auto-git-diff'
     Plug 'idanarye/vim-merginal'
-    "Plug 'ivalkeen/nerdtree-execute'   , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-    "Plug 'Xuyuanp/nerdtree-git-plugin'  , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-    "Plug 'scrooloose/nerdtree' , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-    "Plug 'tiagofumo/vim-nerdtree-syntax-highlight' , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    Plug 'ivalkeen/nerdtree-execute'   , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    Plug 'Xuyuanp/nerdtree-git-plugin'  , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    Plug 'scrooloose/nerdtree' , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    Plug 'tiagofumo/vim-nerdtree-syntax-highlight' , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
     ""Plug 'jackguo380/vim-lsp-cxx-highlight'
     Plug 'janko/vim-test'
     "Plug 'jaxbot/semantic-highlight.vim'
@@ -366,7 +367,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'mileszs/ack.vim'
     Plug 'moll/vim-bbye'
     ""Plug 'neomake/neomake',{'for': 'rst'}
-    Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+    "Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
     Plug 'pboettch/vim-cmake-syntax'
     Plug 'peterhoeg/vim-qml', { 'for' : 'qml' }
     "Plug 'rbonvall/snipmate-snippets-bib'
@@ -444,6 +445,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'altercation/vim-colors-solarized'
     Plug 'rakr/vim-one'
     "Plug 'NLKNguyen/papercolor-theme'
+    "Plug 'https://gitlab.com/yorickpeterse/vim-paper.git'
     "Plug 'mhinz/vim-janah'
     "Plug 'https://gitlab.com/thealik/vim-harmony'
     "Plug 'icymind/NeoSolarized'
@@ -1567,7 +1569,6 @@ au TextYankPost * silent! lua require'vim.highlight'.on_yank({"IncSearch", 150})
 
 let g:sexp_filetypes = 'clojure,scheme,lisp,timl,vlime_repl,fennel'
 
-nmap <f1> :lua require'dap'.goto_()<cr>
 "nmap <f2> :lua require'nvim-treesitter/playground'.play_with()<cr>
 
 "nmap j <Plug>(accelerated_jk_gj)
@@ -1603,17 +1604,21 @@ nnoremap <leader>bd :Bdelete<cr>
 
 function DapMaps()
     nnoremap <buffer> <silent> <F9> :lua require'dap'.step_over()<CR>
+    nmap <f1> :lua require'dap'.goto_()<cr>
     nnoremap <buffer> <silent> <F10> :lua require'dap'.step_into()<CR>
     nnoremap <buffer> <silent> <F11> :lua require'dap'.step_out()<CR>
 
     nmap <buffer> <silent> <leader>bb :lua require'dap'.toggle_breakpoint()<CR>
-    nmap <buffer> <silent> <leader>bB :lua require'dap'.toggle_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
+    nmap <buffer> <silent> <leader>bB :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
+    nmap <buffer> <silent> <leader>lp :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log message: '))<CR>
     nmap <buffer> <silent> <leader>br :lua require'dap'.restart()<CR>
     nmap <buffer> <silent> <leader>bc :lua require'dap'.continue()<CR>
     nmap <buffer> <silent> <leader>bn :lua require'dap'.step_over()<CR>
     nmap <buffer> <silent> <leader>bi :lua require'dap'.step_into()<CR>
     nmap <buffer> <silent> <leader>bo :lua require'dap'.step_out()<CR>
+    nmap <buffer> <silent> <leader>lb :lua require'dap'.list_breakpoints()<CR>
     nmap <buffer> <silent> <leader>bm :DebugRepl<cr>
+    nmap <buffer> <silent> <leader>dh :lua require 'dap'.hover()<cr>
 endfunction
 
 highlight link TSError Normal

@@ -100,12 +100,17 @@ M.start_c_debugger = function(args, mi_mode, mi_debugger_path)
             program = table.remove(args, 1),
             args = args,
             cwd = vim.fn.getcwd(),
-            environment = {},
-            env = mk_env(),
+            env = function()
+                local variables = {}
+                for k, v in pairs(vim.fn.environ()) do
+                  table.insert(variables, string.format("%s=%s", k, v))
+                end
+                return variables
+            end,
             externalConsole = true,
             MIMode = mi_mode or "gdb",
             MIDebuggerPath = mi_debugger_path
-        }
+          }
     end
 
     if not last_gdb_config then
