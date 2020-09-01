@@ -556,13 +556,18 @@ if ok then
             --files = {"src/parser.c"},
         --}
     --}
-    --require "nvim-treesitter.parsers".get_parser_configs().clojure = {
-        --install_info = {
-            --url = "https://github.com/oakmac/tree-sitter-clojure",
-            --files = {"src/parser.c"},
-            ----used_by = { "scheme" },
-        --}
-    --}
+    require "nvim-treesitter.parsers".get_parser_configs().zig = {
+        install_info = {
+            url = "https://github.com/GrayJack/tree-sitter-zig",
+            files = {"src/parser.c"},
+        }
+    }
+    require "nvim-treesitter.parsers".get_parser_configs().clojure = {
+        install_info = {
+            url = "https://github.com/oakmac/tree-sitter-clojure",
+            files = {"src/parser.c"},
+        }
+    }
     --require "nvim-treesitter.parsers".get_parser_configs().regex = {
         --install_info = {
             --url = "https://github.com/tree-sitter/tree-sitter-regex",
@@ -578,8 +583,8 @@ if ok then
             tree_docs = {
                 enable = true,
                 keymaps = {
-                    doc_node_at_cursor = "gdd",
-                    doc_all_in_range = "gdd"
+                    doc_node_at_cursor = "<leader>GDD",
+                    doc_all_in_range = "<leader>GDD"
                 }
             },
             playground = {
@@ -672,7 +677,7 @@ if ok then
                 highlight_current_scope = {
                     enable = false,
                     inverse_highlighting = true,
-                    disable = {"python", "markdown"}
+                    disable = {"lua", "markdown"}
                 },
                 highlight_definitions = {
                     enable = true,
@@ -689,6 +694,7 @@ if ok then
                     enable = true,
                     disable = {},
                     keymaps = {
+                        --goto_definition_lsp_fallback = "gd",
                         goto_definition = "gnd",
                         list_definitions = "gnD",
                         goto_next_usage = "<a-*>",
@@ -724,7 +730,7 @@ if ok then
     -- Functions
     hlmap["function"] = "Function"
     hlmap["function.builtin"] = "Special"
-    hlmap["function.macro"] = "Macro"
+    hlmap["function.macro"] = "Function"
     hlmap["parameter"] = "Identifier"
     hlmap["method"] = "Function"
     hlmap["field"] = "Identifier"

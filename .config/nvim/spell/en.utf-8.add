@@ -166,3 +166,10 @@ assert
 pyronn
 pycuda
 uncaughted
+buf
+dict
+v
+k
+dir
+isdir
+noqa

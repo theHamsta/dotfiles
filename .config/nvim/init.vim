@@ -228,6 +228,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'rhysd/vim-grammarous'
     Plug 'chuling/vim-equinusocio-material'
     Plug 'nvim-treesitter/playground'
+    Plug 'ziglang/zig.vim'
+    Plug 'vigoux/treesitter-context.nvim'
     Plug 'nvim-treesitter/nvim-tree-docs'
     Plug 'mfussenegger/nvim-jdtls'
     Plug 'mattn/emmet-vim'
@@ -314,7 +316,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'bronson/vim-visual-star-search'
     ""Plug 'brooth/far.vim'
     ""Plug 'burke/matcher'
-    "Plug 'cespare/vim-toml', {'for': 'toml'}
+    Plug 'cespare/vim-toml', {'for': 'toml'}
     "Plug 'chaoren/vim-wordmotion'
     ""Plug 'ctrlpvim/ctrlp.vim'
     Plug 'dbeniamine/cheat.sh-vim', { 'on':  [ 'Cheat!'] }
@@ -349,7 +351,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'junegunn/gv.vim'
     Plug 'junegunn/limelight.vim'
     Plug 'justinmk/vim-gtfo'
-    ""Plug 'justinmk/vim-sneak'
+    Plug 'justinmk/vim-sneak'
     ""Plug 'kana/vim-textobj-function'
     Plug 'kana/vim-textobj-user'
     Plug 'kassio/neoterm'
@@ -688,8 +690,9 @@ let g:LanguageClient_serverCommands = {
     \ 'crystal': ['/home/stephan/projects/scry/scry/bin/scry'],
     \ 'gluon': ['gluon_language-server'],
     \ 'cmake': ['cmake-language-server'],
-    \ 'go': ['gopls'],
+    \ 'zig': ['zls'],
     \ }
+    "\ 'go': ['gopls'],
     "\ 'lisp': ['~/.roswell/bin/cl-lsp']
     "\ 'python': ['pyls'],
     "\ 'cuda': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
@@ -736,7 +739,10 @@ function! NvimLspMaps()
     nnoremap <buffer><silent> <f2>         <cmd>lua vim.lsp.buf.rename()<CR>
     nnoremap <buffer><silent> gk         <cmd>lua vim.lsp.buf.declaration()<CR>
     nnoremap <buffer><silent> gr         <cmd>lua vim.lsp.buf.references()<CR>
-    nnoremap <buffer> <silent> gd        <cmd>lua vim.lsp.buf.definition()<CR>
+  "nnoremap <buffer> <silent> gd       <cmd>lua require'nvim-treesitter.refactor.navigation'.goto_definition_lsp_fallback()<CR>
+    nnoremap <buffer> <silent> gd       <cmd>lua vim.lsp.buf.definition()<CR>
+    "nnoremap <buffer> <silent> gd       <cmd>requiredefinition()<CR>
+ "<cmd>lua vim.lsp.buf.definition()<CR>
     nmap <buffer> <silent> gD  <c-w>vgd
     nnoremap <buffer><silent> gh         <cmd>lua vim.lsp.buf.hover()<CR>
     nnoremap <buffer><silent> gi         <cmd>lua vim.lsp.buf.implementation()<CR>
@@ -747,7 +753,7 @@ function! NvimLspMaps()
     nnoremap <buffer><silent> <leader>ss :lua vim.lsp.buf.workspace_symbols()<cr>
     nnoremap <buffer><silent> <leader>de :lua require'lsp-ext'.peek_definition()<cr>
     nnoremap <buffer> <silent> <2-LeftMouse> <cmd>lua vim.lsp.buf.hover()<CR>
-    nnoremap <buffer> <silent> <c-LeftMouse> <cmd>lua vim.lsp.buf.definition()<CR>
+    nnoremap <buffer> <silent> <c-LeftMouse> <cmd>lua require'nvim-treesitter.refactor.navigation'.goto_definition_lsp_fallback()<CR>
     nnoremap <buffer> <silent> <c-LeftMouse> <cmd>lua vim.lsp.buf.definition()<CR>
     nnoremap <buffer> <silent> <leader>ld <cmd>lua vim.lsp.util.show_line_diagnostics()<cr>
 
@@ -775,6 +781,7 @@ set foldlevel=99
 
 nnoremap <silent> <leader>f0 :set foldlevel=0<CR>
 nnoremap <silent> <leader>ff :set foldlevel=99<CR>
+nnoremap <silent> <leader>f9 :set foldlevel=99<CR>
 "nnoremap <silent> z0 :set foldlevel=0<CR>
 "nnoremap <silent> z9 :set foldlevel=99<CR>
 
@@ -1619,6 +1626,7 @@ function DapMaps()
     nmap <buffer> <silent> <leader>lb :lua require'dap'.list_breakpoints()<CR>
     nmap <buffer> <silent> <leader>bm :DebugRepl<cr>
     nmap <buffer> <silent> <leader>dh :lua require 'dap'.hover()<cr>
+    nmap <buffer> <silent> <leader>dl :lua require 'dap'.show_locals()<cr>
 endfunction
 
 highlight link TSError Normal
