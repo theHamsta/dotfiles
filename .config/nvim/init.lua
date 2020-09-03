@@ -38,13 +38,14 @@ endfunction
 --
 --
 --
-local ok, neorocks = pcall(require, "plenary.neorocks")
-if ok then
-    require "plenary.neorocks".setup_hererocks()
-    neorocks.ensure_installed("fun")
-    neorocks.ensure_installed("luasec", "fun", "30log", "lua-toml", "template", "lua-cjson")
-    neorocks.ensure_installed("luasocket")
-end
+
+--local ok, neorocks = pcall(require, "plenary.neorocks")
+--if ok then
+    --require "plenary.neorocks".setup_hererocks()
+    --neorocks.ensure_installed("fun")
+    --neorocks.ensure_installed("luasec", "fun", "30log", "lua-toml", "template", "lua-cjson")
+    --neorocks.ensure_installed("luasocket")
+--end
 
 if not filter then
     local ok, _ = pcall(require, "fun")
@@ -654,8 +655,7 @@ if ok then
             ensure_installed = "all"
         }
     )
-    require "nvim-treesitter.highlight"
-    local hlmap = vim.treesitter.TSHighlighter.hl_map
+    local hlmap = vim.treesitter.highlighter.hl_map
 
     --Misc
     hlmap.error = nil
