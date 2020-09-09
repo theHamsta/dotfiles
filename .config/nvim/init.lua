@@ -38,14 +38,12 @@ endfunction
 --
 --
 --
-
---local ok, neorocks = pcall(require, "plenary.neorocks")
---if ok then
-    --require "plenary.neorocks".setup_hererocks()
-    --neorocks.ensure_installed("fun")
-    --neorocks.ensure_installed("luasec", "fun", "30log", "lua-toml", "template", "lua-cjson")
-    --neorocks.ensure_installed("luasocket")
---end
+local ok, nvim_rocks = pcall(require, "nvim_rocks")
+if ok then
+    nvim_rocks.ensure_installed("fun")
+    nvim_rocks.ensure_installed("luasec", "fun", "30log", "lua-toml", "template", "lua-cjson")
+    nvim_rocks.ensure_installed("luasocket")
+end
 
 if not filter then
     local ok, _ = pcall(require, "fun")
@@ -676,6 +674,7 @@ if ok then
 
     -- Functions
     hlmap["function"] = "Function"
+    hlmap["keyword.function"] = "Function"
     hlmap["function.builtin"] = "Special"
     hlmap["function.macro"] = "Macro"
     hlmap["parameter"] = "Identifier"

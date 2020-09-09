@@ -236,6 +236,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'rhysd/conflict-marker.vim'
     Plug 'mfussenegger/nvim-dap'
     Plug 'theHamsta/nvim-dap-virtual-text'
+    Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}
     "Plug 'haorenW1025/diagnostic-nvim'
    "Plug 'nvim-treesitter/highlight.lua'
     "Plug 'kyazdani42/nvim-palenight.lua'
@@ -244,7 +245,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'wookayin/vim-autoimport'
     "Plug 'svermeulen/vim-easyclip'
     Plug 'rafcamlet/nvim-luapad'
-    "Plug 'theHamsta/nvim_rocks', {'do': 'pip3 install --user hererocks && hererocks . -j2.1.0-beta3 -r3.0.0 && cp nvim_rocks.lua lua'}
+    Plug 'theHamsta/nvim_rocks', {'do': 'pip3 install --user hererocks && hererocks . -j2.1.0-beta3 -r3.0.0 && cp nvim_rocks.lua lua'}
     Plug 'tjdevries/luvjob.nvim'
     Plug 'tjdevries/plenary.nvim'
     Plug 'svermeulen/nvim-moonmaker'
@@ -336,10 +337,10 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'heavenshell/vim-pydocstring'
     Plug 'hotwatermorning/auto-git-diff'
     Plug 'idanarye/vim-merginal'
-    Plug 'ivalkeen/nerdtree-execute'   , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-    Plug 'Xuyuanp/nerdtree-git-plugin'  , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-    Plug 'scrooloose/nerdtree' , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-    Plug 'tiagofumo/vim-nerdtree-syntax-highlight' , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    "Plug 'ivalkeen/nerdtree-execute'   , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    "Plug 'Xuyuanp/nerdtree-git-plugin'  , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    "Plug 'scrooloose/nerdtree' , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    "Plug 'tiagofumo/vim-nerdtree-syntax-highlight' , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
     ""Plug 'jackguo380/vim-lsp-cxx-highlight'
     Plug 'janko/vim-test'
     "Plug 'jaxbot/semantic-highlight.vim'
@@ -1465,10 +1466,9 @@ nnoremap <silent> <c-0> :lua require'my_gui'.reset_fontsize()<cr>
     "\ }
 "let g:lua_tree_ignore = [ '.git', 'node_modules', '.cache', '__pycache__' ]
 
-nnoremap <Leader>nt :LuaTreeToggle<CR>
+nnoremap <Leader>nT :LuaTreeToggle<CR>
 nnoremap <Leader>nf :LuaTreeFindFile<cr>:LuaTreeShow<CR>
-nnoremap <Leader>nT :NERDTreeToggle<cr>
-nnoremap <Leader>nF :NERDTreeFind<cr>
+nnoremap <Leader>nt :CHADopen<cr>
 ""
 "let g:diagnostic_insert_delay = 1
 
