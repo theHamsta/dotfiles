@@ -49,7 +49,7 @@ if not filter then
   local ok, _ = pcall(require, "fun")
   if ok then
     require "fun"()
-    vim.o.shell = head(filter(vim.fn.executable, {"zsh", "fish", "bash"}))
+    vim.o.shell = head(filter(function(e) return vim.fn.executable(e) == 1 end, {"zsh", "fish", "bash"}))
   end
 end
 
