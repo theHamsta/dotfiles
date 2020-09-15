@@ -63,6 +63,20 @@ function E(...)
     return ...
 end
 
+local ok = pcall(require, "lsp_extensions")
+
+if ok then
+    vim.cmd [[
+   autocmd BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{}
+   ]]
+    require "lsp_extensions".inlay_hints {
+        highlight = "Comment",
+        prefix = " > ",
+        aligned = false,
+        only_current_line = false
+    }
+end
+
 --local function collect(iterator)
 --local rtn = {}
 --for _, e in iterator do
@@ -88,14 +102,28 @@ if ok then
         require("nvim_lsp/configs").sumneko_lua.install()
     end
 
-    --nvim_lsp.gopls.setup {
-    --on_attach = on_attach,
-    --settings = {
-    --initializationOptions = {
-    --usePlaceholders = false
-    --}
-    --}
-    --}
+    local configs = require "nvim_lsp.configs"
+    configs.zls = {
+        default_config = {
+            cmd = {
+                "zls"
+            },
+            filetypes = {"zig"},
+            root_dir = function(fname)
+                return require "nvim_lsp/util".find_git_ancestor(fname) or vim.loop.os_homedir()
+            end
+        }
+    }
+    -- nvim_lsp.zls.setup {}
+
+    nvim_lsp.gopls.setup {
+       on_attach = on_attach,
+       settings = {
+          initializationOptions = {
+             usePlaceholders = false
+          }
+       }
+    }
     nvim_lsp.pyls.setup {
         on_attach = on_attach,
         settings = {
@@ -118,7 +146,7 @@ if ok then
             "--all-scopes-completion",
             "--header-insertion=iwyu",
             "--background-index",
-            "--suggest-missing-includes",
+            "--suggest-missing-includes"
         },
         filetypes = {"c", "cpp", "objc", "objcpp", "cuda"},
         on_attach = on_attach
@@ -439,21 +467,32 @@ if ok then
             --end
         }
     }
-    dap.repl.commands = {
-        continue = {".continue", "c"},
-        next_ = {".next", "n"},
-        into = {".into", "s"},
-        out = {".out", "r"},
-        scopes = {".scopes", "a"},
-        threads = {".threads", "t"},
-        frames = {".frames", "f"},
-        exit = {"exit", ".exit"},
-        up = {".up", "up"},
-        down = {".down", "down"},
-        goto_ = {".goto", "j"},
-        into_targets = {".into_targets", "t"}
-    }
-    vim.g.dap_virtual_text = true
+    dap.repl.commands =
+        vim.tbl_extend(
+        "force",
+        dap.repl.commands,
+        {
+            continue = {".continue", "c"},
+            next_ = {".next", "n"},
+            into = {".into", "s"},
+            out = {".out", "r"},
+            scopes = {".scopes", "a"},
+            threads = {".threads", "t"},
+            frames = {".frames", "f"},
+            exit = {"exit", ".exit"},
+            up = {".up", "up"},
+            down = {".down", "down"},
+            goto_ = {".goto", "j"},
+            into_targets = {".into_targets", "t"},
+            capabilities = {".capabilities", ".ca"},
+            custom_commands = {
+                [".echo"] = function(text)
+                    dap.repl.append(text)
+                end
+            }
+        }
+    )
+    vim.g.dap_virtual_text = true -- 'all frames'
 
     dap.adapters.cpp = {
         name = "cppdbg",
@@ -498,6 +537,21 @@ if ok then
         args = {"run"},
         cwd = "/home/stephan/projects/vscode-mock-debug/"
     }
+
+    if dap.custom_event_handlers then
+        dap.custom_event_handlers.event_exited["my handler id"] = function(_, _)
+            dap.repl.close()
+            vim.cmd("stopinsert")
+        end
+
+        dap.custom_response_handlers.gotoTargets["my handler id"] = function(_, body)
+            --dap.repl.append(vim.inspect(body))
+        end
+        dap.custom_event_handlers.event_stopped["my handler id"] = function(session, body)
+            --dap.repl.append(vim.inspect(body))
+            --dap.repl.append(vim.inspect(session))
+        end
+    end
 --"<name>: Attach": {
 --"adapter": "vscode-cpptools",
 --"configuration": {
@@ -520,6 +574,12 @@ if ok then
             files = {"src/parser.c"},
         }
     }
+    require "nvim-treesitter.parsers".get_parser_configs().zig = {
+        install_info = {
+            url = "https://github.com/GrayJack/tree-sitter-zig",
+            files = {"src/parser.c"}
+        }
+    }
     --require "nvim-treesitter.parsers".get_parser_configs().clojure = {
         --install_info = {
             --url = "https://github.com/oakmac/tree-sitter-clojure",
@@ -528,10 +588,10 @@ if ok then
         --}
     --}
     --require "nvim-treesitter.parsers".get_parser_configs().regex = {
-        --install_info = {
-            --url = "https://github.com/tree-sitter/tree-sitter-regex",
-            --files = {"src/parser.c"}
-        --}
+    --install_info = {
+    --url = "https://github.com/tree-sitter/tree-sitter-regex",
+    --files = {"src/parser.c"}
+    --}
     --}
     require "nvim-treesitter.configs".setup(
         {
@@ -547,7 +607,7 @@ if ok then
                 }
             },
             playground = {
-                enable = true,
+                enable = true
             },
             incremental_selection = {
                 -- this enables incremental selection
@@ -578,48 +638,56 @@ if ok then
                 }
             },
             textobjects = {
-                enable = true,
-                disable = {},
-                keymaps = {
-                    ["iL"] = {
-                        python = "(function_definition) @function",
-                        cpp = "(function_definition) @function",
-                        c = "(function_definition) @function",
-                        java = "(method_declaration) @function"
+                select = {
+                    enable = true,
+                    disable = {},
+                    keymaps = {
+                        ["iL"] = {
+                            python = "(function_definition) @function",
+                            cpp = "(function_definition) @function",
+                            c = "(function_definition) @function",
+                            java = "(method_declaration) @function"
+                        },
+                        ["af"] = "@function.outer",
+                        ["if"] = "@function.inner",
+                        ["aC"] = "@class.outer",
+                        ["iC"] = "@class.inner",
+                        ["ac"] = "@conditional.outer",
+                        ["ic"] = "@conditional.inner",
+                        ["ae"] = "@block.outer",
+                        ["ie"] = "@block.inner",
+                        ["al"] = "@loop.outer",
+                        ["il"] = "@loop.inner",
+                        ["is"] = "@statement.inner",
+                        ["as"] = "@statement.outer",
+                        ["ad"] = "@comment.outer",
+                        ["id"] = "@comment.inner",
+                        ["am"] = "@call.outer",
+                        ["im"] = "@call.inner"
+                    }
+                },
+                swap = {
+                    enable = true,
+                    swap_next = {
+                        ["<a-l>"] = "@parameter.inner",
+                        ["<a-f>"] = "@function.outer",
+                        ["<a-s>"] = "@statement.outer"
                     },
-                    ["af"] = "@function.outer",
-                    ["if"] = "@function.inner",
-                    ["aC"] = "@class.outer",
-                    ["iC"] = "@class.inner",
-                    ["ac"] = "@conditional.outer",
-                    ["ic"] = "@conditional.inner",
-                    ["ae"] = "@block.outer",
-                    ["ie"] = "@block.inner",
-                    ["al"] = "@loop.outer",
-                    ["il"] = "@loop.inner",
-                    ["is"] = "@statement.inner",
-                    ["as"] = "@statement.outer",
-                    ["ad"] = "@comment.outer",
-                    ["id"] = "@comment.inner",
-                    ["am"] = "@call.outer",
-                    ["im"] = "@call.inner"
+                    swap_previous = {
+                        ["<a-L>"] = "@parameter.inner",
+                        ["<a-F>"] = "@function.outer",
+                        ["<a-S>"] = "@statement.outer"
+                    }
                 },
-                swap_next = {
-                    ["<a-l>"] = "@parameter.inner",
-                    ["<a-f>"] = "@function.outer",
-                    ["<a-s>"] = "@statement.outer",
-                },
-                swap_previous = {
-                    ["<a-L>"] = "@parameter.inner",
-                    ["<a-F>"] = "@function.outer",
-                    ["<a-S>"] = "@statement.outer",
-                },
-                goto_next_start = {
-                    ["öö"] = "@function.outer",
-                },
-                goto_previous_start = {
-                    ["üü"] = "@function.outer",
-                },
+                move = {
+                    enable = true,
+                    goto_next_start = {
+                        ["öö"] = "@function.inner"
+                    },
+                    goto_previous_start = {
+                        ["üü"] = "@function.inner"
+                    }
+                }
             },
             fold = {
                 enable = true
@@ -646,11 +714,15 @@ if ok then
                     disable = {},
                     keymaps = {
                         goto_definition = "gnd",
-                        list_definitions = "gnD"
+                        list_definitions = "gnD",
+                        goto_next_usage = "<a-*>",
+                        goto_previous_usage = "<a-#>"
                     }
                 }
             },
-            ensure_installed = "all"
+            ensure_installed = "all",
+            disable = {"markdown"} -- list of language that will be disabled
+            --update_strategy = 'newest'
         }
     )
     local hlmap = vim.treesitter.highlighter.hl_map
@@ -680,7 +752,7 @@ if ok then
     hlmap["parameter"] = "Identifier"
     hlmap["method"] = "Function"
     hlmap["field"] = "Identifier"
-    hlmap["property"] = "Identifier"
+    hlmap["property"] = "Type"
     hlmap["constructor"] = "Type"
 
     -- Keywords
@@ -703,7 +775,7 @@ if ok then
     end
     local ok, play = pcall(require, "nvim-treesitter-playground")
     if ok then
-      play.init()
+        play.init()
     end
 end
 
@@ -745,7 +817,6 @@ vim.cmd [[
 
 vim.cmd("set guicursor+=a:blinkon333")
 vim.cmd('set guifont="Noto_Sans:h8"')
-
 
 --vim.api.nvim_command [[
 --command! -nargs=1 JustTargets lua require "my_launcher".fuzzy_just(<f-args>)

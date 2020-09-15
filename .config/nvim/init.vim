@@ -226,7 +226,9 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'rhysd/vim-crystal'
     "Plug 'vigoux/LanguageTool.nvim'
     "Plug 'rhysd/vim-grammarous'
+    Plug 'tjdevries/lsp_extensions.nvim'
     Plug 'chuling/vim-equinusocio-material'
+    Plug 'bluz71/vim-nightfly-guicolors'
     Plug 'nvim-treesitter/playground'
     Plug 'ziglang/zig.vim'
     Plug 'vigoux/treesitter-context.nvim'
@@ -281,7 +283,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'kchmck/vim-coffee-script'
     ""Plug 'arzg/vim-rust-syntax-ext'
     ""Plug 'atelierbram/vim-colors_atelier-schemes'
-    "Plug 'Shougo/deoplete-lsp'
+    Plug 'Shougo/deoplete-lsp'
     ""Plug 'wellle/context.vim'
     ""Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
     Plug 'udalov/kotlin-vim'
@@ -404,7 +406,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-rhubarb'
     Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'lisp' }
-    Plug 'guns/vim-sexp', { 'for': ['lisp', 'clojure', 'scheme', 'vlime_repl', 'fennel'] }
+    Plug 'guns/vim-sexp', { 'for': ['lisp', 'clojure', 'scheme', 'vlime_repl', 'fennel', 'query'] }
     Plug 'tpope/vim-sleuth'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-unimpaired'
@@ -580,7 +582,8 @@ let g:equinusocio_material_style = 'darker'
 "colorscheme equinusocio_material
 
 "inoremap <expr><cr> pumvisible() ? "\<c-n>" : "\<cr>"
-colorscheme one
+"colorscheme one
+colorscheme nightfly
 
 nnoremap <silent> <F3> <c-w>o:Tkill<cr>:Topen<cr>:wa<cr>:exec 'T ' . g:last_execution<cr>
 nnoremap <silent> <s-F3> :Tkill<cr>:wa<cr>:exec 'T ' . g:last_execution<cr>
@@ -638,7 +641,7 @@ nmap <a-p> :cd ~/projects<cr>:Buffers<cr>
 "autocmd FileType cmake SemanticHighlight
 "autocmd FileType lua nnoremap <buffer> <F5> :exec '!lua' shellescape(@%:p, 1)<cr>:letg:last_execution=@%:p <cr>
 
-autocmd FileType lua nnoremap <buffer> <c-s> ma:w<cr>:%!luafmt --stdin<cr>'azz
+autocmd FileType lua nnoremap <buffer> <c-s> ma:w<cr>:%!luafmt --stdin --indent-count 2<cr>'azz
 autocmd FileType cmake nnoremap <buffer> <c-s> ma:w<cr>:%!gersemi %<cr>'azz
 "autocmd FileType tex,latex nnoremap <buffer> <c-s> :w<cr>:silent !latexindent % -w<cr>:e<cr>
 ""autocmd FileType tex,latex call neomake#configure#automake('w')
@@ -1397,35 +1400,11 @@ nnoremap <a-s-j> "ayy"ap
 ""lua require'git_fastfix'
 ""nn <silent> <leader>gf :lua OpenGitFastFixWindow()<cr>
 
-""nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
-""
-""function! JavaStartDebugCallback(err, port)
-  ""execute "cexpr! 'Java debug started on port: " . a:port . "'"
-  ""call vimspector#LaunchWithSettings({ "configuration": "Java Attach", "AdapterPort": a:port })
-""endfunction
-
-""function JavaStartDebug()
-  ""call CocActionAsync('runCommand', 'vscode.java.startDebugSession', function('JavaStartDebugCallback'))
-""endfunction
-
-""nmap <F1> :call JavaStartDebug()<CR>
-"let g:gtfo#terminals = { 'unix': 'konsole' }
+nnoremap <silent> gf gF
 
 nnoremap gtf :Tnew<cr>:T dolphin %:p:h 2>&1 >> /dev/null &<cr>:Tclose<cr>
 ""let g:vimspector_enable_mappings = 'HUMAN'
 
-""autocmd! BufEnter vimspector.Console nnoremap <buffer> n :call vimspector#StepOver()<cr>
-"""function VimspectorLaunch()
-""nnoremap <s-f9> :call vimspector#ToggleBreakpoint()<cr>
-""nnoremap <s-f8> :call vimspector#StepOver()<cr>
-""nnoremap <f9> :call vimspector#StepInto()<cr>
-""nnoremap <f10> :call vimspector#StepOut()<cr>
-""nnoremap <s-f10> :call vimspector#Restart()<cr>
-""nnoremap  <f11> :call vimspector#Continue()<cr>
-""nnoremap <s-f11> :call vimspector#Stop()<cr>
-""endfunction
-
-"command! WorkingDirToCurrentFile cd %:p:h
 command! CdToCurrentFile cd %:p:h
 "command! SwitchWorkingDirToCurrentFile cd %:p:h
 
@@ -1639,3 +1618,5 @@ command! TSPlayground :lua require"nvim-treesitter.playground".play_with()
 command! TSStopPlaying :lua require"nvim-treesitter.playground".play_with()
 
 nnoremap <leader>pl :TSPlaygroundToggle<cr>
+
+
