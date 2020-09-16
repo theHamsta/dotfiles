@@ -84,6 +84,7 @@ local function collect(iterator)
   end
   return rtn
 end
+
 local ok, nvim_lsp = pcall(require, "nvim_lsp")
 
 if ok then
@@ -617,7 +618,7 @@ if ok then
           init_selection = "<enter>", -- maps in normal mode to init the node/scope selection
           node_incremental = "<enter>", -- increment to the upper named parent
           scope_incremental = "Ts", -- increment to the upper scope (as defined in locals.scm)
-          node_decremental = "grm"
+          node_decremental = "<bs>"
         }
       },
       node_movement = {
