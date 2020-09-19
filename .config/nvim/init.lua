@@ -571,10 +571,11 @@ if ok then
   vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
   require "nvim-treesitter.parsers".get_parser_configs().lisp = {
     install_info = {
-      url = "https://github.com/theHamsta/tree-sitter-clojure",
+      url = "~/projects/tree-sitter-lisp",
       files = {"src/parser.c"}
     }
   }
+  require "nvim-treesitter.parsers".get_parser_configs().markdown = nil
   require "nvim-treesitter.parsers".get_parser_configs().zig = {
     install_info = {
       url = "https://github.com/GrayJack/tree-sitter-zig",

@@ -582,8 +582,8 @@ let g:equinusocio_material_style = 'darker'
 "colorscheme equinusocio_material
 
 "inoremap <expr><cr> pumvisible() ? "\<c-n>" : "\<cr>"
-"colorscheme one
-colorscheme nightfly
+colorscheme one
+"colorscheme nightfly
 
 nnoremap <silent> <F3> <c-w>o:Tkill<cr>:Topen<cr>:wa<cr>:exec 'T ' . g:last_execution<cr>
 nnoremap <silent> <s-F3> :Tkill<cr>:wa<cr>:exec 'T ' . g:last_execution<cr>
@@ -1604,8 +1604,8 @@ function DapMaps()
     nmap <buffer> <silent> <leader>bo :lua require'dap'.step_out()<CR>
     nmap <buffer> <silent> <leader>lb :lua require'dap'.list_breakpoints()<CR>
     nmap <buffer> <silent> <leader>bm :DebugRepl<cr>
-    nmap <buffer> <silent> <leader>dh :lua require 'dap'.hover()<cr>
-    nmap <buffer> <silent> <leader>dl :lua require 'dap'.show_locals()<cr>
+    nmap <buffer> <silent> <leader>dh :lua require 'dap'.uis.variable_tree.hover(require 'dap'.session)<cr>
+    nmap <buffer> <silent> <leader>dl :lua require 'dap'.show_locals(require 'dap'.session)<cr>
 endfunction
 
 highlight link TSError Normal
