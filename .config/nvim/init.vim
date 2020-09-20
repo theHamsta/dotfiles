@@ -228,6 +228,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'rhysd/vim-grammarous'
     Plug 'tjdevries/lsp_extensions.nvim'
     Plug 'chuling/vim-equinusocio-material'
+    Plug 'git@github.com:nvim-treesitter/nvim-treesitter-textobjects.git'
     Plug 'bluz71/vim-nightfly-guicolors'
     Plug 'nvim-treesitter/playground'
     Plug 'ziglang/zig.vim'
@@ -348,7 +349,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'jaxbot/semantic-highlight.vim'
     Plug 'jceb/vim-orgmode'
     ""Plug 'jpalardy/vim-slime'
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
     Plug 'junegunn/goyo.vim'
     Plug 'junegunn/gv.vim'
@@ -582,8 +583,7 @@ let g:equinusocio_material_style = 'darker'
 "colorscheme equinusocio_material
 
 "inoremap <expr><cr> pumvisible() ? "\<c-n>" : "\<cr>"
-colorscheme one
-"colorscheme nightfly
+colorscheme nightfly
 
 nnoremap <silent> <F3> <c-w>o:Tkill<cr>:Topen<cr>:wa<cr>:exec 'T ' . g:last_execution<cr>
 nnoremap <silent> <s-F3> :Tkill<cr>:wa<cr>:exec 'T ' . g:last_execution<cr>
@@ -753,8 +753,9 @@ function! NvimLspMaps()
     nnoremap <buffer><silent> gS         <cmd>lua vim.lsp.buf.signature_help()<CR>
     nnoremap <buffer><silent> <leader>ld <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>
     nnoremap <buffer><silent> <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
-    vnoremap <buffer><silent> <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
-    nnoremap <buffer><silent> <leader>ss :lua vim.lsp.buf.workspace_symbols()<cr>
+    nnoremap <buffer><silent> <leader>ic <cmd>lua vim.lsp.buf.incoming_calls()<CR>
+    vnoremap <buffer><silent> <leader>oc <cmd>lua vim.lsp.buf.outgoing_calls()<CR>
+    nnoremap <buffer><silent> <leader>ss :lua vim.lsp.buf.workspace_symbol()<cr>
     nnoremap <buffer><silent> <leader>de :lua require'lsp-ext'.peek_definition()<cr>
     nnoremap <buffer> <silent> <2-LeftMouse> <cmd>lua vim.lsp.buf.hover()<CR>
     nnoremap <buffer> <silent> <c-LeftMouse> <cmd>lua require'nvim-treesitter.refactor.navigation'.goto_definition_lsp_fallback()<CR>
@@ -1604,8 +1605,8 @@ function DapMaps()
     nmap <buffer> <silent> <leader>bo :lua require'dap'.step_out()<CR>
     nmap <buffer> <silent> <leader>lb :lua require'dap'.list_breakpoints()<CR>
     nmap <buffer> <silent> <leader>bm :DebugRepl<cr>
-    nmap <buffer> <silent> <leader>dh :lua require 'dap'.uis.variable_tree.hover(require 'dap'.session)<cr>
-    nmap <buffer> <silent> <leader>dl :lua require 'dap'.show_locals(require 'dap'.session)<cr>
+    nmap <buffer> <silent> <leader>dh :lua require 'dap.ui.variable-tree'.hover(require 'dap'.session())<cr>
+    nmap <buffer> <silent> <leader>dl :lua require 'dap.ui.variable-tree'.open_sidebar(require 'dap'.session())<cr>
 endfunction
 
 highlight link TSError Normal

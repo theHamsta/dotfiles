@@ -49,7 +49,15 @@ if not filter then
   local ok, _ = pcall(require, "fun")
   if ok then
     require "fun"()
-    vim.o.shell = head(filter(function(e) return vim.fn.executable(e) == 1 end, {"zsh", "fish", "bash"}))
+    vim.o.shell =
+      head(
+      filter(
+        function(e)
+          return vim.fn.executable(e) == 1
+        end,
+        {"zsh", "fish", "bash"}
+      )
+    )
   end
 end
 
@@ -75,14 +83,6 @@ if ok then
     aligned = false,
     only_current_line = false
   }
-end
-
-local function collect(iterator)
-  local rtn = {}
-  for _, e in iterator do
-    table.insert(rtn, e)
-  end
-  return rtn
 end
 
 local ok, nvim_lsp = pcall(require, "nvim_lsp")
@@ -159,7 +159,13 @@ if ok then
           globals = {"vim", "map", "filter", "range", "reduce", "head", "tail", "nth"},
           disable = {"redefined-local"}
         },
-        runtime = {version = "LuaJIT"}
+        runtime = {version = "LuaJIT"},
+        workspace = {
+          library = {
+            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+            [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
+          }
+        }
       }
     },
     on_attach = on_attach
@@ -360,7 +366,21 @@ if ok then
       init_options = {
         bundles = {
           vim.fn.glob("~/.local/share/nvim/plugged/nvim-jdtls/*.jar")
-        }
+        },
+        --config = {
+          --java = {
+            --import = {
+              --gradle = {
+                --wrapper = {
+                  --checksums = {
+                    --sha256 = "803c75f3307787290478a5ccfa9054c5c0c7b4250c1b96ceb77ad41fbe919e4e",
+                    --allowed = true
+                  --}
+                --}
+              --}
+            --}
+          --}
+        --}
       },
       capabilities = capabilities,
       on_attach = function(client)
@@ -533,9 +553,10 @@ if ok then
     name = "lldb"
   }
   dap.adapters.markdown = {
-    name = "cppdbg",
-    command = "npm",
-    args = {"run"},
+    type = "executable",
+    name = "mockdebug",
+    command = "node",
+    args = {"./out/debugAdapter.js"},
     cwd = "/home/stephan/projects/vscode-mock-debug/"
   }
 
@@ -569,19 +590,31 @@ vim.fn.sign_define("DapBreakpoint", {text = "🛑", texthl = "", linehl = "", nu
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
   vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
-  require "nvim-treesitter.parsers".get_parser_configs().lisp = {
-    install_info = {
-      url = "~/projects/tree-sitter-lisp",
-      files = {"src/parser.c"}
-    }
-  }
-  require "nvim-treesitter.parsers".get_parser_configs().markdown = nil
-  require "nvim-treesitter.parsers".get_parser_configs().zig = {
-    install_info = {
-      url = "https://github.com/GrayJack/tree-sitter-zig",
-      files = {"src/parser.c"}
-    }
-  }
+  --require "nvim-treesitter.parsers".get_parser_configs().lisp = {
+    --install_info = {
+      --url = "~/projects/tree-sitter-lisp",
+      --files = {"src/parser.c"}
+    --}
+  --}
+  --require "nvim-treesitter.parsers".get_parser_configs().viml = {
+    --install_info = {
+      --url = "https://github.com/vigoux/tree-sitter-viml",
+      --files = {"src/parser.c"}
+    --}
+  --}
+  --require "nvim-treesitter.parsers".get_parser_configs().markdown = nil
+  --require "nvim-treesitter.parsers".get_parser_configs().zig = {
+    --install_info = {
+      --url = "https://github.com/GrayJack/tree-sitter-zig",
+      --files = {"src/parser.c"}
+    --}
+  --}
+  --require "nvim-treesitter.parsers".get_parser_configs().kotlin = {
+    --install_info = {
+      --url = "https://github.com/QthCN/tree-sitter-kotlin",
+      --files = {"src/parser.c"}
+    --}
+  --}
   --require "nvim-treesitter.parsers".get_parser_configs().clojure = {
   --install_info = {
   --url = "https://github.com/oakmac/tree-sitter-clojure",
@@ -681,6 +714,16 @@ if ok then
             ["<a-S>"] = "@statement.outer"
           }
         },
+        lsp_interop = {
+          enable = true,
+           peek_definition_code= {
+            ["<leader>df"] = "@function.outer",
+            ["<leader>dF"] = "@class.outer",
+          },
+           peek_type_definition_code= {
+            ["<leader>TF"] = "@class.outer",
+          },
+        },
         move = {
           enable = true,
           goto_next_start = {
@@ -727,6 +770,7 @@ if ok then
       --update_strategy = 'newest'
     }
   )
+  require "nvim-treesitter.highlight"
   local hlmap = vim.treesitter.highlighter.hl_map
 
   --Misc
