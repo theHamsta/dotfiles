@@ -61,6 +61,18 @@ if not filter then
   end
 end
 
+local ok, lsputil = pcall(require, "lsputil.codeAction")
+if ok then
+  vim.lsp.callbacks["textDocument/codeAction"] = lsputil.code_action_handler
+  --vim.lsp.callbacks["textDocument/references"] = lsputil.references_handler
+  --vim.lsp.callbacks["textDocument/definition"] = lsputil.definition_handler
+  --vim.lsp.callbacks["textDocument/declaration"] = lsputil.declaration_handler
+  --vim.lsp.callbacks["textDocument/typeDefinition"] = lsputil.typeDefinition_handler
+  --vim.lsp.callbacks["textDocument/implementation"] = lsputil.implementation_handler
+  vim.lsp.callbacks["textDocument/documentSymbol"] = lsputil.document_handler
+  vim.lsp.callbacks["workspace/symbol"] = lsputil.workspace_handler
+end
+
 function D(a)
   print(vim.inspect(a))
   return a
@@ -137,9 +149,9 @@ if ok then
       }
     }
   }
-  nvim_lsp.tsserver.setup {
-    on_attach = on_attach
-  }
+  --nvim_lsp.tsserver.setup {
+    --on_attach = on_attach
+  --}
   nvim_lsp.clangd.setup {
     cmd = {
       "clangd-11",
@@ -367,20 +379,22 @@ if ok then
         bundles = {
           vim.fn.glob("~/.local/share/nvim/plugged/nvim-jdtls/*.jar")
         },
-        --config = {
-          --java = {
-            --import = {
-              --gradle = {
-                --wrapper = {
-                  --checksums = {
-                    --sha256 = "803c75f3307787290478a5ccfa9054c5c0c7b4250c1b96ceb77ad41fbe919e4e",
-                    --allowed = true
-                  --}
-                --}
-              --}
-            --}
-          --}
-        --}
+        config = {
+          java = {
+            import = {
+              gradle = {
+                wrapper = {
+                  checksums = {
+                    {
+                    sha256 = "803c75f3307787290478a5ccfa9054c5c0c7b4250c1b96ceb77ad41fbe919e4e",
+                    allowed = true
+                  }
+                }
+                }
+              }
+            }
+          }
+        },
       },
       capabilities = capabilities,
       on_attach = function(client)
@@ -591,29 +605,29 @@ local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
   vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
   --require "nvim-treesitter.parsers".get_parser_configs().lisp = {
-    --install_info = {
-      --url = "~/projects/tree-sitter-lisp",
-      --files = {"src/parser.c"}
-    --}
+  --install_info = {
+  --url = "~/projects/tree-sitter-lisp",
+  --files = {"src/parser.c"}
+  --}
   --}
   --require "nvim-treesitter.parsers".get_parser_configs().viml = {
-    --install_info = {
-      --url = "https://github.com/vigoux/tree-sitter-viml",
-      --files = {"src/parser.c"}
-    --}
+  --install_info = {
+  --url = "https://github.com/vigoux/tree-sitter-viml",
+  --files = {"src/parser.c"}
+  --}
   --}
   --require "nvim-treesitter.parsers".get_parser_configs().markdown = nil
   --require "nvim-treesitter.parsers".get_parser_configs().zig = {
-    --install_info = {
-      --url = "https://github.com/GrayJack/tree-sitter-zig",
-      --files = {"src/parser.c"}
-    --}
+  --install_info = {
+  --url = "https://github.com/GrayJack/tree-sitter-zig",
+  --files = {"src/parser.c"}
+  --}
   --}
   --require "nvim-treesitter.parsers".get_parser_configs().kotlin = {
-    --install_info = {
-      --url = "https://github.com/QthCN/tree-sitter-kotlin",
-      --files = {"src/parser.c"}
-    --}
+  --install_info = {
+  --url = "https://github.com/QthCN/tree-sitter-kotlin",
+  --files = {"src/parser.c"}
+  --}
   --}
   --require "nvim-treesitter.parsers".get_parser_configs().clojure = {
   --install_info = {
@@ -716,13 +730,13 @@ if ok then
         },
         lsp_interop = {
           enable = true,
-           peek_definition_code= {
+          peek_definition_code = {
             ["<leader>df"] = "@function.outer",
-            ["<leader>dF"] = "@class.outer",
+            ["<leader>dF"] = "@class.outer"
           },
-           peek_type_definition_code= {
-            ["<leader>TF"] = "@class.outer",
-          },
+          peek_type_definition_code = {
+            ["<leader>TF"] = "@class.outer"
+          }
         },
         move = {
           enable = true,
@@ -770,50 +784,50 @@ if ok then
       --update_strategy = 'newest'
     }
   )
-  require "nvim-treesitter.highlight"
-  local hlmap = vim.treesitter.highlighter.hl_map
+  --require "nvim-treesitter.highlight"
+  --local hlmap = vim.treesitter.highlighter.hl_map
 
-  --Misc
-  hlmap.error = nil
-  hlmap["punctuation.delimiter"] = "Delimiter"
-  hlmap["punctuation.bracket"] = nil
+  ----Misc
+  --hlmap.error = nil
+  --hlmap["punctuation.delimiter"] = "Delimiter"
+  --hlmap["punctuation.bracket"] = nil
 
-  -- Constants
-  hlmap["constant"] = "Constant"
-  hlmap["constant.builtin"] = "Type"
-  hlmap["constant.macro"] = "Define"
-  hlmap["string"] = "String"
-  hlmap["string.regex"] = "String"
-  hlmap["string.escape"] = "SpecialChar"
-  hlmap["character"] = "Character"
-  hlmap["number"] = "Number"
-  hlmap["boolean"] = "Boolean"
-  hlmap["float"] = "Float"
+  ---- Constants
+  --hlmap["constant"] = "Constant"
+  --hlmap["constant.builtin"] = "Type"
+  --hlmap["constant.macro"] = "Define"
+  --hlmap["string"] = "String"
+  --hlmap["string.regex"] = "String"
+  --hlmap["string.escape"] = "SpecialChar"
+  --hlmap["character"] = "Character"
+  --hlmap["number"] = "Number"
+  --hlmap["boolean"] = "Boolean"
+  --hlmap["float"] = "Float"
 
-  -- Functions
-  hlmap["function"] = "Function"
-  hlmap["keyword.function"] = "Function"
-  hlmap["function.builtin"] = "Special"
-  hlmap["function.macro"] = "Macro"
-  hlmap["parameter"] = "Identifier"
-  hlmap["method"] = "Function"
-  hlmap["field"] = "Identifier"
-  hlmap["property"] = "Type"
-  hlmap["constructor"] = "Type"
+  ---- Functions
+  --hlmap["function"] = "Function"
+  --hlmap["keyword.function"] = "Function"
+  --hlmap["function.builtin"] = "Special"
+  --hlmap["function.macro"] = "Macro"
+  --hlmap["parameter"] = "Identifier"
+  --hlmap["method"] = "Function"
+  --hlmap["field"] = "Identifier"
+  --hlmap["property"] = "Type"
+  --hlmap["constructor"] = "Type"
 
-  -- Keywords
-  hlmap["conditional"] = "Conditional"
-  hlmap["repeat"] = "Repeat"
-  hlmap["label"] = "Label"
-  hlmap["operator"] = "Operator"
-  hlmap["keyword"] = "Repeat"
-  hlmap["exception"] = "Exception"
-  hlmap["include"] = "Include"
-  hlmap["type"] = "Type"
-  hlmap["type.builtin"] = "Type"
-  hlmap["structure"] = "Structure"
-  hlmap["keyword.function"] = "Function"
-  hlmap["variable"] = "Normal"
+  ---- Keywords
+  --hlmap["conditional"] = "Conditional"
+  --hlmap["repeat"] = "Repeat"
+  --hlmap["label"] = "Label"
+  --hlmap["operator"] = "Operator"
+  --hlmap["keyword"] = "Repeat"
+  --hlmap["exception"] = "Exception"
+  --hlmap["include"] = "Include"
+  --hlmap["type"] = "Type"
+  --hlmap["type.builtin"] = "Type"
+  --hlmap["structure"] = "Structure"
+  --hlmap["keyword.function"] = "Function"
+  --hlmap["variable"] = "Normal"
 
   local ok, docs = pcall(require, "nvim-tree-docs")
   if ok then

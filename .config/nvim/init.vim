@@ -227,9 +227,12 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'vigoux/LanguageTool.nvim'
     "Plug 'rhysd/vim-grammarous'
     Plug 'tjdevries/lsp_extensions.nvim'
+    Plug 'RishabhRD/nvim-lsputils'
+    Plug 'RishabhRD/popfix'
     Plug 'chuling/vim-equinusocio-material'
     Plug 'git@github.com:nvim-treesitter/nvim-treesitter-textobjects.git'
     Plug 'bluz71/vim-nightfly-guicolors'
+    Plug 'bluz71/vim-moonfly-colors'
     Plug 'nvim-treesitter/playground'
     Plug 'ziglang/zig.vim'
     Plug 'vigoux/treesitter-context.nvim'
@@ -1620,4 +1623,5 @@ command! TSStopPlaying :lua require"nvim-treesitter.playground".play_with()
 
 nnoremap <leader>pl :TSPlaygroundToggle<cr>
 
+highlight link NvimDapVirtualText Error
 
