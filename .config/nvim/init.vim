@@ -1572,12 +1572,6 @@ nnoremap <c-t> :Tags<cr>
 nnoremap <c-a-o> :BTags<cr>
 luafile ~/.config/nvim/init.lua
 
-"fun! IgnoreCamelCaseSpell()
-  "syn match CamelCase /\<[A-Z][a-z]\+[A-Z].\{-}\>/ contains=@NoSpell transparent
-  "syn cluster Spell add=CamelCase
-"endfun
-"autocmd BufEnter,BufReadPost,BufWritePost,BufNewFile * :call IgnoreCamelCaseSpell()
-
 command! -buffer JdtCompile lua require('jdtls').compile()
 command! -buffer JdtUpdateConfig lua require('jdtls').update_project_config()
 command! -buffer JdtJol lua require('jdtls').jol()
