@@ -673,7 +673,7 @@ if ok then
         -- this enables incremental selection
         enable = true,
         highlight_current_node = true,
-        disable = {},
+        disable = {"python"},
         keymaps = {
           move_up = "<a-k>",
           move_down = "<a-j>",
@@ -779,7 +779,7 @@ if ok then
           }
         }
       },
-      ensure_installed = "all",
+      --ensure_installed = "all",
       disable = {"markdown"} -- list of language that will be disabled
       --update_strategy = 'newest'
     }
