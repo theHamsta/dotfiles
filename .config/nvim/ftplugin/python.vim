@@ -1,4 +1,4 @@
-nnoremap <buffer> <F5> :Topen<cr>:let g:last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:T python3 %<cr>
+nnoremap <buffer> <F5> <c-w>o:Topen<cr>:let g:last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:T python3 %<cr>
 nnoremap <buffer> <s-F5> :let g:last_execution='python3 ' . expand('%:p',1)<cr>:wa<cr>:execute ':GdbStartPDB python3 -m pdb ' . expand('%:p',1)<cr>
 nnoremap <buffer> <F7> :let g:last_execution='python3 -m pdb -c continue ' . expand('%:p',1)<cr>:wa<cr>:T python3 -m pdb -c continue %<cr>
 nnoremap <buffer> <F4> :let g:last_execution='ipython3 ' . expand('%:p',1)<cr>:wa<cr>:T ipython3 %<cr>

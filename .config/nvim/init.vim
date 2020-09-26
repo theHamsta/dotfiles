@@ -256,7 +256,10 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'tjdevries/luvjob.nvim'
     Plug 'tjdevries/plenary.nvim'
     Plug 'svermeulen/nvim-moonmaker'
-    ""Plug 'haorenW1025/completion-nvim'
+
+    "
+    "Plug 'hrsh7th/vim-vsnip-integ'
+    "Plug 'hrsh7th/vim-vsnip'
     ""Plug 'vigoux/completion-treesitter'
     ""Plug 'chrisbra/unicode.vim'
     ""Plug 'bergercookie/vim-deb-preview'
@@ -288,7 +291,6 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'kchmck/vim-coffee-script'
     ""Plug 'arzg/vim-rust-syntax-ext'
     ""Plug 'atelierbram/vim-colors_atelier-schemes'
-    Plug 'Shougo/deoplete-lsp'
     ""Plug 'wellle/context.vim'
     ""Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
     Plug 'udalov/kotlin-vim'
@@ -366,7 +368,7 @@ call plug#begin('~/.local/share/nvim/plugged')
    Plug 'kien/rainbow_parentheses.vim'
     Plug 'lervag/vimtex', { 'for': 'tex' }
     Plug 'machakann/vim-swap'
-    Plug 'majutsushi/tagbar'
+    "Plug 'majutsushi/tagbar'
     Plug 'maralla/vim-toml-enhance', {'for': 'toml'}
     Plug 'markonm/traces.vim'
     Plug 'mbbill/undotree', { 'on':  [ 'UndotreeToggle'] }
@@ -430,12 +432,13 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'amix/vim-zenroom2'
     "Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'for': ['bash','sh', 'cs', 'cmake', 'javascript', 'tsx']}
     ""Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'tex', 'bib', 'json', 'cs']}
-    Plug 'autozimu/LanguageClient-neovim', {
-            \ 'branch': 'next',
-            \ 'do': ':T make release',
-            \ }
+    "Plug 'autozimu/LanguageClient-neovim', {
+            "\ 'branch': 'next',
+            "\ 'do': ':T make release',
+            "\ }
     "Plug 'puremourning/vimspector', { 'do': 'python3 install_gadget.py --all'}
 
+    Plug 'Shougo/deoplete-lsp'
     if has('nvim')
         Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     else
@@ -444,6 +447,8 @@ call plug#begin('~/.local/share/nvim/plugged')
         Plug 'roxma/vim-hug-neovim-rpc'
     endif
 
+    "Plug 'haorenW1025/completion-nvim'
+    "Plug 'steelsojka/completion-buffers'
 
     "Plug 'Shougo/neosnippet-snippets'
 
@@ -754,7 +759,7 @@ function! NvimLspMaps()
     nmap <buffer> <silent> gD  <c-w>vgd
     nnoremap <buffer><silent> gh         <cmd>lua vim.lsp.buf.hover()<CR>
     nnoremap <buffer><silent> gi         <cmd>lua vim.lsp.buf.implementation()<CR>
-    nnoremap <buffer><silent> gS         <cmd>lua vim.lsp.buf.signature_help()<CR>
+    inoremap <buffer><silent> <c-g>         <cmd>lua vim.lsp.buf.signature_help()<CR>
     nnoremap <buffer><silent> <leader>ld <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>
     nnoremap <buffer><silent> <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
     nnoremap <buffer><silent> <leader>ic <cmd>lua vim.lsp.buf.incoming_calls()<CR>
@@ -1375,6 +1380,7 @@ nnoremap K :s/,/,\r/g<cr>
 
 "let g:completion_confirm_key = "\<C-y>"
 let g:sexp_enable_insert_mode_mappings=1
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy', 'all']
 
 
 let g:vlime_compiler_policy={"DEBUG": 3, "SPEED": 0}
@@ -1618,5 +1624,17 @@ command! TSStopPlaying :lua require"nvim-treesitter.playground".play_with()
 
 nnoremap <leader>pl :TSPlaygroundToggle<cr>
 
-highlight link NvimDapVirtualText Error
+highlight link NvimDapVirtualText Type
 
+
+
+let g:completion_enable_snippet = 'UltiSnips'
+let g:completion_chain_complete_list = [
+    \{'complete_items': ['lsp', 'snippet', 'buffers']},
+    \{'mode': '<c-p>'},
+    \{'mode': '<c-n>'}
+\]
+
+autocmd BufEnter,BufNewFile *.wat set filetype=wat
+
+let g:NERDCustomDelimiters = { 'query': { 'left': ';','right': ';' } }

@@ -97,6 +97,13 @@ if ok then
   }
 end
 
+local completion_nvim_ok, completion_nvim = pcall(require, "completion")
+if completion_nvim_ok then
+  vim.cmd [[
+  autocmd BufEnter * lua require'completion'.on_attach()
+  ]]
+end
+
 local ok, nvim_lsp = pcall(require, "nvim_lsp")
 
 if ok then
@@ -106,7 +113,7 @@ if ok then
 
     require "lsp-ext".update_diagnostics()
   end
-  local function on_attach(_)
+  local function on_attach(...)
     vim.fn.NvimLspMaps()
   end
 
@@ -149,9 +156,9 @@ if ok then
       }
     }
   }
-  --nvim_lsp.tsserver.setup {
-    --on_attach = on_attach
-  --}
+  nvim_lsp.tsserver.setup {
+    on_attach = on_attach
+  }
   nvim_lsp.clangd.setup {
     cmd = {
       "clangd-11",
@@ -386,15 +393,15 @@ if ok then
                 wrapper = {
                   checksums = {
                     {
-                    sha256 = "803c75f3307787290478a5ccfa9054c5c0c7b4250c1b96ceb77ad41fbe919e4e",
-                    allowed = true
+                      sha256 = "803c75f3307787290478a5ccfa9054c5c0c7b4250c1b96ceb77ad41fbe919e4e",
+                      allowed = true
+                    }
                   }
-                }
                 }
               }
             }
           }
-        },
+        }
       },
       capabilities = capabilities,
       on_attach = function(client)
@@ -623,12 +630,12 @@ if ok then
   --files = {"src/parser.c"}
   --}
   --}
-  --require "nvim-treesitter.parsers".get_parser_configs().kotlin = {
-  --install_info = {
-  --url = "https://github.com/QthCN/tree-sitter-kotlin",
-  --files = {"src/parser.c"}
-  --}
-  --}
+  require "nvim-treesitter.parsers".get_parser_configs().kotlin = {
+    install_info = {
+      url = "https://github.com/QthCN/tree-sitter-kotlin",
+      files = {"src/parser.c"}
+    }
+  }
   --require "nvim-treesitter.parsers".get_parser_configs().clojure = {
   --install_info = {
   --url = "https://github.com/oakmac/tree-sitter-clojure",
@@ -651,8 +658,8 @@ if ok then
       tree_docs = {
         enable = true,
         keymaps = {
-          doc_node_at_cursor = "gdd",
-          doc_all_in_range = "gdd"
+          doc_node_at_cursor = "GDD",
+          doc_all_in_range = "GDD"
         }
       },
       playground = {
@@ -804,9 +811,11 @@ if ok then
   --hlmap["boolean"] = "Boolean"
   --hlmap["float"] = "Float"
 
+  --hlmap["namespace"] = "Constant"
   ---- Functions
   --hlmap["function"] = "Function"
   --hlmap["keyword.function"] = "Function"
+  --hlmap["keyword.operator"] = "Operator"
   --hlmap["function.builtin"] = "Special"
   --hlmap["function.macro"] = "Macro"
   --hlmap["parameter"] = "Identifier"
