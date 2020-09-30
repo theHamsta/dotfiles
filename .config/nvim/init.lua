@@ -144,6 +144,7 @@ if ok then
       }
     }
   }
+
   nvim_lsp.pyls.setup {
     on_attach = on_attach,
     settings = {
@@ -156,6 +157,7 @@ if ok then
       }
     }
   }
+
   nvim_lsp.tsserver.setup {
     on_attach = on_attach
   }
@@ -567,7 +569,7 @@ if ok then
       pidProperty = "pid",
       pidSelect = "ask"
     },
-    command = "lldb-vscode-11",
+    command = "lldb-vscode-12",
     env = {
       LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES"
     },
@@ -611,26 +613,32 @@ vim.fn.sign_define("DapBreakpoint", {text = "🛑", texthl = "", linehl = "", nu
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
   vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
-  --require "nvim-treesitter.parsers".get_parser_configs().lisp = {
-  --install_info = {
-  --url = "~/projects/tree-sitter-lisp",
-  --files = {"src/parser.c"}
-  --}
-  --}
+  require "nvim-treesitter.parsers".get_parser_configs().lisp = {
+    install_info = {
+      url = "~/projects/tree-sitter-lisp",
+      files = {"src/parser.c"}
+    }
+  }
   --require "nvim-treesitter.parsers".get_parser_configs().viml = {
   --install_info = {
   --url = "https://github.com/vigoux/tree-sitter-viml",
   --files = {"src/parser.c"}
   --}
   --}
-  --require "nvim-treesitter.parsers".get_parser_configs().markdown = nil
-  --require "nvim-treesitter.parsers".get_parser_configs().zig = {
-  --install_info = {
-  --url = "https://github.com/GrayJack/tree-sitter-zig",
-  --files = {"src/parser.c"}
-  --}
-  --}
+  require "nvim-treesitter.parsers".get_parser_configs().markdown = nil
+  require "nvim-treesitter.parsers".get_parser_configs().zig = {
+    install_info = {
+      url = "https://github.com/GrayJack/tree-sitter-zig",
+      files = {"src/parser.c"}
+    }
+  }
   require "nvim-treesitter.parsers".get_parser_configs().kotlin = {
+    install_info = {
+      url = "https://github.com/QthCN/tree-sitter-kotlin",
+      files = {"src/parser.c"}
+    }
+  }
+  require "nvim-treesitter.parsers".get_parser_configs().markdown = {
     install_info = {
       url = "https://github.com/QthCN/tree-sitter-kotlin",
       files = {"src/parser.c"}

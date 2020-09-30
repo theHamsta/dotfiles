@@ -141,8 +141,8 @@ vnoremap L $
 "command! W :execute ':silent w !sudo tee % > /dev/null'
 command! Wq :wq
 command! Wqa :wqa
-"nnoremap <C-S-J> :m+<CR>==
-"nnoremap <C-S-K> :m-2<CR>==
+nnoremap <C-S-J> :m+<CR>==
+nnoremap <C-S-K> :m-2<CR>==
 "inoremap <C-S-J> <Esc>:m+<CR>==gi
 "inoremap <C-S-K> <Esc>:m-2<CR>==gi
 "vnoremap <C-S-J> :m'>+<CR>gv=gv
@@ -168,8 +168,11 @@ nnoremap <Leader>oo :only<cr>
 "nmap <silent> <C-j> <Plug>(ale_next_wrap)
 "nmap <silent> <C-k> [L
 "nmap <silent> <C-j> ]L
-nmap <silent> <C-k> :lprevious<cr>
-nmap <silent> <C-j> :lnext<cr>
+nmap <silent> <C-k> :cprevious<cr>
+nmap <silent> <C-j> :cnext<cr>
+nmap <silent> <leader><C-k> :lprevious<cr>
+nmap <silent> <leader><C-j> :lnext<cr>
+nmap <silent> <C-l> :cnext<cr>
 "nmap <silent> <C-k> [m<cr>
 "nmap <silent> <C-j> ]m<cr>
 nmap <leader>bl :BLines<cr>
@@ -227,6 +230,9 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'rhysd/vim-crystal'
     "Plug 'vigoux/LanguageTool.nvim'
     "Plug 'rhysd/vim-grammarous'
+    Plug 'nvim-lua/popup.nvim'
+    Plug 'wfxr/minimap.vim'
+    Plug 'nvim-lua/telescope.nvim'
     Plug 'tjdevries/lsp_extensions.nvim'
     Plug 'RishabhRD/nvim-lsputils'
     Plug 'RishabhRD/popfix'
@@ -269,6 +275,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'mcchrish/info-window.nvim'
     "Plug 'gluon-lang/vim-gluon'
     "Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
+    "
     ""Plug 'OmniSharp/omnisharp-vim'
     ""Plug 'neomake/neomake' ", {'for': 'rst'}
     ""Plug 'SkyLeach/pudb.vim'
@@ -297,7 +304,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'glacambre/firenvim'
     ""Plug 'rhysd/accelerated-jk'
     ""Plug  'lambdalisue/suda.vim'
-    "Plug  'szymonmaszke/vimpyter'
+    Plug  'szymonmaszke/vimpyter'
     "Plug 'norcalli/nvim-colorizer.lua'
     Plug 'voldikss/vim-floaterm'
     Plug 'kkoomen/vim-doge'
@@ -320,7 +327,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'airblade/vim-rooter'
     ""Plug 'akiyosi/gonvim-fuzzy'
     ""Plug 'arp242/jumpy.vim'
-    ""Plug 'bfredl/nvim-ipy',  {'on':  [ 'IPython'], 'do': ':UpdateRemotePlugins'}
+    Plug 'bfredl/nvim-ipy',  {'on':  [ 'IPython'], 'do': ':UpdateRemotePlugins'}
     ""Plug 'bfrg/vim-cpp-modern'
     ""Plug 'bkad/CamelCaseMotion'
     "Plug 'bronson/vim-visual-star-search'
@@ -379,7 +386,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'mileszs/ack.vim'
     Plug 'moll/vim-bbye'
     ""Plug 'neomake/neomake',{'for': 'rst'}
-    Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+    "Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
     Plug 'pboettch/vim-cmake-syntax'
     Plug 'peterhoeg/vim-qml', { 'for' : 'qml' }
     "Plug 'rbonvall/snipmate-snippets-bib'
@@ -408,7 +415,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'theHamsta/vim-textobj-entire'
     Plug 'theHamsta/vim-rebase-mode'
     Plug 'tpope/vim-eunuch'
-    Plug 'tpope/vim-fugitive'
+    Plug 'theHamsta/vim-fugitive'
     Plug 'tpope/vim-markdown'
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-rhubarb'
@@ -464,7 +471,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'mhinz/vim-janah'
     "Plug 'https://gitlab.com/thealik/vim-harmony'
     "Plug 'icymind/NeoSolarized'
-    "Plug 'junegunn/seoul256.vim'
+    Plug 'junegunn/seoul256.vim'
     "Plug 'arzg/seoul8.vim'
     "
     "
@@ -592,7 +599,8 @@ let g:equinusocio_material_style = 'darker'
 "colorscheme equinusocio_material
 
 "inoremap <expr><cr> pumvisible() ? "\<c-n>" : "\<cr>"
-colorscheme nightfly
+set background=dark 
+colorscheme one
 
 nnoremap <silent> <F3> <c-w>o:Tkill<cr>:Topen<cr>:wa<cr>:exec 'T ' . g:last_execution<cr>
 nnoremap <silent> <s-F3> :Tkill<cr>:wa<cr>:exec 'T ' . g:last_execution<cr>
@@ -1637,4 +1645,7 @@ let g:completion_chain_complete_list = [
 
 autocmd BufEnter,BufNewFile *.wat set filetype=wat
 
+
+nmap <leader>qf  :lua require'telescope.builtin'.quickfix()
+command TreeGrep  :lua require'telescope.builtin'.treesitter()
 let g:NERDCustomDelimiters = { 'query': { 'left': ';','right': ';' } }
