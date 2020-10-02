@@ -237,7 +237,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'RishabhRD/nvim-lsputils'
     Plug 'RishabhRD/popfix'
     Plug 'chuling/vim-equinusocio-material'
-    Plug 'git@github.com:nvim-treesitter/nvim-treesitter-textobjects.git'
+    Plug 'theHamsta/nvim-treesitter-textobjects.git'
     Plug 'bluz71/vim-nightfly-guicolors'
     Plug 'bluz71/vim-moonfly-colors'
     Plug 'nvim-treesitter/playground'

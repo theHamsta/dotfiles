@@ -38,12 +38,12 @@ endfunction
 --
 --
 --
-local ok, nvim_rocks = pcall(require, "nvim_rocks")
-if ok then
-  nvim_rocks.ensure_installed("fun")
-  nvim_rocks.ensure_installed("luasec", "fun", "30log", "lua-toml", "template", "lua-cjson")
-  nvim_rocks.ensure_installed("luasocket")
-end
+--local ok, nvim_rocks = pcall(require, "nvim_rocks")
+--if ok then
+  --nvim_rocks.ensure_installed("fun")
+  --nvim_rocks.ensure_installed("luasec", "fun", "30log", "lua-toml", "template", "lua-cjson")
+  --nvim_rocks.ensure_installed("luasocket")
+--end
 
 if not filter then
   local ok, _ = pcall(require, "fun")
@@ -613,37 +613,37 @@ vim.fn.sign_define("DapBreakpoint", {text = "🛑", texthl = "", linehl = "", nu
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
   vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
-  require "nvim-treesitter.parsers".get_parser_configs().lisp = {
-    install_info = {
-      url = "~/projects/tree-sitter-lisp",
-      files = {"src/parser.c"}
-    }
-  }
-  --require "nvim-treesitter.parsers".get_parser_configs().viml = {
-  --install_info = {
-  --url = "https://github.com/vigoux/tree-sitter-viml",
-  --files = {"src/parser.c"}
+  --require "nvim-treesitter.parsers".get_parser_configs().lisp = {
+    --install_info = {
+      --url = "~/projects/tree-sitter-lisp",
+      --files = {"src/parser.c"}
+    --}
   --}
+  ----require "nvim-treesitter.parsers".get_parser_configs().viml = {
+  ----install_info = {
+  ----url = "https://github.com/vigoux/tree-sitter-viml",
+  ----files = {"src/parser.c"}
+  ----}
+  ----}
+  --require "nvim-treesitter.parsers".get_parser_configs().markdown = nil
+  --require "nvim-treesitter.parsers".get_parser_configs().zig = {
+    --install_info = {
+      --url = "https://github.com/GrayJack/tree-sitter-zig",
+      --files = {"src/parser.c"}
+    --}
   --}
-  require "nvim-treesitter.parsers".get_parser_configs().markdown = nil
-  require "nvim-treesitter.parsers".get_parser_configs().zig = {
-    install_info = {
-      url = "https://github.com/GrayJack/tree-sitter-zig",
-      files = {"src/parser.c"}
-    }
-  }
-  require "nvim-treesitter.parsers".get_parser_configs().kotlin = {
-    install_info = {
-      url = "https://github.com/QthCN/tree-sitter-kotlin",
-      files = {"src/parser.c"}
-    }
-  }
-  require "nvim-treesitter.parsers".get_parser_configs().markdown = {
-    install_info = {
-      url = "https://github.com/QthCN/tree-sitter-kotlin",
-      files = {"src/parser.c"}
-    }
-  }
+  --require "nvim-treesitter.parsers".get_parser_configs().kotlin = {
+    --install_info = {
+      --url = "https://github.com/QthCN/tree-sitter-kotlin",
+      --files = {"src/parser.c"}
+    --}
+  --}
+  --require "nvim-treesitter.parsers".get_parser_configs().markdown = {
+    --install_info = {
+      --url = "https://github.com/QthCN/tree-sitter-kotlin",
+      --files = {"src/parser.c"}
+    --}
+  --}
   --require "nvim-treesitter.parsers".get_parser_configs().clojure = {
   --install_info = {
   --url = "https://github.com/oakmac/tree-sitter-clojure",
@@ -706,12 +706,6 @@ if ok then
           enable = true,
           disable = {},
           keymaps = {
-            ["iL"] = {
-              python = "(function_definition) @function",
-              cpp = "(function_definition) @function",
-              c = "(function_definition) @function",
-              java = "(method_declaration) @function"
-            },
             ["af"] = "@function.outer",
             ["if"] = "@function.inner",
             ["aC"] = "@class.outer",
@@ -755,10 +749,10 @@ if ok then
         },
         move = {
           enable = true,
-          goto_next_start = {
+          goto_next_end = {
             ["öö"] = "@function.inner"
           },
-          goto_previous_start = {
+          goto_previous_end = {
             ["üü"] = "@function.inner"
           }
         }
@@ -794,57 +788,56 @@ if ok then
           }
         }
       },
-      --ensure_installed = "all",
-      disable = {"markdown"} -- list of language that will be disabled
+      ensure_installed = "all",
       --update_strategy = 'newest'
     }
   )
-  --require "nvim-treesitter.highlight"
-  --local hlmap = vim.treesitter.highlighter.hl_map
+  require "nvim-treesitter.highlight"
+  local hlmap = vim.treesitter.highlighter.hl_map
 
-  ----Misc
-  --hlmap.error = nil
-  --hlmap["punctuation.delimiter"] = "Delimiter"
-  --hlmap["punctuation.bracket"] = nil
+  --Misc
+  hlmap.error = nil
+  hlmap["punctuation.delimiter"] = "Delimiter"
+  hlmap["punctuation.bracket"] = nil
 
-  ---- Constants
-  --hlmap["constant"] = "Constant"
-  --hlmap["constant.builtin"] = "Type"
-  --hlmap["constant.macro"] = "Define"
-  --hlmap["string"] = "String"
-  --hlmap["string.regex"] = "String"
-  --hlmap["string.escape"] = "SpecialChar"
-  --hlmap["character"] = "Character"
-  --hlmap["number"] = "Number"
-  --hlmap["boolean"] = "Boolean"
-  --hlmap["float"] = "Float"
+  -- Constants
+  hlmap["constant"] = "Constant"
+  hlmap["constant.builtin"] = "Type"
+  hlmap["constant.macro"] = "Define"
+  hlmap["string"] = "String"
+  hlmap["string.regex"] = "String"
+  hlmap["string.escape"] = "SpecialChar"
+  hlmap["character"] = "Character"
+  hlmap["number"] = "Number"
+  hlmap["boolean"] = "Boolean"
+  hlmap["float"] = "Float"
 
-  --hlmap["namespace"] = "Constant"
-  ---- Functions
-  --hlmap["function"] = "Function"
-  --hlmap["keyword.function"] = "Function"
-  --hlmap["keyword.operator"] = "Operator"
-  --hlmap["function.builtin"] = "Special"
-  --hlmap["function.macro"] = "Macro"
-  --hlmap["parameter"] = "Identifier"
-  --hlmap["method"] = "Function"
-  --hlmap["field"] = "Identifier"
-  --hlmap["property"] = "Type"
-  --hlmap["constructor"] = "Type"
+  hlmap["namespace"] = "Constant"
+  -- Functions
+  hlmap["function"] = "Function"
+  hlmap["keyword.function"] = "Function"
+  hlmap["keyword.operator"] = "Operator"
+  hlmap["function.builtin"] = "Special"
+  hlmap["function.macro"] = "Macro"
+  hlmap["parameter"] = "Identifier"
+  hlmap["method"] = "Function"
+  hlmap["field"] = "Identifier"
+  hlmap["property"] = "Identifier"
+  hlmap["constructor"] = "Type"
 
-  ---- Keywords
-  --hlmap["conditional"] = "Conditional"
-  --hlmap["repeat"] = "Repeat"
-  --hlmap["label"] = "Label"
-  --hlmap["operator"] = "Operator"
-  --hlmap["keyword"] = "Repeat"
-  --hlmap["exception"] = "Exception"
-  --hlmap["include"] = "Include"
-  --hlmap["type"] = "Type"
-  --hlmap["type.builtin"] = "Type"
-  --hlmap["structure"] = "Structure"
-  --hlmap["keyword.function"] = "Function"
-  --hlmap["variable"] = "Normal"
+  -- Keywords
+  hlmap["conditional"] = "Conditional"
+  hlmap["repeat"] = "Repeat"
+  hlmap["label"] = "Label"
+  hlmap["operator"] = "Operator"
+  hlmap["keyword"] = "Repeat"
+  hlmap["exception"] = "Exception"
+  hlmap["include"] = "Include"
+  hlmap["type"] = "Type"
+  hlmap["type.builtin"] = "Type"
+  hlmap["structure"] = "Structure"
+  hlmap["keyword.function"] = "Function"
+  hlmap["variable"] = "Normal"
 
   local ok, docs = pcall(require, "nvim-tree-docs")
   if ok then
