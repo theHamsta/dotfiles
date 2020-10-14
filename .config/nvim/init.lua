@@ -40,9 +40,9 @@ endfunction
 --
 --local ok, nvim_rocks = pcall(require, "nvim_rocks")
 --if ok then
-  --nvim_rocks.ensure_installed("fun")
-  --nvim_rocks.ensure_installed("luasec", "fun", "30log", "lua-toml", "template", "lua-cjson")
-  --nvim_rocks.ensure_installed("luasocket")
+--nvim_rocks.ensure_installed("fun")
+--nvim_rocks.ensure_installed("luasec", "fun", "30log", "lua-toml", "template", "lua-cjson")
+--nvim_rocks.ensure_installed("luasocket")
 --end
 
 if not filter then
@@ -113,8 +113,12 @@ if ok then
 
     require "lsp-ext".update_diagnostics()
   end
+
   local function on_attach(...)
     vim.fn.NvimLspMaps()
+    if vim.g.uivonim == 1 then
+      require "uivonim/lsp".callbacks(...)
+    end
   end
 
   pcall(require, "nvim_lsp/sumneko_lua")
@@ -163,12 +167,13 @@ if ok then
   }
   nvim_lsp.clangd.setup {
     cmd = {
-      "clangd-11",
+      "clangd-12",
       "--clang-tidy",
       "--all-scopes-completion",
       "--header-insertion=iwyu",
       "--background-index",
-      "--suggest-missing-includes"
+      "--suggest-missing-includes",
+      "-cross-file-rename",
     },
     filetypes = {"c", "cpp", "objc", "objcpp", "cuda"},
     on_attach = on_attach
@@ -184,6 +189,7 @@ if ok then
         workspace = {
           library = {
             [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+            [require "nvim-treesitter.utils".get_package_path() .. "/lua"] = true,
             [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
           }
         }
@@ -585,7 +591,7 @@ if ok then
 
   if dap.custom_event_handlers then
     dap.custom_event_handlers.event_exited["my handler id"] = function(_, _)
-      dap.repl.close()
+      --dap.repl.close()
       vim.cmd("stopinsert")
     end
 
@@ -593,7 +599,7 @@ if ok then
       --dap.repl.append(vim.inspect(body))
     end
     dap.custom_event_handlers.event_stopped["my handler id"] = function(session, body)
-      --dap.repl.append(vim.inspect(body))
+      dap.repl.append(vim.inspect(body))
       --dap.repl.append(vim.inspect(session))
     end
   end
@@ -610,15 +616,16 @@ if ok then
 end
 
 vim.fn.sign_define("DapBreakpoint", {text = "🛑", texthl = "", linehl = "", numhl = ""})
+vim.fn.sign_define('DapStopped', {text='→', texthl='', linehl='NvimDapStopped', numhl=''})
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
   vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
-  --require "nvim-treesitter.parsers".get_parser_configs().lisp = {
-    --install_info = {
-      --url = "~/projects/tree-sitter-lisp",
-      --files = {"src/parser.c"}
-    --}
-  --}
+  require "nvim-treesitter.parsers".get_parser_configs().query = {
+    install_info = {
+      url = "~/projects/tree-sitter-query",
+      files = {"src/parser.c"}
+    }
+  }
   ----require "nvim-treesitter.parsers".get_parser_configs().viml = {
   ----install_info = {
   ----url = "https://github.com/vigoux/tree-sitter-viml",
@@ -626,23 +633,32 @@ if ok then
   ----}
   ----}
   --require "nvim-treesitter.parsers".get_parser_configs().markdown = nil
-  --require "nvim-treesitter.parsers".get_parser_configs().zig = {
-    --install_info = {
-      --url = "https://github.com/GrayJack/tree-sitter-zig",
-      --files = {"src/parser.c"}
-    --}
-  --}
-  --require "nvim-treesitter.parsers".get_parser_configs().kotlin = {
-    --install_info = {
-      --url = "https://github.com/QthCN/tree-sitter-kotlin",
-      --files = {"src/parser.c"}
-    --}
-  --}
+  require "nvim-treesitter.parsers".get_parser_configs().zig = {
+  install_info = {
+  url = "https://github.com/GrayJack/tree-sitter-zig",
+  files = {"src/parser.c"}
+  }
+  }
+  --
+  require "nvim-treesitter.parsers".get_parser_configs().kotlin = {
+    install_info = {
+      url = "https://github.com/QthCN/tree-sitter-kotlin",
+      files = {"src/parser.c"}
+    }
+  }
+  require "nvim-treesitter.parsers".get_parser_configs().wat = {
+    install_info = {
+      url = "https://github.com/wasm-lsp/tree-sitter-wasm",
+      files = {"src/parser.c"},
+      branch = 'main',
+      location = 'tree-sitter-wat/wat',
+    },
+  }
   --require "nvim-treesitter.parsers".get_parser_configs().markdown = {
-    --install_info = {
-      --url = "https://github.com/QthCN/tree-sitter-kotlin",
-      --files = {"src/parser.c"}
-    --}
+  --install_info = {
+  --url = "https://github.com/QthCN/tree-sitter-kotlin",
+  --files = {"src/parser.c"}
+  --}
   --}
   --require "nvim-treesitter.parsers".get_parser_configs().clojure = {
   --install_info = {
@@ -666,8 +682,8 @@ if ok then
       tree_docs = {
         enable = true,
         keymaps = {
-          doc_node_at_cursor = "GDD",
-          doc_all_in_range = "GDD"
+          doc_node_at_cursor = "<leader>GDD",
+          doc_all_in_range = "<leader>GDD"
         }
       },
       playground = {
@@ -749,11 +765,17 @@ if ok then
         },
         move = {
           enable = true,
+          goto_next_start = {
+            ["öö"] = "@function.inner",
+          },
           goto_next_end = {
-            ["öö"] = "@function.inner"
+            ["ÖÖ"] = "@function.inner",
+          },
+          goto_previous_start = {
+            ["üü"] = "@function.inner",
           },
           goto_previous_end = {
-            ["üü"] = "@function.inner"
+            ["ÜÜ"] = "@function.inner",
           }
         }
       },
@@ -788,7 +810,7 @@ if ok then
           }
         }
       },
-      ensure_installed = "all",
+      ensure_installed = "all"
       --update_strategy = 'newest'
     }
   )
@@ -837,7 +859,7 @@ if ok then
   hlmap["type.builtin"] = "Type"
   hlmap["structure"] = "Structure"
   hlmap["keyword.function"] = "Function"
-  hlmap["variable"] = "Normal"
+  hlmap["variable"] = nil
 
   local ok, docs = pcall(require, "nvim-tree-docs")
   if ok then
@@ -884,10 +906,15 @@ vim.cmd [[
 vim.cmd [[
     command! SwitchHeaderSource lua require "lsp-ext".switch_header_source()
 ]]
-
+vim.g.my_font = '"FuraCode Nerd Font"'
+vim.g.my_fontsize = 8
 vim.cmd("set guicursor+=a:blinkon333")
-vim.cmd('set guifont="Noto_Sans:h8"')
+vim.cmd("set guifont="..vim.g.my_font..":h"..(vim.g.my_fontsize))
+vim.cmd [[
+command! StopLspClients :lua vim.lsp.stop_client(vim.lsp.get_active_clients())
+]]
 
 --vim.api.nvim_command [[
 --command! -nargs=1 JustTargets lua require "my_launcher".fuzzy_just(<f-args>)
 --]]
+

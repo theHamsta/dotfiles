@@ -67,6 +67,7 @@ zstyle ':completion:*' cache-path ~/.zsh/cache
 
 alias -g ...='../..'
 alias -g ....='../../..'
+alias vi=nvim
 
 # User configuration
 
@@ -117,10 +118,10 @@ alias cd..="cd .."
 alias cd...="cd ../.."
 alias -s tex=nvim
 alias ls=exa
-alias tree=exa --tree
+alias tree="exa --tree"
 
 alias v='f -e nvim' # quick opening files with vim
-Alias o='a -e xdg-open' # quick opening files with xdg-open
+alias o='a -e xdg-open' # quick opening files with xdg-open
 
 #export CUDA_HOME=/usr/local/cuda-9.0
 #export LD_LOAD_PATH=/usr/local/cuda-9.0/targets/x86_64-linux/lib/:${LD_LOAD_PATH}
@@ -146,3 +147,5 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 eval "$(starship init zsh)"
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /home/stephan/go/bin/bitcomplete bit

@@ -12,7 +12,7 @@ nmap <buffer> <silent> <leader>tn <c-w>o:wa<cr>:Topen<cr>:exec 'T cd' FindRootDi
 nmap <buffer> <silent> <leader>tN <c-w>o:wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestNearest -s --pdb<CR>
 nmap <buffer> <silent> <leader>tf :wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestFile<CR>
 nmap <buffer> <silent> <leader>tF :wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestFile -s<CR>
-command! Flynt !flynt %:p
+command! Flynt :w<cr>!flynt %:p
 
 
 nmap <buffer> <silent> <leader>tF :wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestFile -s<CR>

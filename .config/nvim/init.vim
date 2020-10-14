@@ -1,10 +1,8 @@
 set tags=./tags,tags
 set encoding=UTF-8
-if has('vim_starting')
-    set nocompatible               " Be iMproved
-endif
+set nocompatible               " Be iMproved
+set path=.,./debug,../release,/usr/local/include,/usr/include
 
-highlight link TSError Normal
 let g:paredit_leader=','
 let g:rooter_patterns = ['gitmodules', '.git', '.git/']
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
@@ -182,6 +180,7 @@ set nowrap
 set linebreak
 set nolist  " list disables linebreak
 filetype plugin indent on
+filetype plugin on
 " show existing tab with 4 spaces width
 set tabstop=4
 " when indenting with '>', use 4 spaces width
@@ -231,19 +230,22 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'vigoux/LanguageTool.nvim'
     "Plug 'rhysd/vim-grammarous'
     Plug 'nvim-lua/popup.nvim'
+    Plug 'chrisbra/unicode.vim'
     Plug 'wfxr/minimap.vim'
     Plug 'nvim-lua/telescope.nvim'
     Plug 'tjdevries/lsp_extensions.nvim'
     Plug 'RishabhRD/nvim-lsputils'
     Plug 'RishabhRD/popfix'
     Plug 'chuling/vim-equinusocio-material'
-    Plug 'theHamsta/nvim-treesitter-textobjects.git'
+    Plug 'theHamsta/nvim-treesitter-textobjects'
+    Plug 'nvim-treesitter/nvim-treesitter-refactor'
+    Plug 'nvim-treesitter/playground'
+    Plug 'nvim-treesitter/nvim-tree-docs'
+    Plug 'theHamsta/nvim-treesitter'
     Plug 'bluz71/vim-nightfly-guicolors'
     Plug 'bluz71/vim-moonfly-colors'
-    Plug 'nvim-treesitter/playground'
     Plug 'ziglang/zig.vim'
     Plug 'vigoux/treesitter-context.nvim'
-    Plug 'nvim-treesitter/nvim-tree-docs'
     Plug 'mfussenegger/nvim-jdtls'
     Plug 'mattn/emmet-vim'
     Plug 'rhysd/conflict-marker.vim'
@@ -253,7 +255,6 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'haorenW1025/diagnostic-nvim'
    "Plug 'nvim-treesitter/highlight.lua'
     "Plug 'kyazdani42/nvim-palenight.lua'
-    Plug 'theHamsta/nvim-treesitter'
     Plug 'dm1try/git_fastfix'
     "Plug 'wookayin/vim-autoimport'
     "Plug 'svermeulen/vim-easyclip'
@@ -262,6 +263,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'tjdevries/luvjob.nvim'
     Plug 'tjdevries/plenary.nvim'
     Plug 'svermeulen/nvim-moonmaker'
+    Plug 'kbenzie/vim-spirv'
 
     "
     "Plug 'hrsh7th/vim-vsnip-integ'
@@ -319,7 +321,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'KabbAmine/vCoolor.vim'
     ""Plug 'LeafCage/yankround.vim'
     ""Plug 'Olical/vim-enmasse'
-    Plug 'Shougo/echodoc.vim'
+    "Plug 'Shougo/echodoc.vim'
     ""Plug 'Shougo/vimproc.vim', {'do' : 'make'}
     Plug 'SirVer/ultisnips'
     Plug 'Valloric/ListToggle'
@@ -372,7 +374,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'kana/vim-textobj-function'
     Plug 'kana/vim-textobj-user'
     Plug 'kassio/neoterm'
-   Plug 'kien/rainbow_parentheses.vim'
+   "Plug 'kien/rainbow_parentheses.vim'
     Plug 'lervag/vimtex', { 'for': 'tex' }
     Plug 'machakann/vim-swap'
     "Plug 'majutsushi/tagbar'
@@ -846,11 +848,11 @@ augroup END
 
 nnoremap <a-t> :Switch<CR>
 
-au VimEnter * RainbowParenthesesActivate
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
-""
+"au VimEnter * RainbowParenthesesActivate
+"au Syntax * RainbowParenthesesLoadRound
+"au Syntax * RainbowParenthesesLoadSquare
+"au Syntax * RainbowParenthesesLoadBraces
+"""
 ""
 ""call camelcasemotion#CreateMotionMappings()
 "let g:wordmotion_prefix = '-'
@@ -1051,8 +1053,10 @@ endfunction
 augroup filetypedetect
     au! BufRead,BufNewFile *.cpp.tmpl set filetype=cpp
     au! BufRead,BufNewFile *.pdf_tex set filetype=tex
-    au! BufRead,BufNewFile justfile set filetype=make
+    au! BufRead,BufNewFile .justfile,justfile set filetype=make
     au! BufRead,BufNewFile *.tikz set filetype=tex
+    au! BufRead,BufNewFile *.spirv setfiletype spirv
+
 augroup END
 au! BufRead,BufNewFile *.asd,.spacemacs set filetype=lisp
 
@@ -1157,10 +1161,16 @@ let g:LanguageClient_diagnosticsDisplay= {
             \   }
             \
 
-sign define LspDiagnosticsErrorSign text=❌ texthl=LspDiagnosticsError linehl= numhl=
-sign define LspDiagnosticsWarningSign text=⚠️ texthl=LspDiagnosticsWarning linehl= numhl=
-sign define LspDiagnosticsInformationSign text=🔎 texthl=LspDiagnosticsInformation linehl= numhl=
-sign define LspDiagnosticsHintSign text=💡 texthl=LspDiagnosticsHint linehl= numhl=
+"sign define LspDiagnosticsErrorSign text=❌ texthl=LspDiagnosticsError linehl= numhl=
+"sign define LspDiagnosticsWarningSign text=⚠️ texthl=LspDiagnosticsWarning linehl= numhl=
+"sign define LspDiagnosticsInformationSign text=🔎 texthl=LspDiagnosticsInformation linehl= numhl=
+"sign define LspDiagnosticsHintSign text=💡 texthl=LspDiagnosticsHint linehl= numhl=
+
+"let g:gitgutter_sign_added = '▋'
+"let g:gitgutter_sign_modified = '▐'
+""let g:gitgutter_sign_removed = '▋'
+""let g:gitgutter_sign_removed_first_line = '▋'
+"let g:gitgutter_sign_modified_removed = '▐_'
 
 "set signcolumn=yes
 
@@ -1234,11 +1244,6 @@ au FileType fzf setlocal nonu nornu signcolumn="no"
 ""noremap <c-j> <c-w>w
 ""noremap <c-k> <c-w>W
 
-let g:gitgutter_sign_added = '▋'
-let g:gitgutter_sign_modified = '▐'
-"let g:gitgutter_sign_removed = '▋'
-"let g:gitgutter_sign_removed_first_line = '▋'
-let g:gitgutter_sign_modified_removed = '▐_'
 
 if has('nvim')
   let $GIT_EDITOR = 'nvr -cc split --remote-wait'
@@ -1312,7 +1317,7 @@ let g:gitgutter_max_signs=3000
 """ Always draw sign column. Prevent buffer moving when adding/deleting sign.
 
 "call deoplete#custom#option('auto_complete', v:true)
-let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 0
  ""let g:LanguageClient_serverCommands = {
      ""\ 'cpp': ['clangd-9', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes']
          ""\ }
@@ -1464,8 +1469,7 @@ nnoremap <silent> <c-0> :lua require'my_gui'.reset_fontsize()<cr>
     "\ }
 "let g:lua_tree_ignore = [ '.git', 'node_modules', '.cache', '__pycache__' ]
 
-nnoremap <Leader>nT :LuaTreeToggle<CR>
-nnoremap <Leader>nf :LuaTreeFindFile<cr>:LuaTreeShow<CR>
+nnoremap <Leader>nf :CHADopen<cr>
 nnoremap <Leader>nt :CHADopen<cr>
 ""
 "let g:diagnostic_insert_delay = 1
@@ -1570,7 +1574,8 @@ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 ""let g:lightline = { 'colorscheme': 'palenight' }
 au TextYankPost * silent! lua require'vim.highlight'.on_yank({"IncSearch", 150})
 
-"highlight link NvimTreesitterCurrentNode guibg=#444400
+highlight NvimTreesitterCurrentNode guibg=#000099
+highlight NvimDapStopped guibg=#000099
 
 let g:sexp_filetypes = 'clojure,scheme,lisp,timl,vlime_repl,fennel'
 
@@ -1632,7 +1637,6 @@ command! TSStopPlaying :lua require"nvim-treesitter.playground".play_with()
 
 nnoremap <leader>pl :TSPlaygroundToggle<cr>
 
-highlight link NvimDapVirtualText Type
 
 
 
@@ -1646,6 +1650,15 @@ let g:completion_chain_complete_list = [
 autocmd BufEnter,BufNewFile *.wat set filetype=wat
 
 
+    "g:echodoc#type
 nmap <leader>qf  :lua require'telescope.builtin'.quickfix()
 command TreeGrep  :lua require'telescope.builtin'.treesitter()
 let g:NERDCustomDelimiters = { 'query': { 'left': ';','right': ';' } }
+"let g:neovide_cursor_vfx_mode = "railgun"
+let g:neovide_cursor_vfx_mode = "wireframe"
+
+autocmd BufReadPre,FileReadPre *.spirv setlocal bin
+autocmd BufReadPost,FileReadPost *.spirv call spirv#disassemble()
+
+" Set autocommands to assemble SPIR-V binaries on write
+autocmd BufWriteCmd,FileWriteCmd *.spirv call spirv#assemble()

@@ -51,14 +51,16 @@ alias g="sudo apt update && apt upgrade"
 
 alias vi=nvim
 alias vim=nvim
+alias ls=exa
+alias tree="exa --tree"
 
 
 
 alias ju='just --justfile ~/.justfile --working-directory .'
 
 egrep "^export " ~/.profile | while read e
-    set var (echo $e | sed -E "s/^export ([A-Z_]+)=(.*)\$/\1/")
-    set value (echo $e | sed -E "s/^export ([A-Z_]+)=(.*)\$/\2/")
+    set var (echo $e | sed -E "s/^export ([A-Z1-9_]+)=(.*)\$/\1/")
+    set value (echo $e | sed -E "s/^export ([A-Z1-9_]+)=(.*)\$/\2/")
 
     # remove surrounding quotes if existing
     set value (echo $value | sed -E "s/^\"(.*)\"\$/\1/")
@@ -78,3 +80,5 @@ egrep "^export " ~/.profile | while read e
 
     set -xg $var $value
 end
+
+starship init fish | source
