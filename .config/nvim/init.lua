@@ -86,15 +86,7 @@ end
 local ok = pcall(require, "lsp_extensions")
 
 if ok then
-  vim.cmd [[
-   autocmd BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{}
-   ]]
-  require "lsp_extensions".inlay_hints {
-    highlight = "Comment",
-    prefix = " > ",
-    aligned = false,
-    only_current_line = false
-  }
+  vim.cmd [[command! InlayHints :lua require "lsp_extensions".inlay_hints { highlight = "Comment", prefix = " > "}]]
 end
 
 local completion_nvim_ok, completion_nvim = pcall(require, "completion")
@@ -161,6 +153,12 @@ if ok then
       }
     }
   }
+  --nvim_lsp.jedi_language_server.setup {
+    --on_attach = on_attach,
+    --settings = {
+    --}
+  --}
+
 
   nvim_lsp.tsserver.setup {
     on_attach = on_attach
@@ -173,7 +171,7 @@ if ok then
       "--header-insertion=iwyu",
       "--background-index",
       "--suggest-missing-includes",
-      "-cross-file-rename",
+      "-cross-file-rename"
     },
     filetypes = {"c", "cpp", "objc", "objcpp", "cuda"},
     on_attach = on_attach
@@ -182,7 +180,7 @@ if ok then
     settings = {
       Lua = {
         diagnostics = {
-          globals = {"vim", "map", "filter", "range", "reduce", "head", "tail", "nth"},
+          globals = {"vim", "map", "filter", "range", "reduce", "head", "tail", "nth", "it", "describe"},
           disable = {"redefined-local"}
         },
         runtime = {version = "LuaJIT"},
@@ -616,7 +614,7 @@ if ok then
 end
 
 vim.fn.sign_define("DapBreakpoint", {text = "🛑", texthl = "", linehl = "", numhl = ""})
-vim.fn.sign_define('DapStopped', {text='→', texthl='', linehl='NvimDapStopped', numhl=''})
+vim.fn.sign_define("DapStopped", {text = "→", texthl = "", linehl = "NvimDapStopped", numhl = ""})
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
   vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
@@ -632,12 +630,12 @@ if ok then
   ----files = {"src/parser.c"}
   ----}
   ----}
-  --require "nvim-treesitter.parsers".get_parser_configs().markdown = nil
+  require "nvim-treesitter.parsers".get_parser_configs().markdown = nil
   require "nvim-treesitter.parsers".get_parser_configs().zig = {
-  install_info = {
-  url = "https://github.com/GrayJack/tree-sitter-zig",
-  files = {"src/parser.c"}
-  }
+    install_info = {
+      url = "https://github.com/GrayJack/tree-sitter-zig",
+      files = {"src/parser.c"}
+    }
   }
   --
   require "nvim-treesitter.parsers".get_parser_configs().kotlin = {
@@ -650,9 +648,9 @@ if ok then
     install_info = {
       url = "https://github.com/wasm-lsp/tree-sitter-wasm",
       files = {"src/parser.c"},
-      branch = 'main',
-      location = 'tree-sitter-wat/wat',
-    },
+      branch = "main",
+      location = "tree-sitter-wat/wat"
+    }
   }
   --require "nvim-treesitter.parsers".get_parser_configs().markdown = {
   --install_info = {
@@ -677,7 +675,7 @@ if ok then
     {
       highlight = {
         enable = true, -- false will disable the whole extension
-        disable = {"html", "lua"} -- list of language that will be disabled
+        disable = {"html",} -- list of language that will be disabled
       },
       tree_docs = {
         enable = true,
@@ -734,8 +732,8 @@ if ok then
             ["il"] = "@loop.inner",
             ["is"] = "@statement.inner",
             ["as"] = "@statement.outer",
-            ["ad"] = "@comment.outer",
-            ["id"] = "@comment.inner",
+            ["ad"] = "@lhs.inner",
+            ["id"] = "@rhs.inner",
             ["am"] = "@call.outer",
             ["im"] = "@call.inner"
           }
@@ -766,16 +764,16 @@ if ok then
         move = {
           enable = true,
           goto_next_start = {
-            ["öö"] = "@function.inner",
+            ["öö"] = "@function.inner"
           },
           goto_next_end = {
-            ["ÖÖ"] = "@function.inner",
+            ["ÖÖ"] = "@function.inner"
           },
           goto_previous_start = {
-            ["üü"] = "@function.inner",
+            ["üü"] = "@function.inner"
           },
           goto_previous_end = {
-            ["ÜÜ"] = "@function.inner",
+            ["ÜÜ"] = "@function.inner"
           }
         }
       },
@@ -809,6 +807,9 @@ if ok then
             goto_previous_usage = "<a-#>"
           }
         }
+      },
+      indent = {
+        enable = false
       },
       ensure_installed = "all"
       --update_strategy = 'newest'
@@ -909,7 +910,7 @@ vim.cmd [[
 vim.g.my_font = '"FuraCode Nerd Font"'
 vim.g.my_fontsize = 8
 vim.cmd("set guicursor+=a:blinkon333")
-vim.cmd("set guifont="..vim.g.my_font..":h"..(vim.g.my_fontsize))
+vim.cmd("set guifont=" .. vim.g.my_font .. ":h" .. (vim.g.my_fontsize))
 vim.cmd [[
 command! StopLspClients :lua vim.lsp.stop_client(vim.lsp.get_active_clients())
 ]]
@@ -918,3 +919,7 @@ command! StopLspClients :lua vim.lsp.stop_client(vim.lsp.get_active_clients())
 --command! -nargs=1 JustTargets lua require "my_launcher".fuzzy_just(<f-args>)
 --]]
 
+local ok, context = pcall(require, "treesitter-context")
+if ok then
+  context.enable()
+end

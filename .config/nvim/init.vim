@@ -230,6 +230,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'vigoux/LanguageTool.nvim'
     "Plug 'rhysd/vim-grammarous'
     Plug 'nvim-lua/popup.nvim'
+    Plug 'ghifarit53/tokyonight-vim'
+    "Plug 'romgrk/nvim-treesitter-context'
     Plug 'chrisbra/unicode.vim'
     Plug 'wfxr/minimap.vim'
     Plug 'nvim-lua/telescope.nvim'
@@ -245,7 +247,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'bluz71/vim-nightfly-guicolors'
     Plug 'bluz71/vim-moonfly-colors'
     Plug 'ziglang/zig.vim'
-    Plug 'vigoux/treesitter-context.nvim'
+    "Plug 'vigoux/treesitter-context.nvim'
     Plug 'mfussenegger/nvim-jdtls'
     Plug 'mattn/emmet-vim'
     Plug 'rhysd/conflict-marker.vim'
@@ -292,7 +294,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'camspiers/animate.vim'
     ""Plug 'AndrewRadev/splitjoin.vim'
     ""Plug 'wincent/vcs-jump'
-    Plug 'neovim/nvim-lsp'
+    Plug 'neovim/nvim-lspconfig'
     "Plug 'tikhomirov/vim-glsl'
     ""Plug 'itchyny/calendar.vim'
     "Plug 'norcalli/nvim.lua'
@@ -1068,13 +1070,18 @@ au! BufRead,BufNewFile *.asd,.spacemacs set filetype=lisp
 let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'sh', 'cpp', 'rust', 'java', 'go', 'lua', 'vim']
 let g:vim_markdown_math = 1
 
+let g:deoplete#enable_at_startup = 1
 function! Multiple_cursors_before()
-  call deoplete#custom#option('auto_complete', v:false)
+  if g:deoplete#enable_at_startup
+    call deoplete#custom#option('auto_complete', v:false)
+  end
 endfunction
 function! Multiple_cursors_after()
- if &filetype != "java" && &filetype != "javascript"
-  call deoplete#custom#option('auto_complete', v:true)
-endif
+  if &filetype != "java" && &filetype != "javascript"
+    if g:deoplete#enable_at_startup
+      call deoplete#custom#option('auto_complete', v:true)
+    endif
+  endif
 endfunction
 let g:lt_location_list_toggle_map = '<leader>ql'
 let g:lt_quickfix_list_toggle_map = '<leader>qe'
@@ -1161,16 +1168,18 @@ let g:LanguageClient_diagnosticsDisplay= {
             \   }
             \
 
-"sign define LspDiagnosticsErrorSign text=❌ texthl=LspDiagnosticsError linehl= numhl=
-"sign define LspDiagnosticsWarningSign text=⚠️ texthl=LspDiagnosticsWarning linehl= numhl=
-"sign define LspDiagnosticsInformationSign text=🔎 texthl=LspDiagnosticsInformation linehl= numhl=
-"sign define LspDiagnosticsHintSign text=💡 texthl=LspDiagnosticsHint linehl= numhl=
+if !exists('g:GtkGuiLoaded')
+  sign define LspDiagnosticsErrorSign text=❌ texthl=LspDiagnosticsError linehl= numhl=
+  sign define LspDiagnosticsWarningSign text=⚠️ texthl=LspDiagnosticsWarning linehl= numhl=
+  sign define LspDiagnosticsInformationSign text=🔎 texthl=LspDiagnosticsInformation linehl= numhl=
+  sign define LspDiagnosticsHintSign text=💡 texthl=LspDiagnosticsHint linehl= numhl=
 
-"let g:gitgutter_sign_added = '▋'
-"let g:gitgutter_sign_modified = '▐'
-""let g:gitgutter_sign_removed = '▋'
-""let g:gitgutter_sign_removed_first_line = '▋'
-"let g:gitgutter_sign_modified_removed = '▐_'
+  let g:gitgutter_sign_added = '▋'
+  let g:gitgutter_sign_modified = '▐'
+  let g:gitgutter_sign_removed = '▋'
+  let g:gitgutter_sign_removed_first_line = '▋'
+  let g:gitgutter_sign_modified_removed = '▐_'
+end
 
 "set signcolumn=yes
 
@@ -1317,7 +1326,6 @@ let g:gitgutter_max_signs=3000
 """ Always draw sign column. Prevent buffer moving when adding/deleting sign.
 
 "call deoplete#custom#option('auto_complete', v:true)
-let g:deoplete#enable_at_startup = 0
  ""let g:LanguageClient_serverCommands = {
      ""\ 'cpp': ['clangd-9', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes']
          ""\ }
@@ -1648,6 +1656,8 @@ let g:completion_chain_complete_list = [
 \]
 
 autocmd BufEnter,BufNewFile *.wat set filetype=wat
+autocmd BufEnter,BufNewFile *.vh set filetype=verilog
+autocmd BufEnter,BufNewFile *.verilog set filetype=verilog
 
 
     "g:echodoc#type
@@ -1662,3 +1672,26 @@ autocmd BufReadPost,FileReadPost *.spirv call spirv#disassemble()
 
 " Set autocommands to assemble SPIR-V binaries on write
 autocmd BufWriteCmd,FileWriteCmd *.spirv call spirv#assemble()
+
+
+"let g:vlime_cl_impl = "my_sbcl"
+"function! VlimeBuildServerCommandFor_my_sbcl(vlime_loader, vlime_eval)
+    "return ["sbcl",
+                "\ "--dynamic-heap-size", "20000",
+                "\ "--load", a:vlime_loader,
+                "\ "--eval", a:vlime_eval,
+                "\ "--eval", '(format t "hallo")' ]
+"endfunction
+"
+
+"set winaltkeys=yes
+"for s:char in split('¶¡@£$€¥{[]}\±{}þ←đŋ©®ł¸~æœ€↓→ðħŧłß̣̣̣´|·@©ĸ»”µł“«', '\zs')
+    "if s:char == '\'
+        "let s:expr = 'imap <M-Bslash> <Bslash>'
+    "elseif s:char == '|'
+        "let s:expr = 'imap <M-Bar> <Bar>'
+    "else
+        "let s:expr = printf('imap <M-%s> %s', s:char, s:char)
+    "endif
+    "exec s:expr
+"endfor
