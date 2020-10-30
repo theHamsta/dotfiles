@@ -618,12 +618,12 @@ vim.fn.sign_define("DapStopped", {text = "→", texthl = "", linehl = "NvimDapSt
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
   vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
-  require "nvim-treesitter.parsers".get_parser_configs().query = {
-    install_info = {
-      url = "~/projects/tree-sitter-query",
-      files = {"src/parser.c"}
-    }
-  }
+  --require "nvim-treesitter.parsers".get_parser_configs().query = {
+    --install_info = {
+      --url = "~/projects/tree-sitter-query",
+      --files = {"src/parser.c"}
+    --}
+  --}
   ----require "nvim-treesitter.parsers".get_parser_configs().viml = {
   ----install_info = {
   ----url = "https://github.com/vigoux/tree-sitter-viml",
