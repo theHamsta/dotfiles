@@ -243,7 +243,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'nvim-treesitter/nvim-treesitter-refactor'
     Plug 'nvim-treesitter/playground'
     Plug 'nvim-treesitter/nvim-tree-docs'
-    Plug 'nvim-treesitter/nvim-treesitter'
+    Plug 'theHamsta/nvim-treesitter'
     Plug 'bluz71/vim-nightfly-guicolors'
     Plug 'bluz71/vim-moonfly-colors'
     Plug 'ziglang/zig.vim'
