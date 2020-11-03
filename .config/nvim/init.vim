@@ -239,11 +239,11 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'RishabhRD/nvim-lsputils'
     Plug 'RishabhRD/popfix'
     Plug 'chuling/vim-equinusocio-material'
-    Plug 'theHamsta/nvim-treesitter-textobjects'
+    Plug 'nvim-treesitter/nvim-treesitter-textobjects'
     Plug 'nvim-treesitter/nvim-treesitter-refactor'
+    Plug 'theHamsta/nvim-treesitter'
     Plug 'nvim-treesitter/playground'
     Plug 'nvim-treesitter/nvim-tree-docs'
-    Plug 'theHamsta/nvim-treesitter'
     Plug 'bluz71/vim-nightfly-guicolors'
     Plug 'bluz71/vim-moonfly-colors'
     Plug 'ziglang/zig.vim'
@@ -253,7 +253,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'rhysd/conflict-marker.vim'
     Plug 'mfussenegger/nvim-dap'
     Plug 'theHamsta/nvim-dap-virtual-text'
-    Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}
+    "Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}
     "Plug 'haorenW1025/diagnostic-nvim'
    "Plug 'nvim-treesitter/highlight.lua'
     "Plug 'kyazdani42/nvim-palenight.lua'
@@ -334,7 +334,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'bfredl/nvim-ipy',  {'on':  [ 'IPython'], 'do': ':UpdateRemotePlugins'}
     ""Plug 'bfrg/vim-cpp-modern'
     ""Plug 'bkad/CamelCaseMotion'
-    "Plug 'bronson/vim-visual-star-search'
+    Plug 'bronson/vim-visual-star-search'
     ""Plug 'brooth/far.vim'
     ""Plug 'burke/matcher'
     Plug 'cespare/vim-toml', {'for': 'toml'}
@@ -348,7 +348,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoInstallBinaries'}
     "Plug 'junegunn/vim-emoji'
     "Plug 'fszymanski/deoplete-emoji'
-    Plug 'theHamsta/vlime', {'branch': 'prompt', 'rtp': 'vim/', 'for':'lisp'}
+    "Plug 'theHamsta/vlime', {'branch': 'prompt', 'rtp': 'vim/', 'for':'lisp'}
     ""Plug 'kovisoft/paredit', {'for': ['lisp', 'clojure']}
     ""Plug 'kovisoft/slimv', {'for': 'lisp'}
     ""Plug 'fvictorio/vim-textobj-backticks'
@@ -357,10 +357,11 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'heavenshell/vim-pydocstring'
     Plug 'hotwatermorning/auto-git-diff'
     Plug 'idanarye/vim-merginal'
-    "Plug 'ivalkeen/nerdtree-execute'   , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-    "Plug 'Xuyuanp/nerdtree-git-plugin'  , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-    "Plug 'scrooloose/nerdtree' , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
-    "Plug 'tiagofumo/vim-nerdtree-syntax-highlight' , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+
+    Plug 'ivalkeen/nerdtree-execute'   , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    Plug 'Xuyuanp/nerdtree-git-plugin'  , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    Plug 'scrooloose/nerdtree' , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
+    Plug 'tiagofumo/vim-nerdtree-syntax-highlight' , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
     ""Plug 'jackguo380/vim-lsp-cxx-highlight'
     Plug 'janko/vim-test'
     "Plug 'jaxbot/semantic-highlight.vim'
@@ -441,7 +442,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'Shougo/neosnippet.vim'
 ""Plug 'vim-pandoc/vim-pandoc'
     ""Plug 'amix/vim-zenroom2'
-    "Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'for': ['bash','sh', 'cs', 'cmake', 'javascript', 'tsx']}
+    "Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'for': ['python']}
     ""Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'tex', 'bib', 'json', 'cs']}
     "Plug 'autozimu/LanguageClient-neovim', {
             "\ 'branch': 'next',
@@ -475,7 +476,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'mhinz/vim-janah'
     "Plug 'https://gitlab.com/thealik/vim-harmony'
     "Plug 'icymind/NeoSolarized'
-    Plug 'junegunn/seoul256.vim'
+    "Plug 'junegunn/seoul256.vim'
     "Plug 'arzg/seoul8.vim'
     "
     "
@@ -717,9 +718,11 @@ let g:LanguageClient_serverCommands = {
     \ 'cmake': ['cmake-language-server'],
     \ 'zig': ['zls'],
     \ }
+    "\ 'python': ['/home/linuxbrew/.linuxbrew/bin/pyright-langserver'],
+
+    "\ 'python': ['pyls', '--log-file', '/tmp/pylslog'],
     "\ 'go': ['gopls'],
     "\ 'lisp': ['~/.roswell/bin/cl-lsp']
-    "\ 'python': ['pyls'],
     "\ 'cuda': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     "\ 'cpp': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     "\ 'c': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
@@ -926,45 +929,45 @@ let g:LanguageClient_diagnosticsList = "Location"
 ""let g:quickr_preview_on_cursor = 1
 
 
- "function! ActivateCoc()
-     "call deoplete#custom#option('auto_complete', v:false)
-     "set completeopt +=preview
-     "autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-     "if &filetype != "python" && &filetype != "tex" && &filetype != "bib" && &filetype != "go" && &filetype != "kotlin"&& &filetype != "kt"&& &filetype != "rust"
-         "autocmd  CursorHold <buffer> silent call CocActionAsync('highlight')
-     "endif
-     ""autocmd <buffer> CursorHold * silent call CocActionAsync('highlight')
-     "command! OI -nargs=0 :call CocAction('runCommand', 'editor.action.organizeImport')
-     "nmap <silent> <buffer>  <c-k> <Plug>(coc-diagnostic-prev)
-     ""nmap <silent> <buffer>  <leader>nt :CocCommand explorer<cr>
-     ""nmap <silent> <buffer>  <leader>nf :CocCommand explorer --reveal %<cr>
-     "nmap <silent> <buffer>  <c-j> <Plug>(coc-diagnostic-next)
-     "nmap <silent> <buffer>  gd <Plug>(coc-definition)
-     "nmap <silent> <buffer>  <leader>la :CocAction<cr>
-     "nmap <silent> <buffer>  <leader>ca <Plug>(coc-codeaction-selected)<cr>
-     "nmap <silent> <buffer> <f2> <Plug>(coc-rename)
-     "nmap <silent> <buffer>  gD <c-w>v<Plug>(coc-definition)
-     "nmap <silent> <buffer>  gt <Plug>(coc-type-definition)
-     "nmap <silent> <buffer>  gT <c-w>v<Plug>(coc-type-definition)
-     "nmap <silent> <buffer>  gi <Plug>(coc-implementation)
-     "nmap <silent> <buffer>  gI <c-w>v<Plug>(coc-implementation)
-     "nmap <silent> <buffer>  gr <Plug>(coc-references)
-     "nmap <silent> <buffer>  gh :call CocAction('doHover')<cr>
-     "nmap <buffer> <leader>qf  <Plug>(coc-fix-current)
-     "if &filetype != "tex" && &filetype != "bib"
-     "nmap <silent> <buffer>  <leader>le <Plug>(coc-codelens-action)
-     "nmap <silent> <buffer>  <c-s> :call CocAction('format')<cr>
-   "endif
-     "vmap <buffer> <leader>ca   <Plug>(coc-codeaction-selected)
-     "nmap <buffer> <leader>ca <Plug>(coc-codeaction-selected)
-     ""nmap <buffer> <leader>hp :CocCommand git.chunkpreview<cr>
-"xmap <silent> <buffer> if <Plug>(coc-funcobj-i)
-"xmap <silent> <buffer> af <Plug>(coc-funcobj-a)
-"omap <silent> <buffer> if <Plug>(coc-funcobj-i)
-"omap  <silent> <buffer> af <Plug>(coc-funcobj-a)
- "endfunction()
+"function! ActivateCoc()
+  "call deoplete#custom#option('auto_complete', v:false)
+  "set completeopt +=preview
+  "autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+  "if &filetype != "python" && &filetype != "tex" && &filetype != "bib" && &filetype != "go" && &filetype != "kotlin"&& &filetype != "kt"&& &filetype != "rust"
+    "autocmd  CursorHold <buffer> silent call CocActionAsync('highlight')
+  "endif
+  ""autocmd <buffer> CursorHold * silent call CocActionAsync('highlight')
+  "command! OI -nargs=0 :call CocAction('runCommand', 'editor.action.organizeImport')
+  "nmap <silent> <buffer>  <c-k> <Plug>(coc-diagnostic-prev)
+  ""nmap <silent> <buffer>  <leader>nt :CocCommand explorer<cr>
+  ""nmap <silent> <buffer>  <leader>nf :CocCommand explorer --reveal %<cr>
+  "nmap <silent> <buffer>  <c-j> <Plug>(coc-diagnostic-next)
+  "nmap <silent> <buffer>  gd <Plug>(coc-definition)
+  "nmap <silent> <buffer>  <leader>la :CocAction<cr>
+  "nmap <silent> <buffer>  <leader>ca <Plug>(coc-codeaction-selected)<cr>
+  "nmap <silent> <buffer> <f2> <Plug>(coc-rename)
+  "nmap <silent> <buffer>  gD <c-w>v<Plug>(coc-definition)
+  "nmap <silent> <buffer>  gt <Plug>(coc-type-definition)
+  "nmap <silent> <buffer>  gT <c-w>v<Plug>(coc-type-definition)
+  "nmap <silent> <buffer>  gi <Plug>(coc-implementation)
+  "nmap <silent> <buffer>  gI <c-w>v<Plug>(coc-implementation)
+  "nmap <silent> <buffer>  gr <Plug>(coc-references)
+  "nmap <silent> <buffer>  gh :call CocAction('doHover')<cr>
+  "nmap <buffer> <leader>qf  <Plug>(coc-fix-current)
+  "if &filetype != "tex" && &filetype != "bib"
+    "nmap <silent> <buffer>  <leader>le <Plug>(coc-codelens-action)
+    "nmap <silent> <buffer>  <c-s> :call CocAction('format')<cr>
+  "endif
+  "vmap <buffer> <leader>ca   <Plug>(coc-codeaction-selected)
+  "nmap <buffer> <leader>ca <Plug>(coc-codeaction-selected)
+  ""nmap <buffer> <leader>hp :CocCommand git.chunkpreview<cr>
+  "xmap <silent> <buffer> if <Plug>(coc-funcobj-i)
+  "xmap <silent> <buffer> af <Plug>(coc-funcobj-a)
+  "omap <silent> <buffer> if <Plug>(coc-funcobj-i)
+  "omap  <silent> <buffer> af <Plug>(coc-funcobj-a)
+"endfunction()
 
-"autocmd FileType cmake,cs,javascript,tsx call ActivateCoc()
+"autocmd FileType python call ActivateCoc()
 
  ""inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 let g:multi_cursor_exit_from_insert_mode=0
@@ -1477,8 +1480,10 @@ nnoremap <silent> <c-0> :lua require'my_gui'.reset_fontsize()<cr>
     "\ }
 "let g:lua_tree_ignore = [ '.git', 'node_modules', '.cache', '__pycache__' ]
 
-nnoremap <Leader>nf :CHADopen<cr>
-nnoremap <Leader>nt :CHADopen<cr>
+"nnoremap <Leader>nf :CHADopen<cr>
+"nnoremap <Leader>nt :CHADopen<cr>
+nnoremap <Leader>nf :NERDTreeFind<cr>
+nnoremap <Leader>nt :NERDTreeToggle<cr>
 ""
 "let g:diagnostic_insert_delay = 1
 
@@ -1639,9 +1644,6 @@ highlight link TSError Normal
 nnoremap <F8> :Tagbar<CR>
 nmap ,w ysiw)
 nmap ,<s-w> ysiW)
-
-command! TSPlayground :lua require"nvim-treesitter.playground".play_with()
-command! TSStopPlaying :lua require"nvim-treesitter.playground".play_with()
 
 nnoremap <leader>pl :TSPlaygroundToggle<cr>
 

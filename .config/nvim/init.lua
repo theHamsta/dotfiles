@@ -89,7 +89,7 @@ if ok then
   vim.cmd [[command! InlayHints :lua require "lsp_extensions".inlay_hints { highlight = "Comment", prefix = " > "}]]
 end
 
-local completion_nvim_ok, completion_nvim = pcall(require, "completion")
+local completion_nvim_ok = pcall(require, "completion")
 if completion_nvim_ok then
   vim.cmd [[
   autocmd BufEnter * lua require'completion'.on_attach()
@@ -106,11 +106,8 @@ if ok then
     require "lsp-ext".update_diagnostics()
   end
 
-  local function on_attach(...)
+  local function on_attach()
     vim.fn.NvimLspMaps()
-    if vim.g.uivonim == 1 then
-      require "uivonim/lsp".callbacks(...)
-    end
   end
 
   pcall(require, "nvim_lsp/sumneko_lua")
@@ -652,6 +649,13 @@ if ok then
       location = "tree-sitter-wat/wat"
     }
   }
+  require "nvim-treesitter.parsers".get_parser_configs().clojure = {
+    install_info = {
+      url = "https://github.com/sogaiu/tree-sitter-clojure",
+      files = {"src/parser.c"},
+    },
+    used_by = {'lisp'},
+  }
   --require "nvim-treesitter.parsers".get_parser_configs().markdown = {
   --install_info = {
   --url = "https://github.com/QthCN/tree-sitter-kotlin",
@@ -735,7 +739,8 @@ if ok then
             ["ad"] = "@lhs.inner",
             ["id"] = "@rhs.inner",
             ["am"] = "@call.outer",
-            ["im"] = "@call.inner"
+            ["im"] = "@call.inner",
+            ["iä"] = "@parameter.inner",
           }
         },
         swap = {
