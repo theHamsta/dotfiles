@@ -1,8 +1,18 @@
 set tags=./tags,tags
 set encoding=UTF-8
 set nocompatible               " Be iMproved
-set path=.,./debug,../release,/usr/local/include,/usr/include
+set path=.,./debug,../release,/usr/local/include,/usr/include,~/projects/walberla/debug-mpi
 
+set conceallevel=2
+""let g:tex_conceal='abdmg'
+let g:tex_flavor='latex'
+
+
+set wildignore+=tags,_minted-*,*.egg-info,tmp,*.so,*.swp,*.zip,*.log,*/CMakeFiles/*,*.aux,*.lof,*.lot,*.gz,*.fls,*.fdb_latexmk,*.toc,__*__,*/pybind11/*,*[0-9]+,*.class,*.bak?,*.bak??,*.md5,*.snm,*.bbl,*.nav,*.out,*.run.xml,*.bcf,*.blg,*.auxlock,*.dvi,*.glo,*.glg,*.ist
+
+set lazyredraw
+set ttyfast
+set smartcase
 let g:paredit_leader=','
 let g:rooter_patterns = ['gitmodules', '.git', '.git/']
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
@@ -125,7 +135,7 @@ nnoremap <leader>hi :History<Cr>
 "nnoremap <leader>te :set shell=/usr/bin/zsh<cr>:split<cr>:Tnew<Cr>:exe "resize " . 13<CR>i
 nnoremap <leader>so :w<cr>:source %<cr>
 nnoremap <leader>lime :Limelight!! 0.8<cr>
-nnoremap <space><space> o<Esc>
+"nnoremap <space><space> o<Esc>
 nnoremap c "_c
 "nnoremap x "_x
 vnoremap < <gv
@@ -185,8 +195,6 @@ filetype plugin on
 set tabstop=4
 " when indenting with '>', use 4 spaces width
 set shiftwidth=4
-" On pressing tab, insert 4 spaces
-set expandtab
 
 "nnoremap <c-r><c-r> vap:TREPLSendSelection<cr>
 "inoremap <A-v> <C-R><C-R>+
@@ -318,7 +326,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'kamykn/CCSpellCheck.vim'
     Plug 'AndrewRadev/switch.vim'
     ""Plug 'Chun-Yang/vim-action-ag'
-    ""Plug 'JuliaEditorSupport/julia-vim'
+    Plug 'JuliaEditorSupport/julia-vim'
     Plug 'Julian/vim-textobj-variable-segment'
     ""Plug 'KabbAmine/vCoolor.vim'
     ""Plug 'LeafCage/yankround.vim'
@@ -348,7 +356,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoInstallBinaries'}
     "Plug 'junegunn/vim-emoji'
     "Plug 'fszymanski/deoplete-emoji'
-    "Plug 'theHamsta/vlime', {'branch': 'prompt', 'rtp': 'vim/', 'for':'lisp'}
+    Plug 'theHamsta/vlime', {'branch': 'prompt', 'rtp': 'vim/', 'for':'lisp'}
     ""Plug 'kovisoft/paredit', {'for': ['lisp', 'clojure']}
     ""Plug 'kovisoft/slimv', {'for': 'lisp'}
     ""Plug 'fvictorio/vim-textobj-backticks'
@@ -364,9 +372,11 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'tiagofumo/vim-nerdtree-syntax-highlight' , { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ]}
     ""Plug 'jackguo380/vim-lsp-cxx-highlight'
     Plug 'janko/vim-test'
+    Plug 'fsharp/vim-fsharp'
+    Plug 'fsprojects/fsharp-language-server'
     "Plug 'jaxbot/semantic-highlight.vim'
     Plug 'jceb/vim-orgmode'
-    ""Plug 'jpalardy/vim-slime'
+    Plug 'jpalardy/vim-slime'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
     Plug 'junegunn/goyo.vim'
@@ -377,7 +387,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'kana/vim-textobj-function'
     Plug 'kana/vim-textobj-user'
     Plug 'kassio/neoterm'
-   "Plug 'kien/rainbow_parentheses.vim'
+   " Plug 'kien/rainbow_parentheses.vim'
+    Plug 'luochen1990/rainbow'
     Plug 'lervag/vimtex', { 'for': 'tex' }
     Plug 'machakann/vim-swap'
     "Plug 'majutsushi/tagbar'
@@ -444,10 +455,10 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'amix/vim-zenroom2'
     "Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'for': ['python']}
     ""Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'tex', 'bib', 'json', 'cs']}
-    "Plug 'autozimu/LanguageClient-neovim', {
-            "\ 'branch': 'next',
-            "\ 'do': ':T make release',
-            "\ }
+    Plug 'autozimu/LanguageClient-neovim', {
+            \ 'branch': 'next',
+            \ 'do': 'bash install.sh',
+            \ }
     "Plug 'puremourning/vimspector', { 'do': 'python3 install_gadget.py --all'}
 
     Plug 'Shougo/deoplete-lsp'
@@ -544,29 +555,18 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'zchee/nvim-go', { 'do': 'make'}
 call plug#end()
 
-set conceallevel=2
-""let g:tex_conceal='abdmg'
-let g:tex_flavor='latex'
-
-
 nnoremap <Leader>DO :diffoff!<CR>
 nnoremap <Leader>dp :dp<CR>
 nnoremap <Leader>do :do<CR>
 nnoremap <Leader>dg :diffget<CR>
 nnoremap <Leader>dt :diffthis<CR>
 
-set wildignore+=tags,_minted-*,*.egg-info,tmp,*.so,*.swp,*.zip,*.log,*/CMakeFiles/*,*.aux,*.lof,*.lot,*.gz,*.fls,*.fdb_latexmk,*.toc,__*__,*/pybind11/*,*[0-9]+,*.class,*.bak?,*.bak??,*.md5,*.snm,*.bbl,*.nav,*.out,*.run.xml,*.bcf,*.blg,*.auxlock,*.dvi,*.glo,*.glg,*.ist
-
-set lazyredraw
-set ttyfast
-set smartcase
-
-"map <space><space>l <plug>(easymotion-lineforward)
-"map <space><space>j <plug>(easymotion-j)
-"map <space><space>k <plug>(easymotion-k)
-"map <space><space>h <plug>(easymotion-linebackward)
 "let g:easymotion_smartcase = 1
 "let g:easymotion_smartsign = 1
+"map <space><space>l <Plug>(easymotion-lineforward)
+"map <space><space>j <Plug>(easymotion-j)
+"map <space><space>k <Plug>(easymotion-k)
+"map <space><space>h <Plug>(easymotion-linebackward)
 
 nmap <Leader>gs :Gstatus<CR>
 nmap <Leader>gS :Gministatus<CR>
@@ -697,18 +697,6 @@ endif
     ""\ 'rust': ['rls'],
     "\ 'rust': ['rust-analyzer'],
 let g:LanguageClient_serverCommands = {
-    \   'julia': ['julia', '--startup-file=no', '--history-file=no', '-e', '
-    \       using LanguageServer;
-    \       using Pkg;
-    \       import StaticLint;
-    \       import SymbolServer;
-    \       env_path = dirname(Pkg.Types.Context().env.project_file);
-    \       debug = false;
-    \
-    \       server = LanguageServer.LanguageServerInstance(stdin, stdout, debug, env_path, "", Dict());
-    \       server.runlinter = true;
-    \       run(server);
-    \   '],
     \ 'haskell': ['hie-wrapper', '--lsp'],
     \ 'kotlin': ['kotlin-language-server', '.'],
     \ 'dockerfile': ['docker-langserver', '--stdio'],
@@ -717,9 +705,21 @@ let g:LanguageClient_serverCommands = {
     \ 'gluon': ['gluon_language-server'],
     \ 'cmake': ['cmake-language-server'],
     \ 'zig': ['zls'],
+    \ 'fsharp': ['dotnet', expand('~').'/projects/fsharp-language-server/src/FSharpLanguageServer/bin/Release/netcoreapp3.0/target/FSharpLanguageServer.dll']
     \ }
+    "\   'julia': ['julia', '--startup-file=no', '--history-file=no', '-e', '
+    "\       using LanguageServer;
+    "\       using Pkg;
+    "\       import StaticLint;
+    "\       import SymbolServer;
+    "\       env_path = dirname(Pkg.Types.Context().env.project_file);
+    "\       debug = false;
+    "\
+    "\       server = LanguageServer.LanguageServerInstance(stdin, stdout, debug, env_path, "", Dict());
+    "\       server.runlinter = true;
+    "\       run(server);
+    "\   '],
     "\ 'python': ['/home/linuxbrew/.linuxbrew/bin/pyright-langserver'],
-
     "\ 'python': ['pyls', '--log-file', '/tmp/pylslog'],
     "\ 'go': ['gopls'],
     "\ 'lisp': ['~/.roswell/bin/cl-lsp']
@@ -857,6 +857,9 @@ nnoremap <a-t> :Switch<CR>
 "au Syntax * RainbowParenthesesLoadRound
 "au Syntax * RainbowParenthesesLoadSquare
 "au Syntax * RainbowParenthesesLoadBraces
+"
+ let g:rainbow_active = 1
+
 """
 ""
 ""call camelcasemotion#CreateMotionMappings()
@@ -896,7 +899,7 @@ endfunction
 nnoremap <silent> gP :call GotoPython()<cr>
 
 
-"let g:slime_target = "neovim"
+let g:slime_target = "neovim"
 "let g:slime_python_ipython = 1
 "let g:highlightedyank_highlight_duration = 100
 

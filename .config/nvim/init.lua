@@ -1,32 +1,3 @@
---
--- init.lua
--- Copyright (C) 2019 Stephan Seitz <stephan.seitz@fau.de>
---
--- Distributed under terms of the GPLv3 license.
---
-
---require'nvim_lsp'.pyls_ms.setup{}
--- Courtesy of @norcalli
---local function plug(path, config)
---vim.validate {
---path = {path, "s"},
---config = {config, vim.tbl_islist, "an array of packages"}
---}
---vim.fn["plug#begin"](path)
---for _, v in ipairs(config) do
---if type(v) == "string" then
---vim.fn["plug#"](v)
---elseif type(v) == "table" then
---local p = v[1]
---assert(p, "Must specify package as first index.")
---v[1] = nil
---vim.fn["plug#"](p, v)
---v[1] = p
---end
---end
---vim.fn["plug#end"]()
---vim._update_package_paths()
---end
 vim.api.nvim_command [[
 function! DeleteTrailingWS()
 exe 'normal mz'
@@ -34,16 +5,6 @@ exe 'normal mz'
 exe 'normal `z'
 endfunction
 ]]
---
---
---
---
---local ok, nvim_rocks = pcall(require, "nvim_rocks")
---if ok then
---nvim_rocks.ensure_installed("fun")
---nvim_rocks.ensure_installed("luasec", "fun", "30log", "lua-toml", "template", "lua-cjson")
---nvim_rocks.ensure_installed("luasocket")
---end
 
 if not filter then
   local ok, _ = pcall(require, "fun")
@@ -109,6 +70,10 @@ if ok then
   local function on_attach()
     vim.fn.NvimLspMaps()
   end
+  --pcall(require, "nvim_lsp/julials")
+  --if not require("nvim_lsp/configs").julials.install_info().is_installed then
+  -- require("nvim_lsp/configs").julials.install()
+  --end
 
   pcall(require, "nvim_lsp/sumneko_lua")
   if not require("nvim_lsp/configs").sumneko_lua.install_info().is_installed then
@@ -127,8 +92,10 @@ if ok then
       end
     }
   }
-  -- nvim_lsp.zls.setup {}
 
+  nvim_lsp.julials.setup {
+    on_attach = on_attach
+  }
   nvim_lsp.gopls.setup {
     on_attach = on_attach,
     settings = {
@@ -150,12 +117,6 @@ if ok then
       }
     }
   }
-  --nvim_lsp.jedi_language_server.setup {
-    --on_attach = on_attach,
-    --settings = {
-    --}
-  --}
-
 
   nvim_lsp.tsserver.setup {
     on_attach = on_attach
@@ -176,6 +137,7 @@ if ok then
   nvim_lsp.sumneko_lua.setup {
     settings = {
       Lua = {
+        awakened = {cat = true},
         diagnostics = {
           globals = {"vim", "map", "filter", "range", "reduce", "head", "tail", "nth", "it", "describe"},
           disable = {"redefined-local"}
@@ -423,7 +385,6 @@ if ok then
   nvim_lsp.jsonls.setup {
     on_attach = on_attach
   }
-  --nvim_lsp.rust_analyzer.setup({})
 
   nvim_lsp.texlab.setup {
     settings = {
@@ -439,22 +400,7 @@ if ok then
     },
     on_attach = on_attach
   }
-----nvim_lsp.clangd.setup({
-----cmd={"clangd-11", "--clang-tidy", "--header-insertion=iwyu", "--background-index", "--suggest-missing-includes"}
-----})
---local function pcall_ret(status, ...)
---if status then
---return ...
---end
---end
-
---local function nil_wrap(fn)
---return function(...)
---return pcall_ret(pcall(fn, ...))
---end
---end
 end
---nvim_lsp.texlab.buf_build({bufnr})
 
 local ok, colorizer = pcall(require, "colorizer")
 if ok then
@@ -478,9 +424,6 @@ if ok then
       "debugpy.adapter"
     }
   }
-  --"internalConsole",
-  --"integratedTerminal",
-  --"externalTerminal",
   dap.configurations.python = {
     {
       type = "python",
@@ -488,9 +431,6 @@ if ok then
       name = "Launch file",
       program = "${file}",
       console = "internalConsole"
-      --pythonPath = function()
-      --return "/usr/bin/python3"
-      --end
     },
     {
       type = "python",
@@ -507,9 +447,6 @@ if ok then
       name = "Launch file",
       program = "${file}",
       console = "internalConsole"
-      --pythonPath = function()
-      --return "/usr/bin/python3"
-      --end
     }
   }
   dap.repl.commands =
@@ -615,71 +552,35 @@ vim.fn.sign_define("DapStopped", {text = "→", texthl = "", linehl = "NvimDapSt
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
   vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
-  --require "nvim-treesitter.parsers".get_parser_configs().query = {
-    --install_info = {
-      --url = "~/projects/tree-sitter-query",
-      --files = {"src/parser.c"}
-    --}
-  --}
-  ----require "nvim-treesitter.parsers".get_parser_configs().viml = {
-  ----install_info = {
-  ----url = "https://github.com/vigoux/tree-sitter-viml",
-  ----files = {"src/parser.c"}
-  ----}
-  ----}
-  require "nvim-treesitter.parsers".get_parser_configs().markdown = nil
-  require "nvim-treesitter.parsers".get_parser_configs().zig = {
+  require "nvim-treesitter.parsers".get_parser_configs().lisp = {
     install_info = {
-      url = "https://github.com/GrayJack/tree-sitter-zig",
+      url = "~/projects/clojure-lisp2",
       files = {"src/parser.c"}
     }
   }
-  --
+  require "nvim-treesitter.parsers".get_parser_configs().julia = {
+    install_info = {
+      url = "~/projects/tree-sitter-julia",
+      files = {"src/parser.c", "src/scanner.c"}
+    }
+  }
+  --require "nvim-treesitter.parsers".get_parser_configs().zig = {
+  --install_info = {
+  --url = "https://github.com/GrayJack/tree-sitter-zig",
+  --files = {"src/parser.c"}
+  --}
+  --}
   require "nvim-treesitter.parsers".get_parser_configs().kotlin = {
     install_info = {
       url = "https://github.com/QthCN/tree-sitter-kotlin",
       files = {"src/parser.c"}
     }
   }
-  require "nvim-treesitter.parsers".get_parser_configs().wat = {
-    install_info = {
-      url = "https://github.com/wasm-lsp/tree-sitter-wasm",
-      files = {"src/parser.c"},
-      branch = "main",
-      location = "tree-sitter-wat/wat"
-    }
-  }
-  require "nvim-treesitter.parsers".get_parser_configs().clojure = {
-    install_info = {
-      url = "https://github.com/sogaiu/tree-sitter-clojure",
-      files = {"src/parser.c"},
-    },
-    used_by = {'lisp'},
-  }
-  --require "nvim-treesitter.parsers".get_parser_configs().markdown = {
-  --install_info = {
-  --url = "https://github.com/QthCN/tree-sitter-kotlin",
-  --files = {"src/parser.c"}
-  --}
-  --}
-  --require "nvim-treesitter.parsers".get_parser_configs().clojure = {
-  --install_info = {
-  --url = "https://github.com/oakmac/tree-sitter-clojure",
-  --files = {"src/parser.c"},
-  ----used_by = { "scheme" },
-  --}
-  --}
-  --require "nvim-treesitter.parsers".get_parser_configs().regex = {
-  --install_info = {
-  --url = "https://github.com/tree-sitter/tree-sitter-regex",
-  --files = {"src/parser.c"}
-  --}
-  --}
   require "nvim-treesitter.configs".setup(
     {
       highlight = {
         enable = true, -- false will disable the whole extension
-        disable = {"html",} -- list of language that will be disabled
+        disable = {"html"} -- list of language that will be disabled
       },
       tree_docs = {
         enable = true,
@@ -739,8 +640,7 @@ if ok then
             ["ad"] = "@lhs.inner",
             ["id"] = "@rhs.inner",
             ["am"] = "@call.outer",
-            ["im"] = "@call.inner",
-            ["iä"] = "@parameter.inner",
+            ["im"] = "@call.inner"
           }
         },
         swap = {
@@ -816,8 +716,8 @@ if ok then
       indent = {
         enable = false
       },
-      ensure_installed = "all"
-      --update_strategy = 'newest'
+      ensure_installed = "all",
+      update_strategy = "newest"
     }
   )
   require "nvim-treesitter.highlight"
