@@ -523,15 +523,15 @@ if ok then
 
   if dap.custom_event_handlers then
     dap.custom_event_handlers.event_exited["my handler id"] = function(_, _)
-      --dap.repl.close()
+      dap.repl.close()
       vim.cmd("stopinsert")
     end
 
-    dap.custom_response_handlers.gotoTargets["my handler id"] = function(_, body)
+    dap.custom_response_handlers.gotoTargets["my handler id"] = function(_, _)
       --dap.repl.append(vim.inspect(body))
     end
-    dap.custom_event_handlers.event_stopped["my handler id"] = function(session, body)
-      dap.repl.append(vim.inspect(body))
+    dap.custom_event_handlers.event_stopped["my handler id"] = function(_, _)
+      --dap.repl.append(vim.inspect(body))
       --dap.repl.append(vim.inspect(session))
     end
   end
@@ -558,12 +558,12 @@ if ok then
       files = {"src/parser.c"}
     }
   }
-  require "nvim-treesitter.parsers".get_parser_configs().julia = {
-    install_info = {
-      url = "~/projects/tree-sitter-julia",
-      files = {"src/parser.c", "src/scanner.c"}
-    }
-  }
+  --require "nvim-treesitter.parsers".get_parser_configs().julia = {
+    --install_info = {
+      --url = "~/projects/tree-sitter-julia",
+      --files = {"src/parser.c", "src/scanner.c"}
+    --}
+  --}
   --require "nvim-treesitter.parsers".get_parser_configs().zig = {
   --install_info = {
   --url = "https://github.com/GrayJack/tree-sitter-zig",
