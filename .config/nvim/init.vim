@@ -9,6 +9,7 @@ let g:tex_flavor='latex'
 
 
 set wildignore+=tags,_minted-*,*.egg-info,tmp,*.so,*.swp,*.zip,*.log,*/CMakeFiles/*,*.aux,*.lof,*.lot,*.gz,*.fls,*.fdb_latexmk,*.toc,__*__,*/pybind11/*,*[0-9]+,*.class,*.bak?,*.bak??,*.md5,*.snm,*.bbl,*.nav,*.out,*.run.xml,*.bcf,*.blg,*.auxlock,*.dvi,*.glo,*.glg,*.ist
+set wildmode=longest:full,full
 
 set lazyredraw
 set ttyfast
@@ -243,7 +244,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'chrisbra/unicode.vim'
     "Plug 'wfxr/minimap.vim'
     Plug 'nvim-lua/telescope.nvim'
-    Plug 'tjdevries/lsp_extensions.nvim'
+    "Plug 'tjdevries/lsp_extensions.nvim'
     Plug 'RishabhRD/nvim-lsputils'
     Plug 'RishabhRD/popfix'
     Plug 'chuling/vim-equinusocio-material'

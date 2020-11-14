@@ -22,17 +22,17 @@ if not filter then
   end
 end
 
-local ok, lsputil = pcall(require, "lsputil.codeAction")
-if ok then
-  vim.lsp.callbacks["textDocument/codeAction"] = lsputil.code_action_handler
+--local ok, lsputil = pcall(require, "lsputil.codeAction")
+--if ok then
+  --vim.lsp.callbacks["textDocument/codeAction"] = lsputil.code_action_handler
   --vim.lsp.callbacks["textDocument/references"] = lsputil.references_handler
   --vim.lsp.callbacks["textDocument/definition"] = lsputil.definition_handler
   --vim.lsp.callbacks["textDocument/declaration"] = lsputil.declaration_handler
   --vim.lsp.callbacks["textDocument/typeDefinition"] = lsputil.typeDefinition_handler
   --vim.lsp.callbacks["textDocument/implementation"] = lsputil.implementation_handler
-  vim.lsp.callbacks["textDocument/documentSymbol"] = lsputil.document_handler
-  vim.lsp.callbacks["workspace/symbol"] = lsputil.workspace_handler
-end
+  --vim.lsp.callbacks["textDocument/documentSymbol"] = lsputil.document_handler
+  --vim.lsp.callbacks["workspace/symbol"] = lsputil.workspace_handler
+--end
 
 function D(a)
   print(vim.inspect(a))
@@ -44,11 +44,11 @@ function E(...)
   return ...
 end
 
-local ok = pcall(require, "lsp_extensions")
+--local ok = pcall(require, "lsp_extensions")
 
-if ok then
-  vim.cmd [[command! InlayHints :lua require "lsp_extensions".inlay_hints { highlight = "Comment", prefix = " > "}]]
-end
+--if ok then
+  --vim.cmd [[command! InlayHints :lua require "lsp_extensions".inlay_hints { highlight = "Comment", prefix = " > "}]]
+--end
 
 local completion_nvim_ok = pcall(require, "completion")
 if completion_nvim_ok then
@@ -60,12 +60,12 @@ end
 local ok, nvim_lsp = pcall(require, "nvim_lsp")
 
 if ok then
-  local default_callback = vim.lsp.callbacks["textDocument/publishDiagnostics"]
-  vim.lsp.callbacks["textDocument/publishDiagnostics"] = function(...)
-    default_callback(...)
+  --local default_callback = vim.lsp.callbacks["textDocument/publishDiagnostics"]
+  --vim.lsp.callbacks["textDocument/publishDiagnostics"] = function(...)
+    --default_callback(...)
 
-    require "lsp-ext".update_diagnostics()
-  end
+    --require "lsp-ext".update_diagnostics()
+  --end
 
   local function on_attach()
     vim.fn.NvimLspMaps()
@@ -555,7 +555,7 @@ if ok then
   require "nvim-treesitter.parsers".get_parser_configs().lisp = {
     install_info = {
       url = "~/projects/clojure-lisp2",
-      files = {"src/parser.c"}
+      files = {"src/parskwser.c"}
     }
   }
   --require "nvim-treesitter.parsers".get_parser_configs().julia = {
@@ -570,12 +570,18 @@ if ok then
   --files = {"src/parser.c"}
   --}
   --}
-  require "nvim-treesitter.parsers".get_parser_configs().kotlin = {
-    install_info = {
-      url = "https://github.com/QthCN/tree-sitter-kotlin",
-      files = {"src/parser.c"}
-    }
+  require "nvim-treesitter.parsers".get_parser_configs().dart = {
+  install_info = {
+  url = "~/projects/tree-sitter-dart",
+  files = {"src/parser.c", "src/scanner.c"}
   }
+  }
+  --require "nvim-treesitter.parsers".get_parser_configs().kotlin = {
+    --install_info = {
+      --url = "https://github.com/QthCN/tree-sitter-kotlin",
+      --files = {"src/parser.c"}
+    --}
+  --}
   require "nvim-treesitter.configs".setup(
     {
       highlight = {
@@ -620,68 +626,68 @@ if ok then
           select_current_node = "<leader>ff"
         }
       },
-      textobjects = {
-        select = {
-          enable = true,
-          disable = {},
-          keymaps = {
-            ["af"] = "@function.outer",
-            ["if"] = "@function.inner",
-            ["aC"] = "@class.outer",
-            ["iC"] = "@class.inner",
-            ["ac"] = "@conditional.outer",
-            ["ic"] = "@conditional.inner",
-            ["ae"] = "@block.outer",
-            ["ie"] = "@block.inner",
-            ["al"] = "@loop.outer",
-            ["il"] = "@loop.inner",
-            ["is"] = "@statement.inner",
-            ["as"] = "@statement.outer",
-            ["ad"] = "@lhs.inner",
-            ["id"] = "@rhs.inner",
-            ["am"] = "@call.outer",
-            ["im"] = "@call.inner"
-          }
-        },
-        swap = {
-          enable = true,
-          swap_next = {
-            ["<a-l>"] = "@parameter.inner",
-            ["<a-f>"] = "@function.outer",
-            ["<a-s>"] = "@statement.outer"
-          },
-          swap_previous = {
-            ["<a-L>"] = "@parameter.inner",
-            ["<a-F>"] = "@function.outer",
-            ["<a-S>"] = "@statement.outer"
-          }
-        },
-        lsp_interop = {
-          enable = true,
-          peek_definition_code = {
-            ["<leader>df"] = "@function.outer",
-            ["<leader>dF"] = "@class.outer"
-          },
-          peek_type_definition_code = {
-            ["<leader>TF"] = "@class.outer"
-          }
-        },
-        move = {
-          enable = true,
-          goto_next_start = {
-            ["öö"] = "@function.inner"
-          },
-          goto_next_end = {
-            ["ÖÖ"] = "@function.inner"
-          },
-          goto_previous_start = {
-            ["üü"] = "@function.inner"
-          },
-          goto_previous_end = {
-            ["ÜÜ"] = "@function.inner"
-          }
-        }
-      },
+      --textobjects = {
+        --select = {
+          --enable = true,
+          --disable = {},
+          --keymaps = {
+            --["af"] = "@function.outer",
+            --["if"] = "@function.inner",
+            --["aC"] = "@class.outer",
+            --["iC"] = "@class.inner",
+            --["ac"] = "@conditional.outer",
+            --["ic"] = "@conditional.inner",
+            --["ae"] = "@block.outer",
+            --["ie"] = "@block.inner",
+            --["al"] = "@loop.outer",
+            --["il"] = "@loop.inner",
+            --["is"] = "@statement.inner",
+            --["as"] = "@statement.outer",
+            --["ad"] = "@lhs.inner",
+            --["id"] = "@rhs.inner",
+            --["am"] = "@call.outer",
+            --["im"] = "@call.inner"
+          --}
+        --},
+        --swap = {
+          --enable = true,
+          --swap_next = {
+            --["<a-l>"] = "@parameter.inner",
+            --["<a-f>"] = "@function.outer",
+            --["<a-s>"] = "@statement.outer"
+          --},
+          --swap_previous = {
+            --["<a-L>"] = "@parameter.inner",
+            --["<a-F>"] = "@function.outer",
+            --["<a-S>"] = "@statement.outer"
+          --}
+        --},
+        --lsp_interop = {
+          --enable = true,
+          --peek_definition_code = {
+            --["<leader>df"] = "@function.outer",
+            --["<leader>dF"] = "@class.outer"
+          --},
+          --peek_type_definition_code = {
+            --["<leader>TF"] = "@class.outer"
+          --}
+        --},
+        --move = {
+          --enable = true,
+          --goto_next_start = {
+            --["öö"] = "@function.inner"
+          --},
+          --goto_next_end = {
+            --["ÖÖ"] = "@function.inner"
+          --},
+          --goto_previous_start = {
+            --["üü"] = "@function.inner"
+          --},
+          --goto_previous_end = {
+            --["ÜÜ"] = "@function.inner"
+          --}
+        --}
+      --},
       fold = {
         enable = true
       },
