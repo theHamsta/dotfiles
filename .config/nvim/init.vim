@@ -179,6 +179,9 @@ nnoremap <Leader>oo :only<cr>
 "nmap <silent> <C-j> ]L
 nmap <silent> <C-k> :cprevious<cr>
 nmap <silent> <C-j> :cnext<cr>
+nmap <silent> <C-k> :lua vim.lsp.diagnostic.goto_prev()<cr>
+nmap <silent> <C-j> :lua vim.lsp.diagnostic.goto_next()<cr>
+
 nmap <silent> <leader><C-k> :lprevious<cr>
 nmap <silent> <leader><C-j> :lnext<cr>
 nmap <silent> <C-l> :cnext<cr>
@@ -239,14 +242,15 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'vigoux/LanguageTool.nvim'
     "Plug 'rhysd/vim-grammarous'
     Plug 'nvim-lua/popup.nvim'
+    Plug 'mfussenegger/nvim-dap-python'
     Plug 'ghifarit53/tokyonight-vim'
     "Plug 'romgrk/nvim-treesitter-context'
     Plug 'chrisbra/unicode.vim'
     "Plug 'wfxr/minimap.vim'
     Plug 'nvim-lua/telescope.nvim'
     "Plug 'tjdevries/lsp_extensions.nvim'
-    Plug 'RishabhRD/nvim-lsputils'
-    Plug 'RishabhRD/popfix'
+    "Plug 'RishabhRD/nvim-lsputils'
+    "Plug 'RishabhRD/popfix'
     Plug 'chuling/vim-equinusocio-material'
     Plug 'nvim-treesitter/nvim-treesitter-textobjects'
     Plug 'nvim-treesitter/nvim-treesitter-refactor'
@@ -776,7 +780,7 @@ function! NvimLspMaps()
     nnoremap <buffer><silent> gh         <cmd>lua vim.lsp.buf.hover()<CR>
     nnoremap <buffer><silent> gi         <cmd>lua vim.lsp.buf.implementation()<CR>
     inoremap <buffer><silent> <c-g>         <cmd>lua vim.lsp.buf.signature_help()<CR>
-    nnoremap <buffer><silent> <leader>ld <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>
+    nnoremap <buffer><silent> <leader>ld <cmd>lua vim.lsp.util.show_line_diagnostics({})<CR>
     nnoremap <buffer><silent> <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
     nnoremap <buffer><silent> <leader>ic <cmd>lua vim.lsp.buf.incoming_calls()<CR>
     vnoremap <buffer><silent> <leader>oc <cmd>lua vim.lsp.buf.outgoing_calls()<CR>
@@ -785,14 +789,13 @@ function! NvimLspMaps()
     nnoremap <buffer> <silent> <2-LeftMouse> <cmd>lua vim.lsp.buf.hover()<CR>
     nnoremap <buffer> <silent> <c-LeftMouse> <cmd>lua require'nvim-treesitter.refactor.navigation'.goto_definition_lsp_fallback()<CR>
     nnoremap <buffer> <silent> <c-LeftMouse> <cmd>lua vim.lsp.buf.definition()<CR>
-    nnoremap <buffer> <silent> <leader>ld <cmd>lua vim.lsp.util.show_line_diagnostics()<cr>
 
     if &filetype != "tex" 
         inoremap <buffer><silent> (     <cmd>lua vim.lsp.buf.signature_help()<CR>(
     endif
 
     nnoremap <buffer><silent> gt    <cmd>lua vim.lsp.buf.type_definition()<CR>
-    autocmd BufEnter <buffer> :lua require'lsp-ext'.update_diagnostics()
+    "autocmd BufEnter <buffer> :lua require'lsp-ext'.update_diagnostics()
 
     if &filetype == "java" 
         nnoremap <buffer><silent> <c-s> :w<cr><cmd>lua vim.lsp.buf.formatting();require'jdtls'.organize_imports()<cr>
@@ -1641,6 +1644,8 @@ function DapMaps()
     nmap <buffer> <silent> <leader>bm :DebugRepl<cr>
     nmap <buffer> <silent> <leader>dh :lua require 'dap.ui.variable-tree'.hover(require 'dap'.session())<cr>
     nmap <buffer> <silent> <leader>dl :lua require 'dap.ui.variable-tree'.open_sidebar(require 'dap'.session())<cr>
+    nmap <buffer> <silent> <leader>TN :lua  require'dap';require 'dap-python'.test_method()<cr>:lua require 'dap.repl'.open()<cr>
+    nmap <buffer> <silent> <leader>bT :lua require 'dap'.run_last()<cr>:lua require 'dap.repl'.open()<cr>
 endfunction
 
 highlight link TSError Normal
@@ -1701,3 +1706,5 @@ autocmd BufWriteCmd,FileWriteCmd *.spirv call spirv#assemble()
     "endif
     "exec s:expr
 "endfor
+"
+command! OpenDiagnostic :lua vim.lsp.diagnostic.set_loclist()<cr>

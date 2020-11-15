@@ -57,7 +57,7 @@ if completion_nvim_ok then
   ]]
 end
 
-local ok, nvim_lsp = pcall(require, "nvim_lsp")
+local ok, lspconfig = pcall(require, "lspconfig")
 
 if ok then
   --local default_callback = vim.lsp.callbacks["textDocument/publishDiagnostics"]
@@ -70,17 +70,17 @@ if ok then
   local function on_attach()
     vim.fn.NvimLspMaps()
   end
-  --pcall(require, "nvim_lsp/julials")
-  --if not require("nvim_lsp/configs").julials.install_info().is_installed then
-  -- require("nvim_lsp/configs").julials.install()
+  --pcall(require, "lspconfig/julials")
+  --if not require("lspconfig/configs").julials.install_info().is_installed then
+  -- require("lspconfig/configs").julials.install()
   --end
 
-  pcall(require, "nvim_lsp/sumneko_lua")
-  if not require("nvim_lsp/configs").sumneko_lua.install_info().is_installed then
-    require("nvim_lsp/configs").sumneko_lua.install()
+  pcall(require, "lspconfig/sumneko_lua")
+  if not require("lspconfig/configs").sumneko_lua.install_info().is_installed then
+    require("lspconfig/configs").sumneko_lua.install()
   end
 
-  local configs = require "nvim_lsp.configs"
+  local configs = require "lspconfig.configs"
   configs.zls = {
     default_config = {
       cmd = {
@@ -88,15 +88,15 @@ if ok then
       },
       filetypes = {"zig"},
       root_dir = function(fname)
-        return require "nvim_lsp/util".find_git_ancestor(fname) or vim.loop.os_homedir()
+        return require "lspconfig/util".find_git_ancestor(fname) or vim.loop.os_homedir()
       end
     }
   }
 
-  nvim_lsp.julials.setup {
+  lspconfig.julials.setup {
     on_attach = on_attach
   }
-  nvim_lsp.gopls.setup {
+  lspconfig.gopls.setup {
     on_attach = on_attach,
     settings = {
       initializationOptions = {
@@ -105,7 +105,7 @@ if ok then
     }
   }
 
-  nvim_lsp.pyls.setup {
+  lspconfig.pyls.setup {
     on_attach = on_attach,
     settings = {
       pyls = {
@@ -118,10 +118,10 @@ if ok then
     }
   }
 
-  nvim_lsp.tsserver.setup {
+  lspconfig.tsserver.setup {
     on_attach = on_attach
   }
-  nvim_lsp.clangd.setup {
+  lspconfig.clangd.setup {
     cmd = {
       "clangd-12",
       "--clang-tidy",
@@ -134,7 +134,7 @@ if ok then
     filetypes = {"c", "cpp", "objc", "objcpp", "cuda"},
     on_attach = on_attach
   }
-  nvim_lsp.sumneko_lua.setup {
+  lspconfig.sumneko_lua.setup {
     settings = {
       Lua = {
         awakened = {cat = true},
@@ -154,11 +154,11 @@ if ok then
     },
     on_attach = on_attach
   }
-  nvim_lsp.html.setup {
+  lspconfig.html.setup {
     on_attach = on_attach
   }
 
-  nvim_lsp.rust_analyzer.setup {
+  lspconfig.rust_analyzer.setup {
     settings = {
       ["rust-analyzer"] = {
         checkOnSave = {
@@ -327,66 +327,66 @@ if ok then
     on_attach = on_attach
   }
 
-  local java = function()
-    pcall(require, "nvim_lsp/jdtls")
-    if not require("nvim_lsp/configs").jdtls.install_info().is_installed then
-      require("nvim_lsp/configs").jdtls.install()
-    end
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities.textDocument.completion.completionItem.snippetSupport = true
-    capabilities.textDocument.codeAction = {
-      dynamicRegistration = false,
-      codeActionLiteralSupport = {
-        codeActionKind = {
-          valueSet = {
-            "source.generate.toString",
-            "source.generate.hashCodeEquals",
-            "source.organizeImports"
-          }
-        }
-      }
-    }
-    nvim_lsp.jdtls.setup {
-      init_options = {
-        bundles = {
-          vim.fn.glob("~/.local/share/nvim/plugged/nvim-jdtls/*.jar")
-        },
-        config = {
-          java = {
-            import = {
-              gradle = {
-                wrapper = {
-                  checksums = {
-                    {
-                      sha256 = "803c75f3307787290478a5ccfa9054c5c0c7b4250c1b96ceb77ad41fbe919e4e",
-                      allowed = true
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      capabilities = capabilities,
-      on_attach = function(client)
-        on_attach(client)
-        require("jdtls").setup_dap()
-      end
-    }
-  end
+  --local java = function()
+    --pcall(require, "lspconfig/jdtls")
+    --if not require("lspconfig/configs").jdtls.install_info().is_installed then
+      --require("lspconfig/configs").jdtls.install()
+    --end
+    --local capabilities = vim.lsp.protocol.make_client_capabilities()
+    --capabilities.textDocument.completion.completionItem.snippetSupport = true
+    --capabilities.textDocument.codeAction = {
+      --dynamicRegistration = false,
+      --codeActionLiteralSupport = {
+        --codeActionKind = {
+          --valueSet = {
+            --"source.generate.toString",
+            --"source.generate.hashCodeEquals",
+            --"source.organizeImports"
+          --}
+        --}
+      --}
+    --}
+    --lspconfig.jdtls.setup {
+      --init_options = {
+        --bundles = {
+          --vim.fn.glob("~/.local/share/nvim/plugged/nvim-jdtls/*.jar")
+        --},
+        --config = {
+          --java = {
+            --import = {
+              --gradle = {
+                --wrapper = {
+                  --checksums = {
+                    --{
+                      --sha256 = "803c75f3307787290478a5ccfa9054c5c0c7b4250c1b96ceb77ad41fbe919e4e",
+                      --allowed = true
+                    --}
+                  --}
+                --}
+              --}
+            --}
+          --}
+        --}
+      --},
+      --capabilities = capabilities,
+      --on_attach = function(client)
+        --on_attach(client)
+        --require("jdtls").setup_dap()
+      --end
+    --}
+  --end
   pcall(java)
-  nvim_lsp.vimls.setup {
+  lspconfig.vimls.setup {
     on_attach = on_attach
   }
-  nvim_lsp.yamlls.setup {
+  lspconfig.yamlls.setup {
     on_attach = on_attach
   }
-  nvim_lsp.jsonls.setup {
+  lspconfig.jsonls.setup {
     on_attach = on_attach
   }
 
-  nvim_lsp.texlab.setup {
+  lspconfig.texlab.setup {
     settings = {
       latex = {
         build = {
@@ -416,6 +416,8 @@ end
 
 local ok, dap = pcall(require, "dap")
 if ok then
+  require('dap-python').setup('/usr/bin/python3')
+  require('dap-python').test_runner = 'pytest'
   dap.adapters.python = {
     type = "executable",
     command = "python3",
@@ -570,12 +572,12 @@ if ok then
   --files = {"src/parser.c"}
   --}
   --}
-  require "nvim-treesitter.parsers".get_parser_configs().dart = {
-  install_info = {
-  url = "~/projects/tree-sitter-dart",
-  files = {"src/parser.c", "src/scanner.c"}
-  }
-  }
+  --require "nvim-treesitter.parsers".get_parser_configs().dart = {
+  --install_info = {
+  --url = "~/projects/tree-sitter-dart",
+  --files = {"src/parser.c", "src/scanner.c"}
+  --}
+  --}
   --require "nvim-treesitter.parsers".get_parser_configs().kotlin = {
     --install_info = {
       --url = "https://github.com/QthCN/tree-sitter-kotlin",
@@ -626,68 +628,68 @@ if ok then
           select_current_node = "<leader>ff"
         }
       },
-      --textobjects = {
-        --select = {
-          --enable = true,
-          --disable = {},
-          --keymaps = {
-            --["af"] = "@function.outer",
-            --["if"] = "@function.inner",
-            --["aC"] = "@class.outer",
-            --["iC"] = "@class.inner",
-            --["ac"] = "@conditional.outer",
-            --["ic"] = "@conditional.inner",
-            --["ae"] = "@block.outer",
-            --["ie"] = "@block.inner",
-            --["al"] = "@loop.outer",
-            --["il"] = "@loop.inner",
-            --["is"] = "@statement.inner",
-            --["as"] = "@statement.outer",
-            --["ad"] = "@lhs.inner",
-            --["id"] = "@rhs.inner",
-            --["am"] = "@call.outer",
-            --["im"] = "@call.inner"
-          --}
-        --},
-        --swap = {
-          --enable = true,
-          --swap_next = {
-            --["<a-l>"] = "@parameter.inner",
-            --["<a-f>"] = "@function.outer",
-            --["<a-s>"] = "@statement.outer"
-          --},
-          --swap_previous = {
-            --["<a-L>"] = "@parameter.inner",
-            --["<a-F>"] = "@function.outer",
-            --["<a-S>"] = "@statement.outer"
-          --}
-        --},
-        --lsp_interop = {
-          --enable = true,
-          --peek_definition_code = {
-            --["<leader>df"] = "@function.outer",
-            --["<leader>dF"] = "@class.outer"
-          --},
-          --peek_type_definition_code = {
-            --["<leader>TF"] = "@class.outer"
-          --}
-        --},
-        --move = {
-          --enable = true,
-          --goto_next_start = {
-            --["öö"] = "@function.inner"
-          --},
-          --goto_next_end = {
-            --["ÖÖ"] = "@function.inner"
-          --},
-          --goto_previous_start = {
-            --["üü"] = "@function.inner"
-          --},
-          --goto_previous_end = {
-            --["ÜÜ"] = "@function.inner"
-          --}
-        --}
-      --},
+      textobjects = {
+        select = {
+          enable = true,
+          disable = {},
+          keymaps = {
+            ["af"] = "@function.outer",
+            ["if"] = "@function.inner",
+            ["aC"] = "@class.outer",
+            ["iC"] = "@class.inner",
+            ["ac"] = "@conditional.outer",
+            ["ic"] = "@conditional.inner",
+            ["ae"] = "@block.outer",
+            ["ie"] = "@block.inner",
+            ["al"] = "@loop.outer",
+            ["il"] = "@loop.inner",
+            ["is"] = "@statement.inner",
+            ["as"] = "@statement.outer",
+            ["ad"] = "@lhs.inner",
+            ["id"] = "@rhs.inner",
+            ["am"] = "@call.outer",
+            ["im"] = "@call.inner"
+          }
+        },
+        swap = {
+          enable = true,
+          swap_next = {
+            ["<a-l>"] = "@parameter.inner",
+            ["<a-f>"] = "@function.outer",
+            ["<a-s>"] = "@statement.outer"
+          },
+          swap_previous = {
+            ["<a-L>"] = "@parameter.inner",
+            ["<a-F>"] = "@function.outer",
+            ["<a-S>"] = "@statement.outer"
+          }
+        },
+        lsp_interop = {
+          enable = true,
+          peek_definition_code = {
+            ["<leader>df"] = "@function.outer",
+            ["<leader>dF"] = "@class.outer"
+          },
+          peek_type_definition_code = {
+            ["<leader>TF"] = "@class.outer"
+          }
+        },
+        move = {
+          enable = true,
+          goto_next_start = {
+            ["öö"] = "@function.inner"
+          },
+          goto_next_end = {
+            ["ÖÖ"] = "@function.inner"
+          },
+          goto_previous_start = {
+            ["üü"] = "@function.inner"
+          },
+          goto_previous_end = {
+            ["ÜÜ"] = "@function.inner"
+          }
+        }
+      },
       fold = {
         enable = true
       },
@@ -834,3 +836,4 @@ local ok, context = pcall(require, "treesitter-context")
 if ok then
   context.enable()
 end
+
