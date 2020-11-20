@@ -553,13 +553,13 @@ vim.fn.sign_define("DapBreakpoint", {text = "🛑", texthl = "", linehl = "", nu
 vim.fn.sign_define("DapStopped", {text = "→", texthl = "", linehl = "NvimDapStopped", numhl = ""})
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
-  vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
-  require "nvim-treesitter.parsers".get_parser_configs().lisp = {
-    install_info = {
-      url = "~/projects/clojure-lisp2",
-      files = {"src/parskwser.c"}
-    }
-  }
+  --vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
+  --require "nvim-treesitter.parsers".get_parser_configs().lisp = {
+    --install_info = {
+      --url = "~/projects/clojure-lisp2",
+      --files = {"src/parskwser.c"}
+    --}
+  --}
   --require "nvim-treesitter.parsers".get_parser_configs().julia = {
     --install_info = {
       --url = "~/projects/tree-sitter-julia",
@@ -647,8 +647,8 @@ if ok then
             ["as"] = "@statement.outer",
             ["ad"] = "@lhs.inner",
             ["id"] = "@rhs.inner",
-            ["am"] = "@call.outer",
-            ["im"] = "@call.inner"
+            ["am"] = "@parameter.outer",
+            ["im"] = "@parameter.inner"
           }
         },
         swap = {
@@ -756,7 +756,7 @@ if ok then
   hlmap["function.builtin"] = "Special"
   hlmap["function.macro"] = "Macro"
   hlmap["parameter"] = "Identifier"
-  hlmap["method"] = "Function"
+  hlmap["method"] = "Identifier"
   hlmap["field"] = "Identifier"
   hlmap["property"] = "Identifier"
   hlmap["constructor"] = "Type"
