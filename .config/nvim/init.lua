@@ -105,6 +105,10 @@ if ok then
     }
   }
 
+  --lspconfig.pyright.setup {
+    --on_attach = on_attach,
+  --}
+
   lspconfig.pyls.setup {
     on_attach = on_attach,
     settings = {
@@ -700,8 +704,8 @@ if ok then
           disable = {"python"}
         },
         highlight_definitions = {
-          enable = true
-          --disable = {"python"}
+          enable = true,
+          disable = {"cpp"}
         },
         smart_rename = {
           enable = true,
