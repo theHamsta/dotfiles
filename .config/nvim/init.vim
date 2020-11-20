@@ -261,16 +261,11 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'bluz71/vim-nightfly-guicolors'
     Plug 'bluz71/vim-moonfly-colors'
     Plug 'ziglang/zig.vim'
-    "Plug 'vigoux/treesitter-context.nvim'
     Plug 'mfussenegger/nvim-jdtls'
     Plug 'mattn/emmet-vim'
     Plug 'rhysd/conflict-marker.vim'
     Plug 'mfussenegger/nvim-dap'
     Plug 'theHamsta/nvim-dap-virtual-text'
-    "Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}
-    "Plug 'haorenW1025/diagnostic-nvim'
-   "Plug 'nvim-treesitter/highlight.lua'
-    "Plug 'kyazdani42/nvim-palenight.lua'
     Plug 'dm1try/git_fastfix'
     "Plug 'wookayin/vim-autoimport'
     "Plug 'svermeulen/vim-easyclip'
@@ -281,25 +276,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'svermeulen/nvim-moonmaker'
     Plug 'kbenzie/vim-spirv'
 
-    "
-    "Plug 'hrsh7th/vim-vsnip-integ'
-    "Plug 'hrsh7th/vim-vsnip'
-    ""Plug 'vigoux/completion-treesitter'
-    ""Plug 'chrisbra/unicode.vim'
-    ""Plug 'bergercookie/vim-deb-preview'
-    ""Plug 'doums/coBra'
-    ""Plug 'zoxves/LightningFileExplorer'
     Plug 'theHamsta/nvim-tree.lua', {'branch': 'exa'}
-    ""Plug 'mcchrish/info-window.nvim'
-    "Plug 'gluon-lang/vim-gluon'
-    "Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
-    "
-    ""Plug 'OmniSharp/omnisharp-vim'
-    ""Plug 'neomake/neomake' ", {'for': 'rst'}
-    ""Plug 'SkyLeach/pudb.vim'
-    ""Plug 'romgrk/searchReplace.vim'
-    ""Plug 'dbridges/vim-markdown-runner'
-    ""Plug 'arzg/vim-colors-xcode'
     Plug 'Olical/nvim-local-fennel'
     Plug 'Olical/conjure'
     Plug 'bakpakin/fennel.vim'
@@ -309,15 +286,6 @@ call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'AndrewRadev/splitjoin.vim'
     ""Plug 'wincent/vcs-jump'
     Plug 'neovim/nvim-lspconfig'
-    "Plug 'tikhomirov/vim-glsl'
-    ""Plug 'itchyny/calendar.vim'
-    "Plug 'norcalli/nvim.lua'
-    "Plug 'tpope/vim-speeddating'
-    ""Plug 'kchmck/vim-coffee-script'
-    ""Plug 'arzg/vim-rust-syntax-ext'
-    ""Plug 'atelierbram/vim-colors_atelier-schemes'
-    ""Plug 'wellle/context.vim'
-    ""Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
     Plug 'udalov/kotlin-vim'
     ""Plug 'glacambre/firenvim'
     ""Plug 'rhysd/accelerated-jk'
@@ -452,113 +420,24 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'wellle/targets.vim'
     Plug 'whiteinge/diffconflicts'
     Plug 'TravonteD/luajob'
-    ""Plug 'zchee/deoplete-go', { 'do': 'make'}
-    ""
-    ""Plug 'rkulla/pydiction'
-    ""Plug 'xolox/vim-misc'
-    ""Plug 'Shougo/neosnippet.vim'
-""Plug 'vim-pandoc/vim-pandoc'
-    ""Plug 'amix/vim-zenroom2'
-    "Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'for': ['python']}
-    ""Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'tex', 'bib', 'json', 'cs']}
-    Plug 'autozimu/LanguageClient-neovim', {
-            \ 'branch': 'next',
-            \ 'do': 'bash install.sh',
-            \ }
+    """Plug 'zchee/deoplete-go', { 'do': 'make'} ""
+    """Plug 'rkulla/pydiction'
+    """Plug 'xolox/vim-misc'
+    """Plug 'Shougo/neosnippet.vim'
+"""Plug 'vim-pandoc/vim-pandoc'
+    """Plug 'amix/vim-zenroom2'
+    ""Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'for': ['python']}
+    """Plug 'neoclide/coc.nvim', {'do': 'yarn install', 'for': ['java', 'vim', 'yaml', 'bash','sh', 'tex', 'bib', 'json', 'cs']}
+    "Plug 'autozimu/LanguageClient-neovim', {
+            "\ 'branch': 'next',
+            "\ 'do': 'bash install.sh',
+            "\ }
     "Plug 'puremourning/vimspector', { 'do': 'python3 install_gadget.py --all'}
 
     Plug 'Shougo/deoplete-lsp'
-    if has('nvim')
-        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    else
-        Plug 'Shougo/deoplete.nvim'
-        Plug 'roxma/nvim-yarp'
-        Plug 'roxma/vim-hug-neovim-rpc'
-    endif
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
-    "Plug 'haorenW1025/completion-nvim'
-    "Plug 'steelsojka/completion-buffers'
-
-    "Plug 'Shougo/neosnippet-snippets'
-
-    "Colors
-    "Plug 'ayu-theme/ayu-vim'
-    "Plug 'jaredgorski/spacecamp'
-    "Plug 'kjssad/quantum.vim'
-    "Plug 'romainl/Apprentice'
-    ""Plug 'altercation/vim-colors-solarized'
     Plug 'rakr/vim-one'
-    "Plug 'NLKNguyen/papercolor-theme'
-    "Plug 'https://gitlab.com/yorickpeterse/vim-paper.git'
-    "Plug 'mhinz/vim-janah'
-    "Plug 'https://gitlab.com/thealik/vim-harmony'
-    "Plug 'icymind/NeoSolarized'
-    "Plug 'junegunn/seoul256.vim'
-    "Plug 'arzg/seoul8.vim'
-    "
-    "
-    "Plug 'vhakulinen/gnvim-lsp'
-    "Plug 'prabirshrestha/vim-lsp'
-    ""Plug 'Answeror/cmakecomplete'
-    "Plug 'prabirshrestha/async.vim'
-    "Plug 'prabirshrestha/vim-lsp'
-        "Plug 'roxma/nvim-yarp'
-    "
-    ""Plug 'Raimondi/delimitMate'
-    ""Plug 'mgedmin/python-imports.vim'
-    "Plug 'AndrewRayCode/vim-git-conflict-edit'
-    "Plug 'HiPhish/ncm2-vlime' ", {'for' : ['lisp']}
-    "Plug 'SammysHP/vim-heurindent'
-    "Plug 'Shougo/neosnippet.vim'
-    "Plug 'Valloric/vim-operator-highlight'
-    "Plug 'Vigemus/iron.nvim'
-    "Plug 'Vigemus/iron.nvim'
-    "Plug 'Vigemus/iron.nvim'
-    "Plug 'adolenc/cl-neovim'
-    "Plug 'bazelbuild/vim-bazel'
-    "Plug 'cyansprite/Extract'
-    "Plug 'dbeniamine/cheat.sh-vim'
-    "Plug 'dhruvasagar/vim-prosession'
-    "Plug 'glts/vim-textobj-comment'
-    "Plug 'google/vim-maktaba'
-    "Plug 'gu-fan/riv.vim'
-    "Plug 'hiphish/jinja.vim'
-    "Plug 'hotwatermorning/auto-git-diff'
-    "Plug 'jalcine/cmake.vim'
-    "Plug 'jason0x43/vim-wildgitignore'
-    "Plug 'jaxbot/github-issues.vim'
-    "Plug 'jodosha/vim-godebug'
-    "Plug 'jreybert/vimagit'
-    "Plug 'lambdalisue/gina.vim'
-    "Plug 'lambdalisue/vim-gista'
-    "Plug 'liuchengxu/vista.vim'
-    "Plug 'mattboehm/vim-accordion'
-    "Plug 'mcchrish/nnn.vim'
-    "Plug 'mhartington/oceanic-next'
-    "Plug 'ncm2/ncm2', { 'for' : ['lisp']}
-    "Plug 'ncm2/ncm2', {'for' : ['lisp']}
-    "Plug 'ncm2/ncm2-bufword', {'for' : ['lisp']}
-    "Plug 'ncm2/ncm2-path', {'for' : ['lisp']}
-    "Plug 'ncm2/ncm2-ultisnips'
-    "Plug 'pboettch/vim-highlight-cursor-words'
-    "Plug 'puremourning/vimspector'
-    "Plug 'rhysd/committia.vim'
-    "Plug 'rhysd/reply.vim'
-    "Plug 'ronakg/quickr-preview.vim'
-    "Plug 'thaerkh/vim-workspace'
-    "Plug 'tpope/vim-dispatch'
-    "Plug 'tpope/vim-endwise'
-    "Plug 'tpope/vim-obsession'
-    "Plug 'vhdirk/vim-cmake'
-    "Plug 'vim-pandoc/vim-pandoc-syntax'
-    "Plug 'vim-scripts/cmake.vim-syntax'
-    "Plug 'w0rp/ale', { 'for' : [ 'cmake' ] }
-    "Plug 'wbthomason/buildit.nvim'
-    "Plug 'xolox/vim-easytags'
-    "Plug 'xolox/vim-misc'
-    "Plug 'xolox/vim-session'
-    "Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
-    "Plug 'zchee/nvim-go', { 'do': 'make'}
 call plug#end()
 
 nnoremap <Leader>DO :diffoff!<CR>
@@ -607,7 +486,6 @@ set termguicolors     " enable true colors support
 
 " valid values: 'default' (default), 'darker', 'pure'
 let g:equinusocio_material_style = 'darker'
-"colorscheme equinusocio_material
 
 "inoremap <expr><cr> pumvisible() ? "\<c-n>" : "\<cr>"
 set background=dark 
