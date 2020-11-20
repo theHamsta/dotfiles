@@ -1250,13 +1250,25 @@ function! FloatingFZF()
   let width = float2nr(&columns - (&columns * 2 / 10))
   let col = float2nr((&columns - width) / 2)
 
- let opts = {
-        \ 'relative': 'editor',
-        \ 'row': 10,
-        \ 'col': col,
-        \ 'width': width,
-        \ 'height': height
-        \ }
+  if height > 2 
+   let opts = {
+          \ 'relative': 'editor',
+          \ 'row': 10,
+          \ 'col': col,
+          \ 'width': width,
+          \ 'height': height
+          \ }
+    call nvim_open_win(buf, v:true, opts)
+ else
+   let opts = {
+          \ 'relative': 'editor',
+          \ 'row': 0,
+          \ 'col': col,
+          \ 'width': width,
+          \ 'height': 10
+          \ }
+    call nvim_open_win(buf, v:true, opts)
+  endif
 
   call nvim_open_win(buf, v:true, opts)
 endfunction

@@ -647,8 +647,8 @@ if ok then
             ["as"] = "@statement.outer",
             ["ad"] = "@lhs.inner",
             ["id"] = "@rhs.inner",
-            ["am"] = "@parameter.outer",
-            ["im"] = "@parameter.inner"
+            ["am"] = "@call.outer",
+            ["im"] = "@call.inner"
           }
         },
         swap = {
