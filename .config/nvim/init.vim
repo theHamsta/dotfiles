@@ -179,8 +179,8 @@ nnoremap <Leader>oo :only<cr>
 "nmap <silent> <C-j> ]L
 nmap <silent> <C-k> :cprevious<cr>
 nmap <silent> <C-j> :cnext<cr>
-nmap <silent> <C-k> :lua vim.lsp.diagnostic.goto_prev()<cr>
-nmap <silent> <C-j> :lua vim.lsp.diagnostic.goto_next()<cr>
+"nmap <silent> <C-k> :lua vim.lsp.diagnostic.goto_prev()<cr>
+"nmap <silent> <C-j> :lua vim.lsp.diagnostic.goto_next()<cr>
 
 nmap <silent> <leader><C-k> :lprevious<cr>
 nmap <silent> <leader><C-j> :lnext<cr>
@@ -241,6 +241,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'rhysd/vim-crystal'
     "Plug 'vigoux/LanguageTool.nvim'
     "Plug 'rhysd/vim-grammarous'
+    "Plug 'vigoux/oak'
     Plug 'nvim-lua/popup.nvim'
     Plug 'mfussenegger/nvim-dap-python'
     Plug 'ghifarit53/tokyonight-vim'

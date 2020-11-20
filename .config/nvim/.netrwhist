@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =7
+let g:netrw_dirhistcnt =8
+let g:netrw_dirhist_8='/home/stephan/.ipython'
 let g:netrw_dirhist_7='/home/stephan'
 let g:netrw_dirhist_6='/home/stephan/foo'
 let g:netrw_dirhist_5='/media/stephan/eMachines1/llvm-project/llvm'
@@ -9,4 +10,3 @@ let g:netrw_dirhist_2='/home/stephan/projects/walberla/apps/autogen'
 let g:netrw_dirhist_1='/usr/local/cuda-11.1/targets/x86_64-linux/include'
 let g:netrw_dirhist_0='/home/stephan/.config/alacritty'
 let g:netrw_dirhist_9='/home/stephan/.config'
-let g:netrw_dirhist_8='/home/stephan/projects/1.44.7/builddir/pango'
