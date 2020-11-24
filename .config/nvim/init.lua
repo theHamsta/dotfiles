@@ -705,7 +705,7 @@ if ok then
         },
         highlight_definitions = {
           enable = true,
-          disable = {"cpp"}
+          disable = {"cpp", "c"}
         },
         smart_rename = {
           enable = true,
@@ -729,7 +729,7 @@ if ok then
         enable = false
       },
       ensure_installed = "all",
-      update_strategy = "newest"
+      update_strategy = "lockfile"
     }
   )
   require "nvim-treesitter.highlight"
@@ -778,6 +778,13 @@ if ok then
   hlmap["structure"] = "Structure"
   hlmap["keyword.function"] = "Function"
   hlmap["variable"] = nil
+
+  --for k, _ in pairs(hlmap) do
+    --if k~="punctuation.bracket" then
+      --hlmap[k] = nil
+    --end
+  --end
+
 
   local ok, docs = pcall(require, "nvim-tree-docs")
   if ok then

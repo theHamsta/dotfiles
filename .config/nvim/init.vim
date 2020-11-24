@@ -229,6 +229,8 @@ let g:vimtex_complete_enabled = 0
 set isfname -==
  
 luafile ~/.config/nvim/packages.lua
+
+autocmd BufWritePost ~/.config/nvim/packages.lua PackerCompile
 "call plug#begin('~/.local/share/nvim/plugged')
     ""Plug 'beloglazov/vim-online-thesaurus'
     ""Plug 'garbas/vim-snipmate'
@@ -590,8 +592,8 @@ let g:LanguageClient_serverCommands = {
     \ 'gluon': ['gluon_language-server'],
     \ 'cmake': ['cmake-language-server'],
     \ 'zig': ['zls'],
-    \ 'fsharp': ['dotnet', expand('~').'/projects/fsharp-language-server/src/FSharpLanguageServer/bin/Release/netcoreapp3.0/target/FSharpLanguageServer.dll']
     \ }
+    "\ 'fsharp': ['dotnet', expand('~').'.local/share/nvim/site/pack/packer/opt/fsharp-language-server/bin/Release/netcoreapp3.0/target/FSharpLanguageServer.dll']
     "\   'julia': ['julia', '--startup-file=no', '--history-file=no', '-e', '
     "\       using LanguageServer;
     "\       using Pkg;
@@ -1577,3 +1579,4 @@ autocmd BufReadPost,FileReadPost *.spirv call spirv#disassemble()
 autocmd BufWriteCmd,FileWriteCmd *.spirv call spirv#assemble()
 
 command! OpenDiagnostic :lua vim.lsp.diagnostic.set_loclist()<cr>
+
