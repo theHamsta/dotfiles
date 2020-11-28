@@ -48,6 +48,7 @@ local go_packages = {
 
 return packer.startup(
   function()
+	use {'wbthomason/packer.nvim', opt = true}
     use "nvim-lua/popup.nvim"
     use "mfussenegger/nvim-dap-python"
     use "ghifarit53/tokyonight-vim"
@@ -56,7 +57,7 @@ return packer.startup(
     use "chuling/vim-equinusocio-material"
     use "nvim-treesitter/nvim-treesitter-textobjects"
     use "nvim-treesitter/nvim-treesitter-refactor"
-    use "theHamsta/nvim-treesitter"
+    use {"nvim-treesitter/nvim-treesitter", run = ':TSUpdate'}
     use "nvim-treesitter/playground"
     use "nvim-treesitter/nvim-tree-docs"
     use "bluz71/vim-nightfly-guicolors"

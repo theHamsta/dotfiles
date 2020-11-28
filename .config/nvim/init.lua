@@ -728,7 +728,7 @@ if ok then
       indent = {
         enable = false
       },
-      ensure_installed = "all",
+      --ensure_installed = "all",
       update_strategy = "lockfile"
     }
   )

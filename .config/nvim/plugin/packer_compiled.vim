@@ -10,125 +10,131 @@ local plugins = {
     loaded = false,
     only_sequence = false,
     only_setup = false,
-    path = "/home/stephan/.local/share/nvim/site/pack/packer/opt/LanguageClient-neovim"
+    path = "/localhome/seitz_local/.local/share/nvim/site/pack/packer/opt/LanguageClient-neovim"
   },
   ["cheat.sh-vim"] = {
     commands = { "Cheat" },
     loaded = false,
     only_sequence = false,
     only_setup = false,
-    path = "/home/stephan/.local/share/nvim/site/pack/packer/opt/cheat.sh-vim"
+    path = "/localhome/seitz_local/.local/share/nvim/site/pack/packer/opt/cheat.sh-vim"
   },
   nerdtree = {
     loaded = false,
     only_sequence = false,
     only_setup = false,
-    path = "/home/stephan/.local/share/nvim/site/pack/packer/opt/nerdtree"
+    path = "/localhome/seitz_local/.local/share/nvim/site/pack/packer/opt/nerdtree"
   },
   ["nerdtree-execute"] = {
     loaded = false,
     only_sequence = false,
     only_setup = false,
-    path = "/home/stephan/.local/share/nvim/site/pack/packer/opt/nerdtree-execute"
+    path = "/localhome/seitz_local/.local/share/nvim/site/pack/packer/opt/nerdtree-execute"
   },
   ["nerdtree-git-plugin"] = {
     loaded = false,
     only_sequence = false,
     only_setup = false,
-    path = "/home/stephan/.local/share/nvim/site/pack/packer/opt/nerdtree-git-plugin"
+    path = "/localhome/seitz_local/.local/share/nvim/site/pack/packer/opt/nerdtree-git-plugin"
+  },
+  ["packer.nvim"] = {
+    loaded = false,
+    only_sequence = false,
+    only_setup = false,
+    path = "/localhome/seitz_local/.local/share/nvim/site/pack/packer/opt/packer.nvim"
   },
   ["rust.vim"] = {
     loaded = false,
     only_sequence = false,
     only_setup = false,
-    path = "/home/stephan/.local/share/nvim/site/pack/packer/opt/rust.vim"
+    path = "/localhome/seitz_local/.local/share/nvim/site/pack/packer/opt/rust.vim"
   },
   undotree = {
     commands = { "UndotreeToggle" },
     loaded = false,
     only_sequence = false,
     only_setup = false,
-    path = "/home/stephan/.local/share/nvim/site/pack/packer/opt/undotree"
+    path = "/localhome/seitz_local/.local/share/nvim/site/pack/packer/opt/undotree"
   },
   ["vim-go"] = {
     loaded = false,
     only_sequence = false,
     only_setup = false,
-    path = "/home/stephan/.local/share/nvim/site/pack/packer/opt/vim-go"
+    path = "/localhome/seitz_local/.local/share/nvim/site/pack/packer/opt/vim-go"
   },
   ["vim-markdown"] = {
     loaded = false,
     only_sequence = false,
     only_setup = false,
-    path = "/home/stephan/.local/share/nvim/site/pack/packer/opt/vim-markdown"
+    path = "/localhome/seitz_local/.local/share/nvim/site/pack/packer/opt/vim-markdown"
   },
   ["vim-markdown-composer"] = {
     commands = { "ComposerStart" },
     loaded = false,
     only_sequence = false,
     only_setup = false,
-    path = "/home/stephan/.local/share/nvim/site/pack/packer/opt/vim-markdown-composer"
+    path = "/localhome/seitz_local/.local/share/nvim/site/pack/packer/opt/vim-markdown-composer"
   },
   ["vim-nerdtree-syntax-highlight"] = {
     commands = { "NERDTreeToggle", "NERDTreeFind" },
     loaded = false,
     only_sequence = false,
     only_setup = false,
-    path = "/home/stephan/.local/share/nvim/site/pack/packer/opt/vim-nerdtree-syntax-highlight"
+    path = "/localhome/seitz_local/.local/share/nvim/site/pack/packer/opt/vim-nerdtree-syntax-highlight"
   },
   ["vim-orgmode"] = {
     loaded = false,
     only_sequence = false,
     only_setup = false,
-    path = "/home/stephan/.local/share/nvim/site/pack/packer/opt/vim-orgmode"
+    path = "/localhome/seitz_local/.local/share/nvim/site/pack/packer/opt/vim-orgmode"
   },
   ["vim-qml"] = {
     loaded = false,
     only_sequence = false,
     only_setup = false,
-    path = "/home/stephan/.local/share/nvim/site/pack/packer/opt/vim-qml"
+    path = "/localhome/seitz_local/.local/share/nvim/site/pack/packer/opt/vim-qml"
   },
   ["vim-sexp"] = {
     loaded = false,
     only_sequence = false,
     only_setup = false,
-    path = "/home/stephan/.local/share/nvim/site/pack/packer/opt/vim-sexp"
+    path = "/localhome/seitz_local/.local/share/nvim/site/pack/packer/opt/vim-sexp"
   },
   ["vim-sexp-mappings-for-regular-people"] = {
     loaded = false,
     only_sequence = false,
     only_setup = false,
-    path = "/home/stephan/.local/share/nvim/site/pack/packer/opt/vim-sexp-mappings-for-regular-people"
+    path = "/localhome/seitz_local/.local/share/nvim/site/pack/packer/opt/vim-sexp-mappings-for-regular-people"
   },
   ["vim-test"] = {
     loaded = false,
     only_sequence = false,
     only_setup = false,
-    path = "/home/stephan/.local/share/nvim/site/pack/packer/opt/vim-test"
+    path = "/localhome/seitz_local/.local/share/nvim/site/pack/packer/opt/vim-test"
   },
   ["vim-toml"] = {
     loaded = false,
     only_sequence = false,
     only_setup = false,
-    path = "/home/stephan/.local/share/nvim/site/pack/packer/opt/vim-toml"
+    path = "/localhome/seitz_local/.local/share/nvim/site/pack/packer/opt/vim-toml"
   },
   ["vim-toml-enhance"] = {
     loaded = false,
     only_sequence = false,
     only_setup = false,
-    path = "/home/stephan/.local/share/nvim/site/pack/packer/opt/vim-toml-enhance"
+    path = "/localhome/seitz_local/.local/share/nvim/site/pack/packer/opt/vim-toml-enhance"
   },
   vimtex = {
     loaded = false,
     only_sequence = false,
     only_setup = false,
-    path = "/home/stephan/.local/share/nvim/site/pack/packer/opt/vimtex"
+    path = "/localhome/seitz_local/.local/share/nvim/site/pack/packer/opt/vimtex"
   },
   vlime = {
     loaded = false,
     only_sequence = false,
     only_setup = false,
-    path = "/home/stephan/.local/share/nvim/site/pack/packer/opt/vlimevim/"
+    path = "/localhome/seitz_local/.local/share/nvim/site/pack/packer/opt/vlimevim/"
   }
 }
 
@@ -250,7 +256,7 @@ _packer_load = function(names, cause)
 end
 
 -- Runtimepath customization
-vim.o.runtimepath = vim.o.runtimepath .. ",/home/stephan/.local/share/nvim/site/pack/packer/opt/vlime/vim/"
+vim.o.runtimepath = vim.o.runtimepath .. ",/localhome/seitz_local/.local/share/nvim/site/pack/packer/opt/vlime/vim/"
 -- Pre-load configuration
 -- Post-load configuration
 -- Conditional loads
@@ -280,10 +286,10 @@ augroup packer_load_aucmds
   au FileType python ++once call s:load(['vim-test'], { "ft": "python" })
   au FileType query ++once call s:load(['vim-sexp'], { "ft": "query" })
   au FileType tex ++once call s:load(['vimtex'], { "ft": "tex" })
-  au FileType go ++once call s:load(['vim-go'], { "ft": "go" })
+  au FileType org ++once call s:load(['vim-orgmode'], { "ft": "org" })
   au FileType fsharp ++once call s:load(['LanguageClient-neovim'], { "ft": "fsharp" })
   au FileType rust ++once call s:load(['rust.vim', 'vim-test'], { "ft": "rust" })
-  au FileType org ++once call s:load(['vim-orgmode'], { "ft": "org" })
+  au FileType go ++once call s:load(['vim-go'], { "ft": "go" })
   au FileType lisp ++once call s:load(['vim-sexp', 'vim-sexp-mappings-for-regular-people', 'vlime'], { "ft": "lisp" })
   au FileType markdown ++once call s:load(['vim-markdown', 'vim-markdown-composer'], { "ft": "markdown" })
   au FileType qml ++once call s:load(['vim-qml'], { "ft": "qml" })
