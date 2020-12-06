@@ -557,7 +557,7 @@ vim.fn.sign_define("DapBreakpoint", {text = "🛑", texthl = "", linehl = "", nu
 vim.fn.sign_define("DapStopped", {text = "→", texthl = "", linehl = "NvimDapStopped", numhl = ""})
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
-  --vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
+  vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
   --require "nvim-treesitter.parsers".get_parser_configs().lisp = {
     --install_info = {
       --url = "~/projects/clojure-lisp2",
@@ -593,6 +593,9 @@ if ok then
       highlight = {
         enable = true, -- false will disable the whole extension
         disable = {"html"} -- list of language that will be disabled
+      },
+      query_linter = {
+        enable = true,
       },
       tree_docs = {
         enable = true,

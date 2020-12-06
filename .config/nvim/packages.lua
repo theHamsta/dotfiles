@@ -48,8 +48,9 @@ local go_packages = {
 
 return packer.startup(
   function()
-	use {'wbthomason/packer.nvim', opt = true}
+    use {'wbthomason/packer.nvim', opt = true}
     use "nvim-lua/popup.nvim"
+    use "ElPiloto/sidekick.nvim"
     use "mfussenegger/nvim-dap-python"
     use "ghifarit53/tokyonight-vim"
     use "chrisbra/unicode.vim"
@@ -62,14 +63,16 @@ return packer.startup(
     use "nvim-treesitter/nvim-tree-docs"
     use "bluz71/vim-nightfly-guicolors"
     use "bluz71/vim-moonfly-colors"
+    use {'doums/darcula', opt = true}
     use "ziglang/zig.vim"
     use "mfussenegger/nvim-jdtls"
     use "mattn/emmet-vim"
     use "rhysd/conflict-marker.vim"
-    use "mfussenegger/nvim-dap"
+    use {"theHamsta/nvim-dap", branch = "variable-ui"}
     use "theHamsta/nvim-dap-virtual-text"
     use "dm1try/git_fastfix"
     use "rafcamlet/nvim-luapad"
+    use {"jsit/toast.vim", opt = true}
     use {
       "theHamsta/nvim_rocks",
       run = "pip3 install --r hererocks && hererocks . -j2.1.0-beta3 -r3.0.0 && cp nvim_rocks.lua lua"
@@ -80,6 +83,8 @@ return packer.startup(
     use "kbenzie/vim-spirv"
 
     use {"theHamsta/nvim-tree.lua", branch = "exa"}
+
+    use {"nvim-telescope/telescope-dap.nvim"}
     use "Olical/nvim-local-fennel"
     use "Olical/conjure"
     use "bakpakin/fennel.vim"
@@ -120,14 +125,14 @@ return packer.startup(
     use "hotwatermorning/auto-git-diff"
     use "idanarye/vim-merginal"
 
-    use {"ivalkeen/nerdtree-execute", ft = {"NERDTreeToggle", "NERDTreeFind"}}
-    use {"Xuyuanp/nerdtree-git-plugin", ft = {"NERDTreeToggle", "NERDTreeFind"}}
-    use {"scrooloose/nerdtree", ft = {"NERDTreeToggle", "NERDTreeFind"}}
+    use {"ivalkeen/nerdtree-execute", cmd = {"NERDTreeToggle", "NERDTreeFind"}}
+    use {"Xuyuanp/nerdtree-git-plugin", cmd = {"NERDTreeToggle", "NERDTreeFind"}}
+    use {"scrooloose/nerdtree", cmd = {"NERDTreeToggle", "NERDTreeFind"}}
     use {"tiagofumo/vim-nerdtree-syntax-highlight", cmd = {"NERDTreeToggle", "NERDTreeFind"}}
     use {"janko/vim-test", ft = {"rust", "python"}}
-    use {"ionide/Ionide-vim", run = 'make fsautocomplete' }
-    --use {"fsprojects/fsharp-language-server", run = "npm install && dotnet build -c Release", ft = "fsharp"}
-    --use { 'neoclide/coc.nvim', run = 'yarn install --frozen-lockfile'}
+    use {"ionide/Ionide-vim", run = 'make fsautocomplete', ft = "fsharp" }
+    --use {"fsprojects/fsharp-language-server", run = "npm install && dotnet build -c Release"}
+    --use { 'neoclide/coc.nvim', run = 'yarn install --frozen-lockfile', ft = 'fsharp'}
     use {
       "autozimu/LanguageClient-neovim",
       branch = "next",

@@ -123,3 +123,4 @@ _minted-*/
 
 todoist_api.lua
 *.add.spl
+.config/nvim/plugin/packer_compiled.vim

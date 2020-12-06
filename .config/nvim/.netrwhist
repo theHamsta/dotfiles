@@ -1,5 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =5
+let g:netrw_dirhistcnt =7
+let g:netrw_dirhist_7='/home/stephan/projects/advent-of-code-2020/src/07'
+let g:netrw_dirhist_6='/home/stephan/projects'
 let g:netrw_dirhist_5='/home/stephan/.local/share/nvim/site/pack/packer/start/nvim-treesitter/queries/yaml/folds.scm'
 let g:netrw_dirhist_4='/home/stephan/.local/share/nvim/site/pack/packer/opt/packer.nvim/lua'
 let g:netrw_dirhist_3='/home/stephan/.local/share/nvim/site/pack/packer/opt/packer.nvim'
@@ -8,5 +10,3 @@ let g:netrw_dirhist_1='/home/stephan/.local/share/nvim/site/pack/packer'
 let g:netrw_dirhist_0='/home/stephan/.local/share/nvim/site/pack/packer/opt'
 let g:netrw_dirhist_9='/home/stephan/.local/share/nvim/site/pack/packer'
 let g:netrw_dirhist_8='/home/stephan/.ipython'
-let g:netrw_dirhist_7='/home/stephan'
-let g:netrw_dirhist_6='/home/stephan/foo'

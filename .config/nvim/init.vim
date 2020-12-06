@@ -26,31 +26,31 @@ let g:sexp_insert_after_wrap = 0
 let g:LanguageClient_settingsPath = expand('~').'.config/nvim/settings.json'
 
 
-if !filereadable(vimplug_exists)
-    if !executable("curl")
-        echoerr "You have to install curl or first install vim-plug yourself!"
-        execute "q!"
-    endif
-    echo "Installing Vim-Plug..."
-    echo ""
-    silent !\curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    let g:not_finish_vimplug = "yes"
+"if !filereadable(vimplug_exists)
+    "if !executable("curl")
+        "echoerr "You have to install curl or first install vim-plug yourself!"
+        "execute "q!"
+    "endif
+    "echo "Installing Vim-Plug..."
+    "echo ""
+    "silent !\curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    "let g:not_finish_vimplug = "yes"
 
-    autocmd VimEnter * PlugInstall
-endif
-"vim-scripts/VimPdb Identify platform {
-let g:MAC = has('macunix')
-let g:LINUX = has('unix') && !has('macunix') && !has('win32unix')
-let g:WINDOWS = has('win32') || has('win64')
-" }
+    "autocmd VimEnter * PlugInstall
+"endif
+""vim-scripts/VimPdb Identify platform {
+"let g:MAC = has('macunix')
+"let g:LINUX = has('unix') && !has('macunix') && !has('win32unix')
+"let g:WINDOWS = has('win32') || has('win64')
+"" }
 
-" Windows Compatible {
-" On Windows, also use '.vim' instead of 'vimfiles'; this makes synchronization
-" across (heterogeneous) systems easier.
-if g:WINDOWS
-    set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
-endif
-" }
+"" Windows Compatible {
+"" On Windows, also use '.vim' instead of 'vimfiles'; this makes synchronization
+"" across (heterogeneous) systems easier.
+"if g:WINDOWS
+    "set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+"endif
+"" }
 
 let g:xcodedark_green_comments = 1
 let g:xcodedark_emph_funcs = 1
@@ -551,6 +551,7 @@ nmap <a-p> :cd ~/projects<cr>:Buffers<cr>
 "autocmd FileType lua nnoremap <buffer> <F5> :exec '!lua' shellescape(@%:p, 1)<cr>:letg:last_execution=@%:p <cr>
 
 autocmd FileType lua nnoremap <buffer> <c-s> ma:w<cr>:%!luafmt --stdin --indent-count 2<cr>'azz
+
 autocmd FileType cmake nnoremap <buffer> <c-s> ma:w<cr>:%!gersemi %<cr>'azz
 "autocmd FileType tex,latex nnoremap <buffer> <c-s> :w<cr>:silent !latexindent % -w<cr>:e<cr>
 ""autocmd FileType tex,latex call neomake#configure#automake('w')
@@ -629,7 +630,7 @@ function! LC_maps()
         nnoremap <buffer> <silent> gh :call LanguageClient#textDocument_hover()<CR>
         nnoremap <buffer> <silent> <leader>ss :call LanguageClient#textDocument_documentSymbol()<CR>
         nnoremap <buffer> <silent> <c-a-s> :call LanguageClient#textDocument_documentSymbol()<CR>
-        if &filetype != "tex"
+        if &filetype != "tex" && &filetype != "fsharp" 
             nnoremap <buffer> <silent> <c-s> :call LanguageClient#textDocument_formatting()<CR>:w<CR>
         endif
         nnoremap <buffer> <silent> gr :call LanguageClient#textDocument_references()<CR>
@@ -856,7 +857,7 @@ let g:LanguageClient_diagnosticsList = "Location"
   "omap  <silent> <buffer> af <Plug>(coc-funcobj-a)
 "endfunction()
 
-"autocmd FileType python call ActivateCoc()
+"autocmd FileType fsharp call ActivateCoc()
 
  ""inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 let g:multi_cursor_exit_from_insert_mode=0
@@ -946,6 +947,8 @@ endfunction
 
 augroup filetypedetect
     au! BufRead,BufNewFile *.cpp.tmpl set filetype=cpp
+    au! BufRead,BufNewFile *.fs set filetype=fsharp
+    au! BufRead,BufNewFile *.fsproj,*.csproj set filetype=xml
     au! BufRead,BufNewFile *.pdf_tex set filetype=tex
     au! BufRead,BufNewFile .justfile,justfile set filetype=make
     au! BufRead,BufNewFile *.tikz set filetype=tex
@@ -1028,38 +1031,38 @@ let g:LanguageClient_documentHighlightDisplay = {
             \          "name": "Write",
             \          "texthl": "LangHighlightWrite",
             \      }}
-let g:LanguageClient_diagnosticsDisplay= {
-            \       1: {
-            \           "name": "Error",
-            \           "texthl": "LspError",
-            \           "signText": "❌",
-            \           "signTexthl": "ALEErrorSign",
-            \           "virtualTexthl": "Error",
-            \       },
-            \       2: {
-            \           "name": "Warning",
-            \           "texthl": "LspWarning",
-            \           "signText": "⚠️",
-            \           "signTexthl": "ALEWarningSign",
-            \           "virtualTexthl": "Todo",
-            \       },
-            \       3: {
-            \           "name": "Information",
-            \           "texthl": "information",
-            \           "signText": "🔎",
-            \           "signTexthl": "ALEInfoSign",
-            \           "virtualTexthl": "Todo",
-            \       },
-            \       4: {
-            \           "name": "Hint",
-            \           "texthl": "ALEInfo",
-        \           "signText": "💡",
-            \           "signTexthl": "ALEInfoSign",
-            \           "virtualTexthl": "Todo",
-            \       },
-            \   }
-            \
 
+  let g:LanguageClient_diagnosticsDisplay= {
+              \       1: {
+              \           "name": "Error",
+              \           "texthl": "LspError",
+              \           "signText": "E",
+              \           "signTexthl": "ALEErrorSign",
+              \           "virtualTexthl": "Error",
+              \       },
+              \       2: {
+              \           "name": "Warning",
+              \           "texthl": "LspWarning",
+              \           "signText": "W",
+              \           "signTexthl": "ALEWarningSign",
+              \           "virtualTexthl": "Todo",
+              \       },
+              \       3: {
+              \           "name": "Information",
+              \           "texthl": "information",
+              \           "signText": "H",
+              \           "signTexthl": "ALEInfoSign",
+              \           "virtualTexthl": "Todo",
+              \       },
+              \       4: {
+              \           "name": "Hint",
+              \           "texthl": "ALEInfo",
+          \           "signText": "H",
+              \           "signTexthl": "ALEInfoSign",
+              \           "virtualTexthl": "Todo",
+              \       },
+              \   }
+              \
 if !exists('g:GtkGuiLoaded')
   sign define LspDiagnosticsErrorSign text=❌ texthl=LspDiagnosticsError linehl= numhl=
   sign define LspDiagnosticsWarningSign text=⚠️ texthl=LspDiagnosticsWarning linehl= numhl=
@@ -1071,6 +1074,38 @@ if !exists('g:GtkGuiLoaded')
   let g:gitgutter_sign_removed = '▋'
   let g:gitgutter_sign_removed_first_line = '▋'
   let g:gitgutter_sign_modified_removed = '▐_'
+
+  let g:LanguageClient_diagnosticsDisplay= {
+              \       1: {
+              \           "name": "Error",
+              \           "texthl": "LspError",
+              \           "signText": "❌",
+              \           "signTexthl": "ALEErrorSign",
+              \           "virtualTexthl": "Error",
+              \       },
+              \       2: {
+              \           "name": "Warning",
+              \           "texthl": "LspWarning",
+              \           "signText": "⚠️",
+              \           "signTexthl": "ALEWarningSign",
+              \           "virtualTexthl": "Todo",
+              \       },
+              \       3: {
+              \           "name": "Information",
+              \           "texthl": "information",
+              \           "signText": "🔎",
+              \           "signTexthl": "ALEInfoSign",
+              \           "virtualTexthl": "Todo",
+              \       },
+              \       4: {
+              \           "name": "Hint",
+              \           "texthl": "ALEInfo",
+          \           "signText": "💡",
+              \           "signTexthl": "ALEInfoSign",
+              \           "virtualTexthl": "Todo",
+              \       },
+              \   }
+              \
 end
 
 "set signcolumn=yes
@@ -1503,7 +1538,7 @@ let g:markdown_composer_autostart=0
 nnoremap <c-h> :History<cr>
 nnoremap <c-t> :Tags<cr>
 nnoremap <c-a-o> :BTags<cr>
-luafile ~/.config/nvim/init.lua
+luafile ~/.config/nvim/lua/init.lua
 
 command! -buffer JdtCompile lua require('jdtls').compile()
 command! -buffer JdtUpdateConfig lua require('jdtls').update_project_config()
@@ -1538,7 +1573,7 @@ function DapMaps()
     nmap <buffer> <silent> <leader>bm :DebugRepl<cr>
     nmap <buffer> <silent> <leader>dh :lua require 'dap.ui.variable-tree'.hover(require 'dap'.session())<cr>
     nmap <buffer> <silent> <leader>dl :lua require 'dap.ui.variable-tree'.open_sidebar(require 'dap'.session())<cr>
-    nmap <buffer> <silent> <leader>TN :lua  require'dap';require 'dap-python'.test_method()<cr>:lua require 'dap.repl'.open()<cr>
+    nmap <buffer> <silent> <leader>TN :lua require'dap';require 'dap-python'.test_method()<cr>:lua require 'dap.repl'.open()<cr>
     nmap <buffer> <silent> <leader>bT :lua require 'dap'.run_last()<cr>:lua require 'dap.repl'.open()<cr>
 endfunction
 
@@ -1568,7 +1603,7 @@ autocmd BufEnter,BufNewFile *.verilog set filetype=verilog
     "g:echodoc#type
 nmap <leader>qf  :lua require'telescope.builtin'.quickfix()
 command TreeGrep  :lua require'telescope.builtin'.treesitter()
-let g:NERDCustomDelimiters = { 'query': { 'left': ';','right': ';' } }
+let g:NERDCustomDelimiters = { 'query': { 'left': ';','right': '' }, 'fsharp': { 'left': '//','right': '' }}
 "let g:neovide_cursor_vfx_mode = "railgun"
 let g:neovide_cursor_vfx_mode = "wireframe"
 
@@ -1580,3 +1615,8 @@ autocmd BufWriteCmd,FileWriteCmd *.spirv call spirv#assemble()
 
 command! OpenDiagnostic :lua vim.lsp.diagnostic.set_loclist()<cr>
 
+"hi link DapVariableTreeOperator None
+"hi def link DapVariableTreeNumber None
+"hi def link DapVariableTreeOperator None
+"hi def link DapVariableTreeString None
+nmap <F8> :call SideKickNoReload()<CR>
