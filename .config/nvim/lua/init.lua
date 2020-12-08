@@ -24,14 +24,14 @@ end
 
 --local ok, lsputil = pcall(require, "lsputil.codeAction")
 --if ok then
-  --vim.lsp.callbacks["textDocument/codeAction"] = lsputil.code_action_handler
-  --vim.lsp.callbacks["textDocument/references"] = lsputil.references_handler
-  --vim.lsp.callbacks["textDocument/definition"] = lsputil.definition_handler
-  --vim.lsp.callbacks["textDocument/declaration"] = lsputil.declaration_handler
-  --vim.lsp.callbacks["textDocument/typeDefinition"] = lsputil.typeDefinition_handler
-  --vim.lsp.callbacks["textDocument/implementation"] = lsputil.implementation_handler
-  --vim.lsp.callbacks["textDocument/documentSymbol"] = lsputil.document_handler
-  --vim.lsp.callbacks["workspace/symbol"] = lsputil.workspace_handler
+--vim.lsp.callbacks["textDocument/codeAction"] = lsputil.code_action_handler
+--vim.lsp.callbacks["textDocument/references"] = lsputil.references_handler
+--vim.lsp.callbacks["textDocument/definition"] = lsputil.definition_handler
+--vim.lsp.callbacks["textDocument/declaration"] = lsputil.declaration_handler
+--vim.lsp.callbacks["textDocument/typeDefinition"] = lsputil.typeDefinition_handler
+--vim.lsp.callbacks["textDocument/implementation"] = lsputil.implementation_handler
+--vim.lsp.callbacks["textDocument/documentSymbol"] = lsputil.document_handler
+--vim.lsp.callbacks["workspace/symbol"] = lsputil.workspace_handler
 --end
 
 function D(a)
@@ -47,7 +47,7 @@ end
 --local ok = pcall(require, "lsp_extensions")
 
 --if ok then
-  --vim.cmd [[command! InlayHints :lua require "lsp_extensions".inlay_hints { highlight = "Comment", prefix = " > "}]]
+--vim.cmd [[command! InlayHints :lua require "lsp_extensions".inlay_hints { highlight = "Comment", prefix = " > "}]]
 --end
 
 local completion_nvim_ok = pcall(require, "completion")
@@ -62,9 +62,9 @@ local ok, lspconfig = pcall(require, "lspconfig")
 if ok then
   --local default_callback = vim.lsp.callbacks["textDocument/publishDiagnostics"]
   --vim.lsp.callbacks["textDocument/publishDiagnostics"] = function(...)
-    --default_callback(...)
+  --default_callback(...)
 
-    --require "lsp-ext".update_diagnostics()
+  --require "lsp-ext".update_diagnostics()
   --end
 
   local function on_attach()
@@ -96,6 +96,12 @@ if ok then
   lspconfig.julials.setup {
     on_attach = on_attach
   }
+  lspconfig.ocamlls.setup {
+    on_attach = function()
+      on_attach()
+      --require "virtualtypes".on_attach(...)
+    end
+  }
   lspconfig.gopls.setup {
     on_attach = on_attach,
     settings = {
@@ -106,7 +112,7 @@ if ok then
   }
 
   --lspconfig.pyright.setup {
-    --on_attach = on_attach,
+  --on_attach = on_attach,
   --}
 
   lspconfig.pyls.setup {
@@ -332,52 +338,52 @@ if ok then
   }
 
   --local java = function()
-    --pcall(require, "lspconfig/jdtls")
-    --if not require("lspconfig/configs").jdtls.install_info().is_installed then
-      --require("lspconfig/configs").jdtls.install()
-    --end
-    --local capabilities = vim.lsp.protocol.make_client_capabilities()
-    --capabilities.textDocument.completion.completionItem.snippetSupport = true
-    --capabilities.textDocument.codeAction = {
-      --dynamicRegistration = false,
-      --codeActionLiteralSupport = {
-        --codeActionKind = {
-          --valueSet = {
-            --"source.generate.toString",
-            --"source.generate.hashCodeEquals",
-            --"source.organizeImports"
-          --}
-        --}
-      --}
-    --}
-    --lspconfig.jdtls.setup {
-      --init_options = {
-        --bundles = {
-          --vim.fn.glob("~/.local/share/nvim/plugged/nvim-jdtls/*.jar")
-        --},
-        --config = {
-          --java = {
-            --import = {
-              --gradle = {
-                --wrapper = {
-                  --checksums = {
-                    --{
-                      --sha256 = "803c75f3307787290478a5ccfa9054c5c0c7b4250c1b96ceb77ad41fbe919e4e",
-                      --allowed = true
-                    --}
-                  --}
-                --}
-              --}
-            --}
-          --}
-        --}
-      --},
-      --capabilities = capabilities,
-      --on_attach = function(client)
-        --on_attach(client)
-        --require("jdtls").setup_dap()
-      --end
-    --}
+  --pcall(require, "lspconfig/jdtls")
+  --if not require("lspconfig/configs").jdtls.install_info().is_installed then
+  --require("lspconfig/configs").jdtls.install()
+  --end
+  --local capabilities = vim.lsp.protocol.make_client_capabilities()
+  --capabilities.textDocument.completion.completionItem.snippetSupport = true
+  --capabilities.textDocument.codeAction = {
+  --dynamicRegistration = false,
+  --codeActionLiteralSupport = {
+  --codeActionKind = {
+  --valueSet = {
+  --"source.generate.toString",
+  --"source.generate.hashCodeEquals",
+  --"source.organizeImports"
+  --}
+  --}
+  --}
+  --}
+  --lspconfig.jdtls.setup {
+  --init_options = {
+  --bundles = {
+  --vim.fn.glob("~/.local/share/nvim/plugged/nvim-jdtls/*.jar")
+  --},
+  --config = {
+  --java = {
+  --import = {
+  --gradle = {
+  --wrapper = {
+  --checksums = {
+  --{
+  --sha256 = "803c75f3307787290478a5ccfa9054c5c0c7b4250c1b96ceb77ad41fbe919e4e",
+  --allowed = true
+  --}
+  --}
+  --}
+  --}
+  --}
+  --}
+  --}
+  --},
+  --capabilities = capabilities,
+  --on_attach = function(client)
+  --on_attach(client)
+  --require("jdtls").setup_dap()
+  --end
+  --}
   --end
   pcall(java)
   lspconfig.vimls.setup {
@@ -420,8 +426,8 @@ end
 
 local ok, dap = pcall(require, "dap")
 if ok then
-  require('dap-python').setup('/usr/bin/python3')
-  require('dap-python').test_runner = 'pytest'
+  require("dap-python").setup("/usr/bin/python3")
+  require("dap-python").test_runner = "pytest"
   dap.adapters.python = {
     type = "executable",
     command = "python3",
@@ -558,17 +564,23 @@ vim.fn.sign_define("DapStopped", {text = "→", texthl = "", linehl = "NvimDapSt
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
   vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
+  --require "nvim-treesitter.parsers".get_parser_configs().toml = {
+  --install_info = {
+  --url = "~/projects/tree-sitter-toml",
+  --files = {"src/parser.c", "src/scanner.c"}
+  --}
+  --}
   --require "nvim-treesitter.parsers".get_parser_configs().lisp = {
-    --install_info = {
-      --url = "~/projects/clojure-lisp2",
-      --files = {"src/parskwser.c"}
-    --}
+  --install_info = {
+  --url = "~/projects/clojure-lisp2",
+  --files = {"src/parskwser.c"}
+  --}
   --}
   --require "nvim-treesitter.parsers".get_parser_configs().julia = {
-    --install_info = {
-      --url = "~/projects/tree-sitter-julia",
-      --files = {"src/parser.c", "src/scanner.c"}
-    --}
+  --install_info = {
+  --url = "~/projects/tree-sitter-julia",
+  --files = {"src/parser.c", "src/scanner.c"}
+  --}
   --}
   --require "nvim-treesitter.parsers".get_parser_configs().zig = {
   --install_info = {
@@ -583,10 +595,10 @@ if ok then
   --}
   --}
   --require "nvim-treesitter.parsers".get_parser_configs().kotlin = {
-    --install_info = {
-      --url = "https://github.com/QthCN/tree-sitter-kotlin",
-      --files = {"src/parser.c"}
-    --}
+  --install_info = {
+  --url = "https://github.com/QthCN/tree-sitter-kotlin",
+  --files = {"src/parser.c"}
+  --}
   --}
   require "nvim-treesitter.configs".setup(
     {
@@ -595,7 +607,7 @@ if ok then
         disable = {"html"} -- list of language that will be disabled
       },
       query_linter = {
-        enable = true,
+        enable = true
       },
       tree_docs = {
         enable = true,
@@ -783,11 +795,10 @@ if ok then
   hlmap["variable"] = nil
 
   --for k, _ in pairs(hlmap) do
-    --if k~="punctuation.bracket" then
-      --hlmap[k] = nil
-    --end
+  --if k~="punctuation.bracket" then
+  --hlmap[k] = nil
   --end
-
+  --end
 
   local ok, docs = pcall(require, "nvim-tree-docs")
   if ok then
@@ -850,4 +861,3 @@ local ok, context = pcall(require, "treesitter-context")
 if ok then
   context.enable()
 end
-

@@ -50,8 +50,10 @@ return packer.startup(
   function()
     use {'wbthomason/packer.nvim', opt = true}
     use "nvim-lua/popup.nvim"
-    use "ElPiloto/sidekick.nvim"
+    use {"liuchengxu/vista.vim"}
     use "mfussenegger/nvim-dap-python"
+    use {"jubnzv/virtual-types.nvim", ft = 'ocaml'}
+    use "ocaml/vim-ocaml"
     use "ghifarit53/tokyonight-vim"
     use "chrisbra/unicode.vim"
     use "nvim-lua/telescope.nvim"
@@ -92,6 +94,7 @@ return packer.startup(
     use "camspiers/animate.vim"
     use "neovim/nvim-lspconfig"
     use "udalov/kotlin-vim"
+    use {"preservim/tagbar", cmd = {'TagbarToggle', 'TagbarOpenAutoClose'}}
     use "szymonmaszke/vimpyter"
     use "voldikss/vim-floaterm"
     use "kkoomen/vim-doge"
@@ -103,7 +106,6 @@ return packer.startup(
     use "airblade/vim-gitgutter"
     use "airblade/vim-rooter"
     use "bronson/vim-visual-star-search"
-    use {"cespare/vim-toml", ft = "toml"}
     use {"dbeniamine/cheat.sh-vim", cmd = {"Cheat"}}
     use "dyng/ctrlsf.vim"
     use {"euclio/vim-markdown-composer", run = "cargo build --release", cmd = "ComposerStart", ft = 'markdown'}
@@ -152,7 +154,6 @@ return packer.startup(
     use {"luochen1990/rainbow", disable = false}
     use {"lervag/vimtex", ft = "tex"}
     use "machakann/vim-swap"
-    use {"maralla/vim-toml-enhance", ft = "toml"}
     use "markonm/traces.vim"
     use {"mbbill/undotree", cmd = {"UndotreeToggle"}}
     use {"meain/vim-package-info", run = "npm install"}
@@ -183,8 +184,8 @@ return packer.startup(
     use "tpope/vim-sleuth"
     use "tpope/vim-surround"
     use "tpope/vim-unimpaired"
-    use "vim-airline/vim-airline"
-    use "vim-airline/vim-airline-themes"
+    use {"vim-airline/vim-airline", requires="vim-airline/vim-airline-themes", opt=true}
+    use {"glepnir/galaxyline.nvim", requires='kyazdani42/nvim-web-devicons', config=function() require'my_statusline' end }
     use "wellle/targets.vim"
     use "whiteinge/diffconflicts"
     use "TravonteD/luajob"
