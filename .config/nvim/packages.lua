@@ -66,6 +66,8 @@ return packer.startup(
     use "bluz71/vim-nightfly-guicolors"
     use "bluz71/vim-moonfly-colors"
     use {'doums/darcula', opt = true}
+    use {'ghifarit53/daycula-vim', opt = true}
+    use {'aonemd/kuroi.vim', opt = true}
     use "ziglang/zig.vim"
     use "mfussenegger/nvim-jdtls"
     use "mattn/emmet-vim"

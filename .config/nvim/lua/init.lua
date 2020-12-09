@@ -97,10 +97,7 @@ if ok then
     on_attach = on_attach
   }
   lspconfig.ocamlls.setup {
-    on_attach = function()
-      on_attach()
-      --require "virtualtypes".on_attach(...)
-    end
+    on_attach = on_attach
   }
   lspconfig.gopls.setup {
     on_attach = on_attach,
