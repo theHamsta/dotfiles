@@ -128,6 +128,9 @@ if ok then
   lspconfig.tsserver.setup {
     on_attach = on_attach
   }
+  lspconfig.hls.setup {
+    on_attach = on_attach
+  }
   lspconfig.clangd.setup {
     cmd = {
       "clangd-12",
@@ -741,7 +744,7 @@ if ok then
         enable = false
       },
       --ensure_installed = "all",
-      update_strategy = "lockfile"
+      --update_strategy = "lockfile"
     }
   )
   require "nvim-treesitter.highlight"
@@ -858,3 +861,14 @@ local ok, context = pcall(require, "treesitter-context")
 if ok then
   context.enable()
 end
+
+require('lspfuzzy').setup {}
+
+require"toggleterm".setup{
+  size = 20,
+  open_mapping = [[<f3>]],
+  shade_filetypes = {},
+  shade_terminals = true,
+  persist_size = true,
+  direction = 'horizontal'
+}

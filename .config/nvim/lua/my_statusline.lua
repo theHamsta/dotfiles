@@ -136,6 +136,13 @@ gls.left[13] = {
     highlight = {colors.blue,colors.bg},
   }
 }
+--gls.left[14] = {
+  --GitBranch = {
+    --provider = function() vim.api.nvim_buf_get_name(0) end,
+    --highlight = {'#8FBCBB',colors.line_bg,'bold'},
+  --}
+--}
+
 
 gls.right[1]= {
   FileFormat = {

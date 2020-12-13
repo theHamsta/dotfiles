@@ -281,7 +281,9 @@ let g:equinusocio_material_style = 'darker'
 
 "inoremap <expr><cr> pumvisible() ? "\<c-n>" : "\<cr>"
 set background=dark 
-colorscheme one
+"colorscheme one
+packadd srcery-vim
+colorscheme srcery
 
 nnoremap <silent> <F3> <c-w>o:Tkill<cr>:Topen<cr>:wa<cr>:exec 'T ' . g:last_execution<cr>
 nnoremap <silent> <s-F3> :Tkill<cr>:wa<cr>:exec 'T ' . g:last_execution<cr>
@@ -313,6 +315,7 @@ autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . 
 
 nmap <c-a-p> :cd ~/projects<cr>:Files<cr>
 nmap <a-p> :cd ~/projects<cr>:Buffers<cr>
+nmap <leader>gg :GF?<cr>
 "autocmd BufRead *.prm :setfiletype prm
 "" jump to the previous function
 "autocmd FileType cpp nnoremap <buffer> [f :call
@@ -374,7 +377,6 @@ endif
     ""\ 'rust': ['rls'],
     "\ 'rust': ['rust-analyzer'],
 let g:LanguageClient_serverCommands = {
-    \ 'haskell': ['hie-wrapper', '--lsp'],
     \ 'kotlin': ['kotlin-language-server', '.'],
     \ 'dockerfile': ['docker-langserver', '--stdio'],
     \ 'd': ['dls'],
@@ -383,6 +385,7 @@ let g:LanguageClient_serverCommands = {
     \ 'cmake': ['cmake-language-server'],
     \ 'zig': ['zls'],
     \ }
+    "\ 'haskell': ['hie-wrapper', '--lsp'],
     "\ 'fsharp': ['dotnet', expand('~').'.local/share/nvim/site/pack/packer/opt/fsharp-language-server/bin/Release/netcoreapp3.0/target/FSharpLanguageServer.dll']
     "\   'julia': ['julia', '--startup-file=no', '--history-file=no', '-e', '
     "\       using LanguageServer;
@@ -462,7 +465,7 @@ function! NvimLspMaps()
     nnoremap <buffer> <silent> <c-LeftMouse> <cmd>lua require'nvim-treesitter.refactor.navigation'.goto_definition_lsp_fallback()<CR>
     nnoremap <buffer> <silent> <c-LeftMouse> <cmd>lua vim.lsp.buf.definition()<CR>
 
-    if &filetype != "tex" 
+    if &filetype != "tex" && &filetype != "haskell"
         inoremap <buffer><silent> (     <cmd>lua vim.lsp.buf.signature_help()<CR>(
     endif
 
@@ -522,7 +525,7 @@ augroup terminal
     autocmd TermOpen * setlocal bufhidden=hide
     "autocmd TermOpen * set syntax=cpp
     autocmd TermOpen * setlocal nospell
-    autocmd TermOpen * nmap <silent> <buffer> <c-d> :bd!<cr>
+    autocmd TermOpen * nmap <silent> <buffer> <c-d> :bd!<cr>:q<cr>
 augroup END
 
     ""tnoremap <C-v>a <C-\><C-n>"aPi
@@ -594,12 +597,6 @@ let g:slime_target = "neovim"
   "\                  fzf#vim#with_preview('up:60%'),
   "\                 1)
 
-""command! -bang -nargs=* Rg
-  ""\ call fzf#vim#grep(
-  ""\   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  ""\    fzf#vim#with_preview('up:60%')
-  ""\         ,
-  ""\   1)
 
 nnoremap <leader>ag :Ag<cr>
 "nnoremap <leader>fag :FuzzyAg<cr>
@@ -751,7 +748,7 @@ au! BufRead,BufNewFile *.asd,.spacemacs set filetype=lisp
 "let g:NERDTreePatternMatchHighlightFullName = 1
 "nmap Q @q
 "inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
-let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'sh', 'cpp', 'rust', 'java', 'go', 'lua', 'vim']
+let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'sh', 'cpp', 'rust', 'java', 'go', 'lua', 'vim', 'lisp']
 let g:vim_markdown_math = 1
 
 let g:deoplete#enable_at_startup = 1
@@ -1403,3 +1400,10 @@ autocmd BufReadPost,FileReadPost *.spirv call spirv#disassemble()
 autocmd BufWriteCmd,FileWriteCmd *.spirv call spirv#assemble()
 
 command! OpenDiagnostic :lua vim.lsp.diagnostic.set_loclist()<cr>
+
+
+"let g:fzf_preview_git_status_preview_command =
+    "\ "[[ $(git diff --cached -- {-1}) != \"\" ]] && git diff --cached --color=always -- {-1} | delta || " .
+    "\ "[[ $(git diff -- {-1}) != \"\" ]] && git diff --color=always -- {-1} | delta || " .
+    "\ g:fzf_preview_command
+

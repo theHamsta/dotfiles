@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =0
+let g:netrw_dirhistcnt =1
+let g:netrw_dirhist_1='/home/stephan/.ghcup/logs'
 let g:netrw_dirhist_0='/home/stephan/projects/tree-sitter-toml'
 let g:netrw_dirhist_9='/home/stephan/projects/tree-sitter-toml/src'
 let g:netrw_dirhist_8='/home/stephan/projects/tree-sitter-toml'
@@ -9,4 +10,3 @@ let g:netrw_dirhist_5='/home/stephan/.local/share/nvim/site/pack/packer/start/nv
 let g:netrw_dirhist_4='/home/stephan/.local/share/nvim/site/pack/packer/opt/packer.nvim/lua'
 let g:netrw_dirhist_3='/home/stephan/.local/share/nvim/site/pack/packer/opt/packer.nvim'
 let g:netrw_dirhist_2='/home/stephan/.local/share/nvim/site/pack/packer/opt'
-let g:netrw_dirhist_1='/home/stephan/.local/share/nvim/site/pack/packer'

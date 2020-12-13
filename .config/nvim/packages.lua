@@ -25,6 +25,23 @@ local use = packer.use
 --}
 --}
 
+local function bubbly_config()
+  vim.g.bubbly_palette = {
+      background = "#34343c",
+      foreground = "#c5cdd9",
+      black = "#3e4249",
+      red = "#ec7279",
+      green = "#a0c980",
+      yellow = "#deb974",
+      blue = "#6cb6eb",
+      purple = "#d38aea",
+      cyan = "#5dbbc1",
+      white = "#c5cdd9",
+      lightgrey = "#57595e",
+      darkgrey = "#404247",
+   }
+end
+
 local go_packages = {
   "github.com/klauspost/asmfmt/cmd/asmfmt@master",
   "github.com/go-delve/delve/cmd/dlv@master",
@@ -50,11 +67,13 @@ return packer.startup(
   function()
     use {'wbthomason/packer.nvim', opt = true}
     use "nvim-lua/popup.nvim"
+    {use 'ojroques/nvim-lspfuzzy', opt = true}
     use {"liuchengxu/vista.vim"}
     use "mfussenegger/nvim-dap-python"
     use {"jubnzv/virtual-types.nvim", ft = 'ocaml'}
     use "ocaml/vim-ocaml"
     use "ghifarit53/tokyonight-vim"
+    use "akinsho/nvim-toggleterm.lua"
     use "chrisbra/unicode.vim"
     use "nvim-lua/telescope.nvim"
     use "chuling/vim-equinusocio-material"
@@ -66,8 +85,11 @@ return packer.startup(
     use "bluz71/vim-nightfly-guicolors"
     use "bluz71/vim-moonfly-colors"
     use {'doums/darcula', opt = true}
+    use {'strange/vim-lore', opt = true}
+    use {'pineapplegiant/spaceduck', opt = true}
     use {'ghifarit53/daycula-vim', opt = true}
     use {'aonemd/kuroi.vim', opt = true}
+    use {'srcery-colors/srcery-vim', opt = true}
     use "ziglang/zig.vim"
     use "mfussenegger/nvim-jdtls"
     use "mattn/emmet-vim"
@@ -187,7 +209,8 @@ return packer.startup(
     use "tpope/vim-surround"
     use "tpope/vim-unimpaired"
     use {"vim-airline/vim-airline", requires="vim-airline/vim-airline-themes", opt=true}
-    use {"glepnir/galaxyline.nvim", requires='kyazdani42/nvim-web-devicons', config=function() require'my_statusline' end }
+    use {"glepnir/galaxyline.nvim", requires='kyazdani42/nvim-web-devicons', config=function() require'my_statusline' end, opt = false}
+    use {"datwaft/bubbly.nvim", config=bubbly_config, disable=true}
     use "wellle/targets.vim"
     use "whiteinge/diffconflicts"
     use "TravonteD/luajob"
