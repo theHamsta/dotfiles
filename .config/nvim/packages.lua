@@ -67,7 +67,7 @@ return packer.startup(
   function()
     use {'wbthomason/packer.nvim', opt = true}
     use "nvim-lua/popup.nvim"
-    {use 'ojroques/nvim-lspfuzzy', opt = true}
+    use {'ojroques/nvim-lspfuzzy', opt = true}
     use {"liuchengxu/vista.vim"}
     use "mfussenegger/nvim-dap-python"
     use {"jubnzv/virtual-types.nvim", ft = 'ocaml'}
