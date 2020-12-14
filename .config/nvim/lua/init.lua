@@ -139,7 +139,7 @@ if ok then
       "--header-insertion=iwyu",
       "--background-index",
       "--suggest-missing-includes",
-      "-cross-file-rename"
+      "--cross-file-rename"
     },
     filetypes = {"c", "cpp", "objc", "objcpp", "cuda"},
     on_attach = on_attach
