@@ -862,11 +862,14 @@ if ok then
   context.enable()
 end
 
-require('lspfuzzy').setup {}
+local ok, lspfuzzy = pcall(require,'lspfuzzy')
+if ok then
+  lspfuzzy.setup {}
+end
 
 require"toggleterm".setup{
   size = 20,
-  open_mapping = [[<f3>]],
+  open_mapping = [[<f4>]],
   shade_filetypes = {},
   shade_terminals = true,
   persist_size = true,

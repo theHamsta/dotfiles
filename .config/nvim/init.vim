@@ -282,9 +282,9 @@ let g:equinusocio_material_style = 'darker'
 
 "inoremap <expr><cr> pumvisible() ? "\<c-n>" : "\<cr>"
 set background=dark 
-"colorscheme one
-packadd srcery-vim
-colorscheme srcery
+colorscheme one
+"packadd srcery-vim
+"colorscheme srcery
 
 nnoremap <silent> <F3> <c-w>o:Tkill<cr>:Topen<cr>:wa<cr>:exec 'T ' . g:last_execution<cr>
 nnoremap <silent> <s-F3> :Tkill<cr>:wa<cr>:exec 'T ' . g:last_execution<cr>
