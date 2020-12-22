@@ -10,21 +10,6 @@ vim.cmd [[packadd packer.nvim]]
 local packer = require("packer")
 local use = packer.use
 
---packer.init {
---display = {
---open_fn = function()
---local current_win = api.nvim_get_current_win()
-
---vim.cmd 'vsplit'
---vim.cmd 'edit'
---local win = api.nvim_get_current_win()
---local buf = api.nvim_get_current_buf()
---api.nvim_set_current_win(current_win)
---return win, buf
---end
---}
---}
-
 local function bubbly_config()
   vim.g.bubbly_palette = {
       background = "#34343c",
@@ -41,6 +26,8 @@ local function bubbly_config()
       darkgrey = "#404247",
    }
 end
+
+local lisp_filetypes = {"lisp", "clojure", "scheme", "vlime_repl", "fennel", "query"}
 
 local go_packages = {
   "github.com/klauspost/asmfmt/cmd/asmfmt@master",
@@ -67,11 +54,14 @@ return packer.startup(
   function()
     use {'wbthomason/packer.nvim', opt = true}
     use "nvim-lua/popup.nvim"
+    use {"dstein64/nvim-scrollview", opt = true}
+    use "pwntester/octo.nvim"
     use {'ojroques/nvim-lspfuzzy', opt = true}
     use {"liuchengxu/vista.vim"}
     use "mfussenegger/nvim-dap-python"
     use {"jubnzv/virtual-types.nvim", ft = 'ocaml'}
     use "ocaml/vim-ocaml"
+    use {"kevinhwang91/nvim-hlslens", opt = true}
     use "ghifarit53/tokyonight-vim"
     use "akinsho/nvim-toggleterm.lua"
     use "chrisbra/unicode.vim"
@@ -203,8 +193,8 @@ return packer.startup(
     use {"tpope/vim-markdown", ft='markdown'}
     use "tpope/vim-repeat"
     use "tpope/vim-rhubarb"
-    use {"tpope/vim-sexp-mappings-for-regular-people", ft = "lisp"}
-    use {"guns/vim-sexp", ft = {"lisp", "clojure", "scheme", "vlime_repl", "fennel", "query"}}
+    use {"tpope/vim-sexp-mappings-for-regular-people", ft = lisp_filetypes}
+    use {"guns/vim-sexp", ft = lisp_filetypes}
     use "tpope/vim-sleuth"
     use "tpope/vim-surround"
     use "tpope/vim-unimpaired"

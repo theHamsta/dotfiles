@@ -3,7 +3,7 @@ local gls = gl.section
 gl.short_line_list = {'LuaTree','vista','dbui'}
 
 local colors = {
-  bg = '#282c34',
+  bg = '#202034',
   line_bg = '#353644',
   fg = '#8FBCBB',
   fg_green = '#65a380',
@@ -56,7 +56,7 @@ gls.left[3] ={
 }
 gls.left[4] = {
   FileName = {
-    provider = {'FileName','FileSize'},
+    provider = {function() return vim.fn.expand('%')..' ' end,'FileSize'},
     condition = buffer_not_empty,
     highlight = {colors.fg,colors.line_bg,'bold'}
   }

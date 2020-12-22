@@ -604,7 +604,7 @@ if ok then
     {
       highlight = {
         enable = true, -- false will disable the whole extension
-        disable = {"html"} -- list of language that will be disabled
+        --disable = {"html"} -- list of language that will be disabled
       },
       query_linter = {
         enable = true
@@ -753,7 +753,7 @@ if ok then
   --Misc
   hlmap.error = nil
   hlmap["punctuation.delimiter"] = "Delimiter"
-  hlmap["punctuation.bracket"] = nil
+  --hlmap["punctuation.bracket"] = nil
 
   -- Constants
   hlmap["constant"] = "Constant"

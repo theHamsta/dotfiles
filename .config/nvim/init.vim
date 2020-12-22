@@ -70,6 +70,7 @@ set spelloptions=camel
 set bufhidden=hide
 set signcolumn=yes
 set noshowmode
+set joinspaces
 set shortmess+=c
 let g:use_line_numbers=0
 
@@ -456,7 +457,7 @@ function! NvimLspMaps()
     nnoremap <buffer><silent> gh         <cmd>lua vim.lsp.buf.hover()<CR>
     nnoremap <buffer><silent> gi         <cmd>lua vim.lsp.buf.implementation()<CR>
     inoremap <buffer><silent> <c-g>         <cmd>lua vim.lsp.buf.signature_help()<CR>
-    nnoremap <buffer><silent> <leader>ld <cmd>lua vim.lsp.util.show_line_diagnostics({})<CR>
+    nnoremap <buffer><silent> <leader>ld <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
     nnoremap <buffer><silent> <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
     nnoremap <buffer><silent> <leader>ic <cmd>lua vim.lsp.buf.incoming_calls()<CR>
     vnoremap <buffer><silent> <leader>oc <cmd>lua vim.lsp.buf.outgoing_calls()<CR>
@@ -1313,7 +1314,7 @@ au TextYankPost * silent! lua require'vim.highlight'.on_yank({"IncSearch", 150})
 highlight NvimTreesitterCurrentNode guibg=#000099
 highlight NvimDapStopped guibg=#000099
 
-let g:sexp_filetypes = 'clojure,scheme,lisp,timl,vlime_repl,fennel'
+let g:sexp_filetypes = 'clojure,scheme,lisp,timl,vlime_repl,fennel,query'
 
 "nmap <f2> :lua require'nvim-treesitter/playground'.play_with()<cr>
 
@@ -1415,3 +1416,21 @@ if exists('g:fvim_loaded')
     nnoremap <silent> <C-ScrollWheelDown> :set guifont=-<CR>
     nnoremap <A-CR> :FVimToggleFullScreen<CR>
 endif
+
+ set completeopt +=preview
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+
+"lua require('hlslens').setup()
+"noremap <silent> n <Cmd>execute('normal! ' . v:count1 . 'n')<CR>
+            "\<Cmd>lua require('hlslens').start()<CR>
+"noremap <silent> N <Cmd>execute('normal! ' . v:count1 . 'N')<CR>
+            "\<Cmd>lua require('hlslens').start()<CR>
+"noremap * *<Cmd>lua require('hlslens').start()<CR>
+"noremap # #<Cmd>lua require('hlslens').start()<CR>
+"noremap g* g*<Cmd>lua require('hlslens').start()<CR>
+"noremap g# g#<Cmd>lua require('hlslens').start()<CR>
+
+"" use : instead of <Cmd>
+"nnoremap <silent> <leader>l :nohlsearch<CR>
+"
