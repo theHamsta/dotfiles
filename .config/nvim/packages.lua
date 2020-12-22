@@ -54,6 +54,7 @@ return packer.startup(
   function()
     use {'wbthomason/packer.nvim', opt = true}
     use "nvim-lua/popup.nvim"
+    use "nvim-telescope/telescope-project.nvim"
     use {"dstein64/nvim-scrollview", opt = true}
     use "pwntester/octo.nvim"
     use {'ojroques/nvim-lspfuzzy', opt = true}

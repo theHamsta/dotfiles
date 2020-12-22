@@ -22,6 +22,17 @@ if not filter then
   end
 end
 
+local telescope = vim.F.npcall(require,"telescope")
+if telescope then
+  telescope.load_extension("project")
+  vim.api.nvim_set_keymap(
+    "n",
+    "<c-q>",
+    ":lua require'telescope'.extensions.project.project{}<CR>",
+    {noremap = true, silent = true}
+  )
+end
+
 --local ok, lsputil = pcall(require, "lsputil.codeAction")
 --if ok then
 --vim.lsp.callbacks["textDocument/codeAction"] = lsputil.code_action_handler
@@ -603,7 +614,7 @@ if ok then
   require "nvim-treesitter.configs".setup(
     {
       highlight = {
-        enable = true, -- false will disable the whole extension
+        enable = true -- false will disable the whole extension
         --disable = {"html"} -- list of language that will be disabled
       },
       query_linter = {
@@ -742,7 +753,7 @@ if ok then
       },
       indent = {
         enable = false
-      },
+      }
       --ensure_installed = "all",
       --update_strategy = "lockfile"
     }
@@ -862,16 +873,16 @@ if ok then
   context.enable()
 end
 
-local ok, lspfuzzy = pcall(require,'lspfuzzy')
+local ok, lspfuzzy = pcall(require, "lspfuzzy")
 if ok then
   lspfuzzy.setup {}
 end
 
-require"toggleterm".setup{
+require "toggleterm".setup {
   size = 20,
   open_mapping = [[<f4>]],
   shade_filetypes = {},
   shade_terminals = true,
   persist_size = true,
-  direction = 'horizontal'
+  direction = "horizontal"
 }
