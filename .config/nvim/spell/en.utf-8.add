@@ -294,3 +294,6 @@ lhs
 rhs
 j
 u
+NANOVDB
+LIBDIR
+INCLUDEDIR

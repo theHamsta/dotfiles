@@ -12,19 +12,19 @@ local use = packer.use
 
 local function bubbly_config()
   vim.g.bubbly_palette = {
-      background = "#34343c",
-      foreground = "#c5cdd9",
-      black = "#3e4249",
-      red = "#ec7279",
-      green = "#a0c980",
-      yellow = "#deb974",
-      blue = "#6cb6eb",
-      purple = "#d38aea",
-      cyan = "#5dbbc1",
-      white = "#c5cdd9",
-      lightgrey = "#57595e",
-      darkgrey = "#404247",
-   }
+    background = "#34343c",
+    foreground = "#c5cdd9",
+    black = "#3e4249",
+    red = "#ec7279",
+    green = "#a0c980",
+    yellow = "#deb974",
+    blue = "#6cb6eb",
+    purple = "#d38aea",
+    cyan = "#5dbbc1",
+    white = "#c5cdd9",
+    lightgrey = "#57595e",
+    darkgrey = "#404247"
+  }
 end
 
 local lisp_filetypes = {"lisp", "clojure", "scheme", "vlime_repl", "fennel", "query"}
@@ -52,35 +52,47 @@ local go_packages = {
 
 return packer.startup(
   function()
-    use {'wbthomason/packer.nvim', opt = true}
+    use {"wbthomason/packer.nvim", opt = true}
     use "nvim-lua/popup.nvim"
-    use "nvim-telescope/telescope-project.nvim"
+    use {
+      "nvim-telescope/telescope-project.nvim",
+      config = function()
+        require'telescope'.load_extension("project")
+        vim.api.nvim_set_keymap(
+          "n",
+          "<c-q>",
+          ":lua require'telescope'.extensions.project.project{}<CR>",
+          {noremap = true, silent = true}
+        )
+      end,
+      requires = "nvim-telescope/telescope.nvim"
+    }
     use {"dstein64/nvim-scrollview", opt = true}
     use "pwntester/octo.nvim"
-    use {'ojroques/nvim-lspfuzzy', opt = true}
+    use {"ojroques/nvim-lspfuzzy", opt = true}
     use {"liuchengxu/vista.vim"}
     use "mfussenegger/nvim-dap-python"
-    use {"jubnzv/virtual-types.nvim", ft = 'ocaml'}
+    use {"jubnzv/virtual-types.nvim", ft = "ocaml"}
     use "ocaml/vim-ocaml"
     use {"kevinhwang91/nvim-hlslens", opt = true}
     use "ghifarit53/tokyonight-vim"
     use "akinsho/nvim-toggleterm.lua"
     use "chrisbra/unicode.vim"
-    use "nvim-lua/telescope.nvim"
+    --use "nvim-telescope/telescope.nvim"
     use "chuling/vim-equinusocio-material"
     use "nvim-treesitter/nvim-treesitter-textobjects"
     use "nvim-treesitter/nvim-treesitter-refactor"
-    use {"nvim-treesitter/nvim-treesitter", run = ':TSUpdate'}
+    use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
     use "nvim-treesitter/playground"
     use "nvim-treesitter/nvim-tree-docs"
     use "bluz71/vim-nightfly-guicolors"
     use "bluz71/vim-moonfly-colors"
-    use {'doums/darcula', opt = true}
-    use {'strange/vim-lore', opt = true}
-    use {'pineapplegiant/spaceduck', opt = true}
-    use {'ghifarit53/daycula-vim', opt = true}
-    use {'aonemd/kuroi.vim', opt = true}
-    use {'srcery-colors/srcery-vim', opt = true}
+    use {"doums/darcula", opt = true}
+    use {"strange/vim-lore", opt = true}
+    use {"pineapplegiant/spaceduck", opt = true}
+    use {"ghifarit53/daycula-vim", opt = true}
+    use {"aonemd/kuroi.vim", opt = true}
+    use {"srcery-colors/srcery-vim", opt = true}
     use "ziglang/zig.vim"
     use "mfussenegger/nvim-jdtls"
     use "mattn/emmet-vim"
@@ -101,7 +113,7 @@ return packer.startup(
 
     use {"theHamsta/nvim-tree.lua", branch = "exa"}
 
-    use {"nvim-telescope/telescope-dap.nvim"}
+    use {"nvim-telescope/telescope-dap.nvim", requires = "nvim-telescope/telescope.nvim" }
     use "Olical/nvim-local-fennel"
     use "Olical/conjure"
     use "bakpakin/fennel.vim"
@@ -109,7 +121,7 @@ return packer.startup(
     use "camspiers/animate.vim"
     use "neovim/nvim-lspconfig"
     use "udalov/kotlin-vim"
-    use {"preservim/tagbar", cmd = {'TagbarToggle', 'TagbarOpenAutoClose'}}
+    use {"preservim/tagbar", cmd = {"TagbarToggle", "TagbarOpenAutoClose"}}
     use "szymonmaszke/vimpyter"
     use "voldikss/vim-floaterm"
     use "kkoomen/vim-doge"
@@ -123,7 +135,7 @@ return packer.startup(
     use "bronson/vim-visual-star-search"
     use {"dbeniamine/cheat.sh-vim", cmd = {"Cheat"}}
     use "dyng/ctrlsf.vim"
-    use {"euclio/vim-markdown-composer", run = "cargo build --release", cmd = "ComposerStart", ft = 'markdown'}
+    use {"euclio/vim-markdown-composer", run = "cargo build --release", cmd = "ComposerStart", ft = "markdown"}
     --use {"fatih/vim-go", ft = "go", run = ":GoInstallBinaries"}
     use {
       "fatih/vim-go",
@@ -147,14 +159,14 @@ return packer.startup(
     use {"scrooloose/nerdtree", cmd = {"NERDTreeToggle", "NERDTreeFind"}}
     use {"tiagofumo/vim-nerdtree-syntax-highlight", cmd = {"NERDTreeToggle", "NERDTreeFind"}}
     use {"janko/vim-test", ft = {"rust", "python"}}
-    use {"ionide/Ionide-vim", run = 'make fsautocomplete', ft = "fsharp" }
+    use {"ionide/Ionide-vim", run = "make fsautocomplete", ft = "fsharp"}
     --use {"fsprojects/fsharp-language-server", run = "npm install && dotnet build -c Release"}
     --use { 'neoclide/coc.nvim', run = 'yarn install --frozen-lockfile', ft = 'fsharp'}
     use {
       "autozimu/LanguageClient-neovim",
       branch = "next",
       run = "bash install.sh",
-      ft = 'fsharp',
+      ft = "fsharp"
     }
     use {"jceb/vim-orgmode", ft = "org"}
     use "jpalardy/vim-slime"
@@ -191,7 +203,7 @@ return packer.startup(
     use "theHamsta/vim-rebase-mode"
     use "tpope/vim-eunuch"
     use "theHamsta/vim-fugitive"
-    use {"tpope/vim-markdown", ft='markdown'}
+    use {"tpope/vim-markdown", ft = "markdown"}
     use "tpope/vim-repeat"
     use "tpope/vim-rhubarb"
     use {"tpope/vim-sexp-mappings-for-regular-people", ft = lisp_filetypes}
@@ -199,9 +211,11 @@ return packer.startup(
     use "tpope/vim-sleuth"
     use "tpope/vim-surround"
     use "tpope/vim-unimpaired"
-    use {"vim-airline/vim-airline", requires="vim-airline/vim-airline-themes", opt=true}
-    use {"glepnir/galaxyline.nvim", requires='kyazdani42/nvim-web-devicons', config=function() require'my_statusline' end, opt = false}
-    use {"datwaft/bubbly.nvim", config=bubbly_config, disable=true}
+    use {"vim-airline/vim-airline", requires = "vim-airline/vim-airline-themes", opt = true}
+    use {"glepnir/galaxyline.nvim", requires = "kyazdani42/nvim-web-devicons", config = function()
+        require "my_statusline"
+      end, opt = false}
+    use {"datwaft/bubbly.nvim", config = bubbly_config, disable = true}
     use "wellle/targets.vim"
     use "whiteinge/diffconflicts"
     use "TravonteD/luajob"

@@ -22,17 +22,6 @@ if not filter then
   end
 end
 
-local telescope = vim.F.npcall(require,"telescope")
-if telescope then
-  telescope.load_extension("project")
-  vim.api.nvim_set_keymap(
-    "n",
-    "<c-q>",
-    ":lua require'telescope'.extensions.project.project{}<CR>",
-    {noremap = true, silent = true}
-  )
-end
-
 --local ok, lsputil = pcall(require, "lsputil.codeAction")
 --if ok then
 --vim.lsp.callbacks["textDocument/codeAction"] = lsputil.code_action_handler
