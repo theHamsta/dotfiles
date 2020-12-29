@@ -44,12 +44,6 @@ function E(...)
   return ...
 end
 
---local ok = pcall(require, "lsp_extensions")
-
---if ok then
---vim.cmd [[command! InlayHints :lua require "lsp_extensions".inlay_hints { highlight = "Comment", prefix = " > "}]]
---end
-
 local completion_nvim_ok = pcall(require, "completion")
 if completion_nvim_ok then
   vim.cmd [[

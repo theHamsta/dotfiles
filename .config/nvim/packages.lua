@@ -57,7 +57,7 @@ return packer.startup(
     use {
       "nvim-telescope/telescope-project.nvim",
       config = function()
-        require'telescope'.load_extension("project")
+        require "telescope".load_extension("project")
         vim.api.nvim_set_keymap(
           "n",
           "<c-q>",
@@ -68,9 +68,24 @@ return packer.startup(
       requires = "nvim-telescope/telescope.nvim"
     }
     use {"dstein64/nvim-scrollview", opt = true}
+    use {"lucc/nvimpager"}
+    use {
+      "nvim-lua/lsp_extensions.nvim",
+      ft = "rust",
+      config = function()
+        vim.cmd [[command! InlayHints :lua require "lsp_extensions".inlay_hints({enabled = {"TypeHint", "ChainingHint", "ParameterHint"}, highlight = "Comment", prefix = " ? "})]]
+      end
+    }
     use "pwntester/octo.nvim"
+    use {"jiangmiao/auto-pairs", opt = true}
+    use {"tpope/vim-endwise", ft="lua", opt = true}
     use {"ojroques/nvim-lspfuzzy", opt = true}
-    use {"liuchengxu/vista.vim"}
+    use {
+      "gabrielpoca/replacer.nvim",
+      config = function()
+        vim.api.nvim_set_keymap("n", "<Leader>hh", ':lua require("replacer").run()<cr>', {silent = true})
+      end
+    }
     use "mfussenegger/nvim-dap-python"
     use {"jubnzv/virtual-types.nvim", ft = "ocaml"}
     use "ocaml/vim-ocaml"
@@ -87,6 +102,7 @@ return packer.startup(
     use "nvim-treesitter/nvim-tree-docs"
     use "bluz71/vim-nightfly-guicolors"
     use "bluz71/vim-moonfly-colors"
+    use { "chriskempson/base16-vim", opt = true }
     use {"doums/darcula", opt = true}
     use {"strange/vim-lore", opt = true}
     use {"pineapplegiant/spaceduck", opt = true}
@@ -113,7 +129,7 @@ return packer.startup(
 
     use {"theHamsta/nvim-tree.lua", branch = "exa"}
 
-    use {"nvim-telescope/telescope-dap.nvim", requires = "nvim-telescope/telescope.nvim" }
+    use {"nvim-telescope/telescope-dap.nvim", requires = "nvim-telescope/telescope.nvim"}
     use "Olical/nvim-local-fennel"
     use "Olical/conjure"
     use "bakpakin/fennel.vim"
@@ -128,7 +144,7 @@ return packer.startup(
     use "AndrewRadev/switch.vim"
     use "JuliaEditorSupport/julia-vim"
     use "Julian/vim-textobj-variable-segment"
-    use "SirVer/ultisnips"
+    use {"SirVer/ultisnips", opt = false}
     use "Valloric/ListToggle"
     use "airblade/vim-gitgutter"
     use "airblade/vim-rooter"
@@ -176,10 +192,10 @@ return packer.startup(
     use "junegunn/gv.vim"
     use "junegunn/limelight.vim"
     use "justinmk/vim-gtfo"
-    use "justinmk/vim-sneak"
+    use {"justinmk/vim-sneak", opt = false}
     use "kassio/neoterm"
     use {"luochen1990/rainbow", disable = false}
-    use {"lervag/vimtex", ft = "tex"}
+    use {"lervag/vimtex", ft = "tex", opt = true}
     use "machakann/vim-swap"
     use "markonm/traces.vim"
     use {"mbbill/undotree", cmd = {"UndotreeToggle"}}
@@ -212,9 +228,14 @@ return packer.startup(
     use "tpope/vim-surround"
     use "tpope/vim-unimpaired"
     use {"vim-airline/vim-airline", requires = "vim-airline/vim-airline-themes", opt = true}
-    use {"glepnir/galaxyline.nvim", requires = "kyazdani42/nvim-web-devicons", config = function()
+    use {
+      "glepnir/galaxyline.nvim",
+      requires = "kyazdani42/nvim-web-devicons",
+      config = function()
         require "my_statusline"
-      end, opt = false}
+      end,
+      opt = false
+    }
     use {"datwaft/bubbly.nvim", config = bubbly_config, disable = true}
     use "wellle/targets.vim"
     use "whiteinge/diffconflicts"

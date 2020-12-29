@@ -284,6 +284,9 @@ let g:equinusocio_material_style = 'darker'
 "inoremap <expr><cr> pumvisible() ? "\<c-n>" : "\<cr>"
 set background=dark 
 colorscheme one
+"packadd! base16
+"colorscheme base16-atelier-dune
+
 "packadd srcery-vim
 "colorscheme srcery
 
@@ -467,9 +470,9 @@ function! NvimLspMaps()
     nnoremap <buffer> <silent> <c-LeftMouse> <cmd>lua require'nvim-treesitter.refactor.navigation'.goto_definition_lsp_fallback()<CR>
     nnoremap <buffer> <silent> <c-LeftMouse> <cmd>lua vim.lsp.buf.definition()<CR>
 
-    if &filetype != "tex" && &filetype != "haskell"
-        inoremap <buffer><silent> (     <cmd>lua vim.lsp.buf.signature_help()<CR>(
-    endif
+    "if &filetype != "tex" && &filetype != "haskell"
+        "inoremap <buffer><silent> (     <cmd>lua vim.lsp.buf.signature_help()<CR>(
+    "endif
 
     nnoremap <buffer><silent> gt    <cmd>lua vim.lsp.buf.type_definition()<CR>
     "autocmd BufEnter <buffer> :lua require'lsp-ext'.update_diagnostics()
@@ -760,11 +763,9 @@ function! Multiple_cursors_before()
   end
 endfunction
 function! Multiple_cursors_after()
-  if &filetype != "java" && &filetype != "javascript"
     if g:deoplete#enable_at_startup
       call deoplete#custom#option('auto_complete', v:true)
     endif
-  endif
 endfunction
 let g:lt_location_list_toggle_map = '<leader>ql'
 let g:lt_quickfix_list_toggle_map = '<leader>qe'
@@ -852,10 +853,10 @@ let g:LanguageClient_documentHighlightDisplay = {
               \   }
               \
 if !exists('g:GtkGuiLoaded')
-  sign define LspDiagnosticsErrorSign text=❌ texthl=LspDiagnosticsError linehl= numhl=
-  sign define LspDiagnosticsWarningSign text=⚠️ texthl=LspDiagnosticsWarning linehl= numhl=
-  sign define LspDiagnosticsInformationSign text=🔎 texthl=LspDiagnosticsInformation linehl= numhl=
-  sign define LspDiagnosticsHintSign text=💡 texthl=LspDiagnosticsHint linehl= numhl=
+  sign define LspDiagnosticsSignError text=❌ texthl=LspDiagnosticsError linehl= numhl=
+  sign define LspDiagnosticsSignWarning text=⚠️ texthl=LspDiagnosticsWarning linehl= numhl=
+  sign define LspDiagnosticsSignInformation text=🔎 texthl=LspDiagnosticsInformation linehl= numhl=
+  sign define LspDiagnosticsSignHint text=💡 texthl=LspDiagnosticsHint linehl= numhl=
 
   let g:gitgutter_sign_added = '▋'
   let g:gitgutter_sign_modified = '▐'
@@ -1374,8 +1375,6 @@ nmap ,<s-w> ysiW)
 nnoremap <leader>pl :TSPlaygroundToggle<cr>
 
 
-
-
 let g:completion_enable_snippet = 'UltiSnips'
 let g:completion_chain_complete_list = [
     \{'complete_items': ['lsp', 'snippet', 'buffers']},
@@ -1417,7 +1416,7 @@ if exists('g:fvim_loaded')
     nnoremap <A-CR> :FVimToggleFullScreen<CR>
 endif
 
- set completeopt +=preview
+ "set completeopt +=preview
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 
@@ -1434,3 +1433,11 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 "" use : instead of <Cmd>
 "nnoremap <silent> <leader>l :nohlsearch<CR>
 "
+
+autocmd! BufWrite *.rs :lua require "lsp_extensions".inlay_hints({enabled = {"TypeHint", "ParameterHint"}, highlight = "Comment", prefix = " > "})
+command! InlayHints :lua require "lsp_extensions".inlay_hints({enabled = {"TypeHint", "ChainingHint", "ParameterHint"}, highlight = "Comment", prefix = " ? "})
+
+let g:sneak#label = 1
+let g:AutoPairsShortcutToggle = '<M-m>'
+let g:AutoPairsFlyMode = 0
+let g:AutoPairsShortcutBackInsert = '<M-b>'
