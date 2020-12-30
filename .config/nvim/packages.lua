@@ -87,7 +87,7 @@ return packer.startup(
       end
     }
     use "mfussenegger/nvim-dap-python"
-    use {"jubnzv/virtual-types.nvim", ft = "ocaml"}
+    use {"jubnzv/virtual-types.nvim"}
     use "ocaml/vim-ocaml"
     use {"kevinhwang91/nvim-hlslens", opt = true}
     use "ghifarit53/tokyonight-vim"
@@ -100,8 +100,8 @@ return packer.startup(
     use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
     use "nvim-treesitter/playground"
     use "nvim-treesitter/nvim-tree-docs"
-    use "bluz71/vim-nightfly-guicolors"
-    use "bluz71/vim-moonfly-colors"
+    use {"bluz71/vim-nightfly-guicolors", opt = true}
+    use {"bluz71/vim-moonfly-colors", opt = true}
     use { "chriskempson/base16-vim", opt = true }
     use {"doums/darcula", opt = true}
     use {"strange/vim-lore", opt = true}
@@ -185,7 +185,6 @@ return packer.startup(
       ft = "fsharp"
     }
     use {"jceb/vim-orgmode", ft = "org"}
-    use "jpalardy/vim-slime"
     use {"junegunn/fzf", run = ":call fzf#install()"}
     use "junegunn/fzf.vim"
     use "junegunn/goyo.vim"
@@ -202,6 +201,7 @@ return packer.startup(
     use {"meain/vim-package-info", run = "npm install"}
     use "mhinz/vim-startify"
     use "moll/vim-bbye"
+    use {"jpalardy/vim-slime", opt = true}
     use "pboettch/vim-cmake-syntax"
     use {"peterhoeg/vim-qml", ft = "qml"}
     use "rhysd/git-messenger.vim"

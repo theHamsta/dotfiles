@@ -72,6 +72,8 @@ set signcolumn=yes
 set noshowmode
 set joinspaces
 set shortmess+=c
+set sidescroll=1
+
 let g:use_line_numbers=0
 
 if g:use_line_numbers
@@ -1385,6 +1387,7 @@ let g:completion_chain_complete_list = [
 autocmd BufEnter,BufNewFile *.wat set filetype=wat
 autocmd BufEnter,BufNewFile *.vh set filetype=verilog
 autocmd BufEnter,BufNewFile *.verilog set filetype=verilog
+autocmd BufEnter,BufNewFile *.org set filetype=org
 
 
     "g:echodoc#type

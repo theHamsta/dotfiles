@@ -90,8 +90,11 @@ if ok then
   lspconfig.julials.setup {
     on_attach = on_attach
   }
-  lspconfig.ocamlls.setup {
-    on_attach = on_attach
+  lspconfig.ocamllsp.setup {
+    on_attach = function(...)
+      require "virtualtypes".on_attach(...)
+      on_attach()
+    end
   }
   lspconfig.gopls.setup {
     on_attach = on_attach,
@@ -331,54 +334,54 @@ if ok then
     on_attach = on_attach
   }
 
-  --local java = function()
-  --pcall(require, "lspconfig/jdtls")
-  --if not require("lspconfig/configs").jdtls.install_info().is_installed then
-  --require("lspconfig/configs").jdtls.install()
-  --end
-  --local capabilities = vim.lsp.protocol.make_client_capabilities()
-  --capabilities.textDocument.completion.completionItem.snippetSupport = true
-  --capabilities.textDocument.codeAction = {
-  --dynamicRegistration = false,
-  --codeActionLiteralSupport = {
-  --codeActionKind = {
-  --valueSet = {
-  --"source.generate.toString",
-  --"source.generate.hashCodeEquals",
-  --"source.organizeImports"
-  --}
-  --}
-  --}
-  --}
-  --lspconfig.jdtls.setup {
-  --init_options = {
-  --bundles = {
-  --vim.fn.glob("~/.local/share/nvim/plugged/nvim-jdtls/*.jar")
-  --},
-  --config = {
-  --java = {
-  --import = {
-  --gradle = {
-  --wrapper = {
-  --checksums = {
-  --{
-  --sha256 = "803c75f3307787290478a5ccfa9054c5c0c7b4250c1b96ceb77ad41fbe919e4e",
-  --allowed = true
-  --}
-  --}
-  --}
-  --}
-  --}
-  --}
-  --}
-  --},
-  --capabilities = capabilities,
-  --on_attach = function(client)
-  --on_attach(client)
-  --require("jdtls").setup_dap()
-  --end
-  --}
-  --end
+  local java = function()
+    pcall(require, "lspconfig/jdtls")
+    if not require("lspconfig/configs").jdtls.install_info().is_installed then
+      require("lspconfig/configs").jdtls.install()
+    end
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities.textDocument.completion.completionItem.snippetSupport = true
+    capabilities.textDocument.codeAction = {
+      dynamicRegistration = false,
+      codeActionLiteralSupport = {
+        codeActionKind = {
+          valueSet = {
+            "source.generate.toString",
+            "source.generate.hashCodeEquals",
+            "source.organizeImports"
+          }
+        }
+      }
+    }
+    lspconfig.jdtls.setup {
+      init_options = {
+        bundles = {
+          vim.fn.glob("~/.local/share/nvim/plugged/nvim-jdtls/*.jar")
+        },
+        config = {
+          java = {
+            import = {
+              gradle = {
+                wrapper = {
+                  checksums = {
+                    {
+                      sha256 = "803c75f3307787290478a5ccfa9054c5c0c7b4250c1b96ceb77ad41fbe919e4e",
+                      allowed = true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      capabilities = capabilities,
+      on_attach = function(client)
+        on_attach(client)
+        require("jdtls").setup_dap()
+      end
+    }
+  end
   pcall(java)
   lspconfig.vimls.setup {
     on_attach = on_attach
@@ -558,11 +561,11 @@ vim.fn.sign_define("DapStopped", {text = "→", texthl = "", linehl = "NvimDapSt
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
   vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
-  --require "nvim-treesitter.parsers".get_parser_configs().toml = {
-  --install_info = {
-  --url = "~/projects/tree-sitter-toml",
-  --files = {"src/parser.c", "src/scanner.c"}
-  --}
+  --require "nvim-treesitter.parsers".get_parser_configs().org = {
+    --install_info = {
+      --url = "~/projects/tree-sitter-org",
+      --files = {"src/parser.c"}
+    --}
   --}
   --require "nvim-treesitter.parsers".get_parser_configs().lisp = {
   --install_info = {

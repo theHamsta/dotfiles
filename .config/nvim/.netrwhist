@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =8
+let g:netrw_dirhistcnt =9
+let g:netrw_dirhist_9='/home/stephan/projects/dune-again'
 let g:netrw_dirhist_8='/home/stephan/quicklisp/local-projects/petalisp-einsum/.github/workflows'
 let g:netrw_dirhist_7='/home/stephan/quicklisp/local-projects/petalisp-einsum/.github'
 let g:netrw_dirhist_6='/home/stephan/.config/alacritty'
@@ -9,4 +10,3 @@ let g:netrw_dirhist_3='/home/stephan/go/pkg/mod'
 let g:netrw_dirhist_2='/home/stephan/go/pkg'
 let g:netrw_dirhist_1='/home/stephan/go'
 let g:netrw_dirhist_0='/home/stephan/go/bin'
-let g:netrw_dirhist_9='/localhome/seitz_local/projects/pybind11/include/pybind11'
