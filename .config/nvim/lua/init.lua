@@ -6,6 +6,9 @@ exe 'normal `z'
 endfunction
 ]]
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
 if not filter then
   local ok, _ = pcall(require, "fun")
   if ok then
@@ -69,10 +72,10 @@ if ok then
   -- require("lspconfig/configs").julials.install()
   --end
 
-  pcall(require, "lspconfig/sumneko_lua")
-  if not require("lspconfig/configs").sumneko_lua.install_info().is_installed then
-    require("lspconfig/configs").sumneko_lua.install()
-  end
+  --pcall(require, "lspconfig/sumneko_lua")
+  --if not require("lspconfig/configs").sumneko_lua.install_info().is_installed then
+    --require("lspconfig/configs").sumneko_lua.install()
+  --end
 
   local configs = require "lspconfig.configs"
   configs.zls = {
@@ -141,7 +144,11 @@ if ok then
     filetypes = {"c", "cpp", "objc", "objcpp", "cuda"},
     on_attach = on_attach
   }
+  local sumneko_root_path = vim.fn.expand('~/projects/lua-language-server/lua-language-server')
+  local sumneko_binary = sumneko_root_path.."/bin/Linux/lua-language-server"
+
   lspconfig.sumneko_lua.setup {
+    cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
     settings = {
       Lua = {
         awakened = {cat = true},
@@ -336,9 +343,9 @@ if ok then
 
   local java = function()
     pcall(require, "lspconfig/jdtls")
-    if not require("lspconfig/configs").jdtls.install_info().is_installed then
-      require("lspconfig/configs").jdtls.install()
-    end
+    --if not require("lspconfig/configs").jdtls.install_info().is_installed then
+      --require("lspconfig/configs").jdtls.install()
+    --end
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities.textDocument.completion.completionItem.snippetSupport = true
     capabilities.textDocument.codeAction = {
@@ -561,10 +568,11 @@ vim.fn.sign_define("DapStopped", {text = "→", texthl = "", linehl = "NvimDapSt
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
   vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
-  --require "nvim-treesitter.parsers".get_parser_configs().org = {
+  --require "nvim-treesitter.parsers".get_parser_configs().markdown = {
     --install_info = {
-      --url = "~/projects/tree-sitter-org",
-      --files = {"src/parser.c"}
+      --url = "https://github.com/ikatyang/tree-sitter-markdown",
+      --files = {"src/parser.c", "src/scanner.cc"},
+      --branch = "13a49d384b4ab83a5072b01e2302629c59643613"
     --}
   --}
   --require "nvim-treesitter.parsers".get_parser_configs().lisp = {
@@ -754,7 +762,7 @@ if ok then
 
   -- Constants
   hlmap["constant"] = "Constant"
-  hlmap["constant.builtin"] = "Type"
+  hlmap["constant.builtin"] = "Constant"
   hlmap["constant.macro"] = "Define"
   hlmap["string"] = "String"
   hlmap["string.regex"] = "String"
@@ -872,3 +880,20 @@ require "toggleterm".setup {
   persist_size = true,
   direction = "horizontal"
 }
+
+vim.g.vimtex_syntax_conceal = {
+  fancy = 1,
+  greek = 1,
+  math_bounds = 1,
+  accents = 1,
+  styles = 1,
+  math_symbols = 1,
+  math_super_sub = 1,
+  math_fracs = 1
+}
+
+vim.g.qf_state = true
+
+vim.cmd[[nmap <silent> <c-l> :lua vim.g.qf_state = not vim.g.qf_state<cr>]]
+vim.cmd[[nmap <silent> <C-k> :lua if vim.g.qf_state then vim.cmd"cprevious" else vim.cmd("lprevious") end<cr>]]
+vim.cmd[[nmap <silent> <C-j> :lua if vim.g.qf_state then vim.cmd"cnext" else vim.cmd("lnext") end<cr>]]

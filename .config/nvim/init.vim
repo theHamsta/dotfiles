@@ -181,8 +181,6 @@ nnoremap <Leader>oo :only<cr>
 "nmap <silent> <C-j> <Plug>(ale_next_wrap)
 "nmap <silent> <C-k> [L
 "nmap <silent> <C-j> ]L
-nmap <silent> <C-k> :cprevious<cr>
-nmap <silent> <C-j> :cnext<cr>
 "nmap <silent> <C-k> :lua vim.lsp.diagnostic.goto_prev()<cr>
 "nmap <silent> <C-j> :lua vim.lsp.diagnostic.goto_next()<cr>
 
@@ -322,6 +320,7 @@ autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . 
 
 nmap <c-a-p> :cd ~/projects<cr>:Files<cr>
 nmap <a-p> :cd ~/projects<cr>:Buffers<cr>
+nnoremap <a-g> :GFiles?<cr>
 nmap <leader>gg :GF?<cr>
 "autocmd BufRead *.prm :setfiletype prm
 "" jump to the previous function
@@ -390,8 +389,8 @@ let g:LanguageClient_serverCommands = {
     \ 'crystal': ['/home/stephan/projects/scry/scry/bin/scry'],
     \ 'gluon': ['gluon_language-server'],
     \ 'cmake': ['cmake-language-server'],
-    \ 'zig': ['zls'],
     \ }
+    "\ 'zig': ['zls'],
     "\ 'haskell': ['hie-wrapper', '--lsp'],
     "\ 'fsharp': ['dotnet', expand('~').'.local/share/nvim/site/pack/packer/opt/fsharp-language-server/bin/Release/netcoreapp3.0/target/FSharpLanguageServer.dll']
     "\   'julia': ['julia', '--startup-file=no', '--history-file=no', '-e', '
@@ -416,7 +415,7 @@ let g:LanguageClient_serverCommands = {
 
 function! LC_maps()
    if has_key(g:LanguageClient_serverCommands, &filetype)
-        call deoplete#custom#option('auto_complete', v:true)
+        "call deoplete#custom#option('auto_complete', v:true)
          "if &filetype != "python" && &filetype != "tex" && &filetype != "bib"&& &filetype != "go"&& &filetype != "lua"&& &filetype != "lisp"
              "autocmd CursorHold <buffer> silent call LanguageClient#textDocument_documentHighlight()
          "endif
@@ -463,6 +462,7 @@ function! NvimLspMaps()
     nnoremap <buffer><silent> gi         <cmd>lua vim.lsp.buf.implementation()<CR>
     inoremap <buffer><silent> <c-g>         <cmd>lua vim.lsp.buf.signature_help()<CR>
     nnoremap <buffer><silent> <leader>ld <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+    nnoremap <buffer><silent> <leader>lD <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
     nnoremap <buffer><silent> <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
     nnoremap <buffer><silent> <leader>ic <cmd>lua vim.lsp.buf.incoming_calls()<CR>
     vnoremap <buffer><silent> <leader>oc <cmd>lua vim.lsp.buf.outgoing_calls()<CR>
@@ -745,7 +745,8 @@ augroup filetypedetect
     au! BufRead,BufNewFile *.pdf_tex set filetype=tex
     au! BufRead,BufNewFile .justfile,justfile set filetype=make
     au! BufRead,BufNewFile *.tikz set filetype=tex
-    au! BufRead,BufNewFile *.spirv setfiletype spirv
+    au! BufRead,BufNewFile *.spirv set filetype=spirv
+    au! BufRead,BufNewFile *.jl set filetype=julia
 
 augroup END
 au! BufRead,BufNewFile *.asd,.spacemacs set filetype=lisp
@@ -758,17 +759,17 @@ au! BufRead,BufNewFile *.asd,.spacemacs set filetype=lisp
 let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'sh', 'cpp', 'rust', 'java', 'go', 'lua', 'vim', 'lisp']
 let g:vim_markdown_math = 1
 
-let g:deoplete#enable_at_startup = 1
-function! Multiple_cursors_before()
-  if g:deoplete#enable_at_startup
-    call deoplete#custom#option('auto_complete', v:false)
-  end
-endfunction
-function! Multiple_cursors_after()
-    if g:deoplete#enable_at_startup
-      call deoplete#custom#option('auto_complete', v:true)
-    endif
-endfunction
+let g:deoplete#enable_at_startup = 0
+"function! Multiple_cursors_before()
+  "if g:deoplete#enable_at_startup
+    "call deoplete#custom#option('auto_complete', v:false)
+  "end
+"endfunction
+"function! Multiple_cursors_after()
+    "if g:deoplete#enable_at_startup
+      "call deoplete#custom#option('auto_complete', v:true)
+    "endif
+"endfunction
 let g:lt_location_list_toggle_map = '<leader>ql'
 let g:lt_quickfix_list_toggle_map = '<leader>qe'
 ""au! FileType cmake unmap <buffer> <silent> gh
@@ -1380,6 +1381,7 @@ nnoremap <leader>pl :TSPlaygroundToggle<cr>
 let g:completion_enable_snippet = 'UltiSnips'
 let g:completion_chain_complete_list = [
     \{'complete_items': ['lsp', 'snippet', 'buffers']},
+    \{'mode': '<c-f>'},
     \{'mode': '<c-p>'},
     \{'mode': '<c-n>'}
 \]
@@ -1437,10 +1439,16 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 "nnoremap <silent> <leader>l :nohlsearch<CR>
 "
 
-autocmd! BufWrite *.rs :lua require "lsp_extensions".inlay_hints({enabled = {"TypeHint", "ParameterHint"}, highlight = "Comment", prefix = " > "})
+autocmd! BufWrite,CursorHold *.rs :lua require "lsp_extensions".inlay_hints({enabled = {"TypeHint", "ParameterHint"}, highlight = "Comment", prefix = " > "})
 command! InlayHints :lua require "lsp_extensions".inlay_hints({enabled = {"TypeHint", "ChainingHint", "ParameterHint"}, highlight = "Comment", prefix = " ? "})
 
 let g:sneak#label = 1
 let g:AutoPairsShortcutToggle = '<M-m>'
 let g:AutoPairsFlyMode = 0
 let g:AutoPairsShortcutBackInsert = '<M-b>'
+
+let g:completion_enable_auto_popup = 1
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+let g:completion_matching_smart_case = 1
+highlight link LspDiagnosticsUnderlineError Error
+highlight link LspDiagnosticsUnderlineWarning LspWarning

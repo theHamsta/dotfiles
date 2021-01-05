@@ -87,6 +87,9 @@ return packer.startup(
       end
     }
     use "mfussenegger/nvim-dap-python"
+    use "nvim-lua/completion-nvim"
+    use {"danilo-augusto/vim-afterglow", opt = true}
+    use "steelsojka/completion-buffers"
     use {"jubnzv/virtual-types.nvim"}
     use "ocaml/vim-ocaml"
     use {"kevinhwang91/nvim-hlslens", opt = true}
@@ -142,7 +145,7 @@ return packer.startup(
     use "voldikss/vim-floaterm"
     use "kkoomen/vim-doge"
     use "AndrewRadev/switch.vim"
-    use "JuliaEditorSupport/julia-vim"
+    --use "JuliaEditorSupport/julia-vim"
     use "Julian/vim-textobj-variable-segment"
     use {"SirVer/ultisnips", opt = false}
     use "Valloric/ListToggle"
@@ -210,7 +213,7 @@ return packer.startup(
     use "ryanoasis/vim-devicons"
     use "scrooloose/nerdcommenter"
     use "sgur/vim-textobj-parameter"
-    --use "skywind3000/vim-preview"
+    use "skywind3000/vim-preview"
     use "terryma/vim-multiple-cursors"
     use "kana/vim-textobj-user"
     use "theHamsta/vim-snippets"
@@ -240,8 +243,8 @@ return packer.startup(
     use "wellle/targets.vim"
     use "whiteinge/diffconflicts"
     use "TravonteD/luajob"
-    use "Shougo/deoplete-lsp"
-    use {"Shougo/deoplete.nvim", run = ":UpdateRemotePlugins"}
+    --use "Shougo/deoplete-lsp"
+    --use {"Shougo/deoplete.nvim", run = ":UpdateRemotePlugins"}
     use "rakr/vim-one"
   end
 )
