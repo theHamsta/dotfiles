@@ -74,7 +74,7 @@ if ok then
 
   --pcall(require, "lspconfig/sumneko_lua")
   --if not require("lspconfig/configs").sumneko_lua.install_info().is_installed then
-    --require("lspconfig/configs").sumneko_lua.install()
+  --require("lspconfig/configs").sumneko_lua.install()
   --end
 
   local configs = require "lspconfig.configs"
@@ -88,6 +88,10 @@ if ok then
         return require "lspconfig/util".find_git_ancestor(fname) or vim.loop.os_homedir()
       end
     }
+  }
+
+  lspconfig.svelte.setup {
+    on_attach = on_attach
   }
 
   lspconfig.julials.setup {
@@ -109,7 +113,7 @@ if ok then
   }
 
   --lspconfig.pyright.setup {
-  --on_attach = on_attach,
+    --on_attach = on_attach
   --}
 
   lspconfig.pyls.setup {
@@ -144,8 +148,8 @@ if ok then
     filetypes = {"c", "cpp", "objc", "objcpp", "cuda"},
     on_attach = on_attach
   }
-  local sumneko_root_path = vim.fn.expand('~/projects/lua-language-server/lua-language-server')
-  local sumneko_binary = sumneko_root_path.."/bin/Linux/lua-language-server"
+  local sumneko_root_path = vim.fn.expand("~/projects/lua-language-server")
+  local sumneko_binary = sumneko_root_path .. "/bin/Linux/lua-language-server"
 
   lspconfig.sumneko_lua.setup {
     cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
@@ -344,7 +348,7 @@ if ok then
   local java = function()
     pcall(require, "lspconfig/jdtls")
     --if not require("lspconfig/configs").jdtls.install_info().is_installed then
-      --require("lspconfig/configs").jdtls.install()
+    --require("lspconfig/configs").jdtls.install()
     --end
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -430,6 +434,9 @@ end
 
 local ok, dap = pcall(require, "dap")
 if ok then
+  vim.fn.sign_define("DapBreakpoint", {text = "🛑", texthl = "", linehl = "", numhl = ""})
+  vim.fn.sign_define("DapStopped", {text = "→", texthl = "", linehl = "NvimDapStopped", numhl = ""})
+
   require("dap-python").setup("/usr/bin/python3")
   require("dap-python").test_runner = "pytest"
   dap.adapters.python = {
@@ -563,17 +570,15 @@ if ok then
 --}
 end
 
-vim.fn.sign_define("DapBreakpoint", {text = "🛑", texthl = "", linehl = "", numhl = ""})
-vim.fn.sign_define("DapStopped", {text = "→", texthl = "", linehl = "NvimDapStopped", numhl = ""})
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
   vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
   --require "nvim-treesitter.parsers".get_parser_configs().markdown = {
-    --install_info = {
-      --url = "https://github.com/ikatyang/tree-sitter-markdown",
-      --files = {"src/parser.c", "src/scanner.cc"},
-      --branch = "13a49d384b4ab83a5072b01e2302629c59643613"
-    --}
+  --install_info = {
+  --url = "https://github.com/ikatyang/tree-sitter-markdown",
+  --files = {"src/parser.c", "src/scanner.cc"},
+  --branch = "13a49d384b4ab83a5072b01e2302629c59643613"
+  --}
   --}
   --require "nvim-treesitter.parsers".get_parser_configs().lisp = {
   --install_info = {
@@ -608,8 +613,8 @@ if ok then
   require "nvim-treesitter.configs".setup(
     {
       highlight = {
-        enable = true -- false will disable the whole extension
-        --disable = {"html"} -- list of language that will be disabled
+        enable = true, -- false will disable the whole extension
+        disable = {} -- list of language that will be disabled
       },
       query_linter = {
         enable = true
@@ -894,6 +899,6 @@ vim.g.vimtex_syntax_conceal = {
 
 vim.g.qf_state = true
 
-vim.cmd[[nmap <silent> <c-l> :lua vim.g.qf_state = not vim.g.qf_state<cr>]]
-vim.cmd[[nmap <silent> <C-k> :lua if vim.g.qf_state then vim.cmd"cprevious" else vim.cmd("lprevious") end<cr>]]
-vim.cmd[[nmap <silent> <C-j> :lua if vim.g.qf_state then vim.cmd"cnext" else vim.cmd("lnext") end<cr>]]
+vim.cmd [[nmap <silent> <c-l> :lua vim.g.qf_state = not vim.g.qf_state<cr>]]
+vim.cmd [[nmap <silent> <C-k> :lua if vim.g.qf_state then vim.cmd"cprevious" else vim.cmd("lprevious") end<cr>]]
+vim.cmd [[nmap <silent> <C-j> :lua if vim.g.qf_state then vim.cmd"cnext" else vim.cmd("lnext") end<cr>]]

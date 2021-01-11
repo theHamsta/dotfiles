@@ -1,4 +1,6 @@
-set conceallevel=0
+setlocal conceallevel=0
+let g:vimtex_complete_enabled = 0
+setlocal foldmethod=indent
 command! TexlabBuild lua require'nvim_lsp'.texlab.buf_build(0)
 
 

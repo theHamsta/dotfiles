@@ -87,6 +87,8 @@ return packer.startup(
       end
     }
     use "mfussenegger/nvim-dap-python"
+    use {'evanleck/vim-svelte', ft='svelte'}
+    use {'sheerun/vim-polyglot ', ft='svelte'}
     use "nvim-lua/completion-nvim"
     use {"danilo-augusto/vim-afterglow", opt = true}
     use "steelsojka/completion-buffers"

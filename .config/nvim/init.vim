@@ -747,7 +747,8 @@ augroup filetypedetect
     au! BufRead,BufNewFile *.tikz set filetype=tex
     au! BufRead,BufNewFile *.spirv set filetype=spirv
     au! BufRead,BufNewFile *.jl set filetype=julia
-
+    au! BufRead,BufNewFile german.tex set spelllang=de
+    au! BufRead,BufNewFile *.svelte set filetype=svelte
 augroup END
 au! BufRead,BufNewFile *.asd,.spacemacs set filetype=lisp
 
@@ -1452,3 +1453,12 @@ let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 let g:completion_matching_smart_case = 1
 highlight link LspDiagnosticsUnderlineError Error
 highlight link LspDiagnosticsUnderlineWarning LspWarning
+
+let g:completion_trigger_keyword_length = 2 " default = 1
+
+"highlight ExtraWhitespace ctermbg=red guibg=red
+"match ExtraWhitespace /\s\+$/
+"au BufWinEnter * match ExtraWhitespace /\s\+$/
+"au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+"au InsertLeave * match ExtraWhitespace /\s\+$/
+"au BufWinLeave * call clearmatches()
