@@ -64,9 +64,30 @@ if ok then
   --require "lsp-ext".update_diagnostics()
   --end
 
-  local function on_attach()
+  local function on_attach(client, bufnr)
+    --local function buf_set_keymap(...)
+    --vim.api.nvim_buf_set_keymap(bufnr, ...)
+    --end
+    --local function buf_set_option(...)
+    --vim.api.nvim_buf_set_option(bufnr, ...)
+    --end
+
+    if client.resolved_capabilities.document_highlight then
+      require("lspconfig").util.nvim_multiline_command [[
+      :hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
+      :hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
+      :hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+      augroup lsp_document_highlight
+        autocmd!
+        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+      augroup END
+    ]]
+    end
+
     vim.fn.NvimLspMaps()
   end
+
   --pcall(require, "lspconfig/julials")
   --if not require("lspconfig/configs").julials.install_info().is_installed then
   -- require("lspconfig/configs").julials.install()
@@ -113,7 +134,7 @@ if ok then
   }
 
   --lspconfig.pyright.setup {
-    --on_attach = on_attach
+  --on_attach = on_attach
   --}
 
   lspconfig.pyls.setup {
@@ -130,6 +151,9 @@ if ok then
   }
 
   lspconfig.tsserver.setup {
+    on_attach = on_attach
+  }
+  lspconfig.kotlin_language_server.setup {
     on_attach = on_attach
   }
   lspconfig.hls.setup {
@@ -439,12 +463,55 @@ if ok then
 
   require("dap-python").setup("/usr/bin/python3")
   require("dap-python").test_runner = "pytest"
+  dap.adapters.haskell = {
+    type = "executable",
+    command = "haskell-debug-adapter",
+    args = {"--hackage-version=0.0.33.0"}
+  }
+  dap.configurations.haskell = {
+    {
+      type = "haskell",
+      request = "launch",
+      name = "Debug",
+      workspace = "${workspaceFolder}",
+      startup = "${file}",
+      stopOnEntry = true,
+      logFile = vim.fn.stdpath("data") .. "/haskell-dap.log",
+      logLevel = "WARNING",
+      ghciEnv = vim.empty_dict(),
+      ghciPrompt = "λ: ",
+      -- Adjust the prompt to the prompt you see when you invoke the stack ghci command below
+      ghciInitialPrompt = "λ: ",
+      ghciCmd = "stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show"
+    }
+  }
   dap.adapters.python = {
     type = "executable",
     command = "python3",
     args = {
       "-m",
       "debugpy.adapter"
+    }
+  }
+  --dap.adapters.go = {
+    --type = "executable",
+    --command = "node",
+    --args = {os.getenv("HOME") .. "/projects/vscode-go/dist/debugAdapter.js"}
+  --}
+  dap.adapters.go = {
+    type = "executable",
+    command = "dlv",
+    args = {"dap"}
+  }
+  dap.configurations.go = {
+    {
+      type = "go",
+      name = "Debug",
+      request = "launch",
+      showLog = false,
+      program = "${file}",
+      mode = 'debug',
+      dlvToolPath = vim.fn.exepath('dlv') -- Adjust to where delve is installed
     }
   }
   dap.configurations.python = {
@@ -573,13 +640,13 @@ end
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
   vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
-  --require "nvim-treesitter.parsers".get_parser_configs().markdown = {
-  --install_info = {
-  --url = "https://github.com/ikatyang/tree-sitter-markdown",
-  --files = {"src/parser.c", "src/scanner.cc"},
-  --branch = "13a49d384b4ab83a5072b01e2302629c59643613"
-  --}
-  --}
+  require "nvim-treesitter.parsers".get_parser_configs().markdown = {
+    install_info = {
+      url = "https://github.com/ikatyang/tree-sitter-markdown",
+      files = {"src/parser.c", "src/scanner.cc"},
+      branch = "13a49d384b4ab83a5072b01e2302629c59643613"
+    }
+  }
   --require "nvim-treesitter.parsers".get_parser_configs().lisp = {
   --install_info = {
   --url = "~/projects/clojure-lisp2",

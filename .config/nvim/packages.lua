@@ -78,7 +78,7 @@ return packer.startup(
     }
     use "pwntester/octo.nvim"
     use {"jiangmiao/auto-pairs", opt = true}
-    use {"tpope/vim-endwise", ft="lua", opt = true}
+    use {"tpope/vim-endwise", ft = "lua", opt = true}
     use {"ojroques/nvim-lspfuzzy", opt = true}
     use {
       "gabrielpoca/replacer.nvim",
@@ -87,8 +87,8 @@ return packer.startup(
       end
     }
     use "mfussenegger/nvim-dap-python"
-    use {'evanleck/vim-svelte', ft='svelte'}
-    use {'sheerun/vim-polyglot ', ft='svelte'}
+    use {"evanleck/vim-svelte", ft = "svelte"}
+    use {"sheerun/vim-polyglot ", ft = "svelte"}
     use "nvim-lua/completion-nvim"
     use {"danilo-augusto/vim-afterglow", opt = true}
     use "steelsojka/completion-buffers"
@@ -107,7 +107,7 @@ return packer.startup(
     use "nvim-treesitter/nvim-tree-docs"
     use {"bluz71/vim-nightfly-guicolors", opt = true}
     use {"bluz71/vim-moonfly-colors", opt = true}
-    use { "chriskempson/base16-vim", opt = true }
+    use {"chriskempson/base16-vim", opt = true}
     use {"doums/darcula", opt = true}
     use {"strange/vim-lore", opt = true}
     use {"pineapplegiant/spaceduck", opt = true}
@@ -131,6 +131,15 @@ return packer.startup(
     use "tjdevries/plenary.nvim"
     use "svermeulen/nvim-moonmaker"
     use "kbenzie/vim-spirv"
+    use {
+      "windwp/nvim-autopairs",
+      config = function()
+        require("nvim-autopairs").setup {
+          break_line_filetype = {"javascript", "cuda", "cpp", "java", "c", "typescript", "typescriptreact", "go"}
+        }
+        vim.cmd[[inoremap <cr> :lua require('nvim-autopairs').check_break_line_char()<cr>]]
+      end
+    }
 
     use {"theHamsta/nvim-tree.lua", branch = "exa"}
 

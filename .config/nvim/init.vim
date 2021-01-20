@@ -472,6 +472,10 @@ function! NvimLspMaps()
     nnoremap <buffer> <silent> <c-LeftMouse> <cmd>lua require'nvim-treesitter.refactor.navigation'.goto_definition_lsp_fallback()<CR>
     nnoremap <buffer> <silent> <c-LeftMouse> <cmd>lua vim.lsp.buf.definition()<CR>
 
+    nnoremap <buffer> <silent> [d <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+    nnoremap <buffer> <silent> ]d <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+
+
     "if &filetype != "tex" && &filetype != "haskell"
         "inoremap <buffer><silent> (     <cmd>lua vim.lsp.buf.signature_help()<CR>(
     "endif
@@ -749,8 +753,8 @@ augroup filetypedetect
     au! BufRead,BufNewFile *.jl set filetype=julia
     au! BufRead,BufNewFile german.tex set spelllang=de
     au! BufRead,BufNewFile *.svelte set filetype=svelte
+    au! BufRead,BufNewFile *.asd,.spacemacs set filetype=lisp
 augroup END
-au! BufRead,BufNewFile *.asd,.spacemacs set filetype=lisp
 
 "let g:NERDTreeFileExtensionHighlightFullName = 1
 "let g:NERDTreeExactMatchHighlightFullName = 1
