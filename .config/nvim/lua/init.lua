@@ -74,9 +74,9 @@ if ok then
 
     if client.resolved_capabilities.document_highlight then
       require("lspconfig").util.nvim_multiline_command [[
-      :hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
-      :hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
-      :hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+      :hi LspReferenceRead cterm=bold ctermbg=red guibg=Black
+      :hi LspReferenceText cterm=bold ctermbg=red guibg=Black
+      :hi LspReferenceWrite cterm=bold ctermbg=red guibg=Black
       augroup lsp_document_highlight
         autocmd!
         autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
@@ -494,9 +494,9 @@ if ok then
     }
   }
   --dap.adapters.go = {
-    --type = "executable",
-    --command = "node",
-    --args = {os.getenv("HOME") .. "/projects/vscode-go/dist/debugAdapter.js"}
+  --type = "executable",
+  --command = "node",
+  --args = {os.getenv("HOME") .. "/projects/vscode-go/dist/debugAdapter.js"}
   --}
   dap.adapters.go = {
     type = "executable",
@@ -510,8 +510,8 @@ if ok then
       request = "launch",
       showLog = false,
       program = "${file}",
-      mode = 'debug',
-      dlvToolPath = vim.fn.exepath('dlv') -- Adjust to where delve is installed
+      mode = "debug",
+      dlvToolPath = vim.fn.exepath("dlv") -- Adjust to where delve is installed
     }
   }
   dap.configurations.python = {
@@ -598,9 +598,15 @@ if ok then
       pidSelect = "ask"
     },
     command = "lldb-vscode-12",
-    env = {
-      LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES"
-    },
+    env = function()
+      local variables = {
+        LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES"
+      }
+      for k, v in pairs(vim.fn.environ()) do
+        table.insert(variables, string.format("%s=%s", k, v))
+      end
+      return variables
+    end,
     name = "lldb"
   }
   dap.adapters.markdown = {
@@ -796,7 +802,7 @@ if ok then
           disable = {"python"}
         },
         highlight_definitions = {
-          enable = true,
+          enable = false,
           disable = {"cpp", "c"}
         },
         smart_rename = {
