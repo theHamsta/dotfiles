@@ -314,3 +314,5 @@ img
 t0
 endif
 len
+func
+fmt

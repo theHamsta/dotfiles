@@ -118,7 +118,7 @@ return packer.startup(
     use "mfussenegger/nvim-jdtls"
     use "mattn/emmet-vim"
     use "rhysd/conflict-marker.vim"
-    use {"theHamsta/nvim-dap", branch = "variable-ui"}
+    use {"mfussenegger/nvim-dap"}
     use "theHamsta/nvim-dap-virtual-text"
     use "dm1try/git_fastfix"
     use "rafcamlet/nvim-luapad"

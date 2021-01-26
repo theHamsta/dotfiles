@@ -72,18 +72,21 @@ if ok then
     --vim.api.nvim_buf_set_option(bufnr, ...)
     --end
 
-    if client.resolved_capabilities.document_highlight then
-      require("lspconfig").util.nvim_multiline_command [[
-      :hi LspReferenceRead cterm=bold ctermbg=red guibg=Black
-      :hi LspReferenceText cterm=bold ctermbg=red guibg=Black
-      :hi LspReferenceWrite cterm=bold ctermbg=red guibg=Black
-      augroup lsp_document_highlight
-        autocmd!
-        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-      augroup END
-    ]]
-    end
+    --if client.resolved_capabilities.document_highlight then
+      --vim.api.nvim_exec(
+        -- [[
+      --:hi link LspReferenceRead CursorLine
+      --:hi link LspReferenceText CursorLine
+      --:hi link LspReferenceWrite CursorLine
+      --augroup lsp_document_highlight
+        --autocmd!
+        --autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+        --autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+      --augroup END
+    -- ]],
+        --false
+      --)
+    --end
 
     vim.fn.NvimLspMaps()
   end
@@ -510,7 +513,6 @@ if ok then
       request = "launch",
       showLog = false,
       program = "${file}",
-      mode = "debug",
       dlvToolPath = vim.fn.exepath("dlv") -- Adjust to where delve is installed
     }
   }
@@ -617,6 +619,46 @@ if ok then
     cwd = "/home/stephan/projects/vscode-mock-debug/"
   }
 
+  dap.adapters.go = function(callback, config)
+    local handle
+    local pid_or_err
+    local port = 38697
+    handle, pid_or_err =
+      vim.loop.spawn(
+      "dlv",
+      {
+        args = {"dap", "-l", "127.0.0.1:" .. port},
+        detached = true
+      },
+      function(code)
+        handle:close()
+        --dap.session():close()
+        print("Delve exited with exit code: " .. code)
+      end
+    )
+    ----wait for delve to start
+    vim.defer_fn(
+      function()
+        dap.repl.open()
+        callback({type = "server", host = "127.0.0.1", port = port})
+      end,
+      1000
+    )
+    --dap.repl.open()
+    --callback({type = "server", host = "127.0.0.1", port = port})
+    --dap.repl.open()
+  end
+  -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
+  dap.configurations.go = {
+    {
+      type = "go",
+      name = "Debug",
+      mode = "debug",
+      request = "launch",
+      program = "${file}"
+    }
+  }
+
   if dap.custom_event_handlers then
     dap.custom_event_handlers.event_exited["my handler id"] = function(_, _)
       dap.repl.close()
@@ -649,8 +691,8 @@ if ok then
   require "nvim-treesitter.parsers".get_parser_configs().markdown = {
     install_info = {
       url = "https://github.com/ikatyang/tree-sitter-markdown",
-      files = {"src/parser.c", "src/scanner.cc"},
-      branch = "13a49d384b4ab83a5072b01e2302629c59643613"
+      files = {"src/parser.c", "src/scanner.cc"}
+      --branch = "13a49d384b4ab83a5072b01e2302629c59643613"
     }
   }
   --require "nvim-treesitter.parsers".get_parser_configs().lisp = {
@@ -975,3 +1017,33 @@ vim.g.qf_state = true
 vim.cmd [[nmap <silent> <c-l> :lua vim.g.qf_state = not vim.g.qf_state<cr>]]
 vim.cmd [[nmap <silent> <C-k> :lua if vim.g.qf_state then vim.cmd"cprevious" else vim.cmd("lprevious") end<cr>]]
 vim.cmd [[nmap <silent> <C-j> :lua if vim.g.qf_state then vim.cmd"cnext" else vim.cmd("lnext") end<cr>]]
+
+--local dap = require('dap')
+--local api = vim.api
+--local keymap_restore = {}
+--dap.custom_event_handlers['event_initialized']['me'] = function()
+--for _, buf in pairs(api.nvim_list_bufs()) do
+--local keymaps = api.nvim_buf_get_keymap(buf, 'n')
+--for _, keymap in pairs(keymaps) do
+--if keymap.lhs == "K" then
+--table.insert(keymap_restore, keymap)
+--api.nvim_buf_del_keymap(buf, 'n', 'K')
+--end
+--end
+--end
+--api.nvim_set_keymap(
+--'n', 'K', '<Cmd>lua require("dap.ui.variables").hover()<CR>', { silent = true })
+--end
+
+--dap.custom_event_handlers['event_terminated']['me'] = function()
+--for _, keymap in pairs(keymap_restore) do
+--api.nvim_buf_set_keymap(
+--keymap.buffer,
+--keymap.mode,
+--keymap.lhs,
+--keymap.rhs,
+--{ silent = keymap.silent == 1 }
+--)
+--end
+--keymap_restore = {}
+--end

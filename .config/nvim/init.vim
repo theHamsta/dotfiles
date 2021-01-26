@@ -475,6 +475,7 @@ function! NvimLspMaps()
     nnoremap <buffer> <silent> [d <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
     nnoremap <buffer> <silent> ]d <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 
+    nnoremap <silent> <leader>fi <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>
 
     "if &filetype != "tex" && &filetype != "haskell"
         "inoremap <buffer><silent> (     <cmd>lua vim.lsp.buf.signature_help()<CR>(
@@ -1368,8 +1369,7 @@ function DapMaps()
     nmap <buffer> <silent> <leader>bo :lua require'dap'.step_out()<CR>
     nmap <buffer> <silent> <leader>lb :lua require'dap'.list_breakpoints()<CR>
     nmap <buffer> <silent> <leader>bm :DebugRepl<cr>
-    nmap <buffer> <silent> <leader>dh :lua require 'dap.ui.variable-tree'.hover(require 'dap'.session())<cr>
-    nmap <buffer> <silent> <leader>dl :lua require 'dap.ui.variable-tree'.open_sidebar(require 'dap'.session())<cr>
+    nmap <buffer> <silent> <leader>dh :lua require 'dap.ui.variables'.hover(require 'dap'.session())<cr>
     nmap <buffer> <silent> <leader>TN :lua require'dap';require 'dap-python'.test_method()<cr>:lua require 'dap.repl'.open()<cr>
     nmap <buffer> <silent> <leader>bT :lua require 'dap'.run_last()<cr>:lua require 'dap.repl'.open()<cr>
 endfunction
