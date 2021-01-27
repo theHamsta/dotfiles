@@ -73,6 +73,7 @@ set noshowmode
 set joinspaces
 set shortmess+=c
 set sidescroll=1
+set nobackup
 
 let g:use_line_numbers=0
 
