@@ -86,6 +86,33 @@ return packer.startup(
         vim.api.nvim_set_keymap("n", "<Leader>hh", ':lua require("replacer").run()<cr>', {silent = true})
       end
     }
+    use {
+      "hrsh7th/nvim-compe",
+      config = function()
+        require "compe".setup {
+          enabled = true,
+          autocomplete = true,
+          debug = false,
+          min_length = 1,
+          preselect = "enable",
+          throttle_time = 80,
+          source_timeout = 200,
+          incomplete_delay = 400,
+          allow_prefix_unmatch = false,
+          source = {
+            path = true,
+            buffer = true,
+            vsnip = true,
+            nvim_lsp = true,
+            nvim_lua = true,
+            spell = true,
+            snippets_nvim = true,
+            your_awesome_source = {}
+          }
+        }
+      end
+    }
+
     use "mfussenegger/nvim-dap-python"
     use {"evanleck/vim-svelte", ft = "svelte"}
     use {"sheerun/vim-polyglot ", ft = "svelte"}
@@ -137,8 +164,9 @@ return packer.startup(
         require("nvim-autopairs").setup {
           break_line_filetype = {"javascript", "cuda", "cpp", "java", "c", "typescript", "typescriptreact", "go"}
         }
-        vim.cmd[[inoremap <cr> :lua require('nvim-autopairs').check_break_line_char()<cr>]]
-      end
+        --vim.cmd [[inoremap <cr> :lua require('nvim-autopairs').check_break_line_char()<cr>]]
+      end,
+      opt=true
     }
 
     use {"theHamsta/nvim-tree.lua", branch = "exa"}

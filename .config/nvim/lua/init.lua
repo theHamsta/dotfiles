@@ -47,12 +47,13 @@ function E(...)
   return ...
 end
 
-local completion_nvim_ok = pcall(require, "completion")
-if completion_nvim_ok then
-  vim.cmd [[
-  autocmd BufEnter * lua require'completion'.on_attach()
-  ]]
-end
+--local completion_nvim_ok = pcall(require, "completion")
+--if completion_nvim_ok then
+  --vim.cmd [[
+  --autocmd BufEnter * lua require'completion'.on_attach()
+  --]]
+--end
+
 
 local ok, lspconfig = pcall(require, "lspconfig")
 
@@ -903,7 +904,7 @@ if ok then
   hlmap["method"] = "Identifier"
   hlmap["field"] = "Identifier"
   hlmap["property"] = "Identifier"
-  hlmap["constructor"] = "Type"
+  hlmap["constructor"] = "Function"
 
   -- Keywords
   hlmap["conditional"] = "Conditional"
@@ -1017,6 +1018,11 @@ vim.g.qf_state = true
 vim.cmd [[nmap <silent> <c-l> :lua vim.g.qf_state = not vim.g.qf_state<cr>]]
 vim.cmd [[nmap <silent> <C-k> :lua if vim.g.qf_state then vim.cmd"cprevious" else vim.cmd("lprevious") end<cr>]]
 vim.cmd [[nmap <silent> <C-j> :lua if vim.g.qf_state then vim.cmd"cnext" else vim.cmd("lnext") end<cr>]]
+
+
+vim.notify = function(log_level, msg)
+  vim.fn.jobstart({"notify-send", msg })
+end
 
 --local dap = require('dap')
 --local api = vim.api

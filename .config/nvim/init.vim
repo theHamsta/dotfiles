@@ -1467,3 +1467,6 @@ let g:completion_trigger_keyword_length = 2 " default = 1
 "au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 "au InsertLeave * match ExtraWhitespace /\s\+$/
 "au BufWinLeave * call clearmatches()
+"
+"let g:vlime_cl_impl = "ccl"
+
