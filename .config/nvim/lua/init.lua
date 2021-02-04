@@ -49,11 +49,10 @@ end
 
 --local completion_nvim_ok = pcall(require, "completion")
 --if completion_nvim_ok then
-  --vim.cmd [[
-  --autocmd BufEnter * lua require'completion'.on_attach()
-  --]]
+--vim.cmd [[
+--autocmd BufEnter * lua require'completion'.on_attach()
+--]]
 --end
-
 
 local ok, lspconfig = pcall(require, "lspconfig")
 
@@ -74,19 +73,19 @@ if ok then
     --end
 
     --if client.resolved_capabilities.document_highlight then
-      --vim.api.nvim_exec(
-        -- [[
-      --:hi link LspReferenceRead CursorLine
-      --:hi link LspReferenceText CursorLine
-      --:hi link LspReferenceWrite CursorLine
-      --augroup lsp_document_highlight
-        --autocmd!
-        --autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-        --autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-      --augroup END
+    --vim.api.nvim_exec(
+    -- [[
+    --:hi link LspReferenceRead CursorLine
+    --:hi link LspReferenceText CursorLine
+    --:hi link LspReferenceWrite CursorLine
+    --augroup lsp_document_highlight
+    --autocmd!
+    --autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+    --autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+    --augroup END
     -- ]],
-        --false
-      --)
+    --false
+    --)
     --end
 
     vim.fn.NvimLspMaps()
@@ -165,7 +164,7 @@ if ok then
   }
   lspconfig.clangd.setup {
     cmd = {
-      "clangd-12",
+      "clangd-13",
       "--clang-tidy",
       "--all-scopes-completion",
       "--header-insertion=iwyu",
@@ -209,6 +208,14 @@ if ok then
       ["rust-analyzer"] = {
         checkOnSave = {
           command = "clippy"
+        },
+        completion = {
+          postfix = {
+            enabled = true
+          },
+          autoimport = {
+            enabled = true
+          },
         }
       },
       capabilities = {
@@ -224,12 +231,19 @@ if ok then
           },
           completion = {
             completionItem = {
-              commitCharactersSupport = false,
-              deprecatedSupport = false,
+              commitCharactersSupport = true,
+              deprecatedSupport = true,
               documentationFormat = {"markdown", "plaintext"},
-              preselectSupport = false,
-              snippetSupport = false
+              preselectSupport = true,
+              snippetSupport = true
             },
+            autoimport = {
+              enable = true
+            },
+            postfix = {
+              enable = true
+            },
+            addCallParenthesis = true,
             completionItemKind = {
               valueSet = {
                 1,
@@ -269,7 +283,7 @@ if ok then
             linkSupport = true
           },
           documentHighlight = {
-            dynamicRegistration = false
+            dynamicRegistration = true
           },
           documentSymbol = {
             dynamicRegistration = false,
@@ -600,7 +614,7 @@ if ok then
       pidProperty = "pid",
       pidSelect = "ask"
     },
-    command = "lldb-vscode-12",
+    command = "lldb-vscode-13",
     env = function()
       local variables = {
         LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES"
@@ -1019,10 +1033,32 @@ vim.cmd [[nmap <silent> <c-l> :lua vim.g.qf_state = not vim.g.qf_state<cr>]]
 vim.cmd [[nmap <silent> <C-k> :lua if vim.g.qf_state then vim.cmd"cprevious" else vim.cmd("lprevious") end<cr>]]
 vim.cmd [[nmap <silent> <C-j> :lua if vim.g.qf_state then vim.cmd"cnext" else vim.cmd("lnext") end<cr>]]
 
-
 vim.notify = function(log_level, msg)
-  vim.fn.jobstart({"notify-send", msg })
+  vim.fn.jobstart({"notify-send", msg})
 end
+
+require "compe".setup {
+  enabled = true,
+  autocomplete = true,
+  debug = false,
+  min_length = 1,
+  preselect = "enable",
+  throttle_time = 80,
+  source_timeout = 200,
+  incomplete_delay = 400,
+  allow_prefix_unmatch = false,
+  source = {
+    path = true,
+    buffer = true,
+    calc = true,
+    vsnip = true,
+    nvim_lsp = true,
+    nvim_lua = true,
+    spell = true,
+    tags = true,
+    snippets_nvim = true
+  }
+}
 
 --local dap = require('dap')
 --local api = vim.api

@@ -170,7 +170,6 @@ nnoremap <Leader>cn :cn<cr>
 nnoremap <Leader>cN :cN<cr>
 nnoremap <Leader>sde :set spell<cr>:set spelllang=de<cr>
 nnoremap <Leader>sen :set spell<cr>:set spelllang=en<cr>
-"inoremap <expr> <CR> pumvisible() ? "\<C-n>" : "\<C-g>u\<CR>"
 
 nnoremap <Leader>bp :bN<cr>
 nnoremap <Leader>bn :bn<cr>
@@ -1370,7 +1369,8 @@ function DapMaps()
     nmap <buffer> <silent> <leader>bo :lua require'dap'.step_out()<CR>
     nmap <buffer> <silent> <leader>lb :lua require'dap'.list_breakpoints()<CR>
     nmap <buffer> <silent> <leader>bm :DebugRepl<cr>
-    nmap <buffer> <silent> <leader>dh :lua require 'dap.ui.variables'.hover(require 'dap'.session())<cr>
+    nmap <buffer> <silent> <leader>dh :lua require 'dap.ui.variables'.hover()<cr>
+    vmap <buffer> <silent> <leader>dh :lua require 'dap.ui.variables'.visual_hover()<cr>
     nmap <buffer> <silent> <leader>TN :lua require'dap';require 'dap-python'.test_method()<cr>:lua require 'dap.repl'.open()<cr>
     nmap <buffer> <silent> <leader>bT :lua require 'dap'.run_last()<cr>:lua require 'dap.repl'.open()<cr>
 endfunction
@@ -1469,4 +1469,10 @@ let g:completion_trigger_keyword_length = 2 " default = 1
 "au BufWinLeave * call clearmatches()
 "
 "let g:vlime_cl_impl = "ccl"
+"inoremap <silent><expr> <C-Space> compe#complete()
+"inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+"
+inoremap <silent><expr><C-Space> compe#complete()
 
+vnoremap <c-a> <c-a>gv
+vnoremap <c-x> <c-x>gv

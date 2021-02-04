@@ -89,36 +89,21 @@ return packer.startup(
     use {
       "hrsh7th/nvim-compe",
       config = function()
-        require "compe".setup {
-          enabled = true,
-          autocomplete = true,
-          debug = false,
-          min_length = 1,
-          preselect = "enable",
-          throttle_time = 80,
-          source_timeout = 200,
-          incomplete_delay = 400,
-          allow_prefix_unmatch = false,
-          source = {
-            path = true,
-            buffer = true,
-            vsnip = true,
-            nvim_lsp = true,
-            nvim_lua = true,
-            spell = true,
-            snippets_nvim = true,
-            your_awesome_source = {}
-          }
-        }
       end
     }
 
     use "mfussenegger/nvim-dap-python"
+    use {
+      "kosayoda/nvim-lightbulb",
+      config = function()
+        vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
+      end
+    }
     use {"evanleck/vim-svelte", ft = "svelte"}
     use {"sheerun/vim-polyglot ", ft = "svelte"}
-    use "nvim-lua/completion-nvim"
+    --use "nvim-lua/completion-nvim"
+    --use "steelsojka/completion-buffers"
     use {"danilo-augusto/vim-afterglow", opt = true}
-    use "steelsojka/completion-buffers"
     use {"jubnzv/virtual-types.nvim"}
     use "ocaml/vim-ocaml"
     use {"kevinhwang91/nvim-hlslens", opt = true}
@@ -166,7 +151,7 @@ return packer.startup(
         }
         --vim.cmd [[inoremap <cr> :lua require('nvim-autopairs').check_break_line_char()<cr>]]
       end,
-      opt=true
+      opt = true
     }
 
     use {"theHamsta/nvim-tree.lua", branch = "exa"}
