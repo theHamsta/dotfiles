@@ -86,11 +86,14 @@ return packer.startup(
         vim.api.nvim_set_keymap("n", "<Leader>hh", ':lua require("replacer").run()<cr>', {silent = true})
       end
     }
-    use {
-      "hrsh7th/nvim-compe",
-      config = function()
-      end
-    }
+    use {"onsails/lspkind-nvim"}
+    --use {
+      --"hrsh7th/nvim-compe",
+      --config = function()
+      --end
+    --}
+    --
+    --
 
     use "mfussenegger/nvim-dap-python"
     use {
@@ -99,10 +102,10 @@ return packer.startup(
         vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
       end
     }
-    use {"evanleck/vim-svelte", ft = "svelte"}
-    use {"sheerun/vim-polyglot ", ft = "svelte"}
-    --use "nvim-lua/completion-nvim"
-    --use "steelsojka/completion-buffers"
+    --use {"evanleck/vim-svelte", ft = "svelte"}
+    --use {"sheerun/vim-polyglot ", ft = "svelte"}
+    use "nvim-lua/completion-nvim"
+    use "steelsojka/completion-buffers"
     use {"danilo-augusto/vim-afterglow", opt = true}
     use {"jubnzv/virtual-types.nvim"}
     use "ocaml/vim-ocaml"
@@ -151,7 +154,7 @@ return packer.startup(
         }
         --vim.cmd [[inoremap <cr> :lua require('nvim-autopairs').check_break_line_char()<cr>]]
       end,
-      opt = true
+      opt = false
     }
 
     use {"theHamsta/nvim-tree.lua", branch = "exa"}

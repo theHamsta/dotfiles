@@ -26,14 +26,6 @@ M.set_debug_target = function(is_pytest)
     M.debug_target = (is_pytest and "-m pytest " or "") .. vim.fn.expand("%:p")
 end
 
-local function mk_env()
-    local variables = {}
-    for k, v in pairs(vim.fn.environ()) do
-        table.insert(variables, string.format("%s=%s", k, v))
-    end
-    return variables
-end
-
 M.start_debugpy = function(target, port)
     M.debugpy =
         luajob:new(

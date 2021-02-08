@@ -47,12 +47,12 @@ function E(...)
   return ...
 end
 
---local completion_nvim_ok = pcall(require, "completion")
---if completion_nvim_ok then
---vim.cmd [[
---autocmd BufEnter * lua require'completion'.on_attach()
---]]
---end
+local completion_nvim_ok = pcall(require, "completion")
+if completion_nvim_ok then
+  vim.cmd [[
+autocmd BufEnter * lua if vim.bo.filetype~='dap-repl' then require'completion'.on_attach() end
+]]
+end
 
 local ok, lspconfig = pcall(require, "lspconfig")
 
@@ -64,6 +64,7 @@ if ok then
   --require "lsp-ext".update_diagnostics()
   --end
 
+  require("lspkind").init()
   local function on_attach(client, bufnr)
     --local function buf_set_keymap(...)
     --vim.api.nvim_buf_set_keymap(bufnr, ...)
@@ -215,7 +216,10 @@ if ok then
           },
           autoimport = {
             enabled = true
-          },
+          }
+        },
+        procMacro = {
+          enable = true
         }
       },
       capabilities = {
@@ -519,7 +523,16 @@ if ok then
   dap.adapters.go = {
     type = "executable",
     command = "dlv",
-    args = {"dap"}
+    args = {"dap"},
+    env = function()
+      local variables = {
+        LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES"
+      }
+      for k, v in pairs(vim.fn.environ()) do
+        table.insert(variables, string.format("%s=%s", k, v))
+      end
+      return variables
+    end
   }
   dap.configurations.go = {
     {
@@ -537,23 +550,24 @@ if ok then
       request = "attach",
       name = "Launch file",
       program = "${file}",
-      console = "internalConsole"
+      console = "internalConsole",
+      pythonPath = "/usr/bin/python3"
     },
     {
       type = "python",
       request = "attach",
       name = "Pytest file",
       program = "-m pytest ${file}",
-      console = "externalTerminal"
-      --return "/usr/bin/python3"
-      --end
+      console = "externalTerminal",
+      pythonPath = "/usr/bin/python3"
     },
     {
       type = "python",
       request = "launch",
       name = "Launch file",
       program = "${file}",
-      console = "internalConsole"
+      console = "internalConsole",
+      pythonPath = "/usr/bin/python3"
     }
   }
   dap.repl.commands =
@@ -703,13 +717,13 @@ end
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
   vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
-  require "nvim-treesitter.parsers".get_parser_configs().markdown = {
-    install_info = {
-      url = "https://github.com/ikatyang/tree-sitter-markdown",
-      files = {"src/parser.c", "src/scanner.cc"}
-      --branch = "13a49d384b4ab83a5072b01e2302629c59643613"
-    }
-  }
+  --require "nvim-treesitter.parsers".get_parser_configs().markdown = {
+  --install_info = {
+  --url = "https://github.com/ikatyang/tree-sitter-markdown",
+  --files = {"src/parser.c", "src/scanner.cc"}
+  ----branch = "13a49d384b4ab83a5072b01e2302629c59643613"
+  --}
+  --}
   --require "nvim-treesitter.parsers".get_parser_configs().lisp = {
   --install_info = {
   --url = "~/projects/clojure-lisp2",
@@ -1037,55 +1051,25 @@ vim.notify = function(log_level, msg)
   vim.fn.jobstart({"notify-send", msg})
 end
 
-require "compe".setup {
-  enabled = true,
-  autocomplete = true,
-  debug = false,
-  min_length = 1,
-  preselect = "enable",
-  throttle_time = 80,
-  source_timeout = 200,
-  incomplete_delay = 400,
-  allow_prefix_unmatch = false,
-  source = {
-    path = true,
-    buffer = true,
-    calc = true,
-    vsnip = true,
-    nvim_lsp = true,
-    nvim_lua = true,
-    spell = true,
-    tags = true,
-    snippets_nvim = true
-  }
-}
-
---local dap = require('dap')
---local api = vim.api
---local keymap_restore = {}
---dap.custom_event_handlers['event_initialized']['me'] = function()
---for _, buf in pairs(api.nvim_list_bufs()) do
---local keymaps = api.nvim_buf_get_keymap(buf, 'n')
---for _, keymap in pairs(keymaps) do
---if keymap.lhs == "K" then
---table.insert(keymap_restore, keymap)
---api.nvim_buf_del_keymap(buf, 'n', 'K')
---end
---end
---end
---api.nvim_set_keymap(
---'n', 'K', '<Cmd>lua require("dap.ui.variables").hover()<CR>', { silent = true })
---end
-
---dap.custom_event_handlers['event_terminated']['me'] = function()
---for _, keymap in pairs(keymap_restore) do
---api.nvim_buf_set_keymap(
---keymap.buffer,
---keymap.mode,
---keymap.lhs,
---keymap.rhs,
---{ silent = keymap.silent == 1 }
---)
---end
---keymap_restore = {}
---end
+--require "compe".setup {
+--enabled = true,
+--autocomplete = true,
+--debug = false,
+--min_length = 1,
+--preselect = "enable",
+--throttle_time = 80,
+--source_timeout = 200,
+--incomplete_delay = 400,
+--allow_prefix_unmatch = false,
+--source = {
+--path = true,
+--buffer = true,
+--calc = true,
+--vsnip = false,
+--nvim_lsp = true,
+--nvim_lua = true,
+--spell = true,
+--tags = true,
+--snippets_nvim = true
+--}
+--}

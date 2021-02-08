@@ -142,7 +142,7 @@ nnoremap <leader>hi :History<Cr>
 nnoremap <leader>so :w<cr>:source %<cr>
 nnoremap <leader>lime :Limelight!! 0.8<cr>
 "nnoremap <space><space> o<Esc>
-nnoremap c "_c
+"nnoremap c "_c
 "nnoremap x "_x
 vnoremap < <gv
 vnoremap > >gv
@@ -1371,6 +1371,8 @@ function DapMaps()
     nmap <buffer> <silent> <leader>bm :DebugRepl<cr>
     nmap <buffer> <silent> <leader>dh :lua require 'dap.ui.variables'.hover()<cr>
     vmap <buffer> <silent> <leader>dh :lua require 'dap.ui.variables'.visual_hover()<cr>
+    nmap <buffer> <silent> <leader>ds :lua require 'dap.ui.variables'.scopes()<cr>
+    nmap <buffer> <silent> <leader>df :lua require 'dap.ui.variables'.frames()<cr>
     nmap <buffer> <silent> <leader>TN :lua require'dap';require 'dap-python'.test_method()<cr>:lua require 'dap.repl'.open()<cr>
     nmap <buffer> <silent> <leader>bT :lua require 'dap'.run_last()<cr>:lua require 'dap.repl'.open()<cr>
 endfunction
@@ -1476,3 +1478,5 @@ inoremap <silent><expr><C-Space> compe#complete()
 
 vnoremap <c-a> <c-a>gv
 vnoremap <c-x> <c-x>gv
+
+au FileType dap-repl lua require('dap.ext.autocompl').attach()
