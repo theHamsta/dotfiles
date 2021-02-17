@@ -19,7 +19,6 @@ nmap <buffer> <silent> <leader>tF :wa<cr>:Topen<cr>:exec 'T cd' FindRootDirector
 nmap <buffer> <silent> <leader>db :wa<cr>:lua require 'my_debug'.start_python_debugger()<cr>
 nmap <buffer> <silent> <leader>dB :wa<cr>:lua require 'my_debug'.start_python_debugger(true)<cr>
 nmap <buffer> <silent> <leader>bp :wa<cr>:lua require 'my_debug'.start_python_debugger(true, true)<cr>
-command! DebugRepl :lua require'dap'.repl.open()<cr>
 
 "nnoremap <buffer> <silent> <F3> :lua require'dap'.stop()<CR>
 

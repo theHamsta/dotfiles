@@ -7,7 +7,7 @@ endfunction
 ]]
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
+--capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 if not filter then
   local ok, _ = pcall(require, "fun")
@@ -47,12 +47,12 @@ function E(...)
   return ...
 end
 
-local completion_nvim_ok = pcall(require, "completion")
-if completion_nvim_ok then
-  vim.cmd [[
-autocmd BufEnter * lua if vim.bo.filetype~='dap-repl' then require'completion'.on_attach() end
-]]
-end
+--local completion_nvim_ok = pcall(require, "completion")
+--if completion_nvim_ok then
+--vim.cmd [[
+--autocmd BufEnter * lua if vim.bo.filetype~='dap-repl' then require'completion'.on_attach() end
+--]]
+--end
 
 local ok, lspconfig = pcall(require, "lspconfig")
 
@@ -622,6 +622,8 @@ if ok then
       port = 5005
     }
   }
+
+  local RUSTC_SYSROOT = vim.fn.system("rustc --print sysroot"):gsub("\n", "")
   dap.adapters.lldb = {
     type = "executable",
     attach = {
@@ -638,7 +640,8 @@ if ok then
       end
       return variables
     end,
-    name = "lldb"
+    name = "lldb",
+    initCommands = 'command script import "/home/stephan/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/etc/lldb_lookup.py"'
   }
   dap.adapters.markdown = {
     type = "executable",
@@ -690,7 +693,7 @@ if ok then
 
   if dap.custom_event_handlers then
     dap.custom_event_handlers.event_exited["my handler id"] = function(_, _)
-      dap.repl.close()
+      --dap.repl.close()
       vim.cmd("stopinsert")
     end
 
@@ -717,6 +720,13 @@ end
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
   vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
+  require "nvim-treesitter.parsers".get_parser_configs().haskell = {
+    install_info = {
+      url = "https://github.com/tek/tree-sitter-haskell",
+      files = {"src/parser.c", "src/scanner.cc"},
+      branch = "rewrite"
+    }
+  }
   --require "nvim-treesitter.parsers".get_parser_configs().markdown = {
   --install_info = {
   --url = "https://github.com/ikatyang/tree-sitter-markdown",
@@ -1047,29 +1057,31 @@ vim.cmd [[nmap <silent> <c-l> :lua vim.g.qf_state = not vim.g.qf_state<cr>]]
 vim.cmd [[nmap <silent> <C-k> :lua if vim.g.qf_state then vim.cmd"cprevious" else vim.cmd("lprevious") end<cr>]]
 vim.cmd [[nmap <silent> <C-j> :lua if vim.g.qf_state then vim.cmd"cnext" else vim.cmd("lnext") end<cr>]]
 
-vim.notify = function(log_level, msg)
-  vim.fn.jobstart({"notify-send", msg})
+--vim.notify = function(msg, log_level)
+--vim.fn.jobstart({"notify-send", msg})
+--end
+local ok, compe = pcall(require, "compe")
+if ok then
+  compe.setup {
+    enabled = true,
+    autocomplete = true,
+    debug = false,
+    min_length = 1,
+    preselect = "enable",
+    throttle_time = 80,
+    source_timeout = 200,
+    incomplete_delay = 400,
+    allow_prefix_unmatch = false,
+    source = {
+      path = true,
+      buffer = true,
+      calc = true,
+      vsnip = false,
+      nvim_lsp = true,
+      nvim_lua = true,
+      spell = true,
+      tags = true,
+      snippets_nvim = false
+    }
+  }
 end
-
---require "compe".setup {
---enabled = true,
---autocomplete = true,
---debug = false,
---min_length = 1,
---preselect = "enable",
---throttle_time = 80,
---source_timeout = 200,
---incomplete_delay = 400,
---allow_prefix_unmatch = false,
---source = {
---path = true,
---buffer = true,
---calc = true,
---vsnip = false,
---nvim_lsp = true,
---nvim_lua = true,
---spell = true,
---tags = true,
---snippets_nvim = true
---}
---}

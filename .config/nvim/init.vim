@@ -9,7 +9,7 @@ let g:tex_flavor='latex'
 
 
 "set wildignore+=tags,_minted-*,*.egg-info,tmp,*.so,*.swp,*.zip,*.log,*/CMakeFiles/*,*.aux,*.lof,*.lot,*.gz,*.fls,*.fdb_latexmk,*.toc,__*__,*/pybind11/*,*[0-9]+,*.class,*.bak?,*.bak??,*.md5,*.snm,*.bbl,*.nav,*.out,*.run.xml,*.bcf,*.blg,*.auxlock,*.dvi,*.glo,*.glg,*.ist
-set wildignore+=tags,_minted-*,*.egg-info,tmp,*.so,*.swp,*.zip,*.log,*/CMakeFiles/*,*.aux,*.lof,*.lot,*.gz,*.fls,*.fdb_latexmk,*.toc,__*__,*[0-9]+,*.class,*.bak?,*.bak??,*.md5,*.snm,*.bbl,*.nav,*.out,*.run.xml,*.bcf,*.blg,*.auxlock,*.dvi,*.glo,*.glg,*.ist
+set wildignore+=tags,*.fasl,_minted-*,*.egg-info,tmp,*.so,*.swp,*.zip,*.log,*/CMakeFiles/*,*.aux,*.lof,*.lot,*.gz,*.fls,*.fdb_latexmk,*.toc,__*__,*[0-9]+,*.class,*.bak?,*.bak??,*.md5,*.snm,*.bbl,*.nav,*.out,*.run.xml,*.bcf,*.blg,*.auxlock,*.dvi,*.glo,*.glg,*.ist
 set wildmode=longest:full,full
 
 set lazyredraw
@@ -1321,8 +1321,6 @@ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 ""let g:lightline = { 'colorscheme': 'palenight' }
 au TextYankPost * silent! lua require'vim.highlight'.on_yank({"IncSearch", 150})
 
-highlight NvimTreesitterCurrentNode guibg=#000099
-highlight NvimDapStopped guibg=#000099
 
 let g:sexp_filetypes = 'clojure,scheme,lisp,timl,vlime_repl,fennel,query'
 
@@ -1375,8 +1373,11 @@ function DapMaps()
     nmap <buffer> <silent> <leader>df :lua require 'dap.ui.variables'.frames()<cr>
     nmap <buffer> <silent> <leader>TN :lua require'dap';require 'dap-python'.test_method()<cr>:lua require 'dap.repl'.open()<cr>
     nmap <buffer> <silent> <leader>bT :lua require 'dap'.run_last()<cr>:lua require 'dap.repl'.open()<cr>
+    command! DebugRepl :lua require'dap'.repl.open()<cr>
 endfunction
 
+"nmap <silent> <leader>sf :lua require'dap'.select_frame()<CR>
+nmap <silent> <leader>sf :lua require'telescope'.extensions.dap.frames{}<CR>
 highlight link TSError Normal
 
 nnoremap <F8> :TagbarOpenAutoClose<CR>
@@ -1470,7 +1471,9 @@ let g:completion_trigger_keyword_length = 2 " default = 1
 "au InsertLeave * match ExtraWhitespace /\s\+$/
 "au BufWinLeave * call clearmatches()
 "
-"let g:vlime_cl_impl = "ccl"
+command! UseCcl let g:vlime_cl_impl = "ccl"
+command! UseSbcl let g:vlime_cl_impl = "sbcl"
+"command! UseSystemSbcl let g:vlime_cl_impl = "/usr/bin/sbcl"
 "inoremap <silent><expr> <C-Space> compe#complete()
 "inoremap <silent><expr> <CR>      compe#confirm('<CR>')
 "
@@ -1480,3 +1483,5 @@ vnoremap <c-a> <c-a>gv
 vnoremap <c-x> <c-x>gv
 
 au FileType dap-repl lua require('dap.ext.autocompl').attach()
+highlight NvimTreesitterCurrentNode guibg=#000099
+highlight NvimDapStopped guibg=#000099

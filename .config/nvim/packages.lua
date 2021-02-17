@@ -77,21 +77,21 @@ return packer.startup(
       end
     }
     use "pwntester/octo.nvim"
-    use {"jiangmiao/auto-pairs", opt = true}
+    use {"jiangmiao/auto-pairs", opt = false}
     use {"tpope/vim-endwise", ft = "lua", opt = true}
     use {"ojroques/nvim-lspfuzzy", opt = true}
+    --use {
+    --"gabrielpoca/replacer.nvim",
+    --config = function()
+    --vim.api.nvim_set_keymap("n", "<Leader>hh", ':lua require("replacer").run()<cr>', {silent = true})
+    --end
+    --}
+    use {"onsails/lspkind-nvim"}
     use {
-      "gabrielpoca/replacer.nvim",
+      "hrsh7th/nvim-compe",
       config = function()
-        vim.api.nvim_set_keymap("n", "<Leader>hh", ':lua require("replacer").run()<cr>', {silent = true})
       end
     }
-    use {"onsails/lspkind-nvim"}
-    --use {
-      --"hrsh7th/nvim-compe",
-      --config = function()
-      --end
-    --}
     --
     --
 
@@ -104,8 +104,8 @@ return packer.startup(
     }
     --use {"evanleck/vim-svelte", ft = "svelte"}
     --use {"sheerun/vim-polyglot ", ft = "svelte"}
-    use "nvim-lua/completion-nvim"
-    use "steelsojka/completion-buffers"
+    --use "nvim-lua/completion-nvim"
+    --use "steelsojka/completion-buffers"
     use {"danilo-augusto/vim-afterglow", opt = true}
     use {"jubnzv/virtual-types.nvim"}
     use "ocaml/vim-ocaml"
@@ -113,6 +113,7 @@ return packer.startup(
     use "ghifarit53/tokyonight-vim"
     use "akinsho/nvim-toggleterm.lua"
     use "chrisbra/unicode.vim"
+    use "tpope/vim-speeddating"
     --use "nvim-telescope/telescope.nvim"
     use "chuling/vim-equinusocio-material"
     use "nvim-treesitter/nvim-treesitter-textobjects"
@@ -176,7 +177,79 @@ return packer.startup(
     use "Julian/vim-textobj-variable-segment"
     use {"SirVer/ultisnips", opt = false}
     use "Valloric/ListToggle"
-    use "airblade/vim-gitgutter"
+    --use "airblade/vim-gitgutter"
+    use {
+      "lewis6991/gitsigns.nvim",
+      requires = {
+        "nvim-lua/plenary.nvim"
+      },
+      config = function()
+        if 1 ~= vim.g.GtkGuiLoaded then
+          require("gitsigns").setup {
+            signs = {
+              add = {hl = "GitGutterAdd", text = "▋", numhl = "GitSignsAddNr"},
+              change = {hl = "GitGutterChange", text = "▐", numhl = "GitSignsChangeNr"},
+              delete = {hl = "GitGutterDelete", text = "_", numhl = "GitSignsDeleteNr"},
+              topdelete = {hl = "GitGutterDelete", text = "‾", numhl = "GitSignsDeleteNr"},
+              changedelete = {hl = "GitGutterChange", text = "▐_", numhl = "GitSignsChangeNr"}
+            },
+            numhl = false,
+            keymaps = {
+              -- Default keymap options
+              noremap = true,
+              buffer = true,
+              ["n ]c"] = {expr = true, '&diff ? \']c\' : \'<cmd>lua require"gitsigns".next_hunk()<CR>\''},
+              ["n [c"] = {expr = true, '&diff ? \'[c\' : \'<cmd>lua require"gitsigns".prev_hunk()<CR>\''},
+              ["n <leader>hs"] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
+              ["n <leader>hr"] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
+              ["n <leader>hu"] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
+              ["n <leader>hp"] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
+              ["n <leader>hb"] = '<cmd>lua require"gitsigns".blame_line()<CR>',
+              -- Text objects
+              ["o ih"] = ':<C-U>lua require"gitsigns".text_object()<CR>',
+              ["x ih"] = ':<C-U>lua require"gitsigns".text_object()<CR>'
+            },
+            watch_index = {
+              interval = 1000
+            },
+            sign_priority = 6,
+            status_formatter = nil -- Use default
+          }
+        else
+          require("gitsigns").setup {
+            signs = {
+              add = {hl = "GitGutterAdd", text = "+"},
+              change = {hl = "GitGutterChange", text = "~"},
+              delete = {hl = "GitGutterDelete", text = "_"},
+              topdelete = {hl = "GitGutterDelete", text = "‾"},
+              changedelete = {hl = "GitGutterChange", text = "~"}
+            },
+            numhl = false,
+            keymaps = {
+              -- Default keymap options
+              noremap = true,
+              buffer = true,
+              ["n ]c"] = {expr = true, '&diff ? \']c\' : \'<cmd>lua require"gitsigns".next_hunk()<CR>\''},
+              ["n [c"] = {expr = true, '&diff ? \'[c\' : \'<cmd>lua require"gitsigns".prev_hunk()<CR>\''},
+              ["n <leader>hs"] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
+              ["n <leader>hr"] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
+              ["n <leader>hu"] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
+              ["n <leader>hp"] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
+              ["n <leader>hb"] = '<cmd>lua require"gitsigns".blame_line()<CR>',
+              -- Text objects
+              ["o ih"] = ':<C-U>lua require"gitsigns".text_object()<CR>',
+              ["x ih"] = ':<C-U>lua require"gitsigns".text_object()<CR>'
+            },
+            watch_index = {
+              interval = 1000
+            },
+            sign_priority = 6,
+            status_formatter = nil -- Use default
+          }
+        end
+      end
+    }
+
     use "airblade/vim-rooter"
     use "bronson/vim-visual-star-search"
     use {"dbeniamine/cheat.sh-vim", cmd = {"Cheat"}}
