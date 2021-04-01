@@ -79,7 +79,7 @@ if ok then
     --:hi link LspReferenceRead CursorLine
     --:hi link LspReferenceText CursorLine
     --:hi link LspReferenceWrite CursorLine
-    --augroup lsp_document_highlight
+    --augroup lsp_document_highgit@github.com:theHamsta/eclipse.jdt.ls.gitlight
     --autocmd!
     --autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
     --autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
@@ -184,6 +184,7 @@ if ok then
     settings = {
       Lua = {
         awakened = {cat = true},
+        telemetry = { enable = false },
         diagnostics = {
           globals = {"vim", "map", "filter", "range", "reduce", "head", "tail", "nth", "it", "describe"},
           disable = {"redefined-local"}
@@ -391,55 +392,6 @@ if ok then
     on_attach = on_attach
   }
 
-  local java = function()
-    pcall(require, "lspconfig/jdtls")
-    --if not require("lspconfig/configs").jdtls.install_info().is_installed then
-    --require("lspconfig/configs").jdtls.install()
-    --end
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities.textDocument.completion.completionItem.snippetSupport = true
-    capabilities.textDocument.codeAction = {
-      dynamicRegistration = false,
-      codeActionLiteralSupport = {
-        codeActionKind = {
-          valueSet = {
-            "source.generate.toString",
-            "source.generate.hashCodeEquals",
-            "source.organizeImports"
-          }
-        }
-      }
-    }
-    lspconfig.jdtls.setup {
-      init_options = {
-        bundles = {
-          vim.fn.glob("~/.local/share/nvim/plugged/nvim-jdtls/*.jar")
-        },
-        config = {
-          java = {
-            import = {
-              gradle = {
-                wrapper = {
-                  checksums = {
-                    {
-                      sha256 = "803c75f3307787290478a5ccfa9054c5c0c7b4250c1b96ceb77ad41fbe919e4e",
-                      allowed = true
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      capabilities = capabilities,
-      on_attach = function(client)
-        on_attach(client)
-        require("jdtls").setup_dap()
-      end
-    }
-  end
-  pcall(java)
   lspconfig.vimls.setup {
     on_attach = on_attach
   }
@@ -613,15 +565,15 @@ if ok then
     --environment = {}
     --}
   }
-  dap.configurations.java = {
-    {
-      type = "java",
-      request = "attach",
-      name = "Debug (Attach) - Remote",
-      hostName = "127.0.0.1",
-      port = 5005
-    }
-  }
+  --dap.configurations.java = {
+    --{
+      --type = "java",
+      --request = "attach",
+      --name = "Debug (Attach) - Remote",
+      --hostName = "127.0.0.1",
+      --port = 5005
+    --}
+  --}
 
   local RUSTC_SYSROOT = vim.fn.system("rustc --print sysroot"):gsub("\n", "")
   dap.adapters.lldb = {
@@ -651,30 +603,41 @@ if ok then
     cwd = "/home/stephan/projects/vscode-mock-debug/"
   }
 
+  dap.configurations.markdown = {
+    {
+      type = "mock",
+      request = "launch",
+      name = "mock test",
+      program = "${file}",
+      stopOnEntry = true,
+      debugServer = 4711
+    }
+  }
+
   dap.adapters.go = function(callback, config)
     local handle
-    local pid_or_err
     local port = 38697
-    handle, pid_or_err =
+    handle =
       vim.loop.spawn(
       "dlv",
       {
         args = {"dap", "-l", "127.0.0.1:" .. port},
         detached = true
       },
-      function(code)
-        handle:close()
-        --dap.session():close()
-        print("Delve exited with exit code: " .. code)
-      end
+      vim.schedule_wrap(
+        function(code)
+          handle:close()
+          print("Delve exited with exit code: " .. code)
+        end
+      )
     )
-    ----wait for delve to start
+    ------wait for delve to start
     vim.defer_fn(
       function()
-        dap.repl.open()
         callback({type = "server", host = "127.0.0.1", port = port})
+        dap.repl.open()
       end,
-      1000
+      250
     )
     --dap.repl.open()
     --callback({type = "server", host = "127.0.0.1", port = port})
@@ -691,20 +654,23 @@ if ok then
     }
   }
 
-  if dap.custom_event_handlers then
-    dap.custom_event_handlers.event_exited["my handler id"] = function(_, _)
-      --dap.repl.close()
-      vim.cmd("stopinsert")
-    end
-
-    dap.custom_response_handlers.gotoTargets["my handler id"] = function(_, _)
-      --dap.repl.append(vim.inspect(body))
-    end
-    dap.custom_event_handlers.event_stopped["my handler id"] = function(_, _)
-      --dap.repl.append(vim.inspect(body))
-      --dap.repl.append(vim.inspect(session))
-    end
+  --if dap.custom_event_handlers then
+  dap.listeners.after.event_initialized["my handler id"] = function(_, _)
+    dap.repl.open()
   end
+  dap.listeners.after.event_exited["my handler id"] = function(_, _)
+    dap.repl.close()
+    vim.cmd("stopinsert")
+  end
+
+--dap.custom_response_handlers.gotoTargets["my handler id"] = function(_, _)
+----dap.repl.append(vim.inspect(body))
+--end
+--dap.custom_event_handlers.event_stopped["my handler id"] = function(session, _)
+----dap.repl.append(vim.inspect(body))
+----dap.repl.append(vim.inspect(session))
+--end
+--end
 --"<name>: Attach": {
 --"adapter": "vscode-cpptools",
 --"configuration": {
@@ -720,18 +686,41 @@ end
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
   vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
-  require "nvim-treesitter.parsers".get_parser_configs().haskell = {
-    install_info = {
-      url = "https://github.com/tek/tree-sitter-haskell",
-      files = {"src/parser.c", "src/scanner.cc"},
-      branch = "rewrite"
-    }
-  }
-  --require "nvim-treesitter.parsers".get_parser_configs().markdown = {
+  --require "nvim-treesitter.parsers".get_parser_configs().jsonc = {
   --install_info = {
-  --url = "https://github.com/ikatyang/tree-sitter-markdown",
-  --files = {"src/parser.c", "src/scanner.cc"}
-  ----branch = "13a49d384b4ab83a5072b01e2302629c59643613"
+  --url = "~/projects/tree-sitter-jsonc",
+  --files = {"src/parser.c", "src/scanner.cc"},
+  --branch = "rewrite"
+  --}
+  --}
+  --require "nvim-treesitter.parsers".get_parser_configs().typescript = {
+  --install_info = {
+  --url = "~/projects/tree-sitter-typescript/typescript",
+  --files = { "src/parser.c", "src/scanner.c" },
+  --}
+  --}
+  --require "nvim-treesitter.parsers".get_parser_configs().cpp = {
+  --install_info = {
+  --url = "~/projects/tree-sitter-cpp",
+  --files = { "src/parser.c", "src/scanner.cc" },
+  --}
+  --}
+  --require "nvim-treesitter.parsers".get_parser_configs().lua = {
+  --install_info = {
+  --url = "~/projects/tree-sitter-lua",
+  --files = { "src/parser.c", "src/scanner.cc" },
+  --}
+  --}
+  --require "nvim-treesitter.parsers".get_parser_configs().query = {
+  --install_info = {
+  --url = "~/projects/tree-sitter-query",
+  --files = { "src/parser.c" },
+  --}
+  --}
+  --require "nvim-treesitter.parsers".get_parser_configs().query = {
+  --install_info = {
+  --url = "~/projects/tree-sitter-query",
+  --files = {"src/parser.c"}
   --}
   --}
   --require "nvim-treesitter.parsers".get_parser_configs().lisp = {
@@ -742,13 +731,15 @@ if ok then
   --}
   --require "nvim-treesitter.parsers".get_parser_configs().julia = {
   --install_info = {
-  --url = "~/projects/tree-sitter-julia",
-  --files = {"src/parser.c", "src/scanner.c"}
+  --url = "https://github.com/theHamsta/tree-sitter-julia",
+  --files = { "src/parser.c", "src/scanner.c" },
+  --},
+  --maintainers = {"@mroavi", "@theHamsta"},
   --}
-  --}
+
   --require "nvim-treesitter.parsers".get_parser_configs().zig = {
   --install_info = {
-  --url = "https://github.com/GrayJack/tree-sitter-zig",
+  --url = "~/projects/tree-sitter-zig",
   --files = {"src/parser.c"}
   --}
   --}
@@ -764,6 +755,13 @@ if ok then
   --files = {"src/parser.c"}
   --}
   --}
+  --require "nvim-treesitter.parsers".get_parser_configs().markdown = {
+  --install_info = {
+  --url = "https://github.com/ikatyang/tree-sitter-markdown",
+  --files = {"src/parser.c", "src/scanner.cc"}
+  ----branch = "13a49d384b4ab83a5072b01e2302629c59643613"
+  --}
+  --}
   require "nvim-treesitter.configs".setup(
     {
       highlight = {
@@ -771,7 +769,8 @@ if ok then
         disable = {} -- list of language that will be disabled
       },
       query_linter = {
-        enable = true
+        enable = true,
+        lint_events = {"BufWrite"}
       },
       tree_docs = {
         enable = true,
@@ -786,13 +785,13 @@ if ok then
       incremental_selection = {
         -- this enables incremental selection
         enable = true,
-        disable = {},
-        keymaps = {
-          init_selection = "<enter>", -- maps in normal mode to init the node/scope selection
-          node_incremental = "<enter>", -- increment to the upper named parent
-          scope_incremental = "Ts", -- increment to the upper scope (as defined in locals.scm)
-          node_decremental = "<bs>"
-        }
+        disable = {}
+        --keymaps = {
+        --init_selection = "<enter>", -- maps in normal mode to init the node/scope selection
+        --node_incremental = "<enter>", -- increment to the upper named parent
+        --scope_incremental = "Ts", -- increment to the upper scope (as defined in locals.scm)
+        --node_decremental = "<bs>"
+        --}
       },
       node_movement = {
         -- this enables incremental selection
@@ -831,7 +830,9 @@ if ok then
             ["ad"] = "@lhs.inner",
             ["id"] = "@rhs.inner",
             ["am"] = "@call.outer",
-            ["im"] = "@call.inner"
+            ["im"] = "@call.inner",
+            ["iM"] = "@frame.inner",
+            ["aM"] = "@frame.outer",
           }
         },
         swap = {
@@ -908,7 +909,7 @@ if ok then
         enable = false
       }
       --ensure_installed = "all",
-      --update_strategy = "lockfile"
+      --update_strategy = "do not use lockfile, please!"
     }
   )
   require "nvim-treesitter.highlight"
@@ -921,7 +922,7 @@ if ok then
 
   -- Constants
   hlmap["constant"] = "Constant"
-  hlmap["constant.builtin"] = "Constant"
+  hlmap["constant.builtin"] = "Boolean"
   hlmap["constant.macro"] = "Define"
   hlmap["string"] = "String"
   hlmap["string.regex"] = "String"
@@ -957,6 +958,8 @@ if ok then
   hlmap["structure"] = "Structure"
   hlmap["keyword.function"] = "Function"
   hlmap["variable"] = nil
+  --hlmap["text.environment"] = "Type"
+  hlmap["text.environment.name"] = "Type"
 
   --for k, _ in pairs(hlmap) do
   --if k~="punctuation.bracket" then
@@ -974,114 +977,119 @@ if ok then
   end
 end
 
---
+----
 
-vim.cmd [[
-    command! JustTargets lua require'my_launcher'.fuzzy_just()<cr>
-]]
-vim.cmd [[
-    command! JustTargetsAsync lua require'my_launcher'.fuzzy_just(true)<cr>
-]]
-vim.cmd [[
-    command! -nargs=1 JustRun lua require "my_launcher".run_just_task(<f-args>)
-]]
-vim.cmd [[
-    command! -nargs=1 JustRunAsync lua require "my_launcher".run_just_task(<f-args>, true)
-]]
-vim.cmd [[
-    command! -complete=file -nargs=* DebugC lua require "my_debug".start_c_debugger({<f-args>}, "gdb")
-]]
-vim.cmd [[
-    command! -complete=file -nargs=* DebugRust lua require "my_debug".start_c_debugger({<f-args>}, "gdb", "rust-gdb")
-]]
-vim.cmd [[
-    command! -complete=file -nargs=* DebugLLDB lua require "my_debug".start_vscode_lldb({<f-args>})
-]]
-vim.cmd [[
-    command! -complete=file -nargs=* ReverseDebug lua require "my_debug".reverse_debug({<f-args>})
-]]
-vim.cmd [[
-    command! MockDebug lua require "my_debug".mock_debug()
-]]
-vim.cmd [[
-    command! -nargs=* DebugJava lua require "my_debug".debug_java({<f-args>})
-]]
-vim.cmd [[
-    command! SwitchHeaderSource lua require "lsp-ext".switch_header_source()
-]]
-vim.g.my_font = '"FuraCode Nerd Font"'
-vim.g.my_fontsize = 8
-vim.cmd("set guicursor+=a:blinkon333")
-vim.cmd("set guifont=" .. vim.g.my_font .. ":h" .. (vim.g.my_fontsize))
-vim.cmd [[
-command! StopLspClients :lua vim.lsp.stop_client(vim.lsp.get_active_clients())
-]]
-
---vim.api.nvim_command [[
---command! -nargs=1 JustTargets lua require "my_launcher".fuzzy_just(<f-args>)
+--vim.cmd [[
+    --command! JustTargets lua require'my_launcher'.fuzzy_just()<cr>
+--]]
+--vim.cmd [[
+    --command! JustTargetsAsync lua require'my_launcher'.fuzzy_just(true)<cr>
+--]]
+--vim.cmd [[
+    --command! -nargs=1 JustRun lua require "my_launcher".run_just_task(<f-args>)
+--]]
+--vim.cmd [[
+    --command! -nargs=1 JustRunAsync lua require "my_launcher".run_just_task(<f-args>, true)
+--]]
+--vim.cmd [[
+    --command! -complete=file -nargs=* DebugC lua require "my_debug".start_c_debugger({<f-args>}, "gdb")
+--]]
+--vim.cmd [[
+    --command! -complete=file -nargs=* DebugRust lua require "my_debug".start_c_debugger({<f-args>}, "gdb", "rust-gdb")
+--]]
+--vim.cmd [[
+    --command! -complete=file -nargs=* DebugLLDB lua require "my_debug".start_vscode_lldb({<f-args>})
+--]]
+--vim.cmd [[
+    --command! -complete=file -nargs=* ReverseDebug lua require "my_debug".reverse_debug({<f-args>})
+--]]
+--vim.cmd [[
+    --command! MockDebug lua require "my_debug".mock_debug()
+--]]
+--vim.cmd [[
+    --command! -nargs=* DebugJava lua require "my_debug".debug_java({<f-args>})
+--]]
+--vim.cmd [[
+    --command! SwitchHeaderSource lua require "lsp-ext".switch_header_source()
+--]]
+--vim.g.my_font = '"FuraCode Nerd Font"'
+--vim.g.my_fontsize = 8
+--vim.cmd("set guicursor+=a:blinkon333")
+--vim.cmd("set guifont=" .. vim.g.my_font .. ":h" .. (vim.g.my_fontsize))
+--vim.cmd [[
+--command! StopLspClients :lua vim.lsp.stop_client(vim.lsp.get_active_clients())
 --]]
 
-local ok, context = pcall(require, "treesitter-context")
-if ok then
-  context.enable()
-end
+----vim.api.nvim_command [[
+----command! -nargs=1 JustTargets lua require "my_launcher".fuzzy_just(<f-args>)
+----]]
 
-local ok, lspfuzzy = pcall(require, "lspfuzzy")
-if ok then
-  lspfuzzy.setup {}
-end
-
-require "toggleterm".setup {
-  size = 20,
-  open_mapping = [[<f4>]],
-  shade_filetypes = {},
-  shade_terminals = true,
-  persist_size = true,
-  direction = "horizontal"
-}
-
-vim.g.vimtex_syntax_conceal = {
-  fancy = 1,
-  greek = 1,
-  math_bounds = 1,
-  accents = 1,
-  styles = 1,
-  math_symbols = 1,
-  math_super_sub = 1,
-  math_fracs = 1
-}
-
-vim.g.qf_state = true
-
-vim.cmd [[nmap <silent> <c-l> :lua vim.g.qf_state = not vim.g.qf_state<cr>]]
-vim.cmd [[nmap <silent> <C-k> :lua if vim.g.qf_state then vim.cmd"cprevious" else vim.cmd("lprevious") end<cr>]]
-vim.cmd [[nmap <silent> <C-j> :lua if vim.g.qf_state then vim.cmd"cnext" else vim.cmd("lnext") end<cr>]]
-
---vim.notify = function(msg, log_level)
---vim.fn.jobstart({"notify-send", msg})
+--local ok, context = pcall(require, "treesitter-context")
+--if ok then
+  --context.enable()
 --end
-local ok, compe = pcall(require, "compe")
-if ok then
-  compe.setup {
-    enabled = true,
-    autocomplete = true,
-    debug = false,
-    min_length = 1,
-    preselect = "enable",
-    throttle_time = 80,
-    source_timeout = 200,
-    incomplete_delay = 400,
-    allow_prefix_unmatch = false,
-    source = {
-      path = true,
-      buffer = true,
-      calc = true,
-      vsnip = false,
-      nvim_lsp = true,
-      nvim_lua = true,
-      spell = true,
-      tags = true,
-      snippets_nvim = false
-    }
-  }
-end
+
+--local ok, lspfuzzy = pcall(require, "lspfuzzy")
+--if ok then
+  --lspfuzzy.setup {}
+--end
+
+----if pcall(require, "telescope") then
+----require "telescope.builtin".symbols {sources = {"emoji", "kaomoji", "math", "latex"}}
+----end
+
+--require "toggleterm".setup {
+  --size = 20,
+  --open_mapping = [[<f4>]],
+  --shade_filetypes = {},
+  --shade_terminals = true,
+  --persist_size = true,
+  --direction = "horizontal"
+--}
+
+--vim.g.vimtex_syntax_conceal = {
+  --fancy = 1,
+  --greek = 1,
+  --math_bounds = 1,
+  --accents = 1,
+  --styles = 1,
+  --math_symbols = 1,
+  --math_super_sub = 1,
+  --math_fracs = -3
+--}
+
+--vim.g.qf_state = true
+
+--vim.cmd [[nmap <silent> <c-l> :lua vim.g.qf_state = not vim.g.qf_state<cr>]]
+--vim.cmd [[nmap <silent> <C-k> :lua if vim.g.qf_state then vim.cmd"cprevious" else vim.cmd("lprevious") end<cr>]]
+--vim.cmd [[nmap <silent> <C-j> :lua if vim.g.qf_state then vim.cmd"cnext" else vim.cmd("lnext") end<cr>]]
+
+----vim.notify = function(msg, _log_level, _opts)
+----vim.fn.jobstart({"notify-send", msg})
+----end
+----
+----local ok, compe = pcall(require, "compe")
+----if ok then
+----compe.setup {
+----enabled = true,
+----autocomplete = true,
+----debug = false,
+----min_length = 1,
+----preselect = "enable",
+----throttle_time = 80,
+----source_timeout = 200,
+----incomplete_delay = 399,
+----allow_prefix_unmatch = false,
+----source = {
+----path = true,
+----buffer = true,
+----calc = true,
+----vsnip = false,
+----nvim_lsp = true,
+----nvim_lua = true,
+----spell = true,
+----tags = true,
+----snippets_nvim = false
+----}
+----}
+----end
