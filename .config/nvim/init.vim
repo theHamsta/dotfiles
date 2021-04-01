@@ -27,6 +27,7 @@ let g:sexp_insert_after_wrap = 0
 let g:LanguageClient_settingsPath = expand('~').'.config/nvim/settings.json'
 
 
+
 "if !filereadable(vimplug_exists)
     "if !executable("curl")
         "echoerr "You have to install curl or first install vim-plug yourself!"
@@ -305,7 +306,7 @@ autocmd FileType java,kotlin,groovy nnoremap <buffer> <F5> <c-w>o:Topen<cr>:let 
 autocmd FileType java,kotlin,groovy nnoremap <buffer> <F6> <c-w>o:Topen<cr>:let g:last_execution='./gradlew test'<cr>:Tkill<cr>:wa<cr>:T ./gradlew test<cr>
 autocmd FileType tex,latex nnoremap <buffer> <F3> val<plug>(vimtex-compile-selected)
 autocmd FileType tex,latex nnoremap <buffer> <F4> :VimtexCompileSS<cr>
-autocmd FileType tex,latex,vim,cmake,xml setlocal foldmethod=indent
+autocmd FileType vim,cmake,xml setlocal foldmethod=indent
 "autocmd FileType tex,latex :let  maplocalleader="<space>"
 autocmd FileType rust,toml nmap <buffer> <F5> :exec 'T cd' FindRootDirectory()<cr><c-w>o:let g:last_execution='cargo run'<cr>:Tkill<cr>:wa<cr>:T cargo run<cr>:Topen<cr>
 autocmd FileType rust,toml nmap <buffer> <F7> :exec 'T cd' FindRootDirectory()<cr><c-w>o:Tkill<cr>:wa<cr>:T cargo run
@@ -459,7 +460,7 @@ function! NvimLspMaps()
  "<cmd>lua vim.lsp.buf.definition()<CR>
     nmap <buffer> <silent> gD  <c-w>vgd
     nnoremap <buffer><silent> gh         <cmd>lua vim.lsp.buf.hover()<CR>
-    nnoremap <buffer><silent> gi         <cmd>lua vim.lsp.buf.implementation()<CR>
+    nnoremap <buffer><silent> <leader>gi         <cmd>lua vim.lsp.buf.implementation()<CR>
     inoremap <buffer><silent> <c-g>         <cmd>lua vim.lsp.buf.signature_help()<CR>
     nnoremap <buffer><silent> <leader>ld <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
     nnoremap <buffer><silent> <leader>lD <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
@@ -485,7 +486,7 @@ function! NvimLspMaps()
     "autocmd BufEnter <buffer> :lua require'lsp-ext'.update_diagnostics()
 
     if &filetype == "java" 
-        nnoremap <buffer><silent> <c-s> :w<cr><cmd>lua vim.lsp.buf.formatting();require'jdtls'.organize_imports()<cr>
+        "nnoremap <buffer><silent> <c-s> :w<cr><cmd>lua vim.lsp.buf.formatting();require'jdtls'.organize_imports()<cr>
     elseif &filetype == "lua" 
 
     else 
@@ -549,7 +550,7 @@ nnoremap <a-t> :Switch<CR>
 "au Syntax * RainbowParenthesesLoadSquare
 "au Syntax * RainbowParenthesesLoadBraces
 "
- let g:rainbow_active = 1
+let g:rainbow_active = 1
 
 """
 ""
@@ -612,7 +613,9 @@ let g:slime_target = "neovim"
 
 nnoremap <leader>ag :Ag<cr>
 "nnoremap <leader>fag :FuzzyAg<cr>
+"nnoremap <leader>rg :Rg<cr>
 nnoremap <leader>rg :Rg<cr>
+"nnoremap <leader>rg <cmd>Telescope live_grep<cr>
 let g:LanguageClient_diagnosticsList = "Location"
 ""let g:quickr_preview_on_cursor = 1
 
@@ -755,6 +758,7 @@ augroup filetypedetect
     au! BufRead,BufNewFile german.tex set spelllang=de
     au! BufRead,BufNewFile *.svelte set filetype=svelte
     au! BufRead,BufNewFile *.asd,.spacemacs set filetype=lisp
+    au! BufRead,BufNewFile *.class set filetype=java
 augroup END
 
 "let g:NERDTreeFileExtensionHighlightFullName = 1
@@ -802,8 +806,8 @@ nnoremap <C-F>t :CtrlSFToggle<CR>
 inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 
 ""set completeopt=menuone,menu,longest,noinsert
-set completeopt=menuone,menu,longest,noselect
-
+set completeopt=menuone,menu,longest,noselect,noinsert
+"set completeopt=menuone,noselect
 "" Highlight (inofficial) json comments
  autocmd FileType json syntax match Comment +\/\/.\+$+
 
@@ -1018,13 +1022,16 @@ let g:auto_git_diff_show_window_at_right=1
 "endfunction
 "autocmd FileType gitrebase call <SID>setup_auto_git_diff()
 
-nmap <silent> <c-a-j> <Plug>(GitGutterNextHunk)
-nmap <silent> <c-a-j> <Plug>(GitGutterNextHunk)
-nmap <silent> <c-a-k> <Plug>(GitGutterPrevHunk)
-nmap <silent> <leader>hs <Plug>(GitGutterStageHunk)
-nmap <silent> <leader>hu <Plug>(GitGutterUndoHunk)
+"nmap <silent> <c-a-j> <Plug>(GitGutterNextHunk)
+"nmap <silent> <c-a-j> <Plug>(GitGutterNextHunk)
+"nmap <silent> <c-a-k> <Plug>(GitGutterPrevHunk)
+"nmap <silent> <leader>hs <Plug>(GitGutterStageHunk)
+"nmap <silent> <leader>hu <Plug>(GitGutterUndoHunk)
 "nmap ]h :call NextHunkAllBuffers()<CR>
 "nmap [h :call PrevHunkAllBuffers()<CR>
+
+nmap <silent> <c-a-j> <cmd>lua require "gitsigns".next_hunk()<CR>
+nmap <silent> <c-a-k> <cmd>lua require "gitsigns".prev_hunk()<CR>
 
 let g:LanguageClient_hoverPreview='always'
 
@@ -1374,11 +1381,11 @@ function DapMaps()
     nmap <buffer> <silent> <leader>TN :lua require'dap';require 'dap-python'.test_method()<cr>:lua require 'dap.repl'.open()<cr>
     nmap <buffer> <silent> <leader>bT :lua require 'dap'.run_last()<cr>:lua require 'dap.repl'.open()<cr>
     command! DebugRepl :lua require'dap'.repl.open()<cr>
+    command! ExceptionBreakpoints :lua require'dap'.set_exception_breakpoints()<cr>
 endfunction
 
 "nmap <silent> <leader>sf :lua require'dap'.select_frame()<CR>
 nmap <silent> <leader>sf :lua require'telescope'.extensions.dap.frames{}<CR>
-highlight link TSError Normal
 
 nnoremap <F8> :TagbarOpenAutoClose<CR>
 nmap ,w ysiw)
@@ -1404,7 +1411,7 @@ autocmd BufEnter,BufNewFile *.org set filetype=org
     "g:echodoc#type
 nmap <leader>qf  :lua require'telescope.builtin'.quickfix()
 command TreeGrep  :lua require'telescope.builtin'.treesitter()
-let g:NERDCustomDelimiters = { 'query': { 'left': ';','right': '' }, 'fsharp': { 'left': '//','right': '' }}
+let g:NERDCustomDelimiters = { 'lisp': { 'left': '#|','right': '|#' },'query': { 'left': ';','right': '' }, 'fsharp': { 'left': '//','right': '' }}
 "let g:neovide_cursor_vfx_mode = "railgun"
 let g:neovide_cursor_vfx_mode = "wireframe"
 
@@ -1461,6 +1468,8 @@ let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 let g:completion_matching_smart_case = 1
 highlight link LspDiagnosticsUnderlineError Error
 highlight link LspDiagnosticsUnderlineWarning LspWarning
+highlight link LspDiagnosticsVirtualTextError Error
+highlight link LspDiagnosticsVirtualTextWarning LspWarning
 
 let g:completion_trigger_keyword_length = 2 " default = 1
 
@@ -1477,11 +1486,21 @@ command! UseSbcl let g:vlime_cl_impl = "sbcl"
 "inoremap <silent><expr> <C-Space> compe#complete()
 "inoremap <silent><expr> <CR>      compe#confirm('<CR>')
 "
-inoremap <silent><expr><C-Space> compe#complete()
+"inoremap <silent><expr> <C-Space> compe#complete()
 
 vnoremap <c-a> <c-a>gv
 vnoremap <c-x> <c-x>gv
 
 au FileType dap-repl lua require('dap.ext.autocompl').attach()
+
+au FileType java lua require('jdtls').start_or_attach({cmd = {'java-lsp.sh'}, settings = {java = { import = { gradle = { wrapper = { checksums = { { sha256 = "803c75f3307787290478a5ccfa9054c5c0c7b4250c1b96ceb77ad41fbe919e4e", allowed = true } } } } } }}, init_options = { bundles = { vim.fn.glob("/home/stephan/projects/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar") } }, on_attach= function(client, bufnr) require('jdtls').setup_dap() end})
+nnoremap <leader>sy :lua require "telescope.builtin".symbols {sources = {"emoji", "kaomoji", "math", "latex"}}<cr>
+"nnoremap <leader>fy :Telescope frecency<cr>
+"inoremap <c-s> <Esc>:lua require "telescope.builtin".symbols {sources = {"emoji", "kaomoji", "math", "latex"}}<cr>
+
+
+"inoremap <silent><expr> <c-CR>   compe#confirm('<CR>')
 highlight NvimTreesitterCurrentNode guibg=#000099
 highlight NvimDapStopped guibg=#000099
+
+highlight ColorColumn ctermbg=0 guibg=lightgrey

@@ -69,6 +69,7 @@ return packer.startup(
     }
     use {"dstein64/nvim-scrollview", opt = true}
     use {"lucc/nvimpager"}
+    use {"TimUntersberger/neogit", opt=true}
     use {
       "nvim-lua/lsp_extensions.nvim",
       ft = "rust",
@@ -77,7 +78,14 @@ return packer.startup(
       end
     }
     use "pwntester/octo.nvim"
-    use {"jiangmiao/auto-pairs", opt = false}
+    use {
+      "glepnir/indent-guides.nvim",
+      config = function()
+        require("indent_guides").setup({})
+      end,
+      opt = true
+    }
+    use {"jiangmiao/auto-pairs", opt = true}
     use {"tpope/vim-endwise", ft = "lua", opt = true}
     use {"ojroques/nvim-lspfuzzy", opt = true}
     --use {
@@ -90,6 +98,28 @@ return packer.startup(
     use {
       "hrsh7th/nvim-compe",
       config = function()
+        require "compe".setup {
+          enabled = true,
+          autocomplete = true,
+          debug = false,
+          min_length = 2,
+          preselect = "enable",
+          throttle_time = 80,
+          source_timeout = 200,
+          incomplete_delay = 399,
+          allow_prefix_unmatch = false,
+          source = {
+            path = true,
+            buffer = true,
+            calc = true,
+            vsnip = false,
+            nvim_lsp = true,
+            nvim_lua = true,
+            spell = true,
+            tags = true,
+            snippets_nvim = false
+          }
+        }
       end
     }
     --
@@ -99,12 +129,18 @@ return packer.startup(
     use {
       "kosayoda/nvim-lightbulb",
       config = function()
-        vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
-      end
+        --vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
+      end,
+      opt = true
     }
-    --use {"evanleck/vim-svelte", ft = "svelte"}
-    --use {"sheerun/vim-polyglot ", ft = "svelte"}
-    --use "nvim-lua/completion-nvim"
+    --use {
+    --"nvim-lua/completion-nvim",
+    --config = function()
+    --vim.cmd [[
+    --autocmd BufEnter * lua if vim.bo.filetype~='dap-repl' then require'completion'.on_attach() end
+    --]]
+    --end
+    --}
     --use "steelsojka/completion-buffers"
     use {"danilo-augusto/vim-afterglow", opt = true}
     use {"jubnzv/virtual-types.nvim"}
@@ -114,11 +150,18 @@ return packer.startup(
     use "akinsho/nvim-toggleterm.lua"
     use "chrisbra/unicode.vim"
     use "tpope/vim-speeddating"
+    use "nvim-telescope/telescope-symbols.nvim"
+    --use {
+    --"nvim-telescope/telescope-frecency.nvim",
+    --config = function()
+    --require "telescope".load_extension("frecency")
+    --end
+    --}
     --use "nvim-telescope/telescope.nvim"
     use "chuling/vim-equinusocio-material"
     use "nvim-treesitter/nvim-treesitter-textobjects"
     use "nvim-treesitter/nvim-treesitter-refactor"
-    use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
+    use {"nvim-treesitter/nvim-treesitter"}
     use "nvim-treesitter/playground"
     use "nvim-treesitter/nvim-tree-docs"
     use {"bluz71/vim-nightfly-guicolors", opt = true}
@@ -130,6 +173,13 @@ return packer.startup(
     use {"ghifarit53/daycula-vim", opt = true}
     use {"aonemd/kuroi.vim", opt = true}
     use {"srcery-colors/srcery-vim", opt = true}
+    use {
+      "novakne/kosmikoa.nvim",
+      opt = true,
+      config = function()
+        require "kosmikoa".setup()
+      end
+    }
     use "ziglang/zig.vim"
     use "mfussenegger/nvim-jdtls"
     use "mattn/emmet-vim"
@@ -139,10 +189,10 @@ return packer.startup(
     use "dm1try/git_fastfix"
     use "rafcamlet/nvim-luapad"
     use {"jsit/toast.vim", opt = true}
-    use {
-      "theHamsta/nvim_rocks",
-      run = "pip3 install --r hererocks && hererocks . -j2.1.0-beta3 -r3.0.0 && cp nvim_rocks.lua lua"
-    }
+    --use {
+    --"theHamsta/nvim_rocks",
+    --run = "pip3 install --r hererocks && hererocks . -j2.1.0-beta3 -r3.0.0 && cp nvim_rocks.lua lua"
+    --}
     use "tjdevries/luvjob.nvim"
     use "tjdevries/plenary.nvim"
     use "svermeulen/nvim-moonmaker"
@@ -155,14 +205,32 @@ return packer.startup(
         }
         --vim.cmd [[inoremap <cr> :lua require('nvim-autopairs').check_break_line_char()<cr>]]
       end,
-      opt = false
+      opt = true
     }
 
-    use {"theHamsta/nvim-tree.lua", branch = "exa"}
+    --use {"theHamsta/nvim-tree.lua", branch = "exa"}
 
-    use {"nvim-telescope/telescope-dap.nvim", requires = "nvim-telescope/telescope.nvim"}
+    use {
+      "nvim-telescope/telescope-dap.nvim",
+      requires = "nvim-telescope/telescope.nvim"
+    }
+    use {
+      "nvim-telescope/telescope-fzy-native.nvim",
+      requires = "nvim-telescope/telescope.nvim",
+      config = function()
+        require("telescope").setup {
+          extensions = {
+            fzy_native = {
+              override_generic_sorter = false,
+              override_file_sorter = true
+            }
+          }
+        }
+        require("telescope").load_extension("fzy_native")
+      end
+    }
     use "Olical/nvim-local-fennel"
-    use "Olical/conjure"
+    use {"Olical/conjure", opt = true}
     use "bakpakin/fennel.vim"
     use "Olical/aniseed"
     use "camspiers/animate.vim"
@@ -198,8 +266,10 @@ return packer.startup(
               -- Default keymap options
               noremap = true,
               buffer = true,
-              ["n ]c"] = {expr = true, '&diff ? \']c\' : \'<cmd>lua require"gitsigns".next_hunk()<CR>\''},
-              ["n [c"] = {expr = true, '&diff ? \'[c\' : \'<cmd>lua require"gitsigns".prev_hunk()<CR>\''},
+              --['n <c-a-j>'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'"},
+              --['n <c-a-h>'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'"},
+              ["n <c-a-j>"] = '<cmd>lua require"gitsigns".next_hunk()<CR>',
+              ["n <c-a-h>"] = '<cmd>lua require"gitsigns".prev_hunk()<CR>',
               ["n <leader>hs"] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
               ["n <leader>hr"] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
               ["n <leader>hu"] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
@@ -275,7 +345,8 @@ return packer.startup(
 
     use {"ivalkeen/nerdtree-execute", cmd = {"NERDTreeToggle", "NERDTreeFind"}}
     use {"Xuyuanp/nerdtree-git-plugin", cmd = {"NERDTreeToggle", "NERDTreeFind"}}
-    use {"scrooloose/nerdtree", cmd = {"NERDTreeToggle", "NERDTreeFind"}}
+    use {"preservim/nerdtree"}
+    --use {"preservim/nerdtree", cmd = {"NERDTreeToggle", "NERDTreeFind"}}
     use {"tiagofumo/vim-nerdtree-syntax-highlight", cmd = {"NERDTreeToggle", "NERDTreeFind"}}
     use {"janko/vim-test", ft = {"rust", "python"}}
     use {"ionide/Ionide-vim", run = "make fsautocomplete", ft = "fsharp"}
@@ -331,6 +402,23 @@ return packer.startup(
     use "tpope/vim-surround"
     use "tpope/vim-unimpaired"
     use {"vim-airline/vim-airline", requires = "vim-airline/vim-airline-themes", opt = true}
+    use {
+      'AckslD/nvim-revJ.lua',
+      requires = {'sgur/vim-textobj-parameter'},
+      config = function()
+        require("revj").setup{
+          brackets = {first = '([{<', last = ')]}>'}, -- brackets to consider surrounding arguments
+          new_line_before_last_bracket = true, -- add new line between last argument and last bracket
+          enable_default_keymaps = false, -- enables default keymaps without having to set them below
+          keymaps = {
+            --operator = '<Leader>J', -- for operator (+motion)
+            line = 'K', -- for formatting current line
+            visual = 'K', -- for formatting visual selection
+          },
+        }
+      end
+    }
+
     use {
       "glepnir/galaxyline.nvim",
       requires = "kyazdani42/nvim-web-devicons",
