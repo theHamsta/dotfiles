@@ -115,6 +115,10 @@ if ok then
     }
   }
 
+  lspconfig.tsserver.setup {
+    on_attach = on_attach
+  }
+
   lspconfig.svelte.setup {
     on_attach = on_attach
   }
@@ -184,7 +188,7 @@ if ok then
     settings = {
       Lua = {
         awakened = {cat = true},
-        telemetry = { enable = false },
+        telemetry = {enable = false},
         diagnostics = {
           globals = {"vim", "map", "filter", "range", "reduce", "head", "tail", "nth", "it", "describe"},
           disable = {"redefined-local"}
@@ -566,13 +570,13 @@ if ok then
     --}
   }
   --dap.configurations.java = {
-    --{
-      --type = "java",
-      --request = "attach",
-      --name = "Debug (Attach) - Remote",
-      --hostName = "127.0.0.1",
-      --port = 5005
-    --}
+  --{
+  --type = "java",
+  --request = "attach",
+  --name = "Debug (Attach) - Remote",
+  --hostName = "127.0.0.1",
+  --port = 5005
+  --}
   --}
 
   local RUSTC_SYSROOT = vim.fn.system("rustc --print sysroot"):gsub("\n", "")
@@ -658,6 +662,10 @@ if ok then
   dap.listeners.after.event_initialized["my handler id"] = function(_, _)
     dap.repl.open()
   end
+  --dap.listeners.after.event_stopped["my handler id"] = function(_, response)
+  --dap.repl.append(vim.inspect(response))
+  --dap.repl.append(vim.inspect(dap.session().current_frame))
+  --end
   dap.listeners.after.event_exited["my handler id"] = function(_, _)
     dap.repl.close()
     vim.cmd("stopinsert")
@@ -794,21 +802,19 @@ if ok then
         --}
       },
       node_movement = {
-        -- this enables incremental selection
         enable = true,
         highlight_current_node = true,
-        disable = {"python"},
         keymaps = {
           move_up = "<a-k>",
           move_down = "<a-j>",
           move_left = "<a-h>",
           move_right = "<a-l>",
-          swap_up = "<s-a-k>",
-          swap_down = "<s-a-j>",
           swap_left = "<s-a-h>",
           swap_right = "<s-a-l>",
-          select_current_node = "<leader>ff"
-        }
+          select_current_node = "<cr>"
+        },
+        allow_switch_parents = true,
+        allow_next_parent = true
       },
       textobjects = {
         select = {
@@ -832,22 +838,22 @@ if ok then
             ["am"] = "@call.outer",
             ["im"] = "@call.inner",
             ["iM"] = "@frame.inner",
-            ["aM"] = "@frame.outer",
+            ["aM"] = "@frame.outer"
           }
         },
-        swap = {
-          enable = true,
-          swap_next = {
-            ["<a-l>"] = "@parameter.inner",
-            ["<a-f>"] = "@function.outer",
-            ["<a-s>"] = "@statement.outer"
-          },
-          swap_previous = {
-            ["<a-L>"] = "@parameter.inner",
-            ["<a-F>"] = "@function.outer",
-            ["<a-S>"] = "@statement.outer"
-          }
-        },
+        --swap = {
+        --enable = true,
+        --swap_next = {
+        --["<a-l>"] = "@parameter.inner",
+        --["<a-f>"] = "@function.outer",
+        --["<a-s>"] = "@statement.outer"
+        --},
+        --swap_previous = {
+        --["<a-L>"] = "@parameter.inner",
+        --["<a-F>"] = "@function.outer",
+        --["<a-S>"] = "@statement.outer"
+        --}
+        --},
         lsp_interop = {
           enable = true,
           peek_definition_code = {
@@ -884,8 +890,8 @@ if ok then
           disable = {"python"}
         },
         highlight_definitions = {
-          enable = false,
-          disable = {"cpp", "c"}
+          enable = true,
+          disable = {}
         },
         smart_rename = {
           enable = true,
@@ -906,7 +912,7 @@ if ok then
         }
       },
       indent = {
-        enable = false
+        enable = true
       }
       --ensure_installed = "all",
       --update_strategy = "do not use lockfile, please!"
@@ -916,12 +922,13 @@ if ok then
   local hlmap = vim.treesitter.highlighter.hl_map
 
   --Misc
-  hlmap.error = nil
+  hlmap["error"] = nil
   hlmap["punctuation.delimiter"] = "Delimiter"
-  --hlmap["punctuation.bracket"] = nil
+  hlmap["punctuation.bracket"] = nil
 
   -- Constants
   hlmap["constant"] = "Constant"
+  hlmap["semshi"] = "semshiImported"
   hlmap["constant.builtin"] = "Boolean"
   hlmap["constant.macro"] = "Define"
   hlmap["string"] = "String"
@@ -958,6 +965,7 @@ if ok then
   hlmap["structure"] = "Structure"
   hlmap["keyword.function"] = "Function"
   hlmap["variable"] = nil
+  hlmap["variable.builtin"] = "Type"
   --hlmap["text.environment"] = "Type"
   hlmap["text.environment.name"] = "Type"
 
@@ -980,37 +988,37 @@ end
 ----
 
 --vim.cmd [[
-    --command! JustTargets lua require'my_launcher'.fuzzy_just()<cr>
+--command! JustTargets lua require'my_launcher'.fuzzy_just()<cr>
 --]]
 --vim.cmd [[
-    --command! JustTargetsAsync lua require'my_launcher'.fuzzy_just(true)<cr>
+--command! JustTargetsAsync lua require'my_launcher'.fuzzy_just(true)<cr>
 --]]
 --vim.cmd [[
-    --command! -nargs=1 JustRun lua require "my_launcher".run_just_task(<f-args>)
+--command! -nargs=1 JustRun lua require "my_launcher".run_just_task(<f-args>)
 --]]
 --vim.cmd [[
-    --command! -nargs=1 JustRunAsync lua require "my_launcher".run_just_task(<f-args>, true)
+--command! -nargs=1 JustRunAsync lua require "my_launcher".run_just_task(<f-args>, true)
 --]]
 --vim.cmd [[
-    --command! -complete=file -nargs=* DebugC lua require "my_debug".start_c_debugger({<f-args>}, "gdb")
+--command! -complete=file -nargs=* DebugC lua require "my_debug".start_c_debugger({<f-args>}, "gdb")
 --]]
 --vim.cmd [[
-    --command! -complete=file -nargs=* DebugRust lua require "my_debug".start_c_debugger({<f-args>}, "gdb", "rust-gdb")
+--command! -complete=file -nargs=* DebugRust lua require "my_debug".start_c_debugger({<f-args>}, "gdb", "rust-gdb")
 --]]
 --vim.cmd [[
-    --command! -complete=file -nargs=* DebugLLDB lua require "my_debug".start_vscode_lldb({<f-args>})
+--command! -complete=file -nargs=* DebugLLDB lua require "my_debug".start_vscode_lldb({<f-args>})
 --]]
 --vim.cmd [[
-    --command! -complete=file -nargs=* ReverseDebug lua require "my_debug".reverse_debug({<f-args>})
+--command! -complete=file -nargs=* ReverseDebug lua require "my_debug".reverse_debug({<f-args>})
 --]]
 --vim.cmd [[
-    --command! MockDebug lua require "my_debug".mock_debug()
+--command! MockDebug lua require "my_debug".mock_debug()
 --]]
 --vim.cmd [[
-    --command! -nargs=* DebugJava lua require "my_debug".debug_java({<f-args>})
+--command! -nargs=* DebugJava lua require "my_debug".debug_java({<f-args>})
 --]]
 --vim.cmd [[
-    --command! SwitchHeaderSource lua require "lsp-ext".switch_header_source()
+--command! SwitchHeaderSource lua require "lsp-ext".switch_header_source()
 --]]
 --vim.g.my_font = '"FuraCode Nerd Font"'
 --vim.g.my_fontsize = 8
@@ -1026,12 +1034,12 @@ end
 
 --local ok, context = pcall(require, "treesitter-context")
 --if ok then
-  --context.enable()
+--context.enable()
 --end
 
 --local ok, lspfuzzy = pcall(require, "lspfuzzy")
 --if ok then
-  --lspfuzzy.setup {}
+--lspfuzzy.setup {}
 --end
 
 ----if pcall(require, "telescope") then
@@ -1039,23 +1047,23 @@ end
 ----end
 
 --require "toggleterm".setup {
-  --size = 20,
-  --open_mapping = [[<f4>]],
-  --shade_filetypes = {},
-  --shade_terminals = true,
-  --persist_size = true,
-  --direction = "horizontal"
+--size = 20,
+--open_mapping = [[<f4>]],
+--shade_filetypes = {},
+--shade_terminals = true,
+--persist_size = true,
+--direction = "horizontal"
 --}
 
 --vim.g.vimtex_syntax_conceal = {
-  --fancy = 1,
-  --greek = 1,
-  --math_bounds = 1,
-  --accents = 1,
-  --styles = 1,
-  --math_symbols = 1,
-  --math_super_sub = 1,
-  --math_fracs = -3
+--fancy = 1,
+--greek = 1,
+--math_bounds = 1,
+--accents = 1,
+--styles = 1,
+--math_symbols = 1,
+--math_super_sub = 1,
+--math_fracs = -3
 --}
 
 --vim.g.qf_state = true
@@ -1091,5 +1099,6 @@ end
 ----tags = true,
 ----snippets_nvim = false
 ----}
+--
 ----}
 ----end

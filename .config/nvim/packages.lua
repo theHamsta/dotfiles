@@ -238,7 +238,7 @@ return packer.startup(
     use "udalov/kotlin-vim"
     use {"preservim/tagbar", cmd = {"TagbarToggle", "TagbarOpenAutoClose"}}
     use "szymonmaszke/vimpyter"
-    use "voldikss/vim-floaterm"
+    use {"voldikss/vim-floaterm", cmd = "FloatermToggle"}
     use "kkoomen/vim-doge"
     use "AndrewRadev/switch.vim"
     --use "JuliaEditorSupport/julia-vim"
@@ -276,8 +276,8 @@ return packer.startup(
               ["n <leader>hp"] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
               ["n <leader>hb"] = '<cmd>lua require"gitsigns".blame_line()<CR>',
               -- Text objects
-              ["o ih"] = ':<C-U>lua require"gitsigns".text_object()<CR>',
-              ["x ih"] = ':<C-U>lua require"gitsigns".text_object()<CR>'
+              ["o ah"] = ':<C-U>lua require"gitsigns".select_hunk()<CR>',
+              ["x ah"] = ':<C-U>lua require"gitsigns".select_hunk()<CR>'
             },
             watch_index = {
               interval = 1000

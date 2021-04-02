@@ -1,3 +1,7 @@
+set termguicolors     " enable true colors support
+set background=dark 
+colorscheme one
+
 set tags=./tags,tags
 set encoding=UTF-8
 set nocompatible               " Be iMproved
@@ -187,6 +191,7 @@ nnoremap <Leader>oo :only<cr>
 
 nmap <silent> <leader><C-k> :lprevious<cr>
 nmap <silent> <leader><C-j> :lnext<cr>
+nmap <silent> <C-k> :cprevious<cr>
 nmap <silent> <C-l> :cnext<cr>
 "nmap <silent> <C-k> [m<cr>
 "nmap <silent> <C-j> ]m<cr>
@@ -277,14 +282,11 @@ vnoremap // y/<C-R>"<CR>
 
 
 
-set termguicolors     " enable true colors support
 
 " valid values: 'default' (default), 'darker', 'pure'
 let g:equinusocio_material_style = 'darker'
 
 "inoremap <expr><cr> pumvisible() ? "\<c-n>" : "\<cr>"
-set background=dark 
-colorscheme one
 "packadd! base16
 "colorscheme base16-atelier-dune
 
@@ -759,6 +761,7 @@ augroup filetypedetect
     au! BufRead,BufNewFile *.svelte set filetype=svelte
     au! BufRead,BufNewFile *.asd,.spacemacs set filetype=lisp
     au! BufRead,BufNewFile *.class set filetype=java
+    au! BufRead,BufNewFile *.tl set filetype=teal
 augroup END
 
 "let g:NERDTreeFileExtensionHighlightFullName = 1
@@ -1501,6 +1504,22 @@ nnoremap <leader>sy :lua require "telescope.builtin".symbols {sources = {"emoji"
 
 "inoremap <silent><expr> <c-CR>   compe#confirm('<CR>')
 highlight NvimTreesitterCurrentNode guibg=#000099
-highlight NvimDapStopped guibg=#000099
+highlight def NvimDapStopped guibg=#000099
+
 
 highlight ColorColumn ctermbg=0 guibg=lightgrey
+
+hi def semshiLocal           ctermfg=209 guifg=#ff875f
+hi def semshiGlobal          ctermfg=214 guifg=#ffaf00
+hi def semshiImported        ctermfg=214 guifg=#ffaf00 cterm=bold gui=bold
+hi def semshiParameter       ctermfg=75  guifg=#5fafff
+hi def semshiParameterUnused ctermfg=117 guifg=#87d7ff cterm=underline gui=underline
+hi def semshiFree            ctermfg=218 guifg=#ffafd7
+hi def semshiBuiltin         ctermfg=207 guifg=#ff5fff
+hi def semshiAttribute       ctermfg=49  guifg=#00ffaf
+hi def semshiSelf            ctermfg=249 guifg=#b2b2b2
+hi def semshiUnresolved      ctermfg=226 guifg=#ffff00 cterm=underline gui=underline
+hi def semshiSelected        ctermfg=231 guifg=#ffffff ctermbg=161 guibg=#d7005f
+
+hi def semshiErrorSign       ctermfg=231 guifg=#ffffff ctermbg=160 guibg=#d70000
+hi def semshiErrorChar       ctermfg=231 guifg=#ffffff ctermbg=160 guibg=#d70000
