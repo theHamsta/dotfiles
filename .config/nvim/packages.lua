@@ -186,6 +186,7 @@ return packer.startup(
     use "rhysd/conflict-marker.vim"
     use {"mfussenegger/nvim-dap"}
     use "theHamsta/nvim-dap-virtual-text"
+    use "theHamsta/crazy-node-movement"
     use "dm1try/git_fastfix"
     use "rafcamlet/nvim-luapad"
     use {"jsit/toast.vim", opt = true}
