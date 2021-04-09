@@ -7,7 +7,7 @@ endfunction
 ]]
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
---capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 if not filter then
   local ok, _ = pcall(require, "fun")
@@ -367,7 +367,7 @@ if ok then
                 4,
                 5,
                 6,
-                7,
+                6,
                 8,
                 9,
                 10,
@@ -534,6 +534,7 @@ if ok then
       continue = {".continue", "c"},
       next_ = {".next", "n"},
       into = {".into", "s"},
+      into_targets = {"st"},
       out = {".out", "r"},
       scopes = {".scopes", "a"},
       threads = {".threads", "t"},
@@ -542,7 +543,6 @@ if ok then
       up = {".up", "up"},
       down = {".down", "down"},
       goto_ = {".goto", "j"},
-      into_targets = {".into_targets", "t"},
       capabilities = {".capabilities", ".ca"},
       custom_commands = {
         [".echo"] = function(text)
@@ -694,6 +694,15 @@ end
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
   vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
+  -- *Must* be *S*olidity
+  require "nvim-treesitter.parsers".get_parser_configs().Solidity = {
+    install_info = {
+      url = "https://github.com/JoranHonig/tree-sitter-solidity",
+      files = {"src/parser.c"},
+      requires_generate_from_grammar  = true,
+    },
+    filetype='solidity'
+  }
   --require "nvim-treesitter.parsers".get_parser_configs().jsonc = {
   --install_info = {
   --url = "~/projects/tree-sitter-jsonc",
@@ -816,6 +825,23 @@ if ok then
         allow_switch_parents = true,
         allow_next_parent = true
       },
+      rainbow = {
+        --enable = true,
+        enable = false,
+        extended_mode = {
+          latex = true
+        },
+      },
+      pairs = {
+        enable = true,
+        highlight_pair_events = {"CursorMoved"},
+        highlight_self = false,
+        goto_right_end = false,
+        fallback_cmd_normal = "call matchit#Match_wrapper('',1,'n')",
+        keymaps = {
+          goto_partner = "%"
+        }
+      },
       textobjects = {
         select = {
           enable = true,
@@ -890,8 +916,8 @@ if ok then
           disable = {"python"}
         },
         highlight_definitions = {
-          enable = true,
-          disable = {}
+          enable = false,
+          disable = {"cpp", "c", 'javascript', 'typescript'}
         },
         smart_rename = {
           enable = true,
@@ -924,7 +950,7 @@ if ok then
   --Misc
   hlmap["error"] = nil
   hlmap["punctuation.delimiter"] = "Delimiter"
-  hlmap["punctuation.bracket"] = nil
+  --hlmap["punctuation.bracket"] = nil
 
   -- Constants
   hlmap["constant"] = "Constant"
@@ -1102,3 +1128,5 @@ end
 --
 ----}
 ----end
+--
+

@@ -77,27 +77,34 @@ end
         --end
     --end
 
-    --vim.lsp.util.set_loclist(items)
-    ----vim.fn.setloclist(
-    ----0,
-    ----{},
-    ----" ",
-    ----{
-    ----title = "Language Server " ..
-    ----vim.lsp.util.buf_diagnostics_count("Error") ..
-    ----"❌ " .. vim.lsp.util.buf_diagnostics_count("Warning") .. "⚠️",
-    ----items = items
-    ----}
-    ----)
-    --if vim.api.nvim_get_mode().mode == "n" then
-        --if #items > 0 then
-            ----local current_win = vim.api.nvim_get_current_win()
-            ----vim.cmd("lopen")
-            ----vim.api.nvim_set_current_win(current_win)
-        --else
-            --vim.cmd("lcl")
-            --vim.cmd("lcl")
-        --end
-    --end
+--vim.lsp.util.set_loclist(items)
+----vim.fn.setloclist(
+----0,
+----{},
+----" ",
+----{
+----title = "Language Server " ..
+----vim.lsp.util.buf_diagnostics_count("Error") ..
+----"❌ " .. vim.lsp.util.buf_diagnostics_count("Warning") .. "⚠️",
+----items = items
+----}
+----)
+--if vim.api.nvim_get_mode().mode == "n" then
+--if #items > 0 then
+----local current_win = vim.api.nvim_get_current_win()
+----vim.cmd("lopen")
+----vim.api.nvim_set_current_win(current_win)
+--else
+--vim.cmd("lcl")
+--vim.cmd("lcl")
 --end
+--end
+--end
+--
+--
+function M.pears_attach()
+    if not vim.tbl_contains({'lisp', 'query'}, vim.bo.filetype) then
+        require 'pears'.attach()
+    end
+end
 return M

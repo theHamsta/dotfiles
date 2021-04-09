@@ -9,7 +9,6 @@ vim.cmd [[packadd packer.nvim]]
 
 local packer = require("packer")
 local use = packer.use
-
 local function bubbly_config()
   vim.g.bubbly_palette = {
     background = "#34343c",
@@ -54,6 +53,7 @@ return packer.startup(
   function()
     use {"wbthomason/packer.nvim", opt = true}
     use "nvim-lua/popup.nvim"
+    use {"olimorris/onedark.nvim", requires = "rktjmp/lush.nvim", opt = true}
     use {
       "nvim-telescope/telescope-project.nvim",
       config = function()
@@ -69,12 +69,23 @@ return packer.startup(
     }
     use {"dstein64/nvim-scrollview", opt = true}
     use {"lucc/nvimpager"}
-    use {"TimUntersberger/neogit", opt=true}
+    use {"Mofiqul/vim-code-dark", opt = true}
+    use {"TimUntersberger/neogit", opt = true}
+    --use {
+    --"nvim-lua/lsp_extensions.nvim",
+    --ft = "rust",
+    --config = function()
+    --vim.cmd [[command! InlayHints :lua require "lsp_extensions".inlay_hints({enabled = {"TypeHint", "ChainingHint", "ParameterHint"}, highlight = "Comment", prefix = " ? "})]]
+    --end
+    --}
     use {
-      "nvim-lua/lsp_extensions.nvim",
-      ft = "rust",
+      "simrat39/rust-tools.nvim",
+      --filetype = "rust",
       config = function()
-        vim.cmd [[command! InlayHints :lua require "lsp_extensions".inlay_hints({enabled = {"TypeHint", "ChainingHint", "ParameterHint"}, highlight = "Comment", prefix = " ? "})]]
+        local opts = {
+          autoSetHints = true
+        }
+        require("rust-tools").setup(opts)
       end
     }
     use "pwntester/octo.nvim"
@@ -88,6 +99,50 @@ return packer.startup(
     use {"jiangmiao/auto-pairs", opt = true}
     use {"tpope/vim-endwise", ft = "lua", opt = true}
     use {"ojroques/nvim-lspfuzzy", opt = true}
+    use {
+      "steelsojka/pears.nvim",
+      opt = false,
+      config = function()
+        local pears = require("pears")
+        local config = require("pears.config")
+        local utils = require("pears.utils")
+
+        pears.setup()
+        pears.config =
+          config.make_user_config(
+          function(c)
+            c.pair(
+              "{",
+              {
+                close = "}",
+                should_expand = utils.negate(utils.has_leading_alpha)
+              }
+            )
+            c.pair(
+              "[",
+              {
+                close = "]",
+                should_expand = utils.negate(utils.has_leading_alpha)
+              }
+            )
+            c.pair(
+              "'",
+              {
+                close = "'",
+                should_expand = utils.negate(utils.has_leading_alpha)
+              }
+            )
+            c.pair(
+              "[",
+              {
+                close = "]",
+                should_expand = utils.negate(utils.has_leading_alpha)
+              }
+            )
+          end
+        )
+      end
+    }
     --use {
     --"gabrielpoca/replacer.nvim",
     --config = function()
@@ -103,7 +158,7 @@ return packer.startup(
           autocomplete = true,
           debug = false,
           min_length = 2,
-          preselect = "enable",
+          preselect = "disable",
           throttle_time = 80,
           source_timeout = 200,
           incomplete_delay = 399,
@@ -151,6 +206,12 @@ return packer.startup(
     use "chrisbra/unicode.vim"
     use "tpope/vim-speeddating"
     use "nvim-telescope/telescope-symbols.nvim"
+    use {
+      "rcarriga/nvim-dap-ui",
+      config = function()
+        require("dapui").setup()
+      end
+    }
     --use {
     --"nvim-telescope/telescope-frecency.nvim",
     --config = function()
@@ -160,6 +221,7 @@ return packer.startup(
     --use "nvim-telescope/telescope.nvim"
     use "chuling/vim-equinusocio-material"
     use "nvim-treesitter/nvim-treesitter-textobjects"
+    use "theHamsta/nvim-treesitter-pairs"
     use "nvim-treesitter/nvim-treesitter-refactor"
     use {"nvim-treesitter/nvim-treesitter"}
     use "nvim-treesitter/playground"
@@ -195,7 +257,7 @@ return packer.startup(
     --run = "pip3 install --r hererocks && hererocks . -j2.1.0-beta3 -r3.0.0 && cp nvim_rocks.lua lua"
     --}
     use "tjdevries/luvjob.nvim"
-    use "tjdevries/plenary.nvim"
+    use "nvim-lua/plenary.nvim"
     use "svermeulen/nvim-moonmaker"
     use "kbenzie/vim-spirv"
     use {
@@ -252,8 +314,10 @@ return packer.startup(
       requires = {
         "nvim-lua/plenary.nvim"
       },
+      opt = true,
       config = function()
-        if 1 ~= vim.g.GtkGuiLoaded then
+        --if 1 ~= vim.g.GtkGuiLoaded then
+        if true then
           require("gitsigns").setup {
             signs = {
               add = {hl = "GitGutterAdd", text = "▋", numhl = "GitSignsAddNr"},
@@ -368,9 +432,10 @@ return packer.startup(
     use "justinmk/vim-gtfo"
     use {"justinmk/vim-sneak", opt = false}
     use "kassio/neoterm"
-    use {"luochen1990/rainbow", disable = false}
-    use {"lervag/vimtex", ft = "tex", opt = true}
+    use {"luochen1990/rainbow", disable = true}
+    use {"lervag/vimtex", opt = true}
     use "machakann/vim-swap"
+    use "p00f/nvim-ts-rainbow"
     use "markonm/traces.vim"
     use {"mbbill/undotree", cmd = {"UndotreeToggle"}}
     use {"meain/vim-package-info", run = "npm install"}
@@ -403,22 +468,6 @@ return packer.startup(
     use "tpope/vim-surround"
     use "tpope/vim-unimpaired"
     use {"vim-airline/vim-airline", requires = "vim-airline/vim-airline-themes", opt = true}
-    use {
-      'AckslD/nvim-revJ.lua',
-      requires = {'sgur/vim-textobj-parameter'},
-      config = function()
-        require("revj").setup{
-          brackets = {first = '([{<', last = ')]}>'}, -- brackets to consider surrounding arguments
-          new_line_before_last_bracket = true, -- add new line between last argument and last bracket
-          enable_default_keymaps = false, -- enables default keymaps without having to set them below
-          keymaps = {
-            --operator = '<Leader>J', -- for operator (+motion)
-            line = 'K', -- for formatting current line
-            visual = 'K', -- for formatting visual selection
-          },
-        }
-      end
-    }
 
     use {
       "glepnir/galaxyline.nvim",

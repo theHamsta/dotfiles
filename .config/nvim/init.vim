@@ -189,10 +189,10 @@ nnoremap <Leader>oo :only<cr>
 "nmap <silent> <C-k> :lua vim.lsp.diagnostic.goto_prev()<cr>
 "nmap <silent> <C-j> :lua vim.lsp.diagnostic.goto_next()<cr>
 
-nmap <silent> <leader><C-k> :lprevious<cr>
-nmap <silent> <leader><C-j> :lnext<cr>
-nmap <silent> <C-k> :cprevious<cr>
-nmap <silent> <C-l> :cnext<cr>
+noremap <silent> <leader><C-k> :lprevious<cr>
+noremap <silent> <leader><C-j> :lnext<cr>
+noremap <silent> <c-k> :cprevious<cr>
+noremap <silent> <c-j> :cnext<cr>
 "nmap <silent> <C-k> [m<cr>
 "nmap <silent> <C-j> ]m<cr>
 nmap <leader>bl :BLines<cr>
@@ -455,7 +455,7 @@ endfunction
 function! NvimLspMaps()
     nnoremap <buffer><silent> <f2>         <cmd>lua vim.lsp.buf.rename()<CR>
     nnoremap <buffer><silent> gk         <cmd>lua vim.lsp.buf.declaration()<CR>
-    nnoremap <buffer><silent> gr         <cmd>lua vim.lsp.buf.references()<CR>
+    nnoremap <buffer><silent> gR         <cmd>lua vim.lsp.buf.references()<CR>
   "nnoremap <buffer> <silent> gd       <cmd>lua require'nvim-treesitter.refactor.navigation'.goto_definition_lsp_fallback()<CR>
     nnoremap <buffer> <silent> gd       <cmd>lua vim.lsp.buf.definition()<CR>
     "nnoremap <buffer> <silent> gd       <cmd>requiredefinition()<CR>
@@ -552,7 +552,7 @@ nnoremap <a-t> :Switch<CR>
 "au Syntax * RainbowParenthesesLoadSquare
 "au Syntax * RainbowParenthesesLoadBraces
 "
-let g:rainbow_active = 1
+let g:rainbow_active = 0
 
 """
 ""
@@ -868,7 +868,6 @@ let g:LanguageClient_documentHighlightDisplay = {
               \       },
               \   }
               \
-if !exists('g:GtkGuiLoaded')
   sign define LspDiagnosticsSignError text=❌ texthl=LspDiagnosticsError linehl= numhl=
   sign define LspDiagnosticsSignWarning text=⚠️ texthl=LspDiagnosticsWarning linehl= numhl=
   sign define LspDiagnosticsSignInformation text=🔎 texthl=LspDiagnosticsInformation linehl= numhl=
@@ -911,7 +910,7 @@ if !exists('g:GtkGuiLoaded')
               \       },
               \   }
               \
-end
+"end
 
 "set signcolumn=yes
 
@@ -1458,8 +1457,8 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 "nnoremap <silent> <leader>l :nohlsearch<CR>
 "
 
-autocmd! BufWrite,CursorHold *.rs :lua require "lsp_extensions".inlay_hints({enabled = {"TypeHint", "ParameterHint"}, highlight = "Comment", prefix = " > "})
-command! InlayHints :lua require "lsp_extensions".inlay_hints({enabled = {"TypeHint", "ChainingHint", "ParameterHint"}, highlight = "Comment", prefix = " ? "})
+"autocmd! BufWrite,CursorHold *.rs :lua require "lsp_extensions".inlay_hints({enabled = {"TypeHint", "ParameterHint"}, highlight = "Comment", prefix = " > "})
+"command! InlayHints :lua require "lsp_extensions".inlay_hints({enabled = {"TypeHint", "ChainingHint", "ParameterHint"}, highlight = "Comment", prefix = " ? "})
 
 let g:sneak#label = 1
 let g:AutoPairsShortcutToggle = '<M-m>'
@@ -1493,6 +1492,8 @@ command! UseSbcl let g:vlime_cl_impl = "sbcl"
 
 vnoremap <c-a> <c-a>gv
 vnoremap <c-x> <c-x>gv
+nnoremap K :s/,/,\r/g<cr>
+vnoremap K :s/,/,\r/g<cr>
 
 au FileType dap-repl lua require('dap.ext.autocompl').attach()
 
@@ -1523,3 +1524,7 @@ hi def semshiSelected        ctermfg=231 guifg=#ffffff ctermbg=161 guibg=#d7005f
 
 hi def semshiErrorSign       ctermfg=231 guifg=#ffffff ctermbg=160 guibg=#d70000
 hi def semshiErrorChar       ctermfg=231 guifg=#ffffff ctermbg=160 guibg=#d70000
+
+inoremap <silent><expr> <c-CR>      <cmd>call compe#confirm('<CR>')
+
+
