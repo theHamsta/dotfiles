@@ -1150,7 +1150,7 @@ let g:sexp_enable_insert_mode_mappings=1
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy', 'all']
 
 
-let g:vlime_compiler_policy={"DEBUG": 3, "SPEED": 0}
+"let g:vlime_compiler_policy={"DEBUG": 3, "SPEED": 0}
 
 
 "augroup CustomVlimeInputBuffer

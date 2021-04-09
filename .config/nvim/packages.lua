@@ -104,45 +104,77 @@ return packer.startup(
       opt = false,
       config = function()
         local pears = require("pears")
-        local config = require("pears.config")
         local utils = require("pears.utils")
 
-        pears.setup()
-        pears.config =
-          config.make_user_config(
+        vim.cmd[[autocmd BufEnter *.clojure,*.scheme,*.lisp,*.vlime_repl,*.fennel,*.query :lua require "pears".setup_buf_pairs {}]]
+
+        local function has_trailing_whitespaces(bufnr)
+          local _, after = utils.get_surrounding_chars(bufnr, nil, 1)
+
+          return (after == "" or string.match(after, "%W"))
+        end
+        local function check_quotes(bufnr)
+          local _, after = utils.get_surrounding_chars(bufnr, nil, 1)
+
+          return (after == "" or string.match(after, "%W")) and not utils.has_leading_alpha(bufnr)
+        end
+
+        pears.setup(
           function(c)
+            c.pair(
+              "<!--",
+              {
+                close = "-->",
+                should_expand = has_trailing_whitespaces
+              }
+            )
+            c.pair(
+              "<tr>",
+              {
+                close = "</tr>",
+                should_expand = has_trailing_whitespaces
+              }
+            )
             c.pair(
               "{",
               {
                 close = "}",
-                should_expand = utils.negate(utils.has_leading_alpha)
+                should_expand = has_trailing_whitespaces
               }
             )
             c.pair(
               "[",
               {
                 close = "]",
-                should_expand = utils.negate(utils.has_leading_alpha)
+                should_expand = has_trailing_whitespaces
+              }
+            )
+            c.pair(
+              '"',
+              {
+                close = '"',
+                should_expand = check_quotes
               }
             )
             c.pair(
               "'",
               {
                 close = "'",
-                should_expand = utils.negate(utils.has_leading_alpha)
+                should_expand = check_quotes
               }
             )
             c.pair(
               "[",
               {
                 close = "]",
-                should_expand = utils.negate(utils.has_leading_alpha)
+                should_expand = has_trailing_whitespaces
               }
             )
           end
         )
       end
     }
+
     --use {
     --"gabrielpoca/replacer.nvim",
     --config = function()
@@ -314,7 +346,7 @@ return packer.startup(
       requires = {
         "nvim-lua/plenary.nvim"
       },
-      opt = true,
+      opt = false,
       config = function()
         --if 1 ~= vim.g.GtkGuiLoaded then
         if true then
