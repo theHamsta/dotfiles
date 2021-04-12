@@ -787,7 +787,7 @@ if ok then
       },
       query_linter = {
         enable = true,
-        lint_events = {"BufWrite"}
+        lint_events = {"BufWrite", "CursorHold"}
       },
       tree_docs = {
         enable = true,
@@ -818,6 +818,7 @@ if ok then
           move_down = "<a-j>",
           move_left = "<a-h>",
           move_right = "<a-l>",
+          swap_up = "<s-a-k>",
           swap_left = "<s-a-h>",
           swap_right = "<s-a-l>",
           select_current_node = "<cr>"
@@ -834,7 +835,7 @@ if ok then
       },
       pairs = {
         enable = true,
-        highlight_pair_events = {"CursorMoved"},
+        highlight_pair_events = {},
         highlight_self = false,
         goto_right_end = false,
         fallback_cmd_normal = "call matchit#Match_wrapper('',1,'n')",

@@ -1468,10 +1468,10 @@ let g:AutoPairsShortcutBackInsert = '<M-b>'
 let g:completion_enable_auto_popup = 1
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 let g:completion_matching_smart_case = 1
-highlight link LspDiagnosticsUnderlineError Error
-highlight link LspDiagnosticsUnderlineWarning LspWarning
-highlight link LspDiagnosticsVirtualTextError Error
-highlight link LspDiagnosticsVirtualTextWarning LspWarning
+highlight def link LspDiagnosticsUnderlineError Error
+highlight def link LspDiagnosticsUnderlineWarning LspWarning
+highlight def link LspDiagnosticsVirtualTextError Error
+highlight def link LspDiagnosticsVirtualTextWarning LspWarning
 
 let g:completion_trigger_keyword_length = 2 " default = 1
 
@@ -1504,7 +1504,7 @@ nnoremap <leader>sy :lua require "telescope.builtin".symbols {sources = {"emoji"
 
 
 "inoremap <silent><expr> <c-CR>   compe#confirm('<CR>')
-highlight NvimTreesitterCurrentNode guibg=#000099
+highlight def NvimTreesitterCurrentNode guibg=#000099
 highlight def NvimDapStopped guibg=#000099
 
 

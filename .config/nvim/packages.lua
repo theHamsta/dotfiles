@@ -26,6 +26,19 @@ local function bubbly_config()
   }
 end
 
+local WEB_LANGUAGES = {
+  "javascript",
+  "typescript",
+  "javascriptreact",
+  "typescriptreact",
+  "markdown",
+  "php",
+  "jsx",
+  "tsx",
+  "html",
+  "xml"
+}
+
 local lisp_filetypes = {"lisp", "clojure", "scheme", "vlime_repl", "fennel", "query"}
 
 local go_packages = {
@@ -100,13 +113,19 @@ return packer.startup(
     use {"tpope/vim-endwise", ft = "lua", opt = true}
     use {"ojroques/nvim-lspfuzzy", opt = true}
     use {
+      "ruifm/gitlinker.nvim",
+      config = function()
+        require "gitlinker".setup()
+      end
+    }
+    use {
       "steelsojka/pears.nvim",
-      opt = false,
+      opt = true,
       config = function()
         local pears = require("pears")
         local utils = require("pears.utils")
 
-        vim.cmd[[autocmd BufEnter *.clojure,*.scheme,*.lisp,*.vlime_repl,*.fennel,*.query :lua require "pears".setup_buf_pairs {}]]
+        vim.cmd [[autocmd BufEnter *.clojure,*.scheme,*.lisp,*.vlime_repl,*.fennel,*.scm :lua require "pears".setup_buf_pairs {}]]
 
         local function has_trailing_whitespaces(bufnr)
           local _, after = utils.get_surrounding_chars(bufnr, nil, 1)
@@ -121,17 +140,31 @@ return packer.startup(
 
         pears.setup(
           function(c)
+            c.preset "markdown"
             c.pair(
-              "<!--",
+              "<*>",
               {
-                close = "-->",
+                close = "</*>",
+                filetypes = {
+                  include = WEB_LANGUAGES
+                },
+                -- Valid chars that can be use in place of "*" in the pair
+                -- If a character does not match this, then the pair will be expanded.
+                -- This can be a pattern or a function
+                valid_content = "[a-zA-Z_%-]"
+              }
+            )
+            c.pair(
+              "(",
+              {
+                close = ")",
                 should_expand = has_trailing_whitespaces
               }
             )
             c.pair(
-              "<tr>",
+              "<!--",
               {
-                close = "</tr>",
+                close = "-->",
                 should_expand = has_trailing_whitespaces
               }
             )
@@ -241,7 +274,37 @@ return packer.startup(
     use {
       "rcarriga/nvim-dap-ui",
       config = function()
-        require("dapui").setup()
+        require("dapui").setup(
+          {
+            icons = {
+              expanded = "⯆",
+              collapsed = "⯈",
+              circular = "↺"
+            },
+            mappings = {
+              expand = "<CR>",
+              open = "o",
+              remove = "d"
+            },
+            sidebar = {
+              elements = {
+                -- You can change the order of elements in the sidebar
+                "scopes",
+                "stacks",
+                "watches"
+              },
+              width = 40,
+              position = "right" -- Can be "left" or "right"
+            },
+            tray = {
+              elements = {
+                "repl"
+              },
+              height = 10,
+              position = "bottom" -- Can be "bottom" or "top"
+            }
+          }
+        )
       end
     }
     --use {
@@ -483,6 +546,23 @@ return packer.startup(
     use "scrooloose/nerdcommenter"
     use "sgur/vim-textobj-parameter"
     use "skywind3000/vim-preview"
+    use {
+      "norcalli/nvim-colorizer.lua",
+      config = function()
+        require "colorizer".setup(
+          {
+            "vim",
+            "html",
+            "markdown",
+            "tex",
+            css = {rgb_fn = true, css = true, css_fn = true},
+            scss = {rgb_fn = true, css = true, css_fn = true},
+            "sass"
+          }
+        )
+      end,
+      opt = false
+    }
     use "terryma/vim-multiple-cursors"
     use "kana/vim-textobj-user"
     use "theHamsta/vim-snippets"

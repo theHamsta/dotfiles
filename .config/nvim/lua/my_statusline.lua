@@ -117,25 +117,38 @@ gls.left[10] = {
     highlight = {colors.line_bg,colors.line_bg}
   }
 }
+
+
 gls.left[11] = {
+  lsp = {
+    provider = require'galaxyline.provider_lsp'.get_lsp_client,
+    --condition = function() return vim.bo.filetype == 'tex' end,
+    icon = ' ',
+    highlight = {colors.blue,colors.bg},
+  }
+}
+gls.left[12] = {
+  lspd = {
+    provider = function() return ' ' end,
+    --condition = function() return vim.bo.filetype == 'tex' end,
+    highlight = {colors.blue,colors.bg},
+  }
+}
+gls.left[13] = {
   DiagnosticError = {
     provider = 'DiagnosticError',
     icon = '  ',
     highlight = {colors.red,colors.bg}
   }
 }
-gls.left[12] = {
-  Space = {
-    provider = function () return ' ' end
-  }
-}
-gls.left[13] = {
+gls.left[14] = {
   DiagnosticWarn = {
     provider = 'DiagnosticWarn',
     icon = '  ',
     highlight = {colors.blue,colors.bg},
   }
 }
+
 --gls.left[14] = {
   --GitBranch = {
     --provider = function() vim.api.nvim_buf_get_name(0) end,
