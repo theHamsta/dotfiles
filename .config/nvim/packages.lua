@@ -26,19 +26,6 @@ local function bubbly_config()
   }
 end
 
-local WEB_LANGUAGES = {
-  "javascript",
-  "typescript",
-  "javascriptreact",
-  "typescriptreact",
-  "markdown",
-  "php",
-  "jsx",
-  "tsx",
-  "html",
-  "xml"
-}
-
 local lisp_filetypes = {"lisp", "clojure", "scheme", "vlime_repl", "fennel", "query"}
 
 local go_packages = {
@@ -110,6 +97,7 @@ return packer.startup(
       opt = true
     }
     use {"jiangmiao/auto-pairs", opt = true}
+    use {"glepnir/zephyr-nvim", opt = true}
     use {"tpope/vim-endwise", ft = "lua", opt = true}
     use {"ojroques/nvim-lspfuzzy", opt = true}
     use {
@@ -120,7 +108,7 @@ return packer.startup(
     }
     use {
       "steelsojka/pears.nvim",
-      opt = true,
+      opt = false,
       config = function()
         local pears = require("pears")
         local utils = require("pears.utils")
@@ -130,30 +118,18 @@ return packer.startup(
         local function has_trailing_whitespaces(bufnr)
           local _, after = utils.get_surrounding_chars(bufnr, nil, 1)
 
-          return (after == "" or string.match(after, "%W"))
+          return (after == "" or string.match(after, "%s"))
         end
         local function check_quotes(bufnr)
           local _, after = utils.get_surrounding_chars(bufnr, nil, 1)
 
-          return (after == "" or string.match(after, "%W")) and not utils.has_leading_alpha(bufnr)
+          return (after == "" or string.match(after, "%s")) and not utils.has_leading_alpha(bufnr)
         end
 
         pears.setup(
           function(c)
             c.preset "markdown"
-            c.pair(
-              "<*>",
-              {
-                close = "</*>",
-                filetypes = {
-                  include = WEB_LANGUAGES
-                },
-                -- Valid chars that can be use in place of "*" in the pair
-                -- If a character does not match this, then the pair will be expanded.
-                -- This can be a pattern or a function
-                valid_content = "[a-zA-Z_%-]"
-              }
-            )
+            c.preset "tag_matching"
             c.pair(
               "(",
               {
@@ -266,6 +242,7 @@ return packer.startup(
     use {"jubnzv/virtual-types.nvim"}
     use "ocaml/vim-ocaml"
     use {"kevinhwang91/nvim-hlslens", opt = true}
+    use 'norcalli/snippets.nvim'
     use "ghifarit53/tokyonight-vim"
     use "akinsho/nvim-toggleterm.lua"
     use "chrisbra/unicode.vim"
@@ -393,7 +370,6 @@ return packer.startup(
     use "Olical/aniseed"
     use "camspiers/animate.vim"
     use "neovim/nvim-lspconfig"
-    use "udalov/kotlin-vim"
     use {"preservim/tagbar", cmd = {"TagbarToggle", "TagbarOpenAutoClose"}}
     use "szymonmaszke/vimpyter"
     use {"voldikss/vim-floaterm", cmd = "FloatermToggle"}
@@ -529,7 +505,7 @@ return packer.startup(
     use "kassio/neoterm"
     use {"luochen1990/rainbow", disable = true}
     use {"lervag/vimtex", opt = true}
-    use "machakann/vim-swap"
+    --use "machakann/vim-swap"
     use "p00f/nvim-ts-rainbow"
     use "markonm/traces.vim"
     use {"mbbill/undotree", cmd = {"UndotreeToggle"}}
@@ -546,6 +522,7 @@ return packer.startup(
     use "scrooloose/nerdcommenter"
     use "sgur/vim-textobj-parameter"
     use "skywind3000/vim-preview"
+
     use {
       "norcalli/nvim-colorizer.lua",
       config = function()

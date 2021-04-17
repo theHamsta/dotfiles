@@ -236,7 +236,7 @@ endfunction
 let g:vimtex_complete_enabled = 0
 set isfname -==
  
-luafile ~/.config/nvim/packages.lua
+"luafile ~/.config/nvim/packages.lua
 
 autocmd BufWritePost ~/.config/nvim/packages.lua PackerCompile
 
@@ -494,6 +494,7 @@ function! NvimLspMaps()
     else 
         nnoremap <buffer><silent> <c-s> :w<cr><cmd>lua vim.lsp.buf.formatting()<cr>
     endif
+
     setlocal omnifunc=v:lua.vim.lsp.omnifunc
 endfunction
 
@@ -1526,5 +1527,3 @@ hi def semshiErrorSign       ctermfg=231 guifg=#ffffff ctermbg=160 guibg=#d70000
 hi def semshiErrorChar       ctermfg=231 guifg=#ffffff ctermbg=160 guibg=#d70000
 
 inoremap <silent><expr> <c-CR>      <cmd>call compe#confirm('<CR>')
-
-

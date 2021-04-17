@@ -8,6 +8,13 @@ endfunction
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = {
+    'documentation',
+    'detail',
+    'additionalTextEdits',
+  }
+}
 
 if not filter then
   local ok, _ = pcall(require, "fun")
@@ -76,15 +83,15 @@ if ok then
     --if client.resolved_capabilities.document_highlight then
     --vim.api.nvim_exec(
     -- [[
-    --:hi link LspReferenceRead CursorLine
+    --:hi LspReferenceRead guibg=#101010
     --:hi link LspReferenceText CursorLine
-    --:hi link LspReferenceWrite CursorLine
+    --:hi LspReferenceWrite guibg=#441010
     --augroup lsp_document_highgit@github.com:theHamsta/eclipse.jdt.ls.gitlight
     --autocmd!
     --autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
     --autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
     --augroup END
-    -- ]],
+    --]],
     --false
     --)
     --end
@@ -136,7 +143,7 @@ if ok then
     on_attach = on_attach,
     settings = {
       initializationOptions = {
-        usePlaceholders = false
+        usePlaceholders = true
       }
     }
   }
@@ -146,6 +153,7 @@ if ok then
   --}
 
   lspconfig.pyls.setup {
+    cmd = {"pylsp"},
     on_attach = on_attach,
     settings = {
       pyls = {
@@ -227,172 +235,8 @@ if ok then
           enable = true
         }
       },
-      capabilities = {
-        offsetEncoding = {"utf-8", "utf-16"},
-        textDocument = {
-          codeAction = {
-            codeActionLiteralSupport = {
-              codeActionKind = {
-                valueSet = {}
-              }
-            },
-            dynamicRegistration = false
-          },
-          completion = {
-            completionItem = {
-              commitCharactersSupport = true,
-              deprecatedSupport = true,
-              documentationFormat = {"markdown", "plaintext"},
-              preselectSupport = true,
-              snippetSupport = true
-            },
-            autoimport = {
-              enable = true
-            },
-            postfix = {
-              enable = true
-            },
-            addCallParenthesis = true,
-            completionItemKind = {
-              valueSet = {
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8,
-                9,
-                10,
-                11,
-                12,
-                13,
-                14,
-                15,
-                16,
-                17,
-                18,
-                19,
-                20,
-                21,
-                22,
-                23,
-                24,
-                25
-              }
-            },
-            contextSupport = false,
-            dynamicRegistration = false
-          },
-          declaration = {
-            linkSupport = true
-          },
-          definition = {
-            linkSupport = true
-          },
-          documentHighlight = {
-            dynamicRegistration = true
-          },
-          documentSymbol = {
-            dynamicRegistration = false,
-            hierarchicalDocumentSymbolSupport = true,
-            symbolKind = {
-              valueSet = {
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8,
-                9,
-                10,
-                11,
-                12,
-                13,
-                14,
-                15,
-                16,
-                17,
-                18,
-                19,
-                20,
-                21,
-                22,
-                23,
-                24,
-                25,
-                26
-              }
-            }
-          },
-          hover = {
-            contentFormat = {"markdown", "plaintext"},
-            dynamicRegistration = false
-          },
-          implementation = {
-            linkSupport = true
-          },
-          references = {
-            dynamicRegistration = false
-          },
-          signatureHelp = {
-            dynamicRegistration = false,
-            signatureInformation = {
-              documentationFormat = {"markdown", "plaintext"}
-            }
-          },
-          synchronization = {
-            didSave = true,
-            dynamicRegistration = false,
-            willSave = false,
-            willSaveWaitUntil = false
-          },
-          typeDefinition = {
-            linkSupport = true
-          }
-        },
-        workspace = {
-          applyEdit = true,
-          symbol = {
-            dynamicRegistration = false,
-            hierarchicalWorkspaceSymbolSupport = true,
-            symbolKind = {
-              valueSet = {
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                6,
-                8,
-                9,
-                10,
-                11,
-                12,
-                13,
-                14,
-                15,
-                16,
-                17,
-                18,
-                19,
-                20,
-                21,
-                22,
-                23,
-                24,
-                25,
-                26
-              }
-            }
-          }
-        }
-      }
     },
+    capabilities = capabilities,
     on_attach = on_attach
   }
 
@@ -699,10 +543,16 @@ if ok then
     install_info = {
       url = "https://github.com/JoranHonig/tree-sitter-solidity",
       files = {"src/parser.c"},
-      requires_generate_from_grammar  = true,
+      requires_generate_from_grammar = true
     },
-    filetype='solidity'
+    filetype = "solidity"
   }
+  --require "nvim-treesitter.parsers".get_parser_configs().test = {
+    --install_info = {
+      --url = "https://github.com/theHamsta/tree-sitter-test.git",
+      --files = {"src/parser.c"}
+    --}
+  --}
   --require "nvim-treesitter.parsers".get_parser_configs().jsonc = {
   --install_info = {
   --url = "~/projects/tree-sitter-jsonc",
@@ -831,7 +681,7 @@ if ok then
         enable = false,
         extended_mode = {
           latex = true
-        },
+        }
       },
       pairs = {
         enable = true,
@@ -868,19 +718,19 @@ if ok then
             ["aM"] = "@frame.outer"
           }
         },
-        --swap = {
-        --enable = true,
-        --swap_next = {
-        --["<a-l>"] = "@parameter.inner",
-        --["<a-f>"] = "@function.outer",
-        --["<a-s>"] = "@statement.outer"
-        --},
-        --swap_previous = {
-        --["<a-L>"] = "@parameter.inner",
-        --["<a-F>"] = "@function.outer",
-        --["<a-S>"] = "@statement.outer"
-        --}
-        --},
+        swap = {
+          enable = true,
+          swap_next = {
+            ["<leader>ä"] = "@parameter.inner",
+            ["<a-f>"] = "@function.outer",
+            ["<a-s>"] = "@statement.outer"
+          },
+          swap_previous = {
+            ["<a-L>"] = "@parameter.inner",
+            ["<a-F>"] = "@function.outer",
+            ["<a-S>"] = "@statement.outer"
+          }
+        },
         lsp_interop = {
           enable = true,
           peek_definition_code = {
@@ -893,6 +743,7 @@ if ok then
         },
         move = {
           enable = true,
+          set_jumps = false,
           goto_next_start = {
             ["öö"] = "@function.inner"
           },
@@ -918,7 +769,7 @@ if ok then
         },
         highlight_definitions = {
           enable = false,
-          disable = {"cpp", "c", 'javascript', 'typescript'}
+          disable = {"cpp", "c", "javascript", "typescript"}
         },
         smart_rename = {
           enable = true,
@@ -1029,12 +880,12 @@ end
 --vim.cmd [[
 --command! -complete=file -nargs=* DebugC lua require "my_debug".start_c_debugger({<f-args>}, "gdb")
 --]]
---vim.cmd [[
---command! -complete=file -nargs=* DebugRust lua require "my_debug".start_c_debugger({<f-args>}, "gdb", "rust-gdb")
---]]
---vim.cmd [[
---command! -complete=file -nargs=* DebugLLDB lua require "my_debug".start_vscode_lldb({<f-args>})
---]]
+vim.cmd [[
+command! -complete=file -nargs=* DebugRust lua require "my_debug".start_c_debugger({<f-args>}, "gdb", "rust-gdb")
+]]
+vim.cmd [[
+command! -complete=file -nargs=* DebugLLDB lua require "my_debug".start_vscode_lldb({<f-args>})
+]]
 --vim.cmd [[
 --command! -complete=file -nargs=* ReverseDebug lua require "my_debug".reverse_debug({<f-args>})
 --]]
@@ -1130,4 +981,3 @@ end
 ----}
 ----end
 --
-
