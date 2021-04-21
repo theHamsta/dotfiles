@@ -52,8 +52,11 @@ local go_packages = {
 return packer.startup(
   function()
     use {"wbthomason/packer.nvim", opt = true}
+    use {"famiu/nvim-reload", opt = true}
     use "nvim-lua/popup.nvim"
     use {"olimorris/onedark.nvim", requires = "rktjmp/lush.nvim", opt = true}
+    use { "kdav5758/TrueZen.nvim", opt = true }
+    use { "windwp/nvim-ts-autotag" }
     use {
       "nvim-telescope/telescope-project.nvim",
       config = function()
@@ -71,6 +74,7 @@ return packer.startup(
     use {"lucc/nvimpager"}
     use {"Mofiqul/vim-code-dark", opt = true}
     use {"TimUntersberger/neogit", opt = true}
+    use {"theHamsta/nvim-treesitter-commonlisp", opt = false}
     --use {
     --"nvim-lua/lsp_extensions.nvim",
     --ft = "rust",
@@ -89,6 +93,7 @@ return packer.startup(
       end
     }
     use "pwntester/octo.nvim"
+    use {"folke/tokyonight.nvim", opt = true}
     use {
       "glepnir/indent-guides.nvim",
       config = function()
@@ -118,37 +123,32 @@ return packer.startup(
         local function has_trailing_whitespaces(bufnr)
           local _, after = utils.get_surrounding_chars(bufnr, nil, 1)
 
-          return (after == "" or string.match(after, "%s"))
+          return (after == "" or string.match(after, "%s") or string.match(after, "[)%]]"))
         end
         local function check_quotes(bufnr)
           local _, after = utils.get_surrounding_chars(bufnr, nil, 1)
 
-          return (after == "" or string.match(after, "%s")) and not utils.has_leading_alpha(bufnr)
+          return (after == "" or string.match(after, "%s") or string.match(after, "[)%]]")) and
+            not utils.has_leading_alpha(bufnr)
         end
 
         pears.setup(
           function(c)
-            c.preset "markdown"
-            c.preset "tag_matching"
+            --c.preset "markdown"
+            --c.preset "tag_matching"
+            c.preset "html"
             c.pair(
               "(",
               {
                 close = ")",
-                should_expand = has_trailing_whitespaces
-              }
-            )
-            c.pair(
-              "<!--",
-              {
-                close = "-->",
-                should_expand = has_trailing_whitespaces
+                should_expand = has_trailing_whitespaces,
               }
             )
             c.pair(
               "{",
               {
                 close = "}",
-                should_expand = has_trailing_whitespaces
+                should_expand = has_trailing_whitespaces,
               }
             )
             c.pair(
@@ -242,7 +242,7 @@ return packer.startup(
     use {"jubnzv/virtual-types.nvim"}
     use "ocaml/vim-ocaml"
     use {"kevinhwang91/nvim-hlslens", opt = true}
-    use 'norcalli/snippets.nvim'
+    use "norcalli/snippets.nvim"
     use "ghifarit53/tokyonight-vim"
     use "akinsho/nvim-toggleterm.lua"
     use "chrisbra/unicode.vim"
@@ -332,16 +332,6 @@ return packer.startup(
     use "nvim-lua/plenary.nvim"
     use "svermeulen/nvim-moonmaker"
     use "kbenzie/vim-spirv"
-    use {
-      "windwp/nvim-autopairs",
-      config = function()
-        require("nvim-autopairs").setup {
-          break_line_filetype = {"javascript", "cuda", "cpp", "java", "c", "typescript", "typescriptreact", "go"}
-        }
-        --vim.cmd [[inoremap <cr> :lua require('nvim-autopairs').check_break_line_char()<cr>]]
-      end,
-      opt = true
-    }
 
     --use {"theHamsta/nvim-tree.lua", branch = "exa"}
 

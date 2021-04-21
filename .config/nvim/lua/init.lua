@@ -10,9 +10,9 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.resolveSupport = {
   properties = {
-    'documentation',
-    'detail',
-    'additionalTextEdits',
+    "documentation",
+    "detail",
+    "additionalTextEdits"
   }
 }
 
@@ -234,7 +234,7 @@ if ok then
         procMacro = {
           enable = true
         }
-      },
+      }
     },
     capabilities = capabilities,
     on_attach = on_attach
@@ -548,10 +548,10 @@ if ok then
     filetype = "solidity"
   }
   --require "nvim-treesitter.parsers".get_parser_configs().test = {
-    --install_info = {
-      --url = "https://github.com/theHamsta/tree-sitter-test.git",
-      --files = {"src/parser.c"}
-    --}
+  --install_info = {
+  --url = "https://github.com/theHamsta/tree-sitter-test.git",
+  --files = {"src/parser.c"}
+  --}
   --}
   --require "nvim-treesitter.parsers".get_parser_configs().jsonc = {
   --install_info = {
@@ -677,20 +677,28 @@ if ok then
         allow_next_parent = true
       },
       rainbow = {
-        --enable = true,
-        enable = false,
+        enable = true,
         extended_mode = {
           latex = true
         }
       },
+      autotag = {
+        enable = true
+      },
       pairs = {
         enable = true,
-        highlight_pair_events = {},
+        highlight_pair_events = {"CursorMoved"},
         highlight_self = false,
         goto_right_end = false,
         fallback_cmd_normal = "call matchit#Match_wrapper('',1,'n')",
         keymaps = {
-          goto_partner = "%"
+          goto_partner = "%",
+          delete_balanced = "x"
+        },
+        delete_balanced = {
+          only_on_first_char = true,
+          fallback_cmd_normal = "normal! x",
+          longest_partner = true
         }
       },
       textobjects = {
@@ -806,6 +814,7 @@ if ok then
 
   -- Constants
   hlmap["constant"] = "Constant"
+  hlmap["constant"] = "Constant"
   hlmap["semshi"] = "semshiImported"
   hlmap["constant.builtin"] = "Boolean"
   hlmap["constant.macro"] = "Define"
@@ -844,14 +853,8 @@ if ok then
   hlmap["keyword.function"] = "Function"
   hlmap["variable"] = nil
   hlmap["variable.builtin"] = "Type"
-  --hlmap["text.environment"] = "Type"
+  hlmap["symbol"] = "Type"
   hlmap["text.environment.name"] = "Type"
-
-  --for k, _ in pairs(hlmap) do
-  --if k~="punctuation.bracket" then
-  --hlmap[k] = nil
-  --end
-  --end
 
   local ok, docs = pcall(require, "nvim-tree-docs")
   if ok then
@@ -865,119 +868,24 @@ end
 
 ----
 
---vim.cmd [[
---command! JustTargets lua require'my_launcher'.fuzzy_just()<cr>
---]]
---vim.cmd [[
---command! JustTargetsAsync lua require'my_launcher'.fuzzy_just(true)<cr>
---]]
---vim.cmd [[
---command! -nargs=1 JustRun lua require "my_launcher".run_just_task(<f-args>)
---]]
---vim.cmd [[
---command! -nargs=1 JustRunAsync lua require "my_launcher".run_just_task(<f-args>, true)
---]]
---vim.cmd [[
---command! -complete=file -nargs=* DebugC lua require "my_debug".start_c_debugger({<f-args>}, "gdb")
---]]
 vim.cmd [[
 command! -complete=file -nargs=* DebugRust lua require "my_debug".start_c_debugger({<f-args>}, "gdb", "rust-gdb")
 ]]
 vim.cmd [[
 command! -complete=file -nargs=* DebugLLDB lua require "my_debug".start_vscode_lldb({<f-args>})
 ]]
---vim.cmd [[
---command! -complete=file -nargs=* ReverseDebug lua require "my_debug".reverse_debug({<f-args>})
---]]
---vim.cmd [[
---command! MockDebug lua require "my_debug".mock_debug()
---]]
---vim.cmd [[
---command! -nargs=* DebugJava lua require "my_debug".debug_java({<f-args>})
---]]
---vim.cmd [[
---command! SwitchHeaderSource lua require "lsp-ext".switch_header_source()
---]]
---vim.g.my_font = '"FuraCode Nerd Font"'
---vim.g.my_fontsize = 8
---vim.cmd("set guicursor+=a:blinkon333")
---vim.cmd("set guifont=" .. vim.g.my_font .. ":h" .. (vim.g.my_fontsize))
---vim.cmd [[
---command! StopLspClients :lua vim.lsp.stop_client(vim.lsp.get_active_clients())
---]]
 
-----vim.api.nvim_command [[
-----command! -nargs=1 JustTargets lua require "my_launcher".fuzzy_just(<f-args>)
-----]]
-
---local ok, context = pcall(require, "treesitter-context")
---if ok then
---context.enable()
---end
-
---local ok, lspfuzzy = pcall(require, "lspfuzzy")
---if ok then
---lspfuzzy.setup {}
---end
-
-----if pcall(require, "telescope") then
-----require "telescope.builtin".symbols {sources = {"emoji", "kaomoji", "math", "latex"}}
-----end
-
---require "toggleterm".setup {
---size = 20,
---open_mapping = [[<f4>]],
---shade_filetypes = {},
---shade_terminals = true,
---persist_size = true,
---direction = "horizontal"
+--vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
+--vim.lsp.handlers.hover, {
+--border = {
+--{"😀", "FloatNormal"},
+--{"🌻", "FloatNormal"},
+--{"🌻", "FloatNormal"},
+--{"🌻", "FloatNormal"},
+--{"🌻", "FloatNormal"},
+--{"🌻", "FloatNormal"},
+--{"🌻", "FloatNormal"},
+--{"🌻", "FloatNormal"},
+--},
 --}
-
---vim.g.vimtex_syntax_conceal = {
---fancy = 1,
---greek = 1,
---math_bounds = 1,
---accents = 1,
---styles = 1,
---math_symbols = 1,
---math_super_sub = 1,
---math_fracs = -3
---}
-
---vim.g.qf_state = true
-
---vim.cmd [[nmap <silent> <c-l> :lua vim.g.qf_state = not vim.g.qf_state<cr>]]
---vim.cmd [[nmap <silent> <C-k> :lua if vim.g.qf_state then vim.cmd"cprevious" else vim.cmd("lprevious") end<cr>]]
---vim.cmd [[nmap <silent> <C-j> :lua if vim.g.qf_state then vim.cmd"cnext" else vim.cmd("lnext") end<cr>]]
-
-----vim.notify = function(msg, _log_level, _opts)
-----vim.fn.jobstart({"notify-send", msg})
-----end
-----
-----local ok, compe = pcall(require, "compe")
-----if ok then
-----compe.setup {
-----enabled = true,
-----autocomplete = true,
-----debug = false,
-----min_length = 1,
-----preselect = "enable",
-----throttle_time = 80,
-----source_timeout = 200,
-----incomplete_delay = 399,
-----allow_prefix_unmatch = false,
-----source = {
-----path = true,
-----buffer = true,
-----calc = true,
-----vsnip = false,
-----nvim_lsp = true,
-----nvim_lua = true,
-----spell = true,
-----tags = true,
-----snippets_nvim = false
-----}
---
-----}
-----end
---
+--)

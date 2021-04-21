@@ -1333,6 +1333,7 @@ au TextYankPost * silent! lua require'vim.highlight'.on_yank({"IncSearch", 150})
 
 
 let g:sexp_filetypes = 'clojure,scheme,lisp,timl,vlime_repl,fennel,query'
+let g:sexp_enable_insert_mode_mappings = 0
 
 "nmap <f2> :lua require'nvim-treesitter/playground'.play_with()<cr>
 
@@ -1505,8 +1506,7 @@ nnoremap <leader>sy :lua require "telescope.builtin".symbols {sources = {"emoji"
 
 
 "inoremap <silent><expr> <c-CR>   compe#confirm('<CR>')
-highlight def NvimTreesitterCurrentNode guibg=#000099
-highlight def NvimDapStopped guibg=#000099
+highlight NvimDapStopped guibg=#000099
 
 
 highlight ColorColumn ctermbg=0 guibg=lightgrey
@@ -1527,3 +1527,13 @@ hi def semshiErrorSign       ctermfg=231 guifg=#ffffff ctermbg=160 guibg=#d70000
 hi def semshiErrorChar       ctermfg=231 guifg=#ffffff ctermbg=160 guibg=#d70000
 
 inoremap <silent><expr> <c-CR>      <cmd>call compe#confirm('<CR>')
+
+autocmd ColorScheme * call v:lua.vim.lsp.diagnostic._define_default_signs_and_highlights()
+"autocmd ColorScheme * highlight TSTitle guifg=#229922 gui=bold,underline
+autocmd ColorScheme * highlight NvimDapStopped guibg=#000055
+"autocmd ColorScheme * highlight TSMacroRegion guibg=#000099
+"autocmd ColorScheme * highlight TSEscapedMacroRegion guibg=#550000
+
+
+
+nnoremap <silent> X :normal! x<cr>
