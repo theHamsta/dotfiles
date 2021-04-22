@@ -253,17 +253,17 @@ nnoremap <Leader>dt :diffthis<CR>
 "map <space><space>k <Plug>(easymotion-k)
 "map <space><space>h <Plug>(easymotion-linebackward)
 
-nmap <Leader>gs :Gstatus<CR>
-nmap <Leader>gS :Gministatus<CR>
-nmap <Leader>ga :Gw<CR>
+nmap <Leader>gs :Git status<CR>
+nmap <Leader>gS :Git ministatus<CR>
+nmap <Leader>ga :Git w<CR>
 nmap <c-a-b> :Gblame<CR>
 nmap <Leader>res:Git reset<CR>
 nmap <Leader>me :MerginalToggle<CR>
 nmap <Leader>gw :Gw<CR>
-nmap <Leader>gc :Gcommit -v<CR>
-nmap <Leader>am :Gcommit -v --amend<CR>
+nmap <Leader>gc :Git commit -v<CR>
+nmap <Leader>am :Git commit -v --amend<CR>
 "nmap <Leader>gH :Gvsplit HEAD^1:%:@<cr>
-nmap <Leader>gh :Gvsplit :%<left><left>
+nmap <Leader>gh :Git vsplit :%<left><left>
 nmap <Leader>gH :call GetOtherVersionAtSameLine('')<left><left>
 nmap <Leader>g< :call GoPreviousCommit()<cr>
 nmap <Leader>g> :call GoNextCommit()<cr>
@@ -274,7 +274,7 @@ nmap <Leader>gv :GV<CR>
 nmap <Leader>gu :Git reset -- %<CR>
 nmap <Leader>gd <c-w>O:Gdiff<CR>
 nmap <Leader>gD <c-w>O:Gvdiffsplit :%<left><left>
-nmap <Leader>gr :Gread<CR>:w<cr>
+nmap <Leader>gr :Git read<CR>:w<cr>
 nmap <Leader>gp :GitPushAsync<CR>
 nmap <Leader>gP :GitPushAsyncForce<CR>
 nmap <Leader>gl :Git pull<CR>

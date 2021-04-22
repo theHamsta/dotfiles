@@ -9,22 +9,6 @@ vim.cmd [[packadd packer.nvim]]
 
 local packer = require("packer")
 local use = packer.use
-local function bubbly_config()
-  vim.g.bubbly_palette = {
-    background = "#34343c",
-    foreground = "#c5cdd9",
-    black = "#3e4249",
-    red = "#ec7279",
-    green = "#a0c980",
-    yellow = "#deb974",
-    blue = "#6cb6eb",
-    purple = "#d38aea",
-    cyan = "#5dbbc1",
-    white = "#c5cdd9",
-    lightgrey = "#57595e",
-    darkgrey = "#404247"
-  }
-end
 
 local lisp_filetypes = {"lisp", "clojure", "scheme", "vlime_repl", "fennel", "query"}
 
@@ -123,12 +107,12 @@ return packer.startup(
         local function has_trailing_whitespaces(bufnr)
           local _, after = utils.get_surrounding_chars(bufnr, nil, 1)
 
-          return (after == "" or string.match(after, "%s") or string.match(after, "[)%]]"))
+          return (not after or after == "" or string.match(after, "%s") or string.match(after, "[)%]}]"))
         end
         local function check_quotes(bufnr)
           local _, after = utils.get_surrounding_chars(bufnr, nil, 1)
 
-          return (after == "" or string.match(after, "%s") or string.match(after, "[)%]]")) and
+          return (not after or after == "" or string.match(after, "%s") or string.match(after, "[)%]}]")) and
             not utils.has_leading_alpha(bufnr)
         end
 
@@ -537,7 +521,7 @@ return packer.startup(
     use "theHamsta/vim-textobj-entire"
     use "theHamsta/vim-rebase-mode"
     use "tpope/vim-eunuch"
-    use "theHamsta/vim-fugitive"
+    use "tpope/vim-fugitive"
     use {"tpope/vim-markdown", ft = "markdown"}
     use "tpope/vim-repeat"
     use "tpope/vim-rhubarb"
@@ -556,7 +540,6 @@ return packer.startup(
       end,
       opt = false
     }
-    use {"datwaft/bubbly.nvim", config = bubbly_config, disable = true}
     use "wellle/targets.vim"
     use "whiteinge/diffconflicts"
     use "TravonteD/luajob"
