@@ -253,13 +253,13 @@ nnoremap <Leader>dt :diffthis<CR>
 "map <space><space>k <Plug>(easymotion-k)
 "map <space><space>h <Plug>(easymotion-linebackward)
 
-nmap <Leader>gs :Git status<CR>
+nmap <Leader>gs :G<CR>
 nmap <Leader>gS :Git ministatus<CR>
 nmap <Leader>ga :Git w<CR>
-nmap <c-a-b> :Gblame<CR>
+nmap <c-a-b> :Git blame<CR>
 nmap <Leader>res:Git reset<CR>
 nmap <Leader>me :MerginalToggle<CR>
-nmap <Leader>gw :Gw<CR>
+nmap <Leader>gw :Git w<CR>
 nmap <Leader>gc :Git commit -v<CR>
 nmap <Leader>am :Git commit -v --amend<CR>
 "nmap <Leader>gH :Gvsplit HEAD^1:%:@<cr>
