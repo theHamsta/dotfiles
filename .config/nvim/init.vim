@@ -21,7 +21,6 @@ set ttyfast
 set smartcase
 let g:paredit_leader=','
 let g:rooter_patterns = ['gitmodules', '.git', '.git/']
-let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 
 let g:vim_bootstrap_langs = "c,python"
 let g:vim_bootstrap_editor = "nvim"             " nvim or vim
@@ -32,6 +31,7 @@ let g:LanguageClient_settingsPath = expand('~').'.config/nvim/settings.json'
 
 
 
+"let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 "if !filereadable(vimplug_exists)
     "if !executable("curl")
         "echoerr "You have to install curl or first install vim-plug yourself!"
@@ -57,10 +57,6 @@ let g:LanguageClient_settingsPath = expand('~').'.config/nvim/settings.json'
     "set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
 "endif
 "" }
-
-let g:xcodedark_green_comments = 1
-let g:xcodedark_emph_funcs = 1
-let g:xcodedark_emph_idents = 1
 
 map <SPACE> <leader>
 
@@ -1484,8 +1480,6 @@ let g:completion_trigger_keyword_length = 2 " default = 1
 "au InsertLeave * match ExtraWhitespace /\s\+$/
 "au BufWinLeave * call clearmatches()
 "
-command! UseCcl let g:vlime_cl_impl = "ccl"
-command! UseSbcl let g:vlime_cl_impl = "sbcl"
 "command! UseSystemSbcl let g:vlime_cl_impl = "/usr/bin/sbcl"
 "inoremap <silent><expr> <C-Space> compe#complete()
 "inoremap <silent><expr> <CR>      compe#confirm('<CR>')

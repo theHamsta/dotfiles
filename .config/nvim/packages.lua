@@ -484,7 +484,7 @@ return packer.startup(
     use "markonm/traces.vim"
     use {"mbbill/undotree", cmd = {"UndotreeToggle"}}
     use {"meain/vim-package-info", run = "npm install"}
-    use "mhinz/vim-startify"
+    use {"mhinz/vim-startify", opt = false}
     use "moll/vim-bbye"
     use {"jpalardy/vim-slime", opt = true}
     use "pboettch/vim-cmake-syntax"
@@ -538,7 +538,7 @@ return packer.startup(
       config = function()
         require "my_statusline"
       end,
-      opt = false
+      opt = true
     }
     use "wellle/targets.vim"
     use "whiteinge/diffconflicts"
