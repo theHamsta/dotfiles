@@ -32,18 +32,6 @@ if not filter then
   end
 end
 
---local ok, lsputil = pcall(require, "lsputil.codeAction")
---if ok then
---vim.lsp.callbacks["textDocument/codeAction"] = lsputil.code_action_handler
---vim.lsp.callbacks["textDocument/references"] = lsputil.references_handler
---vim.lsp.callbacks["textDocument/definition"] = lsputil.definition_handler
---vim.lsp.callbacks["textDocument/declaration"] = lsputil.declaration_handler
---vim.lsp.callbacks["textDocument/typeDefinition"] = lsputil.typeDefinition_handler
---vim.lsp.callbacks["textDocument/implementation"] = lsputil.implementation_handler
---vim.lsp.callbacks["textDocument/documentSymbol"] = lsputil.document_handler
---vim.lsp.callbacks["workspace/symbol"] = lsputil.workspace_handler
---end
-
 function D(a)
   print(vim.inspect(a))
   return a
@@ -54,22 +42,9 @@ function E(...)
   return ...
 end
 
---local completion_nvim_ok = pcall(require, "completion")
---if completion_nvim_ok then
---vim.cmd [[
---autocmd BufEnter * lua if vim.bo.filetype~='dap-repl' then require'completion'.on_attach() end
---]]
---end
-
 local ok, lspconfig = pcall(require, "lspconfig")
 
 if ok then
-  --local default_callback = vim.lsp.callbacks["textDocument/publishDiagnostics"]
-  --vim.lsp.callbacks["textDocument/publishDiagnostics"] = function(...)
-  --default_callback(...)
-
-  --require "lsp-ext".update_diagnostics()
-  --end
 
   require("lspkind").init()
   local function on_attach(client, bufnr)
@@ -637,7 +612,7 @@ if ok then
       },
       query_linter = {
         enable = true,
-        lint_events = {"BufWrite", "CursorHold"}
+        lint_events = {"BufWrite"}
       },
       tree_docs = {
         enable = true,
@@ -677,7 +652,7 @@ if ok then
         allow_next_parent = true
       },
       rainbow = {
-        enable = true,
+        enable = false,
         extended_mode = {
           latex = true
         }
@@ -687,7 +662,7 @@ if ok then
       },
       pairs = {
         enable = true,
-        highlight_pair_events = {"CursorMoved"},
+        highlight_pair_events = {},
         highlight_self = false,
         goto_right_end = false,
         fallback_cmd_normal = "call matchit#Match_wrapper('',1,'n')",
@@ -728,6 +703,7 @@ if ok then
         },
         swap = {
           enable = true,
+          super_repeat = {["<c-ü>"] = "h"},
           swap_next = {
             ["<leader>ä"] = "@parameter.inner",
             ["<a-f>"] = "@function.outer",
@@ -814,6 +790,7 @@ if ok then
 
   -- Constants
   hlmap["constant"] = "Constant"
+  hlmap["comment"] = "Comment"
   hlmap["constant"] = "Constant"
   hlmap["semshi"] = "semshiImported"
   hlmap["constant.builtin"] = "Boolean"
@@ -889,3 +866,14 @@ command! -complete=file -nargs=* DebugLLDB lua require "my_debug".start_vscode_l
 --},
 --}
 --)
+
+--local folds_query = [[
+--[
+ --(function)
+--] @fold
+--]]
+--require('vim.treesitter.query').set_query("lua", "folds", folds_query)
+--require('vim.treesitter.query').set_query("lua", "textobjects", [[(function_call) @function.outer]])
+
+
+

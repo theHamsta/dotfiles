@@ -38,9 +38,15 @@ return packer.startup(
     use {"wbthomason/packer.nvim", opt = true}
     use {"famiu/nvim-reload", opt = true}
     use "nvim-lua/popup.nvim"
-    use {"olimorris/onedark.nvim", requires = "rktjmp/lush.nvim", opt = true}
-    use { "kdav5758/TrueZen.nvim", opt = true }
-    use { "windwp/nvim-ts-autotag" }
+    use "jceb/emmet.snippets"
+    use {
+      "folke/lsp-trouble.nvim",
+      config = function()
+        require("trouble").setup {}
+      end
+    }
+    use {"kdav5758/TrueZen.nvim", opt = true}
+    use {"windwp/nvim-ts-autotag", opt = true}
     use {
       "nvim-telescope/telescope-project.nvim",
       config = function()
@@ -119,20 +125,20 @@ return packer.startup(
         pears.setup(
           function(c)
             --c.preset "markdown"
-            --c.preset "tag_matching"
+            c.preset "tag_matching"
             c.preset "html"
             c.pair(
               "(",
               {
                 close = ")",
-                should_expand = has_trailing_whitespaces,
+                --should_expand = has_trailing_whitespaces
               }
             )
             c.pair(
               "{",
               {
                 close = "}",
-                should_expand = has_trailing_whitespaces,
+                should_expand = has_trailing_whitespaces
               }
             )
             c.pair(
@@ -192,6 +198,7 @@ return packer.startup(
             path = true,
             buffer = true,
             calc = true,
+            ultisnips = true,
             vsnip = false,
             nvim_lsp = true,
             nvim_lua = true,
@@ -229,7 +236,7 @@ return packer.startup(
     use "norcalli/snippets.nvim"
     use "ghifarit53/tokyonight-vim"
     use "akinsho/nvim-toggleterm.lua"
-    use "chrisbra/unicode.vim"
+    --use "chrisbra/unicode.vim"
     use "tpope/vim-speeddating"
     use "nvim-telescope/telescope-symbols.nvim"
     use {
@@ -300,7 +307,7 @@ return packer.startup(
     }
     use "ziglang/zig.vim"
     use "mfussenegger/nvim-jdtls"
-    use "mattn/emmet-vim"
+    --use "mattn/emmet-vim"
     use "rhysd/conflict-marker.vim"
     use {"mfussenegger/nvim-dap"}
     use "theHamsta/nvim-dap-virtual-text"
@@ -347,7 +354,7 @@ return packer.startup(
     use {"preservim/tagbar", cmd = {"TagbarToggle", "TagbarOpenAutoClose"}}
     use "szymonmaszke/vimpyter"
     use {"voldikss/vim-floaterm", cmd = "FloatermToggle"}
-    use "kkoomen/vim-doge"
+    use {"kkoomen/vim-doge", opt = true}
     use "AndrewRadev/switch.vim"
     --use "JuliaEditorSupport/julia-vim"
     use "Julian/vim-textobj-variable-segment"
@@ -477,8 +484,7 @@ return packer.startup(
     use "justinmk/vim-gtfo"
     use {"justinmk/vim-sneak", opt = false}
     use "kassio/neoterm"
-    use {"luochen1990/rainbow", disable = true}
-    use {"lervag/vimtex", opt = true}
+    --use {"lervag/vimtex", opt = true}
     --use "machakann/vim-swap"
     use "p00f/nvim-ts-rainbow"
     use "markonm/traces.vim"
@@ -538,7 +544,7 @@ return packer.startup(
       config = function()
         require "my_statusline"
       end,
-      opt = true
+      opt = false
     }
     use "wellle/targets.vim"
     use "whiteinge/diffconflicts"

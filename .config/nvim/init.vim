@@ -251,15 +251,15 @@ nnoremap <Leader>dt :diffthis<CR>
 
 nmap <Leader>gs :G<CR>
 nmap <Leader>gS :Git ministatus<CR>
-nmap <Leader>ga :Git w<CR>
+nmap <Leader>ga :Gwrite<CR>
 nmap <c-a-b> :Git blame<CR>
 nmap <Leader>res:Git reset<CR>
 nmap <Leader>me :MerginalToggle<CR>
-nmap <Leader>gw :Git w<CR>
+nmap <Leader>gw :Gwrite<CR>
 nmap <Leader>gc :Git commit -v<CR>
 nmap <Leader>am :Git commit -v --amend<CR>
 "nmap <Leader>gH :Gvsplit HEAD^1:%:@<cr>
-nmap <Leader>gh :Git vsplit :%<left><left>
+nmap <Leader>gh :Gvsplit :%<left><left>
 nmap <Leader>gH :call GetOtherVersionAtSameLine('')<left><left>
 nmap <Leader>g< :call GoPreviousCommit()<cr>
 nmap <Leader>g> :call GoNextCommit()<cr>
@@ -270,7 +270,7 @@ nmap <Leader>gv :GV<CR>
 nmap <Leader>gu :Git reset -- %<CR>
 nmap <Leader>gd <c-w>O:Gdiff<CR>
 nmap <Leader>gD <c-w>O:Gvdiffsplit :%<left><left>
-nmap <Leader>gr :Git read<CR>:w<cr>
+nmap <Leader>gr :Gread<CR>:w<cr>
 nmap <Leader>gp :GitPushAsync<CR>
 nmap <Leader>gP :GitPushAsyncForce<CR>
 nmap <Leader>gl :Git pull<CR>
@@ -1481,7 +1481,7 @@ let g:completion_trigger_keyword_length = 2 " default = 1
 "au BufWinLeave * call clearmatches()
 "
 "command! UseSystemSbcl let g:vlime_cl_impl = "/usr/bin/sbcl"
-"inoremap <silent><expr> <C-Space> compe#complete()
+""inoremap <silent><expr> <C-Space> compe#complete()
 "inoremap <silent><expr> <CR>      compe#confirm('<CR>')
 "
 "inoremap <silent><expr> <C-Space> compe#complete()
@@ -1520,7 +1520,7 @@ hi def semshiSelected        ctermfg=231 guifg=#ffffff ctermbg=161 guibg=#d7005f
 hi def semshiErrorSign       ctermfg=231 guifg=#ffffff ctermbg=160 guibg=#d70000
 hi def semshiErrorChar       ctermfg=231 guifg=#ffffff ctermbg=160 guibg=#d70000
 
-inoremap <silent><expr> <c-CR>      <cmd>call compe#confirm('<CR>')
+"inoremap <silent><expr> <c-CR>      <cmd>call compe#confirm('<CR>')
 
 autocmd ColorScheme * call v:lua.vim.lsp.diagnostic._define_default_signs_and_highlights()
 "autocmd ColorScheme * highlight TSTitle guifg=#229922 gui=bold,underline
