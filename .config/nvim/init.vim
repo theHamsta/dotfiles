@@ -1529,5 +1529,5 @@ autocmd ColorScheme * highlight NvimDapStopped guibg=#000055
 "autocmd ColorScheme * highlight TSEscapedMacroRegion guibg=#550000
 
 
-
 nnoremap <silent> X :normal! x<cr>
+noremap <silent> <leader>tb :Tagbar<cr>

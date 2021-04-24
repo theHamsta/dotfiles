@@ -37,6 +37,13 @@ return packer.startup(
   function()
     use {"wbthomason/packer.nvim", opt = true}
     use {"famiu/nvim-reload", opt = true}
+    use {
+      "simrat39/symbols-outline.nvim",
+      cmd = {"SymbolsOutline"},
+      config = function()
+        require("symbols-outline").setup({})
+      end
+    }
     use "nvim-lua/popup.nvim"
     use "jceb/emmet.snippets"
     use {
@@ -108,30 +115,27 @@ return packer.startup(
         local pears = require("pears")
         local utils = require("pears.utils")
 
-        vim.cmd [[autocmd BufEnter *.clojure,*.scheme,*.lisp,*.vlime_repl,*.fennel,*.scm :lua require "pears".setup_buf_pairs {}]]
-
         local function has_trailing_whitespaces(bufnr)
           local _, after = utils.get_surrounding_chars(bufnr, nil, 1)
 
           return (not after or after == "" or string.match(after, "%s") or string.match(after, "[)%]}]"))
         end
         local function check_quotes(bufnr)
-          local _, after = utils.get_surrounding_chars(bufnr, nil, 1)
+          local before, after = utils.get_surrounding_chars(bufnr, nil, 1)
 
           return (not after or after == "" or string.match(after, "%s") or string.match(after, "[)%]}]")) and
-            not utils.has_leading_alpha(bufnr)
+            not (before and before:match("%w"))
         end
 
         pears.setup(
           function(c)
-            --c.preset "markdown"
             c.preset "tag_matching"
             c.preset "html"
             c.pair(
               "(",
               {
                 close = ")",
-                --should_expand = has_trailing_whitespaces
+                should_expand = has_trailing_whitespaces
               }
             )
             c.pair(
@@ -199,6 +203,7 @@ return packer.startup(
             buffer = true,
             calc = true,
             ultisnips = true,
+            emoji = true,
             vsnip = false,
             nvim_lsp = true,
             nvim_lua = true,
@@ -484,7 +489,7 @@ return packer.startup(
     use "justinmk/vim-gtfo"
     use {"justinmk/vim-sneak", opt = false}
     use "kassio/neoterm"
-    --use {"lervag/vimtex", opt = true}
+    use {"lervag/vimtex", opt = true}
     --use "machakann/vim-swap"
     use "p00f/nvim-ts-rainbow"
     use "markonm/traces.vim"

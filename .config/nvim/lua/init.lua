@@ -867,13 +867,9 @@ command! -complete=file -nargs=* DebugLLDB lua require "my_debug".start_vscode_l
 --}
 --)
 
---local folds_query = [[
---[
- --(function)
---] @fold
---]]
---require('vim.treesitter.query').set_query("lua", "folds", folds_query)
---require('vim.treesitter.query').set_query("lua", "textobjects", [[(function_call) @function.outer]])
-
-
-
+local folds_query = [[
+[
+ (_)
+] @fold
+]]
+require('vim.treesitter.query').set_query("python", "folds", folds_query)
