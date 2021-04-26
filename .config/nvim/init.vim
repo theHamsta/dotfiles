@@ -759,6 +759,7 @@ augroup filetypedetect
     au! BufRead,BufNewFile *.asd,.spacemacs set filetype=lisp
     au! BufRead,BufNewFile *.class set filetype=java
     au! BufRead,BufNewFile *.tl set filetype=teal
+    au! BufRead,BufNewFile .luacheckrc set filetype=lua
 augroup END
 
 "let g:NERDTreeFileExtensionHighlightFullName = 1
@@ -1501,7 +1502,6 @@ nnoremap <leader>sy :lua require "telescope.builtin".symbols {sources = {"emoji"
 
 "inoremap <silent><expr> <c-CR>   compe#confirm('<CR>')
 highlight NvimDapStopped guibg=#000099
-
 
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 

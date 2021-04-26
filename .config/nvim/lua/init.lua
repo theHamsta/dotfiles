@@ -15,6 +15,10 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
     "additionalTextEdits"
   }
 }
+local lsp_status_ok, lsp_status = pcall(require, "lsp-status")
+if lsp_status_ok then
+  capabilities = vim.tbl_extend("keep", capabilities or {}, lsp_status.capabilities)
+end
 
 if not filter then
   local ok, _ = pcall(require, "fun")
@@ -45,7 +49,6 @@ end
 local ok, lspconfig = pcall(require, "lspconfig")
 
 if ok then
-
   require("lspkind").init()
   local function on_attach(client, bufnr)
     --local function buf_set_keymap(...)
@@ -70,6 +73,9 @@ if ok then
     --false
     --)
     --end
+    if lsp_status_ok then
+      lsp_status.on_attach(client)
+    end
 
     vim.fn.NvimLspMaps()
   end
@@ -98,15 +104,18 @@ if ok then
   }
 
   lspconfig.tsserver.setup {
-    on_attach = on_attach
+    on_attach = on_attach,
+    capabilities = capabilities,
   }
 
   lspconfig.svelte.setup {
-    on_attach = on_attach
+    on_attach = on_attach,
+    capabilities = capabilities,
   }
 
   lspconfig.julials.setup {
-    on_attach = on_attach
+    on_attach = on_attach,
+    capabilities = capabilities,
   }
   lspconfig.ocamllsp.setup {
     on_attach = function(...)
@@ -138,7 +147,8 @@ if ok then
           }
         }
       }
-    }
+    },
+    capabilities = capabilities,
   }
 
   lspconfig.tsserver.setup {
@@ -161,7 +171,8 @@ if ok then
       "--cross-file-rename"
     },
     filetypes = {"c", "cpp", "objc", "objcpp", "cuda"},
-    on_attach = on_attach
+    on_attach = on_attach,
+    capabilities = capabilities,
   }
   local sumneko_root_path = vim.fn.expand("~/projects/lua-language-server")
   local sumneko_binary = sumneko_root_path .. "/bin/Linux/lua-language-server"
@@ -186,7 +197,8 @@ if ok then
         }
       }
     },
-    on_attach = on_attach
+    on_attach = on_attach,
+    capabilities = capabilities,
   }
   lspconfig.html.setup {
     on_attach = on_attach
@@ -237,7 +249,8 @@ if ok then
         }
       }
     },
-    on_attach = on_attach
+    on_attach = on_attach,
+    capabilities = capabilities,
   }
 end
 
@@ -522,7 +535,10 @@ if ok then
     },
     filetype = "solidity"
   }
+
+  require "nvim-treesitter.parsers".get_parser_configs().jsonc.used_by = {"json"}
   --require "nvim-treesitter.parsers".get_parser_configs().test = {
+
   --install_info = {
   --url = "https://github.com/theHamsta/tree-sitter-test.git",
   --files = {"src/parser.c"}
@@ -869,7 +885,31 @@ command! -complete=file -nargs=* DebugLLDB lua require "my_debug".start_vscode_l
 
 local folds_query = [[
 [
- (_)
+  (function_definition)
+  (class_definition)
+
+  (while_statement)
+  (for_statement)
+  (if_statement)
+  (with_statement)
+  (try_statement)
+
+  (import_from_statement)
+  (parameters)
+  (argument_list)
+
+  (parenthesized_expression)
+  (generator_expression)
+  (list_comprehension)
+  (set_comprehension)
+  (dictionary_comprehension)
+
+  (tuple)
+  (list)
+  (set)
+  (dictionary)
+
+  (string)
 ] @fold
 ]]
-require('vim.treesitter.query').set_query("python", "folds", folds_query)
+require("vim.treesitter.query").set_query("python", "folds", folds_query)

@@ -90,7 +90,8 @@ return packer.startup(
       end
     }
     use "pwntester/octo.nvim"
-    use {"folke/tokyonight.nvim", opt = true}
+    use {"tiagovla/tokyodark.nvim", opt = true}
+    --use {"folke/tokyonight.nvim", opt = true}
     use {
       "glepnir/indent-guides.nvim",
       config = function()
@@ -99,6 +100,14 @@ return packer.startup(
       opt = true
     }
     use {"jiangmiao/auto-pairs", opt = true}
+    use {
+      "nvim-lua/lsp-status.nvim",
+      config = function()
+        local lsp_status = require("lsp-status")
+        lsp_status.register_progress()
+      end,
+      opt = true
+    }
     use {"glepnir/zephyr-nvim", opt = true}
     use {"tpope/vim-endwise", ft = "lua", opt = true}
     use {"ojroques/nvim-lspfuzzy", opt = true}
@@ -110,6 +119,7 @@ return packer.startup(
     }
     use {
       "steelsojka/pears.nvim",
+      branch = '98c0498',
       opt = false,
       config = function()
         local pears = require("pears")
@@ -194,7 +204,7 @@ return packer.startup(
           debug = false,
           min_length = 2,
           preselect = "disable",
-          throttle_time = 80,
+          throttle_time = 280,
           source_timeout = 200,
           incomplete_delay = 399,
           allow_prefix_unmatch = false,
@@ -202,7 +212,7 @@ return packer.startup(
             path = true,
             buffer = true,
             calc = true,
-            ultisnips = true,
+            ultisnips = false,
             emoji = true,
             vsnip = false,
             nvim_lsp = true,
@@ -293,7 +303,7 @@ return packer.startup(
     use "nvim-treesitter/nvim-treesitter-refactor"
     use {"nvim-treesitter/nvim-treesitter"}
     use "nvim-treesitter/playground"
-    use "nvim-treesitter/nvim-tree-docs"
+    --use "nvim-treesitter/nvim-tree-docs"
     use {"bluz71/vim-nightfly-guicolors", opt = true}
     use {"bluz71/vim-moonfly-colors", opt = true}
     use {"chriskempson/base16-vim", opt = true}
@@ -350,14 +360,14 @@ return packer.startup(
         require("telescope").load_extension("fzy_native")
       end
     }
-    use "Olical/nvim-local-fennel"
-    use {"Olical/conjure", opt = true}
-    use "bakpakin/fennel.vim"
-    use "Olical/aniseed"
+    --use {"Olical/conjure", opt = true}
+    --use "Olical/nvim-local-fennel"
+    --use "bakpakin/fennel.vim"
+    --use "Olical/aniseed"
+    --use "szymonmaszke/vimpyter"
     use "camspiers/animate.vim"
     use "neovim/nvim-lspconfig"
     use {"preservim/tagbar", cmd = {"TagbarToggle", "TagbarOpenAutoClose"}}
-    use "szymonmaszke/vimpyter"
     use {"voldikss/vim-floaterm", cmd = "FloatermToggle"}
     use {"kkoomen/vim-doge", opt = true}
     use "AndrewRadev/switch.vim"
@@ -483,11 +493,11 @@ return packer.startup(
     use {"jceb/vim-orgmode", ft = "org"}
     use {"junegunn/fzf", run = ":call fzf#install()"}
     use "junegunn/fzf.vim"
-    use "junegunn/goyo.vim"
+    --use "junegunn/goyo.vim"
+    --use "junegunn/limelight.vim"
     use "junegunn/gv.vim"
-    use "junegunn/limelight.vim"
     use "justinmk/vim-gtfo"
-    use {"justinmk/vim-sneak", opt = false}
+    use {"justinmk/vim-sneak", opt = true}
     use "kassio/neoterm"
     use {"lervag/vimtex", opt = true}
     --use "machakann/vim-swap"
