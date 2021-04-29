@@ -1483,7 +1483,6 @@ let g:completion_trigger_keyword_length = 2 " default = 1
 "
 "command! UseSystemSbcl let g:vlime_cl_impl = "/usr/bin/sbcl"
 ""inoremap <silent><expr> <C-Space> compe#complete()
-"inoremap <silent><expr> <CR>      compe#confirm('<CR>')
 "
 "inoremap <silent><expr> <C-Space> compe#complete()
 
@@ -1499,8 +1498,6 @@ nnoremap <leader>sy :lua require "telescope.builtin".symbols {sources = {"emoji"
 "nnoremap <leader>fy :Telescope frecency<cr>
 "inoremap <c-s> <Esc>:lua require "telescope.builtin".symbols {sources = {"emoji", "kaomoji", "math", "latex"}}<cr>
 
-
-"inoremap <silent><expr> <c-CR>   compe#confirm('<CR>')
 highlight NvimDapStopped guibg=#000099
 
 highlight ColorColumn ctermbg=0 guibg=lightgrey
@@ -1535,3 +1532,9 @@ autocmd ColorScheme * highlight default link TSCurrentScope CursorLine
 
 nnoremap <silent> X :normal! x<cr>
 noremap <silent> <leader>tb :Tagbar<cr>
+
+command! Tokyo :packadd tokyonight.nvim | let g:tokyonight_style = "night" | colorscheme tokyonight
+command! TokyoDay :packadd tokyonight.nvim | let g:tokyonight_style = "day" | colorscheme tokyonight
+command! Nightfly :packadd vim-nightfly-guicolors | colorscheme nightfly
+command! Moonfly :packadd vim-moonfly | colorscheme moonfly
+command! OneDark colorscheme one

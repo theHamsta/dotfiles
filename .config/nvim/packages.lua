@@ -139,6 +139,15 @@ return packer.startup(
 
         pears.setup(
           function(c)
+            c.on_enter(
+              function(pears_handle)
+                if vim.fn.pumvisible() == 1 and vim.fn.complete_info().selected ~= -1 then
+                  return vim.fn["compe#confirm"]("<CR>")
+                else
+                  pears_handle()
+                end
+              end
+            )
             c.preset "tag_matching"
             c.preset "html"
             c.pair(
@@ -248,7 +257,12 @@ return packer.startup(
     use {"jubnzv/virtual-types.nvim"}
     use "ocaml/vim-ocaml"
     use {"kevinhwang91/nvim-hlslens", opt = true}
-    use "norcalli/snippets.nvim"
+    use {
+      "norcalli/snippets.nvim",
+      config = function()
+        vim.cmd[[inoremap <c-k> <cmd>lua return require'snippets'.expand_or_advance(1)<CR>]]
+      end
+    }
     use "ghifarit53/tokyonight-vim"
     use "akinsho/nvim-toggleterm.lua"
     --use "chrisbra/unicode.vim"
