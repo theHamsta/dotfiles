@@ -73,13 +73,6 @@ return packer.startup(
     use {"Mofiqul/vim-code-dark", opt = true}
     use {"TimUntersberger/neogit", opt = true}
     use {"theHamsta/nvim-treesitter-commonlisp", opt = false}
-    --use {
-    --"nvim-lua/lsp_extensions.nvim",
-    --ft = "rust",
-    --config = function()
-    --vim.cmd [[command! InlayHints :lua require "lsp_extensions".inlay_hints({enabled = {"TypeHint", "ChainingHint", "ParameterHint"}, highlight = "Comment", prefix = " ? "})]]
-    --end
-    --}
     use {
       "simrat39/rust-tools.nvim",
       --filetype = "rust",
@@ -150,6 +143,13 @@ return packer.startup(
             )
             c.preset "tag_matching"
             c.preset "html"
+            --c.pair(
+            --"then",
+            --{
+            --close = "end",
+            --filetypes = {"lua"}
+            --}
+            --)
             c.pair(
               "(",
               {
@@ -260,7 +260,7 @@ return packer.startup(
     use {
       "norcalli/snippets.nvim",
       config = function()
-        vim.cmd[[inoremap <c-k> <cmd>lua return require'snippets'.expand_or_advance(1)<CR>]]
+        vim.cmd [[inoremap <c-k> <cmd>lua return require'snippets'.expand_or_advance(1)<CR>]]
       end
     }
     use "ghifarit53/tokyonight-vim"
@@ -315,7 +315,44 @@ return packer.startup(
     use "nvim-treesitter/nvim-treesitter-textobjects"
     use "theHamsta/nvim-treesitter-pairs"
     use "nvim-treesitter/nvim-treesitter-refactor"
-    use {"nvim-treesitter/nvim-treesitter"}
+    use {
+      "nvim-treesitter/nvim-treesitter",
+      config = function()
+        if require "nvim-treesitter.parsers".has_parser("python") then
+          local folds_query =
+            [[
+  [
+    (function_definition)
+    (class_definition)
+
+    (while_statement)
+    (for_statement)
+    (if_statement)
+    (with_statement)
+    (try_statement)
+
+    (import_from_statement)
+    (parameters)
+    (argument_list)
+
+    (parenthesized_expression)
+    (generator_expression)
+    (list_comprehension)
+    (set_comprehension)
+    (dictionary_comprehension)
+
+    (tuple)
+    (list)
+    (set)
+    (dictionary)
+
+    (string)
+  ] @fold
+  ]]
+          require("vim.treesitter.query").set_query("python", "folds", folds_query)
+        end
+      end
+    }
     use "nvim-treesitter/playground"
     --use "nvim-treesitter/nvim-tree-docs"
     use {"bluz71/vim-nightfly-guicolors", opt = true}

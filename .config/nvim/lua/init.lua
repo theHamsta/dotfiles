@@ -525,16 +525,41 @@ local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
   vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
   -- *Must* be *S*olidity
-  require "nvim-treesitter.parsers".get_parser_configs().Solidity = {
+  --require "nvim-treesitter.parsers".get_parser_configs().Solidity = {
+  --install_info = {
+  --url = "https://github.com/JoranHonig/tree-sitter-solidity",
+  --files = {"src/parser.c"},
+  --requires_generate_from_grammar = true
+  --},
+  --filetype = "solidity"
+  --}
+  local list = require "nvim-treesitter.parsers".get_parser_configs()
+  list.commonlisp = {
     install_info = {
-      url = "https://github.com/JoranHonig/tree-sitter-solidity",
-      files = {"src/parser.c"},
-      requires_generate_from_grammar = true
+      url = "~/projects/tree-sitter-commonlisp",
+      files = {"src/parser.c"}
     },
-    filetype = "solidity"
+    filetype = "lisp",
+    maintainers = {"@theHamsta"}
+  }
+  list.make = {
+    install_info = {
+      url = "https://github.com/alemuller/tree-sitter-make",
+      files = {"src/parser.c"},
+      branch = "main",
+      filetype = "Makefile",
+    },
   }
 
-  require "nvim-treesitter.parsers".get_parser_configs().jsonc.used_by = {"json"}
+
+  --list.markdown = {
+  --
+    --install_info = {
+      --url = "https://github.com/ikatyang/tree-sitter-markdown",
+      --files = {"src/parser.c", "src/scanner.cc", "-DTREE_SITTER_MARKDOWN_AVOID_CRASH=1"}
+    --}
+  --}
+
   --require "nvim-treesitter.parsers".get_parser_configs().test = {
 
   --install_info = {
@@ -876,34 +901,3 @@ command! -complete=file -nargs=* DebugLLDB lua require "my_debug".start_vscode_l
 --}
 --)
 
-local folds_query =
-  [[
-[
-  (function_definition)
-  (class_definition)
-
-  (while_statement)
-  (for_statement)
-  (if_statement)
-  (with_statement)
-  (try_statement)
-
-  (import_from_statement)
-  (parameters)
-  (argument_list)
-
-  (parenthesized_expression)
-  (generator_expression)
-  (list_comprehension)
-  (set_comprehension)
-  (dictionary_comprehension)
-
-  (tuple)
-  (list)
-  (set)
-  (dictionary)
-
-  (string)
-] @fold
-]]
-require("vim.treesitter.query").set_query("python", "folds", folds_query)

@@ -760,6 +760,7 @@ augroup filetypedetect
     au! BufRead,BufNewFile *.class set filetype=java
     au! BufRead,BufNewFile *.tl set filetype=teal
     au! BufRead,BufNewFile .luacheckrc set filetype=lua
+    au! BufRead,BufNewFile *.fish set filetype=fish
 augroup END
 
 "let g:NERDTreeFileExtensionHighlightFullName = 1
