@@ -684,7 +684,7 @@ if ok then
         fallback_cmd_normal = "call matchit#Match_wrapper('',1,'n')",
         keymaps = {
           goto_partner = "%",
-          delete_balanced = "x"
+          --delete_balanced = "x"
         },
         delete_balanced = {
           only_on_first_char = true,
