@@ -89,7 +89,7 @@ return packer.startup(
         require("rust-tools").setup(opts)
       end
     }
-    use "pwntester/octo.nvim"
+    use {"pwntester/octo.nvim", opt = true}
     use {"tiagovla/tokyodark.nvim", opt = true}
     --use {"folke/tokyonight.nvim", opt = true}
     use {
@@ -119,7 +119,6 @@ return packer.startup(
     }
     use {
       "steelsojka/pears.nvim",
-      branch = '98c0498',
       opt = false,
       config = function()
         local pears = require("pears")
