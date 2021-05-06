@@ -47,6 +47,7 @@ function E(...)
 end
 
 local ok, lspconfig = pcall(require, "lspconfig")
+local lsp_signature_ok, lsp_signature = pcall(require, "lsp_signature")
 
 if ok then
   require("lspkind").init()
@@ -73,6 +74,9 @@ if ok then
     --false
     --)
     --end
+    if lsp_signature_ok then
+      lsp_signature.on_attach()
+    end
     if lsp_status_ok then
       lsp_status.on_attach(client)
     end
@@ -91,31 +95,25 @@ if ok then
   --end
 
   local configs = require "lspconfig.configs"
-  configs.zls = {
-    default_config = {
-      cmd = {
-        "zls"
-      },
-      filetypes = {"zig"},
-      root_dir = function(fname)
-        return require "lspconfig/util".find_git_ancestor(fname) or vim.loop.os_homedir()
-      end
-    }
+
+  lspconfig.zls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities
   }
 
   lspconfig.tsserver.setup {
     on_attach = on_attach,
-    capabilities = capabilities,
+    capabilities = capabilities
   }
 
   lspconfig.svelte.setup {
     on_attach = on_attach,
-    capabilities = capabilities,
+    capabilities = capabilities
   }
 
   lspconfig.julials.setup {
     on_attach = on_attach,
-    capabilities = capabilities,
+    capabilities = capabilities
   }
   lspconfig.ocamllsp.setup {
     on_attach = function(...)
@@ -148,7 +146,7 @@ if ok then
         }
       }
     },
-    capabilities = capabilities,
+    capabilities = capabilities
   }
 
   lspconfig.tsserver.setup {
@@ -172,7 +170,7 @@ if ok then
     },
     filetypes = {"c", "cpp", "objc", "objcpp", "cuda"},
     on_attach = on_attach,
-    capabilities = capabilities,
+    capabilities = capabilities
   }
   local sumneko_root_path = vim.fn.expand("~/projects/lua-language-server")
   local sumneko_binary = sumneko_root_path .. "/bin/Linux/lua-language-server"
@@ -198,7 +196,7 @@ if ok then
       }
     },
     on_attach = on_attach,
-    capabilities = capabilities,
+    capabilities = capabilities
   }
   lspconfig.html.setup {
     on_attach = on_attach
@@ -250,7 +248,7 @@ if ok then
       }
     },
     on_attach = on_attach,
-    capabilities = capabilities,
+    capabilities = capabilities
   }
 end
 
@@ -714,7 +712,8 @@ if ok then
             ["am"] = "@call.outer",
             ["im"] = "@call.inner",
             ["iM"] = "@frame.inner",
-            ["aM"] = "@frame.outer"
+            ["aM"] = "@frame.outer",
+            ["aS"] = {"@scope", "locals"} -- selects `@scope` from locals.scm
           }
         },
         swap = {
@@ -723,12 +722,12 @@ if ok then
           swap_next = {
             ["<leader>ä"] = "@parameter.inner",
             ["<a-f>"] = "@function.outer",
-            ["<a-s>"] = "@statement.outer"
+            ["<a-s>"] = {"@scope", "locals"}
           },
           swap_previous = {
-            ["<a-L>"] = "@parameter.inner",
+            ["<leader>Ä"] = "@parameter.inner",
             ["<a-F>"] = "@function.outer",
-            ["<a-S>"] = "@statement.outer"
+            ["<a-S>"] = {"@scope", "locals"}
           }
         },
         lsp_interop = {
@@ -745,16 +744,10 @@ if ok then
           enable = true,
           set_jumps = false,
           goto_next_start = {
-            ["öö"] = "@function.inner"
-          },
-          goto_next_end = {
-            ["ÖÖ"] = "@function.inner"
+            ["öö"] = {"@definition.function", "locals"}
           },
           goto_previous_start = {
-            ["üü"] = "@function.inner"
-          },
-          goto_previous_end = {
-            ["ÜÜ"] = "@function.inner"
+            ["ÖÖ"] = {"@definition.function", "locals"}
           }
         }
       },
@@ -883,7 +876,8 @@ command! -complete=file -nargs=* DebugLLDB lua require "my_debug".start_vscode_l
 --}
 --)
 
-local folds_query = [[
+local folds_query =
+  [[
 [
   (function_definition)
   (class_definition)

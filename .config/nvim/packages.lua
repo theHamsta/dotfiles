@@ -37,6 +37,7 @@ return packer.startup(
   function()
     use {"wbthomason/packer.nvim", opt = true}
     use {"famiu/nvim-reload", opt = true}
+    use {"ray-x/lsp_signature.nvim"}
     use {
       "simrat39/symbols-outline.nvim",
       cmd = {"SymbolsOutline"},
@@ -203,16 +204,16 @@ return packer.startup(
           debug = false,
           min_length = 2,
           preselect = "disable",
-          throttle_time = 280,
+          throttle_time = 100,
           source_timeout = 200,
           incomplete_delay = 399,
           allow_prefix_unmatch = false,
           source = {
             path = true,
             buffer = true,
-            calc = true,
+            calc = false,
             ultisnips = false,
-            emoji = true,
+            emoji = false,
             vsnip = false,
             nvim_lsp = true,
             nvim_lua = true,
