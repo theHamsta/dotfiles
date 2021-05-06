@@ -1,7 +1,7 @@
 # Just file: https://github.com/casey/just
 build:
     mkdir -p debug
-    cd debug && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=YES -G Ninja  -DCMAKE_CXX_FLAGS=-fcolor-diagnostics -DCMAKE_C_FLAGS=-fcolor-diagnostics -DCMAKE_CUDA_FLAGS=-Wno-deprecated-gpu-targets  ..
+    cd debug && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=YES -G Ninja  -DCMAKE_CXX_FLAGS=-fdiagnostics-color -DCMAKE_C_FLAGS=-fdiagnostics-color -DCMAKE_CUDA_FLAGS=-Wno-deprecated-gpu-targets  ..
     rm -f compile_commands.json
     ln -s debug/compile_commands.json
     cd debug && cmake --build . -- -j8
