@@ -100,6 +100,11 @@ if ok then
     on_attach = on_attach,
     capabilities = capabilities
   }
+  lspconfig.bashls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    filetypes = {'sh', 'bash', 'make', 'zsh'}
+  }
 
   lspconfig.tsserver.setup {
     on_attach = on_attach,
@@ -134,8 +139,7 @@ if ok then
   --on_attach = on_attach
   --}
 
-  lspconfig.pyls.setup {
-    cmd = {"pylsp"},
+  lspconfig.pylsp.setup {
     on_attach = on_attach,
     settings = {
       pyls = {
