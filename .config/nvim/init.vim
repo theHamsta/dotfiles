@@ -1536,7 +1536,7 @@ nnoremap <silent> X :normal! x<cr>
 noremap <silent> <leader>tb :Tagbar<cr>
 
 command! Tokyo :packadd tokyonight.nvim | let g:tokyonight_style = "night" | colorscheme tokyonight
-command! TokyoDay :packadd tokyonight.nvim | let g:tokyonight_style = "day" | colorscheme tokyonight
+command! TokyoDay :packadd tokyonight.nvim | let g:tokyonight_style = "storm" | colorscheme tokyonight
 command! Nightfly :packadd vim-nightfly-guicolors | colorscheme nightfly
 command! Moonfly :packadd vim-moonfly | colorscheme moonfly
 command! OneDark colorscheme one
