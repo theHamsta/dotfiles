@@ -1,4 +1,3 @@
---
 -- packages.lua
 -- Copyright (C) 2020 Stephan Seitz <stephan.seitz@fau.de>
 --
@@ -55,19 +54,19 @@ return packer.startup(
     }
     use {"kdav5758/TrueZen.nvim", opt = true}
     use {"windwp/nvim-ts-autotag", opt = true}
-    use {
-      "nvim-telescope/telescope-project.nvim",
-      config = function()
-        require "telescope".load_extension("project")
-        vim.api.nvim_set_keymap(
-          "n",
-          "<c-q>",
-          ":lua require'telescope'.extensions.project.project{}<CR>",
-          {noremap = true, silent = true}
-        )
-      end,
-      requires = "nvim-telescope/telescope.nvim"
-    }
+    --use {
+      --"nvim-telescope/telescope-project.nvim",
+      --config = function()
+        --require "telescope".load_extension("project")
+        --vim.api.nvim_set_keymap(
+          --"n",
+          --"<c-q>",
+          --":lua require'telescope'.extensions.project.project{}<CR>",
+          --{noremap = true, silent = true}
+        --)
+      --end,
+      --requires = "nvim-telescope/telescope.nvim"
+    --}
     use {"dstein64/nvim-scrollview", opt = true}
     use {"lucc/nvimpager"}
     use {"Mofiqul/vim-code-dark", opt = true}

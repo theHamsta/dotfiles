@@ -1527,6 +1527,7 @@ autocmd ColorScheme * highlight NvimDapStopped guibg=#000055
 autocmd ColorScheme * highlight default link TSDefinitionUsage Visual
 autocmd ColorScheme * highlight default link TSDefinition Search
 autocmd ColorScheme * highlight default link TSCurrentScope CursorLine
+autocmd ColorScheme * highlight NvimDapVirtualText guifg=#82E0AA
 "autocmd ColorScheme * highlight TSMacroRegion guibg=#000099
 "autocmd ColorScheme * highlight TSEscapedMacroRegion guibg=#550000
 
