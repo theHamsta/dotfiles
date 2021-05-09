@@ -50,7 +50,8 @@ return packer.startup(
       "folke/lsp-trouble.nvim",
       config = function()
         require("trouble").setup {}
-      end
+      end,
+      cmd = {'LspTrouble'}
     }
     use {"kdav5758/TrueZen.nvim", opt = true}
     use {"windwp/nvim-ts-autotag", opt = true}
