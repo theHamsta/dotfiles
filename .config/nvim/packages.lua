@@ -165,6 +165,14 @@ return packer.startup(
               }
             )
             c.pair(
+              "$",
+              {
+                close = "$",
+                should_expand = has_trailing_whitespaces,
+                filetypes = "latex",
+              }
+            )
+            c.pair(
               "[",
               {
                 close = "]",
