@@ -169,7 +169,7 @@ return packer.startup(
               {
                 close = "$",
                 should_expand = has_trailing_whitespaces,
-                filetypes = "latex",
+                filetypes = {"latex"},
               }
             )
             c.pair(
