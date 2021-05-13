@@ -1491,6 +1491,7 @@ vnoremap <c-a> <c-a>gv
 vnoremap <c-x> <c-x>gv
 nnoremap K :s/,/,\r/g<cr>
 vnoremap K :s/,/,\r/g<cr>
+nnoremap <silent> <leader>ng :Neogit kind=split<cr>
 
 au FileType dap-repl lua require('dap.ext.autocompl').attach()
 
