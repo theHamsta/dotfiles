@@ -748,7 +748,7 @@ endfunction
 augroup filetypedetect
     au! BufRead,BufNewFile *.cpp.tmpl set filetype=cpp
     au! BufRead,BufNewFile *.fs,*.fsx set filetype=fsharp
-    au! BufRead,BufNewFile *.fsproj,*.csproj set filetype=xml
+    au! BufRead,BufNewFile *.fsproj,*.csproj,*.target,*.sln set filetype=xml
     au! BufRead,BufNewFile *.pdf_tex set filetype=tex
     au! BufRead,BufNewFile .justfile,justfile set filetype=make
     au! BufRead,BufNewFile *.tikz set filetype=tex
