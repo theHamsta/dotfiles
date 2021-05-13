@@ -576,6 +576,7 @@ return packer.startup(
     use "scrooloose/nerdcommenter"
     use "sgur/vim-textobj-parameter"
     use "skywind3000/vim-preview"
+    use "folke/todo-comments.nvim"
 
     use {
       "norcalli/nvim-colorizer.lua",
