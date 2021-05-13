@@ -1,7 +1,7 @@
 "GuiLinespace 0
 
 let g:my_font = 'FuraCode Nerd Font'
-let g:my_fontsize = 10
+let g:my_fontsize = 9
 call rpcnotify(1, 'Gui', 'Font', g:my_font .. ' ' .. string(g:my_fontsize))
 
 "call rpcnotify(1, 'Gui', 'Font', 'Monospace 9')
