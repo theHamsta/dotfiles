@@ -71,7 +71,7 @@ return packer.startup(
     use {"dstein64/nvim-scrollview", opt = true}
     use {"lucc/nvimpager"}
     use {"Mofiqul/vim-code-dark", opt = true}
-    use {"TimUntersberger/neogit", opt = true}
+    use {"TimUntersberger/neogit", cmd = {'Neogit'}}
     use {"theHamsta/nvim-treesitter-commonlisp", opt = false}
     use {
       "simrat39/rust-tools.nvim",
