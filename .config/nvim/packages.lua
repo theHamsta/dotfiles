@@ -51,27 +51,27 @@ return packer.startup(
       config = function()
         require("trouble").setup {}
       end,
-      cmd = {'LspTrouble'}
+      cmd = {"LspTrouble"}
     }
     use {"kdav5758/TrueZen.nvim", opt = true}
     use {"windwp/nvim-ts-autotag", opt = true}
     --use {
-      --"nvim-telescope/telescope-project.nvim",
-      --config = function()
-        --require "telescope".load_extension("project")
-        --vim.api.nvim_set_keymap(
-          --"n",
-          --"<c-q>",
-          --":lua require'telescope'.extensions.project.project{}<CR>",
-          --{noremap = true, silent = true}
-        --)
-      --end,
-      --requires = "nvim-telescope/telescope.nvim"
+    --"nvim-telescope/telescope-project.nvim",
+    --config = function()
+    --require "telescope".load_extension("project")
+    --vim.api.nvim_set_keymap(
+    --"n",
+    --"<c-q>",
+    --":lua require'telescope'.extensions.project.project{}<CR>",
+    --{noremap = true, silent = true}
+    --)
+    --end,
+    --requires = "nvim-telescope/telescope.nvim"
     --}
     use {"dstein64/nvim-scrollview", opt = true}
     use {"lucc/nvimpager"}
     use {"Mofiqul/vim-code-dark", opt = true}
-    use {"TimUntersberger/neogit", cmd = {'Neogit'}}
+    use {"TimUntersberger/neogit", cmd = {"Neogit"}}
     use {"theHamsta/nvim-treesitter-commonlisp", opt = false}
     use {
       "simrat39/rust-tools.nvim",
@@ -84,8 +84,8 @@ return packer.startup(
       end
     }
     use {"pwntester/octo.nvim", opt = true}
-    use {"tiagovla/tokyodark.nvim", opt = true}
-    --use {"folke/tokyonight.nvim", opt = true}
+    --use {"tiagovla/tokyodark.nvim", opt = true}
+    use {"folke/tokyonight.nvim", opt = true}
     use {
       "glepnir/indent-guides.nvim",
       config = function()
@@ -169,7 +169,7 @@ return packer.startup(
               {
                 close = "$",
                 should_expand = has_trailing_whitespaces,
-                filetypes = {"latex"},
+                filetypes = {"latex"}
               }
             )
             c.pair(
@@ -576,7 +576,12 @@ return packer.startup(
     use "scrooloose/nerdcommenter"
     use "sgur/vim-textobj-parameter"
     use "skywind3000/vim-preview"
-    use "folke/todo-comments.nvim"
+    use {
+      "folke/todo-comments.nvim",
+      config = function()
+        --require("todo-comments").setup {}
+      end
+    }
 
     use {
       "norcalli/nvim-colorizer.lua",

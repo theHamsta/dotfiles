@@ -46,6 +46,20 @@ function E(...)
   return ...
 end
 
+--local configs = require "lspconfig.configs"
+--local lspconfig = require("lspconfig")
+
+--configs.zk = {
+  --default_config = {
+    --cmd = {"zk", "lsp", "--log", "/tmp/zk-lsp.log"},
+    --filetypes = {"markdown"},
+    --root_dir = function()
+      --return vim.loop.cwd()
+    --end,
+    --settings = {}
+  --}
+--}
+
 local ok, lspconfig = pcall(require, "lspconfig")
 local lsp_signature_ok, lsp_signature = pcall(require, "lsp_signature")
 
@@ -94,8 +108,6 @@ if ok then
   --require("lspconfig/configs").sumneko_lua.install()
   --end
 
-  local configs = require "lspconfig.configs"
-
   lspconfig.zls.setup {
     on_attach = on_attach,
     capabilities = capabilities
@@ -103,7 +115,7 @@ if ok then
   lspconfig.bashls.setup {
     on_attach = on_attach,
     capabilities = capabilities,
-    filetypes = {'sh', 'bash', 'make', 'zsh'}
+    filetypes = {"sh", "bash", "make", "zsh"}
   }
 
   lspconfig.tsserver.setup {
@@ -341,6 +353,7 @@ if ok then
       name = "Launch file",
       program = "${file}",
       console = "internalConsole",
+      autoReload = { enable = true },
       pythonPath = "/usr/bin/python3"
     },
     {
@@ -551,8 +564,8 @@ if ok then
       url = "https://github.com/alemuller/tree-sitter-make",
       files = {"src/parser.c"},
       branch = "main",
-      filetype = "Makefile",
-    },
+      filetype = "Makefile"
+    }
   }
 
   require "nvim-treesitter.configs".setup(
@@ -618,7 +631,7 @@ if ok then
         goto_right_end = false,
         fallback_cmd_normal = "call matchit#Match_wrapper('',1,'n')",
         keymaps = {
-          goto_partner = "%",
+          goto_partner = "%"
           --delete_balanced = "x"
         },
         delete_balanced = {
@@ -812,4 +825,3 @@ command! -complete=file -nargs=* DebugLLDB lua require "my_debug".start_vscode_l
 --},
 --}
 --)
-

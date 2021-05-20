@@ -71,13 +71,13 @@ M.start_python_debugger = function(use_this_file, is_pytest)
       program = M.debug_target,
       console = "integratedTerminal",
       --console = "internalConsole",
-      justMyCode = false
+      justMyCode = false,
       --pythonPath = function()
       --return "/usr/bin/python3"
       --end
-    }
+    },
+    dap.configurations.python[1]
   )
-  M.default_port = M.default_port + 1
   dap.repl.open()
 end
 
