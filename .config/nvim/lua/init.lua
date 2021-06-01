@@ -551,14 +551,14 @@ if ok then
   --filetype = "solidity"
   --}
   local list = require "nvim-treesitter.parsers".get_parser_configs()
-  list.commonlisp = {
-    install_info = {
-      url = "~/projects/tree-sitter-commonlisp",
-      files = {"src/parser.c"}
-    },
-    filetype = "lisp",
-    maintainers = {"@theHamsta"}
-  }
+  --list.commonlisp = {
+    --install_info = {
+      --url = "~/projects/tree-sitter-commonlisp",
+      --files = {"src/parser.c"}
+    --},
+    --filetype = "lisp",
+    --maintainers = {"@theHamsta"}
+  --}
   list.make = {
     install_info = {
       url = "https://github.com/alemuller/tree-sitter-make",
