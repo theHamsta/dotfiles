@@ -50,14 +50,14 @@ end
 --local lspconfig = require("lspconfig")
 
 --configs.zk = {
-  --default_config = {
-    --cmd = {"zk", "lsp", "--log", "/tmp/zk-lsp.log"},
-    --filetypes = {"markdown"},
-    --root_dir = function()
-      --return vim.loop.cwd()
-    --end,
-    --settings = {}
-  --}
+--default_config = {
+--cmd = {"zk", "lsp", "--log", "/tmp/zk-lsp.log"},
+--filetypes = {"markdown"},
+--root_dir = function()
+--return vim.loop.cwd()
+--end,
+--settings = {}
+--}
 --}
 
 local ok, lspconfig = pcall(require, "lspconfig")
@@ -353,7 +353,7 @@ if ok then
       name = "Launch file",
       program = "${file}",
       console = "internalConsole",
-      autoReload = { enable = true },
+      autoReload = {enable = true},
       pythonPath = "/usr/bin/python3"
     },
     {
@@ -643,6 +643,7 @@ if ok then
       textobjects = {
         select = {
           enable = true,
+          lookahead = true,
           disable = {},
           keymaps = {
             ["af"] = "@function.outer",

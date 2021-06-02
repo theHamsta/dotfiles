@@ -150,3 +150,5 @@ eval "$(starship init zsh)"
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /home/stephan/go/bin/bitcomplete bit
 test -r /home/stephan/.opam/opam-init/init.zsh && . /home/stephan/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+alias luamake=/home/stephan/projects/lua-language-server/3rd/luamake/luamake

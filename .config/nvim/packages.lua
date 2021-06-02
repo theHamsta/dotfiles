@@ -45,6 +45,7 @@ return packer.startup(
       end
     }
     use "nvim-lua/popup.nvim"
+    use {"mcchrish/nnn.vim", cmd = {"NnnPicker"}}
     use "jceb/emmet.snippets"
     use {
       "folke/lsp-trouble.nvim",
