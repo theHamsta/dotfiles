@@ -202,7 +202,9 @@ gls.left[14] = {
 
 gls.right[1] = {
   FileFormat = {
-    provider = "FileFormat",
+    provider = function()
+      return vim.o.fileformat.." | "..vim.o.ft
+    end,
     separator = " ",
     separator_highlight = {colors.bg, colors.line_bg},
     highlight = {colors.fg, colors.line_bg, "bold"}
