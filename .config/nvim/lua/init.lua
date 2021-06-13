@@ -744,7 +744,7 @@ if ok then
   local hlmap = vim.treesitter.highlighter.hl_map
 
   --Misc
-  hlmap["error"] = nil
+  hlmap["error"] = "TSError"
   hlmap["punctuation.delimiter"] = "Delimiter"
   --hlmap["punctuation.bracket"] = nil
 
@@ -788,7 +788,7 @@ if ok then
   hlmap["type.builtin"] = "Type"
   hlmap["structure"] = "Structure"
   hlmap["keyword.function"] = "Function"
-  hlmap["variable"] = nil
+  hlmap["variable"] = "TSVariable"
   hlmap["variable.builtin"] = "Type"
   hlmap["symbol"] = "Type"
   hlmap["text.environment.name"] = "Type"

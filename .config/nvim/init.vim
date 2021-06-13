@@ -761,6 +761,7 @@ augroup filetypedetect
     au! BufRead,BufNewFile *.tl set filetype=teal
     au! BufRead,BufNewFile .luacheckrc set filetype=lua
     au! BufRead,BufNewFile *.fish set filetype=fish
+    au! BufRead,BufNewFile *.v set filetype=v
 augroup END
 
 "let g:NERDTreeFileExtensionHighlightFullName = 1
@@ -1541,3 +1542,4 @@ command! TokyoDay :packadd tokyonight.nvim | let g:tokyonight_style = "day" | co
 command! Nightfly :packadd vim-nightfly-guicolors | colorscheme nightfly
 command! Moonfly :packadd vim-moonfly | colorscheme moonfly
 command! OneDark colorscheme one
+
