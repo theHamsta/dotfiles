@@ -128,3 +128,4 @@ todoist_api.lua
 debug
 release
 build
+.cache

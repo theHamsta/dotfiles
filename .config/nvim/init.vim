@@ -762,6 +762,7 @@ augroup filetypedetect
     au! BufRead,BufNewFile .luacheckrc set filetype=lua
     au! BufRead,BufNewFile *.fish set filetype=fish
     au! BufRead,BufNewFile *.v set filetype=v
+    au! BufRead,BufNewFile Dockerfile.*,dockerfile.*,*.docker set filetype=dockerfile
 augroup END
 
 "let g:NERDTreeFileExtensionHighlightFullName = 1
