@@ -331,7 +331,9 @@ if ok then
         LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES"
       }
       for k, v in pairs(vim.fn.environ()) do
-        table.insert(variables, string.format("%s=%s", k, v))
+        if type(k) == "string" and type(v) == "string" then
+          table.insert(variables, string.format("%s=%s", k, v))
+        end
       end
       return variables
     end
@@ -373,10 +375,10 @@ if ok then
       pythonPath = "/usr/bin/python3"
     }
   }
-  dap.repl.commands =
+  require'dap.repl'.commands =
     vim.tbl_extend(
     "force",
-    dap.repl.commands,
+    require'dap.repl'.commands,
     {
       continue = {".continue", "c"},
       next_ = {".next", "n"},

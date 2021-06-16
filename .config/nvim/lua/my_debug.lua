@@ -7,6 +7,11 @@
 
 local luajob = require("luajob")
 
+local ENV = {}
+for k, v in pairs(vim.fn.environ()) do
+  table.insert(ENV, string.format("%s=%s", k, v))
+end
+
 local function luajob_on_stdout(err, data)
   if err then
     vim.cmd.echoerr("error: ", err)
@@ -124,6 +129,7 @@ M.start_vscode_lldb = function(args)
       name = args[1],
       request = "launch",
       program = table.remove(args, 1),
+      env = ENV,
       args = args,
       cwd = vim.fn.getcwd(),
       environment = {},
