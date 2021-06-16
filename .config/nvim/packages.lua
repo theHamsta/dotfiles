@@ -56,6 +56,7 @@ return packer.startup(
     }
     use {"kdav5758/TrueZen.nvim", opt = true}
     use {"windwp/nvim-ts-autotag", opt = true}
+    use {"mfussenegger/nvim-ts-hint-textobject", opt = false}
     --use {
     --"nvim-telescope/telescope-project.nvim",
     --config = function()

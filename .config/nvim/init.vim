@@ -1544,3 +1544,5 @@ command! Nightfly :packadd vim-nightfly-guicolors | colorscheme nightfly
 command! Moonfly :packadd vim-moonfly | colorscheme moonfly
 command! OneDark colorscheme one
 
+omap     <silent> m :<C-U>lua require('tsht').nodes()<CR>
+vnoremap <silent> m :lua require('tsht').nodes()<CR>
