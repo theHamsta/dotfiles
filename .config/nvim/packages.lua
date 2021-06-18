@@ -134,15 +134,17 @@ return packer.startup(
 
         pears.setup(
           function(c)
-            --c.on_enter(
-              --function(pears_handle)
+            c.on_enter(
+              function(pears_handle)
+                if vim.fn.pumvisible() == 1 then
                 --if vim.fn.pumvisible() == 1 and vim.fn.complete_info().selected ~= -1 then
                   --return vim.fn["compe#confirm"]("<CR>")
-                --else
-                  --pears_handle()
-                --end
-              --end
-            --)
+                  return
+                else
+                  pears_handle()
+                end
+              end
+            )
             c.preset "tag_matching"
             c.preset "html"
             --c.pair(

@@ -1,5 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+source ~/.profile
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -58,7 +59,8 @@ HIST_STAMPS="dd/mm/yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git command-not-found extract history gitignore zoxide)
+plugins=(git fasd  copydir command-not-found extract history cp gitignore )
+eval "$(zoxide init zsh)"
 
 source $ZSH/oh-my-zsh.sh
 
@@ -137,7 +139,6 @@ export PATH=/snap/bin/:${PATH}
 
 export SCIPY_PIL_IMAGE_VIEWER=imagecomparer
 
-source ~/.profile
 
 
 
