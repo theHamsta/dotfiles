@@ -137,7 +137,7 @@ return packer.startup(
             c.on_enter(
               function(pears_handle)
                 if vim.fn.pumvisible() == 1 then
-                --if vim.fn.pumvisible() == 1 and vim.fn.complete_info().selected ~= -1 then
+                --if vim.fn.pumvisible() ==1 and vim.fn.complete_info().selected ~= -1 then
                   --return vim.fn["compe#confirm"]("<CR>")
                   return
                 else
@@ -154,13 +154,13 @@ return packer.startup(
             --filetypes = {"lua"}
             --}
             --)
-            c.pair(
-              "(",
-              {
-                close = ")",
-                should_expand = has_trailing_whitespaces
-              }
-            )
+            --c.pair(
+              --"(",
+              --{
+                --close = ")",
+                --should_expand = has_trailing_whitespaces
+              --}
+            --)
             c.pair(
               "{",
               {
