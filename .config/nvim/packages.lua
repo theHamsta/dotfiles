@@ -4,7 +4,6 @@
 -- Distributed under terms of the GPLv3 license.
 --
 
-
 vim.cmd [[packadd packer.nvim]]
 
 local packer = require("packer")
