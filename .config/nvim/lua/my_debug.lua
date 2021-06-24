@@ -49,7 +49,31 @@ M.start_debugpy = function(target, port)
   M.debugpy.start()
 end
 
-M.start_python_debugger = function(use_this_file, is_pytest)
+function M.python_debug(args)
+
+  local dap = require "dap"
+
+  dap.launch(
+    dap.adapters.python,
+    {
+      type = "python",
+      request = "launch",
+      name = args[1],
+      console = "integratedTerminal",
+      justMyCode = false,
+      request = "launch",
+      program = table.remove(args, 1),
+      args = args,
+      --pythonPath = function()
+      --return "/usr/bin/python3"
+      --end
+    },
+    dap.configurations.python[1]
+  )
+  dap.repl.open()
+end
+
+function M.start_python_debugger(use_this_file, is_pytest)
   if use_this_file then
     M.set_debug_target(is_pytest)
   end

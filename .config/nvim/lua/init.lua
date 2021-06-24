@@ -158,6 +158,9 @@ if ok then
         plugins = {
           pydocstyle = {
             enabled = false
+          },
+          pycodestyle = {
+            maxLineLength = 120
           }
         }
       }
@@ -812,6 +815,9 @@ command! -complete=file -nargs=* DebugRust lua require "my_debug".start_c_debugg
 ]]
 vim.cmd [[
 command! -complete=file -nargs=* DebugLLDB lua require "my_debug".start_vscode_lldb({<f-args>})
+]]
+vim.cmd [[
+command! -complete=file -nargs=* PythonDebug lua require "my_debug".python_debug({<f-args>})
 ]]
 
 --vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
