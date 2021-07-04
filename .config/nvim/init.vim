@@ -347,7 +347,8 @@ nmap <leader>gg :GF?<cr>
 "autocmd FileType cmake SemanticHighlight
 "autocmd FileType lua nnoremap <buffer> <F5> :exec '!lua' shellescape(@%:p, 1)<cr>:letg:last_execution=@%:p <cr>
 
-autocmd FileType lua nnoremap <buffer> <c-s> ma:w<cr>:%!luafmt --stdin --indent-count 2<cr>'azz
+"autocmd FileType lua nnoremap <buffer> <c-s> ma:w<cr>:%!luafmt --stdin --indent-count 2<cr>'azz
+autocmd FileType lua nnoremap <buffer> <c-s> ma:w<cr>:!stylua %<cr>:e!<cr>'azz
 
 autocmd FileType cmake nnoremap <buffer> <c-s> ma:w<cr>:%!gersemi %<cr>'azz
 "autocmd FileType tex,latex nnoremap <buffer> <c-s> :w<cr>:silent !latexindent % -w<cr>:e<cr>

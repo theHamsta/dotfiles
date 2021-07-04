@@ -57,8 +57,8 @@ return packer.startup(
     use {"kdav5758/TrueZen.nvim", opt = true}
     use {"windwp/nvim-ts-autotag", opt = true}
     --use {"windwp/nvim-autopairs", config = function()
-        --require("nvim-autopairs").setup()
-      --end}
+    --require("nvim-autopairs").setup()
+    --end}
     use {"mfussenegger/nvim-ts-hint-textobject", opt = false}
     --use {
     --"nvim-telescope/telescope-project.nvim",
@@ -283,42 +283,42 @@ return packer.startup(
     --use "chrisbra/unicode.vim"
     use "tpope/vim-speeddating"
     use "nvim-telescope/telescope-symbols.nvim"
-    --use {
-    --"rcarriga/nvim-dap-ui",
-    --config = function()
-    --require("dapui").setup(
-    --{
-    --icons = {
-    --expanded = "⯆",
-    --collapsed = "⯈",
-    --circular = "↺"
-    --},
-    --mappings = {
-    --expand = "<CR>",
-    --open = "o",
-    --remove = "d"
-    --},
-    --sidebar = {
-    --elements = {
-    ---- You can change the order of elements in the sidebar
-    --"scopes",
-    --"stacks",
-    --"watches"
-    --},
-    --width = 40,
-    --position = "right" -- Can be "left" or "right"
-    --},
-    --tray = {
-    --elements = {
-    --"repl"
-    --},
-    --height = 10,
-    --position = "bottom" -- Can be "bottom" or "top"
-    --}
-    --}
-    --)
-    --end
-    --}
+    use {
+      "rcarriga/nvim-dap-ui",
+      config = function()
+        require("dapui").setup(
+          {
+            icons = {
+              expanded = "⯆",
+              collapsed = "⯈",
+              circular = "↺"
+            },
+            mappings = {
+              expand = "<CR>",
+              open = "o",
+              remove = "d"
+            },
+            sidebar = {
+              elements = {
+                -- You can change the order of elements in the sidebar
+                "scopes",
+                "stacks",
+                "watches"
+              },
+              width = 40,
+              position = "right" -- Can be "left" or "right"
+            },
+            tray = {
+              elements = {
+                "repl"
+              },
+              height = 10,
+              position = "bottom" -- Can be "bottom" or "top"
+            }
+          }
+        )
+      end
+    }
     --use {
     --"nvim-telescope/telescope-frecency.nvim",
     --config = function()

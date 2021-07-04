@@ -12,8 +12,8 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
   properties = {
     "documentation",
     "detail",
-    "additionalTextEdits"
-  }
+    "additionalTextEdits",
+  },
 }
 local lsp_status_ok, lsp_status = pcall(require, "lsp-status")
 if lsp_status_ok then
@@ -24,15 +24,9 @@ if not filter then
   local ok, _ = pcall(require, "fun")
   if ok then
     require "fun"()
-    vim.o.shell =
-      head(
-      filter(
-        function(e)
-          return vim.fn.executable(e) == 1
-        end,
-        {"zsh", "fish", "bash"}
-      )
-    )
+    vim.o.shell = head(filter(function(e)
+      return vim.fn.executable(e) == 1
+    end, { "zsh", "fish", "bash" }))
   end
 end
 
@@ -42,7 +36,7 @@ function D(a)
 end
 
 function E(...)
-  print(vim.inspect {...})
+  print(vim.inspect { ... })
   return ...
 end
 
@@ -110,41 +104,41 @@ if ok then
 
   lspconfig.zls.setup {
     on_attach = on_attach,
-    capabilities = capabilities
+    capabilities = capabilities,
   }
   lspconfig.bashls.setup {
     on_attach = on_attach,
     capabilities = capabilities,
-    filetypes = {"sh", "bash", "make", "zsh"}
+    filetypes = { "sh", "bash", "make", "zsh" },
   }
 
   lspconfig.tsserver.setup {
     on_attach = on_attach,
-    capabilities = capabilities
+    capabilities = capabilities,
   }
 
   lspconfig.svelte.setup {
     on_attach = on_attach,
-    capabilities = capabilities
+    capabilities = capabilities,
   }
 
   lspconfig.julials.setup {
     on_attach = on_attach,
-    capabilities = capabilities
+    capabilities = capabilities,
   }
   lspconfig.ocamllsp.setup {
     on_attach = function(...)
-      require "virtualtypes".on_attach(...)
+      require("virtualtypes").on_attach(...)
       on_attach()
-    end
+    end,
   }
   lspconfig.gopls.setup {
     on_attach = on_attach,
     settings = {
       initializationOptions = {
-        usePlaceholders = true
-      }
-    }
+        usePlaceholders = true,
+      },
+    },
   }
 
   --lspconfig.pyright.setup {
@@ -157,25 +151,25 @@ if ok then
       pyls = {
         plugins = {
           pydocstyle = {
-            enabled = false
+            enabled = false,
           },
           pycodestyle = {
-            maxLineLength = 120
-          }
-        }
-      }
+            maxLineLength = 120,
+          },
+        },
+      },
     },
-    capabilities = capabilities
+    capabilities = capabilities,
   }
 
   lspconfig.tsserver.setup {
-    on_attach = on_attach
+    on_attach = on_attach,
   }
   lspconfig.kotlin_language_server.setup {
-    on_attach = on_attach
+    on_attach = on_attach,
   }
   lspconfig.hls.setup {
-    on_attach = on_attach
+    on_attach = on_attach,
   }
   lspconfig.clangd.setup {
     cmd = {
@@ -185,89 +179,89 @@ if ok then
       "--header-insertion=iwyu",
       "--background-index",
       "--suggest-missing-includes",
-      "--cross-file-rename"
+      "--cross-file-rename",
     },
-    filetypes = {"c", "cpp", "objc", "objcpp", "cuda"},
+    filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
     on_attach = on_attach,
-    capabilities = capabilities
+    capabilities = capabilities,
   }
-  local sumneko_root_path = vim.fn.expand("~/projects/lua-language-server")
+  local sumneko_root_path = vim.fn.expand "~/projects/lua-language-server"
   local sumneko_binary = sumneko_root_path .. "/bin/Linux/lua-language-server"
 
   lspconfig.sumneko_lua.setup {
-    cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
+    cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
     settings = {
       Lua = {
-        awakened = {cat = true},
-        telemetry = {enable = false},
+        awakened = { cat = true },
+        telemetry = { enable = false },
         diagnostics = {
-          globals = {"vim", "map", "filter", "range", "reduce", "head", "tail", "nth", "it", "describe"},
-          disable = {"redefined-local"}
+          globals = { "vim", "map", "filter", "range", "reduce", "head", "tail", "nth", "it", "describe" },
+          disable = { "redefined-local" },
         },
-        runtime = {version = "LuaJIT"},
+        runtime = { version = "LuaJIT" },
         workspace = {
           library = {
-            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-            [require "nvim-treesitter.utils".get_package_path() .. "/lua"] = true,
-            [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
-          }
-        }
-      }
+            [vim.fn.expand "$VIMRUNTIME/lua"] = true,
+            [require("nvim-treesitter.utils").get_package_path() .. "/lua"] = true,
+            [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
+          },
+        },
+      },
     },
     on_attach = on_attach,
-    capabilities = capabilities
+    capabilities = capabilities,
   }
   lspconfig.html.setup {
-    on_attach = on_attach
+    on_attach = on_attach,
   }
 
   lspconfig.rust_analyzer.setup {
     settings = {
       ["rust-analyzer"] = {
         checkOnSave = {
-          command = "clippy"
+          command = "clippy",
         },
         completion = {
           postfix = {
-            enabled = true
+            enabled = true,
           },
           autoimport = {
-            enabled = true
-          }
+            enabled = true,
+          },
         },
         procMacro = {
-          enable = true
-        }
-      }
+          enable = true,
+        },
+      },
     },
     capabilities = capabilities,
-    on_attach = on_attach
+    on_attach = on_attach,
   }
 
   lspconfig.vimls.setup {
-    on_attach = on_attach
+    on_attach = on_attach,
   }
   lspconfig.yamlls.setup {
-    on_attach = on_attach
+    on_attach = on_attach,
   }
   lspconfig.jsonls.setup {
-    on_attach = on_attach
+    on_attach = on_attach,
   }
 
   lspconfig.texlab.setup {
     settings = {
       latex = {
         build = {
-          onSave = false
+          onSave = false,
         },
         lint = {
           onSave = false,
-          onChange = true
-        }
-      }
+          onChange = true,
+        },
+      },
     },
     on_attach = on_attach,
-    capabilities = capabilities
+    capabilities = capabilities,
   }
 end
 
@@ -279,21 +273,21 @@ if ok then
     "tex",
     "html",
     "vim",
-    "tex"
+    "tex",
   }
 end
 
 local ok, dap = pcall(require, "dap")
 if ok then
-  vim.fn.sign_define("DapBreakpoint", {text = "🛑", texthl = "", linehl = "", numhl = ""})
-  vim.fn.sign_define("DapStopped", {text = "→", texthl = "", linehl = "NvimDapStopped", numhl = ""})
+  vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "", linehl = "", numhl = "" })
+  vim.fn.sign_define("DapStopped", { text = "→", texthl = "", linehl = "NvimDapStopped", numhl = "" })
 
-  require("dap-python").setup("/usr/bin/python3")
+  require("dap-python").setup "/usr/bin/python3"
   require("dap-python").test_runner = "pytest"
   dap.adapters.haskell = {
     type = "executable",
     command = "haskell-debug-adapter",
-    args = {"--hackage-version=0.0.33.0"}
+    args = { "--hackage-version=0.0.33.0" },
   }
   dap.configurations.haskell = {
     {
@@ -303,22 +297,22 @@ if ok then
       workspace = "${workspaceFolder}",
       startup = "${file}",
       stopOnEntry = true,
-      logFile = vim.fn.stdpath("data") .. "/haskell-dap.log",
+      logFile = vim.fn.stdpath "data" .. "/haskell-dap.log",
       logLevel = "WARNING",
       ghciEnv = vim.empty_dict(),
       ghciPrompt = "λ: ",
       -- Adjust the prompt to the prompt you see when you invoke the stack ghci command below
       ghciInitialPrompt = "λ: ",
-      ghciCmd = "stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show"
-    }
+      ghciCmd = "stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show",
+    },
   }
   dap.adapters.python = {
     type = "executable",
     command = "python3",
     args = {
       "-m",
-      "debugpy.adapter"
-    }
+      "debugpy.adapter",
+    },
   }
   --dap.adapters.go = {
   --type = "executable",
@@ -328,10 +322,10 @@ if ok then
   dap.adapters.go = {
     type = "executable",
     command = "dlv",
-    args = {"dap"},
+    args = { "dap" },
     env = function()
       local variables = {
-        LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES"
+        LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES",
       }
       for k, v in pairs(vim.fn.environ()) do
         if type(k) == "string" and type(v) == "string" then
@@ -339,7 +333,7 @@ if ok then
         end
       end
       return variables
-    end
+    end,
   }
   dap.configurations.go = {
     {
@@ -348,8 +342,8 @@ if ok then
       request = "launch",
       showLog = false,
       program = "${file}",
-      dlvToolPath = vim.fn.exepath("dlv") -- Adjust to where delve is installed
-    }
+      dlvToolPath = vim.fn.exepath "dlv", -- Adjust to where delve is installed
+    },
   }
   dap.configurations.python = {
     {
@@ -358,8 +352,8 @@ if ok then
       name = "Launch file",
       program = "${file}",
       console = "internalConsole",
-      autoReload = {enable = true},
-      pythonPath = "/usr/bin/python3"
+      autoReload = { enable = true },
+      pythonPath = "/usr/bin/python3",
     },
     {
       type = "python",
@@ -367,7 +361,7 @@ if ok then
       name = "Pytest file",
       program = "-m pytest ${file}",
       console = "externalTerminal",
-      pythonPath = "/usr/bin/python3"
+      pythonPath = "/usr/bin/python3",
     },
     {
       type = "python",
@@ -375,34 +369,29 @@ if ok then
       name = "Launch file",
       program = "${file}",
       console = "internalConsole",
-      pythonPath = "/usr/bin/python3"
-    }
+      pythonPath = "/usr/bin/python3",
+    },
   }
-  require'dap.repl'.commands =
-    vim.tbl_extend(
-    "force",
-    require'dap.repl'.commands,
-    {
-      continue = {".continue", "c"},
-      next_ = {".next", "n"},
-      into = {".into", "s"},
-      into_targets = {"st"},
-      out = {".out", "r"},
-      scopes = {".scopes", "a"},
-      threads = {".threads", "t"},
-      frames = {".frames", "f"},
-      exit = {"exit", ".exit"},
-      up = {".up", "up"},
-      down = {".down", "down"},
-      goto_ = {".goto", "j"},
-      capabilities = {".capabilities", ".ca"},
-      custom_commands = {
-        [".echo"] = function(text)
-          dap.repl.append(text)
-        end
-      }
-    }
-  )
+  require("dap.repl").commands = vim.tbl_extend("force", require("dap.repl").commands, {
+    continue = { ".continue", "c" },
+    next_ = { ".next", "n" },
+    into = { ".into", "s" },
+    into_targets = { "st" },
+    out = { ".out", "r" },
+    scopes = { ".scopes", "a" },
+    threads = { ".threads", "t" },
+    frames = { ".frames", "f" },
+    exit = { "exit", ".exit" },
+    up = { ".up", "up" },
+    down = { ".down", "down" },
+    goto_ = { ".goto", "j" },
+    capabilities = { ".capabilities", ".ca" },
+    custom_commands = {
+      [".echo"] = function(text)
+        dap.repl.append(text)
+      end,
+    },
+  })
   vim.g.dap_virtual_text = true -- 'all frames'
 
   dap.adapters.cpp = {
@@ -412,8 +401,8 @@ if ok then
     args = {},
     attach = {
       pidProperty = "processId",
-      pidSelect = "ask"
-    }
+      pidSelect = "ask",
+    },
     --configuration = {
     --type = "cppdbg",
     --args = {},
@@ -436,12 +425,12 @@ if ok then
     type = "executable",
     attach = {
       pidProperty = "pid",
-      pidSelect = "ask"
+      pidSelect = "ask",
     },
     command = "lldb-vscode-13",
     env = function()
       local variables = {
-        LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES"
+        LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES",
       }
       for k, v in pairs(vim.fn.environ()) do
         table.insert(variables, string.format("%s=%s", k, v))
@@ -449,14 +438,14 @@ if ok then
       return variables
     end,
     name = "lldb",
-    initCommands = 'command script import "/home/stephan/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/etc/lldb_lookup.py"'
+    initCommands = 'command script import "/home/stephan/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/etc/lldb_lookup.py"',
   }
   dap.adapters.markdown = {
     type = "executable",
     name = "mockdebug",
     command = "node",
-    args = {"./out/debugAdapter.js"},
-    cwd = "/home/stephan/projects/vscode-mock-debug/"
+    args = { "./out/debugAdapter.js" },
+    cwd = "/home/stephan/projects/vscode-mock-debug/",
   }
 
   dap.configurations.markdown = {
@@ -466,35 +455,29 @@ if ok then
       name = "mock test",
       program = "${file}",
       stopOnEntry = true,
-      debugServer = 4711
-    }
+      debugServer = 4711,
+    },
   }
 
   dap.adapters.go = function(callback, config)
     local handle
     local port = 38697
-    handle =
-      vim.loop.spawn(
+    handle = vim.loop.spawn(
       "dlv",
       {
-        args = {"dap", "-l", "127.0.0.1:" .. port},
-        detached = true
+        args = { "dap", "-l", "127.0.0.1:" .. port },
+        detached = true,
       },
-      vim.schedule_wrap(
-        function(code)
-          handle:close()
-          print("Delve exited with exit code: " .. code)
-        end
-      )
+      vim.schedule_wrap(function(code)
+        handle:close()
+        print("Delve exited with exit code: " .. code)
+      end)
     )
     ------wait for delve to start
-    vim.defer_fn(
-      function()
-        callback({type = "server", host = "127.0.0.1", port = port})
-        dap.repl.open()
-      end,
-      250
-    )
+    vim.defer_fn(function()
+      callback { type = "server", host = "127.0.0.1", port = port }
+      dap.repl.open()
+    end, 250)
     --dap.repl.open()
     --callback({type = "server", host = "127.0.0.1", port = port})
     --dap.repl.open()
@@ -506,8 +489,8 @@ if ok then
       name = "Debug",
       mode = "debug",
       request = "launch",
-      program = "${file}"
-    }
+      program = "${file}",
+    },
   }
 
   --if dap.custom_event_handlers then
@@ -520,32 +503,32 @@ if ok then
   --end
   dap.listeners.after.event_exited["my handler id"] = function(_, _)
     dap.repl.close()
-    vim.cmd("stopinsert")
+    vim.cmd "stopinsert"
   end
 
---dap.custom_response_handlers.gotoTargets["my handler id"] = function(_, _)
-----dap.repl.append(vim.inspect(body))
---end
---dap.custom_event_handlers.event_stopped["my handler id"] = function(session, _)
-----dap.repl.append(vim.inspect(body))
-----dap.repl.append(vim.inspect(session))
---end
---end
---"<name>: Attach": {
---"adapter": "vscode-cpptools",
---"configuration": {
---"name": "<name>: Attach",
---"type": "cppdbg",
---"request": "attach",
---"program": "<path to binary>",
---"MIMode": "lldb"
---}
---}
+  --dap.custom_response_handlers.gotoTargets["my handler id"] = function(_, _)
+  ----dap.repl.append(vim.inspect(body))
+  --end
+  --dap.custom_event_handlers.event_stopped["my handler id"] = function(session, _)
+  ----dap.repl.append(vim.inspect(body))
+  ----dap.repl.append(vim.inspect(session))
+  --end
+  --end
+  --"<name>: Attach": {
+  --"adapter": "vscode-cpptools",
+  --"configuration": {
+  --"name": "<name>: Attach",
+  --"type": "cppdbg",
+  --"request": "attach",
+  --"program": "<path to binary>",
+  --"MIMode": "lldb"
+  --}
+  --}
 end
 
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
-  vim.cmd("set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()")
+  vim.cmd "set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()"
   -- *Must* be *S*olidity
   --require "nvim-treesitter.parsers".get_parser_configs().Solidity = {
   --install_info = {
@@ -555,196 +538,194 @@ if ok then
   --},
   --filetype = "solidity"
   --}
-  local list = require "nvim-treesitter.parsers".get_parser_configs()
+  local list = require("nvim-treesitter.parsers").get_parser_configs()
   --list.commonlisp = {
-    --install_info = {
-      --url = "~/projects/tree-sitter-commonlisp",
-      --files = {"src/parser.c"}
-    --},
-    --filetype = "lisp",
-    --maintainers = {"@theHamsta"}
+  --install_info = {
+  --url = "~/projects/tree-sitter-commonlisp",
+  --files = {"src/parser.c"}
+  --},
+  --filetype = "lisp",
+  --maintainers = {"@theHamsta"}
   --}
   list.make = {
     install_info = {
       url = "https://github.com/alemuller/tree-sitter-make",
-      files = {"src/parser.c"},
+      files = { "src/parser.c" },
       branch = "main",
-      filetype = "Makefile"
-    }
+      filetype = "Makefile",
+    },
   }
 
-  require "nvim-treesitter.configs".setup(
-    {
-      highlight = {
-        enable = true, -- false will disable the whole extension
-        disable = {} -- list of language that will be disabled
+  require("nvim-treesitter.configs").setup {
+    highlight = {
+      enable = true, -- false will disable the whole extension
+      disable = {}, -- list of language that will be disabled
+    },
+    query_linter = {
+      enable = true,
+      lint_events = { "BufWrite" },
+    },
+    tree_docs = {
+      enable = true,
+      keymaps = {
+        doc_node_at_cursor = "<leader>GDD",
+        doc_all_in_range = "<leader>GDD",
       },
-      query_linter = {
-        enable = true,
-        lint_events = {"BufWrite"}
+    },
+    playground = {
+      enable = true,
+    },
+    incremental_selection = {
+      -- this enables incremental selection
+      enable = true,
+      disable = {},
+      --keymaps = {
+      --init_selection = "<enter>", -- maps in normal mode to init the node/scope selection
+      --node_incremental = "<enter>", -- increment to the upper named parent
+      --scope_incremental = "Ts", -- increment to the upper scope (as defined in locals.scm)
+      --node_decremental = "<bs>"
+      --}
+    },
+    node_movement = {
+      enable = true,
+      highlight_current_node = true,
+      keymaps = {
+        move_up = "<a-k>",
+        move_down = "<a-j>",
+        move_left = "<a-h>",
+        move_right = "<a-l>",
+        swap_up = "<s-a-k>",
+        swap_left = "<s-a-h>",
+        swap_right = "<s-a-l>",
+        select_current_node = "<cr>",
       },
-      tree_docs = {
+      allow_switch_parents = true,
+      allow_next_parent = true,
+    },
+    rainbow = {
+      enable = false,
+      extended_mode = {
+        latex = true,
+      },
+    },
+    autotag = {
+      enable = true,
+    },
+    pairs = {
+      enable = true,
+      highlight_pair_events = {},
+      highlight_self = false,
+      goto_right_end = false,
+      fallback_cmd_normal = "call matchit#Match_wrapper('',1,'n')",
+      keymaps = {
+        goto_partner = "%",
+        --delete_balanced = "x"
+      },
+      delete_balanced = {
+        only_on_first_char = true,
+        fallback_cmd_normal = "normal! x",
+        longest_partner = true,
+      },
+    },
+    textobjects = {
+      select = {
         enable = true,
+        lookahead = true,
+        disable = {},
         keymaps = {
-          doc_node_at_cursor = "<leader>GDD",
-          doc_all_in_range = "<leader>GDD"
-        }
-      },
-      playground = {
-        enable = true
-      },
-      incremental_selection = {
-        -- this enables incremental selection
-        enable = true,
-        disable = {}
-        --keymaps = {
-        --init_selection = "<enter>", -- maps in normal mode to init the node/scope selection
-        --node_incremental = "<enter>", -- increment to the upper named parent
-        --scope_incremental = "Ts", -- increment to the upper scope (as defined in locals.scm)
-        --node_decremental = "<bs>"
-        --}
-      },
-      node_movement = {
-        enable = true,
-        highlight_current_node = true,
-        keymaps = {
-          move_up = "<a-k>",
-          move_down = "<a-j>",
-          move_left = "<a-h>",
-          move_right = "<a-l>",
-          swap_up = "<s-a-k>",
-          swap_left = "<s-a-h>",
-          swap_right = "<s-a-l>",
-          select_current_node = "<cr>"
+          ["af"] = "@function.outer",
+          ["if"] = "@function.inner",
+          ["aC"] = "@class.outer",
+          ["iC"] = "@class.inner",
+          ["ac"] = "@conditional.outer",
+          ["ic"] = "@conditional.inner",
+          ["ae"] = "@block.outer",
+          ["ie"] = "@block.inner",
+          ["al"] = "@loop.outer",
+          ["il"] = "@loop.inner",
+          ["is"] = "@statement.inner",
+          ["as"] = "@statement.outer",
+          ["ad"] = "@lhs.inner",
+          ["id"] = "@rhs.inner",
+          ["am"] = "@call.outer",
+          ["im"] = "@call.inner",
+          ["iM"] = "@frame.inner",
+          ["aM"] = "@frame.outer",
+          ["aS"] = { "@scope", "locals" }, -- selects `@scope` from locals.scm
         },
-        allow_switch_parents = true,
-        allow_next_parent = true
       },
-      rainbow = {
+      swap = {
+        enable = true,
+        super_repeat = { ["<c-ü>"] = "h" },
+        swap_next = {
+          ["<leader>ä"] = "@parameter.inner",
+          ["<a-f>"] = "@function.outer",
+          ["<a-s>"] = { "@scope", "locals" },
+        },
+        swap_previous = {
+          ["<leader>Ä"] = "@parameter.inner",
+          ["<a-F>"] = "@function.outer",
+          ["<a-S>"] = { "@scope", "locals" },
+        },
+      },
+      lsp_interop = {
+        enable = true,
+        peek_definition_code = {
+          ["<leader>df"] = "@function.outer",
+          ["<leader>dF"] = "@class.outer",
+        },
+        peek_type_definition_code = {
+          ["<leader>TF"] = "@class.outer",
+        },
+      },
+      move = {
+        enable = true,
+        set_jumps = false,
+        goto_next_start = {
+          ["öö"] = { "@definition.function", "locals" },
+        },
+        goto_previous_start = {
+          ["ÖÖ"] = { "@definition.function", "locals" },
+        },
+      },
+    },
+    fold = {
+      enable = true,
+    },
+    refactor = {
+      highlight_current_scope = {
         enable = false,
-        extended_mode = {
-          latex = true
-        }
+        inverse_highlighting = true,
+        disable = { "python" },
       },
-      autotag = {
-        enable = true
+      highlight_definitions = {
+        enable = false,
+        disable = { "cpp", "c", "javascript", "typescript" },
       },
-      pairs = {
+      smart_rename = {
         enable = true,
-        highlight_pair_events = {},
-        highlight_self = false,
-        goto_right_end = false,
-        fallback_cmd_normal = "call matchit#Match_wrapper('',1,'n')",
+        disable = {},
         keymaps = {
-          goto_partner = "%"
-          --delete_balanced = "x"
+          smart_rename = "grr",
         },
-        delete_balanced = {
-          only_on_first_char = true,
-          fallback_cmd_normal = "normal! x",
-          longest_partner = true
-        }
       },
-      textobjects = {
-        select = {
-          enable = true,
-          lookahead = true,
-          disable = {},
-          keymaps = {
-            ["af"] = "@function.outer",
-            ["if"] = "@function.inner",
-            ["aC"] = "@class.outer",
-            ["iC"] = "@class.inner",
-            ["ac"] = "@conditional.outer",
-            ["ic"] = "@conditional.inner",
-            ["ae"] = "@block.outer",
-            ["ie"] = "@block.inner",
-            ["al"] = "@loop.outer",
-            ["il"] = "@loop.inner",
-            ["is"] = "@statement.inner",
-            ["as"] = "@statement.outer",
-            ["ad"] = "@lhs.inner",
-            ["id"] = "@rhs.inner",
-            ["am"] = "@call.outer",
-            ["im"] = "@call.inner",
-            ["iM"] = "@frame.inner",
-            ["aM"] = "@frame.outer",
-            ["aS"] = {"@scope", "locals"} -- selects `@scope` from locals.scm
-          }
+      navigation = {
+        enable = true,
+        disable = {},
+        keymaps = {
+          goto_definition = "gnd",
+          list_definitions = "gnD",
+          goto_next_usage = "<a-*>",
+          goto_previous_usage = "<a-#>",
         },
-        swap = {
-          enable = true,
-          super_repeat = {["<c-ü>"] = "h"},
-          swap_next = {
-            ["<leader>ä"] = "@parameter.inner",
-            ["<a-f>"] = "@function.outer",
-            ["<a-s>"] = {"@scope", "locals"}
-          },
-          swap_previous = {
-            ["<leader>Ä"] = "@parameter.inner",
-            ["<a-F>"] = "@function.outer",
-            ["<a-S>"] = {"@scope", "locals"}
-          }
-        },
-        lsp_interop = {
-          enable = true,
-          peek_definition_code = {
-            ["<leader>df"] = "@function.outer",
-            ["<leader>dF"] = "@class.outer"
-          },
-          peek_type_definition_code = {
-            ["<leader>TF"] = "@class.outer"
-          }
-        },
-        move = {
-          enable = true,
-          set_jumps = false,
-          goto_next_start = {
-            ["öö"] = {"@definition.function", "locals"}
-          },
-          goto_previous_start = {
-            ["ÖÖ"] = {"@definition.function", "locals"}
-          }
-        }
       },
-      fold = {
-        enable = true
-      },
-      refactor = {
-        highlight_current_scope = {
-          enable = false,
-          inverse_highlighting = true,
-          disable = {"python"}
-        },
-        highlight_definitions = {
-          enable = false,
-          disable = {"cpp", "c", "javascript", "typescript"}
-        },
-        smart_rename = {
-          enable = true,
-          disable = {},
-          keymaps = {
-            smart_rename = "grr"
-          }
-        },
-        navigation = {
-          enable = true,
-          disable = {},
-          keymaps = {
-            goto_definition = "gnd",
-            list_definitions = "gnD",
-            goto_next_usage = "<a-*>",
-            goto_previous_usage = "<a-#>"
-          }
-        }
-      },
-      indent = {
-        enable = true
-      }
-      --ensure_installed = "all",
-      --update_strategy = "do not use lockfile, please!"
-    }
-  )
+    },
+    indent = {
+      enable = true,
+    },
+    --ensure_installed = "all",
+    --update_strategy = "do not use lockfile, please!"
+  }
   require "nvim-treesitter.highlight"
   local hlmap = vim.treesitter.highlighter.hl_map
 
