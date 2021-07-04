@@ -763,6 +763,7 @@ augroup filetypedetect
     au! BufRead,BufNewFile .luacheckrc set filetype=lua
     au! BufRead,BufNewFile *.fish set filetype=fish
     au! BufRead,BufNewFile *.v set filetype=v
+    au! BufRead,BufNewFile *.zig set filetype=zig
     au! BufRead,BufNewFile Dockerfile.*,dockerfile.*,*.docker set filetype=dockerfile
 augroup END
 
