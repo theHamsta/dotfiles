@@ -104,7 +104,7 @@ command -v dtags-activate > /dev/null 2>&1 && eval "`dtags-activate zsh`"
 
 alias l.='ls -d .* --color=auto'
 alias up="sudo apt update"
-alias g="sudo apt upgrade"
+alias gr="sudo apt upgrade"
 alias gf="sudo apt-get upgrade -f"
 alias distupgrade="sudo apt-get dist-upgrade -f"
 alias i="sudo apt-get install "
