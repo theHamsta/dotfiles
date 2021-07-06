@@ -538,7 +538,7 @@ if ok then
   --},
   --filetype = "solidity"
   --}
-  local list = require("nvim-treesitter.parsers").get_parser_configs()
+  --local list = require("nvim-treesitter.parsers").get_parser_configs()
   --list.commonlisp = {
   --install_info = {
   --url = "~/projects/tree-sitter-commonlisp",
@@ -547,12 +547,30 @@ if ok then
   --filetype = "lisp",
   --maintainers = {"@theHamsta"}
   --}
-  list.make = {
+  --list.make = {
+  --install_info = {
+  --url = "https://github.com/alemuller/tree-sitter-make",
+  --files = { "src/parser.c" },
+  --branch = "main",
+  --filetype = "Makefile",
+  --},
+  --}
+
+  local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
+
+  parser_configs.markdown = {
     install_info = {
-      url = "https://github.com/alemuller/tree-sitter-make",
+      url = "https://github.com/ikatyang/tree-sitter-markdown",
+      files = { "src/parser.c", "src/scanner.cc" },
+    },
+    filetype = "markdown",
+  }
+
+  parser_configs.norg = {
+    install_info = {
+      url = "https://github.com/vhyrro/tree-sitter-norg",
       files = { "src/parser.c" },
       branch = "main",
-      filetype = "Makefile",
     },
   }
 
@@ -752,8 +770,9 @@ if ok then
   hlmap["namespace"] = "Constant"
   -- Functions
   hlmap["function"] = "Function"
-  hlmap["keyword.function"] = "Function"
+  hlmap["keyword.function"] = "Operator"
   hlmap["keyword.operator"] = "Operator"
+  hlmap["keyword.return"] = "Repeat"
   hlmap["function.builtin"] = "Special"
   hlmap["function.macro"] = "Macro"
   hlmap["parameter"] = "Identifier"
@@ -773,7 +792,6 @@ if ok then
   hlmap["type"] = "Type"
   hlmap["type.builtin"] = "Type"
   hlmap["structure"] = "Structure"
-  hlmap["keyword.function"] = "Function"
   hlmap["variable"] = "TSVariable"
   hlmap["variable.builtin"] = "Type"
   hlmap["symbol"] = "Type"

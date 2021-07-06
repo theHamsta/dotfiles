@@ -211,6 +211,10 @@ _G.packer_plugins = {
     needs_bufread = false,
     path = "/home/stephan/.local/share/nvim/site/pack/packer/opt/lsp-trouble.nvim"
   },
+  ["lsp_signature.nvim"] = {
+    loaded = true,
+    path = "/home/stephan/.local/share/nvim/site/pack/packer/start/lsp_signature.nvim"
+  },
   ["lspkind-nvim"] = {
     loaded = true,
     path = "/home/stephan/.local/share/nvim/site/pack/packer/start/lspkind-nvim"
@@ -748,6 +752,11 @@ _G.packer_plugins = {
     loaded = false,
     needs_bufread = false,
     path = "/home/stephan/.local/share/nvim/site/pack/packer/opt/zephyr-nvim"
+  },
+  ["zig.vim"] = {
+    loaded = false,
+    needs_bufread = true,
+    path = "/home/stephan/.local/share/nvim/site/pack/packer/opt/zig.vim"
   }
 }
 
@@ -823,22 +832,26 @@ vim.cmd [[au!]]
 time([[Defining lazy-load filetype autocommands]], true)
 vim.cmd [[au FileType lua ++once lua require("packer.load")({'vim-endwise'}, { ft = "lua" }, _G.packer_plugins)]]
 vim.cmd [[au FileType toml ++once lua require("packer.load")({'rust.vim'}, { ft = "toml" }, _G.packer_plugins)]]
+vim.cmd [[au FileType qml ++once lua require("packer.load")({'vim-qml'}, { ft = "qml" }, _G.packer_plugins)]]
 vim.cmd [[au FileType org ++once lua require("packer.load")({'vim-orgmode'}, { ft = "org" }, _G.packer_plugins)]]
 vim.cmd [[au FileType vlime_repl ++once lua require("packer.load")({'vim-sexp-mappings-for-regular-people', 'vim-sexp'}, { ft = "vlime_repl" }, _G.packer_plugins)]]
 vim.cmd [[au FileType fennel ++once lua require("packer.load")({'vim-sexp-mappings-for-regular-people', 'vim-sexp'}, { ft = "fennel" }, _G.packer_plugins)]]
 vim.cmd [[au FileType rust ++once lua require("packer.load")({'vim-test', 'rust.vim'}, { ft = "rust" }, _G.packer_plugins)]]
-vim.cmd [[au FileType qml ++once lua require("packer.load")({'vim-qml'}, { ft = "qml" }, _G.packer_plugins)]]
-vim.cmd [[au FileType fsharp ++once lua require("packer.load")({'Ionide-vim', 'LanguageClient-neovim'}, { ft = "fsharp" }, _G.packer_plugins)]]
+vim.cmd [[au FileType fsharp ++once lua require("packer.load")({'LanguageClient-neovim', 'Ionide-vim'}, { ft = "fsharp" }, _G.packer_plugins)]]
 vim.cmd [[au FileType go ++once lua require("packer.load")({'vim-go'}, { ft = "go" }, _G.packer_plugins)]]
-vim.cmd [[au FileType markdown ++once lua require("packer.load")({'vim-markdown', 'vim-markdown-composer'}, { ft = "markdown" }, _G.packer_plugins)]]
-vim.cmd [[au FileType clojure ++once lua require("packer.load")({'vim-sexp-mappings-for-regular-people', 'vim-sexp'}, { ft = "clojure" }, _G.packer_plugins)]]
-vim.cmd [[au FileType query ++once lua require("packer.load")({'vim-sexp-mappings-for-regular-people', 'vim-sexp'}, { ft = "query" }, _G.packer_plugins)]]
 vim.cmd [[au FileType python ++once lua require("packer.load")({'vim-test'}, { ft = "python" }, _G.packer_plugins)]]
 vim.cmd [[au FileType scheme ++once lua require("packer.load")({'vim-sexp-mappings-for-regular-people', 'vim-sexp'}, { ft = "scheme" }, _G.packer_plugins)]]
+vim.cmd [[au FileType clojure ++once lua require("packer.load")({'vim-sexp-mappings-for-regular-people', 'vim-sexp'}, { ft = "clojure" }, _G.packer_plugins)]]
+vim.cmd [[au FileType query ++once lua require("packer.load")({'vim-sexp-mappings-for-regular-people', 'vim-sexp'}, { ft = "query" }, _G.packer_plugins)]]
+vim.cmd [[au FileType zig ++once lua require("packer.load")({'zig.vim'}, { ft = "zig" }, _G.packer_plugins)]]
 vim.cmd [[au FileType lisp ++once lua require("packer.load")({'vim-sexp-mappings-for-regular-people', 'vim-sexp', 'vlime'}, { ft = "lisp" }, _G.packer_plugins)]]
+vim.cmd [[au FileType markdown ++once lua require("packer.load")({'vim-markdown', 'vim-markdown-composer'}, { ft = "markdown" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
 vim.cmd("augroup END")
 vim.cmd [[augroup filetypedetect]]
+time([[Sourcing ftdetect script at: /home/stephan/.local/share/nvim/site/pack/packer/opt/zig.vim/ftdetect/zig.vim]], true)
+vim.cmd [[source /home/stephan/.local/share/nvim/site/pack/packer/opt/zig.vim/ftdetect/zig.vim]]
+time([[Sourcing ftdetect script at: /home/stephan/.local/share/nvim/site/pack/packer/opt/zig.vim/ftdetect/zig.vim]], false)
 time([[Sourcing ftdetect script at: /home/stephan/.local/share/nvim/site/pack/packer/opt/vim-markdown/ftdetect/markdown.vim]], true)
 vim.cmd [[source /home/stephan/.local/share/nvim/site/pack/packer/opt/vim-markdown/ftdetect/markdown.vim]]
 time([[Sourcing ftdetect script at: /home/stephan/.local/share/nvim/site/pack/packer/opt/vim-markdown/ftdetect/markdown.vim]], false)
@@ -851,12 +864,12 @@ time([[Sourcing ftdetect script at: /home/stephan/.local/share/nvim/site/pack/pa
 time([[Sourcing ftdetect script at: /home/stephan/.local/share/nvim/site/pack/packer/opt/Ionide-vim/ftdetect/fsharp.vim]], true)
 vim.cmd [[source /home/stephan/.local/share/nvim/site/pack/packer/opt/Ionide-vim/ftdetect/fsharp.vim]]
 time([[Sourcing ftdetect script at: /home/stephan/.local/share/nvim/site/pack/packer/opt/Ionide-vim/ftdetect/fsharp.vim]], false)
-time([[Sourcing ftdetect script at: /home/stephan/.local/share/nvim/site/pack/packer/opt/vim-qml/ftdetect/qml.vim]], true)
-vim.cmd [[source /home/stephan/.local/share/nvim/site/pack/packer/opt/vim-qml/ftdetect/qml.vim]]
-time([[Sourcing ftdetect script at: /home/stephan/.local/share/nvim/site/pack/packer/opt/vim-qml/ftdetect/qml.vim]], false)
 time([[Sourcing ftdetect script at: /home/stephan/.local/share/nvim/site/pack/packer/opt/rust.vim/ftdetect/rust.vim]], true)
 vim.cmd [[source /home/stephan/.local/share/nvim/site/pack/packer/opt/rust.vim/ftdetect/rust.vim]]
 time([[Sourcing ftdetect script at: /home/stephan/.local/share/nvim/site/pack/packer/opt/rust.vim/ftdetect/rust.vim]], false)
+time([[Sourcing ftdetect script at: /home/stephan/.local/share/nvim/site/pack/packer/opt/vim-qml/ftdetect/qml.vim]], true)
+vim.cmd [[source /home/stephan/.local/share/nvim/site/pack/packer/opt/vim-qml/ftdetect/qml.vim]]
+time([[Sourcing ftdetect script at: /home/stephan/.local/share/nvim/site/pack/packer/opt/vim-qml/ftdetect/qml.vim]], false)
 vim.cmd("augroup END")
 if should_profile then save_profiles() end
 

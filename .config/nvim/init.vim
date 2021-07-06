@@ -765,6 +765,7 @@ augroup filetypedetect
     au! BufRead,BufNewFile *.v set filetype=v
     au! BufRead,BufNewFile *.zig set filetype=zig
     au! BufRead,BufNewFile Dockerfile.*,dockerfile.*,*.docker set filetype=dockerfile
+    au! BufRead,BufNewFile *.norg set filetype=norg
 augroup END
 
 "let g:NERDTreeFileExtensionHighlightFullName = 1
