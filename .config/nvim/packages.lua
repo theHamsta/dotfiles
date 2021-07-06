@@ -35,7 +35,7 @@ local go_packages = {
 return packer.startup(function()
   use { "wbthomason/packer.nvim", opt = true }
   use { "famiu/nvim-reload", opt = true }
-  --use {"ray-x/lsp_signature.nvim"}
+  use {"ray-x/lsp_signature.nvim"}
   use {
     "simrat39/symbols-outline.nvim",
     cmd = { "SymbolsOutline" },
@@ -360,7 +360,7 @@ return packer.startup(function()
       require("kosmikoa").setup()
     end,
   }
-  --use { "ziglang/zig.vim", ft = "zig", opt = true }
+  use { "ziglang/zig.vim", ft = "zig", opt = false }
   use "mfussenegger/nvim-jdtls"
   --use "mattn/emmet-vim"
   use "rhysd/conflict-marker.vim"
@@ -609,3 +609,5 @@ return packer.startup(function()
   --use {"Shougo/deoplete.nvim", run = ":UpdateRemotePlugins"}
   use "rakr/vim-one"
 end)
+
+
