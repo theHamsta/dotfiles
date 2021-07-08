@@ -35,7 +35,7 @@ local go_packages = {
 return packer.startup(function()
   use { "wbthomason/packer.nvim", opt = true }
   use { "famiu/nvim-reload", opt = true }
-  use {"ray-x/lsp_signature.nvim"}
+  use { "ray-x/lsp_signature.nvim" }
   use {
     "simrat39/symbols-outline.nvim",
     cmd = { "SymbolsOutline" },
@@ -497,7 +497,6 @@ return packer.startup(function()
   use { "dbeniamine/cheat.sh-vim", cmd = { "Cheat" } }
   use "dyng/ctrlsf.vim"
   use { "euclio/vim-markdown-composer", run = "cargo build --release", cmd = "ComposerStart", ft = "markdown" }
-  --use {"fatih/vim-go", ft = "go", run = ":GoInstallBinaries"}
   use {
     "fatih/vim-go",
     ft = "go",
@@ -609,5 +608,3 @@ return packer.startup(function()
   --use {"Shougo/deoplete.nvim", run = ":UpdateRemotePlugins"}
   use "rakr/vim-one"
 end)
-
-
