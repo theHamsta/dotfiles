@@ -555,6 +555,7 @@ return packer.startup(function()
   use "skywind3000/vim-preview"
   use {
     "folke/todo-comments.nvim",
+    opt = false,
     config = function()
       --require("todo-comments").setup {}
     end,
