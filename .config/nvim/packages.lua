@@ -36,6 +36,7 @@ return packer.startup(function()
   use { "wbthomason/packer.nvim", opt = true }
   use { "famiu/nvim-reload", opt = true }
   use { "ray-x/lsp_signature.nvim" }
+  use { "earthly/earthly.vim", filetype = "earthly" }
   use {
     "simrat39/symbols-outline.nvim",
     cmd = { "SymbolsOutline" },

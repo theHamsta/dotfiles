@@ -765,7 +765,8 @@ augroup filetypedetect
     au! BufRead,BufNewFile *.v set filetype=v
     au! BufRead,BufNewFile *.zig set filetype=zig
     au! BufRead,BufNewFile Dockerfile.*,dockerfile.*,*.docker set filetype=dockerfile
-    au! BufRead,BufNewFile *.norg set filetype=norg
+    au! BufRead,BufNewFile Earthfile set filetype=Earthfile
+    au! BufRead,BufNewFile build.earth set filetype=Earthfile
 augroup END
 
 "let g:NERDTreeFileExtensionHighlightFullName = 1
