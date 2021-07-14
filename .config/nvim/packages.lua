@@ -71,6 +71,16 @@ return packer.startup(function()
     end,
   }
   use "nvim-lua/popup.nvim"
+  use {
+    "folke/twilight.nvim",
+    config = function()
+      require("twilight").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end,
+  }
   use { "mcchrish/nnn.vim", cmd = { "NnnPicker" } }
   use "jceb/emmet.snippets"
   use {

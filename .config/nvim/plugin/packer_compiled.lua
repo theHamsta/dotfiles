@@ -501,6 +501,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/stephan/.local/share/nvim/site/pack/packer/start/traces.vim"
   },
+  ["twilight.nvim"] = {
+    config = { "\27LJ\2\2:\0\0\2\0\3\0\a6\0\0\0'\1\1\0B\0\2\0029\0\2\0004\1\0\0B\0\2\1K\0\1\0\nsetup\rtwilight\frequire\0" },
+    loaded = true,
+    path = "/home/stephan/.local/share/nvim/site/pack/packer/start/twilight.nvim"
+  },
   ultisnips = {
     loaded = true,
     path = "/home/stephan/.local/share/nvim/site/pack/packer/start/ultisnips"
@@ -774,18 +779,18 @@ time([[Defining packer_plugins]], false)
 time([[Runtimepath customization]], true)
 vim.o.runtimepath = vim.o.runtimepath .. ",/home/stephan/.local/share/nvim/site/pack/packer/opt/vlime/vim/"
 time([[Runtimepath customization]], false)
--- Config for: nvim-treesitter
-time([[Config for nvim-treesitter]], true)
-try_loadstring("\27LJ\2\2ﬁ\4\0\0\5\0\b\0\0186\0\0\0'\1\1\0B\0\2\0029\0\2\0'\1\3\0B\0\2\2\15\0\0\0X\1\tÄ'\0\4\0006\1\0\0'\2\5\0B\1\2\0029\1\6\1'\2\3\0'\3\a\0\18\4\0\0B\1\4\1K\0\1\0\nfolds\14set_query\25vim.treesitter.queryª\3  [\n    (function_definition)\n    (class_definition)\n\n    (while_statement)\n    (for_statement)\n    (if_statement)\n    (with_statement)\n    (try_statement)\n\n    (import_from_statement)\n    (parameters)\n    (argument_list)\n\n    (parenthesized_expression)\n    (generator_expression)\n    (list_comprehension)\n    (set_comprehension)\n    (dictionary_comprehension)\n\n    (tuple)\n    (list)\n    (set)\n    (dictionary)\n\n    (string)\n  ] @fold\n  \vpython\15has_parser\28nvim-treesitter.parsers\frequire\0", "config", "nvim-treesitter")
-time([[Config for nvim-treesitter]], false)
+-- Config for: nvim-dap-ui
+time([[Config for nvim-dap-ui]], true)
+try_loadstring("\27LJ\2\2≤\2\0\0\4\0\15\0\0196\0\0\0'\1\1\0B\0\2\0029\0\2\0005\1\4\0005\2\3\0=\2\5\0015\2\6\0=\2\a\0015\2\t\0005\3\b\0=\3\n\2=\2\v\0015\2\r\0005\3\f\0=\3\n\2=\2\14\1B\0\2\1K\0\1\0\ttray\1\0\2\vheight\3\n\rposition\vbottom\1\2\0\0\trepl\fsidebar\relements\1\0\2\rposition\nright\nwidth\3(\1\4\0\0\vscopes\vstacks\fwatches\rmappings\1\0\3\topen\6o\vremove\6d\vexpand\t<CR>\nicons\1\0\0\1\0\3\rcircular\b‚Ü∫\14collapsed\b‚Øà\rexpanded\b‚ØÜ\nsetup\ndapui\frequire\0", "config", "nvim-dap-ui")
+time([[Config for nvim-dap-ui]], false)
 -- Config for: nvim-colorizer.lua
 time([[Config for nvim-colorizer.lua]], true)
 try_loadstring("\27LJ\2\2£\1\0\0\3\0\b\0\v6\0\0\0'\1\1\0B\0\2\0029\0\2\0005\1\3\0005\2\4\0=\2\5\0015\2\6\0=\2\a\1B\0\2\1K\0\1\0\tscss\1\0\3\bcss\2\vrgb_fn\2\vcss_fn\2\bcss\1\0\3\bcss\2\vrgb_fn\2\vcss_fn\2\1\6\0\0\bvim\thtml\rmarkdown\btex\tsass\nsetup\14colorizer\frequire\0", "config", "nvim-colorizer.lua")
 time([[Config for nvim-colorizer.lua]], false)
--- Config for: neorg
-time([[Config for neorg]], true)
-try_loadstring("\27LJ\2\2¢\2\0\0\6\0\17\0\0236\0\0\0'\1\1\0B\0\2\0029\0\2\0005\1\15\0005\2\3\0004\3\0\0=\3\4\0025\3\6\0005\4\5\0=\4\a\3=\3\b\0024\3\0\0=\3\t\0025\3\r\0005\4\v\0005\5\n\0=\5\f\4=\4\a\3=\3\14\2=\2\16\1B\0\2\1K\0\1\0\tload\1\0\0\21core.norg.dirman\1\0\0\15workspaces\1\0\0\1\0\1\17my_workspace\f~/neorg\24core.norg.concealer\18core.keybinds\vconfig\1\0\0\1\0\2\17neorg_leader\14<Leader>o\21default_keybinds\2\18core.defaults\1\0\0\nsetup\nneorg\frequire\0", "config", "neorg")
-time([[Config for neorg]], false)
+-- Config for: gitlinker.nvim
+time([[Config for gitlinker.nvim]], true)
+try_loadstring("\27LJ\2\0027\0\0\2\0\3\0\0066\0\0\0'\1\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14gitlinker\frequire\0", "config", "gitlinker.nvim")
+time([[Config for gitlinker.nvim]], false)
 -- Config for: nvim-compe
 time([[Config for nvim-compe]], true)
 try_loadstring("\27LJ\2\2≤\2\0\0\3\0\6\0\t6\0\0\0'\1\1\0B\0\2\0029\0\2\0005\1\3\0005\2\4\0=\2\5\1B\0\2\1K\0\1\0\vsource\1\0\v\18snippets_nvim\1\14ultisnips\1\rnvim_lsp\2\ttags\2\nvsnip\1\tpath\2\nemoji\1\rnvim_lua\2\nspell\2\vbuffer\2\tcalc\1\1\0\t\17autocomplete\2\19source_timeout\3»\1\fenabled\2\ndebug\1\14preselect\fdisable\21incomplete_delay\3è\3\25allow_prefix_unmatch\1\15min_length\3\2\18throttle_time\3d\nsetup\ncompe\frequire\0", "config", "nvim-compe")
@@ -794,10 +799,14 @@ time([[Config for nvim-compe]], false)
 time([[Config for snippets.nvim]], true)
 try_loadstring("\27LJ\2\2m\0\0\2\0\3\0\0056\0\0\0009\0\1\0'\1\2\0B\0\2\1K\0\1\0Ninoremap <c-k> <cmd>lua return require'snippets'.expand_or_advance(1)<CR>\bcmd\bvim\0", "config", "snippets.nvim")
 time([[Config for snippets.nvim]], false)
--- Config for: nvim-dap-ui
-time([[Config for nvim-dap-ui]], true)
-try_loadstring("\27LJ\2\2≤\2\0\0\4\0\15\0\0196\0\0\0'\1\1\0B\0\2\0029\0\2\0005\1\4\0005\2\3\0=\2\5\0015\2\6\0=\2\a\0015\2\t\0005\3\b\0=\3\n\2=\2\v\0015\2\r\0005\3\f\0=\3\n\2=\2\14\1B\0\2\1K\0\1\0\ttray\1\0\2\vheight\3\n\rposition\vbottom\1\2\0\0\trepl\fsidebar\relements\1\0\2\rposition\nright\nwidth\3(\1\4\0\0\vscopes\vstacks\fwatches\rmappings\1\0\3\topen\6o\vremove\6d\vexpand\t<CR>\nicons\1\0\0\1\0\3\rcircular\b‚Ü∫\14collapsed\b‚Øà\rexpanded\b‚ØÜ\nsetup\ndapui\frequire\0", "config", "nvim-dap-ui")
-time([[Config for nvim-dap-ui]], false)
+-- Config for: twilight.nvim
+time([[Config for twilight.nvim]], true)
+try_loadstring("\27LJ\2\2:\0\0\2\0\3\0\a6\0\0\0'\1\1\0B\0\2\0029\0\2\0004\1\0\0B\0\2\1K\0\1\0\nsetup\rtwilight\frequire\0", "config", "twilight.nvim")
+time([[Config for twilight.nvim]], false)
+-- Config for: nvim-treesitter
+time([[Config for nvim-treesitter]], true)
+try_loadstring("\27LJ\2\2ﬁ\4\0\0\5\0\b\0\0186\0\0\0'\1\1\0B\0\2\0029\0\2\0'\1\3\0B\0\2\2\15\0\0\0X\1\tÄ'\0\4\0006\1\0\0'\2\5\0B\1\2\0029\1\6\1'\2\3\0'\3\a\0\18\4\0\0B\1\4\1K\0\1\0\nfolds\14set_query\25vim.treesitter.queryª\3  [\n    (function_definition)\n    (class_definition)\n\n    (while_statement)\n    (for_statement)\n    (if_statement)\n    (with_statement)\n    (try_statement)\n\n    (import_from_statement)\n    (parameters)\n    (argument_list)\n\n    (parenthesized_expression)\n    (generator_expression)\n    (list_comprehension)\n    (set_comprehension)\n    (dictionary_comprehension)\n\n    (tuple)\n    (list)\n    (set)\n    (dictionary)\n\n    (string)\n  ] @fold\n  \vpython\15has_parser\28nvim-treesitter.parsers\frequire\0", "config", "nvim-treesitter")
+time([[Config for nvim-treesitter]], false)
 -- Config for: gitsigns.nvim
 time([[Config for gitsigns.nvim]], true)
 try_loadstring("\27LJ\2\2‘\14\0\0\4\0!\00026\0\0\0'\1\1\0B\0\2\0029\0\2\0005\1\14\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0=\3\t\0025\3\n\0=\3\v\0025\3\f\0=\3\r\2=\2\15\0015\2\16\0=\2\17\0015\2\18\0=\2\19\1B\0\2\1X\0\26Ä6\0\0\0'\1\1\0B\0\2\0029\0\2\0005\1\26\0005\2\21\0005\3\20\0=\3\5\0025\3\22\0=\3\a\0025\3\23\0=\3\t\0025\3\24\0=\3\v\0025\3\25\0=\3\r\2=\2\15\0015\2\27\0005\3\28\0=\3\29\0025\3\30\0=\3\31\2=\2\17\0015\2 \0=\2\19\1B\0\2\1K\0\1\0\1\0\1\rinterval\3Ë\a\tn [c\1\2\1\0@&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'\texpr\2\tn ]c\1\2\1\0@&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'\texpr\2\1\0\t\vbuffer\2\17n <leader>hs0<cmd>lua require\"gitsigns\".stage_hunk()<CR>\17n <leader>hb0<cmd>lua require\"gitsigns\".blame_line()<CR>\to ih2:<C-U>lua require\"gitsigns\".text_object()<CR>\tx ih2:<C-U>lua require\"gitsigns\".text_object()<CR>\17n <leader>hr5<cmd>lua require\"gitsigns\".undo_stage_hunk()<CR>\fnoremap\2\17n <leader>hp2<cmd>lua require\"gitsigns\".preview_hunk()<CR>\17n <leader>hu0<cmd>lua require\"gitsigns\".reset_hunk()<CR>\1\0\2\18sign_priority\3\6\nnumhl\1\1\0\2\ttext\6~\ahl\20GitGutterChange\1\0\2\ttext\b‚Äæ\ahl\20GitGutterDelete\1\0\2\ttext\6_\ahl\20GitGutterDelete\1\0\2\ttext\6~\ahl\20GitGutterChange\1\0\0\1\0\2\ttext\6+\ahl\17GitGutterAdd\16watch_index\1\0\1\rinterval\3Ë\a\fkeymaps\1\0\v\vbuffer\2\17n <leader>hb0<cmd>lua require\"gitsigns\".blame_line()<CR>\to ah2:<C-U>lua require\"gitsigns\".select_hunk()<CR>\17n <leader>hs0<cmd>lua require\"gitsigns\".stage_hunk()<CR>\14n <c-a-j>/<cmd>lua require\"gitsigns\".next_hunk()<CR>\tx ah2:<C-U>lua require\"gitsigns\".select_hunk()<CR>\17n <leader>hr5<cmd>lua require\"gitsigns\".undo_stage_hunk()<CR>\fnoremap\2\14n <c-a-h>/<cmd>lua require\"gitsigns\".prev_hunk()<CR>\17n <leader>hp2<cmd>lua require\"gitsigns\".preview_hunk()<CR>\17n <leader>hu0<cmd>lua require\"gitsigns\".reset_hunk()<CR>\nsigns\1\0\2\18sign_priority\3\6\nnumhl\1\17changedelete\1\0\3\ttext\t‚ñê_\nnumhl\21GitSignsChangeNr\ahl\20GitGutterChange\14topdelete\1\0\3\ttext\b‚Äæ\nnumhl\21GitSignsDeleteNr\ahl\20GitGutterDelete\vdelete\1\0\3\ttext\6_\nnumhl\21GitSignsDeleteNr\ahl\20GitGutterDelete\vchange\1\0\3\ttext\b‚ñê\nnumhl\21GitSignsChangeNr\ahl\20GitGutterChange\badd\1\0\0\1\0\3\ttext\b‚ñã\nnumhl\18GitSignsAddNr\ahl\17GitGutterAdd\nsetup\rgitsigns\frequire\0", "config", "gitsigns.nvim")
@@ -814,10 +823,10 @@ time([[Config for rust-tools.nvim]], false)
 time([[Config for galaxyline.nvim]], true)
 try_loadstring("\27LJ\2\2-\0\0\2\0\2\0\0046\0\0\0'\1\1\0B\0\2\1K\0\1\0\18my_statusline\frequire\0", "config", "galaxyline.nvim")
 time([[Config for galaxyline.nvim]], false)
--- Config for: gitlinker.nvim
-time([[Config for gitlinker.nvim]], true)
-try_loadstring("\27LJ\2\0027\0\0\2\0\3\0\0066\0\0\0'\1\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14gitlinker\frequire\0", "config", "gitlinker.nvim")
-time([[Config for gitlinker.nvim]], false)
+-- Config for: neorg
+time([[Config for neorg]], true)
+try_loadstring("\27LJ\2\2¢\2\0\0\6\0\17\0\0236\0\0\0'\1\1\0B\0\2\0029\0\2\0005\1\15\0005\2\3\0004\3\0\0=\3\4\0025\3\6\0005\4\5\0=\4\a\3=\3\b\0024\3\0\0=\3\t\0025\3\r\0005\4\v\0005\5\n\0=\5\f\4=\4\a\3=\3\14\2=\2\16\1B\0\2\1K\0\1\0\tload\1\0\0\21core.norg.dirman\1\0\0\15workspaces\1\0\0\1\0\1\17my_workspace\f~/neorg\24core.norg.concealer\18core.keybinds\vconfig\1\0\0\1\0\2\17neorg_leader\14<Leader>o\21default_keybinds\2\18core.defaults\1\0\0\nsetup\nneorg\frequire\0", "config", "neorg")
+time([[Config for neorg]], false)
 -- Config for: telescope-fzy-native.nvim
 time([[Config for telescope-fzy-native.nvim]], true)
 try_loadstring("\27LJ\2\2¿\1\0\0\4\0\t\0\0176\0\0\0'\1\1\0B\0\2\0029\0\2\0005\1\6\0005\2\4\0005\3\3\0=\3\5\2=\2\a\1B\0\2\0016\0\0\0'\1\1\0B\0\2\0029\0\b\0'\1\5\0B\0\2\1K\0\1\0\19load_extension\15extensions\1\0\0\15fzy_native\1\0\0\1\0\2\28override_generic_sorter\1\25override_file_sorter\2\nsetup\14telescope\frequire\0", "config", "telescope-fzy-native.nvim")
@@ -850,8 +859,8 @@ vim.cmd [[au FileType org ++once lua require("packer.load")({'vim-orgmode'}, { f
 vim.cmd [[au FileType vlime_repl ++once lua require("packer.load")({'vim-sexp-mappings-for-regular-people', 'vim-sexp'}, { ft = "vlime_repl" }, _G.packer_plugins)]]
 vim.cmd [[au FileType fennel ++once lua require("packer.load")({'vim-sexp-mappings-for-regular-people', 'vim-sexp'}, { ft = "fennel" }, _G.packer_plugins)]]
 vim.cmd [[au FileType rust ++once lua require("packer.load")({'vim-test', 'rust.vim'}, { ft = "rust" }, _G.packer_plugins)]]
-vim.cmd [[au FileType go ++once lua require("packer.load")({'vim-go'}, { ft = "go" }, _G.packer_plugins)]]
 vim.cmd [[au FileType fsharp ++once lua require("packer.load")({'LanguageClient-neovim', 'Ionide-vim'}, { ft = "fsharp" }, _G.packer_plugins)]]
+vim.cmd [[au FileType go ++once lua require("packer.load")({'vim-go'}, { ft = "go" }, _G.packer_plugins)]]
 vim.cmd [[au FileType python ++once lua require("packer.load")({'vim-test'}, { ft = "python" }, _G.packer_plugins)]]
 vim.cmd [[au FileType scheme ++once lua require("packer.load")({'vim-sexp-mappings-for-regular-people', 'vim-sexp'}, { ft = "scheme" }, _G.packer_plugins)]]
 vim.cmd [[au FileType clojure ++once lua require("packer.load")({'vim-sexp-mappings-for-regular-people', 'vim-sexp'}, { ft = "clojure" }, _G.packer_plugins)]]
