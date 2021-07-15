@@ -47,7 +47,9 @@ gcc-install: gcc-release
 meson-release:
     meson build --buildtype=release
     cd build && meson compile
+    ln -s build/compile_commands.json .
 
 meson-debug:
     meson debug --buildtype=debug
     cd debug && meson compile
+    ln -s debug/compile_commands.json .
