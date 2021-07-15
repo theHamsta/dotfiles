@@ -43,3 +43,11 @@ install: release
 
 gcc-install: gcc-release
     cd gcc-release && sudo ninja install
+
+meson-release:
+    meson build --buildtype=release
+    cd build && meson compile
+
+meson-debug:
+    meson debug --buildtype=debug
+    cd debug && meson compile
