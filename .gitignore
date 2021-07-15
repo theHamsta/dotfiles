@@ -129,3 +129,5 @@ debug
 release
 build
 .cache
+
+.config/nvim/plugin/packer_compiled.lua
