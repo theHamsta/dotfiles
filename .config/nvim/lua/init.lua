@@ -673,6 +673,8 @@ if ok then
           ["im"] = "@call.inner",
           ["iM"] = "@frame.inner",
           ["aM"] = "@frame.outer",
+          ["ai"] = "@parameter.outer",
+          ["ii"] = "@parameter.inner",
           ["aS"] = { "@scope", "locals" }, -- selects `@scope` from locals.scm
         },
       },

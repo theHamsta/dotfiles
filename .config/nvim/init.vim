@@ -481,6 +481,10 @@ function! NvimLspMaps()
         "inoremap <buffer><silent> (     <cmd>lua vim.lsp.buf.signature_help()<CR>(
     "endif
 
+    "if &filetype == "rust" || &filetype == "go"
+      "autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()
+    "endif
+    command! CodeLens autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()
     nnoremap <buffer><silent> gt    <cmd>lua vim.lsp.buf.type_definition()<CR>
     "autocmd BufEnter <buffer> :lua require'lsp-ext'.update_diagnostics()
 
