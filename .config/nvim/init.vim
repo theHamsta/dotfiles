@@ -965,6 +965,7 @@ autocmd BufReadPre *.png silent %!xdg-open "%"
 autocmd BufReadPre *.eps silent %!xdg-open "%"
 autocmd BufReadPre *.jpg silent %!xdg-open "%"
 autocmd BufReadPre *.bmp silent %!xdg-open "%"
+autocmd BufReadPre *.ipynb silent %!xdg-open "%"
 
 "nmap  <leader>cw  <Plug>(choosewin)
 "let g:choosewin_overlay_enable = 1
