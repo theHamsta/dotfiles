@@ -59,7 +59,7 @@ HIST_STAMPS="dd/mm/yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git fasd  copydir command-not-found extract history cp gitignore )
+plugins=(git fasd  copydir command-not-found extract history cp gitignore docker docker-compose)
 eval "$(zoxide init zsh)"
 
 source $ZSH/oh-my-zsh.sh

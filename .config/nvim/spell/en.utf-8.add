@@ -347,3 +347,7 @@ citecolor
 urlcolor
 maketitle
 hypersetup
+eframe
+nsys
+wasm32
+cfg

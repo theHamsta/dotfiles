@@ -54,6 +54,7 @@ return packer.startup(function()
       }
     end,
   }
+  use {'nanotee/zoxide.vim', cmd = {'Z', 'Zi'}}
   use {
     "vhyrro/neorg",
     branch = "unstable",
