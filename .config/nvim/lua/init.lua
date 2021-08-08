@@ -173,7 +173,7 @@ if ok then
   }
   lspconfig.clangd.setup {
     cmd = {
-      "clangd-13",
+      "clangd-14",
       "--clang-tidy",
       "--all-scopes-completion",
       "--header-insertion=iwyu",
