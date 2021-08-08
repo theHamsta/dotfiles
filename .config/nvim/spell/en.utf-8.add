@@ -351,3 +351,10 @@ eframe
 nsys
 wasm32
 cfg
+sqlite
+extern
+attr
+serde
+Deserialize
+SQLite
+Sql
