@@ -20,16 +20,6 @@ if lsp_status_ok then
   capabilities = vim.tbl_extend("keep", capabilities or {}, lsp_status.capabilities)
 end
 
-if not filter then
-  local ok, _ = pcall(require, "fun")
-  if ok then
-    require "fun"()
-    vim.o.shell = head(filter(function(e)
-      return vim.fn.executable(e) == 1
-    end, { "zsh", "fish", "bash" }))
-  end
-end
-
 function D(a)
   print(vim.inspect(a))
   return a
@@ -60,28 +50,7 @@ local lsp_signature_ok, lsp_signature = pcall(require, "lsp_signature")
 if ok then
   require("lspkind").init()
   local function on_attach(client, bufnr)
-    --local function buf_set_keymap(...)
-    --vim.api.nvim_buf_set_keymap(bufnr, ...)
-    --end
-    --local function buf_set_option(...)
-    --vim.api.nvim_buf_set_option(bufnr, ...)
-    --end
-
-    --if client.resolved_capabilities.document_highlight then
-    --vim.api.nvim_exec(
-    -- [[
-    --:hi LspReferenceRead guibg=#101010
-    --:hi link LspReferenceText CursorLine
-    --:hi LspReferenceWrite guibg=#441010
-    --augroup lsp_document_highgit@github.com:theHamsta/eclipse.jdt.ls.gitlight
-    --autocmd!
-    --autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-    --autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-    --augroup END
-    --]],
-    --false
-    --)
-    --end
+    vim.fn.NvimLspMaps()
     if lsp_signature_ok then
       lsp_signature.on_attach()
     end
@@ -89,7 +58,6 @@ if ok then
       lsp_status.on_attach(client)
     end
 
-    vim.fn.NvimLspMaps()
   end
 
   --pcall(require, "lspconfig/julials")
@@ -424,14 +392,14 @@ if ok then
   --}
   --}
 
-  local RUSTC_SYSROOT = vim.fn.system("rustc --print sysroot"):gsub("\n", "")
+  --local RUSTC_SYSROOT = vim.fn.system("rustc --print sysroot"):gsub("\n", "")
   dap.adapters.lldb = {
     type = "executable",
     attach = {
       pidProperty = "pid",
       pidSelect = "ask",
     },
-    command = "lldb-vscode-13",
+    command = "lldb-vscode-14",
     env = function()
       local variables = {
         LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES",
