@@ -1235,6 +1235,7 @@ nnoremap <silent> <c-0> :lua require'my_gui'.reset_fontsize()<cr>
 
 "nnoremap <Leader>nf :CHADopen<cr>
 "nnoremap <Leader>nt :CHADopen<cr>
+
 nnoremap <Leader>nf :NERDTreeFind<cr>
 nnoremap <Leader>nt :NERDTreeToggle<cr>
 ""
@@ -1555,3 +1556,5 @@ command! OneDark colorscheme one
 
 omap     <silent> m :<C-U>lua require('tsht').nodes()<CR>
 vnoremap <silent> m :lua require('tsht').nodes()<CR>
+
+

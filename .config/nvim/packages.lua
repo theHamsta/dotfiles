@@ -54,7 +54,7 @@ return packer.startup(function()
       }
     end,
   }
-  use {'nanotee/zoxide.vim', cmd = {'Z', 'Zi'}}
+  use { "nanotee/zoxide.vim", cmd = { "Z", "Zi" } }
   use {
     "vhyrro/neorg",
     branch = "unstable",
@@ -589,7 +589,14 @@ return packer.startup(function()
   use "markonm/traces.vim"
   use { "mbbill/undotree", cmd = { "UndotreeToggle" } }
   use { "meain/vim-package-info", run = "npm install" }
-  use { "mhinz/vim-startify", opt = false }
+  --use { "mhinz/vim-startify", opt = true }
+  use {
+    "goolord/alpha-nvim",
+    requires = { "kyazdani42/nvim-web-devicons" },
+    config = function()
+      require("alpha").setup(require("alpha.themes.startify").opts)
+    end,
+  }
   use "moll/vim-bbye"
   use { "jpalardy/vim-slime", opt = true }
   use "pboettch/vim-cmake-syntax"
