@@ -57,7 +57,6 @@ if ok then
     if lsp_status_ok then
       lsp_status.on_attach(client)
     end
-
   end
 
   --pcall(require, "lspconfig/julials")
@@ -528,7 +527,7 @@ if ok then
   --},
   --}
 
-  local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
+  --local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 
   --parser_configs.markdown = {
   --install_info = {
@@ -538,13 +537,13 @@ if ok then
   --filetype = "markdown",
   --}
 
-  parser_configs.norg = {
-    install_info = {
-      url = "https://github.com/vhyrro/tree-sitter-norg",
-      files = { "src/parser.c" },
-      branch = "main",
-    },
-  }
+  --parser_configs.norg = {
+  --install_info = {
+  --url = "https://github.com/vhyrro/tree-sitter-norg",
+  --files = { "src/parser.c" },
+  --branch = "main",
+  --},
+  --}
 
   require("nvim-treesitter.configs").setup {
     highlight = {
