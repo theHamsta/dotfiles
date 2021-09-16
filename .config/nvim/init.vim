@@ -1,6 +1,6 @@
 set termguicolors     " enable true colors support
 set background=dark 
-colorscheme one
+colorscheme github_dark_default
 
 set tags=./tags,tags
 set encoding=UTF-8
