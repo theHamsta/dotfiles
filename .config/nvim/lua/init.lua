@@ -527,15 +527,15 @@ if ok then
   --},
   --}
 
-  --local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
+  local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 
-  --parser_configs.markdown = {
-  --install_info = {
-  --url = "https://github.com/ikatyang/tree-sitter-markdown",
-  --files = { "src/parser.c", "src/scanner.cc" },
-  --},
-  --filetype = "markdown",
-  --}
+  parser_configs.glsl = {
+    install_info = {
+      url = "~/projects/tree-sitter-glsl",
+      files = { "src/parser.c" },
+    },
+    filetype = "glsl",
+  }
 
   --parser_configs.norg = {
   --install_info = {

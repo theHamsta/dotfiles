@@ -57,7 +57,6 @@ let g:LanguageClient_settingsPath = expand('~').'.config/nvim/settings.json'
     "set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
 "endif
 "" }
-
 map <SPACE> <leader>
 
 set history=1000
@@ -475,6 +474,9 @@ function! NvimLspMaps()
     nnoremap <buffer> <silent> [d <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
     nnoremap <buffer> <silent> ]d <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 
+    nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<CR>
+    nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>
+    nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>
     nnoremap <silent> <leader>fi <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>
 
     "if &filetype != "tex" && &filetype != "haskell"
@@ -752,6 +754,7 @@ endfunction
 
 augroup filetypedetect
     au! BufRead,BufNewFile *.cpp.tmpl set filetype=cpp
+    au! BufRead,BufNewFile *.glsl,*.vert,*.frag,*.rchit set filetype=glsl
     au! BufRead,BufNewFile *.fs,*.fsx set filetype=fsharp
     au! BufRead,BufNewFile *.fsproj,*.csproj,*.target,*.sln set filetype=xml
     au! BufRead,BufNewFile *.pdf_tex set filetype=tex
@@ -1540,6 +1543,7 @@ autocmd ColorScheme * highlight NvimDapStopped guibg=#000055
 autocmd ColorScheme * highlight default link TSDefinitionUsage Visual
 autocmd ColorScheme * highlight default link TSDefinition Search
 autocmd ColorScheme * highlight default link TSCurrentScope CursorLine
+"autocmd ColorScheme * highlight NvimDapVirtualText guibg=#2C323C guifg=#550000
 "autocmd ColorScheme * highlight TSMacroRegion guibg=#000099
 "autocmd ColorScheme * highlight TSEscapedMacroRegion guibg=#550000
 

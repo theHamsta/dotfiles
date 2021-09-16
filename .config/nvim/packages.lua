@@ -37,6 +37,20 @@ return packer.startup(function()
   use { "famiu/nvim-reload", opt = true }
   use { "ray-x/lsp_signature.nvim" }
   use { "earthly/earthly.vim", filetype = "earthly" }
+  use { "projekt0n/github-nvim-theme" }
+  use {
+    "rmagatti/goto-preview",
+    config = function()
+      require("goto-preview").setup {}
+    end,
+  }
+  use {
+    "beauwilliams/focus.nvim",
+    opt = true,
+    config = function()
+      require("focus").setup()
+    end,
+  }
   use {
     "simrat39/symbols-outline.nvim",
     cmd = { "SymbolsOutline" },
@@ -309,38 +323,38 @@ return packer.startup(function()
   use "tpope/vim-speeddating"
   use "nvim-telescope/telescope-symbols.nvim"
   --use {
-    --"rcarriga/nvim-dap-ui",
-    --config = function()
-      --require("dapui").setup {
-        --icons = {
-          --expanded = "⯆",
-          --collapsed = "⯈",
-          --circular = "↺",
-        --},
-        --mappings = {
-          --expand = "<CR>",
-          --open = "o",
-          --remove = "d",
-        --},
-        --sidebar = {
-          --elements = {
-            ---- You can change the order of elements in the sidebar
-            --"scopes",
-            --"stacks",
-            --"watches",
-          --},
-          --width = 40,
-          --position = "right", -- Can be "left" or "right"
-        --},
-        --tray = {
-          --elements = {
-            --"repl",
-          --},
-          --height = 10,
-          --position = "bottom", -- Can be "bottom" or "top"
-        --},
-      --}
-    --end,
+  --"rcarriga/nvim-dap-ui",
+  --config = function()
+  --require("dapui").setup {
+  --icons = {
+  --expanded = "⯆",
+  --collapsed = "⯈",
+  --circular = "↺",
+  --},
+  --mappings = {
+  --expand = "<CR>",
+  --open = "o",
+  --remove = "d",
+  --},
+  --sidebar = {
+  --elements = {
+  ---- You can change the order of elements in the sidebar
+  --"scopes",
+  --"stacks",
+  --"watches",
+  --},
+  --width = 40,
+  --position = "right", -- Can be "left" or "right"
+  --},
+  --tray = {
+  --elements = {
+  --"repl",
+  --},
+  --height = 10,
+  --position = "bottom", -- Can be "bottom" or "top"
+  --},
+  --}
+  --end,
   --}
   --use {
   --"nvim-telescope/telescope-frecency.nvim",
@@ -593,6 +607,7 @@ return packer.startup(function()
   use {
     "goolord/alpha-nvim",
     requires = { "kyazdani42/nvim-web-devicons" },
+    opt = true,
     config = function()
       require("alpha").setup(require("alpha.themes.startify").opts)
     end,
