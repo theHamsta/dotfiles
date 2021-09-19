@@ -58,6 +58,10 @@ let g:LanguageClient_settingsPath = expand('~').'.config/nvim/settings.json'
 "endif
 "" }
 map <SPACE> <leader>
+map <space><space>f  :HopFunctions<cr>
+map <space><space>w :HopWord<cr>
+map <space><space>j :HopLineAC<cr>
+map <space><space>k :HopLineBC<cr>
 
 set history=1000
 set mouse=a
@@ -483,6 +487,9 @@ function! NvimLspMaps()
         "inoremap <buffer><silent> (     <cmd>lua vim.lsp.buf.signature_help()<CR>(
     "endif
 
+    if &filetype == "cpp" 
+      autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.buf.semantic_tokens_full()
+    endif
     "if &filetype == "rust" || &filetype == "go"
       "autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()
     "endif
@@ -1541,6 +1548,7 @@ autocmd ColorScheme * call v:lua.vim.lsp.diagnostic._define_default_signs_and_hi
 autocmd ColorScheme * highlight NvimDapStopped guibg=#000055
 
 autocmd ColorScheme * highlight default link TSDefinitionUsage Visual
+autocmd ColorScheme * highlight link LspComment Comment
 autocmd ColorScheme * highlight default link TSDefinition Search
 autocmd ColorScheme * highlight default link TSCurrentScope CursorLine
 "autocmd ColorScheme * highlight NvimDapVirtualText guibg=#2C323C guifg=#550000

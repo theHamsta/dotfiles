@@ -260,6 +260,7 @@ return packer.startup(function()
   use { "onsails/lspkind-nvim" }
   use {
     "hrsh7th/nvim-compe",
+    opt = false,
     config = function()
       require("compe").setup {
         enabled = true,
@@ -603,15 +604,18 @@ return packer.startup(function()
   use "markonm/traces.vim"
   use { "mbbill/undotree", cmd = { "UndotreeToggle" } }
   use { "meain/vim-package-info", run = "npm install" }
+  use { "IndianBoy42/hop.nvim" }
+  --use { "ms-jpq/coq_nvim"}
+  use { "Pocco81/Catppuccino.nvim", opt = true }
   --use { "mhinz/vim-startify", opt = true }
-  use {
-    "goolord/alpha-nvim",
-    requires = { "kyazdani42/nvim-web-devicons" },
-    opt = true,
-    config = function()
-      require("alpha").setup(require("alpha.themes.startify").opts)
-    end,
-  }
+  --use {
+    --"goolord/alpha-nvim",
+    --requires = { "kyazdani42/nvim-web-devicons" },
+    --opt = false,
+    --config = function()
+      --require("alpha").setup(require("alpha.themes.startify").opts)
+    --end,
+  --}
   use "moll/vim-bbye"
   use { "jpalardy/vim-slime", opt = true }
   use "pboettch/vim-cmake-syntax"
