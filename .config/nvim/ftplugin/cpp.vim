@@ -5,3 +5,4 @@ call DapMaps()
 nmap <buffer> <silent> <a-o> :ClangdSwitchSourceHeader<cr>
 
 setlocal nospell
+highlight link LspComment Comment
