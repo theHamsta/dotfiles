@@ -486,7 +486,6 @@ return packer.startup(function()
     },
     opt = false,
     config = function()
-      --if 1 ~= vim.g.GtkGuiLoaded then
       if true then
         require("gitsigns").setup {
           signs = {
