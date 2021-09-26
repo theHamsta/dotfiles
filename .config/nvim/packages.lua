@@ -138,7 +138,6 @@ return packer.startup(function()
   use { "lucc/nvimpager" }
   --use { "Mofiqul/vim-code-dark", opt = true }
   use { "TimUntersberger/neogit", cmd = { "Neogit" } }
-  use { "theHamsta/nvim-treesitter-commonlisp", opt = false }
   use {
     "simrat39/rust-tools.nvim",
     --filetype = "rust",
@@ -370,6 +369,7 @@ return packer.startup(function()
   use "nvim-treesitter/nvim-treesitter-refactor"
   use {
     "nvim-treesitter/nvim-treesitter",
+    run = ":TSUpdate",
     config = function()
       if require("nvim-treesitter.parsers").has_parser "python" then
         local folds_query = [[
@@ -476,7 +476,7 @@ return packer.startup(function()
   use "AndrewRadev/switch.vim"
   --use "JuliaEditorSupport/julia-vim"
   use "Julian/vim-textobj-variable-segment"
-  use { "SirVer/ultisnips", opt = false }
+  use { "SirVer/ultisnips", opt = false , run =":UpdateRemotePlugins"}
   use "Valloric/ListToggle"
   --use "airblade/vim-gitgutter"
   use {
