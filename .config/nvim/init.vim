@@ -833,64 +833,10 @@ set completeopt=menuone,menu,longest,noselect,noinsert
 "" Highlight (inofficial) json comments
  autocmd FileType json syntax match Comment +\/\/.\+$+
 
-highlight LangHighlightText guibg=Black guifg=White
-highlight LangHighlightWrite guibg=Black guifg=Yellow
-highlight LangHighlightRead guibg=Black guifg=Red
-highlight LangHighlightRead guibg=Black guifg=Red
-highlight information  gui=underline
-highlight CocCodeLens  guifg=#FFA722
-" or undercurl
-highlight LspWarning   gui=underline
-highlight LspError  guifg=#FF0000 gui=underline
-let g:LanguageClient_documentHighlightDisplay = {
-            \      1: {
-            \          "name": "Text",
-            \          "texthl": "LangHighlightText",
-            \      },
-            \      2: {
-            \          "name": "Read",
-            \          "texthl": "LangHighlightRead",
-            \      },
-            \      3: {
-            \          "name": "Write",
-            \          "texthl": "LangHighlightWrite",
-            \      }}
-
-  let g:LanguageClient_diagnosticsDisplay= {
-              \       1: {
-              \           "name": "Error",
-              \           "texthl": "LspError",
-              \           "signText": "E",
-              \           "signTexthl": "ALEErrorSign",
-              \           "virtualTexthl": "Error",
-              \       },
-              \       2: {
-              \           "name": "Warning",
-              \           "texthl": "LspWarning",
-              \           "signText": "W",
-              \           "signTexthl": "ALEWarningSign",
-              \           "virtualTexthl": "Todo",
-              \       },
-              \       3: {
-              \           "name": "Information",
-              \           "texthl": "information",
-              \           "signText": "H",
-              \           "signTexthl": "ALEInfoSign",
-              \           "virtualTexthl": "Todo",
-              \       },
-              \       4: {
-              \           "name": "Hint",
-              \           "texthl": "ALEInfo",
-          \           "signText": "H",
-              \           "signTexthl": "ALEInfoSign",
-              \           "virtualTexthl": "Todo",
-              \       },
-              \   }
-              \
-  sign define LspDiagnosticsSignError text=❌ texthl=LspDiagnosticsError linehl= numhl=
-  sign define LspDiagnosticsSignWarning text=⚠️ texthl=LspDiagnosticsWarning linehl= numhl=
-  sign define LspDiagnosticsSignInformation text=🔎 texthl=LspDiagnosticsInformation linehl= numhl=
-  sign define LspDiagnosticsSignHint text=💡 texthl=LspDiagnosticsHint linehl= numhl=
+  sign define DiagnosticSignError text=❌ texthl=LspDiagnosticsError linehl= numhl=
+  sign define DiagnosticSignWarn text=⚠️ texthl=LspDiagnosticsWarning linehl= numhl=
+  sign define DiagnosticSignInfo text=🔎 texthl=LspDiagnosticsInformation linehl= numhl=
+  sign define DiagnosticSignHint text=💡 texthl=LspDiagnosticsHint linehl= numhl=
 
   let g:gitgutter_sign_added = '▋'
   let g:gitgutter_sign_modified = '▐'
@@ -1543,7 +1489,7 @@ hi def semshiErrorChar       ctermfg=231 guifg=#ffffff ctermbg=160 guibg=#d70000
 
 "inoremap <silent><expr> <c-CR>      <cmd>call compe#confirm('<CR>')
 
-autocmd ColorScheme * call v:lua.vim.lsp.diagnostic._define_default_signs_and_highlights()
+"autocmd ColorScheme * call v:lua.vim.lsp.diagnostic._define_default_signs_and_highlights()
 "autocmd ColorScheme * highlight TSTitle guifg=#229922 gui=bold,underline
 autocmd ColorScheme * highlight NvimDapStopped guibg=#000055
 
