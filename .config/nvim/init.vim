@@ -844,41 +844,6 @@ set completeopt=menuone,menu,longest,noselect,noinsert
   let g:gitgutter_sign_removed_first_line = '▋'
   let g:gitgutter_sign_modified_removed = '▐_'
 
-  let g:LanguageClient_diagnosticsDisplay= {
-              \       1: {
-              \           "name": "Error",
-              \           "texthl": "LspError",
-              \           "signText": "❌",
-              \           "signTexthl": "ALEErrorSign",
-              \           "virtualTexthl": "Error",
-              \       },
-              \       2: {
-              \           "name": "Warning",
-              \           "texthl": "LspWarning",
-              \           "signText": "⚠️",
-              \           "signTexthl": "ALEWarningSign",
-              \           "virtualTexthl": "Todo",
-              \       },
-              \       3: {
-              \           "name": "Information",
-              \           "texthl": "information",
-              \           "signText": "🔎",
-              \           "signTexthl": "ALEInfoSign",
-              \           "virtualTexthl": "Todo",
-              \       },
-              \       4: {
-              \           "name": "Hint",
-              \           "texthl": "ALEInfo",
-          \           "signText": "💡",
-              \           "signTexthl": "ALEInfoSign",
-              \           "virtualTexthl": "Todo",
-              \       },
-              \   }
-              \
-"end
-
-"set signcolumn=yes
-
 nmap <silent> <leader>tn :wa<cr>:Topen<cr>:TestNearest<CR>
 nmap <silent> <leader>tf :wa<cr>:Topen<cr>:TestFile<CR>
 nmap <silent> <leader>ts :wa<cr>:Topen<cr>:exec 'T cd' FindRootDirectory()<cr>:TestSuite<CR>
@@ -923,8 +888,6 @@ autocmd BufReadPre *.jpg silent %!xdg-open "%"
 autocmd BufReadPre *.bmp silent %!xdg-open "%"
 autocmd BufReadPre *.ipynb silent %!xdg-open "%"
 
-"nmap  <leader>cw  <Plug>(choosewin)
-"let g:choosewin_overlay_enable = 1
 let $FZF_DEFAULT_OPTS='--layout=reverse'
 let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 
