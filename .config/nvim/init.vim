@@ -608,22 +608,6 @@ let g:slime_target = "neovim"
 "let g:slime_python_ipython = 1
 "let g:highlightedyank_highlight_duration = 100
 
-"let g:multi_cursor_start_word_key      = '<C-n>'
-"let g:multi_cursor_select_all_word_key = '<A-n>'
-"let g:multi_cursor_start_key           = 'g<C-n>'
-"let g:multi_cursor_select_all_key      = 'g<A-n>'
-"let g:multi_cursor_next_key            = '<C-n>'
-"let g:multi_cursor_prev_key            = '<C-p>'
-"let g:multi_cursor_skip_key            = '<C-x>'
-"let g:multi_cursor_quit_key            = '<Esc>'
-
-"let g:fzf_buffers_jump = 1
-"command! -bang -nargs=* FuzzyAg
-  "\ call fzf#vim#ag(<q-args>,
-  "\                  fzf#vim#with_preview('up:60%'),
-  "\                 1)
-
-
 nnoremap <leader>ag :Ag<cr>
 "nnoremap <leader>fag :FuzzyAg<cr>
 "nnoremap <leader>rg :Rg<cr>
@@ -632,44 +616,6 @@ nnoremap <leader>rg :Rg<cr>
 let g:LanguageClient_diagnosticsList = "Location"
 ""let g:quickr_preview_on_cursor = 1
 
-
-"function! ActivateCoc()
-  "call deoplete#custom#option('auto_complete', v:false)
-  "set completeopt +=preview
-  "autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-  "if &filetype != "python" && &filetype != "tex" && &filetype != "bib" && &filetype != "go" && &filetype != "kotlin"&& &filetype != "kt"&& &filetype != "rust"
-    "autocmd  CursorHold <buffer> silent call CocActionAsync('highlight')
-  "endif
-  ""autocmd <buffer> CursorHold * silent call CocActionAsync('highlight')
-  "command! OI -nargs=0 :call CocAction('runCommand', 'editor.action.organizeImport')
-  "nmap <silent> <buffer>  <c-k> <Plug>(coc-diagnostic-prev)
-  ""nmap <silent> <buffer>  <leader>nt :CocCommand explorer<cr>
-  ""nmap <silent> <buffer>  <leader>nf :CocCommand explorer --reveal %<cr>
-  "nmap <silent> <buffer>  <c-j> <Plug>(coc-diagnostic-next)
-  "nmap <silent> <buffer>  gd <Plug>(coc-definition)
-  "nmap <silent> <buffer>  <leader>la :CocAction<cr>
-  "nmap <silent> <buffer>  <leader>ca <Plug>(coc-codeaction-selected)<cr>
-  "nmap <silent> <buffer> <f2> <Plug>(coc-rename)
-  "nmap <silent> <buffer>  gD <c-w>v<Plug>(coc-definition)
-  "nmap <silent> <buffer>  gt <Plug>(coc-type-definition)
-  "nmap <silent> <buffer>  gT <c-w>v<Plug>(coc-type-definition)
-  "nmap <silent> <buffer>  gi <Plug>(coc-implementation)
-  "nmap <silent> <buffer>  gI <c-w>v<Plug>(coc-implementation)
-  "nmap <silent> <buffer>  gr <Plug>(coc-references)
-  "nmap <silent> <buffer>  gh :call CocAction('doHover')<cr>
-  "nmap <buffer> <leader>qf  <Plug>(coc-fix-current)
-  "if &filetype != "tex" && &filetype != "bib"
-    "nmap <silent> <buffer>  <leader>le <Plug>(coc-codelens-action)
-    "nmap <silent> <buffer>  <c-s> :call CocAction('format')<cr>
-  "endif
-  "vmap <buffer> <leader>ca   <Plug>(coc-codeaction-selected)
-  "nmap <buffer> <leader>ca <Plug>(coc-codeaction-selected)
-  ""nmap <buffer> <leader>hp :CocCommand git.chunkpreview<cr>
-  "xmap <silent> <buffer> if <Plug>(coc-funcobj-i)
-  "xmap <silent> <buffer> af <Plug>(coc-funcobj-a)
-  "omap <silent> <buffer> if <Plug>(coc-funcobj-i)
-  "omap  <silent> <buffer> af <Plug>(coc-funcobj-a)
-"endfunction()
 
 "autocmd FileType fsharp call ActivateCoc()
 
@@ -1406,18 +1352,6 @@ highlight def link LspDiagnosticsVirtualTextWarning LspWarning
 
 let g:completion_trigger_keyword_length = 2 " default = 1
 
-"highlight ExtraWhitespace ctermbg=red guibg=red
-"match ExtraWhitespace /\s\+$/
-"au BufWinEnter * match ExtraWhitespace /\s\+$/
-"au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-"au InsertLeave * match ExtraWhitespace /\s\+$/
-"au BufWinLeave * call clearmatches()
-"
-"command! UseSystemSbcl let g:vlime_cl_impl = "/usr/bin/sbcl"
-""inoremap <silent><expr> <C-Space> compe#complete()
-"
-"inoremap <silent><expr> <C-Space> compe#complete()
-
 vnoremap <c-a> <c-a>gv
 vnoremap <c-x> <c-x>gv
 nnoremap K :s/,/,\r/g<cr>
@@ -1460,10 +1394,6 @@ autocmd ColorScheme * highlight default link TSDefinitionUsage Visual
 autocmd ColorScheme * highlight link LspComment Comment
 autocmd ColorScheme * highlight default link TSDefinition Search
 autocmd ColorScheme * highlight default link TSCurrentScope CursorLine
-"autocmd ColorScheme * highlight NvimDapVirtualText guibg=#2C323C guifg=#550000
-"autocmd ColorScheme * highlight TSMacroRegion guibg=#000099
-"autocmd ColorScheme * highlight TSEscapedMacroRegion guibg=#550000
-
 
 nnoremap <silent> X :normal! x<cr>
 noremap <silent> <leader>tb :Tagbar<cr>
