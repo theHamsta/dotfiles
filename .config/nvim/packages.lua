@@ -439,7 +439,7 @@ return packer.startup(function()
   --}
   use "tjdevries/luvjob.nvim"
   use "nvim-lua/plenary.nvim"
-  use "svermeulen/nvim-moonmaker"
+  --use "svermeulen/nvim-moonmaker"
   use "kbenzie/vim-spirv"
 
   --use {"theHamsta/nvim-tree.lua", branch = "exa"}
