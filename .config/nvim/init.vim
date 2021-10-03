@@ -1,6 +1,7 @@
 set termguicolors     " enable true colors support
 set background=dark 
-colorscheme github_dark_default
+"colorscheme github_dark_default
+colorscheme one
 
 set tags=./tags,tags
 set encoding=UTF-8
@@ -487,8 +488,8 @@ function! NvimLspMaps()
         "inoremap <buffer><silent> (     <cmd>lua vim.lsp.buf.signature_help()<CR>(
     "endif
 
-    if &filetype == "cpp" ||&filetype == "rust"
-      autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.buf.semantic_tokens_full()
+    if &filetype == "cpp" || &filetype == "rust"|| &filetype == "java"
+      autocmd BufEnter,CursorHold,InsertLeave <buffer> lua require 'vim.lsp.semantic_tokens'.refresh()
     endif
     "if &filetype == "rust" || &filetype == "go"
       "autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()
@@ -706,6 +707,7 @@ function! Fzf_dev()
 endfunction
 
 augroup filetypedetect
+    au! BufRead,BufNewFile *.ll set filetype=llvm
     au! BufRead,BufNewFile *.cpp.tmpl set filetype=cpp
     au! BufRead,BufNewFile *.glsl,*.vert,*.frag,*.rchit set filetype=glsl
     au! BufRead,BufNewFile *.fs,*.fsx set filetype=fsharp
