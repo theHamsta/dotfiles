@@ -726,7 +726,7 @@ if ok then
   hlmap["string"] = "String"
   hlmap["string.regex"] = "String"
   hlmap["string.escape"] = "SpecialChar"
-  hlmap["character"] = "Character"
+  hlmap["character"] = "Number"
   hlmap["number"] = "Number"
   hlmap["boolean"] = "Boolean"
   hlmap["float"] = "Float"
@@ -782,6 +782,11 @@ command! -complete=file -nargs=* DebugLLDB lua require "my_debug".start_vscode_l
 vim.cmd [[
 command! -complete=file -nargs=* PythonDebug lua require "my_debug".python_debug({<f-args>})
 ]]
+
+--require'vim.lsp.semantic_tokens'.token_map['variable.readonly'] = 'LspReadOnly'
+--require'vim.lsp.semantic_tokens'.token_map['variable.globalScope'] = 'LspGlobalScope'
+require'vim.lsp.semantic_tokens'.modifiers_map['readonly'] = { variable = 'LspVariableReadOnly' }
+require'vim.lsp.semantic_tokens'.modifiers_map['globalScope'] = { variable = 'LspGlobalScope' }
 
 --vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
 --vim.lsp.handlers.hover, {
