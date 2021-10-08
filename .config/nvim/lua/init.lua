@@ -783,13 +783,16 @@ vim.cmd [[
 command! -complete=file -nargs=* PythonDebug lua require "my_debug".python_debug({<f-args>})
 ]]
 
---require'vim.lsp.semantic_tokens'.token_map['variable.readonly'] = 'LspReadOnly'
---require'vim.lsp.semantic_tokens'.token_map['variable.globalScope'] = 'LspGlobalScope'
-require("vim.lsp.semantic_tokens").modifiers_map["readonly"] = {
-  variable = "LspVariableReadOnly",
-  method = "Identifier",
-}
-require("vim.lsp.semantic_tokens").modifiers_map["globalScope"] = { variable = "LspGlobalScope" }
+local has_semantic_tokens, semantic_tokens = pcall(require, "vim.lsp.semantic_tokens")
+if has_semantic_tokens then
+  --require'vim.lsp.semantic_tokens'.token_map['variable.readonly'] = 'LspReadOnly'
+  --require'vim.lsp.semantic_tokens'.token_map['variable.globalScope'] = 'LspGlobalScope'
+  semantic_tokens.modifiers_map["readonly"] = {
+    variable = "LspVariableReadOnly",
+    method = "Identifier",
+  }
+  semantic_tokens.modifiers_map["globalScope"] = { variable = "LspGlobalScope" }
+end
 
 --vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
 --vim.lsp.handlers.hover, {

@@ -39,6 +39,12 @@ return packer.startup(function()
   use { "earthly/earthly.vim", filetype = "earthly" }
   use { "projekt0n/github-nvim-theme" }
   use {
+    "https://gitlab.com/yorickpeterse/nvim-pqf",
+    config = function()
+      require("pqf").setup {}
+    end,
+  }
+  use {
     "rmagatti/goto-preview",
     config = function()
       require("goto-preview").setup {}
@@ -476,7 +482,7 @@ return packer.startup(function()
   use "AndrewRadev/switch.vim"
   --use "JuliaEditorSupport/julia-vim"
   use "Julian/vim-textobj-variable-segment"
-  use { "SirVer/ultisnips", opt = false , run =":UpdateRemotePlugins"}
+  use { "SirVer/ultisnips", opt = false, run = ":UpdateRemotePlugins" }
   use "Valloric/ListToggle"
   --use "airblade/vim-gitgutter"
   use {
@@ -608,12 +614,12 @@ return packer.startup(function()
   use { "Pocco81/Catppuccino.nvim", opt = true }
   --use { "mhinz/vim-startify", opt = true }
   --use {
-    --"goolord/alpha-nvim",
-    --requires = { "kyazdani42/nvim-web-devicons" },
-    --opt = false,
-    --config = function()
-      --require("alpha").setup(require("alpha.themes.startify").opts)
-    --end,
+  --"goolord/alpha-nvim",
+  --requires = { "kyazdani42/nvim-web-devicons" },
+  --opt = false,
+  --config = function()
+  --require("alpha").setup(require("alpha.themes.startify").opts)
+  --end,
   --}
   use "moll/vim-bbye"
   use { "jpalardy/vim-slime", opt = true }
