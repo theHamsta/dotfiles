@@ -417,42 +417,6 @@ let g:LanguageClient_serverCommands = {
     "\ 'cpp': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
     "\ 'c': ['clangd-11', '--clang-tidy', '--header-insertion=iwyu', '--background-index', '--suggest-missing-includes'],
 
-function! LC_maps()
-   if has_key(g:LanguageClient_serverCommands, &filetype)
-        "call deoplete#custom#option('auto_complete', v:true)
-         "if &filetype != "python" && &filetype != "tex" && &filetype != "bib"&& &filetype != "go"&& &filetype != "lua"&& &filetype != "lisp"
-             "autocmd CursorHold <buffer> silent call LanguageClient#textDocument_documentHighlight()
-         "endif
- "&& &filetype != "go"
-      "&& &filetype != "cpp"
-        nnoremap <buffer> <leader>la :call LanguageClient_contextMenu()<CR>
-        nnoremap <buffer> <leader>ee :call LanguageClient#explainErrorAtPoint()<CR>
-        nnoremap <buffer> <leader>ca :call LanguageClient#textDocument_codeAction()<CR>
-        nnoremap <buffer> <leader>cr :call LanguageClient#textDocument_codeLens()<CR>
-        nnoremap <buffer> <silent> gh :call LanguageClient#textDocument_hover()<CR>
-        nnoremap <buffer> <silent> <leader>ss :call LanguageClient#textDocument_documentSymbol()<CR>
-        nnoremap <buffer> <silent> <c-a-s> :call LanguageClient#textDocument_documentSymbol()<CR>
-        if &filetype != "tex" && &filetype != "fsharp" 
-            nnoremap <buffer> <silent> <c-s> :call LanguageClient#textDocument_formatting()<CR>:w<CR>
-        endif
-        nnoremap <buffer> <silent> gr :call LanguageClient#textDocument_references()<CR>
-        nnoremap <buffer> <silent> gi :call LanguageClient#textDocument_implementation()<CR>
-        nnoremap <buffer> <silent> <leader>fo :call LanguageClient#textDocument_formatting()<CR>
-        nnoremap <buffer> <silent> <leader>hi :call LanguageClient#textDocument_documentHighlight()<CR>
-        nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
-        nnoremap <buffer> <silent> gD <c-w>v:call LanguageClient#textDocument_definition()<CR>
-        nnoremap <buffer> <silent> gt :call LanguageClient#textDocument_typeDefinition()<CR>
-        nnoremap <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-        nnoremap <buffer> <silent> <2-LeftMouse> :call LanguageClient#textDocument_hover()<CR>
-        nnoremap <buffer> <silent> <c-2-LeftMouse> :call LanguageClient#textDocument_definition()<CR>
-        try
-          CocDisable
-        catch
-
-        endtry
-   endif
-endfunction
-
 function! NvimLspMaps()
     nnoremap <buffer><silent> <f2>         <cmd>lua vim.lsp.buf.rename()<CR>
     nnoremap <buffer><silent> gk         <cmd>lua vim.lsp.buf.declaration()<CR>
@@ -509,8 +473,6 @@ function! NvimLspMaps()
     setlocal omnifunc=v:lua.vim.lsp.omnifunc
 endfunction
 
-autocmd FileType * call LC_maps()
-"autocmd FileType lua,tex,bib,java,vim,bash,sh,rust 
 
 set foldlevel=99
 
@@ -1411,3 +1373,4 @@ omap     <silent> m :<C-U>lua require('tsht').nodes()<CR>
 vnoremap <silent> m :lua require('tsht').nodes()<CR>
 
 
+nnoremap <leader>nd :DiffviewOpen<cr>

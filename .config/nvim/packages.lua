@@ -39,7 +39,7 @@ return packer.startup(function()
   use { "earthly/earthly.vim", filetype = "earthly" }
   use { "projekt0n/github-nvim-theme" }
   use { "sindrets/diffview.nvim", cmd = "DiffviewOpen", config = function() 
-    vim.cmd[[nnoremap <leader>nd :DiffviewOpen]]
+    --vim.cmd[[nnoremap <leader>nd :DiffviewOpen<cr>]]
   end }
   use {
     "https://gitlab.com/yorickpeterse/nvim-pqf",
