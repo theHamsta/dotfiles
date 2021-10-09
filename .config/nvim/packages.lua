@@ -38,6 +38,9 @@ return packer.startup(function()
   use { "ray-x/lsp_signature.nvim" }
   use { "earthly/earthly.vim", filetype = "earthly" }
   use { "projekt0n/github-nvim-theme" }
+  use { "sindrets/diffview.nvim", cmd = "DiffviewOpen", config = function() 
+    vim.cmd[[nnoremap <leader>nd :DiffviewOpen]]
+  end }
   use {
     "https://gitlab.com/yorickpeterse/nvim-pqf",
     config = function()
