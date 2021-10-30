@@ -1374,3 +1374,5 @@ vnoremap <silent> m :lua require('tsht').nodes()<CR>
 
 
 nnoremap <leader>nd :DiffviewOpen<cr>
+
+autocmd FileType cpp set commentstring=//\ %s

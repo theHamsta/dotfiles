@@ -38,9 +38,13 @@ return packer.startup(function()
   use { "ray-x/lsp_signature.nvim" }
   use { "earthly/earthly.vim", filetype = "earthly" }
   use { "projekt0n/github-nvim-theme" }
-  use { "sindrets/diffview.nvim", cmd = "DiffviewOpen", config = function() 
-    --vim.cmd[[nnoremap <leader>nd :DiffviewOpen<cr>]]
-  end }
+  use {
+    "sindrets/diffview.nvim",
+    cmd = "DiffviewOpen",
+    config = function()
+      --vim.cmd[[nnoremap <leader>nd :DiffviewOpen<cr>]]
+    end,
+  }
   use {
     "https://gitlab.com/yorickpeterse/nvim-pqf",
     config = function()
@@ -437,7 +441,16 @@ return packer.startup(function()
   --use "mattn/emmet-vim"
   use "rhysd/conflict-marker.vim"
   use { "mfussenegger/nvim-dap" }
-  use "theHamsta/nvim-dap-virtual-text"
+  use {
+    "theHamsta/nvim-dap-virtual-text",
+    config = function()
+      require("nvim-dap-virtual-text").setup {
+        highlight_changed_variables = true,
+        virt_text_pos = "eol",
+        commented = true,
+      }
+    end,
+  }
   use "theHamsta/crazy-node-movement"
   use "dm1try/git_fastfix"
   use "rafcamlet/nvim-luapad"
@@ -573,7 +586,7 @@ return packer.startup(function()
     ft = "go",
     run = table.concat(
       vim.tbl_map(function(p)
-        return "go get -u " .. p
+        return "go instal -u " .. p .. "@latest"
       end, go_packages),
       " && "
     ),

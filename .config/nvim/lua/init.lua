@@ -350,9 +350,9 @@ if ok then
     into_targets = { "st" },
     out = { ".out", "r" },
     scopes = { ".scopes", "a" },
-    threads = { ".threads", "t" },
-    frames = { ".frames", "f" },
-    exit = { "exit", ".exit" },
+    threads = { ".threads", "t", "threads" },
+    frames = { ".frames", "f", "bt" },
+    exit = { "exit", ".exit", "q" },
     up = { ".up", "up" },
     down = { ".down", "down" },
     goto_ = { ".goto", "j" },
@@ -363,7 +363,6 @@ if ok then
       end,
     },
   })
-  vim.g.dap_virtual_text = true -- 'all frames'
 
   dap.adapters.cpp = {
     name = "cppdbg",
@@ -611,6 +610,7 @@ if ok then
       select = {
         enable = true,
         lookahead = true,
+        lookbehind = true,
         disable = {},
         keymaps = {
           ["af"] = "@function.outer",
