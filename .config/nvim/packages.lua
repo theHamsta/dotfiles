@@ -128,6 +128,14 @@ return packer.startup(function()
     end,
     cmd = { "LspTrouble" },
   }
+  use {
+    "Saecki/crates.nvim",
+    event = { "BufRead Cargo.toml" },
+    requires = { { "nvim-lua/plenary.nvim" } },
+    config = function()
+      require("crates").setup()
+    end,
+  }
   use { "kdav5758/TrueZen.nvim", opt = true }
   use { "windwp/nvim-ts-autotag", opt = true }
   --use {"windwp/nvim-autopairs", config = function()
@@ -446,8 +454,10 @@ return packer.startup(function()
     config = function()
       require("nvim-dap-virtual-text").setup {
         highlight_changed_variables = true,
+        highlight_new = true,
         virt_text_pos = "eol",
-        commented = true,
+        virt_text_win_col = 80,
+        highlight_new_as_changed = false,
       }
     end,
   }
