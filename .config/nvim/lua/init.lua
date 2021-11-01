@@ -25,6 +25,11 @@ function D(a)
   return a
 end
 
+function R(a)
+  require'dap.repl'.append(vim.inspect(a))
+  return a
+end
+
 function E(...)
   print(vim.inspect { ... })
   return ...
