@@ -26,7 +26,7 @@ function D(a)
 end
 
 function R(a)
-  require'dap.repl'.append(vim.inspect(a))
+  require("dap.repl").append(vim.inspect(a))
   return a
 end
 
@@ -73,6 +73,16 @@ if ok then
   --if not require("lspconfig/configs").sumneko_lua.install_info().is_installed then
   --require("lspconfig/configs").sumneko_lua.install()
   --end
+  lspconfig.eslint.setup{
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+
+  lspconfig.flow.setup{
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+
 
   lspconfig.zls.setup {
     on_attach = on_attach,

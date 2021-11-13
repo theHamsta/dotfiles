@@ -159,16 +159,16 @@ return packer.startup(function()
   use { "lucc/nvimpager" }
   --use { "Mofiqul/vim-code-dark", opt = true }
   use { "TimUntersberger/neogit", cmd = { "Neogit" } }
-  use {
-    "simrat39/rust-tools.nvim",
-    --filetype = "rust",
-    config = function()
-      local opts = {
-        autoSetHints = true,
-      }
-      require("rust-tools").setup(opts)
-    end,
-  }
+  --use {
+    --"simrat39/rust-tools.nvim",
+    ----filetype = "rust",
+    --config = function()
+      --local opts = {
+        --autoSetHints = true,
+      --}
+      --require("rust-tools").setup(opts)
+    --end,
+  --}
   use { "pwntester/octo.nvim", opt = true }
   --use {"tiagovla/tokyodark.nvim", opt = true}
   use { "folke/tokyonight.nvim", opt = true }

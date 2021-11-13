@@ -58,27 +58,27 @@ alias tree="exa --tree"
 
 alias ju='just --justfile ~/.justfile --working-directory .'
 
-egrep "^export " ~/.profile | while read e
-    set var (echo $e | sed -E "s/^export ([A-Z1-9_]+)=(.*)\$/\1/")
-    set value (echo $e | sed -E "s/^export ([A-Z1-9_]+)=(.*)\$/\2/")
+    egrep "^export " ~/.profile | while read e
+        set var (echo $e | sed -E "s/^export ([A-Za-z1-9_]+)=(.*)\$/\1/")
+        set value (echo $e | sed -E "s/^export ([A-Za-z1-9_]+)=(.*)\$/\2/")
 
-    # remove surrounding quotes if existing
-    set value (echo $value | sed -E "s/^\"(.*)\"\$/\1/")
+        # remove surrounding quotes if existing
+        set value (echo $value | sed -E "s/^\"(.*)\"\$/\1/")
 
-    if test $var = "PATH"
-        # replace ":" by spaces. this is how PATH looks for Fish
-        set value (echo $value | sed -E "s/:/ /g")
+        if test $var = "PATH"
+            # replace ":" by spaces. this is how PATH looks for Fish
+            set value (echo $value | sed -E "s/:/ /g")
 
-        # use eval because we need to expand the value
-        eval set -xg $var $value
+            # use eval because we need to expand the value
+            eval set -xg $var $value || echo "no!"
 
-        continue
+            continue
+        end
+
+        # evaluate variables. we can use eval because we most likely just used "$var"
+        set value (eval echo $value)
+
+        set -xg $var $value
     end
-
-    # evaluate variables. we can use eval because we most likely just used "$var"
-    set value (eval echo $value)
-
-    set -xg $var $value
-end
 
 starship init fish | source
