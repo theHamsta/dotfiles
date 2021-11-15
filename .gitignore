@@ -62,6 +62,7 @@ logs
 *.blg
 *.auxlock
 *.dpth
+*.qdrep
 .~/*
 *.cppimporthash
 .rendered.*.cpp
@@ -127,7 +128,16 @@ todoist_api.lua
 
 debug
 release
+gcc-release
 build
+docker_build
+build_docker
+debug_docker
+docker_debug
+gcc-release
+gcc-debug
 .cache
+gst-src
+extern
 
 .config/nvim/plugin/packer_compiled.lua

@@ -372,3 +372,6 @@ gl
 glfw
 Dst
 e
+Parametrizer
+src
+gstreamer

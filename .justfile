@@ -2,9 +2,9 @@
 
 alias debug := build
 
-build:
+build *args:
     mkdir -p debug
-    cd debug && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=YES -DCMAKE_CUDA_HOST_COMPILER=g++-9 -DCMAKE_BUILD_TYPE=Debug -G Ninja -DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" -DCMAKE_C_FLAGS=-fdiagnostics-color  -DCMAKE_CUDA_ARCHITECTURES=50 -DCMAKE_CUDA_FLAGS=-Wno-deprecated-gpu-targets  ..
+    cd debug && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=YES -DCMAKE_CUDA_HOST_COMPILER=g++-10 -DCMAKE_BUILD_TYPE=Debug -G Ninja -DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" -DCMAKE_C_FLAGS=-fdiagnostics-color  -DCMAKE_CUDA_ARCHITECTURES=75 -DCMAKE_CUDA_FLAGS=-Wno-deprecated-gpu-targets  .. {{args}}
     rm -f compile_commands.json
     ln -s debug/compile_commands.json
     cd debug && cmake --build . -- -j$(nproc)
