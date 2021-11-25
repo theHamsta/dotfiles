@@ -59,6 +59,7 @@ return packer.startup(function()
     end,
   }
   use { "ray-x/lsp_signature.nvim" }
+  use { "theHamsta/nvim-semantic-tokens" }
   use { "earthly/earthly.vim", filetype = "earthly" }
   use { "projekt0n/github-nvim-theme" }
   use {
@@ -143,7 +144,7 @@ return packer.startup(function()
     end,
   }
   use { "mcchrish/nnn.vim", cmd = { "NnnPicker" } }
-  use "jceb/emmet.snippets"
+  --use "jceb/emmet.snippets"
   use {
     "folke/lsp-trouble.nvim",
     config = function()
@@ -476,11 +477,11 @@ return packer.startup(function()
     "theHamsta/nvim-dap-virtual-text",
     config = function()
       require("nvim-dap-virtual-text").setup {
-        highlight_changed_variables = true,
-        highlight_new = true,
-        virt_text_pos = "eol",
-        virt_text_win_col = 80,
-        highlight_new_as_changed = false,
+        --highlight_changed_variables = true,
+        ----highlight_new = true,
+        ----virt_text_pos = "eol",
+        --virt_text_win_col = 80,
+        --highlight_new_as_changed = false,
       }
     end,
   }
@@ -706,7 +707,7 @@ return packer.startup(function()
   }
   use "terryma/vim-multiple-cursors"
   use "kana/vim-textobj-user"
-  use "theHamsta/vim-snippets"
+  --use "theHamsta/vim-snippets"
   use "theHamsta/vim-template"
   use "theHamsta/vim-textobj-entire"
   use "theHamsta/vim-rebase-mode"
