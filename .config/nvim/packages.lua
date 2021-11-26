@@ -71,6 +71,10 @@ return packer.startup(function()
       local cmp = require "cmp"
 
       cmp.setup {
+        experimental = {
+          native_menu = true,
+          ghost_text = true,
+        },
         snippet = {
           -- REQUIRED - you must specify a snippet engine
           expand = function(args)
@@ -110,13 +114,13 @@ return packer.startup(function()
       })
 
       -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-      cmp.setup.cmdline(":", {
-        sources = cmp.config.sources({
-          { name = "path" },
-        }, {
-          { name = "cmdline" },
-        }),
-      })
+      --cmp.setup.cmdline(":", {
+        --sources = cmp.config.sources({
+          --{ name = "path" },
+        --}, {
+          --{ name = "cmdline" },
+        --}),
+      --})
     end,
   }
   use { "earthly/earthly.vim", filetype = "earthly" }
