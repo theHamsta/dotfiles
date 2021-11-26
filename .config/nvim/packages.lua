@@ -60,12 +60,17 @@ return packer.startup(function()
     end,
   }
   use { "ray-x/lsp_signature.nvim" }
-  use "hrsh7th/cmp-nvim-lsp"
-  use "hrsh7th/cmp-buffer"
-  use "hrsh7th/cmp-path"
-  use "hrsh7th/cmp-cmdline"
   use {
     "hrsh7th/nvim-cmp",
+    requires = {
+      "quangnguyen30192/cmp-nvim-ultisnips",
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-cmdline",
+      "hrsh7th/cmp-emoji",
+      "kdheepak/cmp-latex-symbols",
+    },
     config = function()
       -- Setup nvim-cmp.
       local cmp = require "cmp"
@@ -97,10 +102,9 @@ return packer.startup(function()
         --},
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
-          { name = "vsnip" }, -- For vsnip users.
-          -- { name = 'luasnip' }, -- For luasnip users.
           { name = "ultisnips" }, -- For ultisnips users.
-          -- { name = 'snippy' }, -- For snippy users.
+          { name = "emoji", insert = true },
+          { name = "latex_symbols" },
         }, {
           { name = "buffer" },
         }),
@@ -115,11 +119,11 @@ return packer.startup(function()
 
       -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
       --cmp.setup.cmdline(":", {
-        --sources = cmp.config.sources({
-          --{ name = "path" },
-        --}, {
-          --{ name = "cmdline" },
-        --}),
+      --sources = cmp.config.sources({
+      --{ name = "path" },
+      --}, {
+      --{ name = "cmdline" },
+      --}),
       --})
     end,
   }
