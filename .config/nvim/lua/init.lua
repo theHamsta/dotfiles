@@ -20,6 +20,8 @@ if lsp_status_ok then
   capabilities = vim.tbl_extend("keep", capabilities or {}, lsp_status.capabilities)
 end
 
+local capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
 function D(a)
   print(vim.inspect(a))
   return a
