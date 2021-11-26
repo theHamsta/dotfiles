@@ -73,16 +73,15 @@ if ok then
   --if not require("lspconfig/configs").sumneko_lua.install_info().is_installed then
   --require("lspconfig/configs").sumneko_lua.install()
   --end
-  lspconfig.eslint.setup{
+  lspconfig.eslint.setup {
     on_attach = on_attach,
     capabilities = capabilities,
   }
 
-  lspconfig.flow.setup{
+  lspconfig.flow.setup {
     on_attach = on_attach,
     capabilities = capabilities,
   }
-
 
   lspconfig.zls.setup {
     on_attach = on_attach,
@@ -534,12 +533,12 @@ if ok then
 
   local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 
-  parser_configs.glsl = {
+  parser_configs.commonlisp = {
     install_info = {
-      url = "~/projects/tree-sitter-glsl",
+      url = "~/projects/tree-sitter-commonlisp",
       files = { "src/parser.c" },
     },
-    filetype = "glsl",
+    filetype = "lisp",
   }
 
   --parser_configs.norg = {
@@ -798,9 +797,9 @@ vim.cmd [[
 command! -complete=file -nargs=* PythonDebug lua require "my_debug".python_debug({<f-args>})
 ]]
 
-require'nvim-semantic-tokens'.setup({
-  preset = "theHamsta"
-})
+require("nvim-semantic-tokens").setup {
+  preset = "theHamsta",
+}
 
 --vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
 --vim.lsp.handlers.hover, {

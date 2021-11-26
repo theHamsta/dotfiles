@@ -452,8 +452,8 @@ function! NvimLspMaps()
         "inoremap <buffer><silent> (     <cmd>lua vim.lsp.buf.signature_help()<CR>(
     "endif
 
-    if &filetype == "cpp" || &filetype == "rust"|| &filetype == "java"
-      autocmd BufEnter,CursorHold,InsertLeave <buffer> lua require 'vim.lsp.semantic_tokens'.refresh()
+    if &filetype == "zig" || &filetype == "cpp" || &filetype == "cuda" || &filetype == "c"
+      autocmd BufEnter,CursorHold,InsertLeave <buffer> lua require 'vim.lsp.buf'.semantic_tokens_full()
     endif
     "if &filetype == "rust" || &filetype == "go"
       "autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()
@@ -1376,3 +1376,5 @@ vnoremap <silent> m :lua require('tsht').nodes()<CR>
 nnoremap <leader>nd :DiffviewOpen<cr>
 
 autocmd FileType cpp set commentstring=//\ %s
+
+nmap <leader>tt <Plug>PlenaryTestFile
