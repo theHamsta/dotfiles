@@ -20,7 +20,7 @@ if lsp_status_ok then
   capabilities = vim.tbl_extend("keep", capabilities or {}, lsp_status.capabilities)
 end
 
-local capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+local capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 function D(a)
   print(vim.inspect(a))
@@ -799,9 +799,11 @@ vim.cmd [[
 command! -complete=file -nargs=* PythonDebug lua require "my_debug".python_debug({<f-args>})
 ]]
 
-require("nvim-semantic-tokens").setup {
-  preset = "theHamsta",
-}
+if pcall(require, "vim.lsp.nvim-semantic-tokens") then
+  require("nvim-semantic-tokens").setup {
+    preset = "theHamsta",
+  }
+end
 
 --vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
 --vim.lsp.handlers.hover, {
