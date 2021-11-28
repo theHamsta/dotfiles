@@ -5,6 +5,7 @@ colorscheme one
 
 set tags=./tags,tags
 set encoding=UTF-8
+
 set nocompatible               " Be iMproved
 set path=.,./debug,../release,/usr/local/include,/usr/include,~/projects/walberla/debug-mpi
 

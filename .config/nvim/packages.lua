@@ -35,7 +35,13 @@ local go_packages = {
 return packer.startup(function()
   use { "wbthomason/packer.nvim", opt = true }
   use { "famiu/nvim-reload", opt = true }
-  use { "theHamsta/nvim-semantic-tokens" }
+  use { "thehamsta/nvim-semantic-tokens" }
+  use {
+    "numToStr/Comment.nvim",
+    config = function()
+      require("Comment").setup()
+    end,
+  }
   use {
     "ggandor/lightspeed.nvim",
     config = function()
@@ -477,6 +483,7 @@ return packer.startup(function()
   --use "nvim-telescope/telescope.nvim"
   use "chuling/vim-equinusocio-material"
   use "nvim-treesitter/nvim-treesitter-textobjects"
+  use "theHamsta/nvim-treesitter-commonlisp"
   use "theHamsta/nvim-treesitter-pairs"
   use "nvim-treesitter/nvim-treesitter-refactor"
   use {
