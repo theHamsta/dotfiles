@@ -35,7 +35,7 @@ local go_packages = {
 return packer.startup(function()
   use { "wbthomason/packer.nvim", opt = true }
   use { "famiu/nvim-reload", opt = true }
-  use { "thehamsta/nvim-semantic-tokens" }
+  use { "theHamsta/nvim-semantic-tokens" }
   use {
     "numToStr/Comment.nvim",
     config = function()
@@ -148,6 +148,8 @@ return packer.startup(function()
       require("pqf").setup {}
     end,
   }
+  use { "jceb/emmet.snippets" }
+  use { "theHamsta/vim-snippets" }
   use {
     "rmagatti/goto-preview",
     config = function()
