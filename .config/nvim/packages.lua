@@ -287,6 +287,7 @@ return packer.startup(function()
     end,
     opt = true,
   }
+  use { "theHamsta/nvim-treesitter-commonlisp" }
   use { "glepnir/zephyr-nvim", opt = true }
   use { "tpope/vim-endwise", ft = "lua", opt = true }
   use { "ojroques/nvim-lspfuzzy", opt = true }
@@ -298,7 +299,7 @@ return packer.startup(function()
   }
   use {
     "steelsojka/pears.nvim",
-    --opt = true,
+    opt = true,
     config = function()
       local pears = require "pears"
       local utils = require "pears.utils"
