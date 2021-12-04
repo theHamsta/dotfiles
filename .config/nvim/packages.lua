@@ -42,6 +42,7 @@ return packer.startup(function()
       require("Comment").setup()
     end,
   }
+
   use {
     "ggandor/lightspeed.nvim",
     config = function()
@@ -258,16 +259,16 @@ return packer.startup(function()
   use { "lucc/nvimpager" }
   --use { "Mofiqul/vim-code-dark", opt = true }
   use { "TimUntersberger/neogit", cmd = { "Neogit" } }
-  --use {
-  --"simrat39/rust-tools.nvim",
-  ----filetype = "rust",
-  --config = function()
-  --local opts = {
-  --autoSetHints = true,
-  --}
-  --require("rust-tools").setup(opts)
-  --end,
-  --}
+  use {
+    "simrat39/rust-tools.nvim",
+    --filetype = "rust",
+    config = function()
+      local opts = {
+        autoSetHints = true,
+      }
+      require("rust-tools").setup(opts)
+    end,
+  }
   use { "pwntester/octo.nvim", opt = true }
   --use {"tiagovla/tokyodark.nvim", opt = true}
   use { "folke/tokyonight.nvim", opt = true }
@@ -811,4 +812,32 @@ return packer.startup(function()
   --use "Shougo/deoplete-lsp"
   --use {"Shougo/deoplete.nvim", run = ":UpdateRemotePlugins"}
   use "rakr/vim-one"
+  use {
+    "stevearc/dressing.nvim",
+    config = function()
+      require("dressing").setup {
+        input = {
+          -- Default prompt string
+          default_prompt = "➤ ",
+        },
+        select = {
+          -- Priority list of preferred vim.select implementations
+          backend = { "fzf", "telescope", "builtin", "nui" },
+          -- Options for telescope selector
+          telescope = {
+            -- can be 'dropdown', 'cursor', or 'ivy'
+            theme = "dropdown",
+          },
+
+          -- Options for fzf selector
+          fzf = {
+            window = {
+              width = 0.5,
+              height = 0.4,
+            },
+          },
+        },
+      }
+    end,
+  }
 end)
