@@ -672,7 +672,6 @@ endfunction
 augroup filetypedetect
     au! BufRead,BufNewFile *.ll set filetype=llvm
     au! BufRead,BufNewFile *.cpp.tmpl set filetype=cpp
-    au! BufRead,BufNewFile *.glsl,*.vert,*.frag,*.rchit set filetype=glsl
     au! BufRead,BufNewFile *.fs,*.fsx set filetype=fsharp
     au! BufRead,BufNewFile *.fsproj,*.csproj,*.target,*.sln set filetype=xml
     au! BufRead,BufNewFile *.pdf_tex set filetype=tex
@@ -691,6 +690,7 @@ augroup filetypedetect
     au! BufRead,BufNewFile *.zig set filetype=zig
     au! BufRead,BufNewFile Dockerfile.*,dockerfile.*,*.docker set filetype=dockerfile
     au! BufRead,BufNewFile Earthfile set filetype=Earthfile
+    au! BufRead,BufNewFile build.earth set filetype=Earthfile
     au! BufRead,BufNewFile build.earth set filetype=Earthfile
 augroup END
 

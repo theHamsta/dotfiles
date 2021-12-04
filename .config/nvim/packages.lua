@@ -112,6 +112,7 @@ return packer.startup(function()
           { name = "ultisnips" }, -- For ultisnips users.
           { name = "emoji", insert = true },
           { name = "latex_symbols" },
+          { name = "neorg" },
         }, {
           { name = "buffer" },
         }),
@@ -202,6 +203,20 @@ return packer.startup(function()
               workspaces = {
                 my_workspace = "~/neorg",
               },
+            },
+          },
+          ["core.gtd.base"] = {
+            config = { -- Note that this table is optional and doesn't need to be provided
+              -- Configuration here
+            },
+          },
+          ["core.gtd.ui"] = {
+            config = {
+            },
+          },
+          ["core.norg.completion"] = {
+            config = {
+              engine = "nvim-cmp", -- We current support nvim-compe and nvim-cmp only
             },
           },
         },

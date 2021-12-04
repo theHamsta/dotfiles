@@ -515,6 +515,15 @@ end
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
   vim.cmd "set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()"
+  local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
+
+  parser_configs.norg = {
+    install_info = {
+      url = "https://github.com/nvim-neorg/tree-sitter-norg",
+      files = { "src/parser.c", "src/scanner.cc" },
+      branch = "main",
+    },
+  }
   --local list = require("nvim-treesitter.parsers").get_parser_configs()
   --list.commonlisp = {
   --install_info = {
@@ -635,6 +644,8 @@ if ok then
           ["iC"] = "@class.inner",
           ["ac"] = "@conditional.outer",
           ["ic"] = "@conditional.inner",
+          ["aü"] = "@conditional.outer",
+          ["iü"] = "@conditional.inner",
           ["ae"] = "@block.outer",
           ["ie"] = "@block.inner",
           ["al"] = "@loop.outer",
