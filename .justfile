@@ -19,12 +19,12 @@ release:
 
 gcc-release:
     mkdir -p gcc-release
-    export CXX=g++ && export CC=gcc && cd gcc-release && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=YES -DCMAKE_BUILD_TYPE=Release -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color -DCMAKE_C_FLAGS=-fdiagnostics-color ..
+    export CXX=g++-11 && export CC=gcc-11 && cd gcc-release && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=YES -DCMAKE_BUILD_TYPE=Release -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color -DCMAKE_C_FLAGS=-fdiagnostics-color ..
     cd gcc-release && cmake --build . -- -j$(nproc)
 
 gcc-debug:
     mkdir -p gcc-debug
-    export CXX=g++ && export CC=gcc && cd gcc-debug && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=YES -DCMAKE_BUILD_TYPE=Debug -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color -DCMAKE_C_FLAGS=-fdiagnostics-color ..
+    export CXX=g++-11 && export CC=gcc-11 && cd gcc-debug && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=YES -DCMAKE_BUILD_TYPE=Debug -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color -DCMAKE_C_FLAGS=-fdiagnostics-color ..
     rm -f compile_commands.json
     ln -s debug/compile_commands.json
     cd gcc-debug && cmake --build . -- -j$(nproc)
