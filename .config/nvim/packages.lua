@@ -201,19 +201,14 @@ return packer.startup(function()
           ["core.norg.dirman"] = { -- Manage your directories with Neorg
             config = {
               workspaces = {
-                my_workspace = "~/neorg",
+                my_workspace = "~/projects/neorg",
               },
             },
           },
-          ["core.gtd.base"] = {
-            config = { -- Note that this table is optional and doesn't need to be provided
-              -- Configuration here
-            },
-          },
-          ["core.gtd.ui"] = {
-            config = {
-            },
-          },
+          ["core.gtd.base"] = {},
+          ["core.gtd.queries"] = {},
+          ["core.gtd.ui"] = {},
+          ["core.queries.native"] = {},
           ["core.norg.completion"] = {
             config = {
               engine = "nvim-cmp", -- We current support nvim-compe and nvim-cmp only
