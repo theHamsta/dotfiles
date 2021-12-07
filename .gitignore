@@ -131,6 +131,7 @@ release
 gcc-release
 build
 docker_build
+*_build
 build_docker
 debug_docker
 docker_debug

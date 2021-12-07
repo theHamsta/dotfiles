@@ -64,7 +64,7 @@ map <space><space>f  :HopFunctions<cr>
 map <space><space>w :HopWord<cr>
 map <space><space>j :HopLineAC<cr>
 map <space><space>k :HopLineBC<cr>
-nnoremap <space>td :cd ~/projects/neorg<cr>:Neorg gtd views<cr>
+nnoremap <space>td :cd ~/projects/norg<cr>:Neorg gtd views<cr>
 
 set history=1000
 set mouse=a
