@@ -542,16 +542,6 @@ if ok then
   --},
   --}
 
-  local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
-
-  parser_configs.commonlisp = {
-    install_info = {
-      url = "~/projects/tree-sitter-commonlisp",
-      files = { "src/parser.c" },
-    },
-    filetype = "lisp",
-  }
-
   --parser_configs.norg = {
   --install_info = {
   --url = "https://github.com/vhyrro/tree-sitter-norg",
