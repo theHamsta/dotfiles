@@ -36,6 +36,12 @@ return packer.startup(function()
   use { "wbthomason/packer.nvim", opt = true }
   use { "famiu/nvim-reload", opt = true }
   use { "theHamsta/nvim-semantic-tokens" }
+  use { "emmanueltouzery/agitator.nvim", config = function()
+    vim.cmd[[
+nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
+    ]]
+
+  end}
   use {
     "numToStr/Comment.nvim",
     config = function()
