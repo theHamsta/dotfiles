@@ -806,17 +806,17 @@ if pcall(require, "vim.lsp.nvim-semantic-tokens") then
   }
 end
 
---vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
---vim.lsp.handlers.hover, {
---border = {
---{"😀", "FloatNormal"},
---{"🌻", "FloatNormal"},
---{"🌻", "FloatNormal"},
---{"🌻", "FloatNormal"},
---{"🌻", "FloatNormal"},
---{"🌻", "FloatNormal"},
---{"🌻", "FloatNormal"},
---{"🌻", "FloatNormal"},
---},
---}
---)
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
+vim.lsp.handlers.hover, {
+border = {
+{"", "FloatNormal"},
+{"", "FloatNormal"},
+{"", "FloatNormal"},
+{"", "FloatNormal"},
+{"", "FloatNormal"},
+{"", "FloatNormal"},
+{"", "FloatNormal"},
+{"", "FloatNormal"},
+},
+}
+)

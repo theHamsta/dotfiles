@@ -444,6 +444,8 @@ function! NvimLspMaps()
 
     nnoremap <buffer> <silent> [d <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
     nnoremap <buffer> <silent> ]d <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+    nnoremap <buffer> <silent> äk <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+    nnoremap <buffer> <silent> äj <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 
     nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<CR>
     nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>
