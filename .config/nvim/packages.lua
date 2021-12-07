@@ -200,7 +200,7 @@ return packer.startup(function()
           ["core.norg.dirman"] = { -- Manage your directories with Neorg
             config = {
               workspaces = {
-                my_workspace = "~/projects/neorg",
+                my_workspace = "~/projects/norg",
               },
             },
           },
