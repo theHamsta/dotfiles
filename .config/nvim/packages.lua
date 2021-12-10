@@ -52,7 +52,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     "ggandor/lightspeed.nvim",
     config = function()
       require("lightspeed").setup {
-        jump_to_first_match = true,
+        --jump_to_first_match = true,
         jump_on_partial_input_safety_timeout = 400,
         exit_after_idle_msecs = { labeled = 1500, unlabeled = 1000 },
         highlight_unique_chars = true,
@@ -207,6 +207,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
             config = {
               workspaces = {
                 my_workspace = "~/projects/norg",
+                nvidia = "~/projects/nvidia-norg",
               },
             },
           },
