@@ -524,6 +524,13 @@ if ok then
       branch = "main",
     },
   }
+  parser_configs.markdown = {
+    install_info = {
+      url = "https://github.com/MDeiml/tree-sitter-markdown",
+      files = { "src/parser.c", "src/scanner.cc" },
+      branch = "main",
+    },
+  }
   --local list = require("nvim-treesitter.parsers").get_parser_configs()
   --list.commonlisp = {
   --install_info = {
@@ -764,6 +771,7 @@ if ok then
 
   -- Keywords
   hlmap["conditional"] = "Conditional"
+  hlmap["text.title"] = "markdownH1"
   hlmap["repeat"] = "Repeat"
   hlmap["label"] = "Label"
   hlmap["operator"] = "Operator"

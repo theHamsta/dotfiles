@@ -442,10 +442,10 @@ function! NvimLspMaps()
     nnoremap <buffer> <silent> <c-LeftMouse> <cmd>lua require'nvim-treesitter.refactor.navigation'.goto_definition_lsp_fallback()<CR>
     nnoremap <buffer> <silent> <c-LeftMouse> <cmd>lua vim.lsp.buf.definition()<CR>
 
-    nnoremap <buffer> <silent> [d <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-    nnoremap <buffer> <silent> ]d <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
-    nnoremap <buffer> <silent> äk <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-    nnoremap <buffer> <silent> äj <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+    nnoremap <buffer> <silent> [d <cmd>lua vim.diagnostic.goto_prev()<CR>
+    nnoremap <buffer> <silent> ]d <cmd>lua vim.diagnostic.goto_next()<CR>
+    nnoremap <buffer> <silent> äk <cmd>lua vim.diagnostic.goto_prev()<CR>
+    nnoremap <buffer> <silent> äj <cmd>lua vim.diagnostic.goto_next()<CR>
 
     nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<CR>
     nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>

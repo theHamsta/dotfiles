@@ -114,7 +114,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
         --},
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
-          { name = "ultisnips" }, -- For ultisnips users.
+          --{ name = "ultisnips" }, -- For ultisnips users.
           { name = "emoji", insert = true },
           { name = "latex_symbols" },
           { name = "neorg" },
