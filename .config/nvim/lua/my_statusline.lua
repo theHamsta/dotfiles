@@ -145,20 +145,20 @@ gls.left[10] = {
   }
 }
 
-gls.left[11] = {
-  DiagnosticError = {
-    provider = "DiagnosticError",
-    icon = "  ",
-    highlight = {colors.red, colors.bg}
-  }
-}
-gls.left[12] = {
-  DiagnosticWarn = {
-    provider = "DiagnosticWarn",
-    icon = "  ",
-    highlight = {colors.blue, colors.bg}
-  }
-}
+--gls.left[11] = {
+  --DiagnosticError = {
+    --provider = "DiagnosticError",
+    --icon = "  ",
+    --highlight = {colors.red, colors.bg}
+  --}
+--}
+--gls.left[12] = {
+  --DiagnosticWarn = {
+    --provider = "DiagnosticWarn",
+    --icon = "  ",
+    --highlight = {colors.blue, colors.bg}
+  --}
+--}
 
 --gls.left[11] = {
 --lsp_status = {
