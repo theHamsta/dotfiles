@@ -771,7 +771,6 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   use { "rust-lang/rust.vim", ft = { "rust", "toml" } }
   use "ryanoasis/vim-devicons"
   use "scrooloose/nerdcommenter"
-  use "sgur/vim-textobj-parameter"
   use "skywind3000/vim-preview"
   use {
     "folke/todo-comments.nvim",
