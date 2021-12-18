@@ -814,6 +814,15 @@ if pcall(require, "vim.lsp.nvim-semantic-tokens") then
   }
 end
 
+local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
+parser_configs.norg = {
+    install_info = {
+        url = "https://github.com/nvim-neorg/tree-sitter-norg",
+        files = { "src/parser.c", "src/scanner.cc" },
+        branch = "main"
+    },
+}
+
 --vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
 --vim.lsp.handlers.hover, {
 --border = {
