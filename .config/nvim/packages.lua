@@ -190,7 +190,6 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   use { "nanotee/zoxide.vim", cmd = { "Z", "Zi" } }
   use {
     "vhyrro/neorg",
-    branch = "unstable",
     config = function()
       require("neorg").setup {
         -- Tell Neorg what modules to load
