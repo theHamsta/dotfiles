@@ -431,8 +431,8 @@ function! NvimLspMaps()
     nnoremap <buffer><silent> gh         <cmd>lua vim.lsp.buf.hover()<CR>
     nnoremap <buffer><silent> <leader>gi         <cmd>lua vim.lsp.buf.implementation()<CR>
     inoremap <buffer><silent> <c-g>         <cmd>lua vim.lsp.buf.signature_help()<CR>
-    nnoremap <buffer><silent> <leader>ld <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
-    nnoremap <buffer><silent> <leader>lD <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
+    nnoremap <buffer><silent> <leader>ld <cmd>lua vim.diagnostic.show_line_diagnostics()<CR>
+    nnoremap <buffer><silent> <leader>lD <cmd>lua vim.diagnostic.set_loclist()<CR>
     nnoremap <buffer><silent> <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
     nnoremap <buffer><silent> <leader>ic <cmd>lua vim.lsp.buf.incoming_calls()<CR>
     vnoremap <buffer><silent> <leader>oc <cmd>lua vim.lsp.buf.outgoing_calls()<CR>
@@ -747,10 +747,10 @@ set completeopt=menuone,menu,longest,noselect,noinsert
 "" Highlight (inofficial) json comments
  autocmd FileType json syntax match Comment +\/\/.\+$+
 
-  sign define DiagnosticSignError text=❌ texthl=LspDiagnosticsError linehl= numhl=
-  sign define DiagnosticSignWarn text=⚠️ texthl=LspDiagnosticsWarning linehl= numhl=
-  sign define DiagnosticSignInfo text=🔎 texthl=LspDiagnosticsInformation linehl= numhl=
-  sign define DiagnosticSignHint text=💡 texthl=LspDiagnosticsHint linehl= numhl=
+  "sign define DiagnosticSignError text=❌ texthl=LspDiagnosticsError linehl= numhl=
+  "sign define DiagnosticSignWarn text=⚠️ texthl=LspDiagnosticsWarning linehl= numhl=
+  "sign define DiagnosticSignInfo text=🔎 texthl=LspDiagnosticsInformation linehl= numhl=
+  "sign define DiagnosticSignHint text=💡 texthl=LspDiagnosticsHint linehl= numhl=
 
   let g:gitgutter_sign_added = '▋'
   let g:gitgutter_sign_modified = '▐'
@@ -1382,3 +1382,6 @@ nnoremap <leader>nd :DiffviewOpen<cr>
 autocmd FileType cpp set commentstring=//\ %s
 
 nmap <leader>tt <Plug>PlenaryTestFile
+
+omap af Vaf
+xmap af Vaf
