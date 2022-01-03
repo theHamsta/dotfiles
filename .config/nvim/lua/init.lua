@@ -56,7 +56,7 @@ local lsp_signature_ok, lsp_signature = pcall(require, "lsp_signature")
 
 if ok then
   require("lspkind").init()
-  local function on_attach(client, bufnr)
+  local function on_attach(client, _bufnr)
     vim.fn.NvimLspMaps()
     if lsp_signature_ok then
       lsp_signature.on_attach()
@@ -203,6 +203,7 @@ if ok then
       ["rust-analyzer"] = {
         checkOnSave = {
           command = "clippy",
+          enable = true,
         },
         completion = {
           postfix = {

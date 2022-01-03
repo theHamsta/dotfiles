@@ -747,10 +747,10 @@ set completeopt=menuone,menu,longest,noselect,noinsert
 "" Highlight (inofficial) json comments
  autocmd FileType json syntax match Comment +\/\/.\+$+
 
-  "sign define DiagnosticSignError text=❌ texthl=LspDiagnosticsError linehl= numhl=
-  "sign define DiagnosticSignWarn text=⚠️ texthl=LspDiagnosticsWarning linehl= numhl=
-  "sign define DiagnosticSignInfo text=🔎 texthl=LspDiagnosticsInformation linehl= numhl=
-  "sign define DiagnosticSignHint text=💡 texthl=LspDiagnosticsHint linehl= numhl=
+  sign define DiagnosticSignError text=❌ texthl=LspDiagnosticsError linehl= numhl=
+  sign define DiagnosticSignWarn text=⚠️ texthl=LspDiagnosticsWarning linehl= numhl=
+  sign define DiagnosticSignInfo text=🔎 texthl=LspDiagnosticsInformation linehl= numhl=
+  sign define DiagnosticSignHint text=💡 texthl=LspDiagnosticsHint linehl= numhl=
 
   let g:gitgutter_sign_added = '▋'
   let g:gitgutter_sign_modified = '▐'
