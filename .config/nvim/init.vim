@@ -835,7 +835,7 @@ function! FloatingFZF()
 
   call nvim_open_win(buf, v:true, opts)
 endfunction
-au FileType fzf setlocal nonu nornu signcolumn="no"
+au FileType fzf setlocal nonu nornu signcolumn=no
 ""noremap <c-j> <c-w>w
 ""noremap <c-k> <c-w>W
 

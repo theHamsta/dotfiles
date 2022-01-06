@@ -271,7 +271,6 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   --requires = "nvim-telescope/telescope.nvim"
   --}
   use { "dstein64/nvim-scrollview", opt = true }
-  use { "lucc/nvimpager" }
   --use { "Mofiqul/vim-code-dark", opt = true }
   use { "TimUntersberger/neogit", cmd = { "Neogit" } }
   use {
