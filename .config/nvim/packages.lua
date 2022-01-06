@@ -812,7 +812,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   use { "vim-airline/vim-airline", requires = "vim-airline/vim-airline-themes", opt = true }
 
   use {
-    "glepnir/galaxyline.nvim",
+    "theHamsta/galaxyline.nvim",
     requires = "kyazdani42/nvim-web-devicons",
     config = function()
       require "my_statusline"
