@@ -809,7 +809,7 @@ vim.cmd [[
 command! -complete=file -nargs=* PythonDebug lua require "my_debug".python_debug({<f-args>})
 ]]
 
-if pcall(require, "vim.lsp.nvim-semantic-tokens") then
+if pcall(require, "vim.lsp.semantic_tokens") then
   require("nvim-semantic-tokens").setup {
     preset = "theHamsta",
   }
