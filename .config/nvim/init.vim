@@ -456,9 +456,6 @@ function! NvimLspMaps()
         "inoremap <buffer><silent> (     <cmd>lua vim.lsp.buf.signature_help()<CR>(
     "endif
 
-    if &filetype == "zig" || &filetype == "cpp" || &filetype == "cuda" || &filetype == "c"
-      autocmd BufEnter,CursorHold,InsertLeave <buffer> lua require 'vim.lsp.buf'.semantic_tokens_full()
-    endif
     "if &filetype == "rust" || &filetype == "go"
       "autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()
     "endif

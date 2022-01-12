@@ -35,17 +35,26 @@ local go_packages = {
 return packer.startup(function()
   use { "wbthomason/packer.nvim", opt = true }
   use { "famiu/nvim-reload", opt = true }
-  use { "theHamsta/nvim-semantic-tokens" }
-  use { "emmanueltouzery/agitator.nvim", config = function()
-    vim.cmd[[
+  use { "theHamsta/nvim-semantic-tokens", opt = true }
+  use {
+    "emmanueltouzery/agitator.nvim",
+    config = function()
+      vim.cmd [[
 nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     ]]
-
-  end}
+    end,
+  }
   use {
     "numToStr/Comment.nvim",
     config = function()
       require("Comment").setup()
+    end,
+  }
+  use {
+    "yriveiro/dap-go.nvim",
+    requires = { { "nvim-lua/plenary.nvim" } },
+    config = function()
+      require("dap-go").setup()
     end,
   }
   use {
