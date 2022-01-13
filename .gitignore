@@ -49,7 +49,7 @@ cmake-build-*
 *.fls
 *.fdb_latexmk
 *.pdf
-snapshots
+#snapshots
 logs
 *.pyc
 *.toc
