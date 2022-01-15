@@ -45,6 +45,28 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     end,
   }
   use {
+    "sidebar-nvim/sidebar.nvim",
+    config = function()
+      require("sidebar-nvim").setup {
+        sections = {
+          "datetime",
+          "git",
+          "diagnostics",
+          require "dap-sidebar-nvim.breakpoints",
+        },
+        dap = {
+          breakpoints = {
+            icon = "🔍",
+          },
+        },
+      }
+    end,
+  }
+  use {
+    "sidebar-nvim/sections-dap",
+  }
+
+  use {
     "numToStr/Comment.nvim",
     config = function()
       require("Comment").setup()
