@@ -35,7 +35,7 @@ local go_packages = {
 return packer.startup(function()
   use { "wbthomason/packer.nvim", opt = true }
   use { "famiu/nvim-reload", opt = true }
-  use { "theHamsta/nvim-semantic-tokens", opt = true }
+  use { "theHamsta/nvim-semantic-tokens", opt = false }
   use {
     "emmanueltouzery/agitator.nvim",
     config = function()
@@ -62,10 +62,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     config = function()
       require("lightspeed").setup {
         --jump_to_first_match = true,
-        jump_on_partial_input_safety_timeout = 400,
         exit_after_idle_msecs = { labeled = 1500, unlabeled = 1000 },
-        highlight_unique_chars = true,
-        grey_out_search_area = true,
         match_only_the_start_of_same_char_seqs = true,
         limit_ft_matches = 4,
         --x_mode_prefix_key = "<c-x>",
