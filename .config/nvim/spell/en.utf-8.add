@@ -379,3 +379,6 @@ GTC
 desc
 let
 swapchain
+Semiregular
+decltype
+noexcept

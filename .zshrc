@@ -140,12 +140,6 @@ export PATH=/snap/bin/:${PATH}
 
 export SCIPY_PIL_IMAGE_VIEWER=imagecomparer
 
-
-
-
-if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-	source /etc/profile.d/vte.sh
-fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 eval "$(starship init zsh)"

@@ -478,7 +478,6 @@ endfunction
 set foldlevel=99
 
 nnoremap <silent> <leader>f0 :set foldlevel=0<CR>
-nnoremap <silent> <leader>ff :set foldlevel=99<CR>
 nnoremap <silent> <leader>f9 :set foldlevel=99<CR>
 "nnoremap <silent> z0 :set foldlevel=0<CR>
 "nnoremap <silent> z9 :set foldlevel=99<CR>
@@ -1380,5 +1379,7 @@ autocmd FileType cpp set commentstring=//\ %s
 
 nmap <leader>tt <Plug>PlenaryTestFile
 
-omap af Vaf
-xmap af Vaf
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
