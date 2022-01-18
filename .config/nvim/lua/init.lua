@@ -565,7 +565,7 @@ if ok then
     },
     query_linter = {
       enable = true,
-      lint_events = { "BufWrite" },
+      lint_events = { "BufWrite", "CursorHold" },
     },
     tree_docs = {
       enable = true,
