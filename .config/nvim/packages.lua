@@ -169,7 +169,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     end,
   }
   use { "earthly/earthly.vim", filetype = "earthly" }
-  use { "projekt0n/github-nvim-theme" }
+  --use { "projekt0n/github-nvim-theme" }
   use {
     "sindrets/diffview.nvim",
     cmd = "DiffviewOpen",
@@ -772,7 +772,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   use "kassio/neoterm"
   use { "lervag/vimtex", opt = true }
   --use "machakann/vim-swap"
-  use "p00f/nvim-ts-rainbow"
+  --use "p00f/nvim-ts-rainbow"
   use "markonm/traces.vim"
   use { "mbbill/undotree", cmd = { "UndotreeToggle" } }
   use { "meain/vim-package-info", run = "npm install" }
