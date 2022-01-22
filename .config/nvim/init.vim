@@ -507,7 +507,11 @@ command! Qa :qa
 
 noremap <end> <c-w>o:Topen<cr><c-w>wi
 
-let g:neoterm_default_mod='vert'
+"let test#strategy = "neoterm"
+let g:neoterm_autoinsert=0
+let g:neoterm_autoscroll=1
+let g:neoterm_fixedsize =100
+"let g:neoterm_default_mod='vert'
 "let g:neoterm_open_in_all_tabs=0
 "autocmd BufWinEnter,WinEnter term://* startinsert
 augroup terminal
@@ -541,18 +545,6 @@ let g:rainbow_active = 0
 "nnoremap <c-a-h> call feedkeys(":CtrlP\<cr>".expand('%:t:r') . ".h", "t")
 "set path=.,**
 
-
-"nnoremap <leader>E <Plug>(neoterm-repl-send)
-"nnoremap <leader>ee :TREPLSendFile<cr>
-"nnoremap <leader>el :TREPLSendLine<cr>
-""nnoremap <c-c><c-c> :TREPLSendLine<cr>
-""vnoremap <c-c><c-c> :TREPLSendSelection<cr>
-"nnoremap ,repl :belowright Tnew<cr><c-w>j :exe "resize " . 13<CR>
-"vnoremap <leader>ee :TREPLSendSelection<cr>
-"let g:neoterm_repl_python="ipython3"
-"nmap gq <Plug>(neoterm-repl-send)
-""nmap <c-c> <Plug>(neoterm-repl-send)
-"xmap gq <Plug>(neoterm-repl-send)
 
 "set noshowmode
 set clipboard=unnamedplus
@@ -591,10 +583,6 @@ let NERDTreeRespectWildIgnore=1
 "let g:tex_flavor = "latex"
 
 let g:rooter_silent_chdir = 1
-
-let g:neoterm_autoinsert=0
-let g:neoterm_autoscroll=1
-let  g:neoterm_fixedsize =100
 
 nnoremap <A-1> 1gt
 nnoremap <A-2> 2gt
@@ -765,7 +753,6 @@ nmap <silent> <leader>tv :TestVisit<CR>
 "nnoremap <leader>tt :T<space>
 ""nnoremap <leader>22 :T<space>!!<enter>:T && echo ""<enter>
 
-let test#strategy = "neoterm"
 
 
 ""luafile $HOME/.config/nvim/iron.lua

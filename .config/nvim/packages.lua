@@ -527,7 +527,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   use "chuling/vim-equinusocio-material"
   use "nvim-treesitter/nvim-treesitter-textobjects"
   --setheHamsta/nvim-treesitter-commonlisp
-  use "theHamsta/nvim-treesitter-pairs"
+  --use "theHamsta/nvim-treesitter-pairs"
   use "nvim-treesitter/nvim-treesitter-refactor"
   use {
     "nvim-treesitter/nvim-treesitter",
@@ -770,7 +770,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   use "justinmk/vim-gtfo"
   use { "justinmk/vim-sneak", opt = true }
   use "kassio/neoterm"
-  use { "lervag/vimtex", opt = true }
+  --use { "lervag/vimtex", opt = true }
   --use "machakann/vim-swap"
   --use "p00f/nvim-ts-rainbow"
   use "markonm/traces.vim"

@@ -658,7 +658,7 @@ if ok then
           ["aM"] = "@frame.outer",
           ["ai"] = "@parameter.outer",
           ["ii"] = "@parameter.inner",
-          ["aS"] = { "@scope", "locals" }, -- selects `@scope` from locals.scm
+          --["aS"] = { "@scope", "locals" }, -- selects `@scope` from locals.scm
         },
       },
       swap = {
@@ -667,12 +667,12 @@ if ok then
         swap_next = {
           ["<leader>ä"] = "@parameter.inner",
           ["<a-f>"] = "@function.outer",
-          ["<a-s>"] = { "@scope", "locals" },
+          --["<a-s>"] = { "@scope", "locals" },
         },
         swap_previous = {
           ["<leader>Ä"] = "@parameter.inner",
           ["<a-F>"] = "@function.outer",
-          ["<a-S>"] = { "@scope", "locals" },
+          --["<a-S>"] = { "@scope", "locals" },
         },
       },
       lsp_interop = {
@@ -689,10 +689,10 @@ if ok then
         enable = true,
         set_jumps = false,
         goto_next_start = {
-          ["öö"] = { "@definition.function", "locals" },
+          --["öö"] = { "@definition.function", "locals" },
         },
         goto_previous_start = {
-          ["ÖÖ"] = { "@definition.function", "locals" },
+          --["ÖÖ"] = { "@definition.function", "locals" },
         },
       },
     },
