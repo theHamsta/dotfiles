@@ -383,3 +383,10 @@ Semiregular
 decltype
 noexcept
 repro
+addr
+tokio
+grpc
+deepstream
+Tcp
+Bool
+i32
