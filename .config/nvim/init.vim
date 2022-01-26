@@ -511,7 +511,7 @@ noremap <end> <c-w>o:Topen<cr><c-w>wi
 let g:neoterm_autoinsert=0
 let g:neoterm_autoscroll=1
 let g:neoterm_fixedsize =100
-"let g:neoterm_default_mod='vert'
+let g:neoterm_default_mod='vert'
 "let g:neoterm_open_in_all_tabs=0
 "autocmd BufWinEnter,WinEnter term://* startinsert
 augroup terminal
