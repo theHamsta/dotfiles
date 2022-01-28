@@ -544,6 +544,8 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     (if_statement)
     (with_statement)
     (try_statement)
+    (match_statement)
+    (case_clause)
 
     (import_from_statement)
     (parameters)
@@ -559,6 +561,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     (list)
     (set)
     (dictionary)
+
 
     (string)
   ] @fold

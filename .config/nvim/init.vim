@@ -507,7 +507,7 @@ command! Qa :qa
 
 noremap <end> <c-w>o:Topen<cr><c-w>wi
 
-"let test#strategy = "neoterm"
+let test#strategy = "neoterm"
 let g:neoterm_autoinsert=0
 let g:neoterm_autoscroll=1
 let g:neoterm_fixedsize =100
@@ -1370,3 +1370,4 @@ nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+autocmd Filetype go setlocal tabstop=4 shiftwidth=4 softtabstop=4

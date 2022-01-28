@@ -7,3 +7,4 @@ nmap <buffer> <silent> <leader>bt :wa<cr>:lua require("dap").run(require'dap'.co
 
 call DapMaps()
 
+autocmd Filetype go setlocal tabstop=4 shiftwidth=4 softtabstop=4
