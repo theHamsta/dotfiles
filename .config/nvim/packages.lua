@@ -45,25 +45,25 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     end,
   }
   --use {
-    --"sidebar-nvim/sidebar.nvim",
-    --config = function()
-      --require("sidebar-nvim").setup {
-        --sections = {
-          --"datetime",
-          --"git",
-          --"diagnostics",
-          --require "dap-sidebar-nvim.breakpoints",
-        --},
-        --dap = {
-          --breakpoints = {
-            --icon = "🔍",
-          --},
-        --},
-      --}
-    --end,
+  --"sidebar-nvim/sidebar.nvim",
+  --config = function()
+  --require("sidebar-nvim").setup {
+  --sections = {
+  --"datetime",
+  --"git",
+  --"diagnostics",
+  --require "dap-sidebar-nvim.breakpoints",
+  --},
+  --dap = {
+  --breakpoints = {
+  --icon = "🔍",
+  --},
+  --},
+  --}
+  --end,
   --}
   --use {
-    --"sidebar-nvim/sections-dap",
+  --"sidebar-nvim/sections-dap",
   --}
 
   use {
@@ -720,7 +720,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
             ["o ih"] = ':<C-U>lua require"gitsigns".text_object()<CR>',
             ["x ih"] = ':<C-U>lua require"gitsigns".text_object()<CR>',
           },
-          watch_index = {
+          watch_gitdir = {
             interval = 1000,
           },
           sign_priority = 6,
@@ -728,6 +728,16 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
         }
       end
     end,
+  }
+  use {
+    "danymat/neogen",
+    config = function()
+      require("neogen").setup {
+        enabled = true,
+      }
+    end,
+    requires = "nvim-treesitter/nvim-treesitter",
+    cmd = { "Neogen" }
   }
 
   use "airblade/vim-rooter"
@@ -772,7 +782,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   use "junegunn/gv.vim"
   use "justinmk/vim-gtfo"
   use { "justinmk/vim-sneak", opt = true }
-  --use "kassio/neoterm"
+  use "kassio/neoterm"
   --use { "lervag/vimtex", opt = true }
   --use "machakann/vim-swap"
   --use "p00f/nvim-ts-rainbow"
