@@ -689,7 +689,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
             ["o ah"] = ':<C-U>lua require"gitsigns".select_hunk()<CR>',
             ["x ah"] = ':<C-U>lua require"gitsigns".select_hunk()<CR>',
           },
-          watch_index = {
+          watch_gitdir = {
             interval = 1000,
           },
           sign_priority = 6,
@@ -772,7 +772,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   use "junegunn/gv.vim"
   use "justinmk/vim-gtfo"
   use { "justinmk/vim-sneak", opt = true }
-  use "kassio/neoterm"
+  --use "kassio/neoterm"
   --use { "lervag/vimtex", opt = true }
   --use "machakann/vim-swap"
   --use "p00f/nvim-ts-rainbow"
