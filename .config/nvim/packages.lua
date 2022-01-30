@@ -737,7 +737,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
       }
     end,
     requires = "nvim-treesitter/nvim-treesitter",
-    cmd = { "Neogen" }
+    --cmd = { "Neogen" }
   }
 
   use "airblade/vim-rooter"

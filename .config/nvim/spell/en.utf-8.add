@@ -390,3 +390,14 @@ deepstream
 Tcp
 Bool
 i32
+xy
+Coord
+rgb
+gaussian
+vec3
+vec2
+pragma
+ifdef
+COMPAT
+vec4
+mat3
