@@ -22,6 +22,11 @@ gcc-release:
     export CXX=g++-11 && export CC=gcc-11 && cd gcc-release && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=YES  -DCMAKE_VERBOSE_MAKEFILE=OFF  -DCMAKE_BUILD_TYPE=Release -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color -DCMAKE_C_FLAGS=-fdiagnostics-color ..
     cd gcc-release && cmake --build . -- -j$(nproc)
 
+gcc-9-release:
+    mkdir -p gcc-release
+    export CXX=g++-9 && export CC=gcc-9 && cd gcc-release && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=YES -DCMAKE_BUILD_TYPE=Release -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color -DCMAKE_C_FLAGS=-fdiagnostics-color ..
+    cd gcc-release && cmake --build . -- -j$(nproc)
+
 gcc-debug:
     mkdir -p gcc-debug
     export CXX=g++-11 && export CC=gcc-11 && cd gcc-debug && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=YES -DCMAKE_BUILD_TYPE=Debug -G Ninja -DCMAKE_CXX_FLAGS=-fdiagnostics-color -DCMAKE_C_FLAGS=-fdiagnostics-color ..
