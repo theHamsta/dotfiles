@@ -414,7 +414,7 @@ if ok then
       pidProperty = "pid",
       pidSelect = "ask",
     },
-    command = "lldb-vscode-14",
+    command = "lldb-vscode-15",
     env = function()
       local variables = {
         LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES",
