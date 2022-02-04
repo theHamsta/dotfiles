@@ -1,7 +1,8 @@
 set termguicolors     " enable true colors support
 set background=dark 
 "colorscheme github_dark_default
-colorscheme one
+"colorscheme one
+:packadd tokyonight.nvim | let g:tokyonight_style = "storm" | colorscheme tokyonight
 
 set tags=./tags,tags
 set encoding=UTF-8
@@ -452,6 +453,9 @@ function! NvimLspMaps()
     nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>
     nnoremap <silent> <leader>fi <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>
 
+    if &filetype == "rust" || &filetype == "cpp" || &filetype == "cuda" || &filetype == "c"
+      autocmd BufEnter,CursorHold,InsertLeave <buffer> lua require 'vim.lsp.buf'.semantic_tokens_full()
+    endif
     "if &filetype != "tex" && &filetype != "haskell"
         "inoremap <buffer><silent> (     <cmd>lua vim.lsp.buf.signature_help()<CR>(
     "endif
