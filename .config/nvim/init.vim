@@ -1,8 +1,8 @@
 set termguicolors     " enable true colors support
 set background=dark 
 "colorscheme github_dark_default
-"colorscheme one
-:packadd tokyonight.nvim | let g:tokyonight_style = "storm" | colorscheme tokyonight
+colorscheme one
+":packadd tokyonight.nvim | let g:tokyonight_style = "storm" | colorscheme tokyonight
 
 set tags=./tags,tags
 set encoding=UTF-8
@@ -1374,4 +1374,3 @@ nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
-autocmd Filetype go setlocal tabstop=4 shiftwidth=4 softtabstop=4

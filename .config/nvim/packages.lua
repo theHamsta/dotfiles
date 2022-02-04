@@ -478,7 +478,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
       vim.cmd [[inoremap <c-k> <cmd>lua return require'snippets'.expand_or_advance(1)<CR>]]
     end,
   }
-  use "ghifarit53/tokyonight-vim"
+  --use "ghifarit53/tokyonight-vim"
   use "akinsho/nvim-toggleterm.lua"
   --use "chrisbra/unicode.vim"
   use "tpope/vim-speeddating"
