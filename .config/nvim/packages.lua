@@ -417,7 +417,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   --vim.api.nvim_set_keymap("n", "<Leader>hh", ':lua require("replacer").run()<cr>', {silent = true})
   --end
   --}
-  use { "onsails/lspkind-nvim" }
+  --use { "onsails/lspkind-nvim" }
   --use {
   --"hrsh7th/nvim-compe",
   --opt = false,

@@ -30,10 +30,6 @@ let g:vim_bootstrap_editor = "nvim"             " nvim or vim
 "let g:fzf_command_prefix = 'fzf'
 let g:sexp_insert_after_wrap = 0
 
-let g:LanguageClient_settingsPath = expand('~').'.config/nvim/settings.json'
-
-
-
 "let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 "if !filereadable(vimplug_exists)
     "if !executable("curl")
