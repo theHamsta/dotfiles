@@ -55,7 +55,7 @@ local ok, lspconfig = pcall(require, "lspconfig")
 local lsp_signature_ok, lsp_signature = pcall(require, "lsp_signature")
 
 if ok then
-  require("lspkind").init()
+  --require("lspkind").init()
   local function on_attach(client, _bufnr)
     vim.fn.NvimLspMaps()
     if lsp_signature_ok then
