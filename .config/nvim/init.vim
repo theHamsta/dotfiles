@@ -450,7 +450,7 @@ function! NvimLspMaps()
     nnoremap <silent> <leader>fi <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>
 
     if &filetype == "rust" || &filetype == "cpp" || &filetype == "cuda" || &filetype == "c"
-      autocmd BufEnter,CursorHold,InsertLeave <buffer> lua require 'vim.lsp.buf'.semantic_tokens_full()
+        autocmd BufEnter,CursorHold,InsertLeave <buffer> lua require 'vim.lsp.buf'.semantic_tokens_full()
     endif
     "if &filetype != "tex" && &filetype != "haskell"
         "inoremap <buffer><silent> (     <cmd>lua vim.lsp.buf.signature_help()<CR>(
@@ -1204,10 +1204,10 @@ function DapMaps()
     nmap <buffer> <silent> <leader>bo :lua require'dap'.step_out()<CR>
     nmap <buffer> <silent> <leader>lb :lua require'dap'.list_breakpoints()<CR>
     nmap <buffer> <silent> <leader>bm :DebugRepl<cr>
-    nmap <buffer> <silent> <leader>dh :lua require 'dap.ui.variables'.hover()<cr>
-    vmap <buffer> <silent> <leader>dh :lua require 'dap.ui.variables'.visual_hover()<cr>
-    nmap <buffer> <silent> <leader>ds :lua require 'dap.ui.variables'.scopes()<cr>
-    nmap <buffer> <silent> <leader>df :lua require 'dap.ui.variables'.frames()<cr>
+    nmap <buffer> <silent> <leader>dh :lua require 'dap.ui.widgets'.hover()<cr>
+    vmap <buffer> <silent> <leader>dh :lua require 'dap.ui.widgets'.visual_hover()<cr>
+    nmap <buffer> <silent> <leader>ds :lua require 'dap.ui.widgets'.scopes()<cr>
+    nmap <buffer> <silent> <leader>df :lua require 'dap.ui.widgets'.frames()<cr>
     nmap <buffer> <silent> <leader>TN :lua require'dap';require 'dap-python'.test_method()<cr>:lua require 'dap.repl'.open()<cr>
     nmap <buffer> <silent> <leader>bT :lua require 'dap'.run_last()<cr>:lua require 'dap.repl'.open()<cr>
     command! DebugRepl :lua require'dap'.repl.open()<cr>
