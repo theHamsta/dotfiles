@@ -78,6 +78,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     config = function()
       require("dap-go").setup()
     end,
+    opt = true,
   }
   use {
     "ggandor/lightspeed.nvim",
@@ -744,7 +745,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   use "bronson/vim-visual-star-search"
   use { "dbeniamine/cheat.sh-vim", cmd = { "Cheat" } }
   use "dyng/ctrlsf.vim"
-  use { "euclio/vim-markdown-composer", run = "cargo build --release", cmd = "ComposerStart", ft = "markdown" }
+  --use { "euclio/vim-markdown-composer", run = "cargo build --release", cmd = "ComposerStart", ft = "markdown" }
   use {
     "fatih/vim-go",
     ft = "go",
@@ -768,12 +769,12 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   use { "ionide/Ionide-vim", run = "make fsautocomplete", ft = "fsharp" }
   --use {"fsprojects/fsharp-language-server", run = "npm install && dotnet build -c Release"}
   --use { 'neoclide/coc.nvim', run = 'yarn install --frozen-lockfile', ft = 'fsharp'}
-  use {
-    "autozimu/LanguageClient-neovim",
-    branch = "next",
-    run = "bash install.sh",
-    ft = "fsharp",
-  }
+  --use {
+    --"autozimu/LanguageClient-neovim",
+    --branch = "next",
+    --run = "bash install.sh",
+    --ft = "fsharp",
+  --}
   use { "jceb/vim-orgmode", ft = "org" }
   use { "junegunn/fzf", run = ":call fzf#install()" }
   use "junegunn/fzf.vim"
