@@ -401,3 +401,5 @@ ifdef
 COMPAT
 vec4
 mat3
+ctx
+hl

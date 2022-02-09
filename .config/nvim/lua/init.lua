@@ -513,6 +513,7 @@ if ok then
   --}
 end
 
+
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
   vim.cmd "set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()"
@@ -557,7 +558,6 @@ if ok then
   --branch = "main",
   --},
   --}
-
   require("nvim-treesitter.configs").setup {
     highlight = {
       enable = true, -- false will disable the whole extension
@@ -797,7 +797,6 @@ if ok then
   end
 end
 
-----
 
 vim.cmd [[
 command! -complete=file -nargs=* DebugRust lua require "my_debug".start_c_debugger({<f-args>}, "gdb", "rust-gdb")
@@ -824,6 +823,10 @@ parser_configs.norg = {
     },
 }
 
+--for _, config in pairs(require("nvim-treesitter.parsers").get_parser_configs()) do
+  --config.install_info.use_makefile = true
+  --config.install_info.cxx_standard = 'c++14'
+--end
 
 --vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
 --vim.lsp.handlers.hover, {
