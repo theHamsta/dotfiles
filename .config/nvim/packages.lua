@@ -118,8 +118,10 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
 
       cmp.setup {
         experimental = {
-          native_menu = true,
           ghost_text = true,
+        },
+        view = {
+          entries = "native",
         },
         snippet = {
           -- REQUIRED - you must specify a snippet engine
