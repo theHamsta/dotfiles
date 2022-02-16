@@ -403,3 +403,11 @@ vec4
 mat3
 ctx
 hl
+libobs
+sem
+bool
+uint64
+errorcode
+dec
+param
+deinterlace
