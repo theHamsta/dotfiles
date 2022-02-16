@@ -1,3 +1,4 @@
+--
 -- packages.lua
 -- Copyright (C) 2020 Stephan Seitz <stephan.seitz@fau.de>
 --
@@ -775,7 +776,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   use "junegunn/gv.vim"
   use "justinmk/vim-gtfo"
   use { "justinmk/vim-sneak", opt = true }
-  use "kassio/neoterm"
+  --use "kassio/neoterm"
   --use { "lervag/vimtex", opt = true }
   --use "machakann/vim-swap"
   --use "p00f/nvim-ts-rainbow"

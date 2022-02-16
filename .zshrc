@@ -134,7 +134,6 @@ export PATH=/opt/tensorrt/bin:${PATH}
 export GIT_EDITOR=nvim
 #export LD_LIBRARY_PATH="/usr/local/cuda-9.1/lib/:/usr/local/cuda-9.1/targets/x86_64-linux/lib/:$LD_LIBRARY_PATH"
 #export LD_LOAD_PATH="/usr/local/cuda-9.1/lib/:/usr/local/cuda-9.1/targets/x86_64-linux/lib/:$LD_LOAD_PATH"
-export PATH=$PATH:/usr/local/cuda-9.1/bin
 export PATH=/snap/bin/:${PATH}
 #export CUDA_HOME=/usr/local/cuda-9.1
 

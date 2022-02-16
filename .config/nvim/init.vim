@@ -448,8 +448,8 @@ function! NvimLspMaps()
     nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>
     nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>
     nnoremap <silent> <leader>fi <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>
-
-    if &filetype == "rust" || &filetype == "cpp" || &filetype == "cuda" || &filetype == "c"
+"|| &filetype == "cpp" || &filetype == "cuda" || &filetype == "c"
+    if &filetype == "rust" 
         autocmd BufEnter,CursorHold,InsertLeave <buffer> lua require 'vim.lsp.buf'.semantic_tokens_full()
     endif
     "if &filetype != "tex" && &filetype != "haskell"

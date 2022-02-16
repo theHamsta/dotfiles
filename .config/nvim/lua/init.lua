@@ -57,6 +57,9 @@ local lsp_signature_ok, lsp_signature = pcall(require, "lsp_signature")
 if ok then
   --require("lspkind").init()
   local function on_attach(client, _bufnr)
+    if client.resolved_capabilities.semantic_tokens_full then
+      vim.cmd [[autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.buf.semantic_tokens_full()]]
+    end
     vim.fn.NvimLspMaps()
     if lsp_signature_ok then
       lsp_signature.on_attach()
@@ -76,6 +79,10 @@ if ok then
   --require("lspconfig/configs").sumneko_lua.install()
   --end
   lspconfig.eslint.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+  require("lspconfig").intelephense.setup {
     on_attach = on_attach,
     capabilities = capabilities,
   }
@@ -513,25 +520,24 @@ if ok then
   --}
 end
 
-
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
   vim.cmd "set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()"
   --local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 
   --parser_configs.norg = {
-    --install_info = {
-      --url = "https://github.com/nvim-neorg/tree-sitter-norg",
-      --files = { "src/parser.c", "src/scanner.cc" },
-      --branch = "main",
-    --},
+  --install_info = {
+  --url = "https://github.com/nvim-neorg/tree-sitter-norg",
+  --files = { "src/parser.c", "src/scanner.cc" },
+  --branch = "main",
+  --},
   --}
   --parser_configs.markdown = {
-    --install_info = {
-      --url = "https://github.com/MDeiml/tree-sitter-markdown",
-      --files = { "src/parser.c", "src/scanner.cc" },
-      --branch = "main",
-    --},
+  --install_info = {
+  --url = "https://github.com/MDeiml/tree-sitter-markdown",
+  --files = { "src/parser.c", "src/scanner.cc" },
+  --branch = "main",
+  --},
   --}
   --local list = require("nvim-treesitter.parsers").get_parser_configs()
   --list.commonlisp = {
@@ -797,7 +803,6 @@ if ok then
   end
 end
 
-
 vim.cmd [[
 command! -complete=file -nargs=* DebugRust lua require "my_debug".start_c_debugger({<f-args>}, "gdb", "rust-gdb")
 ]]
@@ -814,28 +819,40 @@ if pcall(require, "vim.lsp.semantic_tokens") then
   }
 end
 
-local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
+local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 parser_configs.norg = {
-    install_info = {
-        url = "https://github.com/nvim-neorg/tree-sitter-norg",
-        files = { "src/parser.c", "src/scanner.cc" },
-        branch = "main"
-    },
+  install_info = {
+    url = "https://github.com/nvim-neorg/tree-sitter-norg",
+    files = { "src/parser.c", "src/scanner.cc" },
+    branch = "main",
+  },
 }
 
 --for _, config in pairs(require("nvim-treesitter.parsers").get_parser_configs()) do
-  --config.install_info.use_makefile = true
-  --config.install_info.cxx_standard = 'c++14'
+--config.install_info.use_makefile = true
+--config.install_info.cxx_standard = 'c++14'
 --end
-vim.highlight.create('DapBreakpoint', { ctermbg=0, guifg='#993939', guibg='#31353f' }, false)
-vim.highlight.create('DapLogPoint', { ctermbg=0, guifg='#61afef', guibg='#31353f' }, false)
-vim.highlight.create('DapStopped', { ctermbg=0, guifg='#98c379', guibg='#31353f' }, false)
+vim.highlight.create("DapBreakpoint", { ctermbg = 0, guifg = "#993939", guibg = "#31353f" }, false)
+vim.highlight.create("DapLogPoint", { ctermbg = 0, guifg = "#61afef", guibg = "#31353f" }, false)
+vim.highlight.create("DapStopped", { ctermbg = 0, guifg = "#98c379", guibg = "#31353f" }, false)
 
-vim.fn.sign_define('DapBreakpoint', { text='', texthl='DapBreakpoint', linehl='DapBreakpoint', numhl='DapBreakpoint' })
-vim.fn.sign_define('DapBreakpointCondition', { text='ﳁ', texthl='DapBreakpoint', linehl='DapBreakpoint', numhl='DapBreakpoint' })
-vim.fn.sign_define('DapBreakpointRejected', { text='', texthl='DapBreakpoint', linehl='DapBreakpoint', numhl= 'DapBreakpoint' })
-vim.fn.sign_define('DapLogPoint', { text='', texthl='DapLogPoint', linehl='DapLogPoint', numhl= 'DapLogPoint' })
-vim.fn.sign_define('DapStopped', { text='', texthl='DapStopped', linehl='DapStopped', numhl= 'DapStopped' })
+vim.fn.sign_define(
+  "DapBreakpoint",
+  { text = "", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }
+)
+vim.fn.sign_define(
+  "DapBreakpointCondition",
+  { text = "ﳁ", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }
+)
+vim.fn.sign_define(
+  "DapBreakpointRejected",
+  { text = "", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }
+)
+vim.fn.sign_define(
+  "DapLogPoint",
+  { text = "", texthl = "DapLogPoint", linehl = "DapLogPoint", numhl = "DapLogPoint" }
+)
+vim.fn.sign_define("DapStopped", { text = "", texthl = "DapStopped", linehl = "DapStopped", numhl = "DapStopped" })
 
 --vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
 --vim.lsp.handlers.hover, {
