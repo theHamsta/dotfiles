@@ -162,6 +162,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
       })
     end,
   }
+  use "p00f/clangd_extensions.nvim"
   use { "earthly/earthly.vim", filetype = "earthly" }
   --use { "projekt0n/github-nvim-theme" }
   use {
@@ -763,10 +764,10 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   --use {"fsprojects/fsharp-language-server", run = "npm install && dotnet build -c Release"}
   --use { 'neoclide/coc.nvim', run = 'yarn install --frozen-lockfile', ft = 'fsharp'}
   --use {
-    --"autozimu/LanguageClient-neovim",
-    --branch = "next",
-    --run = "bash install.sh",
-    --ft = "fsharp",
+  --"autozimu/LanguageClient-neovim",
+  --branch = "next",
+  --run = "bash install.sh",
+  --ft = "fsharp",
   --}
   use { "jceb/vim-orgmode", ft = "org" }
   use { "junegunn/fzf", run = ":call fzf#install()" }
@@ -776,7 +777,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   use "junegunn/gv.vim"
   use "justinmk/vim-gtfo"
   use { "justinmk/vim-sneak", opt = true }
-  --use "kassio/neoterm"
+  use "kassio/neoterm"
   --use { "lervag/vimtex", opt = true }
   --use "machakann/vim-swap"
   --use "p00f/nvim-ts-rainbow"

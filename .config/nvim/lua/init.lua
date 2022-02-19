@@ -131,9 +131,9 @@ if ok then
     },
   }
 
-  --lspconfig.pyright.setup {
-  --on_attach = on_attach
-  --}
+  lspconfig.pyright.setup {
+    on_attach = on_attach,
+  }
 
   lspconfig.pylsp.setup {
     on_attach = on_attach,
@@ -161,20 +161,40 @@ if ok then
   lspconfig.hls.setup {
     on_attach = on_attach,
   }
-  lspconfig.clangd.setup {
-    cmd = {
-      "clangd-15",
-      "--clang-tidy",
-      "--all-scopes-completion",
-      "--header-insertion=iwyu",
-      "--background-index",
-      "--suggest-missing-includes",
-      "--cross-file-rename",
-    },
-    filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
-    on_attach = on_attach,
-    capabilities = capabilities,
-  }
+  --lspconfig.clangd.setup {
+  --cmd = {
+  --"clangd-15",
+  --"--clang-tidy",
+  --"--all-scopes-completion",
+  --"--header-insertion=iwyu",
+  --"--background-index",
+  --"--suggest-missing-includes",
+  --"--cross-file-rename",
+  --},
+  --filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
+  --on_attach = on_attach,
+  --capabilities = capabilities,
+  --}
+
+  local ok = pcall(require, "clangd_extensions")
+  if ok then
+    require("clangd_extensions").setup {
+      server = {
+        cmd = {
+          "clangd-15",
+          "--clang-tidy",
+          "--all-scopes-completion",
+          "--header-insertion=iwyu",
+          "--background-index",
+          "--suggest-missing-includes",
+          "--cross-file-rename",
+        },
+        filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
+        on_attach = on_attach,
+        capabilities = capabilities,
+      },
+    }
+  end
   local sumneko_root_path = vim.fn.expand "~/projects/lua-language-server"
   local sumneko_binary = sumneko_root_path .. "/bin/Linux/lua-language-server"
 
