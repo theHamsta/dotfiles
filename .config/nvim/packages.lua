@@ -233,7 +233,11 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
               },
             },
           },
-          ["core.gtd.base"] = {},
+          ["core.gtd.base"] = {
+            config = {
+              workspace = "foo",
+            }
+          },
           ["core.gtd.queries"] = {},
           ["core.gtd.ui"] = {},
           ["core.queries.native"] = {},
