@@ -36,13 +36,13 @@ release:
 gcc-release:
 	mkdir -p gcc-release
 	export CXX=g++-11 && export CC=gcc-11 && cd gcc-release && cmake \
-	    -DCMAKE_EXPORT_COMPILE_COMMANDS=YES  \
-	    -DCMAKE_VERBOSE_MAKEFILE=OFF  \
-	    -DCMAKE_BUILD_TYPE=Release -G Ninja \
-	    -DCMAKE_CUDA_ARCHITECTURES=OFF \
-	    -DCMAKE_CXX_FLAGS=-fdiagnostics-color \
-	    -DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native" \
-	    -DCMAKE_C_FLAGS=-fdiagnostics-color ..
+		-DCMAKE_EXPORT_COMPILE_COMMANDS=YES  \
+		-DCMAKE_VERBOSE_MAKEFILE=OFF  \
+		-DCMAKE_BUILD_TYPE=Release -G Ninja \
+		-DCMAKE_CUDA_ARCHITECTURES=OFF \
+		-DCMAKE_CXX_FLAGS=-fdiagnostics-color \
+		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native" \
+		-DCMAKE_C_FLAGS="-fdiagnostics-color" ..
 	cd gcc-release && cmake --build . -- -j$(nproc)
 
 gcc-9-release:
