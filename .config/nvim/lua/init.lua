@@ -791,7 +791,7 @@ if ok then
   hlmap["function.builtin"] = "Special"
   hlmap["function.macro"] = "Macro"
   hlmap["parameter"] = "Identifier"
-  hlmap["method"] = "Identifier"
+  hlmap["method"] = "Function"
   hlmap["field"] = "Identifier"
   hlmap["property"] = "Identifier"
   hlmap["constructor"] = "Function"
