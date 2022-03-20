@@ -468,7 +468,6 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   --}
   --use "steelsojka/completion-buffers"
   use { "danilo-augusto/vim-afterglow", opt = true }
-  use { "jubnzv/virtual-types.nvim" }
   use "ocaml/vim-ocaml"
   use { "kevinhwang91/nvim-hlslens", opt = true }
   use {
