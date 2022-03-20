@@ -131,9 +131,9 @@ if ok then
     },
   }
 
-  lspconfig.pyright.setup {
-    on_attach = on_attach,
-  }
+  --lspconfig.pyright.setup {
+    --on_attach = on_attach,
+  --}
 
   lspconfig.pylsp.setup {
     on_attach = on_attach,
