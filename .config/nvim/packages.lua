@@ -67,6 +67,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   --"sidebar-nvim/sections-dap",
   --}
 
+  use { "mattboehm/vim-unstack", cmd = "UnstackFromText" }
   use {
     "numToStr/Comment.nvim",
     config = function()
@@ -101,7 +102,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
       }
     end,
   }
-  use { "ray-x/lsp_signature.nvim" }
+  use "ray-x/lsp_signature.nvim"
   use {
     "hrsh7th/nvim-cmp",
     requires = {
@@ -180,12 +181,12 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   }
   use { "jceb/emmet.snippets" }
   use { "theHamsta/vim-snippets" }
-  use {
-    "rmagatti/goto-preview",
-    config = function()
-      require("goto-preview").setup {}
-    end,
-  }
+  --use {
+  --"rmagatti/goto-preview",
+  --config = function()
+  --require("goto-preview").setup {}
+  --end,
+  --}
   use {
     "beauwilliams/focus.nvim",
     opt = true,
@@ -236,7 +237,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
           ["core.gtd.base"] = {
             config = {
               workspace = "foo",
-            }
+            },
           },
           ["core.gtd.queries"] = {},
           ["core.gtd.ui"] = {},

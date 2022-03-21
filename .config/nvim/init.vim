@@ -4,6 +4,7 @@ set background=dark
 colorscheme one
 ":packadd tokyonight.nvim | let g:tokyonight_style = "storm" | colorscheme tokyonight
 
+let g:unstack_mapkey='<leader><F10>'
 set tags=./tags,tags
 set encoding=UTF-8
 
@@ -444,9 +445,9 @@ function! NvimLspMaps()
     nnoremap <buffer> <silent> äk <cmd>lua vim.diagnostic.goto_prev()<CR>
     nnoremap <buffer> <silent> äj <cmd>lua vim.diagnostic.goto_next()<CR>
 
-    nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<CR>
-    nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>
-    nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>
+    ""nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<cr>
+    ""nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>
+    ""nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>
     nnoremap <silent> <leader>fi <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>
 "|| &filetype == "cpp" || &filetype == "cuda" || &filetype == "c"
     if &filetype == "rust" 
@@ -1205,8 +1206,7 @@ function DapMaps()
     nmap <buffer> <silent> <leader>lb :lua require'dap'.list_breakpoints()<CR>
     nmap <buffer> <silent> <leader>bm :DebugRepl<cr>
     nmap <buffer> <silent> <leader>dh :lua require 'dap.ui.widgets'.hover()<cr>
-    vmap <buffer> <silent> <leader>dh :lua require 'dap.ui.widgets'.visual_hover()<cr>
-    nmap <buffer> <silent> <leader>ds :lua require 'dap.ui.widgets'.scopes()<cr>
+    nmap <buffer> <silent> <leader>ds :lua require 'dap.ui.widgets'.scopes(require 'dap.ui.widgets'.scopes)<cr>
     nmap <buffer> <silent> <leader>df :lua require 'dap.ui.widgets'.frames()<cr>
     nmap <buffer> <silent> <leader>TN :lua require'dap';require 'dap-python'.test_method()<cr>:lua require 'dap.repl'.open()<cr>
     nmap <buffer> <silent> <leader>bT :lua require 'dap'.run_last()<cr>:lua require 'dap.repl'.open()<cr>
@@ -1370,3 +1370,23 @@ nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+
+
+"function! CustomgF()
+    "let line = getline('.')->matchstr(', line \zs\d\+')
+
+    "if line
+        "" if we have one, do regular gF, which won't jump
+        "" to the desired line anyway because Vim can't parse
+        "" tracebacks properly
+        "normal! gF
+
+        "" but we don't care because we can jump
+        "" to the found line on our own
+        "execute line
+    "else
+        "" if we don't, do regular gF
+        "normal! gF
+    "endif
+"endfunction
+"nnoremap gP <Cmd>call CustomgF()<CR>
