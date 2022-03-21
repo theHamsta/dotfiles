@@ -430,7 +430,8 @@ function! NvimLspMaps()
     nnoremap <buffer><silent> <leader>gi         <cmd>lua vim.lsp.buf.implementation()<CR>
     inoremap <buffer><silent> <c-g>         <cmd>lua vim.lsp.buf.signature_help()<CR>
     nnoremap <buffer><silent> <leader>ld <cmd>lua vim.diagnostic.open_float()<CR>
-    nnoremap <buffer><silent> <leader>lD <cmd>lua vim.diagnostic.set_loclist()<CR>
+    nnoremap <buffer><silent> <leader>lD <cmd>lua vim.diagnostic.setqflist()<CR>
+    "nnoremap <buffer><silent> <leader>lD <cmd>lua vim.diagnostic.setloclist()<CR>
     nnoremap <buffer><silent> <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
     nnoremap <buffer><silent> <leader>ic <cmd>lua vim.lsp.buf.incoming_calls()<CR>
     vnoremap <buffer><silent> <leader>oc <cmd>lua vim.lsp.buf.outgoing_calls()<CR>
