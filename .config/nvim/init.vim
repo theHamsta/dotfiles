@@ -1054,8 +1054,10 @@ nnoremap <silent> <c-0> :lua require'my_gui'.reset_fontsize()<cr>
 "nnoremap <Leader>nf :CHADopen<cr>
 "nnoremap <Leader>nt :CHADopen<cr>
 
-nnoremap <Leader>nf :NERDTreeFind<cr>
-nnoremap <Leader>nt :NERDTreeToggle<cr>
+"nnoremap <Leader>nf :NERDTreeFind<cr>
+"nnoremap <Leader>nt :NERDTreeToggle<cr>
+nnoremap <Leader>nf :Neotree filesystem reveal left<cr>
+nnoremap <Leader>nt :Neotree toggle<cr>
 ""
 "let g:diagnostic_insert_delay = 1
 

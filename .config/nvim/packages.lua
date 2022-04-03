@@ -104,6 +104,20 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   }
   use "ray-x/lsp_signature.nvim"
   use {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v2.x",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+    },
+    config = function()
+      require("neo-tree").setup {}
+    end,
+    --cmd = { "Neotree" },
+  }
+  use { "ray-x/lsp_signature.nvim" }
+  use {
     "hrsh7th/nvim-cmp",
     requires = {
       "quangnguyen30192/cmp-nvim-ultisnips",
@@ -758,11 +772,11 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   use "hotwatermorning/auto-git-diff"
   use "idanarye/vim-merginal"
 
-  use { "ivalkeen/nerdtree-execute", cmd = { "NERDTreeToggle", "NERDTreeFind" } }
-  use { "Xuyuanp/nerdtree-git-plugin", cmd = { "NERDTreeToggle", "NERDTreeFind" } }
-  use { "preservim/nerdtree" }
-  --use {"preservim/nerdtree", cmd = {"NERDTreeToggle", "NERDTreeFind"}}
-  use { "tiagofumo/vim-nerdtree-syntax-highlight", cmd = { "NERDTreeToggle", "NERDTreeFind" } }
+  --use { "ivalkeen/nerdtree-execute", cmd = { "NERDTreeToggle", "NERDTreeFind" } }
+  --use { "Xuyuanp/nerdtree-git-plugin", cmd = { "NERDTreeToggle", "NERDTreeFind" } }
+  --use { "preservim/nerdtree" }
+  ----use {"preservim/nerdtree", cmd = {"NERDTreeToggle", "NERDTreeFind"}}
+  --use { "tiagofumo/vim-nerdtree-syntax-highlight", cmd = { "NERDTreeToggle", "NERDTreeFind" } }
   use { "janko/vim-test", ft = { "rust", "python" } }
   use { "ionide/Ionide-vim", run = "make fsautocomplete", ft = "fsharp" }
   --use {"fsprojects/fsharp-language-server", run = "npm install && dotnet build -c Release"}
