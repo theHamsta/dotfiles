@@ -102,7 +102,6 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
       }
     end,
   }
-  use "ray-x/lsp_signature.nvim"
   use {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",
