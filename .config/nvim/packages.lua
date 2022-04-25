@@ -282,7 +282,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     config = function()
       require("trouble").setup {}
     end,
-    cmd = { "LspTrouble" },
+    cmd = { "Trouble" },
   }
   use {
     "Saecki/crates.nvim",
@@ -786,7 +786,16 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   --run = "bash install.sh",
   --ft = "fsharp",
   --}
-  use { "jceb/vim-orgmode", ft = "org" }
+  use {
+    "nvim-orgmode/orgmode",
+    ft = "org",
+    config = function()
+      require("orgmode").setup {
+        org_agenda_files = { "~/Dropbox/org/*", "~/my-orgs/**/*" },
+        org_default_notes_file = "~/Dropbox/org/refile.org",
+      }
+    end,
+  }
   use { "junegunn/fzf", run = ":call fzf#install()" }
   use "junegunn/fzf.vim"
   --use "junegunn/goyo.vim"

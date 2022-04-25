@@ -22,9 +22,4 @@ M.launch_java_main = function(main_class)
   launcher.term_run('./gradlew run -PmainClass='..main_class)
 end
 
-M.launch_java_main = function(main_class)
-  M.last_main = main_class
-  launcher.term_run('./gradlew run -PmainClass='..main_class)
-end
-
 return M

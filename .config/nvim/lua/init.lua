@@ -37,6 +37,9 @@ function E(...)
   return ...
 end
 
+--vim.g.do_filetype_lua = 1
+--vim.filetype.add { extension = { vert = "glsl", frag = "glsl" } }
+
 --local configs = require "lspconfig.configs"
 --local lspconfig = require("lspconfig")
 
@@ -132,7 +135,7 @@ if ok then
   }
 
   --lspconfig.pyright.setup {
-    --on_attach = on_attach,
+  --on_attach = on_attach,
   --}
 
   lspconfig.pylsp.setup {
