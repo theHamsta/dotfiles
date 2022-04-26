@@ -66,6 +66,10 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   --use {
   --"sidebar-nvim/sections-dap",
   --}
+  use {
+    "nvim-lualine/lualine.nvim",
+    requires = { "kyazdani42/nvim-web-devicons", opt = true },
+  }
 
   use { "mattboehm/vim-unstack", cmd = "UnstackFromText" }
   use {
@@ -871,16 +875,16 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   use "tpope/vim-sleuth"
   use "tpope/vim-surround"
   use "tpope/vim-unimpaired"
-  use { "vim-airline/vim-airline", requires = "vim-airline/vim-airline-themes", opt = true }
+  --use { "vim-airline/vim-airline", requires = "vim-airline/vim-airline-themes", opt = true }
 
-  use {
-    "theHamsta/galaxyline.nvim",
-    requires = "kyazdani42/nvim-web-devicons",
-    config = function()
-      require "my_statusline"
-    end,
-    opt = false,
-  }
+  --use {
+    --"theHamsta/galaxyline.nvim",
+    --requires = "kyazdani42/nvim-web-devicons",
+    --config = function()
+      --require "my_statusline"
+    --end,
+    --opt = false,
+  --}
   use "wellle/targets.vim"
   use "whiteinge/diffconflicts"
   use "TravonteD/luajob"
