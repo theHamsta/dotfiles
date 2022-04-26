@@ -69,6 +69,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   use {
     "nvim-lualine/lualine.nvim",
     requires = { "kyazdani42/nvim-web-devicons", opt = true },
+    config = function() require('lualine').setup() end
   }
 
   use { "mattboehm/vim-unstack", cmd = "UnstackFromText" }
