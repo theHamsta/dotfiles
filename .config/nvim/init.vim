@@ -322,6 +322,7 @@ autocmd FileType rust nmap <silent> <leader>tN <c-w>o:wa<cr>:Topen<cr>:exec 'T c
 autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
 
 nmap <c-a-p> :cd ~/projects<cr>:Files<cr>
+nmap <space><c-p> :cd ~/projects<cr>:Files<cr>
 nmap <a-p> :cd ~/projects<cr>:Buffers<cr>
 nnoremap <a-g> :GFiles?<cr>
 nmap <leader>gg :GF?<cr>
