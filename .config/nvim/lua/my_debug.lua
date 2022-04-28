@@ -57,7 +57,6 @@ function M.python_debug(args)
     dap.adapters.python,
     {
       type = "python",
-      request = "launch",
       name = args[1],
       console = "integratedTerminal",
       justMyCode = false,
