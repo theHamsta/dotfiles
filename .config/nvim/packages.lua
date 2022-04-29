@@ -69,9 +69,26 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   use {
     "nvim-lualine/lualine.nvim",
     requires = { "kyazdani42/nvim-web-devicons", opt = true },
-    config = function() require('lualine').setup() end
+    config = function()
+      require("lualine").setup()
+    end,
   }
-
+  --use {
+  --"mfussenegger/nvim-lint",
+  --config = function()
+  --require("lint").linters_by_ft = {
+  --markdown = { "vale", "markdownlint" },
+  --lua = { "luacheck" },
+  --}
+  --vim.cmd [[au BufWritePost <buffer> lua require('lint').try_lint()]]
+  --end,
+  --}
+  use {
+    "j-hui/fidget.nvim",
+    config = function()
+      require("fidget").setup {}
+    end,
+  }
   use { "mattboehm/vim-unstack", cmd = "UnstackFromText" }
   use {
     "numToStr/Comment.nvim",
@@ -614,6 +631,8 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     "theHamsta/nvim-dap-virtual-text",
     config = function()
       require("nvim-dap-virtual-text").setup {
+        only_first_definition = false,
+        --all_references = true, -- show virtual text on all all references of the variable (not only definitions)
         --highlight_changed_variables = true,
         ----highlight_new = true,
         ----virt_text_pos = "eol",
@@ -879,12 +898,12 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   --use { "vim-airline/vim-airline", requires = "vim-airline/vim-airline-themes", opt = true }
 
   --use {
-    --"theHamsta/galaxyline.nvim",
-    --requires = "kyazdani42/nvim-web-devicons",
-    --config = function()
-      --require "my_statusline"
-    --end,
-    --opt = false,
+  --"theHamsta/galaxyline.nvim",
+  --requires = "kyazdani42/nvim-web-devicons",
+  --config = function()
+  --require "my_statusline"
+  --end,
+  --opt = false,
   --}
   use "wellle/targets.vim"
   use "whiteinge/diffconflicts"
