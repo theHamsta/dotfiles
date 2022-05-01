@@ -471,7 +471,7 @@ function! NvimLspMaps()
     elseif &filetype == "lua" 
 
     else 
-        nnoremap <buffer><silent> <c-s> :w<cr><cmd>lua vim.lsp.buf.formatting()<cr>
+        nnoremap <buffer><silent> <c-s> :w<cr><cmd>lua vim.lsp.buf.format({async = true})<cr>
     endif
 
     setlocal omnifunc=v:lua.vim.lsp.omnifunc

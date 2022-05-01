@@ -73,16 +73,17 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
       require("lualine").setup()
     end,
   }
-  --use {
-  --"mfussenegger/nvim-lint",
-  --config = function()
-  --require("lint").linters_by_ft = {
-  --markdown = { "vale", "markdownlint" },
-  --lua = { "luacheck" },
-  --}
-  --vim.cmd [[au BufWritePost <buffer> lua require('lint').try_lint()]]
-  --end,
-  --}
+  use {
+    "mfussenegger/nvim-lint",
+    config = function()
+      require("lint").linters_by_ft = {
+        markdown = { "vale", "markdownlint" },
+        lua = { "luacheck" },
+        glsl = { "glslc" },
+      }
+      vim.cmd [[au BufEnter,BufWritePost * lua require('lint').try_lint()]]
+    end,
+  }
   use {
     "j-hui/fidget.nvim",
     config = function()
@@ -147,6 +148,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
       "hrsh7th/cmp-emoji",
+      "rcarriga/cmp-dap",
       "kdheepak/cmp-latex-symbols",
     },
     config = function()
@@ -180,6 +182,9 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
         --}),
         --['<CR>'] = cmp.mapping.confirm({ select = true }),
         --},
+        enabled = function()
+          return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
+        end,
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           --{ name = "ultisnips" }, -- For ultisnips users.
@@ -194,6 +199,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
       cmp.setup.cmdline("/", {
         sources = {
           { name = "buffer" },
+          { name = "dap" },
         },
       })
     end,
@@ -336,16 +342,16 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   use { "dstein64/nvim-scrollview", opt = true }
   --use { "Mofiqul/vim-code-dark", opt = true }
   use { "TimUntersberger/neogit", cmd = { "Neogit" } }
-  use {
-    "simrat39/rust-tools.nvim",
-    --filetype = "rust",
-    config = function()
-      local opts = {
-        autoSetHints = true,
-      }
-      require("rust-tools").setup(opts)
-    end,
-  }
+  --use {
+  --"simrat39/rust-tools.nvim",
+  ----filetype = "rust",
+  --config = function()
+  --local opts = {
+  --autoSetHints = false,
+  --}
+  --require("rust-tools").setup(opts)
+  --end,
+  --}
   use { "pwntester/octo.nvim", opt = true }
   --use {"tiagovla/tokyodark.nvim", opt = true}
   use { "folke/tokyonight.nvim", opt = true }
@@ -631,8 +637,8 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     "theHamsta/nvim-dap-virtual-text",
     config = function()
       require("nvim-dap-virtual-text").setup {
-        only_first_definition = false,
-        --all_references = true, -- show virtual text on all all references of the variable (not only definitions)
+        --only_first_definition = true,
+        all_references = true, -- show virtual text on all all references of the variable (not only definitions)
         --highlight_changed_variables = true,
         ----highlight_new = true,
         ----virt_text_pos = "eol",
