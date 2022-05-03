@@ -157,7 +157,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
 
       cmp.setup {
         experimental = {
-          ghost_text = true,
+          ghost_text = false,
         },
         view = {
           entries = "native",
@@ -191,17 +191,10 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
           { name = "emoji", insert = true },
           { name = "latex_symbols" },
           { name = "neorg" },
-        }, {
-          { name = "buffer" },
-        }),
-      }
-
-      cmp.setup.cmdline("/", {
-        sources = {
-          { name = "buffer" },
           { name = "dap" },
-        },
-      })
+          { name = "buffer" },
+        } ),
+      }
     end,
   }
   use "p00f/clangd_extensions.nvim"
