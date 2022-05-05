@@ -77,7 +77,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     "mfussenegger/nvim-lint",
     config = function()
       require("lint").linters_by_ft = {
-        markdown = { "vale", "markdownlint" },
+        markdown = { "markdownlint" },
         lua = { "luacheck" },
         glsl = { "glslc" },
       }
@@ -192,8 +192,9 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
           { name = "latex_symbols" },
           { name = "neorg" },
           { name = "dap" },
+        }, {
           { name = "buffer" },
-        } ),
+        }),
       }
     end,
   }
