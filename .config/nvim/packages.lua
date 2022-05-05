@@ -171,17 +171,6 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
             -- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
           end,
         },
-        --mapping = {
-        --['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-        --['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-        --['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-        --['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-        --['<C-e>'] = cmp.mapping({
-        --i = cmp.mapping.abort(),
-        --c = cmp.mapping.close(),
-        --}),
-        --['<CR>'] = cmp.mapping.confirm({ select = true }),
-        --},
         enabled = function()
           return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
         end,
@@ -698,7 +687,6 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     },
     opt = false,
     config = function()
-      if true then
         require("gitsigns").setup {
           signs = {
             add = { hl = "GitGutterAdd", text = "▋", numhl = "GitSignsAddNr" },
@@ -731,38 +719,6 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
           sign_priority = 6,
           status_formatter = nil, -- Use default
         }
-      else
-        require("gitsigns").setup {
-          signs = {
-            add = { hl = "GitGutterAdd", text = "+" },
-            change = { hl = "GitGutterChange", text = "~" },
-            delete = { hl = "GitGutterDelete", text = "_" },
-            topdelete = { hl = "GitGutterDelete", text = "‾" },
-            changedelete = { hl = "GitGutterChange", text = "~" },
-          },
-          numhl = false,
-          keymaps = {
-            -- Default keymap options
-            noremap = true,
-            buffer = true,
-            ["n ]c"] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'" },
-            ["n [c"] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'" },
-            ["n <leader>hs"] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
-            ["n <leader>hr"] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
-            ["n <leader>hu"] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
-            ["n <leader>hp"] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
-            ["n <leader>hb"] = '<cmd>lua require"gitsigns".blame_line()<CR>',
-            -- Text objects
-            ["o ih"] = ':<C-U>lua require"gitsigns".text_object()<CR>',
-            ["x ih"] = ':<C-U>lua require"gitsigns".text_object()<CR>',
-          },
-          watch_gitdir = {
-            interval = 1000,
-          },
-          sign_priority = 6,
-          status_formatter = nil, -- Use default
-        }
-      end
     end,
   }
   use {
