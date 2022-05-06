@@ -1,8 +1,6 @@
 nmap <buffer> <silent> <leader>bt :wa<cr>:DebugLLDB<cr>
 
-if exists('DapMaps')
 call DapMaps()
-endif
 
 nmap <buffer> <silent> <a-o> :ClangdSwitchSourceHeader<cr>
 
