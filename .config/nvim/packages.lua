@@ -55,10 +55,15 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   use {
     "mfussenegger/nvim-lint",
     config = function()
+      local function select_executables(executables)
+        return vim.tbl_filter(function(c)
+          return c ~= vim.NIL and vim.fn.executable(c) == 1
+        end, executables)
+      end
       require("lint").linters_by_ft = {
-        markdown = { "markdownlint" },
-        lua = { "luacheck" },
-        glsl = { "glslc" },
+        markdown = select_executables { "markdownlint" },
+        lua = select_executables { "luacheck" },
+        glsl = select_executables { "glslc" },
       }
       vim.cmd [[au BufEnter,BufWritePost * lua require('lint').try_lint()]]
     end,
