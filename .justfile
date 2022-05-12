@@ -11,7 +11,8 @@ build *args:
 		-DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
 		-DCMAKE_C_FLAGS=-fdiagnostics-color  \
 		-DCMAKE_CUDA_ARCHITECTURES=OFF \
-		-DCMAKE_CUDA_FLAGS=-Wno-deprecated-gpu-targets  .. {{args}}
+		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo" \
+		.. {{args}}
 	rm -f compile_commands.json
 	ln -s debug/compile_commands.json
 	cd debug && cmake --build . -- -j$(nproc)
@@ -29,7 +30,7 @@ release:
 		-DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color -march=native" \
 		-DCMAKE_C_FLAGS=-fdiagnostics-color \
 		-DCMAKE_CUDA_ARCHITECTURES=OFF \
-		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native" \
+		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo" \
 		..
 	cd release && cmake --build . -- -j$(nproc)
 
@@ -41,7 +42,7 @@ gcc-release:
 		-DCMAKE_BUILD_TYPE=Release -G Ninja \
 		-DCMAKE_CUDA_ARCHITECTURES=OFF \
 		-DCMAKE_CXX_FLAGS=-fdiagnostics-color \
-		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native" \
+		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo" \
 		-DCMAKE_C_FLAGS="-fdiagnostics-color" ..
 	cd gcc-release && cmake --build . -- -j$(nproc)
 
