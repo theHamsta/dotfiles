@@ -45,27 +45,6 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     ]]
     end,
   }
-  --use {
-  --"sidebar-nvim/sidebar.nvim",
-  --config = function()
-  --require("sidebar-nvim").setup {
-  --sections = {
-  --"datetime",
-  --"git",
-  --"diagnostics",
-  --require "dap-sidebar-nvim.breakpoints",
-  --},
-  --dap = {
-  --breakpoints = {
-  --icon = "🔍",
-  --},
-  --},
-  --}
-  --end,
-  --}
-  --use {
-  --"sidebar-nvim/sections-dap",
-  --}
   use {
     "nvim-lualine/lualine.nvim",
     requires = { "kyazdani42/nvim-web-devicons", opt = true },
@@ -687,38 +666,38 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     },
     opt = false,
     config = function()
-        require("gitsigns").setup {
-          signs = {
-            add = { hl = "GitGutterAdd", text = "▋", numhl = "GitSignsAddNr" },
-            change = { hl = "GitGutterChange", text = "▐", numhl = "GitSignsChangeNr" },
-            delete = { hl = "GitGutterDelete", text = "_", numhl = "GitSignsDeleteNr" },
-            topdelete = { hl = "GitGutterDelete", text = "‾", numhl = "GitSignsDeleteNr" },
-            changedelete = { hl = "GitGutterChange", text = "▐_", numhl = "GitSignsChangeNr" },
-          },
-          numhl = false,
-          keymaps = {
-            -- Default keymap options
-            noremap = true,
-            buffer = true,
-            --['n <c-a-j>'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'"},
-            --['n <c-a-h>'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'"},
-            ["n <c-a-j>"] = '<cmd>lua require"gitsigns".next_hunk()<CR>',
-            ["n <c-a-h>"] = '<cmd>lua require"gitsigns".prev_hunk()<CR>',
-            ["n <leader>hs"] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
-            ["n <leader>hr"] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
-            ["n <leader>hu"] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
-            ["n <leader>hp"] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
-            ["n <leader>hb"] = '<cmd>lua require"gitsigns".blame_line()<CR>',
-            -- Text objects
-            ["o ah"] = ':<C-U>lua require"gitsigns".select_hunk()<CR>',
-            ["x ah"] = ':<C-U>lua require"gitsigns".select_hunk()<CR>',
-          },
-          watch_gitdir = {
-            interval = 1000,
-          },
-          sign_priority = 6,
-          status_formatter = nil, -- Use default
-        }
+      require("gitsigns").setup {
+        signs = {
+          add = { hl = "GitGutterAdd", text = "▋", numhl = "GitSignsAddNr" },
+          change = { hl = "GitGutterChange", text = "▐", numhl = "GitSignsChangeNr" },
+          delete = { hl = "GitGutterDelete", text = "_", numhl = "GitSignsDeleteNr" },
+          topdelete = { hl = "GitGutterDelete", text = "‾", numhl = "GitSignsDeleteNr" },
+          changedelete = { hl = "GitGutterChange", text = "▐_", numhl = "GitSignsChangeNr" },
+        },
+        numhl = false,
+        keymaps = {
+          -- Default keymap options
+          noremap = true,
+          buffer = true,
+          --['n <c-a-j>'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'"},
+          --['n <c-a-h>'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'"},
+          ["n <c-a-j>"] = '<cmd>lua require"gitsigns".next_hunk()<CR>',
+          ["n <c-a-h>"] = '<cmd>lua require"gitsigns".prev_hunk()<CR>',
+          ["n <leader>hs"] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
+          ["n <leader>hr"] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
+          ["n <leader>hu"] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
+          ["n <leader>hp"] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
+          ["n <leader>hb"] = '<cmd>lua require"gitsigns".blame_line()<CR>',
+          -- Text objects
+          ["o ah"] = ':<C-U>lua require"gitsigns".select_hunk()<CR>',
+          ["x ah"] = ':<C-U>lua require"gitsigns".select_hunk()<CR>',
+        },
+        watch_gitdir = {
+          interval = 1000,
+        },
+        sign_priority = 6,
+        status_formatter = nil, -- Use default
+      }
     end,
   }
   use {
