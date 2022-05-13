@@ -626,7 +626,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   use "AndrewRadev/switch.vim"
   --use "JuliaEditorSupport/julia-vim"
   use "Julian/vim-textobj-variable-segment"
-  use { "SirVer/ultisnips", opt = false, run = ":UpdateRemotePlugins" }
+  --use { "SirVer/ultisnips", opt = false, run = ":UpdateRemotePlugins" }
   use "Valloric/ListToggle"
   --use "airblade/vim-gitgutter"
   use {
