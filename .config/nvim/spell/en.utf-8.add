@@ -450,3 +450,5 @@ fftpack
 pyplot
 plt
 getenv
+shaders
+uv

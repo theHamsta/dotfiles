@@ -454,6 +454,7 @@ function! NvimLspMaps()
 "|| &filetype == "cpp" || &filetype == "cuda" || &filetype == "c"
     if &filetype == "rust" 
         autocmd BufEnter,CursorHold,InsertLeave <buffer> lua require 'vim.lsp.buf'.semantic_tokens_full()
+        nnoremap <buffer> <c-a-o> :Telescope lsp_document_symbols<cr>
     endif
     "if &filetype != "tex" && &filetype != "haskell"
         "inoremap <buffer><silent> (     <cmd>lua vim.lsp.buf.signature_help()<CR>(
