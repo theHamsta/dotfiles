@@ -724,6 +724,7 @@ if ok then
     },
     fold = {
       enable = true,
+      fold_one_line_after = false,
     },
     refactor = {
       highlight_current_scope = {
