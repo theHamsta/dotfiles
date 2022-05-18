@@ -486,7 +486,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     end,
   }
   --use "ghifarit53/tokyonight-vim"
-  use "akinsho/nvim-toggleterm.lua"
+  --use "akinsho/nvim-toggleterm.lua"
   --use "chrisbra/unicode.vim"
   use "tpope/vim-speeddating"
   use "nvim-telescope/telescope-symbols.nvim"
