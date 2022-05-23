@@ -1401,3 +1401,5 @@ nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
     "endif
 "endfunction
 "nnoremap gP <Cmd>call CustomgF()<CR>
+"
+set laststatus=3
