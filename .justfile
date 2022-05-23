@@ -6,7 +6,7 @@ build:
 	mkdir -p debug
 	cd debug && cmake \
 		-DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
-		-DCMAKE_CUDA_HOST_COMPILER=g++-10 \
+		-DCMAKE_CUDA_HOST_COMPILER=g++-11 \
 		-DCMAKE_BUILD_TYPE=Debug -G Ninja \
 		-DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
 		-DCMAKE_C_FLAGS=-fdiagnostics-color  \
@@ -24,7 +24,7 @@ release:
 	cd release && cmake \
 		-DCMAKE_VERBOSE_MAKEFILE=OFF  \
 		-DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
-		-DCMAKE_CUDA_HOST_COMPILER=g++-9 \
+		-DCMAKE_CUDA_HOST_COMPILER=g++-11 \
 		-DCMAKE_BUILD_TYPE=Release -G Ninja \
 		-DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color -march=native" \
 		-DCMAKE_C_FLAGS=-fdiagnostics-color \

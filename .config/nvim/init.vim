@@ -455,6 +455,7 @@ function! NvimLspMaps()
     if &filetype == "rust" 
         autocmd BufEnter,CursorHold,InsertLeave <buffer> lua require 'vim.lsp.buf'.semantic_tokens_full()
         nnoremap <buffer> <c-a-o> :Telescope lsp_document_symbols<cr>
+        nnoremap <buffer> <leader><c-o> :Telescope lsp_document_symbols<cr>
     endif
     "if &filetype != "tex" && &filetype != "haskell"
         "inoremap <buffer><silent> (     <cmd>lua vim.lsp.buf.signature_help()<CR>(
@@ -1181,6 +1182,7 @@ nnoremap <c-h> :History<cr>
 nnoremap <c-t> :Tags<cr>
 nnoremap <c-s-t> :Telescope lsp_dynamic_workspace_symbols<cr>
 nnoremap <c-a-o> :BTags<cr>
+nnoremap <leader><c-o> :BTags<cr>
 luafile ~/.config/nvim/lua/init.lua
 
 command! -buffer JdtCompile lua require('jdtls').compile()

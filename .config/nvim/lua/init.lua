@@ -134,26 +134,26 @@ if ok then
     },
   }
 
-  --lspconfig.pyright.setup {
-  --on_attach = on_attach,
-  --}
-
-  lspconfig.pylsp.setup {
+  lspconfig.pyright.setup {
     on_attach = on_attach,
-    settings = {
-      pyls = {
-        plugins = {
-          pydocstyle = {
-            enabled = false,
-          },
-          pycodestyle = {
-            maxLineLength = 120,
-          },
-        },
-      },
-    },
-    capabilities = capabilities,
   }
+
+  --lspconfig.pylsp.setup {
+    --on_attach = on_attach,
+    --settings = {
+      --pyls = {
+        --plugins = {
+          --pydocstyle = {
+            --enabled = false,
+          --},
+          --pycodestyle = {
+            --maxLineLength = 120,
+          --},
+        --},
+      --},
+    --},
+    --capabilities = capabilities,
+  --}
 
   lspconfig.tsserver.setup {
     on_attach = on_attach,
