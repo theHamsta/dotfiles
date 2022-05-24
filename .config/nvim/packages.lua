@@ -161,7 +161,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
         end,
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
-          --{ name = "ultisnips" }, -- For ultisnips users.
+          { name = "ultisnips" }, -- For ultisnips users.
           { name = "emoji", insert = true },
           { name = "latex_symbols" },
           { name = "neorg" },
@@ -627,7 +627,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   use "AndrewRadev/switch.vim"
   --use "JuliaEditorSupport/julia-vim"
   use "Julian/vim-textobj-variable-segment"
-  --use { "SirVer/ultisnips", opt = false, run = ":UpdateRemotePlugins" }
+  use { "SirVer/ultisnips", opt = false, run = ":UpdateRemotePlugins" }
   use "Valloric/ListToggle"
   --use "airblade/vim-gitgutter"
   use {
