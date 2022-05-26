@@ -125,9 +125,31 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   }
   use { "ray-x/lsp_signature.nvim" }
   use {
+    "L3MON4D3/LuaSnip",
+    config = function()
+      require "theHamsta_luasnips"
+
+      vim.cmd [[
+imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
+" -1 for jumping backwards.
+inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
+
+snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
+snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
+
+" For changing choices in choiceNodes (not strictly necessary for a basic setup).
+imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+    ]]
+    end,
+    requires = {
+      "saadparwaiz1/cmp_luasnip",
+    },
+  }
+  use {
     "hrsh7th/nvim-cmp",
     requires = {
-      "quangnguyen30192/cmp-nvim-ultisnips",
+      --"quangnguyen30192/cmp-nvim-ultisnips",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
@@ -151,8 +173,8 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
           -- REQUIRED - you must specify a snippet engine
           expand = function(args)
             --vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-            -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-            vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+            require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
+            --vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
             -- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
           end,
         },
@@ -161,7 +183,8 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
         end,
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
-          { name = "ultisnips" }, -- For ultisnips users.
+          { name = "luasnip" }, -- For luasnip users.
+          --{ name = "ultisnips" }, -- For ultisnips users.
           { name = "emoji", insert = true },
           { name = "latex_symbols" },
           { name = "neorg" },
@@ -540,8 +563,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   use {
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
-    config = function()
-    end,
+    config = function() end,
   }
   use "nvim-treesitter/playground"
   --use "nvim-treesitter/nvim-tree-docs"
