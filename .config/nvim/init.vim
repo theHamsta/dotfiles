@@ -1255,8 +1255,8 @@ autocmd BufEnter,BufNewFile *.org set filetype=org
 nmap <leader>qf  :lua require'telescope.builtin'.quickfix()
 command TreeGrep  :lua require'telescope.builtin'.treesitter()
 let g:NERDCustomDelimiters = { 'lisp': { 'left': '#|','right': '|#' },'query': { 'left': ';','right': '' }, 'fsharp': { 'left': '//','right': '' }}
-"let g:neovide_cursor_vfx_mode = "railgun"
-let g:neovide_cursor_vfx_mode = "wireframe"
+let g:neovide_cursor_vfx_mode = "railgun"
+"let g:neovide_cursor_vfx_mode = "wireframe"
 
 autocmd BufReadPre,FileReadPre *.spirv setlocal bin
 autocmd BufReadPost,FileReadPost *.spirv call spirv#disassemble()
