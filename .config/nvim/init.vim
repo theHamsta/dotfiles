@@ -662,6 +662,8 @@ function! Fzf_dev()
 endfunction
 
 augroup filetypedetect
+    au! BufRead,BufNewFile *.hlsl,*.effect set filetype=hlsl
+    au! BufRead,BufNewFile *.scm set filetype=query
     au! BufRead,BufNewFile *.slint set filetype=slint
     au! BufRead,BufNewFile *.ll set filetype=llvm
     au! BufRead,BufNewFile *.cpp.tmpl set filetype=cpp

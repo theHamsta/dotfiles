@@ -64,6 +64,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
         markdown = select_executables { "markdownlint" },
         lua = select_executables { "luacheck" },
         glsl = select_executables { "glslc" },
+        hlsl = select_executables { "dxc" },
       }
       table.insert(require("lint").linters.glslc.args, "--target-env=vulkan1.3")
       vim.cmd [[au BufEnter,BufWritePost * lua require('lint').try_lint()]]
