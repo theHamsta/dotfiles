@@ -1256,6 +1256,8 @@ nmap <leader>qf  :lua require'telescope.builtin'.quickfix()
 command TreeGrep  :lua require'telescope.builtin'.treesitter()
 let g:NERDCustomDelimiters = { 'lisp': { 'left': '#|','right': '|#' },'query': { 'left': ';','right': '' }, 'fsharp': { 'left': '//','right': '' }}
 let g:neovide_cursor_vfx_mode = "railgun"
+let g:neovide_cursor_animation_length = 0.05
+let g:neovide_position_animation_length = 0.05
 "let g:neovide_cursor_vfx_mode = "wireframe"
 
 autocmd BufReadPre,FileReadPre *.spirv setlocal bin
