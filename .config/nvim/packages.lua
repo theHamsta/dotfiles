@@ -37,6 +37,7 @@ return packer.startup(function()
   use { "wbthomason/packer.nvim", opt = true }
   use { "famiu/nvim-reload", opt = true }
   use { "theHamsta/nvim-semantic-tokens", opt = false }
+  use "rafamadriz/friendly-snippets"
   use {
     "emmanueltouzery/agitator.nvim",
     config = function()
