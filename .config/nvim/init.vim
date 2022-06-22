@@ -687,8 +687,7 @@ augroup filetypedetect
     au! BufRead,BufNewFile Earthfile set filetype=Earthfile
     au! BufRead,BufNewFile build.earth set filetype=Earthfile
     au! BufRead,BufNewFile build.earth set filetype=Earthfile
-    au! BufRead,BufNewFile *.vert set filetype=glsl
-    au! BufRead,BufNewFile *.frag set filetype=glsl
+    au! BufRead,BufNewFile *.vert,*.frag,*.comp set filetype=glsl
 augroup END
 
 "let g:NERDTreeFileExtensionHighlightFullName = 1
