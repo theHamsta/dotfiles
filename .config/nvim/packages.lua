@@ -43,7 +43,7 @@ return packer.startup(function()
     "nvim-treesitter/nvim-treesitter-context",
     config = function()
       require("treesitter-context").setup {
-        enable = false, -- Enable this plugin (Can be enabled/disabled later via commands)
+        enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
         max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
         trim_scope = "outer", -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
         patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
@@ -78,7 +78,7 @@ return packer.startup(function()
         --     you can safely ignore them.
 
         zindex = 20, -- The Z-index of the context window
-        mode = "cursor", -- Line used to calculate context. Choices: 'cursor', 'topline'
+        mode = "topline", -- Line used to calculate context. Choices: 'cursor', 'topline'
       }
     end,
   }
@@ -233,7 +233,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
       "hrsh7th/cmp-emoji",
-      "rcarriga/cmp-dap",
+      --"rcarriga/cmp-dap",
       "kdheepak/cmp-latex-symbols",
     },
     config = function()
@@ -257,7 +257,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
           end,
         },
         enabled = function()
-          return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
+          return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"-- or require("cmp_dap").is_dap_buffer()
         end,
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
@@ -266,7 +266,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
           { name = "emoji", insert = true },
           { name = "latex_symbols" },
           { name = "neorg" },
-          { name = "dap" },
+          --{ name = "dap" },
         }, {
           { name = "buffer" },
         }),
@@ -672,6 +672,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       require("nvim-dap-virtual-text").setup {
         --only_first_definition = true,
         all_references = true, -- show virtual text on all all references of the variable (not only definitions)
+        all_frames = true,
         --highlight_changed_variables = true,
         ----highlight_new = true,
         ----virt_text_pos = "eol",

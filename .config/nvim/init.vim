@@ -1218,7 +1218,7 @@ function DapMaps()
     nmap <buffer> <silent> <leader>lb :lua require'dap'.list_breakpoints()<CR>
     nmap <buffer> <silent> <leader>bm :DebugRepl<cr>
     nmap <buffer> <silent> <leader>dh :lua require 'dap.ui.widgets'.hover()<cr>
-    nmap <buffer> <silent> <leader>ds :lua require 'dap.ui.widgets'.scopes(require 'dap.ui.widgets'.scopes)<cr>
+    nmap <buffer> <silent> <leader>ds :lua require 'dap.ui.widgets'.centered_float(require 'dap.ui.widgets'.scopes)<cr>
     nmap <buffer> <silent> <leader>df :lua require 'dap.ui.widgets'.frames()<cr>
     nmap <buffer> <silent> <leader>TN :lua require'dap';require 'dap-python'.test_method()<cr>:lua require 'dap.repl'.open()<cr>
     nmap <buffer> <silent> <leader>bT :lua require 'dap'.run_last()<cr>:lua require 'dap.repl'.open()<cr>
