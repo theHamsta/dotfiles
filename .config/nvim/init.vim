@@ -1406,3 +1406,4 @@ nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 "nnoremap gP <Cmd>call CustomgF()<CR>
 "
 set laststatus=3
+let g:copilot_node_command = "/usr/bin/node"

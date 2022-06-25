@@ -20,7 +20,7 @@ if lsp_status_ok then
   capabilities = vim.tbl_extend("keep", capabilities or {}, lsp_status.capabilities)
 end
 
-local capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 function D(a)
   print(vim.inspect(a))
@@ -139,20 +139,20 @@ if ok then
   }
 
   --lspconfig.pylsp.setup {
-    --on_attach = on_attach,
-    --settings = {
-      --pyls = {
-        --plugins = {
-          --pydocstyle = {
-            --enabled = false,
-          --},
-          --pycodestyle = {
-            --maxLineLength = 120,
-          --},
-        --},
-      --},
-    --},
-    --capabilities = capabilities,
+  --on_attach = on_attach,
+  --settings = {
+  --pyls = {
+  --plugins = {
+  --pydocstyle = {
+  --enabled = false,
+  --},
+  --pycodestyle = {
+  --maxLineLength = 120,
+  --},
+  --},
+  --},
+  --},
+  --capabilities = capabilities,
   --}
 
   lspconfig.tsserver.setup {
@@ -848,6 +848,40 @@ parser_configs.norg = {
     branch = "main",
   },
 }
+
+--local function safe_read(filename, read_quantifier)
+  --local file, err = io.open(filename, "r")
+  --if not file then
+    --error(err)
+  --end
+  --local content = file:read(read_quantifier)
+  --io.close(file)
+  --return content
+--end
+
+--local function read_query_files(filenames)
+  --local contents = {}
+
+  --for _, filename in ipairs(filenames) do
+    --table.insert(contents, safe_read(filename, "*a"))
+  --end
+
+  --return table.concat(contents, "")
+--end
+--vim.treesitter.query.set_query(
+  --"lua",
+  --"highlights",
+  --read_query_files(vim.treesitter.query.get_query_files("lua", "highlights")):gsub(
+    --[[%[
+ --"goto"
+ --"in"
+ --"local"
+--%] @keyword]],
+    --[[
+[ "goto" "in" ] @keyword
+  ]]
+  --)
+--)
 
 --for _, config in pairs(require("nvim-treesitter.parsers").get_parser_configs()) do
 --config.install_info.use_makefile = true

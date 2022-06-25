@@ -38,6 +38,7 @@ return packer.startup(function()
   use { "famiu/nvim-reload", opt = true }
   use { "theHamsta/nvim-semantic-tokens", opt = false }
   use "rafamadriz/friendly-snippets"
+  use "github/copilot.vim"
   use {
     "nvim-treesitter/nvim-treesitter-context",
     config = function()
