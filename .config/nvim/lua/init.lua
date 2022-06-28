@@ -89,6 +89,7 @@ if ok then
     on_attach = on_attach,
     capabilities = capabilities,
   }
+  require("lspconfig").taplo.setup { on_attach = on_attach, capabilities = capabilities }
 
   lspconfig.flow.setup {
     on_attach = on_attach,
@@ -841,52 +842,52 @@ if pcall(require, "vim.lsp.semantic_tokens") then
 end
 
 local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
-parser_configs.norg = {
-  install_info = {
-    url = "https://github.com/nvim-neorg/tree-sitter-norg",
-    files = { "src/parser.c", "src/scanner.cc" },
-    branch = "main",
-  },
-}
-
---local function safe_read(filename, read_quantifier)
+parser_configs.norg =
+  {
+    install_info = {
+      url = "https://github.com/nvim-neorg/tree-sitter-norg",
+      files = { "src/parser.c", "src/scanner.cc" },
+      branch = "main",
+    },
+  }  --local function safe_read(filename, read_quantifier)
   --local file, err = io.open(filename, "r")
   --if not file then
-    --error(err)
+  --error(err)
   --end
   --local content = file:read(read_quantifier)
   --io.close(file)
   --return content
---end
+  --end
 
---local function read_query_files(filenames)
+  --local function read_query_files(filenames)
   --local contents = {}
 
   --for _, filename in ipairs(filenames) do
-    --table.insert(contents, safe_read(filename, "*a"))
+  --table.insert(contents, safe_read(filename, "*a"))
   --end
 
   --return table.concat(contents, "")
---end
---vim.treesitter.query.set_query(
+  --end
+  --vim.treesitter.query.set_query(
   --"lua",
   --"highlights",
   --read_query_files(vim.treesitter.query.get_query_files("lua", "highlights")):gsub(
-    --[[%[
+  --[[%[
  --"goto"
  --"in"
  --"local"
---%] @keyword]],
+--%] @keyword]]
+,
     --[[
 [ "goto" "in" ] @keyword
   ]]
   --)
---)
+  --)
 
---for _, config in pairs(require("nvim-treesitter.parsers").get_parser_configs()) do
---config.install_info.use_makefile = true
---config.install_info.cxx_standard = 'c++14'
---end
+  --for _, config in pairs(require("nvim-treesitter.parsers").get_parser_configs()) do
+  --config.install_info.use_makefile = true
+  --config.install_info.cxx_standard = 'c++14'
+  --end
 vim.highlight.create("DapBreakpoint", { ctermbg = 0, guifg = "#993939", guibg = "#31353f" }, false)
 vim.highlight.create("DapLogPoint", { ctermbg = 0, guifg = "#61afef", guibg = "#31353f" }, false)
 vim.highlight.create("DapStopped", { ctermbg = 0, guifg = "#98c379", guibg = "#31353f" }, false)
