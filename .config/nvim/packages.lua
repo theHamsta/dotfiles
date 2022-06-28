@@ -112,7 +112,19 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
               return vim.fn.expand "%"
             end,
           },
-          lualine_x = { "encoding", "fileformat", "filetype" },
+          lualine_x = {
+            function()
+              return table.concat(
+                vim.tbl_map(function(server)
+                  return server.name
+                end, vim.lsp.get_active_clients { bufnr = vim.api.nvim_get_current_buf() }),
+                " "
+              )
+            end,
+            "encoding",
+            "fileformat",
+            "filetype",
+          },
           lualine_y = { "progress" },
           lualine_z = { "location" },
         },
@@ -257,7 +269,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
           end,
         },
         enabled = function()
-          return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"-- or require("cmp_dap").is_dap_buffer()
+          return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" -- or require("cmp_dap").is_dap_buffer()
         end,
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
