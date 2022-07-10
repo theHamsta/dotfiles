@@ -209,7 +209,11 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
       "MunifTanjim/nui.nvim",
     },
     config = function()
-      require("neo-tree").setup {}
+      require("neo-tree").setup {
+        filesystem = {
+          use_libuv_file_watcher = true,
+        },
+      }
     end,
     --cmd = { "Neotree" },
   }
