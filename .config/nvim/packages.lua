@@ -213,6 +213,9 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
         filesystem = {
           use_libuv_file_watcher = true,
         },
+        window = {
+          position = "left",
+        },
       }
     end,
     --cmd = { "Neotree" },
