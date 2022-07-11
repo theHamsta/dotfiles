@@ -891,7 +891,7 @@ parser_configs.norg =
   --end
 vim.api.nvim_set_hl(0, "DapBreakpoint", { ctermbg = 0, fg = "#993939", bg = "#31353f" })
 vim.api.nvim_set_hl(0, "DapLogPoint", { ctermbg = 0, fg = "#61afef", bg = "#31353f" })
-vimvim.api.nvim_set_hl(0, "Stopped", { ctermbg = 0, fg = "#98c379", bg = "#31353f" })
+vim.api.nvim_set_hl(0, "Stopped", { ctermbg = 0, fg = "#98c379", bg = "#31353f" })
 
 vim.fn.sign_define(
   "DapBreakpoint",
