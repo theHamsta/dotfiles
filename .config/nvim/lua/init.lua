@@ -889,9 +889,9 @@ parser_configs.norg =
   --config.install_info.use_makefile = true
   --config.install_info.cxx_standard = 'c++14'
   --end
-vim.highlight.create("DapBreakpoint", { ctermbg = 0, guifg = "#993939", guibg = "#31353f" }, false)
-vim.highlight.create("DapLogPoint", { ctermbg = 0, guifg = "#61afef", guibg = "#31353f" }, false)
-vim.highlight.create("DapStopped", { ctermbg = 0, guifg = "#98c379", guibg = "#31353f" }, false)
+vim.api.nvim_set_hl(0, "DapBreakpoint", { ctermbg = 0, guifg = "#993939", guibg = "#31353f" }, false)
+vim.api.nvim_set_hl(0, "DapLogPoint", { ctermbg = 0, guifg = "#61afef", guibg = "#31353f" }, false)
+vimvim.api.nvim_set_hl(0, "Stopped", { ctermbg = 0, guifg = "#98c379", guibg = "#31353f" }, false)
 
 vim.fn.sign_define(
   "DapBreakpoint",
