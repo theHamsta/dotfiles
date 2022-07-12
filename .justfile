@@ -31,6 +31,8 @@ release:
 		-DCMAKE_CUDA_ARCHITECTURES=OFF \
 		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo" \
 		..
+	rm -f compile_commands.json
+	ln -s release/compile_commands.json
 	cd release && cmake --build . -- -j$(nproc)
 
 gcc-release:
