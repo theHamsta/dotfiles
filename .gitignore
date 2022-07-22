@@ -140,5 +140,6 @@ gcc-debug
 .cache
 gst-src
 extern
+*.qdstrm
 
 .config/nvim/plugin/packer_compiled.lua

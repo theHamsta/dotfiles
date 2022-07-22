@@ -878,7 +878,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   use { "peterhoeg/vim-qml", ft = "qml" }
   use "rhysd/git-messenger.vim"
   use "rking/ag.vim"
-  use { "rust-lang/rust.vim", ft = { "rust", "toml" } }
+  --use { "rust-lang/rust.vim", ft = { "rust", "toml" } }
   use "ryanoasis/vim-devicons"
   use "scrooloose/nerdcommenter"
   use "skywind3000/vim-preview"
