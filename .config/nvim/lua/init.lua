@@ -37,6 +37,25 @@ function E(...)
   return ...
 end
 
+--vim.treesitter.query.preprocessors["nvim-treesitter"] = function(filename, content)
+  --local code = {}
+  --local skip = false
+  --for line in content:gmatch "(.-)\n" do
+    --if line:match "^%s*$" then
+      --skip = false
+    --end
+    --local pos, cond = line:match "^([+-])(.+)"
+    --if pos == "+" then
+      --skip = not loadstring(cond)()
+    --elseif pos == "-" then
+      --skip = loadstring(cond)()
+    --elseif not skip then
+      --table.insert(code, line)
+    --end
+  --end
+  --return table.concat(code, "\n")
+--end
+
 --vim.g.do_filetype_lua = 1
 --vim.filetype.add { extension = { vert = "glsl", frag = "glsl" } }
 
@@ -517,8 +536,8 @@ if ok then
   --dap.repl.append(vim.inspect(dap.session().current_frame))
   --end
   dap.listeners.after.event_exited["my handler id"] = function(_, _)
-    dap.repl.close()
-    vim.cmd "stopinsert"
+    --dap.repl.close()
+    --vim.cmd "stopinsert"
   end
 
   --dap.custom_response_handlers.gotoTargets["my handler id"] = function(_, _)
@@ -850,9 +869,7 @@ parser_configs.norg =
       files = { "src/parser.c", "src/scanner.cc" },
       branch = "main",
     },
-  }  --local function safe_read(filename, read_quantifier)
-  --local file, err = io.open(filename, "r")
-  --if not file then
+  } --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then
   --error(err)
   --end
   --local content = file:read(read_quantifier)
