@@ -45,7 +45,7 @@ return packer.startup(function()
       vim.diagnostic.config({ virtual_lines = false, virtual_text = true })
     end,
   }
-  --use "github/copilot.vim"
+  use "github/copilot.vim"
   --use {
   --"nvim-treesitter/nvim-treesitter-context",
   --config = function()
