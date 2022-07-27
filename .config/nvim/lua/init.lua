@@ -38,22 +38,22 @@ function E(...)
 end
 
 --vim.treesitter.query.preprocessors["nvim-treesitter"] = function(filename, content)
-  --local code = {}
-  --local skip = false
-  --for line in content:gmatch "(.-)\n" do
-    --if line:match "^%s*$" then
-      --skip = false
-    --end
-    --local pos, cond = line:match "^([+-])(.+)"
-    --if pos == "+" then
-      --skip = not loadstring(cond)()
-    --elseif pos == "-" then
-      --skip = loadstring(cond)()
-    --elseif not skip then
-      --table.insert(code, line)
-    --end
-  --end
-  --return table.concat(code, "\n")
+--local code = {}
+--local skip = false
+--for line in content:gmatch "(.-)\n" do
+--if line:match "^%s*$" then
+--skip = false
+--end
+--local pos, cond = line:match "^([+-])(.+)"
+--if pos == "+" then
+--skip = not loadstring(cond)()
+--elseif pos == "-" then
+--skip = loadstring(cond)()
+--elseif not skip then
+--table.insert(code, line)
+--end
+--end
+--return table.concat(code, "\n")
 --end
 
 --vim.g.do_filetype_lua = 1
@@ -111,6 +111,11 @@ if ok then
   require("lspconfig").taplo.setup { on_attach = on_attach, capabilities = capabilities }
 
   lspconfig.flow.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+
+  lspconfig.wgsl_analyzer.setup {
     on_attach = on_attach,
     capabilities = capabilities,
   }
@@ -869,8 +874,7 @@ parser_configs.norg =
       files = { "src/parser.c", "src/scanner.cc" },
       branch = "main",
     },
-  } --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then
-  --error(err)
+  } --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then  --error(err)
   --end
   --local content = file:read(read_quantifier)
   --io.close(file)

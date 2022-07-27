@@ -42,10 +42,10 @@ return packer.startup(function()
     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
     config = function()
       require("lsp_lines").setup()
-      vim.diagnostic.config({ virtual_lines = false, virtual_text = true })
+      vim.diagnostic.config { virtual_lines = false, virtual_text = true }
     end,
   }
-  use "github/copilot.vim"
+  --use "github/copilot.vim"
   --use {
   --"nvim-treesitter/nvim-treesitter-context",
   --config = function()
@@ -697,7 +697,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     config = function()
       require("nvim-dap-virtual-text").setup {
         --only_first_definition = true,
-        all_references = true, -- show virtual text on all all references of the variable (not only definitions)
+        all_references = false, -- show virtual text on all all references of the variable (not only definitions)
         all_frames = true,
         --highlight_changed_variables = true,
         ----highlight_new = true,

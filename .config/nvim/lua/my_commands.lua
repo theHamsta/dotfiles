@@ -17,7 +17,7 @@ local function close_git_status()
     for _, win in ipairs(wins) do
       local buf = vim.api.nvim_win_get_buf(win)
       local buf_name = vim.api.nvim_buf_get_name(buf)
-      if endswith(buf_name, ".git/index") then
+      if endswith(buf_name, ".git//") then
         vim.api.nvim_win_close(win, false)
       end
     end
