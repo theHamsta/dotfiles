@@ -665,6 +665,7 @@ endfunction
 
 augroup filetypedetect
     au! BufRead,BufNewFile *.hlsl,*.effect set filetype=hlsl
+    au! BufRead,BufNewFile *.wgsl set filetype=wgsl
     au! BufRead,BufNewFile *.scm set filetype=query
     au! BufRead,BufNewFile *.slint set filetype=slint
     au! BufRead,BufNewFile *.ll set filetype=llvm
