@@ -447,6 +447,8 @@ function! NvimLspMaps()
     nnoremap <buffer> <silent> äj <cmd>lua vim.diagnostic.goto_next()<CR>
     nnoremap <buffer> <silent> <leader>hd <cmd>lua vim.diagnostic.config({ virtual_lines = true, virtual_text = false })<CR>
     nnoremap <buffer> <silent> <leader>hD <cmd>lua vim.diagnostic.config({ virtual_lines = false, virtual_text = true })<CR>
+    nnoremap <buffer> <silent> <leader>dz <cmd>Neotree diagnostics reveal bottom<cr>
+
 
     ""nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<cr>
     ""nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>
