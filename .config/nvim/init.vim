@@ -64,8 +64,7 @@ map <space><space>j :HopLineAC<cr>
 map <space><space>k :HopLineBC<cr>
 nnoremap <space>td :cd ~/projects/norg<cr>:Neorg gtd views<cr>
 
-set history=1000
-set mouse=a
+set history=10000
 set splitbelow
 set splitright
 set smartcase

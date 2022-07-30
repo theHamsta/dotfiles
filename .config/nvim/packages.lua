@@ -45,6 +45,11 @@ return packer.startup(function()
       vim.diagnostic.config { virtual_lines = false, virtual_text = true }
     end,
   }
+  use {
+    "mrbjarksen/neo-tree-diagnostics.nvim",
+    requires = "nvim-neo-tree/neo-tree.nvim",
+    --module = "neo-tree.sources.diagnostics", -- if wanting to lazyload
+  }
   --use "github/copilot.vim"
   --use {
   --"nvim-treesitter/nvim-treesitter-context",
@@ -217,6 +222,13 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     },
     config = function()
       require("neo-tree").setup {
+        sources = {
+          "filesystem",
+          "buffers",
+          "git_status",
+          "diagnostics",
+          -- ...and any additional source
+        },
         filesystem = {
           use_libuv_file_watcher = true,
         },
