@@ -50,6 +50,17 @@ return packer.startup(function()
     requires = "nvim-neo-tree/neo-tree.nvim",
     --module = "neo-tree.sources.diagnostics", -- if wanting to lazyload
   }
+  use {
+    "folke/which-key.nvim",
+    config = function()
+      require("which-key").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end,
+    enabled = false
+  }
   --use "github/copilot.vim"
   --use {
   --"nvim-treesitter/nvim-treesitter-context",
