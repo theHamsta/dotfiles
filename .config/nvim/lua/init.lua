@@ -633,12 +633,12 @@ if ok then
       -- this enables incremental selection
       enable = true,
       disable = {},
-      --keymaps = {
-      --init_selection = "<enter>", -- maps in normal mode to init the node/scope selection
-      --node_incremental = "<enter>", -- increment to the upper named parent
-      --scope_incremental = "Ts", -- increment to the upper scope (as defined in locals.scm)
-      --node_decremental = "<bs>"
-      --}
+      keymaps = {
+      init_selection = "<leader><enter>", -- maps in normal mode to init the node/scope selection
+      node_incremental = "<leader><enter>", -- increment to the upper named parent
+      scope_incremental = "Ts", -- increment to the upper scope (as defined in locals.scm)
+      node_decremental = "<bs>"
+      }
     },
     node_movement = {
       enable = true,
@@ -686,6 +686,7 @@ if ok then
         enable = true,
         lookahead = true,
         lookbehind = true,
+        include_surrounding_whitespace = true,
         disable = {},
         keymaps = {
           ["af"] = "@function.outer",
@@ -874,10 +875,7 @@ parser_configs.norg =
       files = { "src/parser.c", "src/scanner.cc" },
       branch = "main",
     },
-  } --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then  --error(err)
-  --end
-  --local content = file:read(read_quantifier)
-  --io.close(file)
+  } --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then  --error(err)  --end  --local content = file:read(read_quantifier)  --io.close(file)
   --return content
   --end
 
