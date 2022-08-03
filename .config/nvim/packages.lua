@@ -45,7 +45,7 @@ return packer.startup(function()
       vim.diagnostic.config { virtual_lines = false, virtual_text = true }
     end,
   }
-  use "nacro90/numb.nvim"
+  use { "nacro90/numb.nvim", config = require("numb").setup }
   use {
     "mrbjarksen/neo-tree-diagnostics.nvim",
     requires = "nvim-neo-tree/neo-tree.nvim",
