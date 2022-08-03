@@ -610,7 +610,7 @@ if ok then
   --},
   --}
   require("nvim-treesitter.configs").setup {
-    auto_install = true,
+    auto_install = false,
     highlight = {
       enable = true, -- false will disable the whole extension
       disable = {}, -- list of language that will be disabled

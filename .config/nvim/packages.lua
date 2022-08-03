@@ -45,22 +45,33 @@ return packer.startup(function()
       vim.diagnostic.config { virtual_lines = false, virtual_text = true }
     end,
   }
+  use "nacro90/numb.nvim"
   use {
     "mrbjarksen/neo-tree-diagnostics.nvim",
     requires = "nvim-neo-tree/neo-tree.nvim",
     --module = "neo-tree.sources.diagnostics", -- if wanting to lazyload
   }
   use {
-    "folke/which-key.nvim",
+    "glepnir/lspsaga.nvim",
+    branch = "main",
     config = function()
-      require("which-key").setup {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      }
+      local saga = require "lspsaga"
+
+      saga.init_lsp_saga()
     end,
-    enabled = false
   }
+  --use {
+  --"folke/which-key.nvim",
+  --config = function()
+  --require("which-key").setup {
+  ---- your configuration comes here
+  ---- or leave it empty to use the default settings
+  ---- refer to the configuration section below
+  --}
+  --end,
+  --enabled = false,
+  --}
+
   --use "github/copilot.vim"
   --use {
   --"nvim-treesitter/nvim-treesitter-context",
@@ -97,7 +108,7 @@ return packer.startup(function()
   ---- rust = true,
   --},
 
-  ---- [!] The options below are exposed but shouldn't require your attention,
+  ---- ( ! ) The options below are exposed but shouldn't require your attention,
   ----     you can safely ignore them.
 
   --zindex = 20, -- The Z-index of the context window
@@ -389,13 +400,12 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
             config = {
               workspaces = {
                 my_workspace = "~/projects/norg",
-                nvidia = "~/projects/nvidia-norg",
               },
             },
           },
           ["core.gtd.base"] = {
             config = {
-              workspace = "foo",
+              workspace = "my_workspace",
             },
           },
           ["core.gtd.queries"] = {},
