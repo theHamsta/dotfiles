@@ -469,7 +469,7 @@ if ok then
       pidProperty = "pid",
       pidSelect = "ask",
     },
-    command = "lldb-vscode-15",
+    command = shell.select_executable { "lldb-vscode-16", "lldb-vscode-15", "lldb-vscode" },
     env = function()
       local variables = {
         LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES",
@@ -878,8 +878,7 @@ parser_configs.norg =
       files = { "src/parser.c", "src/scanner.cc" },
       branch = "main",
     },
-  } --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then  --error(err)  --end  --local content = file:read(read_quantifier)  --io.close(file)  --return content  --end  --local function read_query_files(filenames)  --local contents = {}
-  --for _, filename in ipairs(filenames) do
+  } --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then  --error(err)  --end  --local content = file:read(read_quantifier)  --io.close(file)  --return content  --end  --local function read_query_files(filenames)  --local contents = {}  --for _, filename in ipairs(filenames) do
   --table.insert(contents, safe_read(filename, "*a"))
   --end
 
