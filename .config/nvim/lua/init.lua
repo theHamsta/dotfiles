@@ -1,3 +1,5 @@
+local shell = require "nvim-treesitter.shell_command_selectors"
+
 vim.api.nvim_command [[
 function! DeleteTrailingWS()
 exe 'normal mz'
@@ -210,7 +212,7 @@ if ok then
     require("clangd_extensions").setup {
       server = {
         cmd = {
-          "clangd-15",
+          shell.select_executable { "clangd-16", "clangd-15", "clangd" },
           "--clang-tidy",
           "--all-scopes-completion",
           "--header-insertion=iwyu",
@@ -876,10 +878,7 @@ parser_configs.norg =
       files = { "src/parser.c", "src/scanner.cc" },
       branch = "main",
     },
-  } --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then  --error(err)  --end  --local content = file:read(read_quantifier)  --io.close(file)  --return content  --end
-  --local function read_query_files(filenames)
-  --local contents = {}
-
+  } --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then  --error(err)  --end  --local content = file:read(read_quantifier)  --io.close(file)  --return content  --end  --local function read_query_files(filenames)  --local contents = {}
   --for _, filename in ipairs(filenames) do
   --table.insert(contents, safe_read(filename, "*a"))
   --end
