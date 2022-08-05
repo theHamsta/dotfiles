@@ -45,7 +45,12 @@ return packer.startup(function()
       vim.diagnostic.config { virtual_lines = false, virtual_text = true }
     end,
   }
-  use { "nacro90/numb.nvim", config = require("numb").setup }
+  use {
+    "nacro90/numb.nvim",
+    config = function()
+      require("numb").setup()
+    end,
+  }
   use {
     "mrbjarksen/neo-tree-diagnostics.nvim",
     requires = "nvim-neo-tree/neo-tree.nvim",
@@ -847,16 +852,16 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   use { "dbeniamine/cheat.sh-vim", cmd = { "Cheat" } }
   use "dyng/ctrlsf.vim"
   --use { "euclio/vim-markdown-composer", run = "cargo build --release", cmd = "ComposerStart", ft = "markdown" }
-  use {
-    "fatih/vim-go",
-    ft = "go",
-    run = table.concat(
-      vim.tbl_map(function(p)
-        return "go instal -u " .. p .. "@latest"
-      end, go_packages),
-      " && "
-    ),
-  }
+  --use {
+    --"fatih/vim-go",
+    --ft = "go",
+    --run = table.concat(
+      --vim.tbl_map(function(p)
+        --return "go instal -u " .. p .. "@latest"
+      --end, go_packages),
+      --" && "
+    --),
+  --}
   use { "theHamsta/vlime", branch = "prompt", rtp = "vim/", ft = "lisp" }
   use "hotwatermorning/auto-git-diff"
   use "idanarye/vim-merginal"

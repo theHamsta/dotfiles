@@ -79,7 +79,8 @@ local lsp_signature_ok, lsp_signature = pcall(require, "lsp_signature")
 if ok then
   --require("lspkind").init()
   local function on_attach(client, _bufnr)
-    if client.resolved_capabilities.semantic_tokens_full then
+    local caps = client.server_capabilities
+    if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
       vim.cmd [[autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.buf.semantic_tokens_full()]]
     end
     vim.fn.NvimLspMaps()
@@ -634,11 +635,11 @@ if ok then
       enable = true,
       disable = {},
       keymaps = {
-      init_selection = "<leader><enter>", -- maps in normal mode to init the node/scope selection
-      node_incremental = "<leader><enter>", -- increment to the upper named parent
-      scope_incremental = "Ts", -- increment to the upper scope (as defined in locals.scm)
-      node_decremental = "<bs>"
-      }
+        init_selection = "<leader><enter>", -- maps in normal mode to init the node/scope selection
+        node_incremental = "<leader><enter>", -- increment to the upper named parent
+        scope_incremental = "Ts", -- increment to the upper scope (as defined in locals.scm)
+        node_decremental = "<bs>",
+      },
     },
     node_movement = {
       enable = true,
@@ -875,10 +876,7 @@ parser_configs.norg =
       files = { "src/parser.c", "src/scanner.cc" },
       branch = "main",
     },
-  } --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then  --error(err)  --end  --local content = file:read(read_quantifier)  --io.close(file)
-  --return content
-  --end
-
+  } --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then  --error(err)  --end  --local content = file:read(read_quantifier)  --io.close(file)  --return content  --end
   --local function read_query_files(filenames)
   --local contents = {}
 
