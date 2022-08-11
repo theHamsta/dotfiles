@@ -12,26 +12,26 @@ local use = packer.use
 
 local lisp_filetypes = { "lisp", "clojure", "scheme", "vlime_repl", "fennel", "query" }
 
-local go_packages = {
-  "github.com/klauspost/asmfmt/cmd/asmfmt@master",
-  "github.com/go-delve/delve/cmd/dlv@master",
-  "github.com/kisielk/errcheck@master",
-  "github.com/davidrjenni/reftools/cmd/fillstruct@master",
-  "github.com/rogpeppe/godef@master",
-  "golang.org/x/tools/cmd/goimports@master",
-  "golang.org/x/lint/golint@master",
-  "golang.org/x/tools/gopls@latest",
-  "github.com/golangci/golangci-lint/cmd/golangci-lint@master",
-  "honnef.co/go/tools/cmd/staticcheck@latest",
-  "github.com/fatih/gomodifytags@master",
-  "golang.org/x/tools/cmd/gorename@master",
-  "github.com/jstemmer/gotags@master",
-  "golang.org/x/tools/cmd/guru@master",
-  "github.com/josharian/impl@master",
-  "honnef.co/go/tools/cmd/keyify@master",
-  "github.com/fatih/motion@master",
-  "github.com/koron/iferr@master",
-}
+--local go_packages = {
+  --"github.com/klauspost/asmfmt/cmd/asmfmt@master",
+  --"github.com/go-delve/delve/cmd/dlv@master",
+  --"github.com/kisielk/errcheck@master",
+  --"github.com/davidrjenni/reftools/cmd/fillstruct@master",
+  --"github.com/rogpeppe/godef@master",
+  --"golang.org/x/tools/cmd/goimports@master",
+  --"golang.org/x/lint/golint@master",
+  --"golang.org/x/tools/gopls@latest",
+  --"github.com/golangci/golangci-lint/cmd/golangci-lint@master",
+  --"honnef.co/go/tools/cmd/staticcheck@latest",
+  --"github.com/fatih/gomodifytags@master",
+  --"golang.org/x/tools/cmd/gorename@master",
+  --"github.com/jstemmer/gotags@master",
+  --"golang.org/x/tools/cmd/guru@master",
+  --"github.com/josharian/impl@master",
+  --"honnef.co/go/tools/cmd/keyify@master",
+  --"github.com/fatih/motion@master",
+  --"github.com/koron/iferr@master",
+--}
 
 return packer.startup(function()
   use { "wbthomason/packer.nvim", opt = true }
@@ -195,6 +195,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
         hlsl = select_executables { "dxc" },
       }
       table.insert(require("lint").linters.glslc.args, "--target-env=vulkan1.3")
+      table.insert(require("lint").linters.dxc.args, "-spirv")
       vim.cmd [[au BufEnter,BufWritePost * lua require('lint').try_lint()]]
     end,
   }
