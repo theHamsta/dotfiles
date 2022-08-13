@@ -570,7 +570,7 @@ end
 
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
-  vim.cmd "set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()"
+  --vim.cmd "set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()"
   --local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 
   --parser_configs.norg = {
