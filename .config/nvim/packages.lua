@@ -465,7 +465,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       require("crates").setup()
     end,
   }
-  use { "kdav5758/TrueZen.nvim", opt = true }
+  --use { "kdav5758/TrueZen.nvim", opt = true }
   use { "windwp/nvim-ts-autotag", opt = true }
   --use {"windwp/nvim-autopairs", config = function()
   --require("nvim-autopairs").setup()
@@ -517,7 +517,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     opt = true,
   }
   use { "theHamsta/nvim-treesitter-commonlisp" }
-  use { "glepnir/zephyr-nvim", opt = true }
+  --use { "glepnir/zephyr-nvim", opt = true }
   use { "tpope/vim-endwise", ft = "lua", opt = true }
   use { "ojroques/nvim-lspfuzzy", opt = true }
   use {
