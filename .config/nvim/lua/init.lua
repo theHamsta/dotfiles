@@ -83,7 +83,7 @@ if ok then
   local function on_attach(client, _bufnr)
     local caps = client.server_capabilities
     if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
-      vim.cmd [[autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.buf.semantic_tokens_full()]]
+       
     end
     vim.fn.NvimLspMaps()
     if lsp_signature_ok then

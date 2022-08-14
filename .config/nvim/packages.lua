@@ -40,6 +40,7 @@ return packer.startup(function()
     requires = "kevinhwang91/promise-async",
     config = function()
       require("ufo").setup {
+        open_fold_hl_timeout = 100,
         provider_selector = function(_bufnr, _filetype, _buftype)
           return { "treesitter", "indent" }
         end,
@@ -897,6 +898,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     "nvim-orgmode/orgmode",
     ft = "org",
     config = function()
+      require("orgmode").setup_ts_grammar()
       require("orgmode").setup {
         org_agenda_files = { "~/Dropbox/org/*", "~/my-orgs/**/*" },
         org_default_notes_file = "~/Dropbox/org/refile.org",
