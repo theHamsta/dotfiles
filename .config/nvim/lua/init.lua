@@ -745,10 +745,10 @@ if ok then
         enable = true,
         set_jumps = false,
         goto_next_start = {
-          --["öö"] = { "@definition.function", "locals" },
+          ["öö"] = { "@function.inner", "locals" },
         },
         goto_previous_start = {
-          --["ÖÖ"] = { "@definition.function", "locals" },
+          ["ÖÖ"] = { "@function.inner", "locals" },
         },
       },
     },
