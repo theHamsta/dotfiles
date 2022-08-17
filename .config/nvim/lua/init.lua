@@ -164,33 +164,37 @@ if ok then
 
   lspconfig.pyright.setup {
     on_attach = on_attach,
+    capabilities = capabilities,
   }
 
-  --lspconfig.pylsp.setup {
-  --on_attach = on_attach,
-  --settings = {
-  --pyls = {
-  --plugins = {
-  --pydocstyle = {
-  --enabled = false,
-  --},
-  --pycodestyle = {
-  --maxLineLength = 120,
-  --},
-  --},
-  --},
-  --},
-  --capabilities = capabilities,
-  --}
+  lspconfig.pylsp.setup {
+    on_attach = on_attach,
+    settings = {
+      pyls = {
+        plugins = {
+          pydocstyle = {
+            enabled = false,
+          },
+          pycodestyle = {
+            maxLineLength = 120,
+          },
+        },
+      },
+    },
+    capabilities = capabilities,
+  }
 
   lspconfig.tsserver.setup {
     on_attach = on_attach,
+    capabilities = capabilities,
   }
   lspconfig.kotlin_language_server.setup {
     on_attach = on_attach,
+    capabilities = capabilities,
   }
   lspconfig.hls.setup {
     on_attach = on_attach,
+    capabilities = capabilities,
   }
   --lspconfig.clangd.setup {
   --cmd = {
@@ -878,8 +882,7 @@ parser_configs.norg =
       files = { "src/parser.c", "src/scanner.cc" },
       branch = "main",
     },
-  } --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then  --error(err)  --end  --local content = file:read(read_quantifier)  --io.close(file)  --return content  --end  --local function read_query_files(filenames)  --local contents = {}  --for _, filename in ipairs(filenames) do
-  --table.insert(contents, safe_read(filename, "*a"))
+  } --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then  --error(err)  --end  --local content = file:read(read_quantifier)  --io.close(file)  --return content  --end  --local function read_query_files(filenames)  --local contents = {}  --for _, filename in ipairs(filenames) do  --table.insert(contents, safe_read(filename, "*a"))
   --end
 
   --return table.concat(contents, "")
