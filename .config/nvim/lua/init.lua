@@ -124,6 +124,11 @@ if ok then
     capabilities = capabilities,
   }
 
+  --lspconfig.fsautocomplete.setup {
+    --on_attach = on_attach,
+    --capabilities = capabilities,
+  --}
+
   lspconfig.zls.setup {
     on_attach = on_attach,
     capabilities = capabilities,
