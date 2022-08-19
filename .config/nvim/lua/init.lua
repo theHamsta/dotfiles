@@ -23,6 +23,7 @@ if lsp_status_ok then
 end
 
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+capabilities = require("nvim-semantic-tokens").extend_capabilities(capabilities)
 
 function D(a)
   print(vim.inspect(a))
@@ -83,7 +84,7 @@ if ok then
   local function on_attach(client, _bufnr)
     local caps = client.server_capabilities
     if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
-       
+        vim.cmd [[autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.buf.semantic_tokens_full()]]
     end
     vim.fn.NvimLspMaps()
     if lsp_signature_ok then
@@ -868,11 +869,9 @@ vim.cmd [[
 command! -complete=file -nargs=* PythonDebug lua require "my_debug".python_debug({<f-args>})
 ]]
 
-if pcall(require, "vim.lsp.semantic_tokens") then
-  require("nvim-semantic-tokens").setup {
-    preset = "theHamsta",
-  }
-end
+require("nvim-semantic-tokens").setup {
+  preset = "theHamsta",
+}
 
 local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 parser_configs.norg =

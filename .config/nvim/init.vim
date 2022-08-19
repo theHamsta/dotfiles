@@ -665,6 +665,7 @@ function! Fzf_dev()
 endfunction
 
 augroup filetypedetect
+    au! BufRead,BufNewFile *.nim set filetype=nim
     au! BufRead,BufNewFile *.nu set filetype=nu
     au! BufRead,BufNewFile .gitignore set filetype=gitignore
     au! BufRead,BufNewFile *.hlsl,*.effect set filetype=hlsl
