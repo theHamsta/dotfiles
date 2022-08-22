@@ -84,7 +84,7 @@ if ok then
   local function on_attach(client, _bufnr)
     local caps = client.server_capabilities
     if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
-        vim.cmd [[autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.buf.semantic_tokens_full()]]
+      vim.cmd [[autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.buf.semantic_tokens_full()]]
     end
     vim.fn.NvimLspMaps()
     if lsp_signature_ok then
@@ -125,9 +125,13 @@ if ok then
   }
 
   --lspconfig.fsautocomplete.setup {
-    --on_attach = on_attach,
-    --capabilities = capabilities,
+  --on_attach = on_attach,
+  --capabilities = capabilities,
   --}
+  lspconfig.csharp_ls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
 
   lspconfig.zls.setup {
     on_attach = on_attach,
@@ -886,9 +890,7 @@ parser_configs.norg =
       files = { "src/parser.c", "src/scanner.cc" },
       branch = "main",
     },
-  } --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then  --error(err)  --end  --local content = file:read(read_quantifier)  --io.close(file)  --return content  --end  --local function read_query_files(filenames)  --local contents = {}  --for _, filename in ipairs(filenames) do  --table.insert(contents, safe_read(filename, "*a"))
-  --end
-
+  } --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then  --error(err)  --end  --local content = file:read(read_quantifier)  --io.close(file)  --return content  --end  --local function read_query_files(filenames)  --local contents = {}  --for _, filename in ipairs(filenames) do  --table.insert(contents, safe_read(filename, "*a"))  --end
   --return table.concat(contents, "")
   --end
   --vim.treesitter.query.set_query(
