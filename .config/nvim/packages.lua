@@ -89,7 +89,7 @@ return packer.startup(function()
   --enabled = false,
   --}
 
-  --use "github/copilot.vim"
+  use "github/copilot.vim"
   --use {
   --"nvim-treesitter/nvim-treesitter-context",
   --config = function()

@@ -804,8 +804,7 @@ if ok then
     --ensure_installed = "all",
     --update_strategy = "do not use lockfile, please!"
   }
-  require "nvim-treesitter.highlight"
-  local hlmap = vim.treesitter.highlighter.hl_map
+  local hlmap = {}
 
   --Misc
   hlmap["error"] = "TSError"
@@ -858,6 +857,10 @@ if ok then
   hlmap["symbol"] = "Type"
   hlmap["text.environment.name"] = "Type"
 
+  for k, v in pairs(hlmap) do
+    vim.api.nvim_set_hl(0, "@" .. k, { link = v })
+  end
+
   local ok, docs = pcall(require, "nvim-tree-docs")
   if ok then
     docs.init()
@@ -890,8 +893,7 @@ parser_configs.norg =
       files = { "src/parser.c", "src/scanner.cc" },
       branch = "main",
     },
-  } --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then  --error(err)  --end  --local content = file:read(read_quantifier)  --io.close(file)  --return content  --end  --local function read_query_files(filenames)  --local contents = {}  --for _, filename in ipairs(filenames) do  --table.insert(contents, safe_read(filename, "*a"))  --end
-  --return table.concat(contents, "")
+  } --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then  --error(err)  --end  --local content = file:read(read_quantifier)  --io.close(file)  --return content  --end  --local function read_query_files(filenames)  --local contents = {}  --for _, filename in ipairs(filenames) do  --table.insert(contents, safe_read(filename, "*a"))  --end  --return table.concat(contents, "")
   --end
   --vim.treesitter.query.set_query(
   --"lua",
