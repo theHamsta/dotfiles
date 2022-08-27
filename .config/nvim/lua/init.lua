@@ -25,7 +25,7 @@ end
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 capabilities = require("nvim-semantic-tokens").extend_capabilities(capabilities)
 
-require'vim.lsp.log'.set_level(vim.log.levels.OFF)
+require("vim.lsp.log").set_level(vim.log.levels.OFF)
 
 function D(a)
   print(vim.inspect(a))
@@ -126,6 +126,10 @@ if ok then
     capabilities = capabilities,
   }
 
+  lspconfig.marksman.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
   --lspconfig.fsautocomplete.setup {
   --on_attach = on_attach,
   --capabilities = capabilities,
@@ -895,9 +899,7 @@ parser_configs.norg =
       files = { "src/parser.c", "src/scanner.cc" },
       branch = "main",
     },
-  } --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then  --error(err)  --end  --local content = file:read(read_quantifier)  --io.close(file)  --return content  --end  --local function read_query_files(filenames)  --local contents = {}  --for _, filename in ipairs(filenames) do  --table.insert(contents, safe_read(filename, "*a"))  --end  --return table.concat(contents, "")
-  --end
-  --vim.treesitter.query.set_query(
+  } --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then  --error(err)  --end  --local content = file:read(read_quantifier)  --io.close(file)  --return content  --end  --local function read_query_files(filenames)  --local contents = {}  --for _, filename in ipairs(filenames) do  --table.insert(contents, safe_read(filename, "*a"))  --end  --return table.concat(contents, "")  --end  --vim.treesitter.query.set_query(
   --"lua",
   --"highlights",
   --read_query_files(vim.treesitter.query.get_query_files("lua", "highlights")):gsub(
