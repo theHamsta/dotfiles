@@ -25,6 +25,8 @@ end
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 capabilities = require("nvim-semantic-tokens").extend_capabilities(capabilities)
 
+require'vim.lsp.log'.set_level(vim.log.levels.OFF)
+
 function D(a)
   print(vim.inspect(a))
   return a
