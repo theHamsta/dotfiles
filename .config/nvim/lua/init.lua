@@ -124,6 +124,30 @@ if ok then
   lspconfig.wgsl_analyzer.setup {
     on_attach = on_attach,
     capabilities = capabilities,
+    settings = {
+      ["wgsl-analyzer.customImports"] = {
+        ["bevy_pbr::clustered_forward"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.8.0/crates/bevy_pbr/src/render/clustered_forward.wgsl",
+        ["bevy_pbr::mesh_bindings"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.8.0/crates/bevy_pbr/src/render/mesh_bindings.wgsl",
+        ["bevy_pbr::mesh_functions"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.8.0/crates/bevy_pbr/src/render/mesh_functions.wgsl",
+        ["bevy_pbr::mesh_types"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.8.0/crates/bevy_pbr/src/render/mesh_types.wgsl",
+        ["bevy_pbr::mesh_vertex_output"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.8.0/crates/bevy_pbr/src/render/mesh_vertex_output.wgsl",
+        ["bevy_pbr::mesh_view_bindings"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.8.0/crates/bevy_pbr/src/render/mesh_view_bindings.wgsl",
+        ["bevy_pbr::mesh_view_types"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.8.0/crates/bevy_pbr/src/render/mesh_view_types.wgsl",
+        ["bevy_pbr::pbr_bindings"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.8.0/crates/bevy_pbr/src/render/pbr_bindings.wgsl",
+        ["bevy_pbr::pbr_functions"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.8.0/crates/bevy_pbr/src/render/pbr_functions.wgsl",
+        ["bevy_pbr::lighting"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.8.0/crates/bevy_pbr/src/render/pbr_lighting.wgsl",
+        ["bevy_pbr::pbr_types"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.8.0/crates/bevy_pbr/src/render/pbr_types.wgsl",
+        ["bevy_pbr::shadows"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.8.0/crates/bevy_pbr/src/render/shadows.wgsl",
+        ["bevy_pbr::skinning"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.8.0/crates/bevy_pbr/src/render/skinning.wgsl",
+        ["bevy_pbr::utils"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.8.0/crates/bevy_pbr/src/render/utils.wgsl",
+        ["bevy_sprite::mesh2d_bindings"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.8.0/crates/bevy_sprite/src/mesh2d/mesh2d_bindings.wgsl",
+        ["bevy_sprite::mesh2d_functions"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.8.0/crates/bevy_sprite/src/mesh2d/mesh2d_functions.wgsl",
+        ["bevy_sprite::mesh2d_types"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.8.0/crates/bevy_sprite/src/mesh2d/mesh2d_types.wgsl",
+        ["bevy_sprite::mesh2d_vertex_output"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.8.0/crates/bevy_sprite/src/mesh2d/mesh2d_vertex_output.wgsl",
+        ["bevy_sprite::mesh2d_view_bindings"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.8.0/crates/bevy_sprite/src/mesh2d/mesh2d_view_bindings.wgsl",
+        ["bevy_sprite::mesh2d_view_types"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.8.0/crates/bevy_sprite/src/mesh2d/mesh2d_view_types.wgsl",
+      },
+    },
   }
 
   lspconfig.marksman.setup {
@@ -899,9 +923,7 @@ parser_configs.norg =
       files = { "src/parser.c", "src/scanner.cc" },
       branch = "main",
     },
-  } --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then  --error(err)  --end  --local content = file:read(read_quantifier)  --io.close(file)  --return content  --end  --local function read_query_files(filenames)  --local contents = {}  --for _, filename in ipairs(filenames) do  --table.insert(contents, safe_read(filename, "*a"))  --end  --return table.concat(contents, "")  --end  --vim.treesitter.query.set_query(
-  --"lua",
-  --"highlights",
+  } --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then  --error(err)  --end  --local content = file:read(read_quantifier)  --io.close(file)  --return content  --end  --local function read_query_files(filenames)  --local contents = {}  --for _, filename in ipairs(filenames) do  --table.insert(contents, safe_read(filename, "*a"))  --end  --return table.concat(contents, "")  --end  --vim.treesitter.query.set_query(  --"lua",  --"highlights",
   --read_query_files(vim.treesitter.query.get_query_files("lua", "highlights")):gsub(
   --[[%[
  --"goto"
