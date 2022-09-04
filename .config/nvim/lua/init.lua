@@ -130,6 +130,8 @@ if ok then
           "VERTEX_TANGENTS",
           "VERTEX_NORMALS",
           "VERTEX_COLORS",
+          "VERTEX_UVS",
+          "SKINNED",
         },
         customImports = {
           ["bevy_pbr::clustered_forward"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.8.0/crates/bevy_pbr/src/render/clustered_forward.wgsl",
