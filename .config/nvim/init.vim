@@ -666,6 +666,7 @@ endfunction
 
 augroup filetypedetect
     au! BufRead,BufNewFile *.osl set filetype=cpp
+    au! BufRead,BufNewFile *.proto2 set filetype=proto
     au! BufRead,BufNewFile *.nim set filetype=nim
     au! BufRead,BufNewFile *.nu set filetype=nu
     au! BufRead,BufNewFile .gitignore set filetype=gitignore
