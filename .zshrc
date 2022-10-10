@@ -124,17 +124,11 @@ alias tree="exa --tree"
 alias v='f -e nvim' # quick opening files with vim
 alias o='a -e xdg-open' # quick opening files with xdg-open
 
-#export CUDA_HOME=/usr/local/cuda-9.0
-#export LD_LOAD_PATH=/usr/local/cuda-9.0/targets/x86_64-linux/lib/:${LD_LOAD_PATH}
-#export LD_LIBRARY_PATH=/opt/ParaView-5.4.1-Qt5-OpenGL2-MPI-Linux-64bit/lib/paraview-5.4:${LD_LIBRARY_PATH}
 export PATH=~/.local/bin/:${PATH}
 export PATH=~/go/bin/:${PATH}
 export PATH=/opt/tensorrt/bin:${PATH}
 export GIT_EDITOR=nvim
-#export LD_LIBRARY_PATH="/usr/local/cuda-9.1/lib/:/usr/local/cuda-9.1/targets/x86_64-linux/lib/:$LD_LIBRARY_PATH"
-#export LD_LOAD_PATH="/usr/local/cuda-9.1/lib/:/usr/local/cuda-9.1/targets/x86_64-linux/lib/:$LD_LOAD_PATH"
 export PATH=/snap/bin/:${PATH}
-#export CUDA_HOME=/usr/local/cuda-9.1
 
 export SCIPY_PIL_IMAGE_VIEWER=imagecomparer
 
