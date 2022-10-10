@@ -35,6 +35,13 @@ local lisp_filetypes = { "lisp", "clojure", "scheme", "vlime_repl", "fennel", "q
 
 return packer.startup(function()
   use { "wbthomason/packer.nvim", opt = true }
+  use "krady21/compiler-explorer.nvim"
+  use {
+    "nvim-telescope/telescope-ui-select.nvim",
+    config = function()
+      require("telescope").load_extension "ui-select"
+    end,
+  }
   use {
     "kevinhwang91/nvim-ufo",
     requires = "kevinhwang91/promise-async",
