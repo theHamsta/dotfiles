@@ -22,7 +22,7 @@ if lsp_status_ok then
   capabilities = vim.tbl_extend("keep", capabilities or {}, lsp_status.capabilities)
 end
 
-capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+capabilities = require("cmp_nvim_lsp").default_capabilities()
 capabilities = require("nvim-semantic-tokens").extend_capabilities(capabilities)
 
 require("vim.lsp.log").set_level(vim.log.levels.OFF)
@@ -107,6 +107,10 @@ if ok then
   --require("lspconfig/configs").sumneko_lua.install()
   --end
   lspconfig.eslint.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+  lspconfig.tree_sitter_grammar_lsp.setup {
     on_attach = on_attach,
     capabilities = capabilities,
   }
@@ -848,6 +852,7 @@ if ok then
 
   --misc
   hlmap["error"] = "tserror"
+  hlmap["none"] = "None"
   hlmap["punctuation.delimiter"] = "delimiter"
   --hlmap["punctuation.bracket"] = nil
 
