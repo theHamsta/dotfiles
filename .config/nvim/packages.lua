@@ -63,13 +63,15 @@ return packer.startup(function()
   use { "famiu/nvim-reload", opt = true }
   use { "theHamsta/nvim-semantic-tokens", opt = false }
   use "rafamadriz/friendly-snippets"
-  use {
-    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-    config = function()
-      require("lsp_lines").setup()
-      vim.diagnostic.config { virtual_lines = false, virtual_text = true }
-    end,
-  }
+  if not vim.fn.has"win32" then
+    use {
+      "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+      config = function()
+        require("lsp_lines").setup()
+        vim.diagnostic.config { virtual_lines = false, virtual_text = true }
+      end,
+    }
+  end
   use {
     "nacro90/numb.nvim",
     config = function()
@@ -374,12 +376,14 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       --vim.cmd[[nnoremap <leader>nd :DiffviewOpen<cr>]]
     end,
   }
-  use {
-    "https://gitlab.com/yorickpeterse/nvim-pqf",
-    config = function()
-      require("pqf").setup {}
-    end,
-  }
+  if not vim.fn.has"win32" then
+    use {
+      "https://gitlab.com/yorickpeterse/nvim-pqf",
+      config = function()
+        require("pqf").setup {}
+      end,
+    }
+  end
   use { "jceb/emmet.snippets" }
   use { "theHamsta/vim-snippets" }
   --use {
