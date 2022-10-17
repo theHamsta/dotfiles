@@ -1,1 +1,1 @@
-cpp.vim
+source cpp.vim
