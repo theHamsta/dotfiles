@@ -1194,7 +1194,13 @@ nnoremap <c-t> :Tags<cr>
 nnoremap <c-s-t> :Telescope lsp_dynamic_workspace_symbols<cr>
 nnoremap <c-a-o> :BTags<cr>
 nnoremap <leader><c-o> :BTags<cr>
+
+if has("win32")
+luafile ~/AppData/Local/nvim/lua/init.lua
+else
 luafile ~/.config/nvim/lua/init.lua
+end
+
 
 command! -buffer JdtCompile lua require('jdtls').compile()
 command! -buffer JdtUpdateConfig lua require('jdtls').update_project_config()

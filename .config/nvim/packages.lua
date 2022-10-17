@@ -818,7 +818,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   use "AndrewRadev/switch.vim"
   --use "JuliaEditorSupport/julia-vim"
   use "Julian/vim-textobj-variable-segment"
-  use { "SirVer/ultisnips", opt = false, run = ":UpdateRemotePlugins" }
+  --use { "SirVer/ultisnips", opt = false, run = ":UpdateRemotePlugins" }
   use "Valloric/ListToggle"
   --use "airblade/vim-gitgutter"
   use {
