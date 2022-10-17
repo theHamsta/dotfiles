@@ -843,7 +843,7 @@ au FileType fzf setlocal nonu nornu signcolumn=no
 
 
 if has('nvim')
-  let $GIT_EDITOR = 'nvr -cc split --remote-wait'
+  "let $GIT_EDITOR = 'nvr -cc split --remote-wait'
   autocmd FileType gitcommit setlocal bufhidden=delete
   autocmd FileType gitrebase setlocal bufhidden=delete
 endif
