@@ -42,7 +42,7 @@ function E(...)
   return ...
 end
 
-
+require 'nvim-treesitter.install'.prefer_git = false
 
 
 --vim.treesitter.query.preprocessors["nvim-treesitter"] = function(filename, content)
