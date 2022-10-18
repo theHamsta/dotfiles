@@ -320,9 +320,16 @@ autocmd FileType rust nmap <silent> <leader>tN <c-w>o:wa<cr>:Topen<cr>:exec 'T c
 "autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
 autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
 
-nmap <c-a-p> :cd ~/projects<cr>:Files<cr>
-nmap <space><c-p> :cd ~/projects<cr>:Files<cr>
-nmap <a-p> :cd ~/projects<cr>:Buffers<cr>
+if has("win32")
+
+    nmap <c-a-p> :Files<cr>
+    nmap <space><c-p> :cd ~/projects<cr>:Files<cr>
+    nmap <a-p> :cd ~/projects<cr>:Buffers<cr>
+else
+    nmap <c-a-p> :cd ~/projects<cr>:Files<cr>
+    nmap <space><c-p> :cd ~/projects<cr>:Files<cr>
+end
+nmap <a-p> :Buffers<cr>
 nnoremap <a-g> :GFiles?<cr>
 nmap <leader>gg :GF?<cr>
 "autocmd BufRead *.prm :setfiletype prm
