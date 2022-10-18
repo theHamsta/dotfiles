@@ -63,7 +63,7 @@ return packer.startup(function()
   use { "famiu/nvim-reload", opt = true }
   use { "theHamsta/nvim-semantic-tokens", opt = false }
   use "rafamadriz/friendly-snippets"
-  if not vim.fn.has"win32" == 1 then
+  if vim.fn.has"win32" ~= 1 then
     use {
       "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
       config = function()
@@ -376,7 +376,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       --vim.cmd[[nnoremap <leader>nd :DiffviewOpen<cr>]]
     end,
   }
-  if not vim.fn.has"win32" == 1 then
+  if vim.fn.has"win32" ~= 1 then
     use {
       "https://gitlab.com/yorickpeterse/nvim-pqf",
       config = function()
