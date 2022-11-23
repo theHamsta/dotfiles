@@ -42,8 +42,7 @@ function E(...)
   return ...
 end
 
-require 'nvim-treesitter.install'.prefer_git = false
-
+require("nvim-treesitter.install").prefer_git = false
 
 --vim.treesitter.query.preprocessors["nvim-treesitter"] = function(filename, content)
 --local code = {}
@@ -86,7 +85,9 @@ local lsp_signature_ok, lsp_signature = pcall(require, "lsp_signature")
 
 if ok then
   --require("lspkind").init()
-  local function on_attach(client, _bufnr)
+  local function on_attach(client, bufnr)
+    local ih = require "inlay-hints"
+    ih.on_attach(client, bufnr)
     local caps = client.server_capabilities
     if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
       vim.cmd [[autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.buf.semantic_tokens_full()]]
@@ -114,8 +115,8 @@ if ok then
     capabilities = capabilities,
   }
   --lspconfig.tree_sitter_grammar_lsp.setup {
-    --on_attach = on_attach,
-    --capabilities = capabilities,
+  --on_attach = on_attach,
+  --capabilities = capabilities,
   --}
   require("lspconfig").intelephense.setup {
     on_attach = on_attach,
@@ -192,6 +193,30 @@ if ok then
   lspconfig.tsserver.setup {
     on_attach = on_attach,
     capabilities = capabilities,
+    settings = {
+      javascript = {
+        inlayHints = {
+          includeInlayEnumMemberValueHints = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+          includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayVariableTypeHints = true,
+        },
+      },
+      typescript = {
+        inlayHints = {
+          includeInlayEnumMemberValueHints = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+          includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayVariableTypeHints = true,
+        },
+      },
+    },
   }
 
   lspconfig.svelte.setup {
@@ -292,6 +317,7 @@ if ok then
       Lua = {
         awakened = { cat = true },
         telemetry = { enable = false },
+        hint = { enable = true },
         diagnostics = {
           globals = { "vim", "map", "filter", "range", "reduce", "head", "tail", "nth", "it", "describe" },
           disable = { "redefined-local" },
@@ -941,12 +967,10 @@ parser_configs.norg =
       files = { "src/parser.c", "src/scanner.cc" },
       branch = "main",
     },
-  } --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then  --error(err)  --end  --local content = file:read(read_quantifier)  --io.close(file)  --return content  --end  --local function read_query_files(filenames)  --local contents = {}  --for _, filename in ipairs(filenames) do  --table.insert(contents, safe_read(filename, "*a"))  --end  --return table.concat(contents, "")  --end  --vim.treesitter.query.set_query(  --"lua",  --"highlights",  --read_query_files(vim.treesitter.query.get_query_files("lua", "highlights")):gsub(
-  --[[%[
- --"goto"
- --"in"
- --"local"
---%] @keyword]]
+  } --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then  --error(err)  --end  --local content = file:read(read_quantifier)  --io.close(file)  --return content  --end  --local function read_query_files(filenames)  --local contents = {}  --for _, filename in ipairs(filenames) do  --table.insert(contents, safe_read(filename, "*a"))  --end  --return table.concat(contents, "")  --end  --vim.treesitter.query.set_query(  --"lua",  --"highlights",  --read_query_files(vim.treesitter.query.get_query_files("lua", "highlights")):gsub(  --[[%[  --"goto"
+  --"in"
+  --"local"
+  --%] @keyword]]
 ,
     --[[
 [ "goto" "in" ] @keyword

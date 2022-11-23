@@ -60,6 +60,14 @@ return packer.startup(function()
       require("overseer").setup()
     end,
   }
+  use {
+    "simrat39/inlay-hints.nvim",
+    config = function()
+      require("inlay-hints").setup {
+        only_current_line = false,
+      }
+    end,
+  }
   use { "famiu/nvim-reload", opt = true }
   use { "theHamsta/nvim-semantic-tokens", opt = false }
   use "rafamadriz/friendly-snippets"
@@ -505,16 +513,29 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   use { "dstein64/nvim-scrollview", opt = true }
   --use { "Mofiqul/vim-code-dark", opt = true }
   use { "TimUntersberger/neogit", cmd = { "Neogit" } }
-  --use {
-  --"simrat39/rust-tools.nvim",
-  ----filetype = "rust",
-  --config = function()
-  --local opts = {
-  --autoSetHints = false,
-  --}
-  --require("rust-tools").setup(opts)
-  --end,
-  --}
+  use {
+    "simrat39/rust-tools.nvim",
+    --filetype = "rust",
+    config = function()
+      local ih = require "inlay-hints"
+
+      require("rust-tools").setup {
+        tools = {
+          on_initialized = function()
+            ih.set_all()
+          end,
+          inlay_hints = {
+            auto = false,
+          },
+        },
+        server = {
+          on_attach = function(c, b)
+            ih.on_attach(c, b)
+          end,
+        },
+      }
+    end,
+  }
   use { "pwntester/octo.nvim", opt = true }
   --use {"tiagovla/tokyodark.nvim", opt = true}
   use { "folke/tokyonight.nvim", opt = true }
