@@ -7,11 +7,19 @@ build:
 	cd debug && cmake \
 		-DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
 		-DCMAKE_CUDA_HOST_COMPILER=g++-11 \
-		-DCMAKE_BUILD_TYPE=Debug -G Ninja \
+		-DCMAKE_BUILD_TYPE=Debug -GNinja \
 		-DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
-		-DCMAKE_C_FLAGS=-fdiagnostics-color  \
+		-DCMAKE_C_FLAGS="-fdiagnostics-color" \
 		-DCMAKE_CUDA_ARCHITECTURES=OFF \
 		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo" ..
+	#cd debug && cmake \
+		#-DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
+		#-DCMAKE_CUDA_HOST_COMPILER=g++-11 \
+		#-DCMAKE_BUILD_TYPE=Debug -GNinja \
+		#-DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
+		#-DCMAKE_C_FLAGS="-fdiagnostics-color" \
+		#-DCMAKE_CUDA_ARCHITECTURES=OFF \
+		#-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo" ..
 	rm -f compile_commands.json
 	ln -s debug/compile_commands.json
 	cd debug && cmake --build . -- -j$(nproc)

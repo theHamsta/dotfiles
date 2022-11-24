@@ -124,8 +124,10 @@ alias tree="exa --tree"
 alias v='f -e nvim' # quick opening files with vim
 alias o='a -e xdg-open' # quick opening files with xdg-open
 
+export CUDAHOSTCXX=g++-11
 export PATH=~/.local/bin/:${PATH}
 export PATH=~/go/bin/:${PATH}
+export PATH=/usr/local/cuda/bin:${PATH}
 export PATH=/opt/tensorrt/bin:${PATH}
 export GIT_EDITOR=nvim
 export PATH=/snap/bin/:${PATH}
@@ -142,3 +144,12 @@ test -r /home/stephan/.opam/opam-init/init.zsh && . /home/stephan/.opam/opam-ini
 SSH_ASKPASS=/usr/bin/ksshaskpass eval `ssh-agent -s` ssh-add $HOME/.ssh/id_rsa </dev/null
 
 alias luamake=/home/stephan/projects/lua-language-server/3rd/luamake/luamake
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export CARGO_UNSTABLE_SPARSE_REGISTRY=true
+
+alias nvim-qt='f(){ nvim --listen 127.0.0.1:10710 --headless "$@" & "/mnt/c/Program Files/Neovim/bin/nvim-qt.exe" --server 127.0.0.1:10710 }; f'
+alias ju='just --justfile ~/.justfile --working-directory .'
