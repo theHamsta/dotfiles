@@ -897,9 +897,9 @@ if ok then
   --hlmap["punctuation.bracket"] = nil
 
   -- constants
-  hlmap["constant"] = "constant"
-  hlmap["comment"] = "comment"
-  hlmap["constant"] = "constant"
+  hlmap["constant"] = "Constant"
+  hlmap["comment"] = "Comment"
+  hlmap["constant"] = "Constant"
   hlmap["semshi"] = "semshiimported"
   hlmap["constant.builtin"] = "boolean"
   hlmap["constant.macro"] = "define"
@@ -935,6 +935,7 @@ if ok then
   hlmap["exception"] = "exception"
   hlmap["include"] = "include"
   hlmap["type"] = "type"
+  hlmap["type.qualifier"] = "Keyword"
   hlmap["type.builtin"] = "type"
   hlmap["structure"] = "structure"
   hlmap["variable"] = "tsvariable"
