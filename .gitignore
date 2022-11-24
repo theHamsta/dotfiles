@@ -143,4 +143,4 @@ extern
 *.qdstrm
 
 .config/nvim/plugin/packer_compiled.lua
-third_party
+_skbuild
