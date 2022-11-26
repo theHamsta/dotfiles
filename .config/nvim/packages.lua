@@ -12,26 +12,26 @@ local use = packer.use
 
 local lisp_filetypes = { "lisp", "clojure", "scheme", "vlime_repl", "fennel", "query" }
 
---local go_packages = {
---"github.com/klauspost/asmfmt/cmd/asmfmt@master",
---"github.com/go-delve/delve/cmd/dlv@master",
---"github.com/kisielk/errcheck@master",
---"github.com/davidrjenni/reftools/cmd/fillstruct@master",
---"github.com/rogpeppe/godef@master",
---"golang.org/x/tools/cmd/goimports@master",
---"golang.org/x/lint/golint@master",
---"golang.org/x/tools/gopls@latest",
---"github.com/golangci/golangci-lint/cmd/golangci-lint@master",
---"honnef.co/go/tools/cmd/staticcheck@latest",
---"github.com/fatih/gomodifytags@master",
---"golang.org/x/tools/cmd/gorename@master",
---"github.com/jstemmer/gotags@master",
---"golang.org/x/tools/cmd/guru@master",
---"github.com/josharian/impl@master",
---"honnef.co/go/tools/cmd/keyify@master",
---"github.com/fatih/motion@master",
---"github.com/koron/iferr@master",
---}
+local go_packages = {
+  "github.com/klauspost/asmfmt/cmd/asmfmt@master",
+  "github.com/go-delve/delve/cmd/dlv@master",
+  "github.com/kisielk/errcheck@master",
+  "github.com/davidrjenni/reftools/cmd/fillstruct@master",
+  "github.com/rogpeppe/godef@master",
+  "golang.org/x/tools/cmd/goimports@master",
+  "golang.org/x/lint/golint@master",
+  "golang.org/x/tools/gopls@latest",
+  "github.com/golangci/golangci-lint/cmd/golangci-lint@master",
+  "honnef.co/go/tools/cmd/staticcheck@latest",
+  "github.com/fatih/gomodifytags@master",
+  "golang.org/x/tools/cmd/gorename@master",
+  "github.com/jstemmer/gotags@master",
+  "golang.org/x/tools/cmd/guru@master",
+  "github.com/josharian/impl@master",
+  "honnef.co/go/tools/cmd/keyify@master",
+  "github.com/fatih/motion@master",
+  "github.com/koron/iferr@master",
+}
 
 return packer.startup(function()
   use { "wbthomason/packer.nvim", opt = true }
@@ -903,16 +903,16 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   use { "dbeniamine/cheat.sh-vim", cmd = { "Cheat" } }
   use "dyng/ctrlsf.vim"
   --use { "euclio/vim-markdown-composer", run = "cargo build --release", cmd = "ComposerStart", ft = "markdown" }
-  --use {
-  --"fatih/vim-go",
-  --ft = "go",
-  --run = table.concat(
-  --vim.tbl_map(function(p)
-  --return "go instal -u " .. p .. "@latest"
-  --end, go_packages),
-  --" && "
-  --),
-  --}
+  use {
+    "fatih/vim-go",
+    ft = "go",
+    run = table.concat(
+      vim.tbl_map(function(p)
+        return "go instal -u " .. p .. "@latest"
+      end, go_packages),
+      " && "
+    ),
+  }
   use { "theHamsta/vlime", branch = "prompt", rtp = "vim/", ft = "lisp" }
   use "hotwatermorning/auto-git-diff"
   use "idanarye/vim-merginal"

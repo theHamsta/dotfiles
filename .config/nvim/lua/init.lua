@@ -27,17 +27,17 @@ capabilities = require("nvim-semantic-tokens").extend_capabilities(capabilities)
 
 require("vim.lsp.log").set_level(vim.log.levels.OFF)
 
-function D(a)
+function _G.D(a)
   print(vim.inspect(a))
   return a
 end
 
-function R(a)
+function _G.R(a)
   require("dap.repl").append(vim.inspect(a))
   return a
 end
 
-function E(...)
+function _G.E(...)
   print(vim.inspect { ... })
   return ...
 end
@@ -709,6 +709,7 @@ if ok then
   --branch = "main",
   --},
   --}
+  --
   require("nvim-treesitter.configs").setup {
     auto_install = false,
     highlight = {
