@@ -41,12 +41,12 @@ export PYTHONPATH="$HOME/projects/SimpleElastix/release/SimpleITK-build/Wrapping
 #export PYTHONPATH="$HOME/.local/lib/python3.8/site-packages:$PYTHONPATH"
 export OMP_NUM_THREADS=4
 
-export CC=/usr/lib/ccache/clang-13
-export CXX=/usr/lib/ccache/clang++-13
-export OMPI_CC=/usr/lib/ccache/clang-13
-export OMPI_CXX=/usr/lib/ccache/clang++-13
-export MPICH_CC=/usr/lib/ccache/clang-13
-export MPICH_CXX=/usr/lib/ccache/clang++-13
+export CC=/usr/lib/ccache/clang-16
+export CXX=/usr/lib/ccache/clang++-16
+export OMPI_CC=/usr/lib/ccache/clang-16
+export OMPI_CXX=/usr/lib/ccache/clang++-16
+export MPICH_CC=/usr/lib/ccache/clang-16
+export MPICH_CXX=/usr/lib/ccache/clang++-16
 
 #export CC=/usr/lib/ccache/gcc-10
 #export CXX=/usr/lib/ccache/g++-10
@@ -55,10 +55,10 @@ export MPICH_CXX=/usr/lib/ccache/clang++-13
 #export MPICH_CC=/usr/lib/ccache/gcc-10
 #export MPICH_CXX=/usr/lib/ccache/g++-10
 
-CUDA_PATH="/usr/local/cuda-11-2"
+CUDA_PATH="/usr/local/cuda"
 export PATH=$CUDA_PATH/bin:$PATH
-export CUDACXX=/usr/local/cuda-11.2/bin/nvcc
-export CUDACC=/usr/local/cuda-11.2/bin/nvcc
+export CUDACXX=/usr/local/cuda/bin/nvcc
+export CUDACC=/usr/local/cuda/bin/nvcc
 
 export CPATH=~/projects/nanogui/include:~/projects/nanogui/ext/enoki/include:~/projects/nanogui/ext/nanovg/src:$CPATH
 export CPATH=/usr/include/x86_64-linux-gnu/mpich/:$CPATH
