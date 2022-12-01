@@ -8,6 +8,8 @@ build:
 		-DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
 		-DCMAKE_CUDA_HOST_COMPILER=g++-11 \
 		-DCMAKE_BUILD_TYPE=Debug -GNinja \
+		-DCMAKE_CUDA_COMPILER_LAUNCHER=ccache \
+		-GNinja \
 		-DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
 		-DCMAKE_C_FLAGS="-fdiagnostics-color" \
 		-DCMAKE_CUDA_ARCHITECTURES=OFF \
@@ -33,6 +35,7 @@ release:
 		-DCMAKE_VERBOSE_MAKEFILE=OFF  \
 		-DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
 		-DCMAKE_CUDA_HOST_COMPILER=g++-11 \
+		-DCMAKE_CUDA_COMPILER_LAUNCHER=ccache \
 		-DCMAKE_BUILD_TYPE=Release -G Ninja \
 		-DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color -march=native" \
 		-DCMAKE_C_FLAGS=-fdiagnostics-color \
