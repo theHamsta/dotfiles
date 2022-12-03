@@ -1,4 +1,3 @@
---
 -- packages.lua
 -- Copyright (C) 2020 Stephan Seitz <stephan.seitz@fau.de>
 --

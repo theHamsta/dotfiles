@@ -9,7 +9,7 @@ set tags=./tags,tags
 set encoding=UTF-8
 
 set nocompatible               " Be iMproved
-set path=.,./debug,../release,/usr/local/include,/usr/include,~/projects/walberla/debug-mpi
+set path=.,./debug,../release,/usr/local/include,/usr/include
 
 set conceallevel=2
 ""let g:tex_conceal='abdmg'
@@ -321,14 +321,12 @@ autocmd FileType rust nmap <silent> <leader>tN <c-w>o:wa<cr>:Topen<cr>:exec 'T c
 autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
 
 if has("win32")
-
     nmap <c-a-p> :Files<cr>
-    nmap <space><c-p> :cd ~/projects<cr>:Files<cr>
-    nmap <a-p> :cd ~/projects<cr>:Buffers<cr>
+    nmap <space><c-p> :cd C:/dev<cr>:Files<cr>
 else
     nmap <c-a-p> :cd ~/projects<cr>:Files<cr>
-    nmap <space><c-p> :cd ~/projects<cr>:Files<cr>
 end
+nmap <space><c-p> :Files<cr>
 nmap <a-p> :Buffers<cr>
 nnoremap <a-g> :GFiles?<cr>
 nmap <leader>gg :GF?<cr>
