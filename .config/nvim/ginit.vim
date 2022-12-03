@@ -3,7 +3,11 @@
 "let g:my_font = 'Hack'
 "let g:my_fontsize = 9
 "call rpcnotify(1, 'Gui', 'Font', g:my_font .. ' ' .. string(g:my_fontsize))
-set guifont=Cascadia\ Code:h9
+if has("win32")
+    set guifont=Cascadia\ Code:h9
+else
+    set guifont=Hack:h9
+end
 
 ""call rpcnotify(1, 'Gui', 'Font', 'Monospace 9')
 ""call rpcnotify(1, 'Gui', 'Option', 'Cmdline', 1)
