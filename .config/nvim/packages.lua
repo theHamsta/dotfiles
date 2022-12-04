@@ -36,6 +36,14 @@ return packer.startup(function()
   use { "wbthomason/packer.nvim", opt = true }
   use "krady21/compiler-explorer.nvim"
   use {
+    "saecki/crates.nvim",
+    event = { "BufRead Cargo.toml" },
+    requires = { { "nvim-lua/plenary.nvim" } },
+    config = function()
+      require("crates").setup()
+    end,
+  }
+  use {
     "nvim-telescope/telescope-ui-select.nvim",
     config = function()
       require("telescope").load_extension "ui-select"
@@ -368,6 +376,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
           --{ name = "ultisnips" }, -- For ultisnips users.
           { name = "emoji", insert = true },
           { name = "latex_symbols" },
+          { name = "crates" },
           --{ name = "neorg" },
           --{ name = "dap" },
         }, {
