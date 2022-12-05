@@ -321,12 +321,12 @@ autocmd FileType rust nmap <silent> <leader>tN <c-w>o:wa<cr>:Topen<cr>:exec 'T c
 autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
 
 if has("win32")
-    nmap <c-a-p> :Files<cr>
-    nmap <space><c-p> :cd C:/dev<cr>:Files<cr>
+    nmap <c-a-p> :cd C:\dev<cr>:Files<cr>
+    nmap <space><c-p> :cd C:\dev<cr>:Files<cr>
 else
     nmap <c-a-p> :cd ~/projects<cr>:Files<cr>
+    nmap <space><c-p> :cd ~/projects<cr>:Files<cr>
 end
-nmap <space><c-p> :Files<cr>
 nmap <a-p> :Buffers<cr>
 nnoremap <a-g> :GFiles?<cr>
 nmap <leader>gg :GF?<cr>

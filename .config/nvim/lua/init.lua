@@ -302,13 +302,13 @@ if ok then
   --on_attach = on_attach,
   --capabilities = capabilities,
   --}
-
+local clangd = shell.select_executable { "clangd-16", "clangd-15", "clangd" }
   local ok = pcall(require, "clangd_extensions")
-  if ok then
+  if ok and clangd then
     require("clangd_extensions").setup {
       server = {
         cmd = {
-          shell.select_executable { "clangd-16", "clangd-15", "clangd" },
+          clangd,
           "--clang-tidy",
           "--all-scopes-completion",
           "--header-insertion=iwyu",
