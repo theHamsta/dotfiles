@@ -459,59 +459,59 @@ if ok then
   --command = "node",
   --args = {os.getenv("HOME") .. "/projects/vscode-go/dist/debugAdapter.js"}
   --}
-  dap.adapters.go = {
-    type = "executable",
-    command = "dlv",
-    args = { "dap" },
-    env = function()
-      local variables = {
-        LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES",
-      }
-      for k, v in pairs(vim.fn.environ()) do
-        if type(k) == "string" and type(v) == "string" then
-          table.insert(variables, string.format("%s=%s", k, v))
-        end
-      end
-      return variables
-    end,
-  }
-  dap.configurations.go = {
-    {
-      type = "go",
-      name = "Debug",
-      request = "launch",
-      showLog = false,
-      program = "${file}",
-      dlvToolPath = vim.fn.exepath "dlv", -- Adjust to where delve is installed
-    },
-  }
-  dap.configurations.python = {
-    {
-      type = "python",
-      request = "attach",
-      name = "Launch file",
-      program = "${file}",
-      console = "internalConsole",
-      autoReload = { enable = true },
-      pythonPath = "/usr/bin/python3",
-    },
-    {
-      type = "python",
-      request = "attach",
-      name = "Pytest file",
-      program = "-m pytest ${file}",
-      console = "externalTerminal",
-      pythonPath = "/usr/bin/python3",
-    },
-    {
-      type = "python",
-      request = "launch",
-      name = "Launch file",
-      program = "${file}",
-      console = "internalConsole",
-      pythonPath = "/usr/bin/python3",
-    },
-  }
+  --dap.adapters.go = {
+    --type = "executable",
+    --command = "dlv",
+    --args = { "dap" },
+    --env = function()
+      --local variables = {
+        --LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES",
+      --}
+      --for k, v in pairs(vim.fn.environ()) do
+        --if type(k) == "string" and type(v) == "string" then
+          --table.insert(variables, string.format("%s=%s", k, v))
+        --end
+      --end
+      --return variables
+    --end,
+  --}
+  --dap.configurations.go = {
+    --{
+      --type = "go",
+      --name = "Debug",
+      --request = "launch",
+      --showLog = false,
+      --program = "${file}",
+      --dlvToolPath = vim.fn.exepath "dlv", -- Adjust to where delve is installed
+    --},
+  --}
+  --dap.configurations.python = {
+    --{
+      --type = "python",
+      --request = "attach",
+      --name = "Launch file",
+      --program = "${file}",
+      --console = "internalConsole",
+      --autoReload = { enable = true },
+      --pythonPath = "/usr/bin/python3",
+    --},
+    --{
+      --type = "python",
+      --request = "attach",
+      --name = "Pytest file",
+      --program = "-m pytest ${file}",
+      --console = "externalTerminal",
+      --pythonPath = "/usr/bin/python3",
+    --},
+    --{
+      --type = "python",
+      --request = "launch",
+      --name = "Launch file",
+      --program = "${file}",
+      --console = "internalConsole",
+      --pythonPath = "/usr/bin/python3",
+    --},
+  --}
   require("dap.repl").commands = vim.tbl_extend("force", require("dap.repl").commands, {
     continue = { ".continue", "c" },
     next_ = { ".next", "n" },

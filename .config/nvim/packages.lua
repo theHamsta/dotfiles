@@ -73,7 +73,7 @@ return packer.startup(function()
       require("inlay-hints").setup {
         only_current_line = false,
         eol = {
-          right_align = true,
+          right_align = false,
         },
       }
     end,
@@ -261,9 +261,9 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     "yriveiro/dap-go.nvim",
     requires = { { "nvim-lua/plenary.nvim" } },
     config = function()
-      require("dap-go").setup()
+      require("dap-go").setup({})
     end,
-    opt = true,
+    --opt = true,
   }
   use {
     "ggandor/lightspeed.nvim",
@@ -493,14 +493,6 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       require("trouble").setup {}
     end,
     cmd = { "Trouble" },
-  }
-  use {
-    "Saecki/crates.nvim",
-    event = { "BufRead Cargo.toml" },
-    requires = { { "nvim-lua/plenary.nvim" } },
-    config = function()
-      require("crates").setup()
-    end,
   }
   --use { "kdav5758/TrueZen.nvim", opt = true }
   use { "windwp/nvim-ts-autotag", opt = true }

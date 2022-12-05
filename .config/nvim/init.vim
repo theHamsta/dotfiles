@@ -63,6 +63,7 @@ map <space><space>w :HopWord<cr>
 map <space><space>j :HopLineAC<cr>
 map <space><space>k :HopLineBC<cr>
 nnoremap <space>td :cd ~/projects/norg<cr>:Neorg gtd views<cr>
+map <space>td :cd ~/projects/norg<cr>:Neorg gtd views<cr>
 
 set history=10000
 set splitbelow
@@ -1348,10 +1349,13 @@ au FileType dap-repl lua require('dap.ext.autocompl').attach()
 
 au FileType java lua require('jdtls').start_or_attach({cmd = {'java-lsp.sh'}, settings = {java = { import = { gradle = { wrapper = { checksums = { { sha256 = "803c75f3307787290478a5ccfa9054c5c0c7b4250c1b96ceb77ad41fbe919e4e", allowed = true } } } } } }}, init_options = { bundles = { vim.fn.glob("/home/stephan/projects/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar") } }, on_attach= function(client, bufnr) require('jdtls').setup_dap() end})
 nnoremap <leader>sy :lua require "telescope.builtin".symbols {sources = {"emoji", "kaomoji", "math", "latex"}}<cr>
+nnoremap <ins> :next<cr>
+nnoremap <del> :previous<cr>
 "nnoremap <leader>fy :Telescope frecency<cr>
 "inoremap <c-s> <Esc>:lua require "telescope.builtin".symbols {sources = {"emoji", "kaomoji", "math", "latex"}}<cr>
 
-highlight NvimDapStopped guibg=#000099
+highlight DapStopped guibg=#000099
+highlight DapBreakpoint guibg=#661111
 
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
