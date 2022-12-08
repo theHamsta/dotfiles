@@ -79,7 +79,7 @@ return packer.startup(function()
     end,
   }
   use { "famiu/nvim-reload", opt = true }
-  use { "theHamsta/nvim-semantic-tokens", opt = false }
+  --use { "theHamsta/nvim-semantic-tokens", opt = false }
   use "rafamadriz/friendly-snippets"
   if vim.fn.has "win32" ~= 1 then
     use {
@@ -122,7 +122,7 @@ return packer.startup(function()
   --enabled = false,
   --}
 
-  use "github/copilot.vim"
+  use { "github/copilot.vim", opt = true }
   --use {
   --"nvim-treesitter/nvim-treesitter-context",
   --config = function()
@@ -261,7 +261,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     "yriveiro/dap-go.nvim",
     requires = { { "nvim-lua/plenary.nvim" } },
     config = function()
-      require("dap-go").setup({})
+      require("dap-go").setup {}
     end,
     --opt = true,
   }

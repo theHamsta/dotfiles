@@ -23,7 +23,7 @@ if lsp_status_ok then
 end
 
 capabilities = require("cmp_nvim_lsp").default_capabilities()
-capabilities = require("nvim-semantic-tokens").extend_capabilities(capabilities)
+--capabilities = require("nvim-semantic-tokens").extend_capabilities(capabilities)
 
 require("vim.lsp.log").set_level(vim.log.levels.OFF)
 
@@ -88,10 +88,10 @@ if ok then
   local function on_attach(client, bufnr)
     local ih = require "inlay-hints"
     ih.on_attach(client, bufnr)
-    local caps = client.server_capabilities
-    if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
-      vim.cmd [[autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.buf.semantic_tokens_full()]]
-    end
+    --local caps = client.server_capabilities
+    --if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
+      --vim.cmd [[autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.buf.semantic_tokens_full()]]
+    --end
     vim.fn.NvimLspMaps()
     if lsp_signature_ok then
       lsp_signature.on_attach()
@@ -968,9 +968,9 @@ vim.cmd [[
 command! -complete=file -nargs=* PythonDebug lua require "my_debug".python_debug({<f-args>})
 ]]
 
-require("nvim-semantic-tokens").setup {
-  preset = "theHamsta",
-}
+--require("nvim-semantic-tokens").setup {
+  --preset = "theHamsta",
+--}
 
 local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 parser_configs.norg =
