@@ -14,6 +14,7 @@
     #fi
 #fi
 
+export DOCKER_BUILDKIT=1
 # set PATH so it includes user's private bin directories
 export GOPATH=$HOME/go
 export PATH="/usr/local/cuda-11.1/bin:$PATH"

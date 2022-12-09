@@ -780,7 +780,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     end,
   }
   use { "ziglang/zig.vim", ft = "zig", opt = false }
-  use "mfussenegger/nvim-jdtls"
+  use {"mfussenegger/nvim-jdtls", opt = true}
   --use "mattn/emmet-vim"
   use "rhysd/conflict-marker.vim"
   use { "mfussenegger/nvim-dap" }

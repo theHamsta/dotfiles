@@ -15,4 +15,4 @@ nmap <buffer> <silent> <leader>bm :DebugRepl<cr>
 
 call NvimLspMaps()
 call DapMaps()
-lua require("jdtls").setup_dap()
+"lua pcall(function()require"jdtls".setup_dap()end)
