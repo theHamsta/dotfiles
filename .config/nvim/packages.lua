@@ -73,7 +73,7 @@ return packer.startup(function()
       require("inlay-hints").setup {
         only_current_line = true,
         eol = {
-          right_align = false,
+          right_align = true,
         },
       }
     end,
