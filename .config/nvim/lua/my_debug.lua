@@ -135,7 +135,7 @@ end
 
 local last_lldb_config
 M.start_vscode_lldb = function(args)
-  local dap = require "day"
+  local dap = require "dap"
   args = vim.tbl_map(function(arg)
     return vim.fn.expand(arg)
   end, args)
