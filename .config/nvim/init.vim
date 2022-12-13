@@ -461,11 +461,11 @@ function! NvimLspMaps()
     ""nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>
     nnoremap <silent> <leader>fi <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>
 "|| &filetype == "cpp" || &filetype == "cuda" || &filetype == "c"
-    if &filetype == "rust" 
-        autocmd BufEnter,CursorHold,InsertLeave <buffer> lua require 'vim.lsp.buf'.semantic_tokens_full()
+    "if &filetype == "rust" 
+        "autocmd BufEnter,CursorHold,InsertLeave <buffer> lua require 'vim.lsp.buf'.semantic_tokens_full()
         nnoremap <buffer> <c-a-o> :Telescope lsp_document_symbols<cr>
         nnoremap <buffer> <leader><c-o> :Telescope lsp_document_symbols<cr>
-    endif
+    "endif
     "if &filetype != "tex" && &filetype != "haskell"
         "inoremap <buffer><silent> (     <cmd>lua vim.lsp.buf.signature_help()<CR>(
     "endif

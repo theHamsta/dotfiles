@@ -73,7 +73,7 @@ return packer.startup(function()
       require("inlay-hints").setup {
         only_current_line = true,
         eol = {
-          right_align = true,
+          right_align = false,
         },
       }
     end,
@@ -385,7 +385,9 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       }
     end,
   }
-  use "p00f/clangd_extensions.nvim"
+  use {
+    "p00f/clangd_extensions.nvim",
+  }
   use { "earthly/earthly.vim", filetype = "earthly" }
   --use { "projekt0n/github-nvim-theme" }
   use {
@@ -780,7 +782,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     end,
   }
   use { "ziglang/zig.vim", ft = "zig", opt = false }
-  use {"mfussenegger/nvim-jdtls", opt = true}
+  use { "mfussenegger/nvim-jdtls", opt = true }
   --use "mattn/emmet-vim"
   use "rhysd/conflict-marker.vim"
   use { "mfussenegger/nvim-dap" }

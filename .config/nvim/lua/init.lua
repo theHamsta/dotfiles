@@ -88,6 +88,8 @@ if ok then
   local function on_attach(client, bufnr)
     local ih = require "inlay-hints"
     ih.on_attach(client, bufnr)
+    local caps = client.server_capabilities
+    D(caps.semanticTokensProvider.legend)
     --local caps = client.server_capabilities
     --if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
       --vim.cmd [[autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.buf.semantic_tokens_full()]]
@@ -319,6 +321,11 @@ local clangd = shell.select_executable { "clangd-16", "clangd-15", "clangd" }
         filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
         on_attach = on_attach,
         capabilities = capabilities,
+        extensions = {
+          -- defaults:
+          -- Automatically set inlay hints (type hints)
+          autoSetHints = true,
+        },
       },
     }
   end
