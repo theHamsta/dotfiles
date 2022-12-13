@@ -71,7 +71,7 @@ return packer.startup(function()
     "simrat39/inlay-hints.nvim",
     config = function()
       require("inlay-hints").setup {
-        only_current_line = false,
+        only_current_line = true,
         eol = {
           right_align = false,
         },
