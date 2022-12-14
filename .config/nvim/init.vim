@@ -1435,3 +1435,6 @@ nnoremap <leader>ol <cmd>OverseerToggle<cr>
 "
 set laststatus=3
 let g:copilot_node_command = "/usr/bin/node"
+
+highlight @deprecated term=strikethrough cterm=strikethrough gui=strikethrough
+"highlight @variable.gobalScope guibg=#773244
