@@ -88,8 +88,6 @@ if ok then
   local function on_attach(client, bufnr)
     local ih = require "inlay-hints"
     ih.on_attach(client, bufnr)
-    local caps = client.server_capabilities
-    D(caps.semanticTokensProvider.legend)
     --local caps = client.server_capabilities
     --if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
       --vim.cmd [[autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.buf.semantic_tokens_full()]]
