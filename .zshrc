@@ -102,16 +102,16 @@ alias vi=nvim
 #
 command -v dtags-activate > /dev/null 2>&1 && eval "`dtags-activate zsh`"
 
-if  command -v nala &> /dev/null
-then
-	alias up="sudo nala update"
-	alias gr="sudo nala upgrade"
-	alias i="sudo nala install "
-else
+#if  command -v nala &> /dev/null
+#then
+	#alias up="sudo nala update"
+	#alias gr="sudo nala upgrade"
+	#alias i="sudo nala install "
+#else
 	alias up="sudo apt update"
 	alias gr="sudo apt upgrade"
 	alias i="sudo apt install "
-fi
+#fi
 
 alias l.='ls -d .* --color=auto'
 alias distupgrade="sudo apt-get dist-upgrade -f"
