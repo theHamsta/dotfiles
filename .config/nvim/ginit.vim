@@ -9,7 +9,7 @@ else
     set guifont=Hack:h9
 end
 
-""call rpcnotify(1, 'Gui', 'Font', 'Monospace 9')
+call rpcnotify(1, 'Gui', 'Font', 'Hack 9')
 ""call rpcnotify(1, 'Gui', 'Option', 'Cmdline', 1)
 ""
 ""
