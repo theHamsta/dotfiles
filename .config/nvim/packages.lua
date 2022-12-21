@@ -111,17 +111,17 @@ return packer.startup(function()
       saga.init_lsp_saga()
     end,
   }
-  --use {
-  --"folke/which-key.nvim",
-  --config = function()
-  --require("which-key").setup {
-  ---- your configuration comes here
-  ---- or leave it empty to use the default settings
-  ---- refer to the configuration section below
-  --}
-  --end,
-  --enabled = false,
-  --}
+  use {
+    "folke/which-key.nvim",
+    config = function()
+      require("which-key").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end,
+    enabled = false,
+  }
 
   use { "github/copilot.vim", opt = true }
   --use {
@@ -342,7 +342,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       --"quangnguyen30192/cmp-nvim-ultisnips",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
-      'hrsh7th/cmp-nvim-lua',
+      "hrsh7th/cmp-nvim-lua",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
       "hrsh7th/cmp-emoji",
@@ -399,15 +399,18 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       --vim.cmd[[nnoremap <leader>nd :DiffviewOpen<cr>]]
     end,
   }
-  use {'ThePrimeagen/harpoon', config= function()
-    local mark = require("harpoon.mark")
-    local ui = require("harpoon.ui")
-    vim.keymap.set('n', ',ha', mark.add_file)
-    vim.keymap.set('n', ',hn', ui.nav_next)
-    vim.keymap.set('n', ',hp', ui.nav_prev)
-    vim.keymap.set('n', ',hh', ui.toggle_quick_menu)
-    require("telescope").load_extension('harpoon')
-  end}
+  use {
+    "ThePrimeagen/harpoon",
+    config = function()
+      local mark = require "harpoon.mark"
+      local ui = require "harpoon.ui"
+      vim.keymap.set("n", ",ha", mark.add_file)
+      vim.keymap.set("n", ",hn", ui.nav_next)
+      vim.keymap.set("n", ",hp", ui.nav_prev)
+      vim.keymap.set("n", ",hh", ui.toggle_quick_menu)
+      require("telescope").load_extension "harpoon"
+    end,
+  }
   if vim.fn.has "win32" ~= 1 then
     use {
       "https://gitlab.com/yorickpeterse/nvim-pqf",
