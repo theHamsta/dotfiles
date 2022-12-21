@@ -86,6 +86,13 @@ require("nvim-treesitter.install").prefer_git = false
 --}
 --}
 
+local ok, neodev = pcall(require,"neodev")
+if ok then
+  neodev.setup({
+    -- add any options here, or leave empty to use the default settings
+  })
+end
+
 local ok, lspconfig = pcall(require, "lspconfig")
 local lsp_signature_ok, lsp_signature = pcall(require, "lsp_signature")
 

@@ -43,6 +43,7 @@ return packer.startup(function()
       require("crates").setup()
     end,
   }
+  use { "folke/neodev.nvim" }
   use {
     "nvim-telescope/telescope-ui-select.nvim",
     config = function()
