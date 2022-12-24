@@ -120,7 +120,7 @@ return packer.startup(function()
         -- refer to the configuration section below
       }
     end,
-    enabled = false,
+    opt = true,
   }
 
   use { "github/copilot.vim", opt = true }

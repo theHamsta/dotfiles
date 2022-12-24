@@ -24,12 +24,10 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
   },
 }
 local lsp_status_ok, lsp_status = pcall(require, "lsp-status")
+capabilities = require("cmp_nvim_lsp").default_capabilities()
 if lsp_status_ok then
   capabilities = vim.tbl_extend("keep", capabilities or {}, lsp_status.capabilities)
 end
-
-capabilities = require("cmp_nvim_lsp").default_capabilities()
---capabilities = require("nvim-semantic-tokens").extend_capabilities(capabilities)
 
 require("vim.lsp.log").set_level(vim.log.levels.OFF)
 
@@ -50,6 +48,11 @@ end
 
 require("nvim-treesitter.install").prefer_git = false
 
+vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
+vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
+vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
+vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
+vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 --vim.treesitter.query.preprocessors["nvim-treesitter"] = function(filename, content)
 --local code = {}
 --local skip = false
