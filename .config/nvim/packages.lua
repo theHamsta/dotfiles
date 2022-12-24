@@ -505,6 +505,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --use "jceb/emmet.snippets"
   use {
     "folke/lsp-trouble.nvim",
+    requires = { "kyazdani42/nvim-web-devicons", opt = true },
     config = function()
       require("trouble").setup {}
     end,
