@@ -1050,6 +1050,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     config = function()
       vim.cmd "colorscheme rose-pine"
     end,
+    opt = true,
   }
   use { "projekt0n/github-nvim-theme", opt = true }
   --use {"tiagovla/tokyodark.nvim", opt = true}
