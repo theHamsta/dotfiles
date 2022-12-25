@@ -920,6 +920,7 @@ if ok then
 
   -- constants
   hlmap["constant"] = "Constant"
+  hlmap["attribute"] = "Type"
   hlmap["comment"] = "Comment"
   hlmap["constant"] = "Constant"
   hlmap["semshi"] = "semshiimported"

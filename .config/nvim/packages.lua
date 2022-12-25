@@ -391,7 +391,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     "p00f/clangd_extensions.nvim",
   }
   use { "earthly/earthly.vim", filetype = "earthly" }
-  --use { "projekt0n/github-nvim-theme" }
+  use { "projekt0n/github-nvim-theme", opt = true }
   use {
     "sindrets/diffview.nvim",
     cmd = "DiffviewOpen",

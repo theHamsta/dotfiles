@@ -1,8 +1,8 @@
 set termguicolors     " enable true colors support
 set background=dark 
-"colorscheme github_dark_default
-colorscheme one
-":packadd tokyonight.nvim | let g:tokyonight_style = "storm" | colorscheme tokyonight
+packadd github-nvim-theme | colorscheme github_dark_default
+"colorscheme one
+"packadd tokyonight.nvim | let g:tokyonight_style = "storm" | colorscheme tokyonight
 
 let g:unstack_mapkey='<leader><F10>'
 set tags=./tags,tags
