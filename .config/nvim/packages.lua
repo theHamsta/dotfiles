@@ -391,7 +391,6 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     "p00f/clangd_extensions.nvim",
   }
   use { "earthly/earthly.vim", filetype = "earthly" }
-  use { "projekt0n/github-nvim-theme", opt = true }
   use {
     "sindrets/diffview.nvim",
     cmd = "DiffviewOpen",
@@ -557,8 +556,6 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     end,
   }
   use { "pwntester/octo.nvim", opt = true }
-  --use {"tiagovla/tokyodark.nvim", opt = true}
-  use { "folke/tokyonight.nvim", opt = true }
   use {
     "glepnir/indent-guides.nvim",
     config = function()
@@ -1003,7 +1000,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     "folke/todo-comments.nvim",
     opt = false,
     config = function()
-      --require("todo-comments").setup {}
+      require("todo-comments").setup {}
     end,
   }
 
@@ -1020,7 +1017,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
         "sass",
       }
     end,
-    opt = false,
+    opt = true,
   }
   use "terryma/vim-multiple-cursors"
   use "kana/vim-textobj-user"
@@ -1038,20 +1035,23 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   use "tpope/vim-sleuth"
   use "tpope/vim-surround"
   use "tpope/vim-unimpaired"
-  --use { "vim-airline/vim-airline", requires = "vim-airline/vim-airline-themes", opt = true }
 
-  --use {
-  --"theHamsta/galaxyline.nvim",
-  --requires = "kyazdani42/nvim-web-devicons",
-  --config = function()
-  --require "my_statusline"
-  --end,
-  --opt = false,
-  --}
   use "wellle/targets.vim"
   use "whiteinge/diffconflicts"
   use "TravonteD/luajob"
-  --use "Shougo/deoplete-lsp"
-  --use {"Shougo/deoplete.nvim", run = ":UpdateRemotePlugins"}
-  use "rakr/vim-one"
+
+  -- Color schemes
+  use { "rakr/vim-one", opt = true }
+
+  use { "olimorris/onedarkpro.nvim", opt = true }
+  use {
+    "rose-pine/neovim",
+    as = "rose-pine",
+    config = function()
+      vim.cmd "colorscheme rose-pine"
+    end,
+  }
+  use { "projekt0n/github-nvim-theme", opt = true }
+  --use {"tiagovla/tokyodark.nvim", opt = true}
+  use { "folke/tokyonight.nvim", opt = true }
 end)
