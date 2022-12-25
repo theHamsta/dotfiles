@@ -1001,7 +1001,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
         "sass",
       }
     end,
-    opt = true,
+    opt = false,
   }
   use "terryma/vim-multiple-cursors"
   use "kana/vim-textobj-user"
