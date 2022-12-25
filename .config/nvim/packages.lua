@@ -777,22 +777,6 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   }
   use "nvim-treesitter/playground"
   --use "nvim-treesitter/nvim-tree-docs"
-  use { "bluz71/vim-nightfly-guicolors", opt = true }
-  use { "bluz71/vim-moonfly-colors", opt = true }
-  use { "chriskempson/base16-vim", opt = true }
-  use { "doums/darcula", opt = true }
-  use { "strange/vim-lore", opt = true }
-  use { "pineapplegiant/spaceduck", opt = true }
-  use { "ghifarit53/daycula-vim", opt = true }
-  use { "aonemd/kuroi.vim", opt = true }
-  use { "srcery-colors/srcery-vim", opt = true }
-  use {
-    "novakne/kosmikoa.nvim",
-    opt = true,
-    config = function()
-      require("kosmikoa").setup()
-    end,
-  }
   use { "ziglang/zig.vim", ft = "zig", opt = false }
   use { "mfussenegger/nvim-jdtls", opt = true }
   --use "mattn/emmet-vim"
@@ -1055,4 +1039,20 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   use { "projekt0n/github-nvim-theme", opt = true }
   --use {"tiagovla/tokyodark.nvim", opt = true}
   use { "folke/tokyonight.nvim", opt = true }
+  use { "bluz71/vim-nightfly-guicolors", opt = true }
+  use { "bluz71/vim-moonfly-colors", opt = true }
+  use { "chriskempson/base16-vim", opt = true }
+  use { "doums/darcula", opt = true }
+  use { "strange/vim-lore", opt = true }
+  use { "pineapplegiant/spaceduck", opt = true }
+  use { "ghifarit53/daycula-vim", opt = true }
+  use { "aonemd/kuroi.vim", opt = true }
+  use { "srcery-colors/srcery-vim", opt = true }
+  use {
+    "novakne/kosmikoa.nvim",
+    config = function()
+      require("kosmikoa").setup()
+    end,
+    opt = true,
+  }
 end)
