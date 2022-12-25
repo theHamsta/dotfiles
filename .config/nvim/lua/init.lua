@@ -1,8 +1,8 @@
 local shell = require "nvim-treesitter.shell_command_selectors"
 
-local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/opt/packer.nvim'
+local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/opt/packer.nvim"
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  vim.fn.system { 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path }
+  vim.fn.system { "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path }
   vim.cmd [[packadd packer.nvim]]
 end
 
@@ -48,11 +48,11 @@ end
 
 require("nvim-treesitter.install").prefer_git = false
 
-vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
-vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
-vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
-vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+vim.keymap.set("n", "<leader>sf", require("telescope.builtin").find_files, { desc = "[S]earch [F]iles" })
+vim.keymap.set("n", "<leader>sh", require("telescope.builtin").help_tags, { desc = "[S]earch [H]elp" })
+vim.keymap.set("n", "<leader>sw", require("telescope.builtin").grep_string, { desc = "[S]earch current [W]ord" })
+vim.keymap.set("n", "<leader>sg", require("telescope.builtin").live_grep, { desc = "[S]earch by [G]rep" })
+vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { desc = "[S]earch [D]iagnostics" })
 --vim.treesitter.query.preprocessors["nvim-treesitter"] = function(filename, content)
 --local code = {}
 --local skip = false
@@ -89,11 +89,11 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 --}
 --}
 
-local ok, neodev = pcall(require,"neodev")
+local ok, neodev = pcall(require, "neodev")
 if ok then
-  neodev.setup({
+  neodev.setup {
     -- add any options here, or leave empty to use the default settings
-  })
+  }
 end
 
 local ok, lspconfig = pcall(require, "lspconfig")
@@ -106,7 +106,7 @@ if ok then
     ih.on_attach(client, bufnr)
     --local caps = client.server_capabilities
     --if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
-      --vim.cmd [[autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.buf.semantic_tokens_full()]]
+    --vim.cmd [[autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.buf.semantic_tokens_full()]]
     --end
     vim.fn.NvimLspMaps()
     if lsp_signature_ok then
@@ -318,7 +318,7 @@ if ok then
   --on_attach = on_attach,
   --capabilities = capabilities,
   --}
-local clangd = shell.select_executable { "clangd-16", "clangd-15", "clangd" }
+  local clangd = shell.select_executable { "clangd-16", "clangd-15", "clangd" }
   local ok = pcall(require, "clangd_extensions")
   if ok and clangd then
     require("clangd_extensions").setup {
@@ -481,57 +481,57 @@ if ok then
   --args = {os.getenv("HOME") .. "/projects/vscode-go/dist/debugAdapter.js"}
   --}
   --dap.adapters.go = {
-    --type = "executable",
-    --command = "dlv",
-    --args = { "dap" },
-    --env = function()
-      --local variables = {
-        --LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES",
-      --}
-      --for k, v in pairs(vim.fn.environ()) do
-        --if type(k) == "string" and type(v) == "string" then
-          --table.insert(variables, string.format("%s=%s", k, v))
-        --end
-      --end
-      --return variables
-    --end,
+  --type = "executable",
+  --command = "dlv",
+  --args = { "dap" },
+  --env = function()
+  --local variables = {
+  --LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES",
+  --}
+  --for k, v in pairs(vim.fn.environ()) do
+  --if type(k) == "string" and type(v) == "string" then
+  --table.insert(variables, string.format("%s=%s", k, v))
+  --end
+  --end
+  --return variables
+  --end,
   --}
   --dap.configurations.go = {
-    --{
-      --type = "go",
-      --name = "Debug",
-      --request = "launch",
-      --showLog = false,
-      --program = "${file}",
-      --dlvToolPath = vim.fn.exepath "dlv", -- Adjust to where delve is installed
-    --},
+  --{
+  --type = "go",
+  --name = "Debug",
+  --request = "launch",
+  --showLog = false,
+  --program = "${file}",
+  --dlvToolPath = vim.fn.exepath "dlv", -- Adjust to where delve is installed
+  --},
   --}
   --dap.configurations.python = {
-    --{
-      --type = "python",
-      --request = "attach",
-      --name = "Launch file",
-      --program = "${file}",
-      --console = "internalConsole",
-      --autoReload = { enable = true },
-      --pythonPath = "/usr/bin/python3",
-    --},
-    --{
-      --type = "python",
-      --request = "attach",
-      --name = "Pytest file",
-      --program = "-m pytest ${file}",
-      --console = "externalTerminal",
-      --pythonPath = "/usr/bin/python3",
-    --},
-    --{
-      --type = "python",
-      --request = "launch",
-      --name = "Launch file",
-      --program = "${file}",
-      --console = "internalConsole",
-      --pythonPath = "/usr/bin/python3",
-    --},
+  --{
+  --type = "python",
+  --request = "attach",
+  --name = "Launch file",
+  --program = "${file}",
+  --console = "internalConsole",
+  --autoReload = { enable = true },
+  --pythonPath = "/usr/bin/python3",
+  --},
+  --{
+  --type = "python",
+  --request = "attach",
+  --name = "Pytest file",
+  --program = "-m pytest ${file}",
+  --console = "externalTerminal",
+  --pythonPath = "/usr/bin/python3",
+  --},
+  --{
+  --type = "python",
+  --request = "launch",
+  --name = "Launch file",
+  --program = "${file}",
+  --console = "internalConsole",
+  --pythonPath = "/usr/bin/python3",
+  --},
   --}
   require("dap.repl").commands = vim.tbl_extend("force", require("dap.repl").commands, {
     continue = { ".continue", "c" },
@@ -688,6 +688,7 @@ end
 
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
+  require("nvim-treesitter.parsers").filetype_to_parsername["wgsl"] = "wgsl_bevy"
   --vim.cmd "set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()"
   --local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 
@@ -991,7 +992,7 @@ command! -complete=file -nargs=* PythonDebug lua require "my_debug".python_debug
 ]]
 
 --require("nvim-semantic-tokens").setup {
-  --preset = "theHamsta",
+--preset = "theHamsta",
 --}
 
 local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
@@ -1002,8 +1003,7 @@ parser_configs.norg =
       files = { "src/parser.c", "src/scanner.cc" },
       branch = "main",
     },
-  } --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then  --error(err)  --end  --local content = file:read(read_quantifier)  --io.close(file)  --return content  --end  --local function read_query_files(filenames)  --local contents = {}  --for _, filename in ipairs(filenames) do  --table.insert(contents, safe_read(filename, "*a"))  --end  --return table.concat(contents, "")  --end  --vim.treesitter.query.set_query(  --"lua",  --"highlights",  --read_query_files(vim.treesitter.query.get_query_files("lua", "highlights")):gsub(  --[[%[  --"goto"  --"in"
-  --"local"
+  } --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then  --error(err)  --end  --local content = file:read(read_quantifier)  --io.close(file)  --return content  --end  --local function read_query_files(filenames)  --local contents = {}  --for _, filename in ipairs(filenames) do  --table.insert(contents, safe_read(filename, "*a"))  --end  --return table.concat(contents, "")  --end  --vim.treesitter.query.set_query(  --"lua",  --"highlights",  --read_query_files(vim.treesitter.query.get_query_files("lua", "highlights")):gsub(  --[[%[  --"goto"  --"in"  --"local"
   --%] @keyword]]
 ,
     --[[
