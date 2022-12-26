@@ -192,6 +192,8 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     ]]
     end,
   }
+
+  use { "kyazdani42/nvim-web-devicons" }
   use {
     "nvim-lualine/lualine.nvim",
     requires = { "kyazdani42/nvim-web-devicons", opt = true },
