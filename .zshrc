@@ -159,5 +159,5 @@ export NVM_DIR="$HOME/.nvm"
 
 export CARGO_UNSTABLE_SPARSE_REGISTRY=true
 
-alias nvim-qt='f(){ nvim --listen 127.0.0.1:10710 --headless "$@" & "/mnt/c/Program Files/Neovim/bin/nvim-qt.exe" --server 127.0.0.1:10710 }; f'
+alias nvim-qt-wsl='f(){ nvim --listen 127.0.0.1:10710 --headless "$@" & "/mnt/c/Program Files/Neovim/bin/nvim-qt.exe" --server 127.0.0.1:10710 }; f'
 alias ju='just --justfile ~/.justfile --working-directory .'
