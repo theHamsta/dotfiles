@@ -50,6 +50,23 @@ return packer.startup(function()
       require("telescope").load_extension "ui-select"
     end,
   }
+  --use {
+  --"jbyuki/one-small-step-for-vimkind",
+  --config = function()
+  --local dap = require "dap"
+  --dap.configurations.lua = {
+  --{
+  --type = "nlua",
+  --request = "attach",
+  --name = "Attach to running Neovim instance",
+  --},
+  --}
+
+  --dap.adapters.nlua = function(callback, config)
+  --callback { type = "server", host = config.host or "127.0.0.1", port = config.port or 8086 }
+  --end
+  --end,
+  --}
   use {
     "kevinhwang91/nvim-ufo",
     requires = "kevinhwang91/promise-async",
@@ -512,9 +529,12 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   }
   --use { "kdav5758/TrueZen.nvim", opt = true }
   use { "windwp/nvim-ts-autotag", opt = true }
-  --use {"windwp/nvim-autopairs", config = function()
-  --require("nvim-autopairs").setup()
-  --end}
+  use {
+    "windwp/nvim-autopairs",
+    config = function()
+      require("nvim-autopairs").setup {}
+    end,
+  }
   use { "mfussenegger/nvim-ts-hint-textobject", opt = false }
   --use {
   --"nvim-telescope/telescope-project.nvim",

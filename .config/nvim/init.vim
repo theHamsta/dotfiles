@@ -580,8 +580,8 @@ let g:slime_target = "neovim"
 
 nnoremap <leader>ag :Ag<cr>
 "nnoremap <leader>fag :FuzzyAg<cr>
-"nnoremap <leader>rg :Rg<cr>
 nnoremap <leader>rg :Rg<cr>
+"nnoremap <leader>rg :Rg<cr>
 "nnoremap <leader>rg <cmd>Telescope live_grep<cr>
 let g:LanguageClient_diagnosticsList = "Location"
 ""let g:quickr_preview_on_cursor = 1
@@ -684,6 +684,7 @@ augroup filetypedetect
     au! BufRead,BufNewFile *.slint set filetype=slint
     au! BufRead,BufNewFile *.ll set filetype=llvm
     au! BufRead,BufNewFile *.cpp.tmpl set filetype=cpp
+    au! BufRead,BufNewFile *.cui set filetype=cuda
     au! BufRead,BufNewFile *.fs,*.fsx set filetype=fsharp
     au! BufRead,BufNewFile *.fsproj,*.csproj,*.target,*.sln set filetype=xml
     au! BufRead,BufNewFile *.pdf_tex set filetype=tex
@@ -1437,4 +1438,5 @@ set laststatus=3
 let g:copilot_node_command = "/usr/bin/node"
 
 highlight @deprecated term=strikethrough cterm=strikethrough gui=strikethrough
+highlight default link @injected None 
 "highlight @variable.gobalScope guibg=#773244
