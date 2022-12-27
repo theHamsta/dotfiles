@@ -157,6 +157,12 @@ if ok then
           "VERTEX_UVS",
           "SKINNED",
         },
+        inlayHints = {
+          enabled = true,
+          typeHints = true,
+          parameterHints = true,
+          structLayoutHints = true,
+        },
         customImports = {
           ["bevy_pbr::clustered_forward"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.9.0/crates/bevy_pbr/src/render/clustered_forward.wgsl",
           ["bevy_pbr::mesh_bindings"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.9.0/crates/bevy_pbr/src/render/mesh_bindings.wgsl",
@@ -1003,8 +1009,7 @@ parser_configs.norg =
       files = { "src/parser.c", "src/scanner.cc" },
       branch = "main",
     },
-  } --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then  --error(err)  --end  --local content = file:read(read_quantifier)  --io.close(file)  --return content  --end  --local function read_query_files(filenames)  --local contents = {}  --for _, filename in ipairs(filenames) do  --table.insert(contents, safe_read(filename, "*a"))  --end  --return table.concat(contents, "")  --end  --vim.treesitter.query.set_query(  --"lua",  --"highlights",  --read_query_files(vim.treesitter.query.get_query_files("lua", "highlights")):gsub(  --[[%[  --"goto"  --"in"  --"local"
-  --%] @keyword]]
+  } --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then  --error(err)  --end  --local content = file:read(read_quantifier)  --io.close(file)  --return content  --end  --local function read_query_files(filenames)  --local contents = {}  --for _, filename in ipairs(filenames) do  --table.insert(contents, safe_read(filename, "*a"))  --end  --return table.concat(contents, "")  --end  --vim.treesitter.query.set_query(  --"lua",  --"highlights",  --read_query_files(vim.treesitter.query.get_query_files("lua", "highlights")):gsub(  --[[%[  --"goto"  --"in"  --"local"  --%] @keyword]]
 ,
     --[[
 [ "goto" "in" ] @keyword
