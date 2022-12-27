@@ -31,8 +31,9 @@ run: build
 
 release:
 	mkdir -p release
-	cd release && cmake \
+	cmake -Brelease \
 		-DCMAKE_VERBOSE_MAKEFILE=OFF  \
+		-DCMAKE_PREFIX_PATH=/usr/local/KDAB/KDDockWidgets-1.6.95 \
 		-DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
 		-DCMAKE_CUDA_HOST_COMPILER=g++-11 \
 		-DCMAKE_CUDA_COMPILER_LAUNCHER=ccache \
@@ -40,8 +41,7 @@ release:
 		-DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color -march=native" \
 		-DCMAKE_C_FLAGS=-fdiagnostics-color \
 		-DCMAKE_CUDA_ARCHITECTURES=OFF \
-		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo" \
-		..
+		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo"
 	rm -f compile_commands.json
 	ln -s release/compile_commands.json
 	cd release && cmake --build . -- -j$(nproc)
