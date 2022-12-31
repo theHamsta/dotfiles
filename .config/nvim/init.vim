@@ -1257,7 +1257,7 @@ nnoremap <F8> :TagbarOpenAutoClose<CR>
 nmap ,w ysiw)
 nmap ,<s-w> ysiW)
 
-nnoremap <leader>pl :TSPlaygroundToggle<cr>
+nnoremap <leader>pl :vim.treesitter.show_tree()<cr>
 
 
 let g:completion_enable_snippet = 'UltiSnips'
