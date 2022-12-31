@@ -117,6 +117,26 @@ if ok then
     end
   end
 
+  local configs = require "lspconfig.configs"
+  local nvim_lsp = require "lspconfig"
+  if not configs.neocmake then
+    configs.neocmake = {
+      default_config = {
+        cmd = { "neocmakelsp", "--stdio" },
+        filetypes = { "cmake" },
+        root_dir = function(fname)
+          return nvim_lsp.util.find_git_ancestor(fname)
+        end,
+        single_file_support = true, -- suggested
+        on_attach = on_attach,
+      },
+    }
+    nvim_lsp.neocmake.setup {
+      on_attach = on_attach,
+      capabilities = capabilities,
+    }
+  end
+
   --pcall(require, "lspconfig/julials")
   --if not require("lspconfig/configs").julials.install_info().is_installed then
   -- require("lspconfig/configs").julials.install()
@@ -1009,8 +1029,7 @@ parser_configs.norg =
       files = { "src/parser.c", "src/scanner.cc" },
       branch = "main",
     },
-  } --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then  --error(err)  --end  --local content = file:read(read_quantifier)  --io.close(file)  --return content  --end  --local function read_query_files(filenames)  --local contents = {}  --for _, filename in ipairs(filenames) do  --table.insert(contents, safe_read(filename, "*a"))  --end  --return table.concat(contents, "")  --end  --vim.treesitter.query.set_query(  --"lua",  --"highlights",  --read_query_files(vim.treesitter.query.get_query_files("lua", "highlights")):gsub(  --[[%[  --"goto"  --"in"  --"local"  --%] @keyword]]
-,
+  } --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then  --error(err)  --end  --local content = file:read(read_quantifier)  --io.close(file)  --return content  --end  --local function read_query_files(filenames)  --local contents = {}  --for _, filename in ipairs(filenames) do  --table.insert(contents, safe_read(filename, "*a"))  --end  --return table.concat(contents, "")  --end  --vim.treesitter.query.set_query(  --"lua",  --"highlights",  --read_query_files(vim.treesitter.query.get_query_files("lua", "highlights")):gsub(  --[[%[  --"goto"  --"in"  --"local"  --%] @keyword]],
     --[[
 [ "goto" "in" ] @keyword
   ]]
