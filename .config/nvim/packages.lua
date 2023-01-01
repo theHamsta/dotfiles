@@ -537,7 +537,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       require("nvim-autopairs").setup {}
     end,
   }
-  use { "mfussenegger/nvim-ts-hint-textobject", opt = false }
+  use { "mfussenegger/nvim-treehopper", opt = false }
   --use {
   --"nvim-telescope/telescope-project.nvim",
   --config = function()

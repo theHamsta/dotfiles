@@ -1440,3 +1440,5 @@ let g:copilot_node_command = "/usr/bin/node"
 highlight @deprecated term=strikethrough cterm=strikethrough gui=strikethrough
 highlight default link @injected None 
 "highlight @variable.gobalScope guibg=#773244
+omap     <silent> m :<C-U>lua require('tsht').nodes()<CR>
+xnoremap <silent> m :lua require('tsht').nodes()<CR>
