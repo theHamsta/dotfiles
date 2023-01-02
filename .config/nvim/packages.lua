@@ -843,6 +843,9 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   use {
     "nvim-telescope/telescope-dap.nvim",
     requires = "nvim-telescope/telescope.nvim",
+    config = function()
+      require("telescope").load_extension "dap"
+    end,
   }
   use {
     "nvim-telescope/telescope-fzy-native.nvim",
