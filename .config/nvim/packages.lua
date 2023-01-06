@@ -50,6 +50,13 @@ return packer.startup(function()
       require("telescope").load_extension "ui-select"
     end,
   }
+  use {
+    "phaazon/mind.nvim",
+    requires = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("mind").setup {}
+    end,
+  }
   --use {
   --"jbyuki/one-small-step-for-vimkind",
   --config = function()
