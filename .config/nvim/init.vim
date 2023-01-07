@@ -475,7 +475,7 @@ function! NvimLspMaps()
       "autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()
     "endif
     command! CodeLens autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()
-    nnoremap <buffer><silent> gt    <cmd>lua vim.lsp.buf.type_definition()<CR>
+    nnoremap <buffer><silent> <leader>gt    <cmd>lua vim.lsp.buf.type_definition()<CR>
     "autocmd BufEnter <buffer> :lua require'lsp-ext'.update_diagnostics()
 
     if &filetype == "java" 
@@ -1033,7 +1033,7 @@ nnoremap <a-s-j> "ayy"ap
 
 nnoremap <silent> gf gF
 
-nnoremap gtf :Tnew<cr>:T dolphin %:p:h 2>&1 >> /dev/null &<cr>:Tclose<cr>
+nnoremap Gtf :Tnew<cr>:T dolphin %:p:h 2>&1 >> /dev/null &<cr>:Tclose<cr>
 ""let g:vimspector_enable_mappings = 'HUMAN'
 
 command! CdToCurrentFile cd %:p:h
