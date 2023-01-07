@@ -1020,7 +1020,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   use "skywind3000/vim-preview"
   use {
     "folke/todo-comments.nvim",
-    opt = false,
+    opt = true,
     config = function()
       require("todo-comments").setup {}
     end,
