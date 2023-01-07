@@ -1051,7 +1051,6 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   use "tpope/vim-fugitive"
   use { "tpope/vim-markdown", ft = "markdown" }
   use "tpope/vim-repeat"
-  use "tpope/vim-rhubarb"
   use { "tpope/vim-sexp-mappings-for-regular-people", ft = lisp_filetypes }
   use { "guns/vim-sexp", ft = lisp_filetypes }
   use "tpope/vim-sleuth"
