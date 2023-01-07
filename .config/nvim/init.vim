@@ -1,7 +1,4 @@
 set termguicolors     " enable true colors support
-"packadd github-nvim-theme | colorscheme github_dark_default
-"packadd onedarkpro.nvim | colorscheme onedark
-"colorscheme one
 packadd tokyonight.nvim | colorscheme tokyonight-storm
 
 let g:unstack_mapkey='<leader><F10>'
@@ -738,8 +735,6 @@ au FileType dap-repl lua require('dap.ext.autocompl').attach()
 nnoremap <leader>sy :lua require "telescope.builtin".symbols {sources = {"emoji", "kaomoji", "math", "latex"}}<cr>
 nnoremap <ins> :next<cr>
 nnoremap <del> :previous<cr>
-"nnoremap <leader>fy :Telescope frecency<cr>
-"inoremap <c-s> <Esc>:lua require "telescope.builtin".symbols {sources = {"emoji", "kaomoji", "math", "latex"}}<cr>
 
 highlight DapStopped guibg=#000099
 highlight DapBreakpoint guibg=#661111
@@ -761,10 +756,6 @@ hi def semshiSelected        ctermfg=231 guifg=#ffffff ctermbg=161 guibg=#d7005f
 hi def semshiErrorSign       ctermfg=231 guifg=#ffffff ctermbg=160 guibg=#d70000
 hi def semshiErrorChar       ctermfg=231 guifg=#ffffff ctermbg=160 guibg=#d70000
 
-"inoremap <silent><expr> <c-CR>      <cmd>call compe#confirm('<CR>')
-
-"autocmd ColorScheme * call v:lua.vim.lsp.diagnostic._define_default_signs_and_highlights()
-"autocmd ColorScheme * highlight TSTitle guifg=#229922 gui=bold,underline
 autocmd ColorScheme * highlight NvimDapStopped guibg=#000055
 
 autocmd ColorScheme * highlight default link TSDefinitionUsage Visual
