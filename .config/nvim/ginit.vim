@@ -1,8 +1,9 @@
 "GuiLinespace 0
 
-"let g:my_font = 'Hack'
-"let g:my_fontsize = 9
-"call rpcnotify(1, 'Gui', 'Font', g:my_font .. ' ' .. string(g:my_fontsize))
+let g:my_font = 'Hack'
+let g:my_fontsize = 9
+call rpcnotify(1, 'Gui', 'Font', g:my_font .. ' ' .. string(g:my_fontsize))
+
 if has("win32")
     set guifont=Cascadia\ Code:h9
 else

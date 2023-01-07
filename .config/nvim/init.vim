@@ -3,7 +3,7 @@ set background=dark
 "packadd github-nvim-theme | colorscheme github_dark_default
 "packadd onedarkpro.nvim | colorscheme onedark
 "colorscheme one
-packadd tokyonight.nvim | let g:tokyonight_style = "storm" | colorscheme tokyonight
+packadd tokyonight.nvim | colorscheme tokyonight
 
 let g:unstack_mapkey='<leader><F10>'
 set tags=./tags,tags
