@@ -702,40 +702,15 @@ autocmd BufWriteCmd,FileWriteCmd *.spirv call spirv#assemble()
 
 command! OpenDiagnostic :lua vim.lsp.diagnostic.set_loclist()<cr>
 
-
-"let g:fzf_preview_git_status_preview_command =
-    "\ "[[ $(git diff --cached -- {-1}) != \"\" ]] && git diff --cached --color=always -- {-1} | delta || " .
-    "\ "[[ $(git diff -- {-1}) != \"\" ]] && git diff --color=always -- {-1} | delta || " .
-    "\ g:fzf_preview_command
-
 if exists('g:fvim_loaded')
-    " good old 'set guifont' compatibility
-    " Ctrl-ScrollWheel for zooming in/out
     nnoremap <silent> <C-ScrollWheelUp> :set guifont=+<CR>
     nnoremap <silent> <C-ScrollWheelDown> :set guifont=-<CR>
     nnoremap <A-CR> :FVimToggleFullScreen<CR>
 endif
 
- "set completeopt +=preview
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 
-"lua require('hlslens').setup()
-"noremap <silent> n <Cmd>execute('normal! ' . v:count1 . 'n')<CR>
-            "\<Cmd>lua require('hlslens').start()<CR>
-"noremap <silent> N <Cmd>execute('normal! ' . v:count1 . 'N')<CR>
-            "\<Cmd>lua require('hlslens').start()<CR>
-"noremap * *<Cmd>lua require('hlslens').start()<CR>
-"noremap # #<Cmd>lua require('hlslens').start()<CR>
-"noremap g* g*<Cmd>lua require('hlslens').start()<CR>
-"noremap g# g#<Cmd>lua require('hlslens').start()<CR>
-
-"" use : instead of <Cmd>
-"nnoremap <silent> <leader>l :nohlsearch<CR>
-"
-
-"autocmd! BufWrite,CursorHold *.rs :lua require "lsp_extensions".inlay_hints({enabled = {"TypeHint", "ParameterHint"}, highlight = "Comment", prefix = " > "})
-"command! InlayHints :lua require "lsp_extensions".inlay_hints({enabled = {"TypeHint", "ChainingHint", "ParameterHint"}, highlight = "Comment", prefix = " ? "})
 
 let g:sneak#label = 1
 let g:AutoPairsShortcutToggle = '<M-m>'
