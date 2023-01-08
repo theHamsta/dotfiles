@@ -53,41 +53,6 @@ vim.keymap.set("n", "<leader>sh", require("telescope.builtin").help_tags, { desc
 vim.keymap.set("n", "<leader>sw", require("telescope.builtin").grep_string, { desc = "[S]earch current [W]ord" })
 vim.keymap.set("n", "<leader>sg", require("telescope.builtin").live_grep, { desc = "[S]earch by [G]rep" })
 vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { desc = "[S]earch [D]iagnostics" })
---vim.treesitter.query.preprocessors["nvim-treesitter"] = function(filename, content)
---local code = {}
---local skip = false
---for line in content:gmatch "(.-)\n" do
---if line:match "^%s*$" then
---skip = false
---end
---local pos, cond = line:match "^([+-])(.+)"
---if pos == "+" then
---skip = not loadstring(cond)()
---elseif pos == "-" then
---skip = loadstring(cond)()
---elseif not skip then
---table.insert(code, line)
---end
---end
---return table.concat(code, "\n")
---end
-
---vim.g.do_filetype_lua = 1
---vim.filetype.add { extension = { vert = "glsl", frag = "glsl" } }
-
---local configs = require "lspconfig.configs"
---local lspconfig = require("lspconfig")
-
---configs.zk = {
---default_config = {
---cmd = {"zk", "lsp", "--log", "/tmp/zk-lsp.log"},
---filetypes = {"markdown"},
---root_dir = function()
---return vim.loop.cwd()
---end,
---settings = {}
---}
---}
 
 local ok, neodev = pcall(require, "neodev")
 if ok then
@@ -150,10 +115,6 @@ if ok then
     on_attach = on_attach,
     capabilities = capabilities,
   }
-  --lspconfig.tree_sitter_grammar_lsp.setup {
-  --on_attach = on_attach,
-  --capabilities = capabilities,
-  --}
   require("lspconfig").intelephense.setup {
     on_attach = on_attach,
     capabilities = capabilities,
@@ -679,9 +640,14 @@ if ok then
     },
   }
 
+  local ok, dapui = pcall(require, 'dapui')
+
   --if dap.custom_event_handlers then
   dap.listeners.after.event_initialized["my handler id"] = function(_, _)
-    dap.repl.open()
+    --dap.repl.open()
+    if ok then
+      dapui.open()
+    end
   end
   --dap.listeners.after.event_stopped["my handler id"] = function(_, response)
   --dap.repl.append(vim.inspect(response))
@@ -689,6 +655,9 @@ if ok then
   --end
   dap.listeners.after.event_exited["my handler id"] = function(_, _)
     --dap.repl.close()
+    if ok then
+      dapui.close()
+    end
     --vim.cmd "stopinsert"
   end
 
@@ -1017,29 +986,14 @@ vim.cmd [[
 command! -complete=file -nargs=* PythonDebug lua require "my_debug".python_debug({<f-args>})
 ]]
 
---require("nvim-semantic-tokens").setup {
---preset = "theHamsta",
---}
-
 local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
-parser_configs.norg =
-  {
-    install_info = {
-      url = "https://github.com/nvim-neorg/tree-sitter-norg",
-      files = { "src/parser.c", "src/scanner.cc" },
-      branch = "main",
-    },
-  } --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then  --error(err)  --end  --local content = file:read(read_quantifier)  --io.close(file)  --return content  --end  --local function read_query_files(filenames)  --local contents = {}  --for _, filename in ipairs(filenames) do  --table.insert(contents, safe_read(filename, "*a"))  --end  --return table.concat(contents, "")  --end  --vim.treesitter.query.set_query(  --"lua",  --"highlights",  --read_query_files(vim.treesitter.query.get_query_files("lua", "highlights")):gsub(  --[[%[  --"goto"  --"in"  --"local"  --%] @keyword]],
-    --[[
-[ "goto" "in" ] @keyword
-  ]]
-  --)
-  --)
-
-  --for _, config in pairs(require("nvim-treesitter.parsers").get_parser_configs()) do
-  --config.install_info.use_makefile = true
-  --config.install_info.cxx_standard = 'c++14'
-  --end
+parser_configs.norg = {
+  install_info = {
+    url = "https://github.com/nvim-neorg/tree-sitter-norg",
+    files = { "src/parser.c", "src/scanner.cc" },
+    branch = "main",
+  },
+} --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then  --error(err)  --end  --local content = file:read(read_quantifier)  --io.close(file)  --return content  --end  --local function read_query_files(filenames)  --local contents = {}  --for _, filename in ipairs(filenames) do  --table.insert(contents, safe_read(filename, "*a"))  --end  --return table.concat(contents, "")  --end  --vim.treesitter.query.set_query(  --"lua",  --"highlights",  --read_query_files(vim.treesitter.query.get_query_files("lua", "highlights")):gsub(  --[[%[  --"goto"  --"in"  --"local"  --%] @keyword]],
 vim.api.nvim_set_hl(0, "DapBreakpoint", { ctermbg = 0, fg = "#993939", bg = "#31353f" })
 vim.api.nvim_set_hl(0, "DapLogPoint", { ctermbg = 0, fg = "#61afef", bg = "#31353f" })
 vim.api.nvim_set_hl(0, "Stopped", { ctermbg = 0, fg = "#98c379", bg = "#31353f" })
@@ -1061,18 +1015,3 @@ vim.fn.sign_define(
   { text = "", texthl = "DapLogPoint", linehl = "DapLogPoint", numhl = "DapLogPoint" }
 )
 vim.fn.sign_define("DapStopped", { text = "", texthl = "DapStopped", linehl = "DapStopped", numhl = "DapStopped" })
-
---vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
---vim.lsp.handlers.hover, {
---border = {
---{"", "FloatNormal"},
---{"", "FloatNormal"},
---{"", "FloatNormal"},
---{"", "FloatNormal"},
---{"", "FloatNormal"},
---{"", "FloatNormal"},
---{"", "FloatNormal"},
---{"", "FloatNormal"},
---},
---}
---)

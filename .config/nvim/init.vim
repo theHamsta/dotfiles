@@ -635,7 +635,8 @@ nnoremap <leader>bd :Bdelete<cr>
 
 function DapMaps()
     nnoremap <buffer> <silent> <F9> :lua require'dap'.step_over()<CR>
-    nmap <f1> :lua require'dap'.goto_()<cr>
+    nnoremap <f1> :lua require'dap'.goto_()<cr>
+    nnoremap <buffer> <silent> <F5> :lua require'dap'.continue()<CR>
     nnoremap <buffer> <silent> <F10> :lua require'dap'.step_into()<CR>
     nnoremap <buffer> <silent> <F11> :lua require'dap'.step_out()<CR>
 
@@ -643,7 +644,6 @@ function DapMaps()
     nmap <buffer> <silent> <leader>bB :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
     nmap <buffer> <silent> <leader>lp :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log message: '))<CR>
     nmap <buffer> <silent> <leader>br :lua require'dap'.restart()<CR>
-    nmap <buffer> <silent> <leader>bc :lua require'dap'.continue()<CR>
     nmap <buffer> <silent> <leader>bn :lua require'dap'.step_over()<CR>
     nmap <buffer> <silent> <leader>bi :lua require'dap'.step_into()<CR>
     nmap <buffer> <silent> <leader>bo :lua require'dap'.step_out()<CR>
