@@ -19,6 +19,7 @@ set wildmode=longest:full,full
 set lazyredraw
 set ttyfast
 set smartcase
+set diffopt+=linematch:60
 let g:paredit_leader=','
 let g:rooter_patterns = ['gitmodules', '.git', '.git/']
 
