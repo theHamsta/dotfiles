@@ -14,7 +14,11 @@ exe 'normal `z'
 endfunction
 ]]
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
+local lsp_status_ok, lsp_status = pcall(require, "lsp-status")
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+if lsp_status_ok then
+  capabilities = vim.tbl_extend("keep", capabilities or {}, lsp_status.capabilities)
+end
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.resolveSupport = {
   properties = {
@@ -23,11 +27,6 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
     "additionalTextEdits",
   },
 }
-local lsp_status_ok, lsp_status = pcall(require, "lsp-status")
-capabilities = require("cmp_nvim_lsp").default_capabilities()
-if lsp_status_ok then
-  capabilities = vim.tbl_extend("keep", capabilities or {}, lsp_status.capabilities)
-end
 
 require("vim.lsp.log").set_level(vim.log.levels.OFF)
 
@@ -61,6 +60,7 @@ if ok then
   }
 end
 
+---@diagnostic disable-next-line: 411
 local ok, lspconfig = pcall(require, "lspconfig")
 local lsp_signature_ok, lsp_signature = pcall(require, "lsp_signature")
 

@@ -79,9 +79,10 @@ return packer.startup(function()
     "simrat39/inlay-hints.nvim",
     config = function()
       require("inlay-hints").setup {
-        only_current_line = true,
+        renderer = "inlay-hints/render/eol",
+        only_current_line = false,
         eol = {
-          right_align = true,
+          right_align = false,
         },
       }
     end,
@@ -325,6 +326,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   use { "ray-x/lsp_signature.nvim" }
   use {
     "L3MON4D3/LuaSnip",
+     run = "make install_jsregexp",
     config = function()
       require "theHamsta_luasnips"
 
@@ -342,7 +344,6 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     ]]
     end,
     requires = {
-      "saadparwaiz1/cmp_luasnip",
     },
   }
   use {
@@ -354,6 +355,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       "hrsh7th/cmp-nvim-lua",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
+      "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-emoji",
       --"rcarriga/cmp-dap",
       "kdheepak/cmp-latex-symbols",
