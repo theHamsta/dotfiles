@@ -145,3 +145,7 @@ extern
 .config/nvim/plugin/packer_compiled.lua
 _skbuild
 perf.data
+
+*.mov
+*.mp4
+*.mkv
