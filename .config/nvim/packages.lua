@@ -118,7 +118,7 @@ return packer.startup(function()
       }
     end,
   }
-  use { "famiu/nvim-reload", opt = true }
+  --use { "famiu/nvim-reload", opt = true }
   --use { "theHamsta/nvim-semantic-tokens", opt = false }
   use "rafamadriz/friendly-snippets"
   if vim.fn.has "win32" ~= 1 then
@@ -293,12 +293,12 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     end,
   }
   use { "mattboehm/vim-unstack", cmd = "UnstackFromText" }
-  use {
-    "numToStr/Comment.nvim",
-    config = function()
-      require("Comment").setup()
-    end,
-  }
+  --use {
+    --"numToStr/Comment.nvim",
+    --config = function()
+      --require("Comment").setup()
+    --end,
+  --}
   use {
     "leoluz/nvim-dap-go",
     requires = { { "nvim-lua/plenary.nvim" } },
@@ -1016,9 +1016,9 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   }
 
   use "airblade/vim-rooter"
-  use "bronson/vim-visual-star-search"
+  --use "bronson/vim-visual-star-search"
   use { "dbeniamine/cheat.sh-vim", cmd = { "Cheat" } }
-  use "dyng/ctrlsf.vim"
+  --use "dyng/ctrlsf.vim"
   --use { "euclio/vim-markdown-composer", run = "cargo build --release", cmd = "ComposerStart", ft = "markdown" }
   use {
     "fatih/vim-go",
@@ -1039,8 +1039,8 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --use { "preservim/nerdtree" }
   ----use {"preservim/nerdtree", cmd = {"NERDTreeToggle", "NERDTreeFind"}}
   --use { "tiagofumo/vim-nerdtree-syntax-highlight", cmd = { "NERDTreeToggle", "NERDTreeFind" } }
-  use { "janko/vim-test", ft = { "rust", "python" } }
-  use { "ionide/Ionide-vim", run = "make fsautocomplete", ft = "fsharp" }
+  --use { "janko/vim-test", ft = { "rust", "python" } }
+  --use { "ionide/Ionide-vim", run = "make fsautocomplete", ft = "fsharp" }
   --use {"fsprojects/fsharp-language-server", run = "npm install && dotnet build -c Release"}
   --use { 'neoclide/coc.nvim', run = 'yarn install --frozen-lockfile', ft = 'fsharp'}
   --use {
@@ -1071,12 +1071,10 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --use { "lervag/vimtex", opt = true }
   --use "machakann/vim-swap"
   --use "p00f/nvim-ts-rainbow"
-  use "markonm/traces.vim"
   use { "mbbill/undotree", cmd = { "UndotreeToggle" } }
   use { "meain/vim-package-info", run = "npm install" }
   use { "IndianBoy42/hop.nvim" }
   --use { "ms-jpq/coq_nvim"}
-  use { "Pocco81/Catppuccino.nvim", opt = true }
   --use { "mhinz/vim-startify", opt = true }
   --use {
   --"goolord/alpha-nvim",
@@ -1090,6 +1088,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   use { "jpalardy/vim-slime", opt = true }
   use "rhysd/git-messenger.vim"
   --use { "rust-lang/rust.vim", ft = { "rust", "toml" } }
+  use "scrooloose/nerdcommenter"
   use "skywind3000/vim-preview"
   use {
     "folke/todo-comments.nvim",
@@ -1122,7 +1121,6 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   use "theHamsta/vim-rebase-mode"
   use "tpope/vim-eunuch"
   use "tpope/vim-fugitive"
-  use { "tpope/vim-markdown", ft = "markdown" }
   use "tpope/vim-repeat"
   use { "tpope/vim-sexp-mappings-for-regular-people", ft = lisp_filetypes }
   use { "guns/vim-sexp", ft = lisp_filetypes }
@@ -1147,6 +1145,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     opt = true,
   }
   use { "projekt0n/github-nvim-theme", opt = true }
+  use { "Pocco81/Catppuccino.nvim", opt = true }
   --use {"tiagovla/tokyodark.nvim", opt = true}
   use { "folke/tokyonight.nvim", opt = true }
   use { "bluz71/vim-nightfly-guicolors", opt = true }
