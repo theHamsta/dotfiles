@@ -34,6 +34,37 @@ local go_packages = {
 
 return packer.startup(function()
   use { "wbthomason/packer.nvim", opt = true }
+  --use {
+    --"folke/noice.nvim",
+    --requires = {
+      ---- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      --"MunifTanjim/nui.nvim",
+      ---- OPTIONAL:
+      ----   `nvim-notify` is only needed, if you want to use the notification view.
+      ----   If not available, we use `mini` as the fallback
+      --"rcarriga/nvim-notify",
+    --},
+    --config = function()
+      --require("noice").setup {
+        --lsp = {
+          ---- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+          --override = {
+            --["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+            --["vim.lsp.util.stylize_markdown"] = true,
+            --["cmp.entry.get_documentation"] = true,
+          --},
+        --},
+        ---- you can enable a preset for easier configuration
+        --presets = {
+          --bottom_search = true, -- use a classic bottom cmdline for search
+          --command_palette = true, -- position the cmdline and popupmenu together
+          --long_message_to_split = true, -- long messages will be sent to a split
+          --inc_rename = false, -- enables an input dialog for inc-rename.nvim
+          --lsp_doc_border = false, -- add a border to hover docs and signature help
+        --},
+      --}
+    --end,
+  --}
   use "krady21/compiler-explorer.nvim"
   use {
     "saecki/crates.nvim",
@@ -397,6 +428,14 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
         }, {
           { name = "buffer" },
         }),
+      }
+    end,
+  }
+  use {
+    "doxnit/cmp-luasnip-choice",
+    config = function()
+      require("cmp_luasnip_choice").setup {
+        auto_open = true, -- Automatically open nvim-cmp on choice node (default: true)
       }
     end,
   }
@@ -1010,17 +1049,17 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --run = "bash install.sh",
   --ft = "fsharp",
   --}
-  use {
-    "nvim-orgmode/orgmode",
-    ft = "org",
-    config = function()
-      require("orgmode").setup_ts_grammar()
-      require("orgmode").setup {
-        org_agenda_files = { "~/Dropbox/org/*", "~/my-orgs/**/*" },
-        org_default_notes_file = "~/Dropbox/org/refile.org",
-      }
-    end,
-  }
+  --use {
+    --"nvim-orgmode/orgmode",
+    --ft = "org",
+    --config = function()
+      --require("orgmode").setup_ts_grammar()
+      --require("orgmode").setup {
+        --org_agenda_files = { "~/Dropbox/org/*", "~/my-orgs/**/*" },
+        --org_default_notes_file = "~/Dropbox/org/refile.org",
+      --}
+    --end,
+  --}
   use { "junegunn/fzf", run = ":call fzf#install()" }
   use "junegunn/fzf.vim"
   --use "junegunn/goyo.vim"
@@ -1049,13 +1088,8 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --}
   use "moll/vim-bbye"
   use { "jpalardy/vim-slime", opt = true }
-  use "pboettch/vim-cmake-syntax"
-  use { "peterhoeg/vim-qml", ft = "qml" }
   use "rhysd/git-messenger.vim"
-  use "rking/ag.vim"
   --use { "rust-lang/rust.vim", ft = { "rust", "toml" } }
-  use "ryanoasis/vim-devicons"
-  use "scrooloose/nerdcommenter"
   use "skywind3000/vim-preview"
   use {
     "folke/todo-comments.nvim",
