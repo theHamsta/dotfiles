@@ -326,7 +326,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   use { "ray-x/lsp_signature.nvim" }
   use {
     "L3MON4D3/LuaSnip",
-     run = "make install_jsregexp",
+    run = "make install_jsregexp",
     config = function()
       require "theHamsta_luasnips"
 
@@ -343,8 +343,7 @@ imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
 smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
     ]]
     end,
-    requires = {
-    },
+    requires = {},
   }
   use {
     "hrsh7th/nvim-cmp",
@@ -363,6 +362,9 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     config = function()
       -- Setup nvim-cmp.
       local cmp = require "cmp"
+      cmp.mapping.preset["<C-y>"] = {
+        i = cmp.mapping.confirm { select = true },
+      }
 
       cmp.setup {
         experimental = {
@@ -528,6 +530,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     config = function()
       require("nvim-autopairs").setup {}
     end,
+    opt = false,
   }
   use { "mfussenegger/nvim-treehopper", opt = false }
   --use {
@@ -824,10 +827,10 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     end,
   }
   --use {
-    --"nvim-telescope/telescope-frecency.nvim",
-    --config = function()
-      --require("telescope").load_extension "frecency"
-    --end,
+  --"nvim-telescope/telescope-frecency.nvim",
+  --config = function()
+  --require("telescope").load_extension "frecency"
+  --end,
   --}
   --use "nvim-telescope/telescope.nvim"
   use "chuling/vim-equinusocio-material"
@@ -1128,4 +1131,11 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     end,
     opt = true,
   }
+  --use {
+  --"luukvbaal/statuscol.nvim",
+  --config = function()
+  ----require("statuscol").setup()
+  ----vim.o.statuscolumn = "%@v:lua.ScFa@%C%T%@v:lua.ScLa@%s%T@v:lua.ScNa@%=%{v:lua.ScLn()}%T"
+  --end,
+  --}
 end)
