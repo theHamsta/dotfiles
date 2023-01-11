@@ -353,7 +353,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   use { "ray-x/lsp_signature.nvim" }
   use {
     "L3MON4D3/LuaSnip",
-    run = vim.fn.has "win32" ~= 1 and "make install_jsregexp",
+    run = vim.fn.has "win32" ~= 1 and "make install_jsregexp" or nil,
     config = function()
       require "theHamsta_luasnips"
 
