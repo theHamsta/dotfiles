@@ -1,11 +1,7 @@
 -- packages.lua
 -- Copyright (C) 2020 Stephan Seitz <stephan.seitz@fau.de>
 --
--- Distributed under terms of the GPLv3 license.
---
-
-vim.cmd [[packadd packer.nvim]]
-
+-- Distributed under terms of the GPLv3 license.  vim.cmd [[packadd packer.nvim]]
 local packer = require "packer"
 local use = packer.use
 
@@ -35,35 +31,35 @@ local go_packages = {
 return packer.startup(function()
   use { "wbthomason/packer.nvim", opt = true }
   --use {
-    --"folke/noice.nvim",
-    --requires = {
-      ---- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-      --"MunifTanjim/nui.nvim",
-      ---- OPTIONAL:
-      ----   `nvim-notify` is only needed, if you want to use the notification view.
-      ----   If not available, we use `mini` as the fallback
-      --"rcarriga/nvim-notify",
-    --},
-    --config = function()
-      --require("noice").setup {
-        --lsp = {
-          ---- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-          --override = {
-            --["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-            --["vim.lsp.util.stylize_markdown"] = true,
-            --["cmp.entry.get_documentation"] = true,
-          --},
-        --},
-        ---- you can enable a preset for easier configuration
-        --presets = {
-          --bottom_search = true, -- use a classic bottom cmdline for search
-          --command_palette = true, -- position the cmdline and popupmenu together
-          --long_message_to_split = true, -- long messages will be sent to a split
-          --inc_rename = false, -- enables an input dialog for inc-rename.nvim
-          --lsp_doc_border = false, -- add a border to hover docs and signature help
-        --},
-      --}
-    --end,
+  --"folke/noice.nvim",
+  --requires = {
+  ---- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+  --"MunifTanjim/nui.nvim",
+  ---- OPTIONAL:
+  ----   `nvim-notify` is only needed, if you want to use the notification view.
+  ----   If not available, we use `mini` as the fallback
+  --"rcarriga/nvim-notify",
+  --},
+  --config = function()
+  --require("noice").setup {
+  --lsp = {
+  ---- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+  --override = {
+  --["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+  --["vim.lsp.util.stylize_markdown"] = true,
+  --["cmp.entry.get_documentation"] = true,
+  --},
+  --},
+  ---- you can enable a preset for easier configuration
+  --presets = {
+  --bottom_search = true, -- use a classic bottom cmdline for search
+  --command_palette = true, -- position the cmdline and popupmenu together
+  --long_message_to_split = true, -- long messages will be sent to a split
+  --inc_rename = false, -- enables an input dialog for inc-rename.nvim
+  --lsp_doc_border = false, -- add a border to hover docs and signature help
+  --},
+  --}
+  --end,
   --}
   use "krady21/compiler-explorer.nvim"
   use {
@@ -294,10 +290,10 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   }
   use { "mattboehm/vim-unstack", cmd = "UnstackFromText" }
   --use {
-    --"numToStr/Comment.nvim",
-    --config = function()
-      --require("Comment").setup()
-    --end,
+  --"numToStr/Comment.nvim",
+  --config = function()
+  --require("Comment").setup()
+  --end,
   --}
   use {
     "leoluz/nvim-dap-go",
@@ -357,7 +353,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   use { "ray-x/lsp_signature.nvim" }
   use {
     "L3MON4D3/LuaSnip",
-    run = "make install_jsregexp",
+    run = vim.fn.has "win32" ~= 1 and "make install_jsregexp",
     config = function()
       require "theHamsta_luasnips"
 
@@ -1050,15 +1046,15 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --ft = "fsharp",
   --}
   --use {
-    --"nvim-orgmode/orgmode",
-    --ft = "org",
-    --config = function()
-      --require("orgmode").setup_ts_grammar()
-      --require("orgmode").setup {
-        --org_agenda_files = { "~/Dropbox/org/*", "~/my-orgs/**/*" },
-        --org_default_notes_file = "~/Dropbox/org/refile.org",
-      --}
-    --end,
+  --"nvim-orgmode/orgmode",
+  --ft = "org",
+  --config = function()
+  --require("orgmode").setup_ts_grammar()
+  --require("orgmode").setup {
+  --org_agenda_files = { "~/Dropbox/org/*", "~/my-orgs/**/*" },
+  --org_default_notes_file = "~/Dropbox/org/refile.org",
+  --}
+  --end,
   --}
   use { "junegunn/fzf", run = ":call fzf#install()" }
   use "junegunn/fzf.vim"
