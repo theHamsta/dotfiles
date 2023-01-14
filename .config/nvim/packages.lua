@@ -1125,7 +1125,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
 
   use "wellle/targets.vim"
   use "whiteinge/diffconflicts"
-  --use "TravonteD/luajob"
+  use "TravonteD/luajob"
 
   -- Color schemes
   use { "rakr/vim-one", opt = true }
