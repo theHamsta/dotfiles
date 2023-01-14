@@ -640,7 +640,7 @@ if ok then
     },
   }
 
-  local ok, dapui = pcall(require, 'dapui')
+  --local ok, dapui = pcall(require, 'dapui')
 
   --if dap.custom_event_handlers then
   dap.listeners.after.event_initialized["my handler id"] = function(_, _)

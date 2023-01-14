@@ -460,3 +460,10 @@ shader
 Proto
 fprintf
 bb
+golang
+honnef
+gomodifytags
+golangci
+golint
+gopls
+godef
