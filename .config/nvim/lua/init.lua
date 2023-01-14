@@ -1,12 +1,3 @@
-//
-// main.go
-// Copyright (C) 2023 Stephan Seitz <stephan.seitz@fau.de>
-//
-// Distributed under terms of the GPLv3 license.
-//
-
-package main
-
 local shell = require "nvim-treesitter.shell_command_selectors"
 
 local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/opt/packer.nvim"
@@ -653,20 +644,20 @@ if ok then
 
   --if dap.custom_event_handlers then
   dap.listeners.after.event_initialized["my handler id"] = function(_, _)
-    --dap.repl.open()
-    if ok then
-      dapui.open()
-    end
+    dap.repl.open()
+    --if ok then
+      --dapui.open()
+    --end
   end
   --dap.listeners.after.event_stopped["my handler id"] = function(_, response)
   --dap.repl.append(vim.inspect(response))
   --dap.repl.append(vim.inspect(dap.session().current_frame))
   --end
   dap.listeners.after.event_exited["my handler id"] = function(_, _)
-    --dap.repl.close()
-    if ok then
-      dapui.close()
-    end
+    dap.repl.close()
+    --if ok then
+      --dapui.close()
+    --end
     --vim.cmd "stopinsert"
   end
 
