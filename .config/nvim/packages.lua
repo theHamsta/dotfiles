@@ -141,8 +141,9 @@ return packer.startup(function()
     "glepnir/lspsaga.nvim",
     branch = "main",
     config = function()
-      require "lspsaga".setup({})
+      --require "lspsaga".setup({})
     end,
+    opt = true,
   }
   use {
     "folke/which-key.nvim",
@@ -896,6 +897,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
         --only_first_definition = true,
         all_references = false, -- show virtual text on all all references of the variable (not only definitions)
         all_frames = true,
+        commented = true,
         --highlight_changed_variables = true,
         ----highlight_new = true,
         ----virt_text_pos = "eol",
@@ -905,7 +907,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     end,
   }
   use "theHamsta/crazy-node-movement"
-  use "dm1try/git_fastfix"
+  --use "dm1try/git_fastfix"
   use "rafcamlet/nvim-luapad"
   use { "jsit/toast.vim", opt = true }
   --use {
@@ -1056,11 +1058,10 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --}
   use { "junegunn/fzf", run = ":call fzf#install()" }
   use "junegunn/fzf.vim"
-  --use "junegunn/goyo.vim"
-  --use "junegunn/limelight.vim"
   use "junegunn/gv.vim"
   use "justinmk/vim-gtfo"
-  use { "justinmk/vim-sneak", opt = true }
+  --use "junegunn/goyo.vim"
+  --use "junegunn/limelight.vim"
   use "kassio/neoterm"
   --use { "lervag/vimtex", opt = true }
   --use "machakann/vim-swap"
@@ -1124,7 +1125,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
 
   use "wellle/targets.vim"
   use "whiteinge/diffconflicts"
-  use "TravonteD/luajob"
+  --use "TravonteD/luajob"
 
   -- Color schemes
   use { "rakr/vim-one", opt = true }
@@ -1166,3 +1167,4 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --end,
   --}
 end)
+

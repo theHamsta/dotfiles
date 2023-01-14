@@ -1,3 +1,12 @@
+//
+// main.go
+// Copyright (C) 2023 Stephan Seitz <stephan.seitz@fau.de>
+//
+// Distributed under terms of the GPLv3 license.
+//
+
+package main
+
 local shell = require "nvim-treesitter.shell_command_selectors"
 
 local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/opt/packer.nvim"
