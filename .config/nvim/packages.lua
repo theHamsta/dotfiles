@@ -4,7 +4,6 @@
 -- Distributed under terms of the GPLv3 license.  vim.cmd [[packadd packer.nvim]]
 local packer = require "packer"
 local use = packer.use
-
 local lisp_filetypes = { "lisp", "clojure", "scheme", "vlime_repl", "fennel", "query" }
 
 local go_packages = {
@@ -896,13 +895,6 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       require("nvim-dap-virtual-text").setup {
         --only_first_definition = true,
         all_references = false, -- show virtual text on all all references of the variable (not only definitions)
-        all_frames = true,
-        commented = true,
-        --highlight_changed_variables = true,
-        ----highlight_new = true,
-        ----virt_text_pos = "eol",
-        --virt_text_win_col = 80,
-        --highlight_new_as_changed = false,
       }
     end,
   }
@@ -1167,4 +1159,3 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --end,
   --}
 end)
-
