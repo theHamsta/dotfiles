@@ -635,9 +635,10 @@ command! -buffer JdtJshell lua require('jdtls').jshell()
 nnoremap <leader>bd :Bdelete<cr>
 
 function DapMaps()
-    nnoremap <buffer> <silent> <F9> :lua require'dap'.step_over()<CR>
     nnoremap <f1> :lua require'dap'.goto_()<cr>
     nnoremap <buffer> <silent> <F5> :lua require'dap'.continue()<CR>
+    nnoremap <buffer> <silent> <s-F5> :lua require'dap'.run_to_cursor()<CR>
+    nnoremap <buffer> <silent> <F9> :lua require'dap'.step_over()<CR>
     nnoremap <buffer> <silent> <F10> :lua require'dap'.step_into()<CR>
     nnoremap <buffer> <silent> <F11> :lua require'dap'.step_out()<CR>
 
