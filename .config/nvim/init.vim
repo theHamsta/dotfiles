@@ -263,8 +263,6 @@ endfunction
 
 set foldlevel=99
 
-nnoremap <silent> <leader>f0 :set foldlevel=0<CR>
-nnoremap <silent> <leader>f9 :set foldlevel=99<CR>
 set colorcolumn=120
 
 
@@ -639,6 +637,7 @@ function DapMaps()
     nnoremap <buffer> <silent> <F5> :lua require'dap'.continue()<CR>
     nnoremap <buffer> <silent> <s-F5> :lua require'dap'.run_to_cursor()<CR>
     nnoremap <buffer> <silent> <F9> :lua require'dap'.step_over()<CR>
+    nnoremap <buffer> <silent> <s-F9> :lua require'dap'.focus_frame()<CR>
     nnoremap <buffer> <silent> <F10> :lua require'dap'.step_into()<CR>
     nnoremap <buffer> <silent> <F11> :lua require'dap'.step_out()<CR>
 
