@@ -75,7 +75,7 @@ gcc-debug:
 		-DCMAKE_CXX_FLAGS=-fdiagnostics-color \
 		-DCMAKE_C_FLAGS=-fdiagnostics-color ..
 	rm -f compile_commands.json
-	ln -s debug/compile_commands.json
+	ln -s gcc-debug/compile_commands.json
 	cd gcc-debug && cmake --build . -- -j$(nproc)
 
 release-run: release
