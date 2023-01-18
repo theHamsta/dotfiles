@@ -1006,7 +1006,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   use "airblade/vim-rooter"
   --use "bronson/vim-visual-star-search"
   use { "dbeniamine/cheat.sh-vim", cmd = { "Cheat" } }
-  --use "dyng/ctrlsf.vim"
+  use "dyng/ctrlsf.vim"
   --use { "euclio/vim-markdown-composer", run = "cargo build --release", cmd = "ComposerStart", ft = "markdown" }
   use {
     "fatih/vim-go",
@@ -1027,7 +1027,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --use { "preservim/nerdtree" }
   ----use {"preservim/nerdtree", cmd = {"NERDTreeToggle", "NERDTreeFind"}}
   --use { "tiagofumo/vim-nerdtree-syntax-highlight", cmd = { "NERDTreeToggle", "NERDTreeFind" } }
-  --use { "janko/vim-test", ft = { "rust", "python" } }
+  use { "janko/vim-test", ft = { "rust", "python" } }
   --use { "ionide/Ionide-vim", run = "make fsautocomplete", ft = "fsharp" }
   --use {"fsprojects/fsharp-language-server", run = "npm install && dotnet build -c Release"}
   --use { 'neoclide/coc.nvim', run = 'yarn install --frozen-lockfile', ft = 'fsharp'}
