@@ -337,18 +337,21 @@ if ok then
         awakened = { cat = true },
         telemetry = { enable = false },
         hint = { enable = true },
+        completion = {
+          callSnippet = "Replace",
+        },
         diagnostics = {
           globals = { "vim", "map", "filter", "range", "reduce", "head", "tail", "nth", "it", "describe" },
           disable = { "redefined-local" },
         },
         runtime = { version = "LuaJIT" },
-        workspace = {
-          library = {
-            [vim.fn.expand "$VIMRUNTIME/lua"] = true,
-            [require("nvim-treesitter.utils").get_package_path() .. "/lua"] = true,
-            [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
-          },
-        },
+        --workspace = {
+          --library = {
+            --[vim.fn.expand "$VIMRUNTIME/lua"] = true,
+            --[require("nvim-treesitter.utils").get_package_path() .. "/lua"] = true,
+            --[vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
+          --},
+        --},
       },
     },
     on_attach = on_attach,
@@ -646,7 +649,7 @@ if ok then
   dap.listeners.after.event_initialized["my handler id"] = function(_, _)
     dap.repl.open()
     --if ok then
-      --dapui.open()
+    --dapui.open()
     --end
   end
   --dap.listeners.after.event_stopped["my handler id"] = function(_, response)
@@ -656,7 +659,7 @@ if ok then
   dap.listeners.after.event_exited["my handler id"] = function(_, _)
     dap.repl.close()
     --if ok then
-      --dapui.close()
+    --dapui.close()
     --end
     --vim.cmd "stopinsert"
   end
