@@ -46,6 +46,7 @@ set spelloptions=camel
 set bufhidden=hide
 set signcolumn=yes
 set noshowmode
+set noshowcmd
 set joinspaces
 set shortmess+=c
 set sidescroll=1
