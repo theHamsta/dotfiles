@@ -133,7 +133,7 @@ return packer.startup(function()
   }
   use {
     "mrbjarksen/neo-tree-diagnostics.nvim",
-    requires = "nvim-neo-tree/neo-tree.nvim",
+    --requires = "nvim-neo-tree/neo-tree.nvim",
     --module = "neo-tree.sources.diagnostics", -- if wanting to lazyload
   }
   use {
@@ -907,7 +907,6 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --run = "pip3 install --r hererocks && hererocks . -j2.1.0-beta3 -r3.0.0 && cp nvim_rocks.lua lua"
   --}
   use "tjdevries/luvjob.nvim"
-  use "nvim-lua/plenary.nvim"
   --use "svermeulen/nvim-moonmaker"
   use "kbenzie/vim-spirv"
 
