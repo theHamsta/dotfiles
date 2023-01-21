@@ -551,11 +551,6 @@ autocmd FileType * setlocal bufhidden=hide
 
 command! Emoji %s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g
 
-
-
-
-
-
 let g:vlime_contribs = ['SWANK-QUICKLISP', 'SWANK-ASDF', 'SWANK-PACKAGE-FU',
                       \ 'SWANK-PRESENTATIONS', 'SWANK-FANCY-INSPECTOR',
                       \ 'SWANK-C-P-C', 'SWANK-ARGLISTS', 'SWANK-REPL',
