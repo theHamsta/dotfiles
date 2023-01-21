@@ -242,7 +242,7 @@ function! NvimLspMaps()
     nnoremap <buffer> <silent> <leader>hd <cmd>lua vim.diagnostic.config({ virtual_lines = true, virtual_text = false })<CR>
     nnoremap <buffer> <silent> <leader>hD <cmd>lua vim.diagnostic.config({ virtual_lines = false, virtual_text = true })<CR>
     nnoremap <buffer> <silent> <leader>dz <cmd>Neotree diagnostics reveal bottom<cr>
-    nnoremap <buffer> <silent> üf <cmd>Lspsaga lsp_finder<cr>
+    nnoremap <buffer> <silent> üf <cmd>packadd lspsaga<cr><cmd>Lspsaga lsp_finder<cr>
 
     nnoremap <silent> <leader>fi <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>
         nnoremap <buffer> <c-a-o> :Telescope lsp_document_symbols<cr>
