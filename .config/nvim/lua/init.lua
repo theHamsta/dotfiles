@@ -346,11 +346,11 @@ if ok then
         },
         runtime = { version = "LuaJIT" },
         --workspace = {
-          --library = {
-            --[vim.fn.expand "$VIMRUNTIME/lua"] = true,
-            --[require("nvim-treesitter.utils").get_package_path() .. "/lua"] = true,
-            --[vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
-          --},
+        --library = {
+        --[vim.fn.expand "$VIMRUNTIME/lua"] = true,
+        --[require("nvim-treesitter.utils").get_package_path() .. "/lua"] = true,
+        --[vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
+        --},
         --},
       },
     },
@@ -1018,3 +1018,7 @@ vim.fn.sign_define(
   { text = "", texthl = "DapLogPoint", linehl = "DapLogPoint", numhl = "DapLogPoint" }
 )
 vim.fn.sign_define("DapStopped", { text = "", texthl = "DapStopped", linehl = "DapStopped", numhl = "DapStopped" })
+
+for _, parser in ipairs(require("nvim-treesitter.parsers").get_parser_configs()) do
+  parser.repo.use_makefile = true
+end
