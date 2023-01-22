@@ -125,6 +125,7 @@ if ok then
             wrapper = {
               checksums = {
                 { sha256 = "803c75f3307787290478a5ccfa9054c5c0c7b4250c1b96ceb77ad41fbe919e4e", allowed = true },
+                { sha256 = "ee3739525a995bcb5601621a6e2daec1f183bbefc375743acc235cec33547e04", allowed = true },
               },
             },
           },
