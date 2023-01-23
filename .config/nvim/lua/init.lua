@@ -288,7 +288,11 @@ if ok then
           pydocstyle = {
             enabled = false,
           },
+          flake8 = {
+            maxLineLength = 120,
+          },
           pycodestyle = {
+            ignore = { "E501" },
             maxLineLength = 120,
           },
         },
@@ -675,7 +679,7 @@ if ok then
   --dap.repl.append(vim.inspect(dap.session().current_frame))
   --end
   dap.listeners.after.event_exited["my handler id"] = function(_, _)
-    dap.repl.close()
+    --dap.repl.close()
     --if ok then
     --dapui.close()
     --end
