@@ -45,6 +45,15 @@ function _G.E(...)
   return ...
 end
 
+vim.diagnostic.config({
+  virtual_text = {
+    source = "always",  -- Or "if_many"
+  },
+  float = {
+    source = "always",  -- Or "if_many"
+  },
+})
+
 require("nvim-treesitter.install").prefer_git = false
 
 vim.keymap.set("n", "<leader>sf", require("telescope.builtin").find_files, { desc = "[S]earch [F]iles" })
