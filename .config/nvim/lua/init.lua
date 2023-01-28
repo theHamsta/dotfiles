@@ -148,16 +148,23 @@ if ok then
   }
   require("lspconfig").taplo.setup { on_attach = on_attach, capabilities = capabilities }
 
+  vim.keymap.set("n", "<leader>nf", function()
+    local url = vim.api.nvim_buf_get_name(0)
+    if url:match "^sg:" then
+      url = vim.fn.fnamemodify(url, ":h")
+      if url:match "-$" then
+        url = url .. "/."
+      end
+      vim.cmd(":e " .. url)
+    else
+      vim.cmd "Neotree filesystem reveal left"
+    end
+  end, { silent = true, desc = "Nerdtree for local files or :e %:h" })
+
   local ok, sg = pcall(require, "sg")
   if ok then
     sg.setup {
       on_attach = function(...)
-        vim.keymap.set(
-          "n",
-          "<leader>nf",
-          ":e %:h<cr>",
-          { buffer = true, silent = true, desc = "Sourcegraph: Show containing folder" }
-        )
         on_attach(...)
       end,
     }
