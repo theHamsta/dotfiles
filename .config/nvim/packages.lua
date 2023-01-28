@@ -846,7 +846,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       }
     end,
     dependencies = "nvim-treesitter/nvim-treesitter",
-    cmd = { "Neogen" }
+    cmd = { "Neogen" },
   },
 
   "airblade/vim-rooter",
@@ -962,7 +962,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   "tpope/vim-unimpaired",
 
   "wellle/targets.vim",
-  "whiteinge/diffconflicts",
+  { "whiteinge/diffconflicts", cmd = "DiffConflicts" },
   "TravonteD/luajob",
 
   -- Color schemes
