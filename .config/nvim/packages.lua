@@ -2,6 +2,19 @@
 -- Copyright (C) 2020 Stephan Seitz <stephan.seitz@fau.de>
 --
 -- Distributed under terms of the GPLv3 license.  vim.cmd [[packadd packer.nvim]]
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system {
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  }
+end
+vim.opt.rtp:prepend(lazypath)
+
 local lisp_filetypes = { "lisp", "clojure", "scheme", "vlime_repl", "fennel", "query" }
 
 local go_packages = {
@@ -287,6 +300,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
   },
   {
     "ggandor/lightspeed.nvim",
+    keys = "s",
     config = function()
       require("lightspeed").setup {
         --jump_to_first_match = true,
@@ -313,6 +327,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
       "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
     },
+    cmd = "Neotree",
     config = function()
       require("neo-tree").setup {
         sources = {
@@ -377,7 +392,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-emoji",
       --"rcarriga/cmp-dap",
-      "kdheepak/cmp-latex-symbols",
+      --"kdheepak/cmp-latex-symbols",
     },
     config = function()
       -- Setup nvim-cmp.
@@ -410,7 +425,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
           { name = "luasnip" }, -- For luasnip users.
           --{ name = "ultisnips" }, -- For ultisnips users.
           { name = "emoji", insert = true },
-          { name = "latex_symbols" },
+          --{ name = "latex_symbols" },
           { name = "crates" },
           --{ name = "neorg" },
           --{ name = "dap" },
@@ -520,7 +535,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   { "TimUntersberger/neogit", cmd = { "Neogit" } },
   {
     "simrat39/rust-tools.nvim",
-    --filetype = "rust",
+    ft = "rust",
     config = function()
       local ih = require "inlay-hints"
 
@@ -627,6 +642,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   { "nvim-telescope/telescope-symbols.nvim", enabled = false },
   {
     "rcarriga/nvim-dap-ui",
+    enabled = false,
     config = function()
       require("dapui").setup {
         icons = { expanded = "", collapsed = "", current_frame = "" },
@@ -716,7 +732,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
   },
-  "nvim-treesitter/playground",
+  --{"nvim-treesitter/playground", keys = "<leader>pl"},
   "rhysd/conflict-marker.vim",
   "mfussenegger/nvim-dap",
   {
@@ -748,10 +764,12 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     config = function()
       require("telescope").load_extension "dap"
     end,
+    enabled = false,
   },
   {
     "nvim-telescope/telescope-fzy-native.nvim",
     dependencies = "nvim-telescope/telescope.nvim",
+    cmd = "Telescope",
     config = function()
       require("telescope").setup {
         extensions = {
@@ -963,7 +981,12 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   { "projekt0n/github-nvim-theme", enabled = false },
   { "Pocco81/Catppuccino.nvim", enabled = false },
   --{"tiagovla/tokyodark.nvim", enabled = false},
-  { "folke/tokyonight.nvim", enabled = false },
+  {
+    "folke/tokyonight.nvim",
+    config = function()
+      vim.cmd [[colorscheme tokyonight-storm]]
+    end,
+  },
   { "bluz71/vim-nightfly-guicolors", enabled = false },
   { "bluz71/vim-moonfly-colors", enabled = false },
   { "chriskempson/base16-vim", enabled = false },

@@ -1,5 +1,12 @@
 set termguicolors     " enable true colors support
-packadd tokyonight.nvim | colorscheme tokyonight-storm
+
+if has("win32")
+  luafile ~/AppData/Local/nvim/packages.lua
+  luafile ~/AppData/Local/nvim/lua/init.lua
+else
+  luafile ~/.config/nvim/packages.lua
+  luafile ~/.config/nvim/lua/init.lua
+end
 
 let g:unstack_mapkey='<leader><F10>'
 set tags=./tags,tags
@@ -611,14 +618,6 @@ nnoremap <c-s-t> :Telescope lsp_dynamic_workspace_symbols<cr>
 nnoremap <c-a-o> :BTags<cr>
 nnoremap <leader><c-o> :BTags<cr>
 
-if has("win32")
-  luafile ~/AppData/Local/nvim/lua/init.lua
-  luafile ~/AppData/Local/nvim/packages.lua
-else
-  luafile ~/.config/nvim/lua/init.lua
-  luafile ~/.config/nvim//packages.lua
-end
-
 
 command! -buffer JdtCompile lua require('jdtls').compile()
 command! -buffer JdtUpdateConfig lua require('jdtls').update_project_config()
@@ -629,6 +628,8 @@ command! -buffer JdtJshell lua require('jdtls').jshell()
 nnoremap <leader>bd :Bdelete<cr>
 
 function DapMaps()
+    Lazy load nvim-dap-ui
+    Lazy load telescope-dap.nvim
     nnoremap <f1> :lua require'dap'.goto_()<cr>
     nnoremap <buffer> <silent> <F5> :lua require'dap'.continue()<CR>
     nnoremap <buffer> <silent> <s-F5> :lua require'dap'.run_to_cursor()<CR>
