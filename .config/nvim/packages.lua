@@ -235,28 +235,28 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
           globalstatus = true,
         },
         --winbar = {
-          --lualine_a = { "mode" },
-          --lualine_b = { "branch", "diff", "diagnostics" },
-          --lualine_c = {
-            --function()
-              --return vim.fn.expand "%"
-            --end,
-          --},
-          --lualine_x = {
-            --function()
-              --return table.concat(
-                --vim.tbl_map(function(server)
-                  --return server.name
-                --end, vim.lsp.get_active_clients { bufnr = vim.api.nvim_get_current_buf() }),
-                --" "
-              --)
-            --end,
-            --"encoding",
-            --"fileformat",
-            --"filetype",
-          --},
-          --lualine_y = { "progress" },
-          --lualine_z = { "location" },
+        --lualine_a = { "mode" },
+        --lualine_b = { "branch", "diff", "diagnostics" },
+        --lualine_c = {
+        --function()
+        --return vim.fn.expand "%"
+        --end,
+        --},
+        --lualine_x = {
+        --function()
+        --return table.concat(
+        --vim.tbl_map(function(server)
+        --return server.name
+        --end, vim.lsp.get_active_clients { bufnr = vim.api.nvim_get_current_buf() }),
+        --" "
+        --)
+        --end,
+        --"encoding",
+        --"fileformat",
+        --"filetype",
+        --},
+        --lualine_y = { "progress" },
+        --lualine_z = { "location" },
         --},
         sections = {
           lualine_a = { "mode" },
@@ -374,9 +374,16 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
         },
         filesystem = {
           use_libuv_file_watcher = true,
+          follow_current_file = true,
+          filtered_items = {
+            hide_dotfiles = false,
+          }
         },
         window = {
           position = "left",
+          mappings = {
+            --["/"] = "normal! /",
+          },
         },
       }
     end,
@@ -914,11 +921,11 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --use "nvim-treesitter/nvim-tree-docs"
   use { "ziglang/zig.vim", ft = "zig", opt = false }
   --use {
-    --"mfussenegger/nvim-jdtls",
-    --opt = false,
-    --config = function()
-      --vim.cmd [[au FileType java lua require('jdtls').start_or_attach({cmd = {'java-lsp.sh'}, settings = {java = { import = { gradle = { wrapper = { checksums = { { sha256 = "803c75f3307787290478a5ccfa9054c5c0c7b4250c1b96ceb77ad41fbe919e4e", allowed = true } } } } } }}, init_options = { bundles = { vim.fn.glob("/home/stephan/projects/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar") } }, on_attach= function(client, bufnr) require('jdtls').setup_dap() end})]]
-    --end,
+  --"mfussenegger/nvim-jdtls",
+  --opt = false,
+  --config = function()
+  --vim.cmd [[au FileType java lua require('jdtls').start_or_attach({cmd = {'java-lsp.sh'}, settings = {java = { import = { gradle = { wrapper = { checksums = { { sha256 = "803c75f3307787290478a5ccfa9054c5c0c7b4250c1b96ceb77ad41fbe919e4e", allowed = true } } } } } }}, init_options = { bundles = { vim.fn.glob("/home/stephan/projects/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar") } }, on_attach= function(client, bufnr) require('jdtls').setup_dap() end})]]
+  --end,
   --}
   --use "mattn/emmet-vim"
   use "rhysd/conflict-marker.vim"
