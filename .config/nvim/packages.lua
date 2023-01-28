@@ -984,6 +984,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     "folke/tokyonight.nvim",
     config = function()
       vim.cmd [[colorscheme tokyonight-storm]]
+
     end,
   },
   { "bluz71/vim-nightfly-guicolors", lazy = true },
@@ -1005,6 +1006,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   {
     "tjdevries/sg.nvim",
     build = "cargo build --workspace",
+    event = "BufReadPre sg://*",
     dependencies = { "nvim-lua/plenary.nvim" },
     enabled = vim.fn.has "win32" ~= 1,
   },
