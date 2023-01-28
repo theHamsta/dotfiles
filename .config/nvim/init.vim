@@ -37,8 +37,6 @@ nnoremap <space>td :cd ~/projects/norg<cr>:Neorg gtd views<cr>
 map <space>td :cd ~/projects/norg<cr>:Neorg gtd views<cr>
 
 set history=10000
-" have a global status bar
-set laststatus=3
 set splitbelow
 set splitright
 set smartcase
@@ -786,7 +784,6 @@ nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 nnoremap <leader>os <cmd>OverseerRun<cr>
 nnoremap <leader>ol <cmd>OverseerToggle<cr>
 
-set laststatus=3
 let g:copilot_node_command = "/usr/bin/node"
 
 highlight @deprecated term=strikethrough cterm=strikethrough gui=strikethrough

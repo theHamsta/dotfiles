@@ -232,7 +232,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
           section_separators = { left = "", right = "" },
           disabled_filetypes = {},
           always_divide_middle = true,
-          globalstatus = false,
+          globalstatus = true,
         },
         sections = {
           lualine_a = { "mode" },
