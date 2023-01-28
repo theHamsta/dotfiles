@@ -377,13 +377,17 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
           follow_current_file = true,
           filtered_items = {
             hide_dotfiles = false,
-          }
+          },
         },
         window = {
           position = "left",
           mappings = {
             --["/"] = "normal! /",
           },
+        },
+        source_selector = {
+          winbar = true,
+          statusline = false,
         },
       }
     end,
