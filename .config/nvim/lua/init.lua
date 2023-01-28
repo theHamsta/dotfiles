@@ -159,7 +159,7 @@ if ok then
     else
       vim.cmd "Neotree filesystem reveal left"
     end
-  end, { silent = true, desc = "Nerdtree for local files or :e %:h" })
+  end, { silent = true, noremap = true, desc = "Nerdtree for local files or :e %:h" })
 
   local ok, sg = pcall(require, "sg")
   if ok then
