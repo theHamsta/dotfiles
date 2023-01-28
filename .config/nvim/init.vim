@@ -131,8 +131,6 @@ endfunction
 let g:vimtex_complete_enabled = 0
 set isfname -==
 
-autocmd BufWritePost ~/.config/nvim/packages.lua PackerCompile
-
 nnoremap <Leader>DO :diffoff!<CR>
 nnoremap <Leader>dp :dp<CR>
 nnoremap <Leader>do :do<CR>
@@ -614,9 +612,11 @@ nnoremap <c-a-o> :BTags<cr>
 nnoremap <leader><c-o> :BTags<cr>
 
 if has("win32")
-luafile ~/AppData/Local/nvim/lua/init.lua
+  luafile ~/AppData/Local/nvim/lua/init.lua
+  luafile ~/AppData/Local/nvim/packages.lua
 else
-luafile ~/.config/nvim/lua/init.lua
+  luafile ~/.config/nvim/lua/init.lua
+  luafile ~/.config/nvim//packages.lua
 end
 
 
