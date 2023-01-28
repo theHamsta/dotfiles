@@ -35,7 +35,7 @@
   "hex.nvim": { "branch": "master", "commit": "317915ffcb160a2039be5250825f658002435c39" },
   "hop.nvim": { "branch": "master", "commit": "59ae7dc051e15c7fe4420f6bb6c97e1403702aa8" },
   "inlay-hints.nvim": { "branch": "main", "commit": "006b0898f5d3874e8e528352103733142e705834" },
-  "lazy.nvim": { "branch": "main", "commit": "9b208696e139a404d159963b975a5b90af38439b" },
+  "lazy.nvim": { "branch": "main", "commit": "15fe46a728b7473d4cae368838bbc1c79c3a3f48" },
   "lightspeed.nvim": { "branch": "main", "commit": "299eefa6a9e2d881f1194587c573dad619fdb96f" },
   "lsp-trouble.nvim": { "branch": "main", "commit": "490f7fe6d227f4f7a64f00be8c7dcd7a508ed271" },
   "lsp_lines.nvim": { "branch": "main", "commit": "ec98b45c8280e5ef8c84028d4f38aa447276c002" },
