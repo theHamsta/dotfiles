@@ -1202,6 +1202,13 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     end,
     opt = true,
   }
+  if vim.fn.has "win32" ~= 1 then
+    use {
+      "tjdevries/sg.nvim",
+      run = "cargo build --workspace",
+      requires = { "nvim-lua/plenary.nvim" },
+    }
+  end
   --use {
   --"luukvbaal/statuscol.nvim",
   --config = function()

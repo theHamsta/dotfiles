@@ -45,14 +45,14 @@ function _G.E(...)
   return ...
 end
 
-vim.diagnostic.config({
+vim.diagnostic.config {
   virtual_text = {
-    source = "always",  -- Or "if_many"
+    source = "always", -- Or "if_many"
   },
   float = {
-    source = "always",  -- Or "if_many"
+    source = "always", -- Or "if_many"
   },
-})
+}
 
 require("nvim-treesitter.install").prefer_git = false
 
@@ -147,6 +147,17 @@ if ok then
     capabilities = capabilities,
   }
   require("lspconfig").taplo.setup { on_attach = on_attach, capabilities = capabilities }
+
+  local ok, sg = pcall(require, "sg")
+  if ok then
+    sg.setup {
+      -- Pass your own custom attach function
+      --    If you do not pass your own attach function, then the following maps are provide:
+      --        - gd -> goto definition
+      --        - gr -> goto references
+      on_attach = on_attach,
+    }
+  end
 
   lspconfig.flow.setup {
     on_attach = on_attach,
