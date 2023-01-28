@@ -1181,6 +1181,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     end,
     opt = true,
   }
+  use { "JoosepAlviste/palenightfall.nvim", opt = true }
   use { "projekt0n/github-nvim-theme", opt = true }
   use { "Pocco81/Catppuccino.nvim", opt = true }
   --use {"tiagovla/tokyodark.nvim", opt = true}
