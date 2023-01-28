@@ -151,11 +151,15 @@ if ok then
   local ok, sg = pcall(require, "sg")
   if ok then
     sg.setup {
-      -- Pass your own custom attach function
-      --    If you do not pass your own attach function, then the following maps are provide:
-      --        - gd -> goto definition
-      --        - gr -> goto references
-      on_attach = on_attach,
+      on_attach = function(...)
+        vim.keymap.set(
+          "n",
+          "<leader>nf",
+          ":e %:h<cr>",
+          { buffer = true, silent = true, desc = "Sourcegraph: Show containing folder" }
+        )
+        on_attach(...)
+      end,
     }
   end
 
