@@ -234,6 +234,30 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
           always_divide_middle = true,
           globalstatus = true,
         },
+        --winbar = {
+          --lualine_a = { "mode" },
+          --lualine_b = { "branch", "diff", "diagnostics" },
+          --lualine_c = {
+            --function()
+              --return vim.fn.expand "%"
+            --end,
+          --},
+          --lualine_x = {
+            --function()
+              --return table.concat(
+                --vim.tbl_map(function(server)
+                  --return server.name
+                --end, vim.lsp.get_active_clients { bufnr = vim.api.nvim_get_current_buf() }),
+                --" "
+              --)
+            --end,
+            --"encoding",
+            --"fileformat",
+            --"filetype",
+          --},
+          --lualine_y = { "progress" },
+          --lualine_z = { "location" },
+        --},
         sections = {
           lualine_a = { "mode" },
           lualine_b = { "branch", "diff", "diagnostics" },
