@@ -60,6 +60,12 @@ return packer.startup(function()
   --}
   --end,
   --}
+  use {
+    "RaafatTurki/hex.nvim",
+    config = function()
+      require("hex").setup()
+    end,
+  }
   use "krady21/compiler-explorer.nvim"
   use {
     "saecki/crates.nvim",
