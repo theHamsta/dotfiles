@@ -175,10 +175,10 @@ require("lazy").setup {
         -- refer to the configuration section below
       }
     end,
-    enabled = false,
+    lazy = true,
   },
 
-  { "github/copilot.vim", enabled = false },
+  { "github/copilot.vim", lazy = true },
   {
     "emmanueltouzery/agitator.nvim",
     config = function()
@@ -642,7 +642,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   { "nvim-telescope/telescope-symbols.nvim", enabled = false },
   {
     "rcarriga/nvim-dap-ui",
-    enabled = false,
+    lazy = true,
     config = function()
       require("dapui").setup {
         icons = { expanded = "", collapsed = "", current_frame = "" },
@@ -764,7 +764,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     config = function()
       require("telescope").load_extension "dap"
     end,
-    enabled = false,
+    lazy = true,
   },
   {
     "nvim-telescope/telescope-fzy-native.nvim",
@@ -846,7 +846,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       }
     end,
     dependencies = "nvim-treesitter/nvim-treesitter",
-    --cmd = { "Neogen" }
+    cmd = { "Neogen" }
   },
 
   "airblade/vim-rooter",

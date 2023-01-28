@@ -791,4 +791,4 @@ highlight @deprecated term=strikethrough cterm=strikethrough gui=strikethrough
 highlight default link @injected None 
 onoremap <silent> m :<C-U>lua require('tsht').nodes()<CR>
 xnoremap <silent> m :lua require('tsht').nodes()<CR>
-nnoremap <leader>SS <cmd>lua require('sg.telescope').fuzzy_search_results()<CR>
+nnoremap <silent> <leader>SS <cmd>lua require('sg.telescope').fuzzy_search_results()<CR>
