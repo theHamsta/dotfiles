@@ -966,42 +966,41 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   "TravonteD/luajob",
 
   -- Color schemes
-  { "rakr/vim-one", enabled = false },
+  { "rakr/vim-one", lazy = true },
 
-  { "olimorris/onedarkpro.nvim", enabled = false },
+  { "olimorris/onedarkpro.nvim", lazy = true },
   {
     "rose-pine/neovim",
     as = "rose-pine",
     config = function()
       vim.cmd "colorscheme rose-pine"
     end,
-    enabled = false,
+    lazy = true,
   },
-  { "JoosepAlviste/palenightfall.nvim", enabled = false },
-  { "projekt0n/github-nvim-theme", enabled = false },
-  { "Pocco81/Catppuccino.nvim", enabled = false },
-  --{"tiagovla/tokyodark.nvim", enabled = false},
+  { "JoosepAlviste/palenightfall.nvim", lazy = true },
+  { "projekt0n/github-nvim-theme", lazy = true },
+  { "Pocco81/Catppuccino.nvim", lazy = true },
   {
     "folke/tokyonight.nvim",
     config = function()
       vim.cmd [[colorscheme tokyonight-storm]]
     end,
   },
-  { "bluz71/vim-nightfly-guicolors", enabled = false },
-  { "bluz71/vim-moonfly-colors", enabled = false },
-  { "chriskempson/base16-vim", enabled = false },
-  { "doums/darcula", enabled = false },
-  { "strange/vim-lore", enabled = false },
-  { "pineapplegiant/spaceduck", enabled = false },
-  { "ghifarit53/daycula-vim", enabled = false },
-  { "aonemd/kuroi.vim", enabled = false },
-  { "srcery-colors/srcery-vim", enabled = false },
+  { "bluz71/vim-nightfly-guicolors", lazy = true },
+  { "bluz71/vim-moonfly-colors", lazy = true },
+  { "chriskempson/base16-vim", lazy = true },
+  { "doums/darcula", lazy = true },
+  { "strange/vim-lore", lazy = true },
+  { "pineapplegiant/spaceduck", lazy = true },
+  { "ghifarit53/daycula-vim", lazy = true },
+  { "aonemd/kuroi.vim", lazy = true },
+  { "srcery-colors/srcery-vim", lazy = true },
   {
     "novakne/kosmikoa.nvim",
     config = function()
       require("kosmikoa").setup()
     end,
-    enabled = false,
+    lazy = true,
   },
   {
     "tjdevries/sg.nvim",
