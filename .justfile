@@ -11,7 +11,7 @@ build:
 		-DCMAKE_CUDA_COMPILER_LAUNCHER=ccache \
 		-GNinja \
 		-DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
-		-DCMAKE_C_FLAGS="-fdiagnostics-color" \
+		-DCMAKE_C_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
 		-DCMAKE_CUDA_ARCHITECTURES=OFF \
 		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo" ..
 	#cd debug && cmake \
@@ -23,8 +23,8 @@ build:
 		#-DCMAKE_CUDA_ARCHITECTURES=OFF \
 		#-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo" ..
 	rm -f compile_commands.json
-	ln -s debug/compile_commands.json
-	cd debug && cmake --build . -- -j$(nproc)
+	ln -s debug/compile_commands.json .
+	cd debug && cmake --build . -- -j"$(nproc)"
 
 run: build
 	debug/pystencils_gui
@@ -43,8 +43,8 @@ release:
 		-DCMAKE_CUDA_ARCHITECTURES=OFF \
 		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo"
 	rm -f compile_commands.json
-	ln -s release/compile_commands.json
-	cd release && cmake --build . -- -j$(nproc)
+	ln -s release/compile_commands.json .
+	cd release && cmake --build . -- -j"$(nproc)"
 
 gcc-release:
 	mkdir -p gcc-release
@@ -56,7 +56,7 @@ gcc-release:
 		-DCMAKE_CXX_FLAGS=-fdiagnostics-color \
 		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo" \
 		-DCMAKE_C_FLAGS="-fdiagnostics-color" ..
-	cd gcc-release && cmake --build . -- -j$(nproc)
+	cd gcc-release && cmake --build . -- -j"$(nproc)"
 
 gcc-9-release:
 	mkdir -p gcc-release
@@ -65,7 +65,7 @@ gcc-9-release:
 		-DCMAKE_BUILD_TYPE=Release -G Ninja \
 		-DCMAKE_CXX_FLAGS=-fdiagnostics-color \
 		-DCMAKE_C_FLAGS=-fdiagnostics-color ..
-	cd gcc-release && cmake --build . -- -j$(nproc)
+	cd gcc-release && cmake --build . -- -j"$(nproc)"
 
 gcc-debug:
 	mkdir -p gcc-debug
@@ -75,8 +75,8 @@ gcc-debug:
 		-DCMAKE_CXX_FLAGS=-fdiagnostics-color \
 		-DCMAKE_C_FLAGS=-fdiagnostics-color ..
 	rm -f compile_commands.json
-	ln -s gcc-debug/compile_commands.json
-	cd gcc-debug && cmake --build . -- -j$(nproc)
+	ln -s gcc-debug/compile_commands.json .
+	cd gcc-debug && cmake --build . -- -j"$(nproc)"
 
 release-run: release
 	release/pystencils_gui
