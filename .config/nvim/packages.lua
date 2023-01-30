@@ -77,7 +77,7 @@ require("lazy").setup {
       require("hex").setup()
     end,
   },
-  "krady21/compiler-explorer.nvim",
+  { "krady21/compiler-explorer.nvim", cmd = "CECompile" },
   {
     "saecki/crates.nvim",
     event = { "BufRead Cargo.toml" },
@@ -92,6 +92,7 @@ require("lazy").setup {
     config = function()
       require("telescope").load_extension "ui-select"
     end,
+    enable = false,
   },
   {
     "phaazon/mind.nvim",
@@ -111,7 +112,7 @@ require("lazy").setup {
         end,
       }
     end,
-    ft = { "zc", "zC", "zO", "zo" },
+    keys = { "zc", "zC", "zO", "zo" },
   },
   {
     "stevearc/overseer.nvim",
