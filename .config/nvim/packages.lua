@@ -192,10 +192,9 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     end,
   },
 
-  { "kyazdani42/nvim-web-devicons" },
   {
     "nvim-lualine/lualine.nvim",
-    dependencies = { "kyazdani42/nvim-web-devicons", enabled = false },
+    dependencies = { "nvim-tree/nvim-web-devicons", enabled = false },
     config = function()
       require("lualine").setup {
         options = {
@@ -304,24 +303,10 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     --enabled = false,
   },
   {
-    "ggandor/lightspeed.nvim",
+    "ggandor/leap.nvim",
     keys = "s",
     config = function()
-      require("lightspeed").setup {
-        --jump_to_first_match = true,
-        exit_after_idle_msecs = { labeled = 1500, unlabeled = 1000 },
-        match_only_the_start_of_same_char_seqs = true,
-        limit_ft_matches = 4,
-        --x_mode_prefix_key = "<c-x>",
-        substitute_chars = { ["\r"] = "¬" },
-        instant_repeat_fwd_key = nil,
-        instant_repeat_bwd_key = nil,
-        -- If no values are given, these will be set at runtime,
-        -- based on `jump_to_first_match`.
-        labels = nil,
-        cycle_group_fwd_key = nil,
-        cycle_group_bwd_key = nil,
-      }
+        require("leap").add_default_mappings()
     end,
   },
   {
@@ -329,7 +314,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     branch = "v2.x",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
     },
     cmd = "Neotree",
@@ -524,7 +509,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --"jceb/emmet.snippets",
   {
     "folke/lsp-trouble.nvim",
-    dependencies = { "kyazdani42/nvim-web-devicons", enabled = false },
+    dependencies = { "nvim-tree/nvim-web-devicons", enabled = false },
     config = function()
       require("trouble").setup {}
     end,
@@ -1021,7 +1006,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     "tjdevries/sg.nvim",
     build = "cargo build --workspace",
     event = "BufReadPre sg://*",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
     enabled = vim.fn.has "win32" ~= 1,
     lazy = true,
   },
