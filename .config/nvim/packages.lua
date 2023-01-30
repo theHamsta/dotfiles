@@ -111,12 +111,15 @@ require("lazy").setup {
         end,
       }
     end,
+    ft = { "zc", "zC", "zO", "zo" },
   },
   {
     "stevearc/overseer.nvim",
     config = function()
       require("overseer").setup()
     end,
+    keys = "<leader>os",
+    cmd = { "OverseerOpen", "OverseerToggle" },
   },
   {
     "simrat39/inlay-hints.nvim",
@@ -296,6 +299,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     config = function()
       require("dap-go").setup {}
     end,
+    ft = "go",
     --enabled = false,
   },
   {
@@ -378,6 +382,7 @@ imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
 smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
     ]]
     end,
+    keys = "<tab>",
     dependencies = {},
   },
   {
@@ -445,8 +450,9 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   },
   {
     "p00f/clangd_extensions.nvim",
+    ft = { "cuda", "cpp", "c" },
   },
-  { "earthly/earthly.vim", filetype = "earthly" },
+  { "earthly/earthly.vim", ft = "earthly" },
   {
     "sindrets/diffview.nvim",
     cmd = "DiffviewOpen",
@@ -499,6 +505,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
         -- refer to the configuration section below
       }
     end,
+    cmd = "Zenmode",
   },
   { "nanotee/zoxide.vim", cmd = { "Z", "Zi" } },
   "nvim-lua/popup.nvim",
@@ -528,9 +535,8 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     config = function()
       require("nvim-autopairs").setup {}
     end,
-    opt = false,
   },
-  { "mfussenegger/nvim-treehopper", opt = false },
+  { "mfussenegger/nvim-treehopper", key = "<space><space>" },
   { "dstein64/nvim-scrollview", enabled = false },
   { "TimUntersberger/neogit", cmd = { "Neogit" } },
   {
@@ -580,6 +586,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     config = function()
       require("gitlinker").setup()
     end,
+    keys = "<leader>gy",
   },
 
   --use {
@@ -744,7 +751,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       }
     end,
   },
-  "theHamsta/crazy-node-movement",
+  { "theHamsta/crazy-node-movement", keys = { "<a-l>", "<a-k>", "<a-j>", "<a-h>" } },
   --"dm1try/git_fastfix",
   "rafcamlet/nvim-luapad",
   { "jsit/toast.vim", enabled = false },
@@ -792,7 +799,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   { "preservim/tagbar", cmd = { "TagbarToggle", "TagbarOpenAutoClose" } },
   { "voldikss/vim-floaterm", cmd = "FloatermToggle" },
   { "kkoomen/vim-doge", enabled = false },
-  "AndrewRadev/switch.vim",
+  { "AndrewRadev/switch.vim", cmd = "Switch" },
   --"JuliaEditorSupport/julia-vim",
   --{ "SirVer/ultisnips", opt = false, build = ":UpdateRemotePlugins" },
   "Valloric/ListToggle",
@@ -802,7 +809,6 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
-    opt = false,
     config = function()
       require("gitsigns").setup {
         signs = {
@@ -852,7 +858,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   "airblade/vim-rooter",
   --"bronson/vim-visual-star-search",
   { "dbeniamine/cheat.sh-vim", cmd = { "Cheat" } },
-  "dyng/ctrlsf.vim",
+  { "dyng/ctrlsf.vim", cmd = { "CtrlSFPrompt", "CtrlSFVwordPath", "CtrlSFToggle", "CtrlSFOpen" } },
   --{ "euclio/vim-markdown-composer", build = "cargo build --release", cmd = "ComposerStart", ft = "markdown" },
   {
     "fatih/vim-go",
@@ -864,7 +870,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       " && "
     ),
   },
-  { "theHamsta/vlime", branch = "prompt", rtp = "vim/", ft = "lisp" },
+  { "theHamsta/vlime", branch = "prompt", ft = "lisp" },
   "hotwatermorning/auto-git-diff",
   "idanarye/vim-merginal",
 
@@ -894,9 +900,9 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --}
   --end,
   --}
-  { "junegunn/fzf", build = ":call fzf#install()" },
-  "junegunn/fzf.vim",
-  "junegunn/gv.vim",
+  { "junegunn/fzf", build = ":call fzf#install()", cmd = { "Blines", "Buffers", "GFiles", "GF", "Files" } },
+  { "junegunn/fzf.vim", cmd = { "Blines", "Buffers", "GFiles", "GF", "Files" } },
+  { "junegunn/gv.vim", keys = "<leader>gv" },
   "justinmk/vim-gtfo",
   --"junegunn/goyo.vim",
   --"junegunn/limelight.vim",
@@ -944,7 +950,16 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
         "sass",
       }
     end,
-    opt = false,
+    ft = {
+      "vim",
+      "html",
+      "markdown",
+      "tex",
+      "css",
+      "sass",
+      "scss",
+    },
+    lazy = true,
   },
   { "terryma/vim-multiple-cursors", keys = { "<c-n>", "<a-n>" } },
   "kana/vim-textobj-user",
@@ -959,7 +974,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   { "guns/vim-sexp", ft = lisp_filetypes },
   "tpope/vim-sleuth",
   "tpope/vim-surround",
-  "tpope/vim-unimpaired",
+  { "tpope/vim-unimpaired", enable = false },
 
   "wellle/targets.vim",
   { "whiteinge/diffconflicts", cmd = "DiffConflicts" },
@@ -971,7 +986,6 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   { "olimorris/onedarkpro.nvim", lazy = true },
   {
     "rose-pine/neovim",
-    as = "rose-pine",
     config = function()
       vim.cmd "colorscheme rose-pine"
     end,
@@ -984,7 +998,6 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     "folke/tokyonight.nvim",
     config = function()
       vim.cmd [[colorscheme tokyonight-storm]]
-
     end,
   },
   { "bluz71/vim-nightfly-guicolors", lazy = true },
@@ -1009,6 +1022,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     event = "BufReadPre sg://*",
     dependencies = { "nvim-lua/plenary.nvim" },
     enabled = vim.fn.has "win32" ~= 1,
+    lazy = true,
   },
   --use {
   --"luukvbaal/statuscol.nvim",
