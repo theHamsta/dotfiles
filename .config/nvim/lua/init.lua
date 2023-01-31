@@ -1,7 +1,7 @@
 --local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/opt/packer.nvim"
 --if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  --vim.fn.system { "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path }
-  --vim.cmd [[packadd packer.nvim]]
+--vim.fn.system { "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path }
+--vim.cmd [[packadd packer.nvim]]
 --end
 
 local shell = require "nvim-treesitter.shell_command_selectors"
@@ -358,7 +358,7 @@ if ok then
   --on_attach = on_attach,
   --capabilities = capabilities,
   --}
-  local clangd = shell.select_executable { "clangd-16", "clangd-15", "clangd" }
+  local clangd = shell.select_executable { "clangd-17", "clangd-16", "clangd-15", "clangd" }
   local ok = pcall(require, "clangd_extensions")
   if ok and clangd then
     require("clangd_extensions").setup {
