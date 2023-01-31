@@ -92,7 +92,7 @@ require("lazy").setup {
     config = function()
       require("telescope").load_extension "ui-select"
     end,
-    enable = false,
+    enabled = false,
   },
   {
     "phaazon/mind.nvim",
@@ -522,7 +522,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       require("nvim-autopairs").setup {}
     end,
   },
-  { "mfussenegger/nvim-treehopper", key = "<space><space>" },
+  { "mfussenegger/nvim-treehopper", keys = "<space><space>" },
   { "dstein64/nvim-scrollview", enabled = false },
   { "TimUntersberger/neogit", cmd = { "Neogit" } },
   {
@@ -960,7 +960,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   { "guns/vim-sexp", ft = lisp_filetypes },
   "tpope/vim-sleuth",
   "tpope/vim-surround",
-  { "tpope/vim-unimpaired", enable = false },
+  { "tpope/vim-unimpaired", enabled = false },
 
   "wellle/targets.vim",
   { "whiteinge/diffconflicts", cmd = "DiffConflicts" },
