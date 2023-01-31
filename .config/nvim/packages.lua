@@ -291,6 +291,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     config = function()
       require("fidget").setup {}
     end,
+    lazy = true,
   },
   { "mattboehm/vim-unstack", cmd = "UnstackFromText" },
   {
@@ -557,14 +558,14 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     enabled = false,
   },
   { "jiangmiao/auto-pairs", enabled = false },
-  {
-    "nvim-lua/lsp-status.nvim",
-    config = function()
-      local lsp_status = require "lsp-status"
-      lsp_status.register_progress()
-    end,
-    enabled = false,
-  },
+  --{
+    --"nvim-lua/lsp-status.nvim",
+    --config = function()
+      --local lsp_status = require "lsp-status"
+      --lsp_status.register_progress()
+    --end,
+    --enabled = false,
+  --},
   { "theHamsta/nvim-treesitter-commonlisp" },
   { "ojroques/nvim-lspfuzzy", enabled = false },
   {

@@ -220,6 +220,7 @@ if has('persistent_undo')
 endif
 
 function! NvimLspMaps()
+    Lazy load fidget.nvim
     nnoremap <buffer><silent> <f2>         <cmd>lua vim.lsp.buf.rename()<CR>
     nnoremap <buffer><silent> gk         <cmd>lua vim.lsp.buf.declaration()<CR>
     nnoremap <buffer><silent> gR         <cmd>lua vim.lsp.buf.references()<CR>
