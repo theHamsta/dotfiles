@@ -307,7 +307,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     "ggandor/leap.nvim",
     keys = "s",
     config = function()
-        require("leap").add_default_mappings()
+      require("leap").add_default_mappings()
     end,
   },
   {
@@ -559,12 +559,12 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   },
   { "jiangmiao/auto-pairs", enabled = false },
   --{
-    --"nvim-lua/lsp-status.nvim",
-    --config = function()
-      --local lsp_status = require "lsp-status"
-      --lsp_status.register_progress()
-    --end,
-    --enabled = false,
+  --"nvim-lua/lsp-status.nvim",
+  --config = function()
+  --local lsp_status = require "lsp-status"
+  --lsp_status.register_progress()
+  --end,
+  --enabled = false,
   --},
   { "theHamsta/nvim-treesitter-commonlisp" },
   { "ojroques/nvim-lspfuzzy", enabled = false },
@@ -950,7 +950,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   },
   { "terryma/vim-multiple-cursors", keys = { "<c-n>", "<a-n>" } },
   "kana/vim-textobj-user",
-  { "theHamsta/vim-template", dependencies = "kana/vim-textobj-user" },
+  { "theHamsta/vim-template", dependencies = "kana/vim-textobj-user", enabled = vim.fn.has "win32" ~= 1 },
   { "theHamsta/vim-textobj-entire", dependencies = "kana/vim-textobj-user" },
   { "theHamsta/vim-rebase-mode", dependencies = "kana/vim-textobj-user" },
   { "Julian/vim-textobj-variable-segment", dependencies = "kana/vim-textobj-user" },
