@@ -100,6 +100,7 @@ require("lazy").setup {
     config = function()
       require("mind").setup {}
     end,
+    enabled = false,
   },
   {
     "kevinhwang91/nvim-ufo",
