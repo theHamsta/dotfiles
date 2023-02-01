@@ -387,6 +387,7 @@ if ok then
   lspconfig.sumneko_lua.setup {
     settings = {
       Lua = {
+        checkThirdParty = false,
         awakened = { cat = true },
         telemetry = { enable = false },
         hint = { enable = true },
