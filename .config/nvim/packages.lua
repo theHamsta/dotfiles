@@ -888,7 +888,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --end,
   --}
   { "junegunn/fzf", build = ":call fzf#install()" },
-  { "junegunn/fzf.vim", cmd = { "Blines", "Buffers", "GFiles", "GF", "Files" } },
+  { "junegunn/fzf.vim", cmd = { "Blines", "Buffers", "GFiles", "GF", "Files", "Rg" } },
   { "junegunn/gv.vim", keys = "<leader>gv" },
   "justinmk/vim-gtfo",
   --"junegunn/goyo.vim",
