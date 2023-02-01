@@ -93,3 +93,4 @@ export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 export NeovideMultiGrid=true
 
 export COMPlus_gcAllowVeryLargeObjects=1
+. "$HOME/.cargo/env"
