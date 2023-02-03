@@ -853,7 +853,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     ft = "go",
     build = table.concat(
       vim.tbl_map(function(p)
-        return "go install -u " .. p .. "@latest"
+        return "go install " .. p .. "@latest"
       end, go_packages),
       " && "
     ),
