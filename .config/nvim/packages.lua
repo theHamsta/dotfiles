@@ -724,9 +724,6 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   "tjdevries/luvjob.nvim",
   --"svermeulen/nvim-moonmaker",
   "kbenzie/vim-spirv",
-
-  --{"theHamsta/nvim-tree.lua", branch = "exa"},
-
   {
     "nvim-telescope/telescope-dap.nvim",
     dependencies = "nvim-telescope/telescope.nvim",
@@ -902,7 +899,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     lazy = true,
   },
   { "terryma/vim-multiple-cursors", keys = { "<c-n>", "<a-n>" } },
-  {"kana/vim-textobj-user", event = "VeryLazy"},
+  { "kana/vim-textobj-user", event = "VeryLazy" },
   { "theHamsta/vim-template", dependencies = "kana/vim-textobj-user", enabled = vim.fn.has "win32" ~= 1 },
   { "theHamsta/vim-textobj-entire", dependencies = "kana/vim-textobj-user", event = "VeryLazy" },
   { "theHamsta/vim-rebase-mode", dependencies = "kana/vim-textobj-user", event = "VeryLazy" },
