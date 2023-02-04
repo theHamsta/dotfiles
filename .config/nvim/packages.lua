@@ -39,38 +39,6 @@ local go_packages = {
 }
 
 require("lazy").setup {
-  --{ "wbthomason/packer.nvim", enabled = false },
-  --use {
-  --"folke/noice.nvim",
-  --dependencies = {
-  ---- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-  --"MunifTanjim/nui.nvim",
-  ---- OPTIONAL:
-  ----   `nvim-notify` is only needed, if you want to use the notification view.
-  ----   If not available, we use `mini` as the fallback
-  --"rcarriga/nvim-notify",
-  --},
-  --config = function()
-  --require("noice").setup {
-  --lsp = {
-  ---- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-  --override = {
-  --["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-  --["vim.lsp.util.stylize_markdown"] = true,
-  --["cmp.entry.get_documentation"] = true,
-  --},
-  --},
-  ---- you can enable a preset for easier configuration
-  --presets = {
-  --bottom_search = true, -- use a classic bottom cmdline for search
-  --command_palette = true, -- position the cmdline and popupmenu together
-  --long_message_to_split = true, -- long messages will be sent to a split
-  --inc_rename = false, -- enables an input dialog for inc-rename.nvim
-  --lsp_doc_border = false, -- add a border to hover docs and signature help
-  --},
-  --}
-  --end,
-  --}
   {
     "RaafatTurki/hex.nvim",
     config = function()
@@ -863,33 +831,9 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   { "theHamsta/vlime", branch = "prompt", ft = "lisp" },
   "hotwatermorning/auto-git-diff",
   "idanarye/vim-merginal",
-
-  --{ "ivalkeen/nerdtree-execute", cmd = { "NERDTreeToggle", "NERDTreeFind" } },
-  --{ "Xuyuanp/nerdtree-git-plugin", cmd = { "NERDTreeToggle", "NERDTreeFind" } },
-  --{ "preservim/nerdtree" },
-  ----{"preservim/nerdtree", cmd = {"NERDTreeToggle", "NERDTreeFind"}},
-  --{ "tiagofumo/vim-nerdtree-syntax-highlight", cmd = { "NERDTreeToggle", "NERDTreeFind" } },
   { "janko/vim-test", ft = { "rust", "python" } },
   --{ "ionide/Ionide-vim", build = "make fsautocomplete", ft = "fsharp" },
   --{"fsprojects/fsharp-language-server", build = "npm install && dotnet build -c Release"},
-  --{ 'neoclide/coc.nvim', build = 'yarn install --frozen-lockfile', ft = 'fsharp'},
-  --use {
-  --"autozimu/LanguageClient-neovim",
-  --branch = "next",
-  --build = "bash install.sh",
-  --ft = "fsharp",
-  --}
-  --use {
-  --"nvim-orgmode/orgmode",
-  --ft = "org",
-  --config = function()
-  --require("orgmode").setup_ts_grammar()
-  --require("orgmode").setup {
-  --org_agenda_files = { "~/Dropbox/org/*", "~/my-orgs/**/*" },
-  --org_default_notes_file = "~/Dropbox/org/refile.org",
-  --}
-  --end,
-  --}
   { "junegunn/fzf", build = ":call fzf#install()" },
   { "junegunn/fzf.vim", cmd = { "Blines", "Buffers", "GFiles", "GF", "Files", "Rg" } },
   { "junegunn/gv.vim", cmd = "GV" },
@@ -903,16 +847,6 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   { "mbbill/undotree", cmd = { "UndotreeToggle" } },
   { "meain/vim-package-info", build = "npm install" },
   { "IndianBoy42/hop.nvim" },
-  --{ "ms-jpq/coq_nvim"},
-  --{ "mhinz/vim-startify", enabled = false },
-  --use {
-  --"goolord/alpha-nvim",
-  --dependencies = { "kyazdani42/nvim-web-devicons" },
-  --opt = false,
-  --config = function()
-  --require("alpha").setup(require("alpha.themes.startify").opts)
-  --end,
-  --}
   "moll/vim-bbye",
   { "jpalardy/vim-slime", enabled = false },
   "rhysd/git-messenger.vim",
