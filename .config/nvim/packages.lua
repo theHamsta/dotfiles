@@ -767,6 +767,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
+    event = "BufReadPre",
     config = function()
       require("gitsigns").setup {
         signs = {
