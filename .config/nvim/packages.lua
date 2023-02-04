@@ -77,6 +77,15 @@ require("lazy").setup {
       require("hex").setup()
     end,
   },
+  {
+    "gabrielpoca/replacer.nvim",
+    keys = "<leader>rG",
+    config = function()
+      vim.keymap.set("n", "<leader>rG", function()
+        require("replacer").run { rename_files = false }
+      end, { nowait = true, noremap = true, silent = true })
+    end,
+  },
   { "krady21/compiler-explorer.nvim", cmd = "CECompile" },
   {
     "saecki/crates.nvim",
@@ -576,13 +585,6 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     end,
     keys = "<leader>gy",
   },
-
-  --use {
-  --"gabrielpoca/replacer.nvim",
-  --config = function()
-  --vim.api.nvim_set_keymap("n", "<Leader>hh", ':lua require("replacer").run()<cr>', {silent = true})
-  --end
-  --}
   --{ "onsails/lspkind-nvim" },
   --use {
   --"hrsh7th/nvim-compe",
