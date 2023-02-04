@@ -821,12 +821,29 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   {
     "fatih/vim-go",
     ft = "go",
-    build = table.concat(
-      vim.tbl_map(function(p)
-        return "go install " .. p .. "@latest"
-      end, go_packages),
-      " && "
-    ),
+    build = function()
+      --require("nvim-treesitter.install").iter_cmd(
+      --vim.tbl_map(function(p)
+      --return {
+      --cmd = "go",
+      --info = "Installing " .. p,
+      --opts = { args = { "install", p } },
+      --}
+      --end, go_packages),
+      --1,
+      --"",
+      --"Installed all Go deps"
+      --)
+      for _, pkg in ipairs(go_packages) do
+        require("nvim-treesitter.install").iter_cmd({
+          {
+            cmd = "go",
+            info = "Installing " .. pkg,
+            opts = { args = { "install", pkg } },
+          },
+        }, 1, "", "Installed " .. pkg)
+      end
+    end,
   },
   { "theHamsta/vlime", branch = "prompt", ft = "lisp" },
   "hotwatermorning/auto-git-diff",

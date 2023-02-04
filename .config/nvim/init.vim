@@ -672,7 +672,6 @@ let g:completion_chain_complete_list = [
     \{'mode': '<c-n>'}
 \]
 
-autocmd BufEnter,BufNewFile *.wat set filetype=wat
 autocmd BufEnter,BufNewFile *.vh set filetype=verilog
 autocmd BufEnter,BufNewFile *.verilog set filetype=verilog
 autocmd BufEnter,BufNewFile *.org set filetype=org
