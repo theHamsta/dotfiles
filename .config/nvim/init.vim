@@ -629,9 +629,8 @@ command! -buffer JdtJshell lua require('jdtls').jshell()
 nnoremap <leader>bd :Bdelete<cr>
 
 function DapMaps()
-    Lazy load nvim-dap-ui
-    Lazy load telescope-dap.nvim
     nnoremap <f1> :lua require'dap'.goto_()<cr>
+    nnoremap <buffer> <silent> <F4> :lua require'dap.repl'.toggle()<CR>
     nnoremap <buffer> <silent> <F5> :lua require'dap'.continue()<CR>
     nnoremap <buffer> <silent> <s-F5> :lua require'dap'.run_to_cursor()<CR>
     nnoremap <buffer> <silent> <F9> :lua require'dap'.step_over()<CR>
@@ -647,13 +646,11 @@ function DapMaps()
     nmap <buffer> <silent> <leader>bi :lua require'dap'.step_into()<CR>
     nmap <buffer> <silent> <leader>bo :lua require'dap'.step_out()<CR>
     nmap <buffer> <silent> <leader>lb :lua require'dap'.list_breakpoints()<CR>
-    nmap <buffer> <silent> <leader>bm :DebugRepl<cr>
     nmap <buffer> <silent> <leader>dh :lua require 'dap.ui.widgets'.hover()<cr>
     nmap <buffer> <silent> <leader>ds :lua require 'dap.ui.widgets'.centered_float(require 'dap.ui.widgets'.scopes)<cr>
     nmap <buffer> <silent> <leader>df :lua require 'dap.ui.widgets'.frames()<cr>
     nmap <buffer> <silent> <leader>TN :lua require'dap';require 'dap-python'.test_method()<cr>:lua require 'dap.repl'.open()<cr>
     nmap <buffer> <silent> <leader>bT :lua require 'dap'.run_last()<cr>:lua require 'dap.repl'.open()<cr>
-    command! DebugRepl :lua require'dap'.repl.open()<cr>
     command! ExceptionBreakpoints :lua require'dap'.set_exception_breakpoints()<cr>
 endfunction
 

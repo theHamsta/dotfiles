@@ -701,6 +701,8 @@ if ok then
 
   --if dap.custom_event_handlers then
   dap.listeners.after.event_initialized["my handler id"] = function(_, _)
+    vim.cmd[[Lazy load nvim-dap-ui]]
+    vim.cmd[[Lazy load telescope-dap.nvim]]
     dap.repl.open()
     --if ok then
     --dapui.open()
