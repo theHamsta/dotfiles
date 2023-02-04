@@ -244,6 +244,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
         extensions = {},
       }
     end,
+    event = "VeryLazy",
   },
   {
     "mfussenegger/nvim-lint",
@@ -413,6 +414,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
         auto_open = true, -- Automatically open nvim-cmp on choice node (default: true)
       }
     end,
+    event = "VeryLazy",
   },
   {
     "p00f/clangd_extensions.nvim",
@@ -545,7 +547,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --end,
   --enabled = false,
   --},
-  { "theHamsta/nvim-treesitter-commonlisp" },
+  { "theHamsta/nvim-treesitter-commonlisp", ft = "lisp" },
   { "ojroques/nvim-lspfuzzy", enabled = false },
   {
     "ruifm/gitlinker.nvim",
@@ -692,11 +694,12 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       }
     end,
   },
-  "nvim-treesitter/nvim-treesitter-textobjects",
-  "nvim-treesitter/nvim-treesitter-refactor",
+  { "nvim-treesitter/nvim-treesitter-textobjects", event = "VeryLazy" },
+  { "nvim-treesitter/nvim-treesitter-refactor", event = "VeryLazy" },
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
+    event = "VeryLazy",
   },
   --{"nvim-treesitter/playground", keys = "<leader>pl"},
   "rhysd/conflict-marker.vim",
@@ -899,11 +902,11 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     lazy = true,
   },
   { "terryma/vim-multiple-cursors", keys = { "<c-n>", "<a-n>" } },
-  "kana/vim-textobj-user",
+  {"kana/vim-textobj-user", event = "VeryLazy"},
   { "theHamsta/vim-template", dependencies = "kana/vim-textobj-user", enabled = vim.fn.has "win32" ~= 1 },
-  { "theHamsta/vim-textobj-entire", dependencies = "kana/vim-textobj-user" },
-  { "theHamsta/vim-rebase-mode", dependencies = "kana/vim-textobj-user" },
-  { "Julian/vim-textobj-variable-segment", dependencies = "kana/vim-textobj-user" },
+  { "theHamsta/vim-textobj-entire", dependencies = "kana/vim-textobj-user", event = "VeryLazy" },
+  { "theHamsta/vim-rebase-mode", dependencies = "kana/vim-textobj-user", event = "VeryLazy" },
+  { "Julian/vim-textobj-variable-segment", dependencies = "kana/vim-textobj-user", event = "VeryLazy" },
   "tpope/vim-eunuch",
   "tpope/vim-fugitive",
   "tpope/vim-repeat",
