@@ -469,15 +469,16 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
-autocmd BufReadPre *.pdf silent set ro
-autocmd BufReadPre *.pdf silent :T okular "%"
-autocmd BufReadPost *.pdf silent %!pdftotext -nopgbrk -layout -q -eol unix "%" - | fmt -w78
-
-autocmd BufReadPre *.png silent %!xdg-open "%"
-autocmd BufReadPre *.eps silent %!xdg-open "%"
-autocmd BufReadPre *.jpg silent %!xdg-open "%"
-autocmd BufReadPre *.bmp silent %!xdg-open "%"
-autocmd BufReadPre *.ipynb silent %!xdg-open "%"
+if has("win32") == 0
+  autocmd BufReadPre *.pdf silent set ro
+  autocmd BufReadPre *.pdf silent :T okular "%"
+  autocmd BufReadPost *.pdf silent %!pdftotext -nopgbrk -layout -q -eol unix "%" - | fmt -w78
+  autocmd BufReadPre *.png silent %!xdg-open "%"
+  autocmd BufReadPre *.eps silent %!xdg-open "%"
+  autocmd BufReadPre *.jpg silent %!xdg-open "%"
+  autocmd BufReadPre *.bmp silent %!xdg-open "%"
+  autocmd BufReadPre *.ipynb silent %!xdg-open "%"
+endif
 
 let $FZF_DEFAULT_OPTS='--layout=reverse'
 let g:fzf_layout = { 'window': 'call FloatingFZF()' }
@@ -514,7 +515,6 @@ function! FloatingFZF()
 endfunction
 au FileType fzf setlocal nonu nornu signcolumn=no
 
-
 autocmd FileType gitcommit setlocal bufhidden=delete
 autocmd FileType gitrebase setlocal bufhidden=delete
 
@@ -548,8 +548,6 @@ if exists('g:GuiLoaded')
   let g:float_preview#docked = 1
 endif
 
-let g:doge_doc_standard_python='google'
-
 autocmd Filetype ipynb nmap <silent><Leader>b :VimpyterInsertPythonBlock<CR>
 autocmd Filetype ipynb nmap <silent><Leader>j :VimpyterStartJupyter<CR>
 autocmd Filetype ipynb nmap <silent><Leader>n :VimpyterStartNteract<CR>
@@ -561,12 +559,6 @@ let g:vlime_contribs = ['SWANK-QUICKLISP', 'SWANK-ASDF', 'SWANK-PACKAGE-FU',
                       \ 'SWANK-PRESENTATIONS', 'SWANK-FANCY-INSPECTOR',
                       \ 'SWANK-C-P-C', 'SWANK-ARGLISTS', 'SWANK-REPL',
                       \ 'SWANK-FUZZY', 'SWANK-TRACE-DIALOG']
-
-command! CargoPlay :T cargo play %
-
-
-
-
 
 nnoremap <silent> <Up>    :call animate#window_delta_height(10)<CR>
 nnoremap <silent> <Down>  :call animate#window_delta_height(-10)<CR>
@@ -586,8 +578,6 @@ nnoremap <silent> gf gF
 nnoremap Gtf :Tnew<cr>:T dolphin %:p:h 2>&1 >> /dev/null &<cr>:Tclose<cr>
 
 command! CdToCurrentFile cd %:p:h
-
-
 
 nnoremap <silent> <c-ScrollWheelUp> :lua require'my_gui'.increase_fontsize()<cr>
 nnoremap <silent> <c-ScrollWheelDown> :lua require'my_gui'.decrease_fontsize()<cr>
@@ -610,7 +600,6 @@ au TextYankPost * silent! lua require'vim.highlight'.on_yank({"IncSearch", 150})
 let g:sexp_filetypes = 'clojure,scheme,lisp,timl,vlime_repl,fennel,query'
 let g:sexp_enable_insert_mode_mappings = 0
 
-
 let g:markdown_composer_autostart=0
 
 nnoremap <c-h> :History<cr>
@@ -618,7 +607,6 @@ nnoremap <c-t> :Tags<cr>
 nnoremap <c-s-t> :Telescope lsp_dynamic_workspace_symbols<cr>
 nnoremap <c-a-o> :BTags<cr>
 nnoremap <leader><c-o> :BTags<cr>
-
 
 command! -buffer JdtCompile lua require('jdtls').compile()
 command! -buffer JdtUpdateConfig lua require('jdtls').update_project_config()
@@ -654,7 +642,6 @@ function DapMaps()
     command! ExceptionBreakpoints :lua require'dap'.set_exception_breakpoints()<cr>
 endfunction
 
-"nmap <silent> <leader>sf :lua require'dap'.select_frame()<CR>
 nmap <silent> <leader>sf :lua require'telescope'.extensions.dap.frames{}<CR>
 
 nnoremap <F8> :TagbarOpenAutoClose<CR>
@@ -662,15 +649,6 @@ nmap ,w ysiw)
 nmap ,<s-w> ysiW)
 
 nnoremap <leader>pl :lua vim.treesitter.show_tree()<cr>
-
-
-let g:completion_enable_snippet = 'UltiSnips'
-let g:completion_chain_complete_list = [
-    \{'complete_items': ['lsp', 'snippet', 'buffers']},
-    \{'mode': '<c-f>'},
-    \{'mode': '<c-p>'},
-    \{'mode': '<c-n>'}
-\]
 
 autocmd BufEnter,BufNewFile *.vh set filetype=verilog
 autocmd BufEnter,BufNewFile *.verilog set filetype=verilog

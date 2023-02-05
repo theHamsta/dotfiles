@@ -854,7 +854,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --{ "ionide/Ionide-vim", build = "make fsautocomplete", ft = "fsharp" },
   --{"fsprojects/fsharp-language-server", build = "npm install && dotnet build -c Release"},
   { "junegunn/fzf", build = ":call fzf#install()" },
-  { "junegunn/fzf.vim", cmd = { "Blines", "Buffers", "GFiles", "GF", "Files", "Rg" } },
+  { "junegunn/fzf.vim", cmd = { "Blines", "Buffers", "GFiles", "GF", "Files", "Rg", "Helptags" } },
   { "junegunn/gv.vim", cmd = "GV" },
   "justinmk/vim-gtfo",
   "kassio/neoterm",
