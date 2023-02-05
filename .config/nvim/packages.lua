@@ -90,7 +90,8 @@ require("lazy").setup {
         end,
       }
     end,
-    keys = { "zc", "zC", "zO", "zo" },
+    --keys = { "zc", "zC", "zO", "zo" },
+    event = "VeryLazy",
   },
   {
     "stevearc/overseer.nvim",
