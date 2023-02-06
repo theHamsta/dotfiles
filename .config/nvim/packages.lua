@@ -714,7 +714,8 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       }
     end,
   },
-  { "theHamsta/crazy-node-movement", keys = { "<a-l>", "<a-k>", "<a-j>", "<a-h>" } },
+  --{ "theHamsta/crazy-node-movement", keys = { "<a-l>", "<a-k>", "<a-j>", "<a-h>" } },
+  { "theHamsta/crazy-node-movement" },
   --"dm1try/git_fastfix",
   "rafcamlet/nvim-luapad",
   { "jsit/toast.vim", enabled = false },
@@ -819,7 +820,8 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   "airblade/vim-rooter",
   --"bronson/vim-visual-star-search",
   { "dbeniamine/cheat.sh-vim", cmd = { "Cheat" } },
-  { "dyng/ctrlsf.vim", cmd = { "CtrlSFPrompt", "CtrlSFCwordPath", "CtrlSFVwordPath", "CtrlSFToggle", "CtrlSFOpen" } },
+  --{ "dyng/ctrlsf.vim", cmd = { "CtrlSFPrompt", "CtrlSFCwordPath", "CtrlSFVwordPath", "CtrlSFToggle", "CtrlSFOpen" } },
+  { "dyng/ctrlsf.vim" },
   --{ "euclio/vim-markdown-composer", build = "cargo build --release", cmd = "ComposerStart", ft = "markdown" },
   {
     "fatih/vim-go",
