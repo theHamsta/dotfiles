@@ -703,7 +703,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     build = ":TSUpdate",
     event = "VeryLazy",
   },
-  --{"nvim-treesitter/playground", keys = "<leader>pl"},
+  {"nvim-treesitter/playground", keys = "<leader>pl"},
   "rhysd/conflict-marker.vim",
   "mfussenegger/nvim-dap",
   {
