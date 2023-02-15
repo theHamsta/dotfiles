@@ -335,6 +335,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     build = vim.fn.has "win32" ~= 1 and "make install_jsregexp" or nil,
     config = function()
       require "theHamsta_luasnips"
+      require("luasnip.loaders.from_snipmate").lazy_load()
 
       vim.cmd [[
 imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
@@ -601,12 +602,12 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   },
   { "danilo-augusto/vim-afterglow", enabled = false },
   { "kevinhwang91/nvim-hlslens", enabled = false },
-  {
-    "norcalli/snippets.nvim",
-    config = function()
-      vim.cmd [[inoremap <c-k> <cmd>lua return require'snippets'.expand_or_advance(1)<CR>]]
-    end,
-  },
+  --{
+    --"norcalli/snippets.nvim",
+    --config = function()
+      --vim.cmd [[inoremap <c-k> <cmd>lua return require'snippets'.expand_or_advance(1)<CR>]]
+    --end,
+  --},
   { "tpope/vim-speeddating", enabled = false },
   { "nvim-telescope/telescope-symbols.nvim", enabled = false },
   {
