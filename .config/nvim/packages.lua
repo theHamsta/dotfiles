@@ -56,6 +56,17 @@ require("lazy").setup {
   },
   { "krady21/compiler-explorer.nvim", cmd = "CECompile" },
   {
+    "liangxianzhe/nap.nvim",
+    config = function()
+      require("nap").setup {
+        next_prefix = "<c-a-l>",
+        prev_prefix = "<c-a-h>",
+        next_repeat = "<c-a-l>",
+        prev_repeat = "<c-a-h>",
+      }
+    end,
+  },
+  {
     "saecki/crates.nvim",
     event = { "BufRead Cargo.toml" },
     dependencies = { { "nvim-lua/plenary.nvim" } },
@@ -603,10 +614,10 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   { "danilo-augusto/vim-afterglow", enabled = false },
   { "kevinhwang91/nvim-hlslens", enabled = false },
   --{
-    --"norcalli/snippets.nvim",
-    --config = function()
-      --vim.cmd [[inoremap <c-k> <cmd>lua return require'snippets'.expand_or_advance(1)<CR>]]
-    --end,
+  --"norcalli/snippets.nvim",
+  --config = function()
+  --vim.cmd [[inoremap <c-k> <cmd>lua return require'snippets'.expand_or_advance(1)<CR>]]
+  --end,
   --},
   { "tpope/vim-speeddating", enabled = false },
   { "nvim-telescope/telescope-symbols.nvim", enabled = false },
@@ -703,7 +714,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     build = ":TSUpdate",
     event = "VeryLazy",
   },
-  {"nvim-treesitter/playground", keys = "<leader>pl"},
+  { "nvim-treesitter/playground", keys = "<leader>pl" },
   "rhysd/conflict-marker.vim",
   "mfussenegger/nvim-dap",
   {
