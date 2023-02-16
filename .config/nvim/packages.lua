@@ -65,6 +65,7 @@ require("lazy").setup {
         prev_repeat = "<c-a-h>",
       }
     end,
+    event = "VeryLazy",
   },
   {
     "saecki/crates.nvim",
