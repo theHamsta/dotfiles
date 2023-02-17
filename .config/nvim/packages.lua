@@ -568,7 +568,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     config = function()
       require("gitlinker").setup()
     end,
-    keys = "<leader>gy",
+    keys = {"<leader>gy", mode= {"n", "v"}},
   },
   --{ "onsails/lspkind-nvim" },
   --use {

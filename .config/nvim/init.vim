@@ -206,7 +206,7 @@ nnoremap <a-g> :GFiles?<cr>
 nmap <leader>gg :GF?<cr>
 autocmd FileType lua nnoremap <buffer> <c-s> ma:w<cr>:!stylua %<cr>:e!<cr>'azz
 
-autocmd FileType cmake nnoremap <buffer> <c-s> ma:w<cr>:%!gersemi %<cr>'azz
+"autocmd FileType cmake nnoremap <buffer> <c-s> ma:w<cr>:%!gersemi %<cr>'azz
 autocmd FileType markdown nnoremap <buffer> <cr> :ComposerStart<cr>:ComposerOpen<cr>
 autocmd FileType markdown nnoremap <buffer> <leader>ll :ComposerStart<cr>
 autocmd FileType markdown nnoremap <buffer> <leader>lv :ComposerOpen<cr>
