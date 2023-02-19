@@ -701,8 +701,8 @@ if ok then
 
   --if dap.custom_event_handlers then
   dap.listeners.after.event_initialized["my handler id"] = function(_, _)
-    vim.cmd[[Lazy load nvim-dap-ui]]
-    vim.cmd[[Lazy load telescope-dap.nvim]]
+    vim.cmd [[Lazy load nvim-dap-ui]]
+    vim.cmd [[Lazy load telescope-dap.nvim]]
     dap.repl.open()
     --if ok then
     --dapui.open()
@@ -879,7 +879,7 @@ if ok then
           ["al"] = "@loop.outer",
           ["il"] = "@loop.inner",
           ["is"] = "@statement.inner",
-          ["as"] = "@statement.outer",
+          --["as"] = "@statement.outer",
           ["ad"] = "@lhs.inner",
           ["id"] = "@rhs.inner",
           ["am"] = "@call.outer",
@@ -888,6 +888,8 @@ if ok then
           ["aM"] = "@frame.outer",
           ["ai"] = "@parameter.outer",
           ["ii"] = "@parameter.inner",
+          ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
+
           --["aS"] = { "@scope", "locals" }, -- selects `@scope` from locals.scm
         },
       },
@@ -971,6 +973,7 @@ if ok then
   hlmap["error"] = "tserror"
   hlmap["none"] = "None"
   hlmap["punctuation.delimiter"] = "delimiter"
+  hlmap["interface"] = "Type"
   --hlmap["punctuation.bracket"] = nil
 
   -- constants
