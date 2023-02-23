@@ -277,6 +277,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
       table.insert(require("lint").linters.dxc.args, "-spirv")
       vim.cmd [[au BufEnter,BufWritePost * lua require('lint').try_lint()]]
     end,
+    ft = { "hlsl", "glsl", "lua" },
   },
   {
     "j-hui/fidget.nvim",
@@ -568,7 +569,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     config = function()
       require("gitlinker").setup()
     end,
-    keys = {"<leader>gy", mode= {"n", "v"}},
+    keys = { "<leader>gy", mode = { "n", "v" } },
   },
   --{ "onsails/lspkind-nvim" },
   --use {
@@ -715,7 +716,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     build = ":TSUpdate",
     event = "VeryLazy",
   },
-  { "nvim-treesitter/playground", keys = "<leader>pl" },
+  --{ "nvim-treesitter/playground", keys = "<leader>pl" },
   "rhysd/conflict-marker.vim",
   "mfussenegger/nvim-dap",
   {
