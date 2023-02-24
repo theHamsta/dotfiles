@@ -4,7 +4,7 @@ alias debug := build
 
 build:
 	mkdir -p debug
-	cmake -B debug\
+	cmake -B debug \
 		-DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
 		-DCMAKE_CUDA_HOST_COMPILER=g++-11 \
 		-DCMAKE_BUILD_TYPE=Debug -GNinja \
