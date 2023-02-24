@@ -111,7 +111,7 @@ require("lazy").setup {
       require("overseer").setup()
     end,
     keys = "<leader>os",
-    cmd = { "OverseerOpen", "OverseerToggle" },
+    cmd = { "OverseerRun", "OverseerOpen", "OverseerToggle" },
   },
   {
     "simrat39/inlay-hints.nvim",
