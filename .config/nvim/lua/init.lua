@@ -742,7 +742,7 @@ end
 
 local ok, _ = pcall(require, "nvim-treesitter.configs")
 if ok then
-  require("nvim-treesitter.parsers").filetype_to_parsername["wgsl"] = "wgsl_bevy"
+  vim.treesitter.language.register("wgsl_bevy", "wgsl")
   --vim.cmd "set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()"
   --local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 
