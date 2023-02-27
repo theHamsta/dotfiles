@@ -149,3 +149,4 @@ perf.data
 *.mov
 *.mp4
 *.mkv
+.fzf
