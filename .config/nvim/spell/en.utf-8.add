@@ -467,3 +467,4 @@ golangci
 golint
 gopls
 godef
+class
