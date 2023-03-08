@@ -296,13 +296,13 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     ft = "go",
     --enabled = false,
   },
-  {
-    "ggandor/leap.nvim",
-    keys = "s",
-    config = function()
-      require("leap").add_default_mappings()
-    end,
-  },
+  --{
+    --"ggandor/leap.nvim",
+    --keys = "s",
+    --config = function()
+      --require("leap").add_default_mappings()
+    --end,
+  --},
   {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",

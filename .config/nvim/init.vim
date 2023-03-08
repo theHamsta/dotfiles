@@ -378,6 +378,7 @@ endfunction
 
 augroup filetypedetect
     au! BufRead,BufNewFile *.osl set filetype=cpp
+    au! BufRead,BufNewFile *.nvmk set filetype=make
     au! BufRead,BufNewFile .busted set filetype=lua
     au! BufRead,BufNewFile *.proto2 set filetype=proto
     au! BufRead,BufNewFile *.nim set filetype=nim
