@@ -43,6 +43,7 @@
   "kosmikoa.nvim": { "branch": "main", "commit": "a32b908fb2018f0f0ed1b92ff334db0d317f5dd7" },
   "kuroi.vim": { "branch": "master", "commit": "54ab6f0be98bdde5446a82b24c983b7232798f2f" },
   "lazy.nvim": { "branch": "main", "commit": "5b4444f0d7e556deba3f7ca949a2ba0e2c3369fb" },
+  "leap-spooky.nvim": { "branch": "main", "commit": "79a7a3f28897d99e5da970e7121ac8ff738e1554" },
   "leap.nvim": { "branch": "main", "commit": "d34680b16af977928228e57c68e5a162f1649e3c" },
   "lsp-trouble.nvim": { "branch": "main", "commit": "67337644e38144b444d026b0df2dc5fa0038930f" },
   "lsp_lines.nvim": { "branch": "main", "commit": "ec98b45c8280e5ef8c84028d4f38aa447276c002" },
