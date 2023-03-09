@@ -149,7 +149,7 @@ autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /home/stephan/go/bin/bitcomplete bit
 test -r /home/stephan/.opam/opam-init/init.zsh && . /home/stephan/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
-#SSH_ASKPASS=/usr/bin/ksshaskpass eval `ssh-agent -s` ssh-add $HOME/.ssh/id_rsa </dev/null
+SSH_ASKPASS=/usr/bin/ksshaskpass eval `ssh-agent -s` ssh-add $HOME/.ssh/id_rsa </dev/null
 
 alias luamake=/home/stephan/projects/lua-language-server/3rd/luamake/luamake
 
