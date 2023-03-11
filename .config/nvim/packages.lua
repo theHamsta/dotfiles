@@ -590,7 +590,8 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     config = function()
       require("gitlinker").setup()
     end,
-    keys = { "<leader>gy", mode = { "n", "v" } },
+    --keys = { "<space>gy", mode = { "n", "v", "V" } },
+    events = "VeryLazy",
   },
   --{ "onsails/lspkind-nvim" },
   --use {
@@ -737,7 +738,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     build = ":TSUpdate",
     event = "VeryLazy",
   },
-  --{ "nvim-treesitter/playground", keys = "<leader>pl" },
+  { "nvim-treesitter/playground", keys = "<leader>pl" },
   "rhysd/conflict-marker.vim",
   "mfussenegger/nvim-dap",
   {

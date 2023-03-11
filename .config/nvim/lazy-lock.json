@@ -83,6 +83,7 @@
   "onedarkpro.nvim": { "branch": "main", "commit": "38cd5e6f30308c004b9341bc0798920694ec12b9" },
   "overseer.nvim": { "branch": "master", "commit": "9de57c625fce4a810f07970bcf99e849149b893c" },
   "palenightfall.nvim": { "branch": "main", "commit": "f33b64d0099867deb4a7aa6024d4c55f628253f2" },
+  "playground": { "branch": "master", "commit": "4044b53c4d4fcd7a78eae20b8627f78ce7dc6f56" },
   "plenary.nvim": { "branch": "master", "commit": "253d34830709d690f013daf2853a9d21ad7accab" },
   "popup.nvim": { "branch": "master", "commit": "b7404d35d5d3548a82149238289fa71f7f6de4ac" },
   "promise-async": { "branch": "main", "commit": "7fa127fa80e7d4d447e0e2c78e99af4355f4247b" },
