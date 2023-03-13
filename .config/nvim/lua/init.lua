@@ -14,6 +14,8 @@ exe 'normal `z'
 endfunction
 ]]
 
+vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+
 local lsp_status_ok, lsp_status = pcall(require, "lsp-status")
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 if lsp_status_ok then
@@ -930,7 +932,7 @@ if ok then
       },
     },
     fold = {
-      enable = true,
+      enable = false,
       fold_one_line_after = false,
     },
     refactor = {
