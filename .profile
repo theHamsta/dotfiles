@@ -42,12 +42,12 @@ export PYTHONPATH="$HOME/projects/SimpleElastix/release/SimpleITK-build/Wrapping
 #export PYTHONPATH="$HOME/.local/lib/python3.8/site-packages:$PYTHONPATH"
 export OMP_NUM_THREADS=4
 
-export CC=/usr/lib/ccache/clang-16
-export CXX=/usr/lib/ccache/clang++-16
-export OMPI_CC=/usr/lib/ccache/clang-16
-export OMPI_CXX=/usr/lib/ccache/clang++-16
-export MPICH_CC=/usr/lib/ccache/clang-16
-export MPICH_CXX=/usr/lib/ccache/clang++-16
+export CC=/usr/lib/ccache/clang-17
+export CXX=/usr/lib/ccache/clang++-17
+export OMPI_CC=/usr/lib/ccache/clang-17
+export OMPI_CXX=/usr/lib/ccache/clang++-17
+export MPICH_CC=/usr/lib/ccache/clang-17
+export MPICH_CXX=/usr/lib/ccache/clang++-17
 
 #export CC=/usr/lib/ccache/gcc-10
 #export CXX=/usr/lib/ccache/g++-10
