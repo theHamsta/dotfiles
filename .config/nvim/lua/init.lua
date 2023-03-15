@@ -965,7 +965,7 @@ if ok then
     },
     indent = {
       enable = true,
-      disable = "python",
+      --disable = "python",
     },
     --ensure_installed = "all",
     --update_strategy = "do not use lockfile, please!"
