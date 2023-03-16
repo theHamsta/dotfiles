@@ -38,7 +38,7 @@ export PATH="$HOME/rocks/luajit3.0/bin:$PATH"
 export PATH="/opt/blender:$PATH"
 #export PYTHONPATH="/usr/local/lib/python3.8/dist-packages:$HOME/projects/blender_autocomplete/2.80:$PYTHONPATH"
 #export PYTHONPATH=/home/stephan/projects/walberla/debug-mpi/apps/pythonmodule:$PYTHONPATH
-export PYTHONPATH="$HOME/projects/SimpleElastix/release/SimpleITK-build/Wrapping/Python:$PYTHONPATH"
+export PYTHONPATH="/home/stephan/projects/CV-CUDA/ci/build-rel/lib/python/:$PYTHONPATH"
 #export PYTHONPATH="$HOME/.local/lib/python3.8/site-packages:$PYTHONPATH"
 export OMP_NUM_THREADS=4
 
