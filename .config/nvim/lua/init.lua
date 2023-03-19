@@ -1011,6 +1011,7 @@ if ok then
 
   -- keywords
   hlmap["conditional"] = "conditional"
+  hlmap["conditional.ternary"] = "operator"
   hlmap["text.title"] = "markdownh1"
   hlmap["repeat"] = "repeat"
   hlmap["label"] = "label"
