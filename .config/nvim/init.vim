@@ -649,7 +649,7 @@ nnoremap <F8> :TagbarOpenAutoClose<CR>
 nmap ,w ysiw)
 nmap ,<s-w> ysiW)
 
-nnoremap <leader>pl :lua vim.treesitter.show_tree()<cr>
+nnoremap <leader>pl :lua vim.treesitter.inspect_tree()<cr>
 
 autocmd BufEnter,BufNewFile *.vh set filetype=verilog
 autocmd BufEnter,BufNewFile *.verilog set filetype=verilog
