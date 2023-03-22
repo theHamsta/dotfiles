@@ -151,3 +151,4 @@ perf.data
 *.mkv
 .fzf
 _out
+*.yuv
