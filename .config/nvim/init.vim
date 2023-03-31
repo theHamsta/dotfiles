@@ -392,7 +392,6 @@ augroup filetypedetect
     au! BufRead,BufNewFile .gitignore set filetype=gitignore
     au! BufRead,BufNewFile *.hlsl,*.effect set filetype=hlsl
     au! BufRead,BufNewFile *.wgsl set filetype=wgsl
-    au! BufRead,BufNewFile *.scm set filetype=query
     au! BufRead,BufNewFile *.slint set filetype=slint
     au! BufRead,BufNewFile *.ll set filetype=llvm
     au! BufRead,BufNewFile *.cpp.tmpl set filetype=cpp
@@ -775,3 +774,7 @@ highlight default link @injected None
 onoremap <silent> m :<C-U>lua require('tsht').nodes()<CR>
 xnoremap <silent> m :lua require('tsht').nodes()<CR>
 nnoremap <leader>SS <cmd>lua require('sg.telescope').fuzzy_search_results()<CR>
+
+let g:query_linter_events = ["BufWrite","InsertLeave"]
+
+

@@ -49,7 +49,7 @@ end
 
 vim.diagnostic.config {
   virtual_text = {
-    source = "always", -- Or "if_many"
+    source = "if_many", -- Or "if_many"
   },
   float = {
     source = "always", -- Or "if_many"
@@ -795,7 +795,7 @@ if ok then
       disable = {}, -- list of language that will be disabled
     },
     query_linter = {
-      enable = true,
+      enable = false,
       lint_events = { "BufWrite", "CursorHold" },
     },
     tree_docs = {

@@ -45,6 +45,7 @@ require("lazy").setup {
       require("hex").setup()
     end,
   },
+  { "kiyoon/jupynium.nvim", run = "pip3 install --user . --break-system-packages" },
   {
     "gabrielpoca/replacer.nvim",
     keys = "<leader>rG",
@@ -429,6 +430,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
           return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" -- or require("cmp_dap").is_dap_buffer()
         end,
         sources = cmp.config.sources({
+          { name = "jupynium", priority = 1000 },
           { name = "nvim_lsp" },
           { name = "luasnip" }, -- For luasnip users.
           --{ name = "ultisnips" }, -- For ultisnips users.
