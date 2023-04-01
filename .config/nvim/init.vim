@@ -390,7 +390,7 @@ augroup filetypedetect
     au! BufRead,BufNewFile *.nim set filetype=nim
     au! BufRead,BufNewFile *.nu set filetype=nu
     au! BufRead,BufNewFile .gitignore set filetype=gitignore
-    au! BufRead,BufNewFile *.hlsl,*.effect set filetype=hlsl
+    au! BufRead,BufNewFile *.hlsli,*.hlsl,*.effect set filetype=hlsl
     au! BufRead,BufNewFile *.wgsl set filetype=wgsl
     au! BufRead,BufNewFile *.slint set filetype=slint
     au! BufRead,BufNewFile *.ll set filetype=llvm
