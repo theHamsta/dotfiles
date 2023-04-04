@@ -45,7 +45,7 @@ require("lazy").setup {
       require("hex").setup()
     end,
   },
-  { "kiyoon/jupynium.nvim", run = "pip3 install --user . --break-system-packages" },
+  --{ "kiyoon/jupynium.nvim", run = "pip3 install --user . --break-system-packages" },
   {
     "gabrielpoca/replacer.nvim",
     keys = "<leader>rG",

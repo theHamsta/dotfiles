@@ -946,14 +946,14 @@ if ok then
         disable = { "cpp", "c", "javascript", "typescript" },
       },
       smart_rename = {
-        enable = true,
+        enable = false,
         disable = {},
         keymaps = {
           smart_rename = "grr",
         },
       },
       navigation = {
-        enable = true,
+        enable = false,
         disable = {},
         keymaps = {
           goto_definition = "gnd",
