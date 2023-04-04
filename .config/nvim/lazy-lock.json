@@ -77,7 +77,7 @@
   "nvim-treehopper": { "branch": "master", "commit": "5a28bff46c05d28bdb4bcaef67e046eb915a9390" },
   "nvim-treesitter": { "branch": "master", "commit": "6f5a4f6306e6dfd23f93c8b60493871c9a600cc0" },
   "nvim-treesitter-commonlisp": { "branch": "master", "commit": "22fbfdb244a87d99706a5cb83ef60b686e3335cb" },
-  "nvim-treesitter-refactor": { "branch": "master", "commit": "b216290a2a47c856cf95cdc35e0c8d2c6306d89a" },
+  "nvim-treesitter-refactor": { "branch": "master", "commit": "65ad2eca822dfaec2a3603119ec3cc8826a7859e" },
   "nvim-treesitter-textobjects": { "branch": "master", "commit": "b55fe6175f0001347a433c9df358c8cbf8a4e90f" },
   "nvim-ufo": { "branch": "main", "commit": "9e829d5cfa3de6a2ff561d86399772b0339ae49d" },
   "onedarkpro.nvim": { "branch": "main", "commit": "17b3bb0fcce1cf626f4f848fa586bb5dd4b95331" },
