@@ -152,3 +152,4 @@ perf.data
 .fzf
 _out
 *.yuv
+*.nsys*
