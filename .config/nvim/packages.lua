@@ -93,20 +93,6 @@ require("lazy").setup {
     enabled = false,
   },
   {
-    "kevinhwang91/nvim-ufo",
-    dependencies = "kevinhwang91/promise-async",
-    config = function()
-      require("ufo").setup {
-        open_fold_hl_timeout = 100,
-        provider_selector = function(_bufnr, _filetype, _buftype)
-          return { "treesitter", "indent" }
-        end,
-      }
-    end,
-    --keys = { "zc", "zC", "zO", "zo" },
-    event = "VeryLazy",
-  },
-  {
     "stevearc/overseer.nvim",
     config = function()
       require("overseer").setup()
@@ -585,7 +571,6 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --end,
   --enabled = false,
   --},
-  { "theHamsta/nvim-treesitter-commonlisp", ft = "lisp" },
   { "ojroques/nvim-lspfuzzy", enabled = false },
   {
     "ruifm/gitlinker.nvim",
@@ -734,6 +719,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     end,
   },
   { "nvim-treesitter/nvim-treesitter-textobjects", event = "VeryLazy" },
+  { "theHamsta/nvim-treesitter-commonlisp", ft = "lisp" },
   { "nvim-treesitter/nvim-treesitter-refactor", event = "VeryLazy" },
   {
     "nvim-treesitter/nvim-treesitter",
@@ -741,6 +727,31 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     event = "VeryLazy",
   },
   { "nvim-treesitter/playground", keys = "<leader>pl" },
+  { "theHamsta/crazy-node-movement", event = "VeryLazy" },
+  {
+    "kevinhwang91/nvim-ufo",
+    dependencies = "kevinhwang91/promise-async",
+    config = function()
+      require("ufo").setup {
+        open_fold_hl_timeout = 100,
+        provider_selector = function(_bufnr, _filetype, _buftype)
+          return { "treesitter", "indent" }
+        end,
+      }
+    end,
+    --keys = { "zc", "zC", "zO", "zo" },
+    event = "VeryLazy",
+  },
+  {
+    "danymat/neogen",
+    config = function()
+      require("neogen").setup {
+        enabled = true,
+      }
+    end,
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    cmd = { "Neogen" },
+  },
   "rhysd/conflict-marker.vim",
   "mfussenegger/nvim-dap",
   {
@@ -753,7 +764,6 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     end,
   },
   --{ "theHamsta/crazy-node-movement", keys = { "<a-l>", "<a-k>", "<a-j>", "<a-h>" } },
-  { "theHamsta/crazy-node-movement", event = "VeryLazy" },
   --"dm1try/git_fastfix",
   "rafcamlet/nvim-luapad",
   { "jsit/toast.vim", enabled = false },
@@ -843,16 +853,6 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
         status_formatter = nil, -- Use default
       }
     end,
-  },
-  {
-    "danymat/neogen",
-    config = function()
-      require("neogen").setup {
-        enabled = true,
-      }
-    end,
-    dependencies = "nvim-treesitter/nvim-treesitter",
-    cmd = { "Neogen" },
   },
 
   "airblade/vim-rooter",

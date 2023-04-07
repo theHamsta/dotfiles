@@ -81,7 +81,7 @@
   "nvim-treesitter-textobjects": { "branch": "master", "commit": "b55fe6175f0001347a433c9df358c8cbf8a4e90f" },
   "nvim-ufo": { "branch": "main", "commit": "9e829d5cfa3de6a2ff561d86399772b0339ae49d" },
   "onedarkpro.nvim": { "branch": "main", "commit": "17b3bb0fcce1cf626f4f848fa586bb5dd4b95331" },
-  "overseer.nvim": { "branch": "master", "commit": "9473677696ab288ef74cb5a115338f39fbf740e5" },
+  "overseer.nvim": { "branch": "master", "commit": "5668e2d55224de826772fa1128b52bae44447be8" },
   "palenightfall.nvim": { "branch": "main", "commit": "f33b64d0099867deb4a7aa6024d4c55f628253f2" },
   "playground": { "branch": "master", "commit": "db54848c7d878965bc31237059841f4e91e9de93" },
   "plenary.nvim": { "branch": "master", "commit": "253d34830709d690f013daf2853a9d21ad7accab" },
