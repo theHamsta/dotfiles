@@ -4,6 +4,7 @@
 --vim.cmd [[packadd packer.nvim]]
 --end
 
+vim.loader.enable()
 local shell = require "nvim-treesitter.shell_command_selectors"
 
 vim.api.nvim_command [[
