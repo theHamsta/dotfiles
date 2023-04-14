@@ -725,8 +725,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     "Badhi/nvim-treesitter-cpp-tools",
     ft = { "cpp", "cuda" },
     config = function()
-      require("nt-cpp-tools").setup {},
-      end
+      require("nt-cpp-tools").setup {}
     end,
   },
   {
