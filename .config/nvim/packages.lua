@@ -722,6 +722,14 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   { "theHamsta/nvim-treesitter-commonlisp", ft = "lisp" },
   { "nvim-treesitter/nvim-treesitter-refactor", event = "VeryLazy" },
   {
+    "Badhi/nvim-treesitter-cpp-tools",
+    ft = { "cpp", "cuda" },
+    config = function()
+      require("nt-cpp-tools").setup {},
+      end
+    end,
+  },
+  {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     event = "VeryLazy",
