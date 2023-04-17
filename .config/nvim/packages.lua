@@ -68,7 +68,11 @@ require("lazy").setup {
     end,
     event = "VeryLazy",
   },
-  { "chrisgrieser/nvim-alt-substitute", cmd = "S" },
+  {
+    "chrisgrieser/nvim-alt-substitute",
+    opts = true,
+    event = "CmdlineEnter",
+  },
   {
     "saecki/crates.nvim",
     event = { "BufRead Cargo.toml" },
