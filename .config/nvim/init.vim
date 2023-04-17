@@ -775,4 +775,4 @@ onoremap <silent> m :<C-U>lua require('tsht').nodes()<CR>
 xnoremap <silent> m :lua require('tsht').nodes()<CR>
 nnoremap <leader>SS <cmd>lua require('sg.telescope').fuzzy_search_results()<CR>
 
-
+autocmd BufReadPre *.scm let b:lint_on = ["InsertLeave", "BufEnter", "TextChanged"]
