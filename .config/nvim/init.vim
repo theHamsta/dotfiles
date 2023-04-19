@@ -389,6 +389,7 @@ augroup filetypedetect
     au! BufRead,BufNewFile *.proto2 set filetype=proto
     au! BufRead,BufNewFile *.nim set filetype=nim
     au! BufRead,BufNewFile *.nu set filetype=nu
+    au! BufRead,BufNewFile *.ny set filetype=scheme
     au! BufRead,BufNewFile .gitignore set filetype=gitignore
     au! BufRead,BufNewFile *.hlsli,*.hlsl,*.effect set filetype=hlsl
     au! BufRead,BufNewFile *.wgsl set filetype=wgsl
