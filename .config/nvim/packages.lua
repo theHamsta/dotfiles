@@ -1007,7 +1007,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     lazy = true,
   },
   {
-    "tjdevries/sg.nvim",
+    "sourcegraph/sg.nvim",
     build = "cargo build --workspace",
     event = "BufReadPre sg://*",
     dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },

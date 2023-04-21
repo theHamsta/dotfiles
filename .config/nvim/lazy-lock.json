@@ -77,7 +77,7 @@
   "nvim-pqf": { "branch": "main", "commit": "d15582d3d0c09280f371fa5f21537cf4530ed330" },
   "nvim-treehopper": { "branch": "master", "commit": "5a28bff46c05d28bdb4bcaef67e046eb915a9390" },
   "nvim-treesitter": { "branch": "master", "commit": "831f37635df26864a397a5e35450eec97bfe60cd" },
-  "nvim-treesitter-commonlisp": { "branch": "master", "commit": "22fbfdb244a87d99706a5cb83ef60b686e3335cb" },
+  "nvim-treesitter-commonlisp": { "branch": "master", "commit": "22fdc9fd6ed594176cc7299cc6f68dd21c94c63b" },
   "nvim-treesitter-cpp-tools": { "branch": "master", "commit": "8707b5d96a2543968b9a689c49ace5f01d72244e" },
   "nvim-treesitter-refactor": { "branch": "master", "commit": "65ad2eca822dfaec2a3603119ec3cc8826a7859e" },
   "nvim-treesitter-textobjects": { "branch": "master", "commit": "8673926519ea61069f9c1366d1ad1949316d250e" },
