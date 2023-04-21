@@ -180,6 +180,7 @@ M.start_vscode_lldb = function(args)
     return
   end
 
+  assert(dap.adapters.lldb.command)
   dap.launch(dap.adapters.lldb, last_lldb_config)
   dap.repl.open()
 end
