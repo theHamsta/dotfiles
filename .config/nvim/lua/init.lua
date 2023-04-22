@@ -634,7 +634,7 @@ if ok then
       pidProperty = "pid",
       pidSelect = "ask",
     },
-    command = shell.select_executable { "lldb-vscode-16", "lldb-vscode-15", "lldb-vscode" },
+    command = shell.select_executable { "lldb-vscode-17", "lldb-vscode-16", "lldb-vscode-15", "lldb-vscode" },
     env = function()
       local variables = {
         LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES",
@@ -645,6 +645,7 @@ if ok then
       return variables
     end,
     name = "lldb",
+    stopOnEntry = true,
     initCommands = 'command script import "/home/stephan/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/etc/lldb_lookup.py"',
   }
   dap.adapters.markdown = {
