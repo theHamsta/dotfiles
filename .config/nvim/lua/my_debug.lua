@@ -118,6 +118,13 @@ M.start_c_debugger = function(args, mi_mode, mi_debugger_path)
         end
         return variables
       end,
+      environment = function()
+        local variables = {}
+        for k, v in pairs(vim.fn.environ()) do
+          table.insert(variables, string.format("%s=%s", k, v))
+        end
+        return variables
+      end,
       externalConsole = true,
       MIMode = mi_mode or "gdb",
       MIDebuggerPath = mi_debugger_path,
@@ -149,6 +156,7 @@ M.start_vscode_lldb = function(args)
       args = args,
       cwd = vim.fn.getcwd(),
       environment = {},
+      stopOnEntry = true,
       externalConsole = true,
       expressions = "python",
       initCommands = 'command script import "/home/stephan/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/etc/lldb_lookup.py"',
