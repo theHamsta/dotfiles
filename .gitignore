@@ -153,3 +153,5 @@ perf.data
 _out
 *.yuv
 *.nsys*
+*.BIN
+*.bin
