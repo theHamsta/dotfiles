@@ -29,7 +29,7 @@ release:
 		-DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
 		-DCMAKE_CUDA_HOST_COMPILER=g++-11 \
 		-DCMAKE_CUDA_COMPILER_LAUNCHER=ccache \
-		-DCMAKE_BUILD_TYPE=Release -G Ninja \
+		-DCMAKE_BUILD_TYPE=RelWithDebInfo -G Ninja \
 		-DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color -march=native" \
 		-DCMAKE_C_FLAGS=-fdiagnostics-color \
 		-DCMAKE_CUDA_ARCHITECTURES=OFF \
@@ -43,7 +43,7 @@ gcc-release:
 	export CXX=g++-11 && export CC=gcc-11 && cd gcc-release && cmake \
 		-DCMAKE_EXPORT_COMPILE_COMMANDS=YES  \
 		-DCMAKE_VERBOSE_MAKEFILE=OFF  \
-		-DCMAKE_BUILD_TYPE=Release -G Ninja \
+		-DCMAKE_BUILD_TYPE=RelWithDebInfo -G Ninja \
 		-DCMAKE_CUDA_ARCHITECTURES=OFF \
 		-DCMAKE_CXX_FLAGS=-fdiagnostics-color \
 		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo" \
