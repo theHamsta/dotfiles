@@ -155,3 +155,4 @@ _out
 *.nsys*
 *.BIN
 *.bin
+.luarc.json
