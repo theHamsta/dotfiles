@@ -267,6 +267,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
       }
       table.insert(require("lint").linters.glslc.args, "--target-env=vulkan1.3")
       table.insert(require("lint").linters.dxc.args, "-spirv")
+      table.insert(require("lint").linters.dxc.args, "-fspv-target-env=vulkan1.3")
       vim.cmd [[au BufEnter,BufWritePost * lua require('lint').try_lint()]]
     end,
     ft = { "hlsl", "glsl", "lua" },
@@ -772,6 +773,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       require("nvim-dap-virtual-text").setup {
         --only_first_definition = true,
         all_references = false, -- show virtual text on all all references of the variable (not only definitions)
+        virt_text_pos = vim.fn.has "nvim-0.10" == 1 and "inline" or "eol", -- use `vim.fn.has 'nvim-0.10' == 1 and 'inline' or 'eol'` for inlined text if supported
       }
     end,
   },
