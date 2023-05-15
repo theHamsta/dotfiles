@@ -10,8 +10,8 @@ build:
 		-DCMAKE_BUILD_TYPE=Debug -GNinja \
 		-DCMAKE_CUDA_COMPILER_LAUNCHER=ccache \
 		-GNinja \
-		-DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
-		-DCMAKE_C_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
+		-DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color -fsanitize=undefined" \
+		-DCMAKE_C_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color -fsanitize=undefined" \
 		-DCMAKE_CUDA_ARCHITECTURES=OFF \
 		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo"
 	rm -f compile_commands.json
