@@ -139,6 +139,7 @@ export PATH=/usr/local/cuda/bin:${PATH}
 export PATH=/opt/tensorrt/bin:${PATH}
 export GIT_EDITOR=nvim
 export PATH=/snap/bin/:${PATH}
+export PATH=/data/projects/nsight-systems-linux-internal-DVS/bin/:$PATH
 
 export SCIPY_PIL_IMAGE_VIEWER=imagecomparer
 
