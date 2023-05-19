@@ -316,6 +316,7 @@ if ok then
 
   lspconfig.pylsp.setup {
     on_attach = on_attach,
+    cmd = { "pyls" },
     settings = {
       pyls = {
         plugins = {
@@ -333,6 +334,18 @@ if ok then
       },
     },
     capabilities = capabilities,
+  }
+
+  lspconfig.pylyzer.setup {
+    on_attach = on_attach,
+    settings = {
+      python = {
+        checkOnType = false,
+        diagnostics = true,
+        inlayHints = true,
+        smartCompletion = true,
+      },
+    },
   }
 
   lspconfig.tsserver.setup {
