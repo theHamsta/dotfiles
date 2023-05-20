@@ -178,6 +178,11 @@ if ok then
     capabilities = capabilities,
   }
 
+  lspconfig.glslls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+
   lspconfig.wgsl_analyzer.setup {
     on_attach = on_attach,
     capabilities = capabilities,
