@@ -316,7 +316,7 @@ if ok then
 
   lspconfig.pylsp.setup {
     on_attach = on_attach,
-    cmd = { "pyls" },
+    --cmd = { "pyls" },
     settings = {
       pyls = {
         plugins = {
@@ -340,7 +340,7 @@ if ok then
     on_attach = on_attach,
     settings = {
       python = {
-        checkOnType = false,
+        checkOnType = true,
         diagnostics = true,
         inlayHints = true,
         smartCompletion = true,

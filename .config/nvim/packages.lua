@@ -116,6 +116,7 @@ require("lazy").setup {
         },
       }
     end,
+    branch = "main",
   },
   "rafamadriz/friendly-snippets",
   {
@@ -1010,12 +1011,12 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     lazy = true,
   },
   --{
-    --"sourcegraph/sg.nvim",
-    --build = "cargo build --workspace",
-    --event = "BufReadPre sg://*",
-    --dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
-    --enabled = vim.fn.has "win32" ~= 1,
-    --lazy = true,
+  --"sourcegraph/sg.nvim",
+  --build = "cargo build --workspace",
+  --event = "BufReadPre sg://*",
+  --dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
+  --enabled = vim.fn.has "win32" ~= 1,
+  --lazy = true,
   --},
   --use {
   --"luukvbaal/statuscol.nvim",
