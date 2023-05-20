@@ -917,7 +917,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   "kassio/neoterm",
   { "mbbill/undotree", cmd = { "UndotreeToggle" } },
   { "meain/vim-package-info", build = "npm install" },
-  { "IndianBoy42/hop.nvim" },
+  { "phaazon/hop.nvim", config = function()require("hop").setup {} end},
   "moll/vim-bbye",
   { "jpalardy/vim-slime", enabled = false },
   "rhysd/git-messenger.vim",
