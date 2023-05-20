@@ -316,7 +316,6 @@ if ok then
 
   lspconfig.pylsp.setup {
     on_attach = on_attach,
-    --cmd = { "pyls" },
     settings = {
       pyls = {
         plugins = {
