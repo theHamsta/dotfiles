@@ -74,6 +74,13 @@ require("lazy").setup {
     event = "CmdlineEnter",
   },
   {
+    "stevearc/oil.nvim",
+    config = function()
+      require("oil").setup()
+      vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
+    end,
+  },
+  {
     "saecki/crates.nvim",
     event = { "BufRead Cargo.toml" },
     dependencies = { { "nvim-lua/plenary.nvim" } },
