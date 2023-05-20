@@ -79,6 +79,7 @@ require("lazy").setup {
       require("oil").setup()
       vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
     end,
+    dependencies = { "nvim-tree/nvim-web-devicons" },
   },
   {
     "saecki/crates.nvim",
@@ -185,7 +186,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
 
   {
     "nvim-lualine/lualine.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons", enabled = false },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       require("lualine").setup {
         options = {
@@ -529,7 +530,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --"jceb/emmet.snippets",
   {
     "folke/lsp-trouble.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons", enabled = false },
+    dependencies = { "nvim-tree/nvim-web-devicons"},
     config = function()
       require("trouble").setup {}
     end,
@@ -924,7 +925,12 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   "kassio/neoterm",
   { "mbbill/undotree", cmd = { "UndotreeToggle" } },
   { "meain/vim-package-info", build = "npm install" },
-  { "phaazon/hop.nvim", config = function()require("hop").setup {} end},
+  {
+    "phaazon/hop.nvim",
+    config = function()
+      require("hop").setup {}
+    end,
+  },
   "moll/vim-bbye",
   { "jpalardy/vim-slime", enabled = false },
   "rhysd/git-messenger.vim",
