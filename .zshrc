@@ -140,7 +140,6 @@ export PATH=/opt/tensorrt/bin:${PATH}
 export GIT_EDITOR=nvim
 export PATH=/snap/bin/:${PATH}
 
-export SCIPY_PIL_IMAGE_VIEWER=imagecomparer
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
