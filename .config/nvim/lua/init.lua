@@ -79,8 +79,9 @@ local lsp_signature_ok, lsp_signature = pcall(require, "lsp_signature")
 if ok then
   --require("lspkind").init()
   local function on_attach(client, bufnr)
-    local ih = require "inlay-hints"
-    ih.on_attach(client, bufnr)
+    --local ih = require "inlay-hints"
+    --ih.on_attach(client, bufnr)
+    require("lsp-inlayhints").on_attach(client, bufnr)
     --local caps = client.server_capabilities
     --if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
     --vim.cmd [[autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.buf.semantic_tokens_full()]]
@@ -379,27 +380,24 @@ if ok then
   --capabilities = capabilities,
   --}
   local clangd = shell.select_executable { "clangd-17", "clangd-16", "clangd-15", "clangd" }
-  local ok = pcall(require, "clangd_extensions")
-  if ok and clangd then
-    require("clangd_extensions").setup {
-      server = {
-        cmd = {
-          clangd,
-          "--clang-tidy",
-          "--all-scopes-completion",
-          "--header-insertion=iwyu",
-          "--background-index",
-          "--suggest-missing-includes",
-          "--cross-file-rename",
-        },
-        filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
-        on_attach = on_attach,
-        capabilities = capabilities,
-        extensions = {
-          -- defaults:
-          -- Automatically set inlay hints (type hints)
-          autoSetHints = true,
-        },
+  if clangd then
+    lspconfig.clangd.setup {
+      cmd = {
+        clangd,
+        "--clang-tidy",
+        "--all-scopes-completion",
+        "--header-insertion=iwyu",
+        "--background-index",
+        "--suggest-missing-includes",
+        "--cross-file-rename",
+      },
+      filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
+      on_attach = on_attach,
+      capabilities = capabilities,
+      extensions = {
+        -- defaults:
+        -- Automatically set inlay hints (type hints)
+        autoSetHints = false,
       },
     }
   end

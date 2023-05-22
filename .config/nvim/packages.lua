@@ -114,17 +114,18 @@ require("lazy").setup {
     cmd = { "OverseerRun", "OverseerOpen", "OverseerToggle" },
   },
   {
-    "simrat39/inlay-hints.nvim",
+    "lvimuser/lsp-inlayhints.nvim",
     config = function()
-      require("inlay-hints").setup {
-        renderer = "inlay-hints/render/eol",
-        only_current_line = false,
-        eol = {
-          right_align = false,
-        },
-      }
+      require("lsp-inlayhints").setup()
+      --require("inlay-hints").setup {
+      --renderer = "inlay-hints/render/eol",
+      --only_current_line = false,
+      --eol = {
+      --right_align = false,
+      --},
+      --}
     end,
-    branch = "main",
+    branch = "anticonceal",
   },
   "rafamadriz/friendly-snippets",
   {
@@ -455,10 +456,10 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     end,
     event = "VeryLazy",
   },
-  {
-    "p00f/clangd_extensions.nvim",
-    ft = { "cuda", "cpp", "c" },
-  },
+  --{
+    --"p00f/clangd_extensions.nvim",
+    --ft = { "cuda", "cpp", "c" },
+  --},
   { "earthly/earthly.vim", ft = "earthly" },
   {
     "sindrets/diffview.nvim",
@@ -530,7 +531,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --"jceb/emmet.snippets",
   {
     "folke/lsp-trouble.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons"},
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       require("trouble").setup {}
     end,
@@ -550,20 +551,21 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     "simrat39/rust-tools.nvim",
     ft = "rust",
     config = function()
-      local ih = require "inlay-hints"
+      --local ih = require "inlay-hints"
 
       require("rust-tools").setup {
         tools = {
           on_initialized = function()
-            ih.set_all()
+            --ih.set_all()
           end,
           inlay_hints = {
             auto = false,
           },
         },
         server = {
-          on_attach = function(c, b)
-            ih.on_attach(c, b)
+          on_attach = function(client, buffer)
+            require("lsp-inlayhints").on_attach(client, buffer)
+            --ih.on_attach(c, b)
           end,
         },
       }
