@@ -341,17 +341,17 @@ if ok then
     capabilities = capabilities,
   }
 
-  lspconfig.pylyzer.setup {
-    on_attach = on_attach,
-    settings = {
-      python = {
-        checkOnType = false,
-        diagnostics = true,
-        inlayHints = true,
-        smartCompletion = true,
-      },
-    },
-  }
+  --lspconfig.pylyzer.setup {
+    --on_attach = on_attach,
+    --settings = {
+      --python = {
+        --checkOnType = false,
+        --diagnostics = true,
+        --inlayHints = true,
+        --smartCompletion = true,
+      --},
+    --},
+  --}
 
   lspconfig.tsserver.setup {
     on_attach = on_attach,
