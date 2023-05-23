@@ -342,15 +342,15 @@ if ok then
   }
 
   --lspconfig.pylyzer.setup {
-    --on_attach = on_attach,
-    --settings = {
-      --python = {
-        --checkOnType = false,
-        --diagnostics = true,
-        --inlayHints = true,
-        --smartCompletion = true,
-      --},
-    --},
+  --on_attach = on_attach,
+  --settings = {
+  --python = {
+  --checkOnType = false,
+  --diagnostics = true,
+  --inlayHints = true,
+  --smartCompletion = true,
+  --},
+  --},
   --}
 
   lspconfig.tsserver.setup {
@@ -454,6 +454,30 @@ if ok then
         lens = {
           methodReferences = true,
           references = true,
+        },
+        inlayHints = {
+          bindingModeHints = { enable = false },
+          chainingHints = { enable = true },
+          closingBraceHints = { enable = true, minLines = 25 },
+          closureCaptureHints = { enable = false },
+          closureReturnTypeHints = { enable = "never" },
+          closureStyle = "impl_fn",
+          discriminantHints = { enable = "never" },
+          expressionAdjustmentHints = {
+            enable = "never",
+            hideOutsideUnsafe = false,
+            mode = "prefix",
+          },
+          lifetimeElisionHints = { enable = "never", useParameterNames = false },
+          maxLength = 25,
+          parameterHints = { enable = true },
+          reborrowHints = { enable = "never" },
+          renderColons = true,
+          typeHints = {
+            enable = true,
+            hideClosureInitialization = false,
+            hideNamedConstructor = false,
+          },
         },
       },
     },
