@@ -787,7 +787,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
         virt_text_pos = vim.fn.has "nvim-0.10" == 1 and "inline" or "eol", -- use `vim.fn.has 'nvim-0.10' == 1 and 'inline' or 'eol'` for inlined text if supported
       }
     end,
-    branch = "inline-text",
+    branch = "master",
   },
   --{ "theHamsta/crazy-node-movement", keys = { "<a-l>", "<a-k>", "<a-j>", "<a-h>" } },
   --"dm1try/git_fastfix",
