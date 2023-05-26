@@ -125,7 +125,7 @@ require("lazy").setup {
       --},
       --}
     end,
-    branch = "anticonceal",
+    branch = "main",
   },
   "rafamadriz/friendly-snippets",
   {
