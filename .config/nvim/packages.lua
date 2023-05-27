@@ -125,7 +125,7 @@ require("lazy").setup {
       --},
       --}
     end,
-    branch = "main",
+    branch = "anticonceal",
   },
   "rafamadriz/friendly-snippets",
   {
@@ -457,8 +457,8 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     event = "VeryLazy",
   },
   --{
-    --"p00f/clangd_extensions.nvim",
-    --ft = { "cuda", "cpp", "c" },
+  --"p00f/clangd_extensions.nvim",
+  --ft = { "cuda", "cpp", "c" },
   --},
   { "earthly/earthly.vim", ft = "earthly" },
   {
@@ -547,30 +547,31 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   { "mfussenegger/nvim-treehopper", keys = "<space><space>" },
   { "dstein64/nvim-scrollview", enabled = false },
   { "TimUntersberger/neogit", cmd = { "Neogit" } },
-  {
-    "simrat39/rust-tools.nvim",
-    ft = "rust",
-    config = function()
-      --local ih = require "inlay-hints"
+  --{
+    --"simrat39/rust-tools.nvim",
+    --ft = "rust",
+    --config = function()
+      ----local ih = require "inlay-hints"
 
-      require("rust-tools").setup {
-        tools = {
-          on_initialized = function()
-            --ih.set_all()
-          end,
-          inlay_hints = {
-            auto = false,
-          },
-        },
-        server = {
-          on_attach = function(client, buffer)
-            require("lsp-inlayhints").on_attach(client, buffer)
-            --ih.on_attach(c, b)
-          end,
-        },
-      }
-    end,
-  },
+      --require("rust-tools").setup {
+        --tools = {
+          --on_initialized = function()
+            ----ih.set_all()
+          --end,
+          --inlay_hints = {
+            --auto = false,
+          --},
+        --},
+        --server = {
+          --on_attach = function(client, buffer)
+            --require("lsp-inlayhints").on_attach(client, buffer)
+            ----ih.on_attach(c, b)
+          --end,
+        --},
+      --}
+    --end,
+    --enable = false,
+  --},
   { "pwntester/octo.nvim", enabled = false },
   {
     "glepnir/indent-guides.nvim",
