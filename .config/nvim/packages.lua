@@ -291,6 +291,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
         lua = select_executables { "luacheck" },
         glsl = select_executables { "glslc" },
         hlsl = select_executables { "dxc" },
+        yaml = select_executables { "actionlint" },
       }
       table.insert(require("lint").linters.glslc.args, "--target-env=vulkan1.3")
       table.insert(require("lint").linters.dxc.args, "-spirv")
@@ -305,6 +306,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
       require("fidget").setup {}
     end,
     lazy = false,
+    branch = "legacy",
   },
   { "mattboehm/vim-unstack", cmd = "UnstackFromText" },
   {
@@ -754,7 +756,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     end,
   },
   { "nvim-treesitter/nvim-treesitter-textobjects", event = "VeryLazy" },
-  { "theHamsta/nvim-treesitter-commonlisp", ft = "lisp" },
+  --{ "theHamsta/nvim-treesitter-commonlisp", ft = "lisp" },
   { "nvim-treesitter/nvim-treesitter-refactor", event = "VeryLazy" },
   {
     "Badhi/nvim-treesitter-cpp-tools",
