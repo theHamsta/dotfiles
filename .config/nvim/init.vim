@@ -417,7 +417,7 @@ augroup filetypedetect
     au! BufRead,BufNewFile Earthfile set filetype=Earthfile
     au! BufRead,BufNewFile build.earth set filetype=Earthfile
     au! BufRead,BufNewFile build.earth set filetype=Earthfile
-    au! BufRead,BufNewFile *.vert,*.frag,*.comp set filetype=glsl
+    au! BufRead,BufNewFile *.vert,*.frag,*.comp,*.rchit,*.rmiss,*.rahit filetype=glsl
 augroup END
 
 let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'sh', 'cpp', 'rust', 'java', 'go', 'lua', 'vim', 'lisp']
