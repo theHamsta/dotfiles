@@ -10,8 +10,8 @@ build:
 		-DCMAKE_BUILD_TYPE=Debug -GNinja \
 		-DCMAKE_CUDA_COMPILER_LAUNCHER=ccache \
 		-GNinja \
-		-DCMAKE_C_FLAGS_INIT "-fsanitize=undefined -fsanitize=address" \
-		-DCMAKE_CXX_FLAGS_INIT "-fsanitize=undefined -fsanitize=address" \
+		-DCMAKE_C_FLAGS_INIT="-fsanitize=undefined -fsanitize=address" \
+		-DCMAKE_CXX_FLAGS_INIT="-fsanitize=undefined -fsanitize=address" \
 		-DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
 		-DCMAKE_C_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
 		-DCMAKE_CUDA_ARCHITECTURES=OFF \
