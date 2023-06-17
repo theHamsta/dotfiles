@@ -37,7 +37,6 @@
   "gitsigns.nvim": { "branch": "main", "commit": "256569c2fe697a3003dbd49ff474e5935af9066c" },
   "gv.vim": { "branch": "master", "commit": "320cc8c477c5acc4fa0e52a460d87b2af54fa051" },
   "hex.nvim": { "branch": "master", "commit": "d47b87d49b870e2170e992fa6301fc08c9590388" },
-  "hop.nvim": { "branch": "master", "commit": "03f0434869f1f38868618198b5f4f2ab6d39aef2" },
   "kosmikoa.nvim": { "branch": "main", "commit": "a32b908fb2018f0f0ed1b92ff334db0d317f5dd7" },
   "kuroi.vim": { "branch": "master", "commit": "54ab6f0be98bdde5446a82b24c983b7232798f2f" },
   "lazy.nvim": { "branch": "main", "commit": "10d4371745f88837c78c8daab00c5be6e48abea4" },

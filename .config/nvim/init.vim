@@ -535,8 +535,6 @@ nnoremap <leader>ju :JustTargetsAsync<cr>
 
 let g:auto_git_diff_disable_auto_update=1
 let g:auto_git_diff_show_window_at_right=1
-nmap <silent> <c-a-j> <cmd>lua require "gitsigns".next_hunk()<CR>
-nmap <silent> <c-a-k> <cmd>lua require "gitsigns".prev_hunk()<CR>
 
 let g:LanguageClient_hoverPreview='always'
 

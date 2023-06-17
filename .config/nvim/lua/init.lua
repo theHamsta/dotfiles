@@ -391,7 +391,13 @@ if ok then
         "--suggest-missing-includes",
         "--cross-file-rename",
       },
-      filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "glsl", "hlsl" },
+      filetypes = {
+        "c",
+        "cpp",
+        "objc",
+        "objcpp",
+        "cuda", --[["glsl", "hlsl"]]
+      },
       on_attach = on_attach,
       capabilities = capabilities,
       extensions = {

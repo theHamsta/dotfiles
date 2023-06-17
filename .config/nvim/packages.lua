@@ -327,6 +327,75 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     end,
   },
   --{
+    --"esensar/nvim-dev-container",
+    --config = function()
+      --require("devcontainer").setup {
+        --generate_commands = true,
+        ---- By default no autocommands are generated
+        ---- This option can be used to configure automatic starting and cleaning of containers
+        --autocommands = {
+          ---- can be set to true to automatically start containers when devcontainer.json is available
+          --init = false,
+          ---- can be set to true to automatically remove any started containers and any built images when exiting vim
+          --clean = false,
+          ---- can be set to true to automatically restart containers when devcontainer.json file is updated
+          --update = true,
+        --},
+        ---- can be changed to increase or decrease logging from library
+        --log_level = "info",
+        ---- can be set to true to disable recursive search
+        ---- in that case only .devcontainer.json and .devcontainer/devcontainer.json files will be checked relative
+        ---- to the directory provided by config_search_start
+        --disable_recursive_config_search = false,
+        ---- By default all mounts are added (config, data and state)
+        ---- This can be changed to disable mounts or change their options
+        ---- This can be useful to mount local configuration
+        ---- And any other mounts when attaching to containers with this plugin
+        --attach_mounts = {
+          ---- Can be set to true to always mount items defined below
+          ---- And not only when directly attaching
+          ---- This can be useful if executing attach command separately
+          --always = true,
+          --neovim_config = {
+            ---- enables mounting local config to /root/.config/nvim in container
+            --enabled = true,
+            ---- makes mount readonly in container
+            --options = { "readonly" },
+          --},
+          --neovim_data = {
+            ---- enables mounting local data to /root/.local/share/nvim in container
+            --enabled = false,
+            ---- no options by default
+            --options = {},
+          --},
+          ---- Only useful if using neovim 0.8.0+
+          --neovim_state = {
+            ---- enables mounting local state to /root/.local/state/nvim in container
+            --enabled = false,
+            ---- no options by default
+            --options = {},
+          --},
+          ---- This takes a list of mounts (strings) that should always be added whenever attaching to containers
+          ---- This is passed directly as --mount option to docker command
+          ---- Or multiple --mount options if there are multiple values
+          --custom_mounts = {},
+        --},
+        ---- This takes a list of mounts (strings) that should always be added to every run container
+        ---- This is passed directly as --mount option to docker command
+        ---- Or multiple --mount options if there are multiple values
+        --always_mount = {},
+        ---- This takes a string (usually either "podman" or "docker") representing container runtime
+        ---- That is the command that will be invoked for container operations
+        ---- If it is nil, plugin will use whatever is available (trying "podman" first)
+        --container_runtime = nil,
+        ---- This takes a string (usually either "podman-compose" or "docker-compose") representing compose command
+        ---- That is the command that will be invoked for compose operations
+        ---- If it is nil, plugin will use whatever is available (trying "podman-compose" first)
+        --compose_command = nil,
+      --}
+    --end,
+  --},
+  --{
   --"ggandor/leap-spooky.nvim",
   --config = function()
   --require("leap-spooky").setup {
@@ -875,23 +944,65 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
           changedelete = { hl = "GitGutterChange", text = "▐_", numhl = "GitSignsChangeNr" },
         },
         numhl = false,
-        keymaps = {
-          -- Default keymap options
-          noremap = true,
-          buffer = true,
-          --['n <c-a-j>'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'"},
-          --['n <c-a-h>'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'"},
-          ["n <c-a-j>"] = '<cmd>lua require"gitsigns".next_hunk()<CR>',
-          ["n <c-a-h>"] = '<cmd>lua require"gitsigns".prev_hunk()<CR>',
-          ["n <leader>hs"] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
-          ["n <leader>hr"] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
-          ["n <leader>hu"] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
-          ["n <leader>hp"] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
-          ["n <leader>hb"] = '<cmd>lua require"gitsigns".blame_line()<CR>',
-          -- Text objects
-          ["o ah"] = ':<C-U>lua require"gitsigns".select_hunk()<CR>',
-          ["x ah"] = ':<C-U>lua require"gitsigns".select_hunk()<CR>',
-        },
+        on_attach = function(bufnr)
+          local gs = package.loaded.gitsigns
+
+          local function map(mode, l, r, opts)
+            opts = opts or {}
+            opts.buffer = bufnr
+            vim.keymap.set(mode, l, r, opts)
+          end
+
+          -- Navigation
+          map("n", "]c", function()
+            if vim.wo.diff then
+              return "]c"
+            end
+            vim.schedule(function()
+              gs.next_hunk()
+            end)
+            return "<Ignore>"
+          end, { expr = true })
+
+          map("n", "[c", function()
+            if vim.wo.diff then
+              return "[c"
+            end
+            vim.schedule(function()
+              gs.prev_hunk()
+            end)
+            return "<Ignore>"
+          end, { expr = true })
+
+          -- Actions
+          map("n", "<c-a-k>", gs.prev_hunk)
+          map("n", "<c-a-j>", gs.next_hunk)
+          map("n", "<leader>hr", gs.reset_hunk)
+          map("n", "<leader>hs", gs.stage_hunk)
+          map("n", "<leader>hr", gs.reset_hunk)
+          map("v", "<leader>hs", function()
+            gs.stage_hunk { vim.fn.line ".", vim.fn.line "v" }
+          end)
+          map("v", "<leader>hr", function()
+            gs.reset_hunk { vim.fn.line ".", vim.fn.line "v" }
+          end)
+          map("n", "<leader>hS", gs.stage_buffer)
+          map("n", "<leader>hu", gs.undo_stage_hunk)
+          map("n", "<leader>hR", gs.reset_buffer)
+          map("n", "<leader>hp", gs.preview_hunk)
+          map("n", "<leader>hb", function()
+            gs.blame_line { full = true }
+          end)
+          map("n", "<leader>tb", gs.toggle_current_line_blame)
+          map("n", "<leader>hd", gs.diffthis)
+          map("n", "<leader>hD", function()
+            gs.diffthis "~"
+          end)
+          map("n", "<leader>td", gs.toggle_deleted)
+
+          -- Text object
+          map({ "o", "x" }, "ah", ":<C-U>Gitsigns select_hunk<CR>")
+        end,
         watch_gitdir = {
           interval = 1000,
         },
@@ -947,12 +1058,12 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   "kassio/neoterm",
   { "mbbill/undotree", cmd = { "UndotreeToggle" } },
   { "meain/vim-package-info", build = "npm install" },
-  {
-    "phaazon/hop.nvim",
-    config = function()
-      require("hop").setup {}
-    end,
-  },
+  --{
+    --"phaazon/hop.nvim",
+    --config = function()
+      --require("hop").setup {}
+    --end,
+  --},
   "moll/vim-bbye",
   { "jpalardy/vim-slime", enabled = false },
   "rhysd/git-messenger.vim",
