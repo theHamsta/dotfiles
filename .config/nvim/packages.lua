@@ -326,7 +326,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
       vim.keymap.del({ "n", "x", "o" }, "x")
     end,
   },
-  --{
+  --
     --"esensar/nvim-dev-container",
     --config = function()
       --require("devcontainer").setup {
@@ -977,9 +977,8 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
           -- Actions
           map("n", "<c-a-k>", gs.prev_hunk)
           map("n", "<c-a-j>", gs.next_hunk)
-          map("n", "<leader>hr", gs.reset_hunk)
+          map("n", "<leader>hu", gs.reset_hunk)
           map("n", "<leader>hs", gs.stage_hunk)
-          map("n", "<leader>hr", gs.reset_hunk)
           map("v", "<leader>hs", function()
             gs.stage_hunk { vim.fn.line ".", vim.fn.line "v" }
           end)
@@ -987,7 +986,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
             gs.reset_hunk { vim.fn.line ".", vim.fn.line "v" }
           end)
           map("n", "<leader>hS", gs.stage_buffer)
-          map("n", "<leader>hu", gs.undo_stage_hunk)
+          map("n", "<leader>hU", gs.undo_stage_hunk)
           map("n", "<leader>hR", gs.reset_buffer)
           map("n", "<leader>hp", gs.preview_hunk)
           map("n", "<leader>hb", function()
