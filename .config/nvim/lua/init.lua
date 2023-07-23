@@ -17,9 +17,9 @@ endfunction
 
 vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
-local lsp_status_ok, lsp_status = pcall(require, "lsp-status")
+local lsp_status = vim.F.npcall(require, "lsp-status")
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-if lsp_status_ok then
+if lsp_status then
   capabilities = vim.tbl_extend("keep", capabilities or {}, lsp_status.capabilities)
 end
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -65,32 +65,32 @@ vim.keymap.set("n", "<leader>sw", require("telescope.builtin").grep_string, { de
 vim.keymap.set("n", "<leader>sg", require("telescope.builtin").live_grep, { desc = "[S]earch by [G]rep" })
 vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { desc = "[S]earch [D]iagnostics" })
 
-local ok, neodev = pcall(require, "neodev")
-if ok then
+local neodev = vim.F.npcall(require, "neodev")
+if neodev then
   neodev.setup {
     -- add any options here, or leave empty to use the default settings
   }
 end
 
----@diagnostic disable-next-line: 411
-local ok, lspconfig = pcall(require, "lspconfig")
-local lsp_signature_ok, lsp_signature = pcall(require, "lsp_signature")
+local lspconfig = vim.F.npcall(require, "lspconfig")
+local lsp_signature = vim.F.npcall(require, "lsp_signature")
 
-if ok then
+if lspconfig then
   --require("lspkind").init()
   local function on_attach(client, bufnr)
     --local ih = require "inlay-hints"
     --ih.on_attach(client, bufnr)
-    require("lsp-inlayhints").on_attach(client, bufnr)
+    --require("lsp-inlayhints").on_attach(client, bufnr)
+    vim.lsp.inlay_hint(bufnr, true)
     --local caps = client.server_capabilities
     --if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
     --vim.cmd [[autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.buf.semantic_tokens_full()]]
     --end
     vim.fn.NvimLspMaps()
-    if lsp_signature_ok and vim.bo[bufnr].ft ~= "glsl" then
+    if lsp_signature and vim.bo[bufnr].ft ~= "glsl" then
       lsp_signature.on_attach()
     end
-    if lsp_status_ok then
+    if lsp_status then
       lsp_status.on_attach(client)
     end
   end
@@ -165,8 +165,8 @@ if ok then
     end
   end, { silent = true, noremap = true, desc = "Nerdtree for local files or :e %:h" })
 
-  local ok, sg = pcall(require, "sg")
-  if ok then
+  local sg = vim.F.npcall(require, "sg")
+  if sg then
     sg.setup {
       on_attach = function(...)
         on_attach(...)
@@ -518,20 +518,8 @@ if ok then
   }
 end
 
-local ok, colorizer = pcall(require, "colorizer")
-if ok then
-  colorizer.setup {
-    "css",
-    "javascript",
-    "tex",
-    "html",
-    "vim",
-    "tex",
-  }
-end
-
-local ok, dap = pcall(require, "dap")
-if ok then
+local dap = vim.F.npcall(require, "dap")
+if dap then
   vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "", linehl = "", numhl = "" })
   vim.fn.sign_define("DapStopped", { text = "→", texthl = "", linehl = "NvimDapStopped", numhl = "" })
 
@@ -1079,12 +1067,12 @@ if ok then
     vim.api.nvim_set_hl(0, "@" .. k, { link = v })
   end
 
-  local ok, docs = pcall(require, "nvim-tree-docs")
-  if ok then
+  local docs = vim.F.npcall(require, "nvim-tree-docs")
+  if docs then
     docs.init()
   end
-  local ok, play = pcall(require, "nvim-treesitter-playground")
-  if ok then
+  local play = vim.F.npcall(require, "nvim-treesitter-playground")
+  if play then
     play.init()
   end
 end

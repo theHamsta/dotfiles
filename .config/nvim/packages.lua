@@ -130,20 +130,20 @@ require("lazy").setup {
     keys = "<leader>os",
     cmd = { "OverseerRun", "OverseerOpen", "OverseerToggle" },
   },
-  {
-    "lvimuser/lsp-inlayhints.nvim",
-    config = function()
-      require("lsp-inlayhints").setup()
-      --require("inlay-hints").setup {
-      --renderer = "inlay-hints/render/eol",
-      --only_current_line = false,
-      --eol = {
-      --right_align = false,
-      --},
-      --}
-    end,
-    branch = "anticonceal",
-  },
+  --{
+    --"lvimuser/lsp-inlayhints.nvim",
+    --config = function()
+      --require("lsp-inlayhints").setup()
+      ----require("inlay-hints").setup {
+      ----renderer = "inlay-hints/render/eol",
+      ----only_current_line = false,
+      ----eol = {
+      ----right_align = false,
+      ----},
+      ----}
+    --end,
+    --branch = "anticonceal",
+  --},
   "rafamadriz/friendly-snippets",
   {
     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
