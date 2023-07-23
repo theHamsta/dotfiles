@@ -81,7 +81,9 @@ if lspconfig then
     --local ih = require "inlay-hints"
     --ih.on_attach(client, bufnr)
     --require("lsp-inlayhints").on_attach(client, bufnr)
-    vim.lsp.inlay_hint(bufnr, true)
+    if client.supports_method "textDocument/inlayHint" then
+      vim.lsp.inlay_hint(bufnr, true)
+    end
     --local caps = client.server_capabilities
     --if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
     --vim.cmd [[autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.buf.semantic_tokens_full()]]
