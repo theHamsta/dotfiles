@@ -27,7 +27,6 @@ release:
 	mkdir -p release
 	cmake -Brelease \
 		-DCMAKE_VERBOSE_MAKEFILE=OFF  \
-		-DCMAKE_PREFIX_PATH=/usr/local/KDAB/KDDockWidgets-1.6.95 \
 		-DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
 		-DCMAKE_CUDA_HOST_COMPILER=g++-11 \
 		-DCMAKE_CUDA_COMPILER_LAUNCHER=ccache \
