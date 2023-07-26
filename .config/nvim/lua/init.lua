@@ -557,6 +557,23 @@ if dap then
       "debugpy.adapter",
     },
   }
+
+  dap.adapters.cmake = {
+    type = "pipe",
+    pipe = "${pipe}",
+    executable = {
+      command = "cmake",
+      args = { "--debugger", "--debugger-pipe", "${pipe}" },
+    },
+  }
+  dap.configurations.cmake = {
+    {
+      name = "Build",
+      type = "cmake",
+      request = "launch",
+    },
+  }
+
   --dap.adapters.go = {
   --type = "executable",
   --command = "node",
