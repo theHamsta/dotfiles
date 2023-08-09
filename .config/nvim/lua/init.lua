@@ -686,7 +686,13 @@ if dap then
       pidProperty = "pid",
       pidSelect = "ask",
     },
-    command = shell.select_executable { "lldb-vscode-17", "lldb-vscode-16", "lldb-vscode-15", "lldb-vscode" },
+    command = shell.select_executable {
+      "lldb-vscode-18",
+      "lldb-vscode-17",
+      "lldb-vscode-16",
+      "lldb-vscode-15",
+      "lldb-vscode",
+    },
     env = function()
       local variables = {
         LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES",
