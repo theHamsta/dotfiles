@@ -81,7 +81,7 @@ if lspconfig then
     --local ih = require "inlay-hints"
     --ih.on_attach(client, bufnr)
     --require("lsp-inlayhints").on_attach(client, bufnr)
-    if client.supports_method "textDocument/inlayHint" then
+    if client.supports_method "textDocument/inlayHint" or client.name == "rust_analyzer" then
       vim.lsp.inlay_hint(bufnr, true)
     end
     --local caps = client.server_capabilities
@@ -472,7 +472,7 @@ if lspconfig then
           closureStyle = "impl_fn",
           discriminantHints = { enable = "never" },
           expressionAdjustmentHints = {
-            enable = "never",
+            enable = "true",
             hideOutsideUnsafe = false,
             mode = "prefix",
           },
