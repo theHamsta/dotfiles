@@ -159,7 +159,25 @@ M.start_vscode_lldb = function(args)
       stopOnEntry = true,
       externalConsole = true,
       expressions = "python",
-      initCommands = 'command script import "/home/stephan/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/etc/lldb_lookup.py"',
+      initCommands = function()
+        -- Find out where to look for the pretty printer Python module
+        local rustc_sysroot = vim.fn.trim(vim.fn.system "rustc --print sysroot")
+
+        local script_import = 'command script import "' .. rustc_sysroot .. '/lib/rustlib/etc/lldb_lookup.py"'
+        local commands_file = rustc_sysroot .. "/lib/rustlib/etc/lldb_commands"
+
+        local commands = {}
+        local file = io.open(commands_file, "r")
+        if file then
+          for line in file:lines() do
+            table.insert(commands, line)
+          end
+          file:close()
+        end
+        table.insert(commands, 1, script_import)
+
+        return commands
+      end,
       --initCommands = [[command script import "' .. RUSTC_SYSROOT .. '/lib/rustlib/etc/lldb_lookup.py"
       --type synthetic add -l lldb_lookup.synthetic_lookup -x ".*" --category Rust
       --type summary add -F lldb_lookup.summary_lookup  -e -x -h "^(alloc::([a-z_]+::)+)String$" --category Rust
