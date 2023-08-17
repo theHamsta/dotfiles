@@ -27,6 +27,26 @@ local M = {
   default_port = 5788,
 }
 
+local function get_init_commands()
+  -- Find out where to look for the pretty printer Python module
+  local rustc_sysroot = vim.fn.trim(vim.fn.system "rustc --print sysroot")
+
+  local script_import = 'command script import "' .. rustc_sysroot .. '/lib/rustlib/etc/lldb_lookup.py"'
+  local commands_file = rustc_sysroot .. "/lib/rustlib/etc/lldb_commands"
+
+  local commands = {}
+  local file = io.open(commands_file, "r")
+  if file then
+    for line in file:lines() do
+      table.insert(commands, line)
+    end
+    file:close()
+  end
+  table.insert(commands, 1, script_import)
+
+  return commands
+end
+
 M.set_debug_target = function(is_pytest)
   M.debug_target = (is_pytest and "-m pytest " or "") .. vim.fn.expand "%:p"
 end
@@ -159,45 +179,7 @@ M.start_vscode_lldb = function(args)
       stopOnEntry = true,
       externalConsole = true,
       expressions = "python",
-      initCommands = function()
-        -- Find out where to look for the pretty printer Python module
-        local rustc_sysroot = vim.fn.trim(vim.fn.system "rustc --print sysroot")
-
-        local script_import = 'command script import "' .. rustc_sysroot .. '/lib/rustlib/etc/lldb_lookup.py"'
-        local commands_file = rustc_sysroot .. "/lib/rustlib/etc/lldb_commands"
-
-        local commands = {}
-        local file = io.open(commands_file, "r")
-        if file then
-          for line in file:lines() do
-            table.insert(commands, line)
-          end
-          file:close()
-        end
-        table.insert(commands, 1, script_import)
-
-        return commands
-      end,
-      --initCommands = [[command script import "' .. RUSTC_SYSROOT .. '/lib/rustlib/etc/lldb_lookup.py"
-      --type synthetic add -l lldb_lookup.synthetic_lookup -x ".*" --category Rust
-      --type summary add -F lldb_lookup.summary_lookup  -e -x -h "^(alloc::([a-z_]+::)+)String$" --category Rust
-      --type summary add -F lldb_lookup.summary_lookup  -e -x -h "^&str$" --category Rust
-      --type summary add -F lldb_lookup.summary_lookup  -e -x -h "^&\\[.+\\]$" --category Rust
-      --type summary add -F lldb_lookup.summary_lookup  -e -x -h "^(std::ffi::([a-z_]+::)+)OsString$" --category Rust
-      --type summary add -F lldb_lookup.summary_lookup  -e -x -h "^(alloc::([a-z_]+::)+)Vec<.+>$" --category Rust
-      --type summary add -F lldb_lookup.summary_lookup  -e -x -h "^(alloc::([a-z_]+::)+)VecDeque<.+>$" --category Rust
-      --type summary add -F lldb_lookup.summary_lookup  -e -x -h "^(alloc::([a-z_]+::)+)BTreeSet<.+>$" --category Rust
-      --type summary add -F lldb_lookup.summary_lookup  -e -x -h "^(alloc::([a-z_]+::)+)BTreeMap<.+>$" --category Rust
-      --type summary add -F lldb_lookup.summary_lookup  -e -x -h "^(std::collections::([a-z_]+::)+)HashMap<.+>$" --category Rust
-      --type summary add -F lldb_lookup.summary_lookup  -e -x -h "^(std::collections::([a-z_]+::)+)HashSet<.+>$" --category Rust
-      --type summary add -F lldb_lookup.summary_lookup  -e -x -h "^(alloc::([a-z_]+::)+)Rc<.+>$" --category Rust
-      --type summary add -F lldb_lookup.summary_lookup  -e -x -h "^(alloc::([a-z_]+::)+)Arc<.+>$" --category Rust
-      --type summary add -F lldb_lookup.summary_lookup  -e -x -h "^(core::([a-z_]+::)+)Cell<.+>$" --category Rust
-      --type summary add -F lldb_lookup.summary_lookup  -e -x -h "^(core::([a-z_]+::)+)Ref<.+>$" --category Rust
-      --type summary add -F lldb_lookup.summary_lookup  -e -x -h "^(core::([a-z_]+::)+)RefMut<.+>$" --category Rust
-      --type summary add -F lldb_lookup.summary_lookup  -e -x -h "^(core::([a-z_]+::)+)RefCell<.+>$" --category Rust
-      --type category enable Rust
-      --]]
+      initCommands = get_init_commands(),
     }
   end
 
