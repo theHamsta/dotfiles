@@ -744,12 +744,14 @@ autocmd ColorScheme * highlight default link TSCurrentScope CursorLine
 nnoremap <silent> X :normal! x<cr>
 noremap <silent> <leader>tb :Tagbar<cr>
 
-command! Tokyo :packadd tokyonight.nvim | let g:tokyonight_style = "night" | colorscheme tokyonight
-command! TokyoStorm :packadd tokyonight.nvim | let g:tokyonight_style = "storm" | colorscheme tokyonight
-command! TokyoDay :packadd tokyonight.nvim | let g:tokyonight_style = "day" | colorscheme tokyonight
+command! Tokyo let g:tokyonight_style = "night" | colorscheme tokyonight
+command! TokyoStorm  let g:tokyonight_style = "storm" | colorscheme tokyonight
+command! TokyoDay  let g:tokyonight_style = "day" | colorscheme tokyonight
 command! Nightfly :packadd vim-nightfly-guicolors | colorscheme nightfly
-command! Moonfly :packadd vim-moonfly | colorscheme moonfly
+command! Moonfly colorscheme moonfly
 command! OneDark colorscheme one
+command! OhLucy colorscheme oh-lucy
+command! RosePine colorscheme rose-pine
 
 nnoremap <leader>nd :DiffviewOpen<cr>
 
