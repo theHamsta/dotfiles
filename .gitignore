@@ -158,3 +158,4 @@ _out
 .luarc.json
 vkvia.html
 foo
+*.dot
