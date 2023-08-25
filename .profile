@@ -95,4 +95,7 @@ export NeovideMultiGrid=true
 export COMPlus_gcAllowVeryLargeObjects=1
 . "$HOME/.cargo/env"
 
+alias k="microk8s kubectl"
+alias kubectl="microk8s kubectl"
+alias helm="microk8s helm"
 export PATH=/data/projects/nsight-systems-linux-internal-DVS/bin/:$PATH
