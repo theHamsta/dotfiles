@@ -1020,6 +1020,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   {
     "fatih/vim-go",
     ft = "go",
+    enabled = false,
     build = function()
       --require("nvim-treesitter.install").iter_cmd(
       --vim.tbl_map(function(p)
