@@ -1134,6 +1134,13 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     end,
     lazy = true,
   },
+  {
+    "sam4llis/nvim-tundra",
+    config = function()
+      vim.opt.background = "dark"
+      vim.cmd "colorscheme tundra"
+    end,
+  },
   { "JoosepAlviste/palenightfall.nvim", lazy = true },
   { "projekt0n/github-nvim-theme", lazy = true },
   { "Pocco81/Catppuccino.nvim", lazy = true },
@@ -1142,6 +1149,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     config = function()
       vim.cmd [[colorscheme tokyonight-storm]]
     end,
+    lazy = true,
   },
   { "bluz71/vim-nightfly-guicolors", lazy = true },
   { "bluz71/vim-moonfly-colors", lazy = true },

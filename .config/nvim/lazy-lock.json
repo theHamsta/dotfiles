@@ -77,6 +77,7 @@
   "nvim-treesitter-cpp-tools": { "branch": "master", "commit": "150fe72b381b12b8397c2a38084d968f74f84271" },
   "nvim-treesitter-refactor": { "branch": "master", "commit": "65ad2eca822dfaec2a3603119ec3cc8826a7859e" },
   "nvim-treesitter-textobjects": { "branch": "master", "commit": "e3e2b6de4ccf781fb653a3a1d397aeb4a0095609" },
+  "nvim-tundra": { "branch": "main", "commit": "4c93e03ed8e53ba683df2bd5019e9eeb017b910e" },
   "nvim-ufo": { "branch": "main", "commit": "8b01594c29bd01e7b49b647a663c819ed909714f" },
   "nvim-web-devicons": { "branch": "master", "commit": "cfc8824cc1db316a276b36517f093baccb8e799a" },
   "oh-lucy.nvim": { "branch": "main", "commit": "706c74fe8dcc2014dc17bbc861a05d27623e06e3" },
