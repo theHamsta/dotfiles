@@ -272,7 +272,7 @@ function! NvimLspMaps()
 endfunction
 
 
-set foldlevel=0
+set foldlevel=99
 
 set colorcolumn=120
 
