@@ -107,6 +107,7 @@
   "vim-floaterm": { "branch": "master", "commit": "bcaeabf89a92a924031d471395054d84bd88ce2f" },
   "vim-fugitive": { "branch": "master", "commit": "b3b838d690f315a503ec4af8c634bdff3b200aaf" },
   "vim-gtfo": { "branch": "master", "commit": "7d5318ecbf2455ea9a82866359f8e41195469215" },
+  "vim-helm": { "branch": "master", "commit": "c2e7b85711d410e1d73e64eb5df7b70b1c4c10eb" },
   "vim-lore": { "branch": "master", "commit": "8c0001a1ae57bb5186040f038152b2e54afdd6de" },
   "vim-merginal": { "branch": "develop", "commit": "a4becdf09178c3c557b7069252b6df617ff04de3" },
   "vim-moonfly-colors": { "branch": "master", "commit": "49a0f8aa5aa59af01b2305bb01d96ebd3a78f758" },
