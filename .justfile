@@ -18,7 +18,7 @@ build:
 		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo"
 	rm -f compile_commands.json
 	ln -s debug/compile_commands.json .
-	cd debug && cmake --build . -- -j"$(nproc)"
+	cd debug && cmake --build . --parallel
 
 run: build
 	debug/pystencils_gui
@@ -37,7 +37,7 @@ release:
 		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo"
 	rm -f compile_commands.json
 	ln -s release/compile_commands.json .
-	cd release && cmake --build . -- -j"$(nproc)"
+	cd release && cmake --build . --parallel
 
 gcc-release:
 	mkdir -p gcc-release
@@ -49,7 +49,7 @@ gcc-release:
 		-DCMAKE_CXX_FLAGS=-fdiagnostics-color \
 		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo" \
 		-DCMAKE_C_FLAGS="-fdiagnostics-color" ..
-	cd gcc-release && cmake --build . -- -j"$(nproc)"
+	cd gcc-release && cmake --build . --parallel
 
 gcc-9-release:
 	mkdir -p gcc-release
@@ -58,7 +58,7 @@ gcc-9-release:
 		-DCMAKE_BUILD_TYPE=Release -G Ninja \
 		-DCMAKE_CXX_FLAGS=-fdiagnostics-color \
 		-DCMAKE_C_FLAGS=-fdiagnostics-color ..
-	cd gcc-release && cmake --build . -- -j"$(nproc)"
+	cd gcc-release && cmake --build . --parallel
 
 gcc-debug:
 	mkdir -p gcc-debug
@@ -69,7 +69,7 @@ gcc-debug:
 		-DCMAKE_C_FLAGS=-fdiagnostics-color ..
 	rm -f compile_commands.json
 	ln -s gcc-debug/compile_commands.json .
-	cd gcc-debug && cmake --build . -- -j"$(nproc)"
+	cd gcc-debug && cmake --build . --parallel
 
 release-run: release
 	release/pystencils_gui
