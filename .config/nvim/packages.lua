@@ -1138,7 +1138,10 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     "sam4llis/nvim-tundra",
     config = function()
       vim.opt.background = "dark"
-      vim.cmd "colorscheme tundra"
+      vim.cmd [[
+        colorscheme tundra"
+        highlight link LspInlayHint Comment
+      ]]
     end,
   },
   { "JoosepAlviste/palenightfall.nvim", lazy = true },
