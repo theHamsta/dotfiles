@@ -122,10 +122,6 @@ if lspconfig then
   -- require("lspconfig/configs").julials.install()
   --end
 
-  --pcall(require, "lspconfig/sumneko_lua")
-  --if not require("lspconfig/configs").sumneko_lua.install_info().is_installed then
-  --require("lspconfig/configs").sumneko_lua.install()
-  --end
   lspconfig.eslint.setup {
     on_attach = on_attach,
     capabilities = capabilities,
