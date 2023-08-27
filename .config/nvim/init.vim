@@ -272,7 +272,7 @@ function! NvimLspMaps()
 endfunction
 
 
-set foldlevel=99
+set foldlevel=0
 
 set colorcolumn=120
 
@@ -738,6 +738,7 @@ autocmd ColorScheme * highlight NvimDapStopped guibg=#000055
 
 autocmd ColorScheme * highlight default link TSDefinitionUsage Visual
 autocmd ColorScheme * highlight link LspComment Comment
+
 autocmd ColorScheme * highlight default link TSDefinition Search
 autocmd ColorScheme * highlight default link TSCurrentScope CursorLine
 
