@@ -409,7 +409,7 @@ if lspconfig then
   lspconfig.lua_ls.setup {
     on_init = function(client)
       local path = client.workspace_folders[1].name
-      if not vim.loop.fs_stat(path .. "/.luarc.json") and not vim.loop.fs_stat(path .. "/.luarc.jsonc") then
+      if not vim.luv.fs_stat(path .. "/.luarc.json") and not vim.luv.fs_stat(path .. "/.luarc.jsonc") then
         client.config.settings = vim.tbl_deep_extend("force", client.config.settings.Lua, {
           runtime = {
             -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
@@ -733,7 +733,7 @@ if dap then
   dap.adapters.go = function(callback, config)
     local handle
     local port = 38697
-    handle = vim.loop.spawn(
+    handle = vim.luv.spawn(
       "dlv",
       {
         args = { "dap", "-l", "127.0.0.1:" .. port },
