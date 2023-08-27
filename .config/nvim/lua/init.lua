@@ -386,8 +386,6 @@ if lspconfig then
         "--all-scopes-completion",
         "--header-insertion=iwyu",
         "--background-index",
-        "--suggest-missing-includes",
-        "--cross-file-rename",
       },
       filetypes = {
         "c",
