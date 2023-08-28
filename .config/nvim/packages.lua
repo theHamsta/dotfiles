@@ -61,7 +61,19 @@ require("lazy").setup {
     "pmizio/typescript-tools.nvim",
     requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
     config = function()
-      require("typescript-tools").setup {}
+      require("typescript-tools").setup {
+        settings = {
+          tsserver_file_preferences = {
+            includeInlayParameterNameHints = "all",
+            includeCompletionsForModuleExports = true,
+            quotePreference = "auto",
+          },
+          tsserver_format_options = {
+            allowIncompleteCompletions = false,
+            allowRenameOfImportPath = false,
+          },
+        },
+      }
     end,
     ft = { "javascript", "typescript" },
   },
