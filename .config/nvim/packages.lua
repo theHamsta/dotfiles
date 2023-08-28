@@ -45,7 +45,7 @@ require("lazy").setup {
       require("hex").setup()
     end,
   },
- 'towolf/vim-helm',
+  "towolf/vim-helm",
   --{ "kiyoon/jupynium.nvim", run = "pip3 install --user . --break-system-packages" },
   {
     "gabrielpoca/replacer.nvim",
@@ -57,6 +57,14 @@ require("lazy").setup {
     end,
   },
   { "krady21/compiler-explorer.nvim", cmd = "CECompile" },
+  {
+    "pmizio/typescript-tools.nvim",
+    requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    config = function()
+      require("typescript-tools").setup {}
+    end,
+    ft = { "javascript", "typescript" },
+  },
   {
     "liangxianzhe/nap.nvim",
     config = function()
