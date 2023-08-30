@@ -1164,6 +1164,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
         highlight link LspInlayHint Comment
       ]]
     end,
+    lazy = true,
   },
   { "JoosepAlviste/palenightfall.nvim", lazy = true },
   { "projekt0n/github-nvim-theme", lazy = true },
@@ -1173,7 +1174,6 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     config = function()
       vim.cmd [[colorscheme tokyonight-storm]]
     end,
-    lazy = true,
   },
   { "bluz71/vim-nightfly-guicolors", lazy = true },
   { "bluz71/vim-moonfly-colors", lazy = true },
