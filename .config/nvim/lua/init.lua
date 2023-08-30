@@ -817,46 +817,6 @@ if ok then
   --vim.cmd "set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()"
   --local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 
-  --parser_configs.norg = {
-  --install_info = {
-  --url = "https://github.com/nvim-neorg/tree-sitter-norg",
-  --files = { "src/parser.c", "src/scanner.cc" },
-  --branch = "main",
-  --},
-  --}
-  --parser_configs.markdown = {
-  --install_info = {
-  --url = "https://github.com/MDeiml/tree-sitter-markdown",
-  --files = { "src/parser.c", "src/scanner.cc" },
-  --branch = "main",
-  --},
-  --}
-  --local list = require("nvim-treesitter.parsers").get_parser_configs()
-  --list.commonlisp = {
-  --install_info = {
-  --url = "~/projects/tree-sitter-commonlisp",
-  --files = {"src/parser.c"}
-  --},
-  --filetype = "lisp",
-  --maintainers = {"@theHamsta"}
-  --}
-  --list.make = {
-  --install_info = {
-  --url = "https://github.com/alemuller/tree-sitter-make",
-  --files = { "src/parser.c" },
-  --branch = "main",
-  --filetype = "Makefile",
-  --},
-  --}
-
-  --parser_configs.norg = {
-  --install_info = {
-  --url = "https://github.com/vhyrro/tree-sitter-norg",
-  --files = { "src/parser.c" },
-  --branch = "main",
-  --},
-  --}
-  --
   require("nvim-treesitter.configs").setup {
     auto_install = false,
     highlight = {
@@ -1121,14 +1081,6 @@ vim.cmd [[
 command! -complete=file -nargs=* PythonDebug lua require "my_debug".python_debug({<f-args>})
 ]]
 
-local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
-parser_configs.norg = {
-  install_info = {
-    url = "https://github.com/nvim-neorg/tree-sitter-norg",
-    files = { "src/parser.c", "src/scanner.cc" },
-    branch = "main",
-  },
-} --local function safe_read(filename, read_quantifier)  --local file, err = io.open(filename, "r")  --if not file then  --error(err)  --end  --local content = file:read(read_quantifier)  --io.close(file)  --return content  --end  --local function read_query_files(filenames)  --local contents = {}  --for _, filename in ipairs(filenames) do  --table.insert(contents, safe_read(filename, "*a"))  --end  --return table.concat(contents, "")  --end  --vim.treesitter.query.set_query(  --"lua",  --"highlights",  --read_query_files(vim.treesitter.query.get_query_files("lua", "highlights")):gsub(  --[[%[  --"goto"  --"in"  --"local"  --%] @keyword]],
 vim.api.nvim_set_hl(0, "DapBreakpoint", { ctermbg = 0, fg = "#993939", bg = "#31353f" })
 vim.api.nvim_set_hl(0, "DapLogPoint", { ctermbg = 0, fg = "#61afef", bg = "#31353f" })
 vim.api.nvim_set_hl(0, "Stopped", { ctermbg = 0, fg = "#98c379", bg = "#31353f" })
