@@ -173,6 +173,7 @@ require("lazy").setup {
       vim.diagnostic.config { virtual_lines = false, virtual_text = true }
     end,
     enabled = vim.fn.has "win32" ~= 1,
+    event = "VeryLazy",
   },
   {
     "nacro90/numb.nvim",

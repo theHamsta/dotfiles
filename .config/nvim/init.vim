@@ -226,8 +226,8 @@ nnoremap <silent> [d <cmd>lua vim.diagnostic.goto_prev()<CR>
 nnoremap <silent> ]d <cmd>lua vim.diagnostic.goto_next()<CR>
 nnoremap <silent> äk <cmd>lua vim.diagnostic.goto_prev()<CR>
 nnoremap <silent> äj <cmd>lua vim.diagnostic.goto_next()<CR>
-nnoremap <silent> <leader>hd <cmd>lua vim.diagnostic.config({ virtual_lines = true, virtual_text = false })<CR>
-nnoremap <silent> <leader>hD <cmd>lua vim.diagnostic.config({ virtual_lines = false, virtual_text = true })<CR>
+nnoremap <silent> <leader>ll <cmd>lua vim.diagnostic.config({ virtual_lines = true, virtual_text = false })<CR>
+nnoremap <silent> <leader>LL <cmd>lua vim.diagnostic.config({ virtual_lines = false, virtual_text = true })<CR>
 nnoremap <silent> <leader>dz <cmd>Neotree diagnostics reveal bottom<cr>
 
 function! NvimLspMaps()
