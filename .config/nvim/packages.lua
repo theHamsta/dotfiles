@@ -116,7 +116,7 @@ require("lazy").setup {
         },
         view_options = {
           is_hidden_file = function(name, _bufnr)
-            return vim.startswith(name, ".") or vim.endswith(name, '.dot')
+            return vim.startswith(name, ".") or vim.endswith(name, ".dot")
           end,
         },
       }
@@ -661,7 +661,17 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   },
   { "mfussenegger/nvim-treehopper", keys = "<space><space>" },
   { "dstein64/nvim-scrollview", enabled = false },
-  { "TimUntersberger/neogit", cmd = { "Neogit" } },
+  {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim", -- required
+      "nvim-telescope/telescope.nvim", -- optional
+      "sindrets/diffview.nvim", -- optional
+      "ibhagwan/fzf-lua", -- optional
+    },
+    config = true,
+    keymaps = "<leader>ng",
+  },
   --{
   --"simrat39/rust-tools.nvim",
   --ft = "rust",
