@@ -114,6 +114,11 @@ require("lazy").setup {
           ["~"] = "actions.tcd",
           ["g."] = "actions.toggle_hidden",
         },
+        view_options = {
+          is_hidden_file = function(name, _bufnr)
+            return vim.startswith(name, ".") or vim.endswith(name, '.dot')
+          end,
+        },
       }
       vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
     end,
