@@ -45,7 +45,24 @@ require("lazy").setup {
       require("hex").setup()
     end,
   },
-  { "Bekaboo/dropbar.nvim" },
+  {
+    "Bekaboo/dropbar.nvim",
+    config = function()
+      require("dropbar").setup {
+        general = {
+          enable = function(buf, win)
+            local name = vim.api.nvim_buf_get_name(buf)
+            return not vim.api.nvim_win_get_config(win).zindex
+              and name
+              and vim.bo[buf].buftype == ""
+              and name ~= ""
+              and not name:find(".git", 1, true)
+              and not vim.wo[win].diff
+          end,
+        },
+      }
+    end,
+  },
   "towolf/vim-helm",
   --{ "kiyoon/jupynium.nvim", run = "pip3 install --user . --break-system-packages" },
   {
