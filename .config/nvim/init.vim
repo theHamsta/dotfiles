@@ -380,6 +380,7 @@ endfunction
 
 augroup filetypedetect
     au! BufRead,BufNewFile *.osl set filetype=cpp
+    au! BufRead,BufNewFile *.sdp,*.SDP set filetype=sdp
     au! BufRead,BufNewFile *.gstlaunch set filetype=gstlaunch
     au! BufRead,BufNewFile *.nvmk set filetype=make
     au! BufRead,BufNewFile .busted set filetype=lua
