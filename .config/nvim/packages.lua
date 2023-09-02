@@ -45,6 +45,7 @@ require("lazy").setup {
       require("hex").setup()
     end,
   },
+  { "Bekaboo/dropbar.nvim" },
   "towolf/vim-helm",
   --{ "kiyoon/jupynium.nvim", run = "pip3 install --user . --break-system-packages" },
   {
