@@ -58,6 +58,7 @@ require("lazy").setup {
               and name ~= ""
               and not name:find(".git", 1, true)
               and not vim.wo[win].diff
+              and vim.g.dropbar == 1
           end,
         },
       }

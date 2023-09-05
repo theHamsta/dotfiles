@@ -9,6 +9,7 @@ else
 end
 
 let g:unstack_mapkey='<leader><F10>'
+let g:dropbar=0
 set tags=./tags,tags
 set encoding=UTF-8
 
