@@ -62,6 +62,7 @@ require("lazy").setup {
         },
       }
     end,
+    lazy = true,
   },
   "towolf/vim-helm",
   --{ "kiyoon/jupynium.nvim", run = "pip3 install --user . --break-system-packages" },
