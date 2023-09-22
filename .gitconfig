@@ -1,0 +1,37 @@
+[user]
+	name = Stephan Seitz
+	email = stephan.seitz@fau.de
+[core]
+	editor = nvim
+	excludesfile = /home/stephan/.gitignore
+[pull]
+	rebase = true
+[push]
+	autoSetupRemote = true
+[pager]
+	diff = delta
+	log = delta
+	show = delta
+	branch = false
+	reflog = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	features = line-numbers decorations
+	whitespace-error-style = 22 reverse
+
+[delta "decorations"]
+	commit-decoration-style = bold yellow box ul
+	file-style = bold yellow ul
+	file-decoration-style = none
+[init]
+	defaultBranch = master
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[merge]
+	conflictstyle = diff3
