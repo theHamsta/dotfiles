@@ -79,7 +79,7 @@ require("lazy").setup {
   { "krady21/compiler-explorer.nvim", cmd = "CECompile" },
   {
     "pmizio/typescript-tools.nvim",
-    requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
     config = function()
       require("typescript-tools").setup {
         settings = {
@@ -690,7 +690,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       "ibhagwan/fzf-lua", -- optional
     },
     config = true,
-    keymaps = "<leader>ng",
+    keys = "<leader>ng",
   },
   --{
   --"simrat39/rust-tools.nvim",
@@ -741,7 +741,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       require("gitlinker").setup()
     end,
     --keys = { "<space>gy", mode = { "n", "v", "V" } },
-    events = "VeryLazy",
+    event = "VeryLazy",
   },
   --{ "onsails/lspkind-nvim" },
   --use {
