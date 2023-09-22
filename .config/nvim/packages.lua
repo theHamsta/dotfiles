@@ -239,7 +239,15 @@ require("lazy").setup {
     lazy = true,
   },
 
-  { "github/copilot.vim", lazy = true },
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup {}
+    end,
+  },
+  --{ "github/copilot.vim", lazy = true },
   {
     "emmanueltouzery/agitator.nvim",
     config = function()
