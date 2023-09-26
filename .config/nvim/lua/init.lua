@@ -126,6 +126,14 @@ if lspconfig then
     on_attach = on_attach,
     capabilities = capabilities,
   }
+  lspconfig.swift_mesonls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+  lspconfig.sourcekit.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
   lspconfig.helm_ls.setup {
     cmd = { "helm-ls", "serve" },
     filetypes = { "helm", "yaml" },
