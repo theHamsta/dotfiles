@@ -14,6 +14,8 @@ build:
 		-DCMAKE_CXX_FLAGS_INIT="-fsanitize=undefined -fsanitize=address" \
 		-DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
 		-DCMAKE_C_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
+		-DCMAKE_C_CLANG_TIDY="clang-tidy-17" \
+		-DCMAKE_CXX_CLANG_TIDY="clang-tidy-17" \
 		-DCMAKE_CUDA_ARCHITECTURES=OFF \
 		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo"
 	rm -f compile_commands.json
