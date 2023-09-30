@@ -133,6 +133,7 @@ if lspconfig then
   lspconfig.sourcekit.setup {
     on_attach = on_attach,
     capabilities = capabilities,
+    filetypes = { "swift" },
   }
   lspconfig.helm_ls.setup {
     cmd = { "helm-ls", "serve" },
@@ -264,32 +265,32 @@ if lspconfig then
   }
 
   --lspconfig.tsserver.setup {
-    --on_attach = on_attach,
-    --capabilities = capabilities,
-    --settings = {
-      --javascript = {
-        --inlayHints = {
-          --includeInlayEnumMemberValueHints = true,
-          --includeInlayFunctionLikeReturnTypeHints = true,
-          --includeInlayFunctionParameterTypeHints = true,
-          --includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
-          --includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-          --includeInlayPropertyDeclarationTypeHints = true,
-          --includeInlayVariableTypeHints = true,
-        --},
-      --},
-      --typescript = {
-        --inlayHints = {
-          --includeInlayEnumMemberValueHints = true,
-          --includeInlayFunctionLikeReturnTypeHints = true,
-          --includeInlayFunctionParameterTypeHints = true,
-          --includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
-          --includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-          --includeInlayPropertyDeclarationTypeHints = true,
-          --includeInlayVariableTypeHints = true,
-        --},
-      --},
-    --},
+  --on_attach = on_attach,
+  --capabilities = capabilities,
+  --settings = {
+  --javascript = {
+  --inlayHints = {
+  --includeInlayEnumMemberValueHints = true,
+  --includeInlayFunctionLikeReturnTypeHints = true,
+  --includeInlayFunctionParameterTypeHints = true,
+  --includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+  --includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+  --includeInlayPropertyDeclarationTypeHints = true,
+  --includeInlayVariableTypeHints = true,
+  --},
+  --},
+  --typescript = {
+  --inlayHints = {
+  --includeInlayEnumMemberValueHints = true,
+  --includeInlayFunctionLikeReturnTypeHints = true,
+  --includeInlayFunctionParameterTypeHints = true,
+  --includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+  --includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+  --includeInlayPropertyDeclarationTypeHints = true,
+  --includeInlayVariableTypeHints = true,
+  --},
+  --},
+  --},
   --}
 
   lspconfig.svelte.setup {
