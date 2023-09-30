@@ -17,6 +17,7 @@
   "cmp_luasnip": { "branch": "master", "commit": "18095520391186d634a0045dacaa346291096566" },
   "compiler-explorer.nvim": { "branch": "master", "commit": "ee8e7a2808bdad67cd2acb61b5c9ffa7735c7ec9" },
   "conflict-marker.vim": { "branch": "master", "commit": "11a4d42244755505b66b15cd4496a150432eb5e3" },
+  "conform.nvim": { "branch": "master", "commit": "37d036704a100ef6e6457be45b4dfc2f8e429572" },
   "copilot.lua": { "branch": "master", "commit": "1a8032ae496916ccc7a7a52ee79194fbef29f462" },
   "crates.nvim": { "branch": "main", "commit": "7e0e24b5c28c9fababf2b965f5840e6867c96848" },
   "crazy-node-movement": { "branch": "master", "commit": "d5cf01cc44c5715501d3d6fe439af7c8b7fa5df2" },
