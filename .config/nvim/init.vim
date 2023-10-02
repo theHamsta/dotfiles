@@ -232,6 +232,7 @@ nnoremap <silent> <leader>LL <cmd>lua vim.diagnostic.config({ virtual_lines = fa
 nnoremap <silent> <leader>dz <cmd>Neotree diagnostics reveal bottom<cr>
 
 function! NvimLspMaps()
+  lua NvimLspMaps()
     Lazy load fidget.nvim
     nnoremap <buffer><silent> <f2>         <cmd>lua vim.lsp.buf.rename()<CR>
     nnoremap <buffer><silent> gk         <cmd>lua vim.lsp.buf.declaration()<CR>

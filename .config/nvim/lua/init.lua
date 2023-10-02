@@ -57,6 +57,41 @@ vim.diagnostic.config {
   },
 }
 
+_G["NvimLspMaps"] = function()
+  vim.cmd [[Lazy load fidget.nvim]]
+  vim.keymap.set("n", "gd", vim.lsp.buf.definition, { silent = true, buffer = true })
+  vim.keymap.set("n", "gD", "<c-w>vgd", { silent = true, buffer = true })
+  vim.keymap.set("n", "<leader>gd", vim.lsp.buf.implementation, { silent = true, buffer = true })
+  vim.keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, { silent = true, buffer = true })
+  vim.keymap.set("n", "<f2>", vim.lsp.buf.rename, { silent = true, buffer = true })
+  vim.keymap.set("n", "gk", vim.lsp.buf.declaration, { silent = true, buffer = true })
+  vim.keymap.set("n", "gR", vim.lsp.buf.references, { silent = true, buffer = true })
+  vim.keymap.set("n", "gh", vim.lsp.buf.hover, { silent = true, buffer = true })
+  vim.keymap.set({ "i", "n" }, "<c-g>", vim.lsp.buf.signature_help, { silent = true, buffer = true })
+  vim.keymap.set("n", "<leader>lD", vim.diagnostic.setloclist, { silent = true, buffer = true })
+  vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { silent = true, buffer = true })
+  vim.keymap.set("n", "<leader>ic", vim.lsp.buf.incoming_calls, { silent = true, buffer = true })
+  vim.keymap.set("n", "<leader>oc", vim.lsp.buf.outgoing_calls, { silent = true, buffer = true })
+  vim.keymap.set("n", "<leader>ss", vim.lsp.buf.workspace_symbol, { silent = true, buffer = true })
+  vim.keymap.set("n", "<leader>de", require("lsp-ext").peek_definition, { silent = true, buffer = true })
+  vim.keymap.set("n", "<2-LeftMouse", vim.lsp.buf.hover, { silent = true, buffer = true })
+  vim.keymap.set("n", "<c-LeftMouse", vim.lsp.buf.definition, { silent = true, buffer = true })
+  vim.keymap.set("n", "üf", "<cmd>packadd lspsaga<cr><cmd>Lspsaga lsp_finder", { silent = true, buffer = true })
+  vim.keymap.set("n", "<leader>fi", function()
+    require("lspsaga.provider").lsp_finder()
+  end, { silent = true, buffer = true })
+  vim.keymap.set("n", "<c-a-o>", ":Telescope lsp_document_symbols<cr>", { silent = true, buffer = true })
+  vim.keymap.set("n", "<c-s>", function()
+    require("conform").format({ lsp_fallback = true, async = true }, function()
+      vim.cmd "w"
+    end)
+  end, { silent = true, buffer = true })
+  vim.cmd [[command! CodeLens autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]]
+
+  vim.cmd [[setlocal omnifunc=v:lua.vim.lsp.omnifunc]]
+  print "NvimLspMapsend"
+end
+
 require("nvim-treesitter.install").prefer_git = false
 
 vim.keymap.set("n", "<leader>sf", require("telescope.builtin").find_files, { desc = "[S]earch [F]iles" })
