@@ -89,7 +89,6 @@ _G["NvimLspMaps"] = function()
   vim.cmd [[command! CodeLens autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]]
 
   vim.cmd [[setlocal omnifunc=v:lua.vim.lsp.omnifunc]]
-  print "NvimLspMapsend"
 end
 
 require("nvim-treesitter.install").prefer_git = false
