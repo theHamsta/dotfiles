@@ -262,8 +262,7 @@ function! NvimLspMaps()
     if &filetype == "java" 
         "nnoremap <buffer><silent> <c-s> :w<cr><cmd>lua vim.lsp.buf.formatting();require'jdtls'.organize_imports()<cr>
     elseif &filetype == "lua" 
-      nnoremap <buffer><silent> <c-s> :w<cr><cmd>lua require'conform'.format()<cr>
-      
+      nnoremap <buffer><silent> <c-s> <cmd>lua require'conform'.format()<cr>:w<cr>
     else 
         nnoremap <buffer><silent> <c-s> :w<cr><cmd>lua vim.lsp.buf.format({async = true})<cr>
     endif
