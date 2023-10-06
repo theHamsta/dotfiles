@@ -28,7 +28,7 @@ local go_packages = {
   "golang.org/x/tools/gopls@latest",
   "github.com/golangci/golangci-lint/cmd/golangci-lint@master",
   "honnef.co/go/tools/cmd/staticcheck@latest",
-    "github.com/fatih/gomodifytags@master",
+  "github.com/fatih/gomodifytags@master",
   "golang.org/x/tools/cmd/gorename@master",
   "github.com/jstemmer/gotags@master",
   "golang.org/x/tools/cmd/guru@master",
