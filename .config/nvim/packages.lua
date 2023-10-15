@@ -1212,7 +1212,16 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     "rose-pine/neovim",
     lazy = true,
   },
-  { "olimorris/onedarkpro.nvim", lazy = true },
+  {
+    "olimorris/onedarkpro.nvim",
+    config = function()
+      require("github-theme").setup {}
+      vim.cmd [[
+    colorscheme github_dark_dimmed
+    ]]
+    end,
+    --lazy = true,
+  },
   {
     "Yazeed1s/oh-lucy.nvim",
     config = function()
