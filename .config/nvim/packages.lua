@@ -65,7 +65,7 @@ require("lazy").setup {
       require("hex").setup()
     end,
   },
-  { "nvim-treesitter/nvim-treesitter-context", event = "VeryLazy" },
+  --{ "nvim-treesitter/nvim-treesitter-context", event = "VeryLazy" },
   {
     "Bekaboo/dropbar.nvim",
     config = function()
