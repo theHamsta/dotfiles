@@ -156,6 +156,10 @@ if lspconfig then
   -- require("lspconfig/configs").julials.install()
   --end
 
+  lspconfig.asm_lsp.setup{
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
   lspconfig.eslint.setup {
     on_attach = on_attach,
     capabilities = capabilities,
