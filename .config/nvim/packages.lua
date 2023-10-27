@@ -1234,7 +1234,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     config = function()
       vim.opt.background = "dark"
       vim.cmd [[
-        colorscheme tundra"
+        colorscheme tundra
         highlight link LspInlayHint Comment
       ]]
     end,
