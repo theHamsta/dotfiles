@@ -156,7 +156,7 @@ if lspconfig then
   -- require("lspconfig/configs").julials.install()
   --end
 
-  lspconfig.asm_lsp.setup{
+  lspconfig.asm_lsp.setup {
     on_attach = on_attach,
     capabilities = capabilities,
   }
@@ -460,7 +460,7 @@ if lspconfig then
   lspconfig.lua_ls.setup {
     on_init = function(client)
       local path = client.workspace_folders[1].name
-      if not vim.luv.fs_stat(path .. "/.luarc.json") and not vim.luv.fs_stat(path .. "/.luarc.jsonc") then
+      if not vim.uv.fs_stat(path .. "/.luarc.json") and not vim.uv.fs_stat(path .. "/.luarc.jsonc") then
         client.config.settings = vim.tbl_deep_extend("force", client.config.settings.Lua, {
           runtime = {
             -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
@@ -498,6 +498,7 @@ if lspconfig then
   }
 
   lspconfig.rust_analyzer.setup {
+    cmd = { shell.select_executable({os.getenv "HOME" .. "/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/rust-analyzer", os.getenv "HOME" .. "/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer"}) },
     settings = {
       ["rust-analyzer"] = {
         checkOnSave = {
@@ -784,7 +785,7 @@ if dap then
   dap.adapters.go = function(callback, config)
     local handle
     local port = 38697
-    handle = vim.luv.spawn(
+    handle = vim.uv.spawn(
       "dlv",
       {
         args = { "dap", "-l", "127.0.0.1:" .. port },
