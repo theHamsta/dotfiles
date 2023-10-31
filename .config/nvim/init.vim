@@ -779,4 +779,4 @@ nnoremap <leader>SS <cmd>lua require('sg.telescope').fuzzy_search_results()<CR>
 
 let g:query_lint_on = ["InsertLeave", "BufEnter", "TextChanged"]
 
-colorschem spaceduck
+colorschem tundra
