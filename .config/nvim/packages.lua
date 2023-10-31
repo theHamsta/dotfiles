@@ -1246,7 +1246,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   {
     "folke/tokyonight.nvim",
     config = function()
-      vim.cmd [[colorscheme tokyonight-storm]]
+      vim.cmd [[colorscheme tokyonight-night]]
     end,
   },
   { "bluz71/vim-nightfly-guicolors", lazy = true },
