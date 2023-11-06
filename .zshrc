@@ -59,7 +59,7 @@ HIST_STAMPS="dd/mm/yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git command-not-found extract microk8s)
+plugins=(git command-not-found extract microk8s nvm)
 eval "$(zoxide init zsh)"
 
 source $ZSH/oh-my-zsh.sh
@@ -155,9 +155,8 @@ SSH_ASKPASS=/usr/bin/ksshaskpass eval `ssh-agent -s` ssh-add $HOME/.ssh/id_rsa <
 
 alias luamake=/home/stephan/projects/lua-language-server/3rd/luamake/luamake
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 export CARGO_UNSTABLE_SPARSE_REGISTRY=true
 
