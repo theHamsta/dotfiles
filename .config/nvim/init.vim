@@ -382,6 +382,7 @@ endfunction
 
 augroup filetypedetect
     au! BufRead,BufNewFile *.osl set filetype=cpp
+    au! BufRead,BufNewFile *.slang set filetype=hlsl
     au! BufRead,BufNewFile *.sdp,*.SDP set filetype=sdp
     au! BufRead,BufNewFile *.gstlaunch set filetype=gstlaunch
     au! BufRead,BufNewFile *.nvmk set filetype=make
