@@ -780,4 +780,6 @@ nnoremap <leader>SS <cmd>lua require('sg.telescope').fuzzy_search_results()<CR>
 
 let g:query_lint_on = ["InsertLeave", "BufEnter", "TextChanged"]
 
+
 colorschem tundra
+lua vim.api.nvim_set_hl(0, "LspInlayHint", {link = "Comment"})
