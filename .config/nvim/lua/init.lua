@@ -1124,6 +1124,8 @@ if ok then
   end
 end
 
+vim.api.nvim_set_hl(0, "LspInlayHint", {link = "Comment"})
+
 vim.cmd [[
 command! -complete=file -nargs=* DebugRust lua require "my_debug".start_c_debugger({<f-args>}, "gdb", "rust-gdb")
 ]]
