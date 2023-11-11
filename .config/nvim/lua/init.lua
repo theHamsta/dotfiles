@@ -150,6 +150,23 @@ if lspconfig then
       capabilities = capabilities,
     }
   end
+  if not configs.slangd then
+    configs.slangd = {
+      default_config = {
+        cmd = { "slangd" },
+        filetypes = { "slang", "hlsl" },
+        root_dir = function(fname)
+          return nvim_lsp.util.find_git_ancestor(fname)
+        end,
+        single_file_support = true, -- suggested
+        on_attach = on_attach,
+      },
+    }
+    nvim_lsp.slangd.setup {
+      on_attach = on_attach,
+      capabilities = capabilities,
+    }
+  end
 
   --pcall(require, "lspconfig/julials")
   --if not require("lspconfig/configs").julials.install_info().is_installed then
