@@ -154,7 +154,7 @@ if lspconfig then
     configs.slangd = {
       default_config = {
         cmd = { "slangd" },
-        filetypes = { "slang", "hlsl" },
+        filetypes = { "shader_slang", "hlsl" },
         root_dir = function(fname)
           return nvim_lsp.util.find_git_ancestor(fname)
         end,
