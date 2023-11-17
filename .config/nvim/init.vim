@@ -195,6 +195,9 @@ if has("win32")
   if isdirectory("F:\\dev")
     nmap <c-a-p> :cd F:\dev<cr>:Files<cr>
     nmap <space><c-p> :cd F:\dev<cr>:Files<cr>
+  elseif isdirectory("C:\\Users\\admin\\projects")
+    nmap <c-a-p> :cd C:\Users\admin\projects<cr>:Files<cr>
+    nmap <space><c-p> :cd C:\Users\admin\projects<cr>:Files<cr>
   else
     nmap <c-a-p> :cd C:\dev<cr>:Files<cr>
     nmap <space><c-p> :cd C:\dev<cr>:Files<cr>
