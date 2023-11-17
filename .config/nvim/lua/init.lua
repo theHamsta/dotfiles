@@ -1177,15 +1177,3 @@ vim.fn.sign_define("DapStopped", { text = "", texthl = "DapStopped", linehl =
 for _, parser in ipairs(require("nvim-treesitter.parsers").get_parser_configs()) do
   parser.repo.use_makefile = true
 end
-
-local function osc52_copy(text)
-  local text_b64 = vim.base64.encode(text)
-  local osc = string.format("%s]52;c;%s%s", string.char(0x1b), text_b64, string.char(0x07))
-  io.stderr:write(osc)
-end
-
-vim.api.nvim_create_autocmd("TextYankPost", {
-  callback = function()
-    osc52_copy(vim.fn.getreg(vim.v.event.regname))
-  end,
-})
