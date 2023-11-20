@@ -156,6 +156,7 @@ if lspconfig then
     settings = {
       slang = {
         --predefinedMacros = {"MY_VALUE_MACRO=1"},
+        --additionalSearchPaths
         inlayHints = {
           deducedTypes = true,
           parameterNames = true,
