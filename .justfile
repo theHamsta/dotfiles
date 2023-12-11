@@ -32,8 +32,9 @@ release:
 		-DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
 		-DCMAKE_CUDA_HOST_COMPILER=g++-11 \
 		-DCMAKE_CUDA_COMPILER_LAUNCHER=ccache \
-		-DCMAKE_BUILD_TYPE=RelWithDebInfo -G Ninja \
-		-DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color -march=native" \
+		-DCMAKE_BUILD_TYPE=Release -G Ninja \
+		-DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
+		-DCMAKE_CXX_FLAGS_RELEASE="-march=native -O3 -DNDEBUG" \
 		-DCMAKE_C_FLAGS=-fdiagnostics-color \
 		-DCMAKE_CUDA_ARCHITECTURES=OFF \
 		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo"
@@ -43,15 +44,27 @@ release:
 
 gcc-release:
 	mkdir -p gcc-release
-	export CXX=g++-11 && export CC=gcc-11 && cd gcc-release && cmake \
+	export CXX=g++-13 && export CC=gcc-13 && cd gcc-release && cmake \
+		-DCMAKE_EXPORT_COMPILE_COMMANDS=YES  \
+		-DCMAKE_VERBOSE_MAKEFILE=OFF  \
+		-DCMAKE_BUILD_TYPE=Release -G Ninja \
+		-DCMAKE_CUDA_ARCHITECTURES=OFF \
+		-DCMAKE_CXX_FLAGS="-fdiagnostics-color -O3" \
+		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo" \
+		-DCMAKE_C_FLAGS="-fdiagnostics-color" ..
+	cd gcc-release && cmake --build . --parallel
+
+gcc11-release:
+	mkdir -p gcc11-release
+	export CXX=g++-11 && export CC=gcc-11 && cd gcc11-release && cmake \
 		-DCMAKE_EXPORT_COMPILE_COMMANDS=YES  \
 		-DCMAKE_VERBOSE_MAKEFILE=OFF  \
 		-DCMAKE_BUILD_TYPE=RelWithDebInfo -G Ninja \
 		-DCMAKE_CUDA_ARCHITECTURES=OFF \
-		-DCMAKE_CXX_FLAGS=-fdiagnostics-color \
+		-DCMAKE_CXX_FLAGS="-fdiagnostics-color -O3" \
 		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo" \
 		-DCMAKE_C_FLAGS="-fdiagnostics-color" ..
-	cd gcc-release && cmake --build . --parallel
+	cd gcc11-release && cmake --build . --parallel
 
 gcc-9-release:
 	mkdir -p gcc-release

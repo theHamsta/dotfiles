@@ -39,6 +39,8 @@ ehthumbs.db
 Thumbs.db
 *.kate-swp
 /release/*
+**/gcc-release/*
+**/gcc11-release/*
 /build/*
 cmake-build-*
 /debug/*
