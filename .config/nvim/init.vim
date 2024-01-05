@@ -107,6 +107,7 @@ nnoremap <Leader>oo :only<cr>
 noremap <silent> <leader><C-k> :lprevious<cr>
 noremap <silent> <leader><C-j> :lnext<cr>
 noremap <silent> <c-k> :cprevious<cr>
+noremap <silent> <leader>rr :grep <cword> | copen
 noremap <silent> <c-j> :cnext<cr>
 nmap <leader>bl :BLines<cr>
 
