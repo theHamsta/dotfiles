@@ -30,6 +30,12 @@ meson-release:
 	ln -s release/compile_commands.json .
 	meson compile -C release
 
+meson-debug:
+	meson setup --reconfigure --buildtype=release debug
+	rm -f compile_commands.json
+	ln -s debug/compile_commands.json .
+	meson compile -C debug
+
 meson-install: meson-release
 	meson install -C release
 
@@ -108,9 +114,3 @@ install: release
 
 gcc-install: gcc-release
 	cd gcc-release && sudo ninja install
-
-meson-debug:
-	meson debug --buildtype=debug
-	cd debug && meson compile
-	rm -rf compile_commands.json
-	ln -s debug/compile_commands.json .
