@@ -24,6 +24,14 @@ build:
 
 run: build
 	debug/pystencils_gui
+meson-release:
+	meson setup --reconfigure --buildtype=release release
+	rm -f compile_commands.json
+	ln -s release/compile_commands.json .
+	meson compile -C release
+
+meson-install: meson-release
+	meson install -C release
 
 release:
 	mkdir -p release
@@ -100,11 +108,6 @@ install: release
 
 gcc-install: gcc-release
 	cd gcc-release && sudo ninja install
-
-meson-release:
-	meson build --buildtype=release
-	cd build && meson compile
-	ln -s build/compile_commands.json .
 
 meson-debug:
 	meson debug --buildtype=debug
