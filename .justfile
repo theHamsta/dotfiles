@@ -31,7 +31,7 @@ meson-release:
 	meson compile -C release
 
 meson-debug:
-	meson setup --reconfigure --buildtype=release debug
+	meson setup --reconfigure --buildtype=debug debug
 	rm -f compile_commands.json
 	ln -s debug/compile_commands.json .
 	meson compile -C debug
