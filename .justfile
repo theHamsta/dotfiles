@@ -112,4 +112,5 @@ gcc-install: gcc-release
 meson-debug:
 	meson debug --buildtype=debug
 	cd debug && meson compile
+	rm -rf compile_commands.json
 	ln -s debug/compile_commands.json .
