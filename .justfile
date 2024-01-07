@@ -25,7 +25,7 @@ build:
 run: build
 	debug/pystencils_gui
 meson-release:
-	meson setup --reconfigure --buildtype=release -Dc_flags=-fdiagnostics-absolute-paths -Dcpp_flags=-fdiagnostics-absolute-paths release
+	meson setup --reconfigure --buildtype=release -Dc_flags="-fdiagnostics-absolute-paths -march=native" -Dcpp_flags="-fdiagnostics-absolute-paths -march=native" release
 	rm -f compile_commands.json
 	ln -s release/compile_commands.json .
 	meson compile -C release
