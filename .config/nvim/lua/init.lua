@@ -58,6 +58,7 @@ vim.diagnostic.config {
 }
 
 vim.keymap.set("n", "<leader>rr", ":grep <cword> | copen<cr>", { silent = true, buffer = false, noremap = true })
+vim.keymap.set("v", "<leader>rr", "y:grep <c-r>+ | copen<cr>", { silent = true, buffer = false, noremap = true })
 
 _G["NvimLspMaps"] = function()
   vim.cmd [[Lazy load fidget.nvim]]
