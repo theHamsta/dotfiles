@@ -390,7 +390,7 @@ augroup filetypedetect
     au! BufRead,BufNewFile *.gstlaunch set filetype=gstlaunch
     au! BufRead,BufNewFile *.nvmk set filetype=make
     au! BufRead,BufNewFile .busted set filetype=lua
-    au! BufRead,BufNewFile *.proto2 set filetype=proto
+    au! BufRead,BufNewFile *.proto2,*.proto, *.proto3 set filetype=proto
     au! BufRead,BufNewFile *.nim set filetype=nim
     au! BufRead,BufNewFile *.nu set filetype=nu
     au! BufRead,BufNewFile *.ny set filetype=scheme
