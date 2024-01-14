@@ -1,34 +1,41 @@
+#zmodload zsh/zprof
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-source ~/.profile
 
+fpath=($HOME/.zsh-completions $fpath)
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-#ZSH_THEME="spaceship"
-#ZSH_THEME="agnosterzak"
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="robbyrussell"
 
-SPACESHIP_TIME_SHOW=true
-SPACESHIP_PROMPT_SEPARATE_LINE=true
-SPACESHIP_PROMPT_ADD_NEWLINE=false
-#zle_highlight={default:bold}
- #POSTEDIT=$'\e[0m'
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in $ZSH/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
 
+# Uncomment the following line to automatically update without prompting.
+# DISABLE_UPDATE_PROMPT="true"
+
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -40,6 +47,8 @@ SPACESHIP_PROMPT_ADD_NEWLINE=false
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
+# Caution: this setting can cause issues with multiline prompts (zsh 5.7.1 and newer seem to work)
+# See https://github.com/ohmyzsh/ohmyzsh/issues/5765
 # COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
@@ -49,27 +58,23 @@ SPACESHIP_PROMPT_ADD_NEWLINE=false
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-HIST_STAMPS="dd/mm/yyyy"
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git command-not-found extract microk8s nvm)
-eval "$(zoxide init zsh)"
+plugins=(git zoxide extract microk8s)
 
 source $ZSH/oh-my-zsh.sh
-
-zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path ~/.zsh/cache
-
-alias -g ...='../..'
-alias -g ....='../../..'
-alias vi=nvim
 
 # User configuration
 
@@ -88,9 +93,6 @@ alias vi=nvim
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -99,66 +101,78 @@ alias vi=nvim
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-#
-command -v dtags-activate > /dev/null 2>&1 && eval "`dtags-activate zsh`"
+export HISTFILE=~/.zsh_history
+export HISTSIZE=999999999
+export SAVEHIST=$HISTSIZE
 
-#if  command -v nala &> /dev/null
-#then
-	#alias up="sudo nala update"
-	#alias gr="sudo nala upgrade"
-	#alias i="sudo nala install "
-#else
-	alias up="sudo apt update"
-	alias gr="sudo apt upgrade"
-	alias i="sudo apt install "
-#fi
+export CUDA_PATH=/usr/local/cuda
+export PATH=~/.cargo/bin:$PATH
+export PATH=$CUDA_PATH/bin:$PATH
+export PATH=/snap/bin:$PATH
+export PATH=/usr/lib/ccache/:$PATH
+export PATH=~/go/bin:$PATH
+export PATH=~/.local/bin:$PATH
+export PATH=$HOME/node_modules/.bin/:$PATH
+export PATH=./node_modules/.bin:$PATH
+export PATH=$PATH:/home/linuxbrew/.linuxbrew/bin
 
-alias l.='ls -d .* --color=auto'
-alias distupgrade="sudo apt-get dist-upgrade -f"
-alias ai="apt-cache show  "
-alias r="sudo apt remove "
-alias purge="sudo apt --purge remove "
-alias aptsearch="apt-cache search "
-alias autoremove="sudo apt autoremove"
+#export PATH=/media/other_linux/home/stephan/Downloads/nsight-systems-linux-internal-DVS/bin:$PATH
+#export PATH=/opt/nvidia/nsight-systems/2021.3.1/bin:$PATH
+#export PATH=$PATH:/opt/intel/oneapi/vtune/latest/bin64
+
+alias vi=nvim
+alias vim=nvim
 alias apt="sudo apt"
 alias autoremove="sudo apt autoremove"
+alias i="sudo apt install"
+alias r="sudo apt remove"
+alias gr="sudo apt upgrade"
+alias python="python3"
+alias ls="eza"
+alias ll="eza -l"
 
-alias cd..="cd .."
-alias cd...="cd ../.."
-alias -s tex=nvim
-alias ls=exa
-alias tree="exa --tree"
+#eval $(minikube docker-env)
+#alias helm="minikube helm"
+#alias h="minikube helm"
+#alias kubectl="minikube kubectl"
+#alias k="minikube kubectl"
+#alias wk="watch minikube kubectl"
 
-alias v='f -e nvim' # quick opening files with vim
-alias o='a -e xdg-open' # quick opening files with xdg-open
-alias h='microk8s helm'
-alias k='microk8s kubectl'
-alias wk='watch microk8s kubectl'
+alias helm="microk8s helm"
+alias h="microk8s helm"
+alias kubectl="microk8s kubectl"
+alias k="microk8s kubectl"
+alias wk="watch microk8s kubectl"
 
-export CUDAHOSTCXX=g++-13
-export PATH=~/.local/bin/:${PATH}
-export PATH=~/go/bin/:${PATH}
-export PATH=/usr/local/cuda/bin:${PATH}
-export PATH=/opt/tensorrt/bin:${PATH}
-export GIT_EDITOR=nvim
-export PATH=/snap/bin/:${PATH}
+export CC=clang-18
+export CXX=clang++-18
+export CUDACC=nvcc
+export CUDACXX=nvcc
+export CUDAHOSTCXX=g++-11
+export CPATH=$CUDA_PATH/targets/x86_64-linux/include/:$CPATH
+export CMAKE_CUDA_COMPILER_LAUNCHER=ccache
+
+export GO111MODULE=on
+export DOCKER_BUILDKIT=1 
+
+alias ju="just --justfile ~/.justfile --working-directory ."
 
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export DOCKER_TMP=/other-linux/docker
 
-eval "$(starship init zsh)"
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /home/stephan/go/bin/bitcomplete bit
-test -r /home/stephan/.opam/opam-init/init.zsh && . /home/stephan/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-
-SSH_ASKPASS=/usr/bin/ksshaskpass eval `ssh-agent -s` ssh-add $HOME/.ssh/id_rsa </dev/null
+source $HOME/.profile
 
 alias luamake=/home/stephan/projects/lua-language-server/3rd/luamake/luamake
+export PATH="$PATH:/home/stephan"
+export PATH="$PATH:$HOME/.yarn/bin/"
 
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+export CUDA_MODULE_LOADING=LAZY  
 
-export CARGO_UNSTABLE_SPARSE_REGISTRY=true
+#export NVM_DIR="$HOME/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export WEBKIT_DISABLE_DMABUF_RENDERER=1
 
-alias nvim-qt-wsl='f(){ nvim --listen 127.0.0.1:10710 --headless "$@" & "/mnt/c/Program Files/Neovim/bin/nvim-qt.exe" --server 127.0.0.1:10710 }; f'
-alias ju='just --justfile ~/.justfile --working-directory .'
+eval "$(starship init zsh)"
+#zprof
+
