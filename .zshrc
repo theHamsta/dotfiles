@@ -68,6 +68,7 @@ ZSH_THEME="robbyrussell"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+export PATH=~/.cargo/bin:$PATH
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
@@ -107,7 +108,6 @@ export HISTSIZE=999999999
 export SAVEHIST=$HISTSIZE
 
 export CUDA_PATH=/usr/local/cuda
-export PATH=~/.cargo/bin:$PATH
 export PATH=$CUDA_PATH/bin:$PATH
 export PATH=/snap/bin:$PATH
 export PATH=/usr/lib/ccache/:$PATH
