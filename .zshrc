@@ -106,6 +106,35 @@ source $ZSH/oh-my-zsh.sh
 export HISTFILE=~/.zsh_history
 export HISTSIZE=999999999
 export SAVEHIST=$HISTSIZE
+# Immediately append to history file:
+setopt INC_APPEND_HISTORY
+
+# Record timestamp in history:
+setopt EXTENDED_HISTORY
+
+# Expire duplicate entries first when trimming history:
+setopt HIST_EXPIRE_DUPS_FIRST
+
+# Dont record an entry that was just recorded again:
+setopt HIST_IGNORE_DUPS
+
+# Delete old recorded entry if new entry is a duplicate:
+setopt HIST_IGNORE_ALL_DUPS
+
+# Do not display a line previously found:
+setopt HIST_FIND_NO_DUPS
+
+# Dont record an entry starting with a space:
+setopt HIST_IGNORE_SPACE
+
+# Dont write duplicate entries in the history file:
+setopt HIST_SAVE_NO_DUPS
+
+# Share history between all sessions:
+setopt SHARE_HISTORY
+
+# Execute commands using history (e.g.: using !$) immediatel:
+unsetopt HIST_VERIFY
 
 export CUDA_PATH=/usr/local/cuda
 export PATH=$CUDA_PATH/bin:$PATH
