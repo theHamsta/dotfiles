@@ -599,6 +599,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
         sources = cmp.config.sources({
           { name = "jupynium", priority = 1000 },
           { name = "nvim_lsp" },
+          { name = "path", priority = 1000 },
           { name = "luasnip" }, -- For luasnip users.
           --{ name = "ultisnips" }, -- For ultisnips users.
           { name = "emoji", insert = true },
