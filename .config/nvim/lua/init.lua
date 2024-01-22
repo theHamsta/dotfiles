@@ -519,8 +519,9 @@ if lspconfig then
   lspconfig.rust_analyzer.setup {
     cmd = {
       shell.select_executable {
-        os.getenv "HOME" .. "/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/rust-analyzer",
-        os.getenv "HOME" .. "/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer",
+        "rust-analyzer",
+        ((os.getenv "HOME") or "") .. "/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/rust-analyzer",
+        ((os.getenv "HOME") or "") .. "/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer",
       },
     },
     settings = {
