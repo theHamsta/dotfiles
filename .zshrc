@@ -174,8 +174,8 @@ alias kubectl="microk8s kubectl"
 alias k="microk8s kubectl"
 alias wk="watch microk8s kubectl"
 
-export CC=clang-18
-export CXX=clang++-18
+export CC=clang-19
+export CXX=clang++-19
 export CUDACC=nvcc
 export CUDACXX=nvcc
 export CUDAHOSTCXX=g++-11
