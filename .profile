@@ -16,7 +16,6 @@
 export DOCKER_BUILDKIT=1
 # set PATH so it includes user's private bin directories
 export GOPATH=$HOME/go
-export PATH="/usr/local/cuda-11.1/bin:$PATH"
 export PATH="/usr/local/cuda/bin:$PATH"
 export PATH="/snap/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$PATH"
@@ -39,14 +38,14 @@ export PATH="/opt/blender:$PATH"
 #export PYTHONPATH=/home/stephan/projects/walberla/debug-mpi/apps/pythonmodule:$PYTHONPATH
 export PYTHONPATH="/home/stephan/projects/CV-CUDA/ci/build-rel/lib/python/:$PYTHONPATH"
 #export PYTHONPATH="$HOME/.local/lib/python3.8/site-packages:$PYTHONPATH"
-export OMP_NUM_THREADS=4
+export OMP_NUM_THREADS=$(nproc)
 
-export CC=/usr/lib/ccache/clang-17
-export CXX=/usr/lib/ccache/clang++-17
-export OMPI_CC=/usr/lib/ccache/clang-17
-export OMPI_CXX=/usr/lib/ccache/clang++-17
-export MPICH_CC=/usr/lib/ccache/clang-17
-export MPICH_CXX=/usr/lib/ccache/clang++-17
+export CC=/usr/lib/ccache/clang-19
+export CXX=/usr/lib/ccache/clang++-19
+export OMPI_CC=/usr/lib/ccache/clang-19
+export OMPI_CXX=/usr/lib/ccache/clang++-19
+export MPICH_CC=/usr/lib/ccache/clang-19
+export MPICH_CXX=/usr/lib/ccache/clang++-19
 
 #export CC=/usr/lib/ccache/gcc-10
 #export CXX=/usr/lib/ccache/g++-10
@@ -70,7 +69,6 @@ export PATH=$HOME/.nimble/bin:$PATH
 export PATH=$PATH:$HOME/projects/emsdk:$HOME/projects/emsdk/node/12.9.1_64bit/bin:$HOME/projects/emsdk/upstream/emscripten
 export PATH=~/node_modules/.bin:$PATH
 export PATH=./node_modules/.bin:$PATH
-export PATH=/home/stephan/opt/julia-1.6.0/bin:$PATH
 
 
 
