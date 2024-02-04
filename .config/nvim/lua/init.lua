@@ -780,17 +780,18 @@ if dap then
       "gdb",
     },
     args = {
+      "--quiet",
       "-i",
       "dap",
     },
     --env = function()
-      --local variables = {
-        --LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES",
-      --}
-      --for k, v in pairs(vim.fn.environ()) do
-        --table.insert(variables, string.format("%s=%s", k, v))
-      --end
-      --return variables
+    --local variables = {
+    --LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES",
+    --}
+    --for k, v in pairs(vim.fn.environ()) do
+    --table.insert(variables, string.format("%s=%s", k, v))
+    --end
+    --return variables
     --end,
     name = "gdb",
     stopOnEntry = true,
@@ -880,7 +881,7 @@ if dap then
 
   --if dap.custom_event_handlers then
   dap.listeners.after.event_initialized["my handler id"] = function(_, _)
-    vim.cmd [[Lazy load nvim-dap-ui]]
+    --vim.cmd [[Lazy load nvim-dap-ui]]
     vim.cmd [[Lazy load telescope-dap.nvim]]
     dap.repl.open()
     --if ok then
