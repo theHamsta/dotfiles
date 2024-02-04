@@ -120,43 +120,30 @@ function M.start_python_debugger(use_this_file, is_pytest)
 end
 
 local last_gdb_config
-
-M.start_c_debugger = function(args, mi_mode, mi_debugger_path)
+M.start_gdb = function(args)
   local dap = require "dap"
+  args = vim.tbl_map(function(arg)
+    return vim.fn.expand(arg)
+  end, args)
   if args and #args > 0 then
     last_gdb_config = {
-      type = "cpp",
+      type = "rust",
       name = args[1],
       request = "launch",
       program = table.remove(args, 1),
       args = args,
       cwd = vim.fn.getcwd(),
-      env = function()
-        local variables = {}
-        for k, v in pairs(vim.fn.environ()) do
-          table.insert(variables, string.format("%s=%s", k, v))
-        end
-        return variables
-      end,
-      environment = function()
-        local variables = {}
-        for k, v in pairs(vim.fn.environ()) do
-          table.insert(variables, string.format("%s=%s", k, v))
-        end
-        return variables
-      end,
-      externalConsole = true,
-      MIMode = mi_mode or "gdb",
-      MIDebuggerPath = mi_debugger_path,
+      --initCommands = get_init_commands(),
     }
   end
 
   if not last_gdb_config then
-    print 'No binary to debug set! Use ":DebugC <binary> <args>" or ":DebugRust <binary> <args>"'
+    print 'No binary to debug set! Use ":DebugLLDB <binary> <args>"'
     return
   end
 
-  dap.run(last_gdb_config)
+  assert(dap.adapters.gdb.command)
+  dap.launch(dap.adapters.gdb, last_gdb_config)
   dap.repl.open()
 end
 

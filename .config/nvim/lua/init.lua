@@ -769,6 +769,33 @@ if dap then
   --}
   --}
 
+  dap.adapters.gdb = {
+    type = "executable",
+    attach = {
+      pidProperty = "pid",
+      pidSelect = "ask",
+    },
+    command = shell.select_executable {
+      "rust-gdb",
+      "gdb",
+    },
+    args = {
+      "-i",
+      "dap",
+    },
+    --env = function()
+      --local variables = {
+        --LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES",
+      --}
+      --for k, v in pairs(vim.fn.environ()) do
+        --table.insert(variables, string.format("%s=%s", k, v))
+      --end
+      --return variables
+    --end,
+    name = "gdb",
+    stopOnEntry = true,
+    --initCommands = 'command script import "/home/stephan/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/etc/lldb_lookup.py"',
+  }
   --local RUSTC_SYSROOT = vim.fn.system("rustc --print sysroot"):gsub("\n", "")
   dap.adapters.lldb = {
     type = "executable",
@@ -1155,7 +1182,7 @@ if ok then
 end
 
 vim.cmd [[
-command! -complete=file -nargs=* DebugRust lua require "my_debug".start_c_debugger({<f-args>}, "gdb", "rust-gdb")
+command! -complete=file -nargs=* DebugGdb lua require "my_debug".start_gdb({<f-args>})
 ]]
 vim.cmd [[
 command! -complete=file -nargs=* DebugLLDB lua require "my_debug".start_vscode_lldb({<f-args>})
