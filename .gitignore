@@ -162,3 +162,6 @@ vkvia.html
 foo
 *.dot
 html
+results
+*.sarif
+*.onnx.edit
