@@ -165,3 +165,4 @@ html
 results
 *.sarif
 *.onnx.edit
+*.nv-editor-cfg

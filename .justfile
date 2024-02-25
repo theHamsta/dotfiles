@@ -92,15 +92,20 @@ gcc-9-release:
 	cd gcc-release && cmake --build . --parallel
 
 gcc-debug:
-	mkdir -p gcc-debug
-	export CXX=g++-11 && export CC=gcc-11 && cd gcc-debug && cmake \
+	mkdir -p debug
+	CXX=g++-13 CC=gcc-13 cmake -Bdebug \
+		-DCMAKE_VERBOSE_MAKEFILE=OFF  \
 		-DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
-		-DCMAKE_BUILD_TYPE=Debug -G Ninja \
-		-DCMAKE_CXX_FLAGS=-fdiagnostics-color \
-		-DCMAKE_C_FLAGS=-fdiagnostics-color ..
+		-DCMAKE_CUDA_HOST_COMPILER=g++-11 \
+		-DCMAKE_CUDA_COMPILER_LAUNCHER=ccache \
+		-DCMAKE_BUILD_TYPE=debug -G Ninja \
+		-DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
+		-DCMAKE_C_FLAGS=-fdiagnostics-color \
+		-DCMAKE_CUDA_ARCHITECTURES=OFF \
+		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo"
 	rm -f compile_commands.json
-	ln -s gcc-debug/compile_commands.json .
-	cd gcc-debug && cmake --build . --parallel
+	ln -s debug/compile_commands.json .
+	cd debug && cmake --build . --parallel
 
 release-run: release
 	release/pystencils_gui
