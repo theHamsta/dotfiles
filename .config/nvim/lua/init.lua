@@ -242,6 +242,23 @@ if lspconfig then
     }
   end
 
+  require("lspconfig.configs").obsidian_ls = {
+    default_config = {
+      root_dir = function()
+        return vim.fn.getcwd()
+      end, -- this is applicable because markdown vaults have no defined root files
+      filetypes = { "markdown" },
+      cmd = { "markdown-oxide" },
+    },
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+
+  lspconfig.obsidian_ls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+
   lspconfig.flow.setup {
     on_attach = on_attach,
     capabilities = capabilities,
@@ -296,10 +313,10 @@ if lspconfig then
     },
   }
 
-  lspconfig.marksman.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  }
+  --lspconfig.marksman.setup {
+    --on_attach = on_attach,
+    --capabilities = capabilities,
+  --}
   --lspconfig.fsautocomplete.setup {
   --on_attach = on_attach,
   --capabilities = capabilities,
