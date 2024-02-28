@@ -86,6 +86,7 @@
   "onedarkpro.nvim": { "branch": "main", "commit": "3fbb6e8c35589e6373fcb8d49b6318f794740343" },
   "overseer.nvim": { "branch": "master", "commit": "4855aefcf335bbac71eea9c6a888958fb1ed1e1a" },
   "palenightfall.nvim": { "branch": "main", "commit": "25a1e7d43256834a671174e5d83edb57f7bec1e0" },
+  "persistent-breakpoints.nvim": { "branch": "main", "commit": "6f3ff5707385ee446acf548cb759db54223bcfca" },
   "playground": { "branch": "master", "commit": "ba48c6a62a280eefb7c85725b0915e021a1a0749" },
   "plenary.nvim": { "branch": "master", "commit": "4f71c0c4a196ceb656c824a70792f3df3ce6bb6d" },
   "popup.nvim": { "branch": "master", "commit": "b7404d35d5d3548a82149238289fa71f7f6de4ac" },
