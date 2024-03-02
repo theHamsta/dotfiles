@@ -17,7 +17,7 @@ build:
 		-DCMAKE_C_CLANG_TIDY="clang-tidy-17" \
 		-DCMAKE_CXX_CLANG_TIDY="clang-tidy-17" \
 		-DCMAKE_CUDA_ARCHITECTURES=OFF \
-		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo"
+		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo -G"
 	rm -f compile_commands.json
 	ln -s debug/compile_commands.json .
 	cd debug && cmake --build . --parallel
@@ -51,7 +51,7 @@ release:
 		-DCMAKE_CXX_FLAGS_RELEASE="-march=native -O3 -DNDEBUG" \
 		-DCMAKE_C_FLAGS=-fdiagnostics-color \
 		-DCMAKE_CUDA_ARCHITECTURES=OFF \
-		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo"
+		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo --use_fast_math"
 	rm -f compile_commands.json
 	ln -s release/compile_commands.json .
 	cd release && cmake --build . --parallel
