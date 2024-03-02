@@ -294,7 +294,7 @@ augroup terminal
     autocmd TermOpen * setlocal bufhidden=hide
     "autocmd TermOpen * set syntax=cpp
     autocmd TermOpen * setlocal nospell
-    autocmd TermOpen * nmap <silent> <buffer> <c-d> :bd!<cr>:q<cr>
+    "autocmd TermOpen * nmap <silent> <buffer> <c-d> :bd!<cr>:q<cr>
 augroup END
 
 
