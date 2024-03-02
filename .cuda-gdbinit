@@ -1,0 +1,3 @@
+set debuginfod enabled on
+set pagination off
+set follow-fork-mode child
