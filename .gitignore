@@ -168,3 +168,4 @@ results
 *.nv-editor-cfg
 .slangpy_cache
 *.lock
+subprojects/*/
