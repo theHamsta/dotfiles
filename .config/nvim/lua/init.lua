@@ -181,7 +181,7 @@ if lspconfig then
     on_attach = on_attach,
     capabilities = capabilities,
   }
-  lspconfig.swift_mesonls.setup {
+  lspconfig.mesonlsp.setup {
     on_attach = on_attach,
     capabilities = capabilities,
   }
