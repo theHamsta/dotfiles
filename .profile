@@ -89,6 +89,7 @@ export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 export P4EDITOR=nvim
 #export PATH="/home/stephan/opt/swift-5.3.2-RELEASE-ubuntu20.04/usr/bin/:$PATH"
 export NeovideMultiGrid=true
+export EDITOR=nvim
 
 export COMPlus_gcAllowVeryLargeObjects=1
 . "$HOME/.cargo/env"
