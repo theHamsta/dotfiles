@@ -42,15 +42,18 @@ require("lazy").setup {
   {
     dir = "~/projects/gp.nvim",
     config = function()
-      require("gp").setup {
-        openai_api_key = vim.env.OPENAI_API_KEY,
-      }
+      if vim.env.OPENAI_API_KEY then
+        require("gp").setup {
+          openai_api_key = vim.env.OPENAI_API_KEY,
+        }
+      end
 
       -- or setup with your own config (see Install > Configuration in Readme)
       -- require("gp").setup(config)
 
       -- shortcuts might be setup here (see Usage > Shortcuts in Readme)
     end,
+    enabled = vim.env.OPENAI_API_KEY,
   },
   {
     "stevearc/conform.nvim",
