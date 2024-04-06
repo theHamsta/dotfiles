@@ -169,4 +169,13 @@ results
 *.nv-editor-cfg
 .slangpy_cache
 *.lock
+*.exe
 subprojects/*/
+*.egg-info
+**/*.vcproj
+**/*.vcxproj
+**/*.sln
+**/build
+**/*.cmd
+buildarea
+built
