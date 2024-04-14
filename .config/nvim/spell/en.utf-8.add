@@ -503,3 +503,4 @@ nvinfer1
 Rocm
 toml
 pyproject
+pylyzer
