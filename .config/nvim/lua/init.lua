@@ -314,8 +314,8 @@ if lspconfig then
   }
 
   --lspconfig.marksman.setup {
-    --on_attach = on_attach,
-    --capabilities = capabilities,
+  --on_attach = on_attach,
+  --capabilities = capabilities,
   --}
   --lspconfig.fsautocomplete.setup {
   --on_attach = on_attach,
@@ -401,9 +401,22 @@ if lspconfig then
   }
 
   --lspconfig.pyright.setup {
-    --on_attach = on_attach,
-    --capabilities = capabilities,
+  --on_attach = on_attach,
+  --capabilities = capabilities,
   --}
+
+  lspconfig.pylyzer.setup {
+    on_attach = on_attach,
+    settings = {
+      python = {
+        checkOnType = true,
+        diagnostics = true,
+        inlayHints = true,
+        smartCompletion = true,
+      },
+    },
+    capabilities = capabilities,
+  }
 
   lspconfig.pylsp.setup {
     on_attach = on_attach,
