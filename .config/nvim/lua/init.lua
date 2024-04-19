@@ -119,7 +119,7 @@ if lspconfig then
     --ih.on_attach(client, bufnr)
     --require("lsp-inlayhints").on_attach(client, bufnr)
     if client.supports_method "textDocument/inlayHint" or client.name == "rust_analyzer" then
-      vim.lsp.inlay_hint.enable(bufnr, true)
+      vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
     end
     --local caps = client.server_capabilities
     --if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
@@ -405,18 +405,18 @@ if lspconfig then
   --capabilities = capabilities,
   --}
 
-  lspconfig.pylyzer.setup {
-    on_attach = on_attach,
-    settings = {
-      python = {
-        checkOnType = true,
-        diagnostics = true,
-        inlayHints = true,
-        smartCompletion = true,
-      },
-    },
-    capabilities = capabilities,
-  }
+  --lspconfig.pylyzer.setup {
+  --on_attach = on_attach,
+  --settings = {
+  --python = {
+  --checkOnType = false,
+  --diagnostics = false,
+  --inlayHints = false,
+  --smartCompletion = true,
+  --},
+  --},
+  --capabilities = capabilities,
+  --}
 
   lspconfig.pylsp.setup {
     on_attach = on_attach,
