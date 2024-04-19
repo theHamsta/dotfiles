@@ -316,8 +316,7 @@ nnoremap <silent> gP :call GotoPython()<cr>
 let g:slime_target = "neovim"
 
 nnoremap <leader>ag :Ag<cr>
-"nnoremap <leader>rg :Rg<cr>
-nnoremap <leader>rg :Telescope live_grep<cr>
+nnoremap <leader>rg :Rg<cr>
 let g:LanguageClient_diagnosticsList = "Location"
 let g:multi_cursor_exit_from_insert_mode=0
 let g:multi_cursor_exit_from_visual_mode=0
