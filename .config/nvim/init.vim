@@ -19,7 +19,8 @@ set path=.,./debug,../release,/usr/local/include,/usr/include
 set conceallevel=2
 ""let g:tex_conceal='abdmg'
 let g:tex_flavor='latex'
-
+noremap <expr> n 'Nn'[v:searchforward]
+noremap <expr> N 'nN'[v:searchforward]
 
 set wildignore+=tags,*.fasl,_minted-*,*.egg-info,tmp,*.so,*.swp,*.zip,*.log,*/CMakeFiles/*,*.aux,*.lof,*.lot,*.gz,*.fls,*.fdb_latexmk,*.toc,__*__,*[0-9]+,*.class,*.bak?,*.bak??,*.md5,*.snm,*.bbl,*.nav,*.out,*.run.xml,*.bcf,*.blg,*.auxlock,*.dvi,*.glo,*.glg,*.ist
 set wildmode=longest:full,full
