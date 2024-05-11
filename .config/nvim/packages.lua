@@ -40,6 +40,13 @@ local go_packages = {
 
 require("lazy").setup {
   {
+    'piersolenski/telescope-import.nvim',
+    dependencies = 'nvim-telescope/telescope.nvim',
+    config = function()
+      require("telescope").load_extension("import")
+    end
+  },
+  {
     dir = "~/projects/gp.nvim",
     config = function()
       if vim.env.OPENAI_API_KEY then
@@ -720,12 +727,12 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     cmd = { "Trouble" },
   },
   { "windwp/nvim-ts-autotag", enabled = false },
-  --{
-  --"windwp/nvim-autopairs",
-  --config = function()
-  --require("nvim-autopairs").setup {}
-  --end,
-  --},
+  {
+  "windwp/nvim-autopairs",
+  config = function()
+  require("nvim-autopairs").setup {}
+  end,
+  },
   { "mfussenegger/nvim-treehopper", keys = "<space><space>" },
   { "dstein64/nvim-scrollview", enabled = false },
   {
