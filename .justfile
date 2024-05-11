@@ -14,8 +14,8 @@ build:
 		-DCMAKE_CXX_FLAGS_INIT="-fsanitize=undefined -fsanitize=address" \
 		-DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
 		-DCMAKE_C_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
-		-DCMAKE_C_CLANG_TIDY="clang-tidy-17" \
-		-DCMAKE_CXX_CLANG_TIDY="clang-tidy-17" \
+		-DCMAKE_C_CLANG_TIDY="clang-tidy-19" \
+		-DCMAKE_CXX_CLANG_TIDY="clang-tidy-19" \
 		-DCMAKE_CUDA_ARCHITECTURES=OFF \
 		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo -G"
 	rm -f compile_commands.json
@@ -51,7 +51,7 @@ release:
 		-DCMAKE_CXX_FLAGS_RELEASE="-march=native -O3 -DNDEBUG" \
 		-DCMAKE_C_FLAGS=-fdiagnostics-color \
 		-DCMAKE_CUDA_ARCHITECTURES=OFF \
-		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo --use_fast_math"
+		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo --use_fast_math -O3"
 	rm -f compile_commands.json
 	ln -s release/compile_commands.json .
 	cd release && cmake --build . --parallel
