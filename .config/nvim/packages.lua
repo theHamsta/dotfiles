@@ -329,7 +329,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
         --return table.concat(
         --vim.tbl_map(function(server)
         --return server.name
-        --end, vim.lsp.get_active_clients { bufnr = vim.api.nvim_get_current_buf() }),
+        --end, vim.lsp.get_clients { bufnr = vim.api.nvim_get_current_buf() }),
         --" "
         --)
         --end,
@@ -353,7 +353,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
               return table.concat(
                 vim.tbl_map(function(server)
                   return server.name
-                end, vim.lsp.get_active_clients { bufnr = vim.api.nvim_get_current_buf() }),
+                end, vim.lsp.get_clients { bufnr = vim.api.nvim_get_current_buf() }),
                 " "
               )
             end,

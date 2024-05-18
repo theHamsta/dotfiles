@@ -642,8 +642,8 @@ end
 
 local dap = vim.F.npcall(require, "dap")
 if dap then
-  vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "", linehl = "", numhl = "" })
-  vim.fn.sign_define("DapStopped", { text = "→", texthl = "", linehl = "NvimDapStopped", numhl = "" })
+  --vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "", linehl = "", numhl = "" })
+  --vim.fn.sign_define("DapStopped", { text = "→", texthl = "", linehl = "NvimDapStopped", numhl = "" })
 
   require("dap-python").setup "/usr/bin/python3"
   require("dap-python").test_runner = "pytest"
