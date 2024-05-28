@@ -505,3 +505,5 @@ toml
 pyproject
 pylyzer
 gitignore
+deserialization
+deserialize
