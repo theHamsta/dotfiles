@@ -76,7 +76,7 @@ end
 
 M.git_push = function(force)
   local git_push = luajob:new {
-    cmd = "git push" .. (force and " -f" or ""),
+    cmd = "git push" .. (force and " --force-with-lease" or ""),
     on_stdout = luajob_on_stdout,
     on_stderr = luajob_on_stdout,
     on_exit = function(code, _)
