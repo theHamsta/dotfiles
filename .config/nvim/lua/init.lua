@@ -55,6 +55,14 @@ vim.diagnostic.config {
   float = {
     source = "always", -- Or "if_many"
   },
+  signs = {
+    "DapBreakpoint",
+    { text = "🛑", texthl = "", linehl = "", numhl = "" },
+    "DapStopped",
+    { text = "→", texthl = "", linehl = "NvimDapStopped", numhl = "" },
+    "DapBreakpointRejected",
+    { text = "", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" },
+  },
 }
 
 vim.keymap.set("n", "<leader>rr", ":grep <cword> | copen<cr>", { silent = true, buffer = false, noremap = true })
@@ -642,9 +650,6 @@ end
 
 local dap = vim.F.npcall(require, "dap")
 if dap then
-  vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "", linehl = "", numhl = "" })
-  vim.fn.sign_define("DapStopped", { text = "→", texthl = "", linehl = "NvimDapStopped", numhl = "" })
-
   require("dap-python").setup "/usr/bin/python3"
   require("dap-python").test_runner = "pytest"
   dap.adapters.haskell = {
@@ -1225,24 +1230,6 @@ command! -complete=file -nargs=* PythonDebug lua require "my_debug".python_debug
 vim.api.nvim_set_hl(0, "DapBreakpoint", { ctermbg = 0, fg = "#993939", bg = "#31353f" })
 vim.api.nvim_set_hl(0, "DapLogPoint", { ctermbg = 0, fg = "#61afef", bg = "#31353f" })
 vim.api.nvim_set_hl(0, "Stopped", { ctermbg = 0, fg = "#98c379", bg = "#31353f" })
-
-vim.fn.sign_define(
-  "DapBreakpoint",
-  { text = "", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }
-)
-vim.fn.sign_define(
-  "DapBreakpointCondition",
-  { text = "ﳁ", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }
-)
-vim.fn.sign_define(
-  "DapBreakpointRejected",
-  { text = "", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }
-)
-vim.fn.sign_define(
-  "DapLogPoint",
-  { text = "", texthl = "DapLogPoint", linehl = "DapLogPoint", numhl = "DapLogPoint" }
-)
-vim.fn.sign_define("DapStopped", { text = "", texthl = "DapStopped", linehl = "DapStopped", numhl = "DapStopped" })
 
 for _, parser in ipairs(require("nvim-treesitter.parsers").get_parser_configs()) do
   parser.repo.use_makefile = true
