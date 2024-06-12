@@ -40,11 +40,11 @@ local go_packages = {
 
 require("lazy").setup {
   {
-    'piersolenski/telescope-import.nvim',
-    dependencies = 'nvim-telescope/telescope.nvim',
+    "piersolenski/telescope-import.nvim",
+    dependencies = "nvim-telescope/telescope.nvim",
     config = function()
-      require("telescope").load_extension("import")
-    end
+      require("telescope").load_extension "import"
+    end,
   },
   {
     dir = "~/projects/gp.nvim",
@@ -111,6 +111,14 @@ require("lazy").setup {
     lazy = true,
   },
   "towolf/vim-helm",
+  {
+    "axieax/urlview.nvim",
+    config =function() require("urlview").setup {
+      -- custom configuration options --
+      default_picker = "telescope",
+      default_action = "system",
+    }end,
+  },
   --{ "kiyoon/jupynium.nvim", run = "pip3 install --user . --break-system-packages" },
   {
     "gabrielpoca/replacer.nvim",
@@ -728,10 +736,10 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   },
   { "windwp/nvim-ts-autotag", enabled = false },
   {
-  "windwp/nvim-autopairs",
-  config = function()
-  require("nvim-autopairs").setup {}
-  end,
+    "windwp/nvim-autopairs",
+    config = function()
+      require("nvim-autopairs").setup {}
+    end,
   },
   { "mfussenegger/nvim-treehopper", keys = "<space><space>" },
   { "dstein64/nvim-scrollview", enabled = false },
