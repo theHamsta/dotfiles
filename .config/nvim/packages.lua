@@ -111,13 +111,13 @@ require("lazy").setup {
     lazy = true,
   },
   "towolf/vim-helm",
-  {
-    "axieax/urlview.nvim",
-    config =function() require("urlview").setup {
-      default_picker = "telescope",
-      default_action = "system",
-    }end,
-  },
+  --[[{]]
+    --[["axieax/urlview.nvim",]]
+    --[[config =function() require("urlview").setup {]]
+      --[[default_picker = "telescope",]]
+      --[[default_action = "system",]]
+    --[[}end,]]
+  --[[}]],
   --{ "kiyoon/jupynium.nvim", run = "pip3 install --user . --break-system-packages" },
   {
     "gabrielpoca/replacer.nvim",
