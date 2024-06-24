@@ -69,7 +69,6 @@ vim.keymap.set("n", "<leader>rr", ":grep <cword> | copen<cr>", { silent = true, 
 vim.keymap.set("v", "<leader>rr", "y:grep <c-r>+ | copen<cr>", { silent = true, buffer = false, noremap = true })
 
 _G["NvimLspMaps"] = function()
-  vim.cmd [[Lazy load fidget.nvim]]
   vim.keymap.set("n", "gd", vim.lsp.buf.definition, { silent = true, buffer = true })
   vim.keymap.set("n", "gD", "<c-w>vgd", { silent = true, buffer = true })
   vim.keymap.set("n", "<leader>gd", vim.lsp.buf.implementation, { silent = true, buffer = true })
@@ -100,6 +99,7 @@ _G["NvimLspMaps"] = function()
   vim.cmd [[command! CodeLens autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]]
 
   vim.cmd [[setlocal omnifunc=v:lua.vim.lsp.omnifunc]]
+  --vim.cmd [[Lazy load fidget.nvim]]
 end
 
 require("nvim-treesitter.install").prefer_git = false
@@ -134,6 +134,7 @@ if lspconfig then
     --vim.cmd [[autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.buf.semantic_tokens_full()]]
     --end
     vim.fn.NvimLspMaps()
+    print("hallo")
     if lsp_signature and vim.bo[bufnr].ft ~= "glsl" then
       lsp_signature.on_attach()
     end
