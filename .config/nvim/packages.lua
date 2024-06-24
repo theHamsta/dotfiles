@@ -112,11 +112,11 @@ require("lazy").setup {
   },
   "towolf/vim-helm",
   --{
-    --"axieax/urlview.nvim",
-    --config =function() require("urlview").setup {
-      --default_picker = "telescope",
-      --default_action = "system",
-    --}end,
+  --"axieax/urlview.nvim",
+  --config =function() require("urlview").setup {
+  --default_picker = "telescope",
+  --default_action = "system",
+  --}end,
   --},
   --{ "kiyoon/jupynium.nvim", run = "pip3 install --user . --break-system-packages" },
   {
@@ -1063,11 +1063,11 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     config = function()
       require("gitsigns").setup {
         signs = {
-          add = { hl = "GitGutterAdd", text = "▋", numhl = "GitSignsAddNr" },
-          change = { hl = "GitGutterChange", text = "▐", numhl = "GitSignsChangeNr" },
-          delete = { hl = "GitGutterDelete", text = "_", numhl = "GitSignsDeleteNr" },
-          topdelete = { hl = "GitGutterDelete", text = "‾", numhl = "GitSignsDeleteNr" },
-          changedelete = { hl = "GitGutterChange", text = "▐_", numhl = "GitSignsChangeNr" },
+          add = { text = "▋" },
+          change = { text = "▐" },
+          delete = { text = "_" },
+          topdelete = { text = "‾" },
+          changedelete = { text = "▐_" },
         },
         numhl = false,
         on_attach = function(bufnr)
