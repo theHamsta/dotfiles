@@ -134,7 +134,6 @@ if lspconfig then
     --vim.cmd [[autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.buf.semantic_tokens_full()]]
     --end
     vim.fn.NvimLspMaps()
-    print("hallo")
     if lsp_signature and vim.bo[bufnr].ft ~= "glsl" then
       lsp_signature.on_attach()
     end
