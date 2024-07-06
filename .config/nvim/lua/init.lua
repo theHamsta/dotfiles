@@ -65,6 +65,19 @@ vim.diagnostic.config {
   },
 }
 
+--nnoremap <silent> [d <cmd>lua vim.diagnostic.goto_prev()<CR>
+--nnoremap <silent> ]d <cmd>lua vim.diagnostic.goto_next()<CR>
+--nnoremap <silent> äk <cmd>lua vim.diagnostic.goto_prev()<CR>
+--nnoremap <silent> äj <cmd>lua vim.diagnostic.goto_next()<CR>
+local virtual_lines = false
+vim.keymap.set("n", "ld", vim.diagnostic.open_float, { silent = true })
+vim.keymap.set("n", "lD", vim.diagnostic.setqflist, { silent = true })
+vim.keymap.set("n", "<leader>dz", "<cmd>Neotree diagnostics reveal bottom<cr>", { silent = true })
+vim.keymap.set("n", "<leader>ll", function()
+  virtual_lines = not virtual_lines
+  vim.diagnostic.config { virtual_lines = virtual_lines, virtual_text = not virtual_lines }
+end, { silent = true })
+
 vim.keymap.set("n", "<leader>rr", ":grep <cword> | copen<cr>", { silent = true, buffer = false, noremap = true })
 vim.keymap.set("v", "<leader>rr", "y:grep <c-r>+ | copen<cr>", { silent = true, buffer = false, noremap = true })
 
@@ -86,7 +99,7 @@ _G["NvimLspMaps"] = function()
   vim.keymap.set("n", "<leader>de", require("lsp-ext").peek_definition, { silent = true, buffer = true })
   vim.keymap.set("n", "<2-LeftMouse", vim.lsp.buf.hover, { silent = true, buffer = true })
   vim.keymap.set("n", "<c-LeftMouse", vim.lsp.buf.definition, { silent = true, buffer = true })
-  vim.keymap.set("n", "üf", "<cmd>packadd lspsaga<cr><cmd>Lspsaga lsp_finder", { silent = true, buffer = true })
+  --vim.keymap.set("n", "üf", "<cmd>packadd lspsaga<cr><cmd>Lspsaga lsp_finder", { silent = true, buffer = true })
   vim.keymap.set("n", "<leader>fi", function()
     require("lspsaga.provider").lsp_finder()
   end, { silent = true, buffer = true })
