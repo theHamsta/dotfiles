@@ -46,22 +46,22 @@ require("lazy").setup {
       require("telescope").load_extension "import"
     end,
   },
-  {
-    dir = "~/projects/gp.nvim",
-    config = function()
-      if vim.env.OPENAI_API_KEY then
-        require("gp").setup {
-          openai_api_key = vim.env.OPENAI_API_KEY,
-        }
-      end
+  --{
+    --dir = "~/projects/gp.nvim",
+    --config = function()
+      --if vim.env.OPENAI_API_KEY then
+        --require("gp").setup {
+          --openai_api_key = vim.env.OPENAI_API_KEY,
+        --}
+      --end
 
-      -- or setup with your own config (see Install > Configuration in Readme)
-      -- require("gp").setup(config)
+      ---- or setup with your own config (see Install > Configuration in Readme)
+      ---- require("gp").setup(config)
 
-      -- shortcuts might be setup here (see Usage > Shortcuts in Readme)
-    end,
-    enabled = vim.env.OPENAI_API_KEY,
-  },
+      ---- shortcuts might be setup here (see Usage > Shortcuts in Readme)
+    --end,
+    --enabled = vim.env.OPENAI_API_KEY,
+  --},
   {
     "stevearc/conform.nvim",
     config = function()
@@ -740,7 +740,13 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       require("nvim-autopairs").setup {}
     end,
   },
-  { "mfussenegger/nvim-treehopper", keys = "<space><space>" },
+  { "mfussenegger/nvim-treehopper", keys = "<space><space>", config=function (...)
+    vim.cmd[[
+omap     <silent> m :<C-U>lua require('tsht').nodes()<CR>
+xnoremap <silent> m :lua require('tsht').nodes()<CR>
+    ]]
+    
+  end },
   { "dstein64/nvim-scrollview", enabled = false },
   {
     "NeogitOrg/neogit",
@@ -1060,6 +1066,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       "nvim-lua/plenary.nvim",
     },
     event = "BufReadPre",
+    enabled = false,
     config = function()
       require("gitsigns").setup {
         signs = {
