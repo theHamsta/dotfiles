@@ -47,20 +47,20 @@ require("lazy").setup {
     end,
   },
   --{
-    --dir = "~/projects/gp.nvim",
-    --config = function()
-      --if vim.env.OPENAI_API_KEY then
-        --require("gp").setup {
-          --openai_api_key = vim.env.OPENAI_API_KEY,
-        --}
-      --end
+  --dir = "~/projects/gp.nvim",
+  --config = function()
+  --if vim.env.OPENAI_API_KEY then
+  --require("gp").setup {
+  --openai_api_key = vim.env.OPENAI_API_KEY,
+  --}
+  --end
 
-      ---- or setup with your own config (see Install > Configuration in Readme)
-      ---- require("gp").setup(config)
+  ---- or setup with your own config (see Install > Configuration in Readme)
+  ---- require("gp").setup(config)
 
-      ---- shortcuts might be setup here (see Usage > Shortcuts in Readme)
-    --end,
-    --enabled = vim.env.OPENAI_API_KEY,
+  ---- shortcuts might be setup here (see Usage > Shortcuts in Readme)
+  --end,
+  --enabled = vim.env.OPENAI_API_KEY,
   --},
   {
     "stevearc/conform.nvim",
@@ -571,7 +571,6 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
 
       vim.cmd [[
 imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
-" -1 for jumping backwards.
 inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
 
 snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
@@ -740,13 +739,16 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       require("nvim-autopairs").setup {}
     end,
   },
-  { "mfussenegger/nvim-treehopper", keys = "<space><space>", config=function (...)
-    vim.cmd[[
+  {
+    "mfussenegger/nvim-treehopper",
+    keys = "<space><space>",
+    config = function(...)
+      vim.cmd [[
 omap     <silent> m :<C-U>lua require('tsht').nodes()<CR>
 xnoremap <silent> m :lua require('tsht').nodes()<CR>
     ]]
-    
-  end },
+    end,
+  },
   { "dstein64/nvim-scrollview", enabled = false },
   {
     "NeogitOrg/neogit",
@@ -1066,7 +1068,7 @@ xnoremap <silent> m :lua require('tsht').nodes()<CR>
       "nvim-lua/plenary.nvim",
     },
     event = "BufReadPre",
-    enabled = false,
+    enabled = true,
     config = function()
       require("gitsigns").setup {
         signs = {
@@ -1244,6 +1246,9 @@ xnoremap <silent> m :lua require('tsht').nodes()<CR>
   "tpope/vim-fugitive",
   "tpope/vim-repeat",
   { "tpope/vim-sexp-mappings-for-regular-people", ft = lisp_filetypes },
+  --{ "nvim-java/nvim-java", ft = "java", config = function()
+  --require('java').setup()
+  --end },
   { "guns/vim-sexp", ft = lisp_filetypes },
   "tpope/vim-sleuth",
   "tpope/vim-surround",
