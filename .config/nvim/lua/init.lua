@@ -70,8 +70,8 @@ vim.diagnostic.config {
 --nnoremap <silent> äk <cmd>lua vim.diagnostic.goto_prev()<CR>
 --nnoremap <silent> äj <cmd>lua vim.diagnostic.goto_next()<CR>
 local virtual_lines = false
-vim.keymap.set("n", "ld", vim.diagnostic.open_float, { silent = true })
-vim.keymap.set("n", "lD", vim.diagnostic.setqflist, { silent = true })
+vim.keymap.set("n", "<leader>ld", vim.diagnostic.open_float, { silent = true })
+vim.keymap.set("n", "<leader>lD", vim.diagnostic.setqflist, { silent = true })
 vim.keymap.set("n", "<leader>dz", "<cmd>Neotree diagnostics reveal bottom<cr>", { silent = true })
 vim.keymap.set("n", "<leader>ll", function()
   virtual_lines = not virtual_lines
@@ -499,7 +499,7 @@ if lspconfig then
   --capabilities = capabilities,
   --}
   local clangd = shell.select_executable {
-    "clangd-19",
+    --"clangd-19",
     "clangd-18",
     "clangd-17",
     "clangd-16",
