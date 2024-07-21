@@ -184,3 +184,4 @@ built
 *.ncu-rep
 *.nsys-rep
 *.bz2
+CMakeUserPresets.json

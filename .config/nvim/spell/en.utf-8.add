@@ -507,3 +507,5 @@ pylyzer
 gitignore
 deserialization
 deserialize
+NMOS
+hostname
