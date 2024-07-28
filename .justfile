@@ -6,7 +6,7 @@ build:
 	mkdir -p debug
 	cmake -B debug \
 		-DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
-		-DCMAKE_CUDA_HOST_COMPILER=g++-11 \
+		-DCMAKE_CUDA_HOST_COMPILER=g++-13 \
 		-DCMAKE_BUILD_TYPE=Debug -GNinja \
 		-DCMAKE_CUDA_COMPILER_LAUNCHER=ccache \
 		-GNinja \
@@ -14,8 +14,8 @@ build:
 		-DCMAKE_CXX_FLAGS_INIT="-fsanitize=undefined -fsanitize=address" \
 		-DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
 		-DCMAKE_C_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
-		-DCMAKE_C_CLANG_TIDY="clang-tidy-19" \
-		-DCMAKE_CXX_CLANG_TIDY="clang-tidy-19" \
+		-DCMAKE_C_CLANG_TIDY="clang-tidy-20" \
+		-DCMAKE_CXX_CLANG_TIDY="clang-tidy-20" \
 		-DCMAKE_CUDA_ARCHITECTURES=OFF \
 		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo -G"
 	rm -f compile_commands.json

@@ -174,11 +174,11 @@ alias kubectl="microk8s kubectl"
 alias k="microk8s kubectl"
 alias wk="watch microk8s kubectl"
 
-export CC=clang-19
-export CXX=clang++-19
+export CC=clang-20
+export CXX=clang++-20
 export CUDACC=nvcc
 export CUDACXX=nvcc
-export CUDAHOSTCXX=g++-11
+export CUDAHOSTCXX=g++-13
 export CPATH=$CUDA_PATH/targets/x86_64-linux/include/:$CPATH
 export CMAKE_CUDA_COMPILER_LAUNCHER=ccache
 
