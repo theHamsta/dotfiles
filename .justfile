@@ -17,7 +17,7 @@ build:
 		-DCMAKE_C_CLANG_TIDY="clang-tidy-20" \
 		-DCMAKE_CXX_CLANG_TIDY="clang-tidy-20" \
 		-DCMAKE_CUDA_ARCHITECTURES=OFF \
-		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo -G"
+		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -G"
 	rm -f compile_commands.json
 	ln -s debug/compile_commands.json .
 	cd debug && cmake --build . --parallel
