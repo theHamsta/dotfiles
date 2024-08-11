@@ -509,3 +509,15 @@ deserialization
 deserialize
 NMOS
 hostname
+constexpr
+uint
+const
+TIMESTAMP
+GUID
+argc
+argv
+nullptr
+unregister
+filesystem
+cerr
+muxer

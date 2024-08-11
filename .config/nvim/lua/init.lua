@@ -82,6 +82,7 @@ vim.keymap.set("n", "<leader>rr", ":grep <cword> | copen<cr>", { silent = true, 
 vim.keymap.set("v", "<leader>rr", "y:grep <c-r>+ | copen<cr>", { silent = true, buffer = false, noremap = true })
 
 _G["NvimLspMaps"] = function()
+  vim.keymap.set("n", "<c-a-o>", ":Telescope lsp_document_symbols<cr>", { silent = true, buffer = true })
   vim.keymap.set("n", "gd", vim.lsp.buf.definition, { silent = true, buffer = true })
   vim.keymap.set("n", "gD", "<c-w>vgd", { silent = true, buffer = true })
   vim.keymap.set("n", "<leader>gd", vim.lsp.buf.implementation, { silent = true, buffer = true })
@@ -103,7 +104,6 @@ _G["NvimLspMaps"] = function()
   vim.keymap.set("n", "<leader>fi", function()
     require("lspsaga.provider").lsp_finder()
   end, { silent = true, buffer = true })
-  vim.keymap.set("n", "<c-a-o>", ":Telescope lsp_document_symbols<cr>", { silent = true, buffer = true })
   vim.keymap.set("n", "<c-s>", function()
     require("conform").format({ lsp_fallback = true, async = true }, function()
       vim.cmd "w"
