@@ -285,7 +285,11 @@ if lspconfig then
     capabilities = capabilities,
   }
 
-  lspconfig.glslls.setup {
+  --lspconfig.glslls.setup {
+    --on_attach = on_attach,
+    --capabilities = capabilities,
+  --}
+  lspconfig.glsl_analyzer.setup {
     on_attach = on_attach,
     capabilities = capabilities,
   }

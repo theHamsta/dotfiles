@@ -10,8 +10,8 @@ build:
 		-DCMAKE_BUILD_TYPE=Debug -GNinja \
 		-DCMAKE_CUDA_COMPILER_LAUNCHER=ccache \
 		-GNinja \
-		-DCMAKE_C_FLAGS_INIT="-fsanitize=undefined -fsanitize=address" \
-		-DCMAKE_CXX_FLAGS_INIT="-fsanitize=undefined -fsanitize=address" \
+		-DCMAKE_C_FLAGS_INIT="-fsanitize=undefined -fsanitize=address -fsanitize=memory" \
+		-DCMAKE_CXX_FLAGS_INIT="-fsanitize=undefined -fsanitize=address -fsanitize=memory" \
 		-DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
 		-DCMAKE_C_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
 		-DCMAKE_C_CLANG_TIDY="clang-tidy-20" \
@@ -119,7 +119,7 @@ clean:
 clean-build: clean build
 
 install: release
-	cd release && sudo ninja install
+	sudo ninja -C release install
 
 gcc-install: gcc-release
-	cd gcc-release && sudo ninja install
+	sudo ninja -C gcc-release install
