@@ -14,13 +14,13 @@ build:
 		-DCMAKE_CXX_FLAGS_INIT="-fsanitize=undefined -fsanitize=address -fsanitize=memory" \
 		-DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
 		-DCMAKE_C_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
-		-DCMAKE_C_CLANG_TIDY="clang-tidy-20" \
-		-DCMAKE_CXX_CLANG_TIDY="clang-tidy-20" \
 		-DCMAKE_CUDA_ARCHITECTURES=OFF \
 		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -G"
 	rm -f compile_commands.json
 	ln -s debug/compile_commands.json .
 	cd debug && cmake --build . --parallel
+#-DCMAKE_C_CLANG_TIDY="clang-tidy-20" \
+#-DCMAKE_CXX_CLANG_TIDY="clang-tidy-20" \
 
 run: build
 	debug/pystencils_gui
