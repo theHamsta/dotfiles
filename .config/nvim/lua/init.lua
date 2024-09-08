@@ -476,7 +476,7 @@ if lspconfig then
   --},
   --}
 
-  lspconfig.tsserver.setup {
+  lspconfig.ts_ls.setup {
     on_attach = on_attach,
     capabilities = capabilities,
   }
@@ -639,9 +639,9 @@ if lspconfig then
     on_attach = on_attach,
   }
 
-  lspconfig.vimls.setup {
-    on_attach = on_attach,
-  }
+  --lspconfig.vimls.setup {
+    --on_attach = on_attach,
+  --}
   lspconfig.yamlls.setup {
     on_attach = on_attach,
   }
