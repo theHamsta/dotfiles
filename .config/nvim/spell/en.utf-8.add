@@ -521,3 +521,4 @@ unregister
 filesystem
 cerr
 muxer
+mlir
