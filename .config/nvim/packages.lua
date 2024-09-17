@@ -309,14 +309,14 @@ require("lazy").setup {
     lazy = true,
   },
 
-  {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    --event = "InsertEnter",
-    config = function()
-      require("copilot").setup {}
-    end,
-  },
+  --{
+    --"zbirenbaum/copilot.lua",
+    --cmd = "Copilot",
+    ----event = "InsertEnter",
+    --config = function()
+      --require("copilot").setup {}
+    --end,
+  --},
   --{ "github/copilot.vim", lazy = true },
   {
     "emmanueltouzery/agitator.nvim",
