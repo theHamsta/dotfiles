@@ -18,7 +18,6 @@
   "compiler-explorer.nvim": { "branch": "master", "commit": "ee8e7a2808bdad67cd2acb61b5c9ffa7735c7ec9" },
   "conflict-marker.vim": { "branch": "master", "commit": "62742b2ffe7a433988759c67b5c5a22eff74a14b" },
   "conform.nvim": { "branch": "master", "commit": "1a99fdc1d3aa9ccdf3021e67982a679a8c5c740c" },
-  "copilot.lua": { "branch": "master", "commit": "1a237cf50372830a61d92b0adf00d3b23882e0e1" },
   "crates.nvim": { "branch": "main", "commit": "5a24e3ba60e28e0cfde540696630b3c5a4db6dfd" },
   "crazy-node-movement": { "branch": "master", "commit": "d5cf01cc44c5715501d3d6fe439af7c8b7fa5df2" },
   "ctrlsf.vim": { "branch": "master", "commit": "32236a8b376d9311dec9b5fe795ca99d32060b13" },
