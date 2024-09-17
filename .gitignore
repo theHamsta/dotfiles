@@ -185,3 +185,4 @@ built
 *.nsys-rep
 *.bz2
 CMakeUserPresets.json
+.lapce
