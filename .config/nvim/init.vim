@@ -377,6 +377,7 @@ endfunction
 
 augroup filetypedetect
     au! BufRead,BufNewFile *.cl set filetype=cpp
+    au! BufRead,BufNewFile *.mlir set filetype=mlir
     au! BufRead,BufNewFile *.osl set filetype=cpp
     au! BufRead,BufNewFile *.slang set filetype=shaderslang
     au! BufRead,BufNewFile *.sdp,*.SDP set filetype=sdp
