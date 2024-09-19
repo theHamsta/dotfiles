@@ -30,6 +30,12 @@ meson-release:
 	ln -s release/compile_commands.json .
 	meson compile -C release
 
+meson-debugoptimized:
+	meson setup --reconfigure --buildtype=debugoptimized -Dc_flags="-fdiagnostics-absolute-paths -march=native -fdiagnostics-color" -Dcpp_flags="-fdiagnostics-absolute-paths -march=native -fdiagnostics-color" release
+	rm -f compile_commands.json
+	ln -s release/compile_commands.json .
+	meson compile -C release
+
 meson-debug:
 	meson setup --reconfigure --buildtype=debug -Dc_flags="-fdiagnostics-absolute-paths  -fdiagnostics-color" -Dcpp_flags="-fdiagnostics-absolute-paths  -fdiagnostics-color" debug
 	rm -f compile_commands.json
