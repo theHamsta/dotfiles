@@ -94,6 +94,9 @@ export EDITOR=nvim
 export COMPlus_gcAllowVeryLargeObjects=1
 . "$HOME/.cargo/env"
 
+export P4ROOT=/data/p4
+export P4PORT=p4proxy-munich:2006
+export P4USER=sseitz
 alias k="microk8s kubectl"
 alias kubectl="microk8s kubectl"
 alias helm="microk8s helm"
