@@ -2,6 +2,10 @@
 -- Copyright (C) 2020 Stephan Seitz <stephan.seitz@fau.de>
 --
 -- Distributed under terms of the GPLv3 license.  vim.cmd [[packadd packer.nvim]]
+if not vim.uv then
+  vim.uv = vim.loop
+end
+--
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 if not vim.uv.fs_stat(lazypath) then
   vim.fn.system {
