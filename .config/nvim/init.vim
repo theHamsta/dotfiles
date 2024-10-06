@@ -545,7 +545,7 @@ nnoremap <silent> <leader>fl :FloatermToggle<cr>
 tnoremap <silent> <PageDown> <C-\><C-n>:FloatermToggle<cr>
 tnoremap <silent> <leader>fl <C-\><C-n>:FloatermToggle<cr>
 tnoremap <silent> jk <C-\><C-n>
-tnoremap <silent> <c-d> <C-\><C-n>:bd!<cr>
+"tnoremap <silent> <c-d> <C-\><C-n>:bd!<cr>
 
 if exists('g:GuiLoaded')
   let g:float_preview#docked = 1
