@@ -88,6 +88,16 @@ require("lazy").setup {
     event = "VeryLazy",
   },
   {
+    "ethersync/ethersync",
+    config = function(plugin)
+      -- Load the plugin from a subfolder:
+      vim.opt.rtp:append(plugin.dir .. "/vim-plugin")
+      require("lazy.core.loader").packadd(plugin.dir .. "/vim-plugin")
+    end,
+    keys = { { "<leader>jj", "<cmd>EthersyncJumpToCursor<cr>" } },
+    lazy = false,
+  },
+  {
     "RaafatTurki/hex.nvim",
     config = function()
       require("hex").setup()
@@ -314,12 +324,12 @@ require("lazy").setup {
   },
 
   --{
-    --"zbirenbaum/copilot.lua",
-    --cmd = "Copilot",
-    ----event = "InsertEnter",
-    --config = function()
-      --require("copilot").setup {}
-    --end,
+  --"zbirenbaum/copilot.lua",
+  --cmd = "Copilot",
+  ----event = "InsertEnter",
+  --config = function()
+  --require("copilot").setup {}
+  --end,
   --},
   --{ "github/copilot.vim", lazy = true },
   {
