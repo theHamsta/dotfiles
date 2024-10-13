@@ -286,8 +286,8 @@ if lspconfig then
   }
 
   --lspconfig.glslls.setup {
-    --on_attach = on_attach,
-    --capabilities = capabilities,
+  --on_attach = on_attach,
+  --capabilities = capabilities,
   --}
   lspconfig.glsl_analyzer.setup {
     on_attach = on_attach,
@@ -476,6 +476,10 @@ if lspconfig then
   --},
   --}
 
+  lspconfig.typst_lsp.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
   lspconfig.ts_ls.setup {
     on_attach = on_attach,
     capabilities = capabilities,
@@ -644,7 +648,7 @@ if lspconfig then
   }
 
   --lspconfig.vimls.setup {
-    --on_attach = on_attach,
+  --on_attach = on_attach,
   --}
   lspconfig.yamlls.setup {
     on_attach = on_attach,
