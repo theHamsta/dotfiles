@@ -579,8 +579,6 @@ nnoremap <a-s-j> "ayy"ap
 
 nnoremap <silent> gf gF
 
-nnoremap Gtf :Tnew<cr>:T dolphin %:p:h 2>&1 >> /dev/null &<cr>:Tclose<cr>
-
 command! CdToCurrentFile cd %:p:h
 
 nnoremap <silent> <c-ScrollWheelUp> :lua require'my_gui'.increase_fontsize()<cr>

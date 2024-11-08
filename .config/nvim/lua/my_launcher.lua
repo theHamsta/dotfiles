@@ -1,6 +1,3 @@
-if not filter then
-    require "fun"()
-end
 local my_commands = require "my_commands"
 
 local M = {}
