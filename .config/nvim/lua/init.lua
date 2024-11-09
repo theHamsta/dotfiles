@@ -263,7 +263,7 @@ if lspconfig then
     }
   end
 
-  require("lspconfig.configs").obsidian_ls = {
+  require("lspconfig.configs").markdown_oxide = {
     default_config = {
       root_dir = function()
         return vim.fn.getcwd()
