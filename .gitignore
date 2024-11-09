@@ -186,3 +186,5 @@ built
 *.bz2
 CMakeUserPresets.json
 .lapce
+*.AnalysisSummary.html
+*.DiagnosticsSummary.html
