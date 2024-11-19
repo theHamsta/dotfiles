@@ -866,6 +866,8 @@ if dap then
       pidSelect = "ask",
     },
     command = shell.select_executable {
+      "lldb-dap-20",
+      "lldb-dap-19",
       "lldb-vscode-18",
       "lldb-vscode-17",
       "lldb-vscode-16",
