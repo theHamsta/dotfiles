@@ -275,10 +275,10 @@ if lspconfig then
     capabilities = capabilities,
   }
 
-  lspconfig.obsidian_ls.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  }
+  --lspconfig.obsidian_ls.setup {
+    --on_attach = on_attach,
+    --capabilities = capabilities,
+  --}
 
   lspconfig.flow.setup {
     on_attach = on_attach,
