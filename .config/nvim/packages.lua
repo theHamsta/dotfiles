@@ -181,23 +181,23 @@ require("lazy").setup {
       })
     end,
   },
-  {
-    "liangxianzhe/nap.nvim",
-    config = function()
-      require("nap").setup {
-        next_prefix = "<c-a-l>",
-        prev_prefix = "<c-a-h>",
-        next_repeat = "<c-a-l>",
-        prev_repeat = "<c-a-h>",
-      }
-    end,
-    event = "VeryLazy",
-  },
-  {
-    "chrisgrieser/nvim-alt-substitute",
-    opts = true,
-    event = "CmdlineEnter",
-  },
+  --{
+    --"liangxianzhe/nap.nvim",
+    --config = function()
+      --require("nap").setup {
+        --next_prefix = "<c-a-l>",
+        --prev_prefix = "<c-a-h>",
+        --next_repeat = "<c-a-l>",
+        --prev_repeat = "<c-a-h>",
+      --}
+    --end,
+    --event = "VeryLazy",
+  --},
+  --{
+    --"chrisgrieser/nvim-alt-substitute",
+    --opts = true,
+    --event = "CmdlineEnter",
+  --},
   {
     "stevearc/oil.nvim",
     config = function()
@@ -228,27 +228,19 @@ require("lazy").setup {
     end,
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
-  {
-    "saecki/crates.nvim",
-    event = { "BufRead Cargo.toml" },
-    dependencies = { { "nvim-lua/plenary.nvim" } },
-    config = function()
-      require("crates").setup()
-    end,
-  },
+  --{
+    --"saecki/crates.nvim",
+    --event = { "BufRead Cargo.toml" },
+    --dependencies = { { "nvim-lua/plenary.nvim" } },
+    --config = function()
+      --require("crates").setup()
+    --end,
+  --},
   { "folke/neodev.nvim" },
   {
     "nvim-telescope/telescope-ui-select.nvim",
     config = function()
       require("telescope").load_extension "ui-select"
-    end,
-    enabled = false,
-  },
-  {
-    "phaazon/mind.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      require("mind").setup {}
     end,
     enabled = false,
   },
@@ -284,44 +276,44 @@ require("lazy").setup {
     enabled = vim.fn.has "win32" ~= 1,
     event = "VeryLazy",
   },
-  {
-    "nacro90/numb.nvim",
-    config = function()
-      require("numb").setup()
-    end,
-  },
+  --{
+    --"nacro90/numb.nvim",
+    --config = function()
+      --require("numb").setup()
+    --end,
+  --},
   {
     "mrbjarksen/neo-tree-diagnostics.nvim",
   },
-  {
-    "glepnir/lspsaga.nvim",
-    branch = "main",
-    config = function()
-      require("lspsaga").setup {
-        symbol_in_winbar = {
-          enable = false,
-          separator = " ",
-          hide_keyword = true,
-          show_file = true,
-          folder_level = 2,
-          respect_root = false,
-          color_mode = true,
-        },
-      }
-    end,
-    enabled = false,
-  },
-  {
-    "folke/which-key.nvim",
-    config = function()
-      require("which-key").setup {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      }
-    end,
-    lazy = true,
-  },
+  --{
+    --"glepnir/lspsaga.nvim",
+    --branch = "main",
+    --config = function()
+      --require("lspsaga").setup {
+        --symbol_in_winbar = {
+          --enable = false,
+          --separator = " ",
+          --hide_keyword = true,
+          --show_file = true,
+          --folder_level = 2,
+          --respect_root = false,
+          --color_mode = true,
+        --},
+      --}
+    --end,
+    --enabled = false,
+  --},
+  --{
+    --"folke/which-key.nvim",
+    --config = function()
+      --require("which-key").setup {
+        ---- your configuration comes here
+        ---- or leave it empty to use the default settings
+        ---- refer to the configuration section below
+      --}
+    --end,
+    --lazy = true,
+  --},
 
   --{
   --"zbirenbaum/copilot.lua",
@@ -332,14 +324,14 @@ require("lazy").setup {
   --end,
   --},
   --{ "github/copilot.vim", lazy = true },
-  {
-    "emmanueltouzery/agitator.nvim",
-    config = function()
-      vim.cmd [[
-nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
-    ]]
-    end,
-  },
+  --{
+    --"emmanueltouzery/agitator.nvim",
+    --config = function()
+      --vim.cmd [[
+--nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
+    --]]
+    --end,
+  --},
 
   {
     "nvim-lualine/lualine.nvim",
@@ -447,7 +439,7 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     lazy = false,
     branch = "legacy",
   },
-  { "mattboehm/vim-unstack", cmd = "UnstackFromText" },
+  --{ "mattboehm/vim-unstack", cmd = "UnstackFromText" },
   {
     "leoluz/nvim-dap-go",
     dependencies = { { "nvim-lua/plenary.nvim" } },
@@ -457,14 +449,14 @@ nnoremap <silent> <leader>gt  :lua require'agitator'.open_file_git_branch()<cr>
     ft = "go",
     --enabled = false,
   },
-  {
-    "ggandor/leap.nvim",
-    keys = "s",
-    config = function()
-      require("leap").add_default_mappings()
-      vim.keymap.del({ "n", "x", "o" }, "x")
-    end,
-  },
+  --{
+    --"ggandor/leap.nvim",
+    --keys = "s",
+    --config = function()
+      --require("leap").add_default_mappings()
+      --vim.keymap.del({ "n", "x", "o" }, "x")
+    --end,
+  --},
   --
   --"esensar/nvim-dev-container",
   --config = function()
@@ -687,7 +679,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --"p00f/clangd_extensions.nvim",
   --ft = { "cuda", "cpp", "c" },
   --},
-  { "earthly/earthly.vim", ft = "earthly" },
+  --{ "earthly/earthly.vim", ft = "earthly" },
   {
     "sindrets/diffview.nvim",
     cmd = "DiffviewOpen",
@@ -695,19 +687,19 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       --vim.cmd[[nnoremap <leader>nd :DiffviewOpen<cr>]]
     end,
   },
-  {
-    "ThePrimeagen/harpoon",
-    config = function()
-      local mark = require "harpoon.mark"
-      local ui = require "harpoon.ui"
-      vim.keymap.set("n", ",ha", mark.add_file)
-      vim.keymap.set("n", ",hn", ui.nav_next)
-      vim.keymap.set("n", ",hp", ui.nav_prev)
-      vim.keymap.set("n", ",hh", ui.toggle_quick_menu)
-      require("telescope").load_extension "harpoon"
-    end,
-    enabled = false,
-  },
+  --{
+    --"ThePrimeagen/harpoon",
+    --config = function()
+      --local mark = require "harpoon.mark"
+      --local ui = require "harpoon.ui"
+      --vim.keymap.set("n", ",ha", mark.add_file)
+      --vim.keymap.set("n", ",hn", ui.nav_next)
+      --vim.keymap.set("n", ",hp", ui.nav_prev)
+      --vim.keymap.set("n", ",hh", ui.toggle_quick_menu)
+      --require("telescope").load_extension "harpoon"
+    --end,
+    --enabled = false,
+  --},
   {
     "https://gitlab.com/yorickpeterse/nvim-pqf",
     config = function()
@@ -715,15 +707,15 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     end,
     enabled = vim.fn.has "win32" ~= 1,
   },
-  { "jceb/emmet.snippets" },
+  --{ "jceb/emmet.snippets" },
   { "theHamsta/vim-snippets" },
-  {
-    "beauwilliams/focus.nvim",
-    enabled = false,
-    config = function()
-      require("focus").setup()
-    end,
-  },
+  --{
+    --"beauwilliams/focus.nvim",
+    --enabled = false,
+    --config = function()
+      --require("focus").setup()
+    --end,
+  --},
   {
     "simrat39/symbols-outline.nvim",
     cmd = { "SymbolsOutline" },
@@ -731,17 +723,17 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       require("symbols-outline").setup {}
     end,
   },
-  {
-    "folke/zen-mode.nvim",
-    config = function()
-      require("zen-mode").setup {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      }
-    end,
-    cmd = "Zenmode",
-  },
+  --{
+    --"folke/zen-mode.nvim",
+    --config = function()
+      --require("zen-mode").setup {
+        ---- your configuration comes here
+        ---- or leave it empty to use the default settings
+        ---- refer to the configuration section below
+      --}
+    --end,
+    --cmd = "Zenmode",
+  --},
   { "nanotee/zoxide.vim", cmd = { "Z", "Zi" } },
   "nvim-lua/popup.nvim",
   {
@@ -754,16 +746,16 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       }
     end,
   },
-  { "mcchrish/nnn.vim", cmd = { "NnnPicker" } },
+  --{ "mcchrish/nnn.vim", cmd = { "NnnPicker" } },
   --"jceb/emmet.snippets",
-  {
-    "folke/lsp-trouble.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-      require("trouble").setup {}
-    end,
-    cmd = { "Trouble" },
-  },
+  --{
+    --"folke/lsp-trouble.nvim",
+    --dependencies = { "nvim-tree/nvim-web-devicons" },
+    --config = function()
+      --require("trouble").setup {}
+    --end,
+    --cmd = { "Trouble" },
+  --},
   { "windwp/nvim-ts-autotag", enabled = false },
   {
     "windwp/nvim-autopairs",
@@ -771,17 +763,17 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       require("nvim-autopairs").setup {}
     end,
   },
-  {
-    "mfussenegger/nvim-treehopper",
-    keys = "<space><space>",
-    config = function(...)
-      vim.cmd [[
-omap     <silent> m :<C-U>lua require('tsht').nodes()<CR>
-xnoremap <silent> m :lua require('tsht').nodes()<CR>
-    ]]
-    end,
-  },
-  { "dstein64/nvim-scrollview", enabled = false },
+  --{
+    --"mfussenegger/nvim-treehopper",
+    --keys = "<space><space>",
+    --config = function(...)
+      --vim.cmd [[
+--omap     <silent> m :<C-U>lua require('tsht').nodes()<CR>
+--xnoremap <silent> m :lua require('tsht').nodes()<CR>
+    --]]
+    --end,
+  --},
+  --{ "dstein64/nvim-scrollview", enabled = false },
   {
     "NeogitOrg/neogit",
     dependencies = {
@@ -818,7 +810,7 @@ xnoremap <silent> m :lua require('tsht').nodes()<CR>
   --end,
   --enable = true,
   --},
-  { "pwntester/octo.nvim", enabled = false },
+  --{ "pwntester/octo.nvim", enabled = false },
   {
     "glepnir/indent-guides.nvim",
     config = function()
@@ -1021,17 +1013,17 @@ xnoremap <silent> m :lua require('tsht').nodes()<CR>
     --keys = { "zc", "zC", "zO", "zo" },
     event = "VeryLazy",
   },
-  {
-    "danymat/neogen",
-    config = function()
-      require("neogen").setup {
-        enabled = true,
-      }
-    end,
-    dependencies = "nvim-treesitter/nvim-treesitter",
-    cmd = { "Neogen" },
-  },
-  "rhysd/conflict-marker.vim",
+  --{
+    --"danymat/neogen",
+    --config = function()
+      --require("neogen").setup {
+        --enabled = true,
+      --}
+    --end,
+    --dependencies = "nvim-treesitter/nvim-treesitter",
+    --cmd = { "Neogen" },
+  --},
+  --"rhysd/conflict-marker.vim",
   "mfussenegger/nvim-dap",
   {
     "theHamsta/nvim-dap-virtual-text",
@@ -1046,8 +1038,8 @@ xnoremap <silent> m :lua require('tsht').nodes()<CR>
   },
   --{ "theHamsta/crazy-node-movement", keys = { "<a-l>", "<a-k>", "<a-j>", "<a-h>" } },
   --"dm1try/git_fastfix",
-  "rafcamlet/nvim-luapad",
-  { "jsit/toast.vim", enabled = false },
+  --"rafcamlet/nvim-luapad",
+  --{ "jsit/toast.vim", enabled = false },
   --use {
   --"theHamsta/nvim_rocks",
   --build = "pip3 install --r hererocks && hererocks . -j2.1.0-beta3 -r3.0.0 && cp nvim_rocks.lua lua"
@@ -1231,18 +1223,18 @@ xnoremap <silent> m :lua require('tsht').nodes()<CR>
   --require("hop").setup {}
   --end,
   --},
-  "moll/vim-bbye",
+  --"moll/vim-bbye",
   { "jpalardy/vim-slime", enabled = false },
   "rhysd/git-messenger.vim",
   "scrooloose/nerdcommenter",
   "skywind3000/vim-preview",
-  {
-    "folke/todo-comments.nvim",
-    enabled = false,
-    config = function()
-      require("todo-comments").setup {}
-    end,
-  },
+  --{
+    --"folke/todo-comments.nvim",
+    --enabled = false,
+    --config = function()
+      --require("todo-comments").setup {}
+    --end,
+  --},
 
   {
     "norcalli/nvim-colorizer.lua",
@@ -1296,23 +1288,23 @@ xnoremap <silent> m :lua require('tsht').nodes()<CR>
     "rose-pine/neovim",
     lazy = true,
   },
-  {
-    "olimorris/onedarkpro.nvim",
-    config = function()
-      require("github-theme").setup {}
-      vim.cmd [[
-    colorscheme github_dark_dimmed
-    ]]
-    end,
+  --{
+    --"olimorris/onedarkpro.nvim",
+    --config = function()
+      --require("github-theme").setup {}
+      --vim.cmd [[
+    --colorscheme github_dark_dimmed
+    --]]
+    --end,
+    ----lazy = true,
+  --},
+  --{
+    --"Yazeed1s/oh-lucy.nvim",
+    --config = function()
+      --vim.cmd [[colorscheme oh-lucy]]
+    --end,
     --lazy = true,
-  },
-  {
-    "Yazeed1s/oh-lucy.nvim",
-    config = function()
-      vim.cmd [[colorscheme oh-lucy]]
-    end,
-    lazy = true,
-  },
+  --},
   {
     "sam4llis/nvim-tundra",
     config = function()
@@ -1324,31 +1316,31 @@ xnoremap <silent> m :lua require('tsht').nodes()<CR>
     end,
     lazy = true,
   },
-  { "JoosepAlviste/palenightfall.nvim", lazy = true },
-  { "projekt0n/github-nvim-theme", lazy = true },
-  { "Pocco81/Catppuccino.nvim", lazy = true },
-  {
-    "folke/tokyonight.nvim",
-    config = function()
-      vim.cmd [[colorscheme tokyonight-night]]
-    end,
-  },
-  { "bluz71/vim-nightfly-guicolors", lazy = true },
-  { "bluz71/vim-moonfly-colors", lazy = true },
-  { "chriskempson/base16-vim", lazy = true },
-  { "doums/darcula", lazy = true },
-  { "strange/vim-lore", lazy = true },
-  { "pineapplegiant/spaceduck", lazy = true },
-  { "ghifarit53/daycula-vim", lazy = true },
-  { "aonemd/kuroi.vim", lazy = true },
-  { "srcery-colors/srcery-vim", lazy = true },
-  {
-    "novakne/kosmikoa.nvim",
-    config = function()
-      require("kosmikoa").setup()
-    end,
-    lazy = true,
-  },
+  --{ "JoosepAlviste/palenightfall.nvim", lazy = true },
+  --{ "projekt0n/github-nvim-theme", lazy = true },
+  --{ "Pocco81/Catppuccino.nvim", lazy = true },
+  --{
+    --"folke/tokyonight.nvim",
+    --config = function()
+      --vim.cmd [[colorscheme tokyonight-night]]
+    --end,
+  --},
+  --{ "bluz71/vim-nightfly-guicolors", lazy = true },
+  --{ "bluz71/vim-moonfly-colors", lazy = true },
+  --{ "chriskempson/base16-vim", lazy = true },
+  --{ "doums/darcula", lazy = true },
+  --{ "strange/vim-lore", lazy = true },
+  --{ "pineapplegiant/spaceduck", lazy = true },
+  --{ "ghifarit53/daycula-vim", lazy = true },
+  --{ "aonemd/kuroi.vim", lazy = true },
+  --{ "srcery-colors/srcery-vim", lazy = true },
+  --{
+    --"novakne/kosmikoa.nvim",
+    --config = function()
+      --require("kosmikoa").setup()
+    --end,
+    --lazy = true,
+  --},
   --{
   --"sourcegraph/sg.nvim",
   --build = "cargo build --workspace",
