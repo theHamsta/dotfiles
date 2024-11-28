@@ -783,7 +783,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       --"ibhagwan/fzf-lua", -- optional
     },
     config = true,
-    keys = "<leader>ng",
+    cmd = {"Neogit"}
   },
   --{
   --"simrat39/rust-tools.nvim",
