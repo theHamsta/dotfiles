@@ -188,3 +188,4 @@ CMakeUserPresets.json
 .lapce
 *.AnalysisSummary.html
 *.DiagnosticsSummary.html
+.ethersync
