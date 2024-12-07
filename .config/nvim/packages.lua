@@ -1305,17 +1305,17 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --end,
   --lazy = true,
   --},
-  {
-    "sam4llis/nvim-tundra",
-    config = function()
-      vim.opt.background = "dark"
-      vim.cmd [[
-        colorscheme tundra
-        highlight link LspInlayHint Comment
-      ]]
-    end,
-    lazy = true,
-  },
+  --{
+    --"sam4llis/nvim-tundra",
+    --config = function()
+      --vim.opt.background = "dark"
+      --vim.cmd [[
+        --colorscheme tundra
+        --highlight link LspInlayHint Comment
+      --]]
+    --end,
+    --lazy = true,
+  --},
   --{ "JoosepAlviste/palenightfall.nvim", lazy = true },
   --{ "projekt0n/github-nvim-theme", lazy = true },
   --{ "Pocco81/Catppuccino.nvim", lazy = true },
