@@ -7,7 +7,7 @@ call rpcnotify(1, 'Gui', 'Font', g:my_font .. ' ' .. string(g:my_fontsize))
 if has("win32")
     set guifont=Cascadia\ Code:h9
 else
-    set guifont=Hack:h9
+    set guifont=Hack:h8
 end
 
 call rpcnotify(1, 'Gui', 'Font', 'Hack 9')
