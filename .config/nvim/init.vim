@@ -8,9 +8,7 @@ else
   luafile ~/.config/nvim/lua/init.lua
 end
 
-let g:dropbar=0
 set tags=./tags,tags
-set encoding=UTF-8
 
 set path=.,./debug,../release,/usr/local/include,/usr/include
 
@@ -507,9 +505,6 @@ au FileType fzf setlocal nonu nornu signcolumn=no
 autocmd FileType gitcommit setlocal bufhidden=delete
 autocmd FileType gitrebase setlocal bufhidden=delete
 
-let g:email='stephan.seitz@fau.de'
-let g:username='Stephan Seitz'
-
 let g:rooter_patterns = ['.git/', '_darcs/', '.hg/', '.bzr/', '.svn/']
 nnoremap <leader>JU :JustTargets<cr>
 nnoremap <leader>ju :JustTargetsAsync<cr>
@@ -630,8 +625,6 @@ endfunction
 nmap <silent> <leader>sf :lua require'telescope'.extensions.dap.frames{}<CR>
 
 nnoremap <F8> :TagbarOpenAutoClose<CR>
-nmap ,w ysiw)
-nmap ,<s-w> ysiW)
 
 "nnoremap <leader>pl :lua vim.treesitter.inspect_tree()<cr>
 nnoremap <leader>pl :TSPlaygroundToggle<cr>
@@ -661,21 +654,10 @@ command! OpenDiagnostic :lua vim.lsp.diagnostic.set_loclist()<cr>
 if exists('g:fvim_loaded')
     nnoremap <silent> <C-ScrollWheelUp> :set guifont=+<CR>
     nnoremap <silent> <C-ScrollWheelDown> :set guifont=-<CR>
-    nnoremap <A-CR> :FVimToggleFullScreen<CR>
 endif
 
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
-
-
-let g:sneak#label = 1
-let g:AutoPairsShortcutToggle = '<M-m>'
-let g:AutoPairsFlyMode = 0
-let g:AutoPairsShortcutBackInsert = '<M-b>'
-
-let g:completion_enable_auto_popup = 1
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-let g:completion_matching_smart_case = 1
 highlight def link LspDiagnosticsUnderlineError Error
 highlight def link LspDiagnosticsUnderlineWarning LspWarning
 highlight def link LspDiagnosticsVirtualTextError Error
@@ -699,21 +681,6 @@ highlight DapStopped guibg=#000099
 highlight DapBreakpoint guibg=#661111
 
 highlight ColorColumn ctermbg=0 guibg=lightgrey
-
-hi def semshiLocal           ctermfg=209 guifg=#ff875f
-hi def semshiGlobal          ctermfg=214 guifg=#ffaf00
-hi def semshiImported        ctermfg=214 guifg=#ffaf00 cterm=bold gui=bold
-hi def semshiParameter       ctermfg=75  guifg=#5fafff
-hi def semshiParameterUnused ctermfg=117 guifg=#87d7ff cterm=underline gui=underline
-hi def semshiFree            ctermfg=218 guifg=#ffafd7
-hi def semshiBuiltin         ctermfg=207 guifg=#ff5fff
-hi def semshiAttribute       ctermfg=49  guifg=#00ffaf
-hi def semshiSelf            ctermfg=249 guifg=#b2b2b2
-hi def semshiUnresolved      ctermfg=226 guifg=#ffff00 cterm=underline gui=underline
-hi def semshiSelected        ctermfg=231 guifg=#ffffff ctermbg=161 guibg=#d7005f
-
-hi def semshiErrorSign       ctermfg=231 guifg=#ffffff ctermbg=160 guibg=#d70000
-hi def semshiErrorChar       ctermfg=231 guifg=#ffffff ctermbg=160 guibg=#d70000
 
 autocmd ColorScheme * highlight NvimDapStopped guibg=#000055
 
