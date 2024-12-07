@@ -31,6 +31,32 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
   },
 }
 
+local line_numbers = false
+local function toggle_line_numbers()
+  line_numbers = not line_numbers
+  for _, win in pairs(vim.api.nvim_list_wins()) do
+    vim.wo[win].number = line_numbers
+    vim.wo[win].relativenumber = line_numbers
+  end
+end
+
+vim.api.nvim_create_user_command("ToggleLineNumbers", toggle_line_numbers, {})
+
+if vim.g.neovide then
+  local fullscreen = false
+  vim.g.neovide_floating_shadow = true
+  vim.g.neovide_floating_z_height = 5
+  vim.g.neovide_light_angle_degrees = 45
+  vim.g.neovide_light_radius = 1
+  vim.g.neovide_floating_blur_amount_x = 2.0
+  vim.g.neovide_floating_blur_amount_y = 2.0
+  vim.g.neovide_floating_corner_radius = 10.0
+  vim.keymap.set({ "i", "n" }, "<F11>", function()
+    fullscreen = not fullscreen
+    vim.g.neovide_fullscreen = fullscreen
+  end, { silent = true })
+end
+
 require("vim.lsp.log").set_level(vim.log.levels.OFF)
 
 function _G.D(a)
@@ -482,7 +508,7 @@ if lspconfig then
     settings = {
       exportPdf = "onType",
       outputPath = "$root/$name",
-      formatterMode = "typstfmt"
+      formatterMode = "typstfmt",
     },
   }
   lspconfig.ts_ls.setup {

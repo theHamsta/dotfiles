@@ -8,12 +8,10 @@ else
   luafile ~/.config/nvim/lua/init.lua
 end
 
-let g:unstack_mapkey='<leader><F10>'
 let g:dropbar=0
 set tags=./tags,tags
 set encoding=UTF-8
 
-set nocompatible               " Be iMproved
 set path=.,./debug,../release,/usr/local/include,/usr/include
 
 set conceallevel=2
@@ -59,23 +57,8 @@ set shortmess+=c
 set sidescroll=1
 set nobackup
 
-let g:use_line_numbers=0
-
-if g:use_line_numbers
-  set number
-  set relativenumber
-endif
-
-function! Toggle_line_numbers()
-       windo set number!
-       windo set relativenumber!
-endfunction
-command! LineNumbers call Toggle_line_numbers()
-command! ToggleLineNumbers call Toggle_line_numbers()
-
 nnoremap <leader>w :wa<cr>
 nnoremap <leader>make :wa<Cr>:Neomake!<cr>
-nnoremap <leader>line :call Toggle_line_numbers()<cr>
 nnoremap <leader>hi :History<Cr>
 nnoremap <leader>so :w<cr>:source %<cr>
 nnoremap <leader>lime :Limelight!! 0.8<cr>
@@ -743,9 +726,9 @@ autocmd ColorScheme * highlight default link TSCurrentScope CursorLine
 nnoremap <silent> X :normal! x<cr>
 noremap <silent> <leader>tb :Tagbar<cr>
 
-command! Tokyo let g:tokyonight_style = "night" | colorscheme tokyonight
-command! TokyoStorm  let g:tokyonight_style = "storm" | colorscheme tokyonight
-command! TokyoDay  let g:tokyonight_style = "day" | colorscheme tokyonight
+command! Tokyo set background=dark | colorscheme tokyonight-night
+command! TokyoStorm set background=dark | colorscheme tokyonight-strom
+command! TokyoDay set background=light | colorscheme tokyonight-day
 command! Nightfly :packadd vim-nightfly-guicolors | colorscheme nightfly
 command! Moonfly colorscheme moonfly
 command! OneDark colorscheme one
@@ -777,5 +760,4 @@ nnoremap <leader>SS <cmd>lua require('sg.telescope').fuzzy_search_results()<CR>
 let g:query_lint_on = ["InsertLeave", "BufEnter", "TextChanged"]
 
 
-colorschem tundra
 lua vim.api.nvim_set_hl(0, "LspInlayHint", {link = "Comment"})
