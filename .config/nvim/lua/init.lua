@@ -276,8 +276,8 @@ if lspconfig then
   }
 
   --lspconfig.obsidian_ls.setup {
-    --on_attach = on_attach,
-    --capabilities = capabilities,
+  --on_attach = on_attach,
+  --capabilities = capabilities,
   --}
 
   lspconfig.flow.setup {
@@ -476,9 +476,13 @@ if lspconfig then
   --},
   --}
 
-  lspconfig.tinymis.setup {
+  lspconfig.tinymist.setup {
     on_attach = on_attach,
     capabilities = capabilities,
+    settings = {
+      exportPdf = "onType",
+      outputPath = "$root/$name",
+    },
   }
   lspconfig.ts_ls.setup {
     on_attach = on_attach,
