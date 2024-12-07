@@ -476,7 +476,7 @@ if lspconfig then
   --},
   --}
 
-  lspconfig.typst_lsp.setup {
+  lspconfig.tinymis.setup {
     on_attach = on_attach,
     capabilities = capabilities,
   }
