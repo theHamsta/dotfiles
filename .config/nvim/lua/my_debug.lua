@@ -111,7 +111,7 @@ function M.start_python_debugger(use_this_file, is_pytest)
     program = M.debug_target,
     console = "integratedTerminal",
     --console = "internalConsole",
-    justMyCode = false,
+    justMyCode = true,
     --pythonPath = function()
     --return "/usr/bin/python3"
     --end
