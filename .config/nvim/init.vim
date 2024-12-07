@@ -209,42 +209,6 @@ endif
 
 function! NvimLspMaps()
   lua NvimLspMaps()
-    "Lazy load fidget.nvim
-    "nnoremap <buffer><silent> <f2>         <cmd>lua vim.lsp.buf.rename()<CR>
-    "nnoremap <buffer><silent> gk         <cmd>lua vim.lsp.buf.declaration()<CR>
-    "nnoremap <buffer><silent> gR         <cmd>lua vim.lsp.buf.references()<CR>
-    "nnoremap <buffer> <silent> gd       <cmd>lua vim.lsp.buf.definition()<CR>
-    "nmap <buffer> <silent> gD  <c-w>vgd
-    "nnoremap <buffer><silent> gh         <cmd>lua vim.lsp.buf.hover()<CR>
-    "nnoremap <buffer><silent> <leader>gi         <cmd>lua vim.lsp.buf.implementation()<CR>
-    "inoremap <buffer><silent> <c-g>         <cmd>lua vim.lsp.buf.signature_help()<CR>
-    ""nnoremap <buffer><silent> <leader>lD <cmd>lua vim.diagnostic.setloclist()<CR>
-    "nnoremap <buffer><silent> <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
-    "nnoremap <buffer><silent> <leader>ic <cmd>lua vim.lsp.buf.incoming_calls()<CR>
-    "vnoremap <buffer><silent> <leader>oc <cmd>lua vim.lsp.buf.outgoing_calls()<CR>
-    "nnoremap <buffer><silent> <leader>ss :lua vim.lsp.buf.workspace_symbol()<cr>
-    "nnoremap <buffer><silent> <leader>de :lua require'lsp-ext'.peek_definition()<cr>
-    "nnoremap <buffer> <silent> <2-LeftMouse> <cmd>lua vim.lsp.buf.hover()<CR>
-    "nnoremap <buffer> <silent> <c-LeftMouse> <cmd>lua require'nvim-treesitter.refactor.navigation'.goto_definition_lsp_fallback()<CR>
-    "nnoremap <buffer> <silent> <c-LeftMouse> <cmd>lua vim.lsp.buf.definition()<CR>
-
-    "nnoremap <buffer> <silent> üf <cmd>packadd lspsaga<cr><cmd>Lspsaga lsp_finder<cr>
-
-    "nnoremap <silent> <leader>fi <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>
-        "nnoremap <buffer> <c-a-o> :Telescope lsp_document_symbols<cr>
-        "nnoremap <buffer> <leader><c-o> :Telescope lsp_document_symbols<cr>
-    "command! CodeLens autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()
-    "nnoremap <buffer><silent> <leader>gt    <cmd>lua vim.lsp.buf.type_definition()<CR>
-
-    "if &filetype == "java" 
-        ""nnoremap <buffer><silent> <c-s> :w<cr><cmd>lua vim.lsp.buf.formatting();require'jdtls'.organize_imports()<cr>
-    "elseif &filetype == "lua" 
-      "nnoremap <buffer><silent> <c-s> <cmd>lua require'conform'.format()<cr>:w<cr>
-    "else 
-        "nnoremap <buffer><silent> <c-s> :w<cr><cmd>lua vim.lsp.buf.format({async = true})<cr>
-    "endif
-
-    setlocal omnifunc=v:lua.vim.lsp.omnifunc
 endfunction
 
 
