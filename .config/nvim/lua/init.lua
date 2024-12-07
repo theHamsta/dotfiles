@@ -482,6 +482,7 @@ if lspconfig then
     settings = {
       exportPdf = "onType",
       outputPath = "$root/$name",
+      formatterMode = "typstfmt"
     },
   }
   lspconfig.ts_ls.setup {
