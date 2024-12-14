@@ -41,8 +41,45 @@ local go_packages = {
   "github.com/fatih/motion@master",
   "github.com/koron/iferr@master",
 }
+local analyzers = {}
+local SONARDIR = "/home/stephan/Downloads/sonar"
+for file, type in vim.fs.dir(SONARDIR) do
+  if type == "file" and vim.endswith(file, ".jar") and not vim.endswith(file, "-ls.jar") then
+    table.insert(analyzers, vim.fs.joinpath(SONARDIR, file))
+  end
+end
 
 require("lazy").setup {
+
+  {
+    "https://gitlab.com/schrieveslaach/sonarlint.nvim",
+    config = function()
+      if vim.fn.executable "java" == 1 then
+        require("sonarlint").setup {
+          server = {
+            cmd = vim.list_extend({
+              "java",
+              "-jar",
+              "/home/stephan/Downloads/sonar/sonarlint-ls.jar",
+              -- Ensure that sonarlint-language-server uses stdio channel
+              "-stdio",
+              "-analyzers",
+            }, analyzers),
+          },
+          filetypes = {
+            -- Tested and working
+            "python",
+            "c",
+            "cpp",
+            "java",
+            "go",
+            "csharp",
+          },
+        }
+      end
+    end,
+    enable = vim.fn.executable "java" == 1,
+  },
   {
     "piersolenski/telescope-import.nvim",
     dependencies = "nvim-telescope/telescope.nvim",
@@ -58,10 +95,8 @@ require("lazy").setup {
   --openai_api_key = vim.env.OPENAI_API_KEY,
   --}
   --end
-
   ---- or setup with your own config (see Install > Configuration in Readme)
   ---- require("gp").setup(config)
-
   ---- shortcuts might be setup here (see Usage > Shortcuts in Readme)
   --end,
   --enabled = vim.env.OPENAI_API_KEY,
@@ -1306,15 +1341,15 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --lazy = true,
   --},
   --{
-    --"sam4llis/nvim-tundra",
-    --config = function()
-      --vim.opt.background = "dark"
-      --vim.cmd [[
-        --colorscheme tundra
-        --highlight link LspInlayHint Comment
-      --]]
-    --end,
-    --lazy = true,
+  --"sam4llis/nvim-tundra",
+  --config = function()
+  --vim.opt.background = "dark"
+  --vim.cmd [[
+  --colorscheme tundra
+  --highlight link LspInlayHint Comment
+  --]]
+  --end,
+  --lazy = true,
   --},
   --{ "JoosepAlviste/palenightfall.nvim", lazy = true },
   --{ "projekt0n/github-nvim-theme", lazy = true },
