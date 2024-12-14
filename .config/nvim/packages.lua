@@ -54,7 +54,7 @@ require("lazy").setup {
   {
     "https://gitlab.com/schrieveslaach/sonarlint.nvim",
     config = function()
-      if vim.fn.executable "java" == 1 then
+      if vim.fn.executable "java" == 1 and vim.uv.fs_stat "/home/stephan/Downloads/sonar/sonarlint-ls.jar" then
         require("sonarlint").setup {
           server = {
             cmd = vim.list_extend({
