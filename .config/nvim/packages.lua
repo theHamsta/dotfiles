@@ -43,42 +43,41 @@ local go_packages = {
 }
 local analyzers = {}
 local SONARDIR = "/home/stephan/Downloads/sonar"
+local SONARLS_JAR = "sonarlint-ls.jar"
+local SONARLS_JAR_PATH = vim.fs.joinpath(SONARDIR, SONARLS_JAR)
 for file, type in vim.fs.dir(SONARDIR) do
-  if type == "file" and vim.endswith(file, ".jar") and not vim.endswith(file, "-ls.jar") then
+  if type == "file" and vim.endswith(file, ".jar") and file ~= SONARLS_JAR then
     table.insert(analyzers, vim.fs.joinpath(SONARDIR, file))
   end
 end
 
 require("lazy").setup {
-
   {
     "https://gitlab.com/schrieveslaach/sonarlint.nvim",
     config = function()
-      if vim.fn.executable "java" == 1 and vim.uv.fs_stat "/home/stephan/Downloads/sonar/sonarlint-ls.jar" then
-        require("sonarlint").setup {
-          server = {
-            cmd = vim.list_extend({
-              "java",
-              "-jar",
-              "/home/stephan/Downloads/sonar/sonarlint-ls.jar",
-              -- Ensure that sonarlint-language-server uses stdio channel
-              "-stdio",
-              "-analyzers",
-            }, analyzers),
-          },
-          filetypes = {
-            -- Tested and working
-            "python",
-            "c",
-            "cpp",
+      require("sonarlint").setup {
+        server = {
+          cmd = vim.list_extend({
             "java",
-            "go",
-            "csharp",
-          },
-        }
-      end
+            "-jar",
+            SONARLS_JAR_PATH,
+            -- Ensure that sonarlint-language-server uses stdio channel
+            "-stdio",
+            "-analyzers",
+          }, analyzers),
+        },
+        filetypes = {
+          -- Tested and working
+          "python",
+          "c",
+          "cpp",
+          "java",
+          "go",
+          "csharp",
+        },
+      }
     end,
-    enable = vim.fn.executable "java" == 1,
+    enabled = vim.uv.fs_stat(SONARLS_JAR_PATH) and vim.fn.executable "java" == 1,
   },
   {
     "piersolenski/telescope-import.nvim",
