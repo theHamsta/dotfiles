@@ -128,7 +128,7 @@ _G["NvimLspMaps"] = function()
   vim.keymap.set("n", "<c-LeftMouse", vim.lsp.buf.definition, { silent = true, buffer = true })
   --vim.keymap.set("n", "üf", "<cmd>packadd lspsaga<cr><cmd>Lspsaga lsp_finder", { silent = true, buffer = true })
   --vim.keymap.set("n", "<leader>fi", function()
-    --require("lspsaga.provider").lsp_finder()
+  --require("lspsaga.provider").lsp_finder()
   --end, { silent = true, buffer = true })
   vim.keymap.set("n", "<c-s>", function()
     require("conform").format({ lsp_fallback = true, async = true }, function()
@@ -238,10 +238,10 @@ if lspconfig then
     filetypes = { "swift" },
   }
   --lspconfig.helm_ls.setup {
-    --cmd = { "helm-ls", "serve" },
-    --filetypes = { "helm", "yaml" },
-    --on_attach = on_attach,
-    --capabilities = capabilities,
+  --cmd = { "helm-ls", "serve" },
+  --filetypes = { "helm", "yaml" },
+  --on_attach = on_attach,
+  --capabilities = capabilities,
   --}
   lspconfig.jdtls.setup {
     on_attach = on_attach,
@@ -469,6 +469,11 @@ if lspconfig then
   --capabilities = capabilities,
   --}
 
+  lspconfig.ruff.setup {
+    on_attach = on_attach,
+    settings = {},
+    capabilities = capabilities,
+  }
   lspconfig.pylsp.setup {
     on_attach = on_attach,
     settings = {
