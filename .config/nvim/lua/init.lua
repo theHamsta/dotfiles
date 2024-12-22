@@ -45,6 +45,7 @@ vim.api.nvim_create_user_command("ToggleLineNumbers", toggle_line_numbers, {})
 if vim.g.neovide then
   local fullscreen = false
   vim.g.neovide_floating_shadow = true
+  vim.g.neovide_title_background_color = "1a1b26"
   vim.g.neovide_floating_z_height = 5
   vim.g.neovide_light_angle_degrees = 45
   vim.g.neovide_light_radius = 1
