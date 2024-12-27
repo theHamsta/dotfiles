@@ -55,27 +55,29 @@ require("lazy").setup {
   {
     "https://gitlab.com/schrieveslaach/sonarlint.nvim",
     config = function()
-      require("sonarlint").setup {
-        server = {
-          cmd = vim.list_extend({
+      if vim.uv.fs_stat(SONARLS_JAR_PATH) and vim.fn.executable "java" == 1 then
+        require("sonarlint").setup {
+          server = {
+            cmd = vim.list_extend({
+              "java",
+              "-jar",
+              SONARLS_JAR_PATH,
+              -- Ensure that sonarlint-language-server uses stdio channel
+              "-stdio",
+              "-analyzers",
+            }, analyzers),
+          },
+          filetypes = {
+            -- Tested and working
+            "python",
+            "c",
+            "cpp",
             "java",
-            "-jar",
-            SONARLS_JAR_PATH,
-            -- Ensure that sonarlint-language-server uses stdio channel
-            "-stdio",
-            "-analyzers",
-          }, analyzers),
-        },
-        filetypes = {
-          -- Tested and working
-          "python",
-          "c",
-          "cpp",
-          "java",
-          "go",
-          "csharp",
-        },
-      }
+            "go",
+            "csharp",
+          },
+        }
+      end
     end,
     enabled = vim.uv.fs_stat(SONARLS_JAR_PATH) and vim.fn.executable "java" == 1,
   },
@@ -1296,16 +1298,42 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   "tpope/vim-fugitive",
   "tpope/vim-repeat",
   { "tpope/vim-sexp-mappings-for-regular-people", ft = lisp_filetypes },
-  --{
-    --"amitds1997/remote-nvim.nvim",
-    --version = "*", -- Pin to GitHub releases
-    --dependencies = {
-      --"nvim-lua/plenary.nvim", -- For standard functions
-      --"MunifTanjim/nui.nvim", -- To build the plugin UI
-      --"nvim-telescope/telescope.nvim", -- For picking b/w different remote methods
-    --},
-    --config = true,
-  --},
+  {
+    "amitds1997/remote-nvim.nvim",
+    version = "*", -- Pin to GitHub releases
+    dependencies = {
+      "nvim-lua/plenary.nvim", -- For standard functions
+      "MunifTanjim/nui.nvim", -- To build the plugin UI
+      "nvim-telescope/telescope.nvim", -- For picking b/w different remote methods
+    },
+    config = function()
+      require("remote-nvim").setup {
+        --remote = {
+        --copy_dirs = {
+        --state = {
+        --base = vim.fn.stdpath "state",
+        --dirs = { "lazy" },
+        --compression = {
+        --enabled = true,
+        --},
+        --},
+        --},
+        --},
+        client_callback = function(port, _)
+          vim.cmd[[alacritty -e nvim --server localhost:%s --remote-ui]]
+          require("remote-nvim.ui").float_term(
+            --('alacritty -e nvim --server localhost:%s --remote-ui'):format(port),
+            ('neovide --server localhost:%s'):format(port),
+            function(exit_code)
+              if exit_code ~= 0 then
+                vim.notify(("Local client failed with exit code %s"):format(exit_code), vim.log.levels.ERROR)
+              end
+            end
+          )
+        end,
+      }
+    end,
+  },
   --{ "nvim-java/nvim-java", ft = "java", config = function()
   --require('java').setup()
   --end },

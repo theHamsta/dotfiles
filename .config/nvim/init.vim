@@ -1,12 +1,7 @@
 set termguicolors     " enable true colors support
 
-if has("win32")
-  luafile ~/AppData/Local/nvim/packages.lua
-  luafile ~/AppData/Local/nvim/lua/init.lua
-else
-  luafile ~/.config/nvim/packages.lua
-  luafile ~/.config/nvim/lua/init.lua
-end
+lua require 'packages'
+lua require 'init'
 
 set tags=./tags,tags
 
