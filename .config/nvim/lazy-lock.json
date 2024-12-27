@@ -12,6 +12,7 @@
   "cmp_luasnip": { "branch": "master", "commit": "98d9cb5c2c38532bd9bdb481067b20fea8f32e90" },
   "conform.nvim": { "branch": "master", "commit": "9180320205d250429f0f80e073326c674e2a7149" },
   "crazy-node-movement": { "branch": "master", "commit": "d5cf01cc44c5715501d3d6fe439af7c8b7fa5df2" },
+  "ctrlsf.vim": { "branch": "master", "commit": "32236a8b376d9311dec9b5fe795ca99d32060b13" },
   "diffview.nvim": { "branch": "main", "commit": "4516612fe98ff56ae0415a259ff6361a89419b0a" },
   "dropbar.nvim": { "branch": "master", "commit": "178658790f100066f17b03efd7e348c019bf3aff" },
   "ethersync": { "branch": "main", "commit": "e6da0953d120cf838774ed915d934c561d74ccd6" },
