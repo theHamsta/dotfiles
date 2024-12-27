@@ -149,11 +149,11 @@ vim.keymap.set("n", "<leader>sh", require("telescope.builtin").help_tags, { desc
 vim.keymap.set("n", "<leader>sw", require("telescope.builtin").grep_string, { desc = "[S]earch current [W]ord" })
 vim.keymap.set("n", "<leader>sg", require("telescope.builtin").live_grep, { desc = "[S]earch by [G]rep" })
 vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { desc = "[S]earch [D]iagnostics" })
-vim.keymap.set("n", "<F6>", require("dap").continue, { desc = "DAP continue" })
-vim.keymap.set("n", "<F10>", require("dap").step_over, { desc = "DAP step over" })
-vim.keymap.set("n", "<F11>", require("dap").step_into, { desc = "DAP step into" })
-vim.keymap.set("n", "<PageUp>", require("dap").up, { desc = "DAP up" })
-vim.keymap.set("n", "<PageDown>", require("dap").down, { desc = "DAP down" })
+--vim.keymap.set("n", "<F6>", require("dap").continue, { desc = "DAP continue" })
+--vim.keymap.set("n", "<F10>", require("dap").step_over, { desc = "DAP step over" })
+--vim.keymap.set("n", "<F11>", require("dap").step_into, { desc = "DAP step into" })
+--vim.keymap.set("n", "<PageUp>", require("dap").up, { desc = "DAP up" })
+--vim.keymap.set("n", "<PageDown>", require("dap").down, { desc = "DAP down" })
 
 local neodev = vim.F.npcall(require, "neodev")
 if neodev then

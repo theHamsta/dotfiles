@@ -563,12 +563,14 @@ nnoremap <leader>bd :Bdelete<cr>
 function DapMaps()
     nnoremap <f1> :lua require'dap'.goto_()<cr>
     nnoremap <buffer> <silent> <F4> :lua require'dap.repl'.toggle()<CR>
-    nnoremap <buffer> <silent> <F5> :lua require'dap'.continue()<CR>
-    nnoremap <buffer> <silent> <s-F5> :lua require'dap'.run_to_cursor()<CR>
+    nnoremap <buffer> <silent> <F6> :lua require'dap'.continue()<CR>
+    nnoremap <buffer> <silent> <s-F6> :lua require'dap'.run_to_cursor()<CR>
     nnoremap <buffer> <silent> <F9> :lua require'dap'.step_over()<CR>
     nnoremap <buffer> <silent> <s-F9> :lua require'dap'.focus_frame()<CR>
     nnoremap <buffer> <silent> <F10> :lua require'dap'.step_into()<CR>
     nnoremap <buffer> <silent> <F11> :lua require'dap'.step_out()<CR>
+    nnoremap <buffer> <silent> <PageUp> :lua require'dap'.up()<CR>
+    nnoremap <buffer> <silent> <PageDown> :lua require'dap'.down()<CR>
 
     nmap <buffer> <silent> <leader>bb :lua require'dap'.toggle_breakpoint()<CR>
     nmap <buffer> <silent> <leader>bB :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
