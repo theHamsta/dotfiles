@@ -1200,7 +1200,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --"bronson/vim-visual-star-search",
   --{ "dbeniamine/cheat.sh-vim", cmd = { "Cheat" } },
   --{ "dyng/ctrlsf.vim", cmd = { "CtrlSFPrompt", "CtrlSFCwordPath", "CtrlSFVwordPath", "CtrlSFToggle", "CtrlSFOpen" } },
-  --{ "dyng/ctrlsf.vim", event = "VeryLazy" },
+  { "dyng/ctrlsf.vim", event = "VeryLazy" },
   --{ "euclio/vim-markdown-composer", build = "cargo build --release", cmd = "ComposerStart", ft = "markdown" },
   --{
     --"fatih/vim-go",
