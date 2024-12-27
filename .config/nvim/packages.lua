@@ -100,6 +100,8 @@ require("lazy").setup {
   --end,
   --enabled = vim.env.OPENAI_API_KEY,
   --},
+  { "theHamsta/nvim-dap-commands", opts = {} },
+  { "LiadOz/nvim-dap-repl-highlights", opts = {} },
   {
     "stevearc/conform.nvim",
     config = function()
