@@ -127,10 +127,10 @@ require("lazy").setup {
     lazy = false,
   },
   --{
-    --"RaafatTurki/hex.nvim",
-    --config = function()
-      --require("hex").setup()
-    --end,
+  --"RaafatTurki/hex.nvim",
+  --config = function()
+  --require("hex").setup()
+  --end,
   --},
   --{ "nvim-treesitter/nvim-treesitter-context", event = "VeryLazy" },
   {
@@ -163,13 +163,13 @@ require("lazy").setup {
   --},
   --{ "kiyoon/jupynium.nvim", run = "pip3 install --user . --break-system-packages" },
   --{
-    --"gabrielpoca/replacer.nvim",
-    --keys = "<leader>rG",
-    --config = function()
-      --vim.keymap.set("n", "<leader>rG", function()
-        --require("replacer").run { rename_files = false }
-      --end, { nowait = true, noremap = true, silent = true })
-    --end,
+  --"gabrielpoca/replacer.nvim",
+  --keys = "<leader>rG",
+  --config = function()
+  --vim.keymap.set("n", "<leader>rG", function()
+  --require("replacer").run { rename_files = false }
+  --end, { nowait = true, noremap = true, silent = true })
+  --end,
   --},
   --{ "krady21/compiler-explorer.nvim", cmd = "CECompile" },
   {
@@ -1203,32 +1203,32 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   { "dyng/ctrlsf.vim", event = "VeryLazy" },
   --{ "euclio/vim-markdown-composer", build = "cargo build --release", cmd = "ComposerStart", ft = "markdown" },
   --{
-    --"fatih/vim-go",
-    --ft = "go",
-    --enabled = false,
-    --build = function()
-      ----require("nvim-treesitter.install").iter_cmd(
-      ----vim.tbl_map(function(p)
-      ----return {
-      ----cmd = "go",
-      ----info = "Installing " .. p,
-      ----opts = { args = { "install", p } },
-      ----}
-      ----end, go_packages),
-      ----1,
-      ----"",
-      ----"Installed all Go deps"
-      ----)
-      --for _, pkg in ipairs(go_packages) do
-        --require("nvim-treesitter.install").iter_cmd({
-          --{
-            --cmd = "go",
-            --info = "Installing " .. pkg,
-            --opts = { args = { "install", pkg } },
-          --},
-        --}, 1, "", "Installed " .. pkg)
-      --end
-    --end,
+  --"fatih/vim-go",
+  --ft = "go",
+  --enabled = false,
+  --build = function()
+  ----require("nvim-treesitter.install").iter_cmd(
+  ----vim.tbl_map(function(p)
+  ----return {
+  ----cmd = "go",
+  ----info = "Installing " .. p,
+  ----opts = { args = { "install", p } },
+  ----}
+  ----end, go_packages),
+  ----1,
+  ----"",
+  ----"Installed all Go deps"
+  ----)
+  --for _, pkg in ipairs(go_packages) do
+  --require("nvim-treesitter.install").iter_cmd({
+  --{
+  --cmd = "go",
+  --info = "Installing " .. pkg,
+  --opts = { args = { "install", pkg } },
+  --},
+  --}, 1, "", "Installed " .. pkg)
+  --end
+  --end,
   --},
   { "theHamsta/vlime", branch = "prompt", ft = "lisp" },
   "hotwatermorning/auto-git-diff",
@@ -1296,6 +1296,16 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   "tpope/vim-fugitive",
   "tpope/vim-repeat",
   { "tpope/vim-sexp-mappings-for-regular-people", ft = lisp_filetypes },
+  --{
+    --"amitds1997/remote-nvim.nvim",
+    --version = "*", -- Pin to GitHub releases
+    --dependencies = {
+      --"nvim-lua/plenary.nvim", -- For standard functions
+      --"MunifTanjim/nui.nvim", -- To build the plugin UI
+      --"nvim-telescope/telescope.nvim", -- For picking b/w different remote methods
+    --},
+    --config = true,
+  --},
   --{ "nvim-java/nvim-java", ft = "java", config = function()
   --require('java').setup()
   --end },
