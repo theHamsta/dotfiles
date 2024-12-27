@@ -1320,7 +1320,6 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
         --},
         --},
         client_callback = function(port, _)
-          vim.cmd[[alacritty -e nvim --server localhost:%s --remote-ui]]
           require("remote-nvim.ui").float_term(
             --('alacritty -e nvim --server localhost:%s --remote-ui'):format(port),
             ('neovide --server localhost:%s'):format(port),
