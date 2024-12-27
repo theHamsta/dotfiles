@@ -1,0 +1,15 @@
+ARG BASE=ubuntu:24.04
+FROM $BASE AS builder
+
+RUN apt-get update && apt-get install -y git clangd build-essential cmake ninja-build gettext cmake unzip curl gdb zsh ripgrep fd-find sudo just && apt-get clean
+
+RUN git clone --filter=blob:none https://github.com/neovim/neovim/ && cd neovim && BUILD_TYPE=Release CMAKE_BUILD_TYPE=Release make && ninja -C build install && cd .. && rm -r neovim
+RUN useradd -ms /bin/zsh stephan
+USER stephan:stephan 
+WORKDIR /home/stephan
+RUN git clone --filter=blob:none https://github.com/theHamsta/dotfiles/ && ln -s dotfiles/.config ~/.config && ln -s ~/dotfiles/.zshrc ~/.zshrc && ln -s ~/dotfiles/.justfile ~/.justfile
+RUN /usr/local/bin/nvim -c "TSInstallSync c cpp cuda rust python bash dockerfile json yaml markdown markdown_inline" -c "q"
+RUN alias ju="just --justfile ~/.config/.justfile --working-directory ."
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+RUN curl -sS https://starship.rs/install.sh --yes | sh
+ENTRYPOINT ["/usr/local/bin/nvim", "--headless", "--listen", "0.0.0.0:6666"]
