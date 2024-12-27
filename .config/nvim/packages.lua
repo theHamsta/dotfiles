@@ -79,13 +79,6 @@ require("lazy").setup {
     end,
     enabled = vim.uv.fs_stat(SONARLS_JAR_PATH) and vim.fn.executable "java" == 1,
   },
-  {
-    "piersolenski/telescope-import.nvim",
-    dependencies = "nvim-telescope/telescope.nvim",
-    config = function()
-      require("telescope").load_extension "import"
-    end,
-  },
   --{
   --dir = "~/projects/gp.nvim",
   --config = function()
