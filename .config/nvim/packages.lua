@@ -126,12 +126,12 @@ require("lazy").setup {
     keys = { { "<leader>jj", "<cmd>EthersyncJumpToCursor<cr>" } },
     lazy = false,
   },
-  {
-    "RaafatTurki/hex.nvim",
-    config = function()
-      require("hex").setup()
-    end,
-  },
+  --{
+    --"RaafatTurki/hex.nvim",
+    --config = function()
+      --require("hex").setup()
+    --end,
+  --},
   --{ "nvim-treesitter/nvim-treesitter-context", event = "VeryLazy" },
   {
     "Bekaboo/dropbar.nvim",
@@ -162,16 +162,16 @@ require("lazy").setup {
   --}end,
   --},
   --{ "kiyoon/jupynium.nvim", run = "pip3 install --user . --break-system-packages" },
-  {
-    "gabrielpoca/replacer.nvim",
-    keys = "<leader>rG",
-    config = function()
-      vim.keymap.set("n", "<leader>rG", function()
-        require("replacer").run { rename_files = false }
-      end, { nowait = true, noremap = true, silent = true })
-    end,
-  },
-  { "krady21/compiler-explorer.nvim", cmd = "CECompile" },
+  --{
+    --"gabrielpoca/replacer.nvim",
+    --keys = "<leader>rG",
+    --config = function()
+      --vim.keymap.set("n", "<leader>rG", function()
+        --require("replacer").run { rename_files = false }
+      --end, { nowait = true, noremap = true, silent = true })
+    --end,
+  --},
+  --{ "krady21/compiler-explorer.nvim", cmd = "CECompile" },
   {
     "pmizio/typescript-tools.nvim",
     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
@@ -1073,7 +1073,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --"theHamsta/nvim_rocks",
   --build = "pip3 install --r hererocks && hererocks . -j2.1.0-beta3 -r3.0.0 && cp nvim_rocks.lua lua"
   --}
-  "tjdevries/luvjob.nvim",
+  --"tjdevries/luvjob.nvim",
   --"svermeulen/nvim-moonmaker",
   "kbenzie/vim-spirv",
   {
@@ -1108,12 +1108,9 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   "camspiers/animate.vim",
   "neovim/nvim-lspconfig",
   { "preservim/tagbar", cmd = { "TagbarToggle", "TagbarOpenAutoClose" } },
-  { "voldikss/vim-floaterm", cmd = "FloatermToggle" },
-  { "kkoomen/vim-doge", enabled = false },
-  { "AndrewRadev/switch.vim", cmd = "Switch" },
+  --{ "voldikss/vim-floaterm", cmd = "FloatermToggle" },
   --"JuliaEditorSupport/julia-vim",
   --{ "SirVer/ultisnips", opt = false, build = ":UpdateRemotePlugins" },
-  "Valloric/ListToggle",
   --"airblade/vim-gitgutter",
   {
     "lewis6991/gitsigns.nvim",
@@ -1201,38 +1198,38 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
 
   "airblade/vim-rooter",
   --"bronson/vim-visual-star-search",
-  { "dbeniamine/cheat.sh-vim", cmd = { "Cheat" } },
+  --{ "dbeniamine/cheat.sh-vim", cmd = { "Cheat" } },
   --{ "dyng/ctrlsf.vim", cmd = { "CtrlSFPrompt", "CtrlSFCwordPath", "CtrlSFVwordPath", "CtrlSFToggle", "CtrlSFOpen" } },
-  { "dyng/ctrlsf.vim", event = "VeryLazy" },
+  --{ "dyng/ctrlsf.vim", event = "VeryLazy" },
   --{ "euclio/vim-markdown-composer", build = "cargo build --release", cmd = "ComposerStart", ft = "markdown" },
-  {
-    "fatih/vim-go",
-    ft = "go",
-    enabled = false,
-    build = function()
-      --require("nvim-treesitter.install").iter_cmd(
-      --vim.tbl_map(function(p)
-      --return {
-      --cmd = "go",
-      --info = "Installing " .. p,
-      --opts = { args = { "install", p } },
-      --}
-      --end, go_packages),
-      --1,
-      --"",
-      --"Installed all Go deps"
-      --)
-      for _, pkg in ipairs(go_packages) do
-        require("nvim-treesitter.install").iter_cmd({
-          {
-            cmd = "go",
-            info = "Installing " .. pkg,
-            opts = { args = { "install", pkg } },
-          },
-        }, 1, "", "Installed " .. pkg)
-      end
-    end,
-  },
+  --{
+    --"fatih/vim-go",
+    --ft = "go",
+    --enabled = false,
+    --build = function()
+      ----require("nvim-treesitter.install").iter_cmd(
+      ----vim.tbl_map(function(p)
+      ----return {
+      ----cmd = "go",
+      ----info = "Installing " .. p,
+      ----opts = { args = { "install", p } },
+      ----}
+      ----end, go_packages),
+      ----1,
+      ----"",
+      ----"Installed all Go deps"
+      ----)
+      --for _, pkg in ipairs(go_packages) do
+        --require("nvim-treesitter.install").iter_cmd({
+          --{
+            --cmd = "go",
+            --info = "Installing " .. pkg,
+            --opts = { args = { "install", pkg } },
+          --},
+        --}, 1, "", "Installed " .. pkg)
+      --end
+    --end,
+  --},
   { "theHamsta/vlime", branch = "prompt", ft = "lisp" },
   "hotwatermorning/auto-git-diff",
   "idanarye/vim-merginal",
@@ -1307,8 +1304,8 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   "tpope/vim-surround",
   { "tpope/vim-unimpaired", enabled = false },
 
-  "wellle/targets.vim",
-  { "whiteinge/diffconflicts", cmd = "DiffConflicts" },
+  --"wellle/targets.vim",
+  --{ "whiteinge/diffconflicts", cmd = "DiffConflicts" },
   "TravonteD/luajob",
 
   -- Color schemes
