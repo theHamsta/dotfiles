@@ -993,6 +993,7 @@ if dap then
   --dap.repl.append(vim.inspect(dap.session().current_frame))
   --end
   dap.listeners.after.event_exited["my handler id"] = function(_, _)
+    vim.print("Process terminated")
     --dap.repl.close()
     --if ok then
     --dapui.close()
@@ -1282,15 +1283,15 @@ if ok then
   end
 end
 
-vim.cmd [[
-command! -complete=file -nargs=* DebugGdb lua require "my_debug".start_gdb({<f-args>})
-]]
-vim.cmd [[
-command! -complete=file -nargs=* DebugLLDB lua require "my_debug".start_vscode_lldb({<f-args>})
-]]
-vim.cmd [[
-command! -complete=file -nargs=* PythonDebug lua require "my_debug".python_debug({<f-args>})
-]]
+--vim.cmd [[
+--command! -complete=file -nargs=* DebugGdb lua require "my_debug".start_gdb({<f-args>})
+--]]
+--vim.cmd [[
+--command! -complete=file -nargs=* DebugLLDB lua require "my_debug".start_vscode_lldb({<f-args>})
+--]]
+--vim.cmd [[
+--command! -complete=file -nargs=* PythonDebug lua require "my_debug".python_debug({<f-args>})
+--]]
 
 vim.api.nvim_set_hl(0, "DapBreakpoint", { ctermbg = 0, fg = "#993939", bg = "#31353f" })
 vim.api.nvim_set_hl(0, "DapLogPoint", { ctermbg = 0, fg = "#61afef", bg = "#31353f" })
