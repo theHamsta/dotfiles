@@ -253,7 +253,14 @@ if lspconfig then
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
+      -- config example: https://ptrtojoel.dev/posts/so-you-want-to-write-java-in-neovim/
       java = {
+        inlayHints = {
+          enabled = true,
+          --parameterNames = {
+          --   enabled = 'all' -- literals, all, none
+          --}
+        },
         import = {
           gradle = {
             wrapper = {
@@ -998,7 +1005,7 @@ if dap then
   --dap.repl.append(vim.inspect(dap.session().current_frame))
   --end
   dap.listeners.after.event_exited["my handler id"] = function(_, _)
-    vim.print("Process terminated")
+    vim.print "Process terminated"
     --dap.repl.close()
     --if ok then
     --dapui.close()
