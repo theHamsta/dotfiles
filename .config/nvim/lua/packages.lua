@@ -79,7 +79,7 @@ require("lazy").setup {
         }
       end
     end,
-    enabled = vim.uv.fs_stat(SONARLS_JAR_PATH) and vim.fn.executable "java" == 1,
+    cond = vim.uv.fs_stat(SONARLS_JAR_PATH) and vim.fn.executable "java" == 1,
   },
   --{
   --dir = "~/projects/gp.nvim",
@@ -1322,7 +1322,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
         client_callback = function(port, _)
           require("remote-nvim.ui").float_term(
             --('alacritty -e nvim --server localhost:%s --remote-ui'):format(port),
-            ('neovide --server localhost:%s'):format(port),
+            ("neovide --server localhost:%s"):format(port),
             function(exit_code)
               if exit_code ~= 0 then
                 vim.notify(("Local client failed with exit code %s"):format(exit_code), vim.log.levels.ERROR)
@@ -1346,11 +1346,11 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   "TravonteD/luajob",
 
   -- Color schemes
-  { "rakr/vim-one", lazy = true },
-  {
-    "rose-pine/neovim",
-    lazy = true,
-  },
+  --{ "rakr/vim-one", lazy = true },
+  --{
+  --"rose-pine/neovim",
+  --lazy = true,
+  --},
   --{
   --"olimorris/onedarkpro.nvim",
   --config = function()
@@ -1359,7 +1359,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --colorscheme github_dark_dimmed
   --]]
   --end,
-  ----lazy = true,
+  --lazy = true,
   --},
   --{
   --"Yazeed1s/oh-lucy.nvim",
@@ -1368,17 +1368,18 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --end,
   --lazy = true,
   --},
-  --{
-  --"sam4llis/nvim-tundra",
-  --config = function()
-  --vim.opt.background = "dark"
-  --vim.cmd [[
-  --colorscheme tundra
-  --highlight link LspInlayHint Comment
-  --]]
-  --end,
-  --lazy = true,
-  --},
+  {
+    "sam4llis/nvim-tundra",
+    config = function()
+      vim.g.tundra_biome = "arctic" -- 'arctic' or 'jungle'
+      vim.opt.background = "dark"
+      vim.cmd [[
+  colorscheme tundra
+  highlight link LspInlayHint Comment
+  ]]
+    end,
+    --lazy = true,
+  },
   --{ "JoosepAlviste/palenightfall.nvim", lazy = true },
   --{ "projekt0n/github-nvim-theme", lazy = true },
   --{ "Pocco81/Catppuccino.nvim", lazy = true },
@@ -1386,10 +1387,11 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     "folke/tokyonight.nvim",
     config = function()
       vim.cmd [[
-        set background=dark
-        colorscheme tokyonight-night
-      ]]
+  set background=dark
+  colorscheme tokyonight-night
+  ]]
     end,
+    lazy = true,
   },
   --{ "bluz71/vim-nightfly-guicolors", lazy = true },
   --{ "bluz71/vim-moonfly-colors", lazy = true },
@@ -1407,14 +1409,14 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --end,
   --lazy = true,
   --},
-  --{
-  --"sourcegraph/sg.nvim",
-  --build = "cargo build --workspace",
-  --event = "BufReadPre sg://*",
-  --dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
-  --enabled = vim.fn.has "win32" ~= 1,
-  --lazy = true,
-  --},
+  {
+    "sourcegraph/sg.nvim",
+    --build = "cargo build --workspace",
+    event = "BufReadPre sg://*",
+    dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
+    enabled = vim.fn.has "win32" ~= 1,
+    lazy = true,
+  },
   --use {
   --"luukvbaal/statuscol.nvim",
   --config = function()
