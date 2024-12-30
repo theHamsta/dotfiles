@@ -108,7 +108,36 @@ end, { silent = true })
 vim.keymap.set("n", "<leader>rr", ":grep <cword> | copen<cr>", { silent = true, buffer = false, noremap = true })
 vim.keymap.set("v", "<leader>rr", "y:grep <c-r>+ | copen<cr>", { silent = true, buffer = false, noremap = true })
 
+local function switch_source_header(bufnr)
+  local util = require "lspconfig.util"
+  bufnr = util.validate_bufnr(bufnr)
+  local clangd_client = util.get_active_client_by_name(bufnr, "clangd")
+  local params = { uri = vim.uri_from_bufnr(bufnr) }
+  if clangd_client then
+    clangd_client.request("textDocument/switchSourceHeader", params, function(err, result)
+      if err then
+        vim.cmd [[:Telescope telescope-alternate alternate_file]]
+        error(tostring(err))
+      end
+      if not result then
+        vim.cmd [[:Telescope telescope-alternate alternate_file]]
+        print "Corresponding file cannot be determined"
+        return
+      end
+      vim.api.nvim_command("edit " .. vim.uri_to_fname(result))
+    end, bufnr)
+  else
+    print "method textDocument/switchSourceHeader is not supported by any servers active on the current buffer"
+  end
+end
+
 _G["NvimLspMaps"] = function()
+  local C_FTYPES = { c = true, cpp = true, cuda = true }
+  if C_FTYPES[vim.bo.filetype] then
+    vim.keymap.set("n", "<a-o>", function()
+      switch_source_header(0)
+    end, { silent = true, buffer = true })
+  end
   vim.keymap.set("n", "<c-a-o>", ":Telescope lsp_document_symbols<cr>", { silent = true, buffer = true })
   vim.keymap.set("n", "gd", vim.lsp.buf.definition, { silent = true, buffer = true })
   vim.keymap.set("n", "gD", "<c-w>vgd", { silent = true, buffer = true })

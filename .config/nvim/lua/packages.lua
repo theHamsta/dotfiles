@@ -256,6 +256,26 @@ require("lazy").setup {
     enabled = false,
   },
   {
+    "otavioschwanck/telescope-alternate",
+    config = function()
+      require("telescope-alternate").setup {
+        mappings = {
+          {
+            "(.*)/inc/(.*).h",
+            {
+              { "[1]/src/[2].cpp", "Source" },
+            },
+          },
+          { "(.*)/src/(.*).cpp", {
+            { "[1]/inc/[2].h", "Header" },
+          } },
+        },
+      }
+      require("telescope").load_extension "telescope-alternate"
+    end,
+    enabled = true,
+  },
+  {
     "stevearc/overseer.nvim",
     config = function()
       require("overseer").setup()
