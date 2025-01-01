@@ -50,8 +50,8 @@ require("lazy").setup {
           filetypes = {
             -- Tested and working
             "python",
-            "c",
-            "cpp",
+            --"c",
+            --"cpp",
             "java",
             "go",
             "csharp",
