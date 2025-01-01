@@ -189,3 +189,4 @@ CMakeUserPresets.json
 *.AnalysisSummary.html
 *.DiagnosticsSummary.html
 .ethersync
+.zig-cache
