@@ -522,3 +522,4 @@ filesystem
 cerr
 muxer
 mlir
+zig
