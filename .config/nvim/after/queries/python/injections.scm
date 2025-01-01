@@ -7,5 +7,5 @@
     .
     (string
       (string_content) @injection.content))
-  (#eq? @_sql "read_sql_query")
+  (#any-of? @_sql "read_sql_query" "execute")
   (#set! injection.language "sql"))
