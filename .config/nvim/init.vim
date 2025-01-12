@@ -689,3 +689,5 @@ let g:query_lint_on = ["InsertLeave", "BufEnter", "TextChanged"]
 
 
 lua vim.api.nvim_set_hl(0, "LspInlayHint", {link = "Comment"})
+lua require "theHamsta_luasnips"
+

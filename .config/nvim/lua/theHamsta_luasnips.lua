@@ -22,14 +22,14 @@ local fmt = require("luasnip.extras.fmt").fmt
 local m = require("luasnip.extras").m
 local lambda = require("luasnip.extras").l
 
-require("luasnip.loaders.from_snipmate").lazy_load {
+require("luasnip.loaders.from_snipmate").load {
   paths = vim.tbl_filter(function(elt)
-    elt:find("vim-snippets", nil, true)
+    return elt:find("vim-snippets", 1, true)
   end, vim.api.nvim_get_runtime_file("snippets", true)),
 }
-require("luasnip.loaders.from_vscode").lazy_load {
+require("luasnip.loaders.from_vscode").load {
   paths = vim.tbl_filter(function(elt)
-    elt:find("friendly-snippets", nil, true)
+    return elt:find("friendly-snippets", 1, true)
   end, vim.api.nvim_get_runtime_file("snippets", true)),
 }
 
@@ -61,3 +61,4 @@ ls.add_snippets("c", {
 
 ls.filetype_extend("cuda", { "cpp", "c" })
 ls.filetype_extend("cpp", { "c" })
+--ls.filetype_extend("cpp", { "c" })
