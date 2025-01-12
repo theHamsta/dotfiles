@@ -206,3 +206,4 @@ export WEBKIT_DISABLE_DMABUF_RENDERER=1
 eval "$(starship init zsh)"
 #zprof
 
+export POWERSHELL_TELEMETRY_OPTOUT=1
