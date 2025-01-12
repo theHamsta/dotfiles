@@ -622,7 +622,7 @@ require("lazy").setup {
     build = vim.fn.has "win32" ~= 1 and "make install_jsregexp" or nil,
     config = function()
       require "theHamsta_luasnips"
-      require("luasnip.loaders.from_snipmate").lazy_load()
+      --require("luasnip.loaders.from_snipmate").load()
 
       vim.cmd [[
 imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
@@ -636,7 +636,7 @@ imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
 smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
     ]]
     end,
-    keys = "<tab>",
+    --keys = "<tab>",
     dependencies = {},
   },
   {
