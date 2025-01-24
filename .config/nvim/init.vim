@@ -49,6 +49,7 @@ set joinspaces
 set shortmess+=c
 set sidescroll=1
 set nobackup
+set clipboard+=unnamedplus
 
 nnoremap <leader>w :wa<cr>
 nnoremap <leader>make :wa<Cr>:Neomake!<cr>
@@ -232,8 +233,6 @@ augroup END
 
 nnoremap <a-t> :Switch<CR>
 let g:rainbow_active = 0
-
-set clipboard=unnamedplus
 
 function! GotoPython()
     let current_line = getline('.')
