@@ -62,6 +62,23 @@ release:
 	ln -s release/compile_commands.json .
 	cd release && cmake --build . --parallel
 
+release-deb:
+	mkdir -p release
+	cmake -Brelease \
+		-DCMAKE_VERBOSE_MAKEFILE=OFF  \
+		-DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
+		-DCMAKE_CUDA_HOST_COMPILER=g++-11 \
+		-DCMAKE_CUDA_COMPILER_LAUNCHER=ccache \
+		-DCMAKE_BUILD_TYPE=RelWithDebInfo -G Ninja \
+		-DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
+		-DCMAKE_CXX_FLAGS_RELWITHDEBINFO="-march=native -O3 -DNDEBUG" \
+		-DCMAKE_C_FLAGS=-fdiagnostics-color \
+		-DCMAKE_CUDA_ARCHITECTURES=OFF \
+		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo --use_fast_math -O3"
+	rm -f compile_commands.json
+	ln -s release/compile_commands.json .
+	cd release && cmake --build . --parallel
+
 gcc-release:
 	mkdir -p gcc-release
 	export CXX=g++-13 && export CC=gcc-13 && cd gcc-release && cmake \
