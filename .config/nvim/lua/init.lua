@@ -1331,3 +1331,31 @@ vim.api.nvim_set_hl(0, "Stopped", { ctermbg = 0, fg = "#98c379", bg = "#31353f" 
 for _, parser in ipairs(require("nvim-treesitter.parsers").get_parser_configs()) do
   parser.repo.use_makefile = true
 end
+
+if vim.fn.executable "ts_query_ls" then
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = "query",
+    callback = function(ev)
+      if vim.bo[ev.buf].buftype == "nofile" then
+        return
+      end
+      vim.lsp.start {
+        name = "ts_query_ls",
+        cmd = { "ts_query_ls" },
+        root_dir = vim.fs.root(0, { "queries" }),
+        settings = {
+          parser_install_directories = {
+            -- If using nvim-treesitter with lazy.nvim
+            vim.fs.joinpath(vim.fn.stdpath "data", "/lazy/nvim-treesitter/parser/"),
+          },
+          parser_aliases = {
+            ecma = "javascript",
+          },
+          language_retrieval_patterns = {
+            "languages/src/([^/]+)/[^/]+\\.scm$",
+          },
+        },
+      }
+    end,
+  })
+end
