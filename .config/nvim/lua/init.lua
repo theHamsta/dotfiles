@@ -589,6 +589,7 @@ if lspconfig then
   --capabilities = capabilities,
   --}
   local clangd = shell.select_executable {
+    "clangd-21",
     "clangd-20",
     "clangd-19",
     "clangd-18",
