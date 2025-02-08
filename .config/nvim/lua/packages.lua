@@ -304,7 +304,7 @@ require("lazy").setup {
       require("lsp_lines").setup()
       vim.diagnostic.config { virtual_lines = false, virtual_text = true }
     end,
-    enabled = vim.fn.has "win32" ~= 1,
+    enabled = false,--vim.fn.has "win32" ~= 1,
     event = "VeryLazy",
   },
   --{
@@ -1364,7 +1364,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   "TravonteD/luajob",
 
   -- Color schemes
-  --{ "rakr/vim-one", lazy = true },
+  { "rakr/vim-one", lazy = true },
   --{
   --"rose-pine/neovim",
   --lazy = true,
@@ -1386,18 +1386,18 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --end,
   --lazy = true,
   --},
-  {
-    "sam4llis/nvim-tundra",
-    config = function()
-      vim.g.tundra_biome = "arctic" -- 'arctic' or 'jungle'
-      vim.opt.background = "dark"
-      vim.cmd [[
-  colorscheme tundra
-  highlight link LspInlayHint Comment
-  ]]
-    end,
+  --{
+    --"sam4llis/nvim-tundra",
+    --config = function()
+      --vim.g.tundra_biome = "arctic" -- 'arctic' or 'jungle'
+      --vim.opt.background = "dark"
+      --vim.cmd [[
+  --colorscheme tundra
+  --highlight link LspInlayHint Comment
+  --]]
+    --end,
     --lazy = true,
-  },
+  --},
   --{ "JoosepAlviste/palenightfall.nvim", lazy = true },
   --{ "projekt0n/github-nvim-theme", lazy = true },
   --{ "Pocco81/Catppuccino.nvim", lazy = true },
@@ -1409,7 +1409,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   colorscheme tokyonight-night
   ]]
     end,
-    lazy = true,
+    --lazy = true,
   },
   --{ "bluz71/vim-nightfly-guicolors", lazy = true },
   --{ "bluz71/vim-moonfly-colors", lazy = true },
