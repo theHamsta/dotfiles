@@ -3,7 +3,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 export DISABLE_AUTO_UPDATE=1
-fpath=($HOME/.zsh-completions $fpath)
+fpath=($HOME/.zsh-completions /home/stephan/.local/share/kde-builder/data/completions/zsh/ $fpath)
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 

@@ -634,8 +634,8 @@ imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
 smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
     ]]
     end,
-    --keys = "<tab>",
-    dependencies = {},
+    keys = "<tab>",
+    --dependencies = {},
   },
   {
     "hrsh7th/nvim-cmp",
@@ -1026,7 +1026,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     build = ":TSUpdate",
     event = "VeryLazy",
   },
-  { "nvim-treesitter/playground", keys = "<leader>pl" },
+  --{ "nvim-treesitter/playground", keys = "<leader>pl" },
   { "theHamsta/crazy-node-movement", event = "VeryLazy" },
   {
     "kevinhwang91/nvim-ufo",
