@@ -667,7 +667,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
       cmdline = { keymap = {
         preset = "default",
 
-        ["<tab>"] = { "select_and_accept" },
+        ["<tab>"] = { "show", "select_and_accept" },
       } },
 
       appearance = {
