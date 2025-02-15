@@ -18,10 +18,11 @@ endfunction
 vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
 local lsp_status = vim.F.npcall(require, "lsp-status")
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
+local capabilities = require("blink.cmp").get_lsp_capabilities()
 if lsp_status then
   capabilities = vim.tbl_extend("keep", capabilities or {}, lsp_status.capabilities)
 end
+
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.resolveSupport = {
   properties = {

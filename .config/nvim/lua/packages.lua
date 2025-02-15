@@ -304,7 +304,7 @@ require("lazy").setup {
       require("lsp_lines").setup()
       vim.diagnostic.config { virtual_lines = false, virtual_text = true }
     end,
-    enabled = false,--vim.fn.has "win32" ~= 1,
+    enabled = false, --vim.fn.has "win32" ~= 1,
     event = "VeryLazy",
   },
   --{
@@ -621,7 +621,6 @@ require("lazy").setup {
     "L3MON4D3/LuaSnip",
     build = vim.fn.has "win32" ~= 1 and "make install_jsregexp" or nil,
     config = function()
-
       vim.cmd [[
 imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
 inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
@@ -638,72 +637,170 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     --dependencies = {},
   },
   {
-    "hrsh7th/nvim-cmp",
-    dependencies = {
-      --"quangnguyen30192/cmp-nvim-ultisnips",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-nvim-lua",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-cmdline",
-      "saadparwaiz1/cmp_luasnip",
-      "hrsh7th/cmp-emoji",
-      --"rcarriga/cmp-dap",
-      --"kdheepak/cmp-latex-symbols",
-    },
-    event = "VeryLazy",
-    config = function()
-      -- Setup nvim-cmp.
-      local cmp = require "cmp"
-      cmp.mapping.preset["<C-y>"] = {
-        i = cmp.mapping.confirm { select = true },
-      }
+    "saghen/blink.cmp",
+    build = "Tnew | T cargo build --release",
+    dependencies = "rafamadriz/friendly-snippets",
+    --build = function()
+    --vim.notify("Building blink.cmp", vim.log.levels.INFO)
+    --local obj = vim
+    --.system({ "cargo", "build", "--release" }, { [>cwd = params.path<]
+    --})
+    --:wait()
+    --if obj.code == 0 then
+    --vim.notify("Building blink.cmp done", vim.log.levels.INFO)
+    --else
+    --vim.notify("Building blink.cmp failed", vim.log.levels.ERROR)
+    --end
+    --end,
+    --version = "*",
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
+    opts = {
+      signature = { enabled = true },
+      -- 'default' for mappings similar to built-in completion
+      -- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
+      -- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
+      -- See the full "keymap" documentation for information on defining your own keymap.
+      keymap = {
+        preset = "default",
+      },
+      cmdline = { keymap = {
+        preset = "default",
 
-      cmp.setup {
-        experimental = {
-          ghost_text = false,
+        ["<tab>"] = { "select_and_accept" },
+      } },
+
+      appearance = {
+        -- Sets the fallback highlight groups to nvim-cmp's highlight groups
+        -- Useful for when your theme doesn't support blink.cmp
+        -- Will be removed in a future release
+        use_nvim_cmp_as_default = true,
+        -- Set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+        -- Adjusts spacing to ensure icons are aligned
+        nerd_font_variant = "mono",
+      },
+
+      -- Default list of enabled providers defined so that you can extend it
+      -- elsewhere in your config, without redefining it, due to `opts_extend`
+      sources = {
+        default = { "lsp", "path", "snippets", "buffer", "cmdline" },
+      },
+      snippets = { preset = "luasnip" },
+      completion = {
+        -- 'prefix' will fuzzy match on the text before the cursor
+        -- 'full' will fuzzy match on the text before *and* after the cursor
+        -- example: 'foo_|_bar' will match 'foo_' for 'prefix' and 'foo__bar' for 'full'
+        keyword = { range = "prefix" },
+
+        -- Disable auto brackets
+        -- NOTE: some LSPs may add auto brackets themselves anyway
+        accept = { auto_brackets = { enabled = true } },
+
+        ---- Don't select by default, auto insert on selection
+        --list = { selection = { preselect = false, auto_insert = true } },
+        ---- or set either per mode via a function
+        --list = { selection = {
+        --preselect = function(ctx)
+        --return ctx.mode ~= "cmdline"
+        --end,
+        --} },
+
+        menu = {
+          -- Don't automatically show the completion menu
+          auto_show = true,
+
+          -- nvim-cmp style menu
+          draw = {
+            columns = {
+              { "label", "label_description", gap = 1 },
+              { "kind_icon", "kind" },
+            },
+          },
         },
-        view = {
-          entries = "native",
-        },
-        snippet = {
-          -- REQUIRED - you must specify a snippet engine
-          expand = function(args)
-            --vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-            require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
-            --vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-            -- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
-          end,
-        },
-        enabled = function()
-          return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" -- or require("cmp_dap").is_dap_buffer()
-        end,
-        sources = cmp.config.sources({
-          { name = "jupynium", priority = 1000 },
-          { name = "nvim_lsp" },
-          { name = "path", priority = 1000 },
-          { name = "luasnip" }, -- For luasnip users.
-          --{ name = "ultisnips" }, -- For ultisnips users.
-          { name = "emoji", insert = true },
-          --{ name = "latex_symbols" },
-          { name = "crates" },
-          --{ name = "neorg" },
-          --{ name = "dap" },
-        }, {
-          { name = "buffer" },
-        }),
-      }
-    end,
+
+        -- Show documentation when selecting a completion item
+        documentation = { auto_show = true, auto_show_delay_ms = 500 },
+
+        -- Display a preview of the selected item on the current line
+        ghost_text = { enabled = false },
+      },
+    },
+    opts_extend = { "sources.default" },
   },
-  {
-    "doxnit/cmp-luasnip-choice",
-    config = function()
-      require("cmp_luasnip_choice").setup {
-        auto_open = true, -- Automatically open nvim-cmp on choice node (default: true)
-      }
-    end,
-    event = "VeryLazy",
-  },
+
+  ---- Use a preset for snippets, check the snippets documentation for more information
+  --snippets = { preset = 'default' | 'luasnip' | 'mini_snippets' },
+
+  ---- Experimental signature help support
+  --signature = { enabled = true }
+  --}},
+  --[[{]]
+  --[["hrsh7th/nvim-cmp",]]
+  --[[dependencies = {]]
+  --[[--"quangnguyen30192/cmp-nvim-ultisnips",]]
+  --[["hrsh7th/cmp-nvim-lsp",]]
+  --[["hrsh7th/cmp-buffer",]]
+  --[["hrsh7th/cmp-nvim-lua",]]
+  --[["hrsh7th/cmp-path",]]
+  --[["hrsh7th/cmp-cmdline",]]
+  --[["saadparwaiz1/cmp_luasnip",]]
+  --[["hrsh7th/cmp-emoji",]]
+  --[[--"rcarriga/cmp-dap",]]
+  --[[--"kdheepak/cmp-latex-symbols",]]
+  --[[},]]
+  --[[event = "VeryLazy",]]
+  --[[config = function()]]
+  --[[-- Setup nvim-cmp.]]
+  --[[local cmp = require "cmp"]]
+  --[[cmp.mapping.preset["<C-y>"] = {]]
+  --[[i = cmp.mapping.confirm { select = true },]]
+  --[[}]]
+
+  --[[cmp.setup {]]
+  --[[experimental = {]]
+  --[[ghost_text = false,]]
+  --[[},]]
+  --[[view = {]]
+  --[[entries = "native",]]
+  --[[},]]
+  --[[snippet = {]]
+  --[[-- REQUIRED - you must specify a snippet engine]]
+  --[[expand = function(args)]]
+  --[[--vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.]]
+  --[[require("luasnip").lsp_expand(args.body) -- For `luasnip` users.]]
+  --[[--vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.]]
+  --[[-- require'snippy'.expand_snippet(args.body) -- For `snippy` users.]]
+  --[[end,]]
+  --[[},]]
+  --[[enabled = function()]]
+  --[[return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" -- or require("cmp_dap").is_dap_buffer()]]
+  --[[end,]]
+  --[[sources = cmp.config.sources({]]
+  --[[{ name = "jupynium", priority = 1000 },]]
+  --[[{ name = "nvim_lsp" },]]
+  --[[{ name = "path", priority = 1000 },]]
+  --[[{ name = "luasnip" }, -- For luasnip users.]]
+  --[[--{ name = "ultisnips" }, -- For ultisnips users.]]
+  --[[{ name = "emoji", insert = true },]]
+  --[[--{ name = "latex_symbols" },]]
+  --[[{ name = "crates" },]]
+  --[[--{ name = "neorg" },]]
+  --[[--{ name = "dap" },]]
+  --[[}, {]]
+  --[[{ name = "buffer" },]]
+  --[[}),]]
+  --[[}]]
+  --[[end,]]
+  --[[},]]
+  --[[{]]
+  --[["doxnit/cmp-luasnip-choice",]]
+  --[[config = function()]]
+  --[[require("cmp_luasnip_choice").setup {]]
+  --[[auto_open = true, -- Automatically open nvim-cmp on choice node (default: true)]]
+  --[[}]]
+  --[[end,]]
+  --[[event = "VeryLazy",]]
+  --[[},]]
   --{
   --"p00f/clangd_extensions.nvim",
   --ft = { "cuda", "cpp", "c" },
@@ -1387,16 +1484,16 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --lazy = true,
   --},
   --{
-    --"sam4llis/nvim-tundra",
-    --config = function()
-      --vim.g.tundra_biome = "arctic" -- 'arctic' or 'jungle'
-      --vim.opt.background = "dark"
-      --vim.cmd [[
+  --"sam4llis/nvim-tundra",
+  --config = function()
+  --vim.g.tundra_biome = "arctic" -- 'arctic' or 'jungle'
+  --vim.opt.background = "dark"
+  --vim.cmd [[
   --colorscheme tundra
   --highlight link LspInlayHint Comment
   --]]
-    --end,
-    --lazy = true,
+  --end,
+  --lazy = true,
   --},
   --{ "JoosepAlviste/palenightfall.nvim", lazy = true },
   --{ "projekt0n/github-nvim-theme", lazy = true },
@@ -1428,12 +1525,12 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --lazy = true,
   --},
   --{
-    --"sourcegraph/sg.nvim",
-    ----build = "cargo build --workspace",
-    --event = "BufReadPre sg://*",
-    --dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
-    --enabled = vim.fn.has "win32" ~= 1,
-    --lazy = true,
+  --"sourcegraph/sg.nvim",
+  ----build = "cargo build --workspace",
+  --event = "BufReadPre sg://*",
+  --dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
+  --enabled = vim.fn.has "win32" ~= 1,
+  --lazy = true,
   --},
   --use {
   --"luukvbaal/statuscol.nvim",
