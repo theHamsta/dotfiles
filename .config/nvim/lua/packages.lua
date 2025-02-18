@@ -638,7 +638,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   },
   {
     "saghen/blink.cmp",
-    build = "Tnew | T cargo build --release",
+    build = "cargo build --release",
     dependencies = "rafamadriz/friendly-snippets",
     --build = function()
     --vim.notify("Building blink.cmp", vim.log.levels.INFO)
