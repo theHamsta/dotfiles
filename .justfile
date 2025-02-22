@@ -14,8 +14,8 @@ build:
 		-DCMAKE_CXX_FLAGS_INIT="-fsanitize=undefined -fsanitize=address -fsanitize=memory" \
 		-DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
 		-DCMAKE_C_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
-		-DCMAKE_CUDA_ARCHITECTURES=OFF \
-		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -G"
+		-DCMAKE_CUDA_ARCHITECTURES=native \
+		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -G"
 	rm -f compile_commands.json
 	ln -s debug/compile_commands.json .
 	cd debug && cmake --build . --parallel
@@ -50,14 +50,14 @@ release:
 	cmake -Brelease \
 		-DCMAKE_VERBOSE_MAKEFILE=OFF  \
 		-DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
-		-DCMAKE_CUDA_HOST_COMPILER=g++-11 \
+		-DCMAKE_CUDA_HOST_COMPILER=g++-13 \
 		-DCMAKE_CUDA_COMPILER_LAUNCHER=ccache \
 		-DCMAKE_BUILD_TYPE=Release -G Ninja \
 		-DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
 		-DCMAKE_CXX_FLAGS_RELEASE="-march=native -O3 -DNDEBUG -flto" \
 		-DCMAKE_C_FLAGS=-fdiagnostics-color \
 		-DCMAKE_C_FLAGS_RELEASE="-march=native -O3 -DNDEBUG -flto" \
-		-DCMAKE_CUDA_ARCHITECTURES=OFF \
+		-DCMAKE_CUDA_ARCHITECTURES=native \
 		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo --use_fast_math -O3"
 	rm -f compile_commands.json
 	ln -s release/compile_commands.json .
@@ -85,6 +85,7 @@ gcc-release:
 	export CXX=g++-13 && export CC=gcc-13 && cd gcc-release && cmake \
 		-DCMAKE_EXPORT_COMPILE_COMMANDS=YES  \
 		-DCMAKE_VERBOSE_MAKEFILE=OFF  \
+		-DCMAKE_CUDA_HOST_COMPILER=g++-13 \
 		-DCMAKE_BUILD_TYPE=Release -G Ninja \
 		-DCMAKE_CUDA_ARCHITECTURES=OFF \
 		-DCMAKE_CXX_FLAGS_RELEASE="-fdiagnostics-color -O3 -flto" \
