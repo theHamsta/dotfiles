@@ -1497,7 +1497,16 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --},
   --{ "JoosepAlviste/palenightfall.nvim", lazy = true },
   --{ "projekt0n/github-nvim-theme", lazy = true },
-  --{ "Pocco81/Catppuccino.nvim", lazy = true },
+  --{
+  --"catppuccin/nvim",
+  --name = "catppuccin",
+  --priority = 1000,
+  --config = function()
+  --vim.cmd [[
+  --colorscheme catppuccin
+  --]]
+  --end,
+  --},
   {
     "folke/tokyonight.nvim",
     config = function()
@@ -1506,6 +1515,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   colorscheme tokyonight-night
   ]]
     end,
+    enable = false,
     --lazy = true,
   },
   --{ "bluz71/vim-nightfly-guicolors", lazy = true },
