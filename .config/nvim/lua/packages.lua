@@ -656,7 +656,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
-      signature = { enabled = true },
+      signature = { enabled = false },
       -- 'default' for mappings similar to built-in completion
       -- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
       -- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
