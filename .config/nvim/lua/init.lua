@@ -575,6 +575,10 @@ if lspconfig then
     on_attach = on_attach,
     capabilities = capabilities,
   }
+  lspconfig.blueprint_ls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
   --lspconfig.clangd.setup {
   --cmd = {
   --"clangd-15",
