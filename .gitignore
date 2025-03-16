@@ -191,3 +191,4 @@ CMakeUserPresets.json
 .ethersync
 .zig-cache
 __CtrlSF__
+.build
