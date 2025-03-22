@@ -82,7 +82,7 @@ release-deb:
 
 gcc-release:
 	mkdir -p gcc-release
-	export CXX=g++-13 && export CC=gcc-13 && cd gcc-release && cmake \
+	export CXX=g++-15 && export CC=gcc-15 && cd gcc-release && cmake \
 		-DCMAKE_EXPORT_COMPILE_COMMANDS=YES  \
 		-DCMAKE_VERBOSE_MAKEFILE=OFF  \
 		-DCMAKE_CUDA_HOST_COMPILER=g++-13 \
