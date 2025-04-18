@@ -33,6 +33,15 @@ end
 
 require("lazy").setup {
   {
+    "lervag/vimtex",
+    lazy = false, -- we don't want to lazy load VimTeX
+    -- tag = "v2.15", -- uncomment to pin to a specific release
+    init = function()
+      -- VimTeX configuration goes here, e.g.
+      vim.g.vimtex_view_method = "zathura"
+    end,
+  },
+  {
     "https://gitlab.com/schrieveslaach/sonarlint.nvim",
     config = function()
       if vim.uv.fs_stat(SONARLS_JAR_PATH) and vim.fn.executable "java" == 1 then
@@ -75,7 +84,7 @@ require("lazy").setup {
   --end,
   --enabled = vim.env.OPENAI_API_KEY,
   --},
-  { "theHamsta/nvim-dap-commands", opts = {} },
+  { "theHamsta/nvim-dap-commands",     opts = {} },
   { "LiadOz/nvim-dap-repl-highlights", opts = {} },
   {
     "stevearc/conform.nvim",
@@ -123,12 +132,12 @@ require("lazy").setup {
           enable = function(buf, win)
             local name = vim.api.nvim_buf_get_name(buf)
             return not vim.api.nvim_win_get_config(win).zindex
-              and name
-              and vim.bo[buf].buftype == ""
-              and name ~= ""
-              and not name:find(".git", 1, true)
-              and not vim.wo[win].diff
-              and vim.g.dropbar == 1
+                and name
+                and vim.bo[buf].buftype == ""
+                and name ~= ""
+                and not name:find(".git", 1, true)
+                and not vim.wo[win].diff
+                and vim.g.dropbar == 1
           end,
         },
       }
@@ -713,7 +722,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
           -- nvim-cmp style menu
           draw = {
             columns = {
-              { "label", "label_description", gap = 1 },
+              { "label",     "label_description", gap = 1 },
               { "kind_icon", "kind" },
             },
           },
@@ -861,7 +870,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --end,
   --cmd = "Zenmode",
   --},
-  { "nanotee/zoxide.vim", cmd = { "Z", "Zi" } },
+  { "nanotee/zoxide.vim",    cmd = { "Z", "Zi" } },
   "nvim-lua/popup.nvim",
   {
     "folke/twilight.nvim",
@@ -904,9 +913,9 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   {
     "NeogitOrg/neogit",
     dependencies = {
-      "nvim-lua/plenary.nvim", -- required
+      "nvim-lua/plenary.nvim",         -- required
       "nvim-telescope/telescope.nvim", -- optional
-      "sindrets/diffview.nvim", -- optional
+      "sindrets/diffview.nvim",        -- optional
       --"ibhagwan/fzf-lua", -- optional
     },
     config = true,
@@ -945,7 +954,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     end,
     enabled = false,
   },
-  { "jiangmiao/auto-pairs", enabled = false },
+  { "jiangmiao/auto-pairs",   enabled = false },
   --{
   --"nvim-lua/lsp-status.nvim",
   --config = function()
@@ -1005,16 +1014,16 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     end,
     enabled = false,
   },
-  { "danilo-augusto/vim-afterglow", enabled = false },
-  { "kevinhwang91/nvim-hlslens", enabled = false },
+  { "danilo-augusto/vim-afterglow",                enabled = false },
+  { "kevinhwang91/nvim-hlslens",                   enabled = false },
   --{
   --"norcalli/snippets.nvim",
   --config = function()
   --vim.cmd [[inoremap <c-k> <cmd>lua return require'snippets'.expand_or_advance(1)<CR>]]
   --end,
   --},
-  { "tpope/vim-speeddating", enabled = false },
-  { "nvim-telescope/telescope-symbols.nvim", enabled = false },
+  { "tpope/vim-speeddating",                       enabled = false },
+  { "nvim-telescope/telescope-symbols.nvim",       enabled = false },
   --{
   --"rcarriga/nvim-dap-ui",
   --lazy = true,
@@ -1103,7 +1112,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --},
   { "nvim-treesitter/nvim-treesitter-textobjects", event = "VeryLazy" },
   --{ "theHamsta/nvim-treesitter-commonlisp", ft = "lisp" },
-  { "nvim-treesitter/nvim-treesitter-refactor", event = "VeryLazy" },
+  { "nvim-treesitter/nvim-treesitter-refactor",    event = "VeryLazy" },
   {
     "Badhi/nvim-treesitter-cpp-tools",
     ft = { "cpp", "cuda" },
@@ -1157,7 +1166,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     config = function()
       require("nvim-dap-virtual-text").setup {
         --only_first_definition = true,
-        all_references = false, -- show virtual text on all all references of the variable (not only definitions)
+        all_references = false,                                            -- show virtual text on all all references of the variable (not only definitions)
         virt_text_pos = vim.fn.has "nvim-0.10" == 1 and "inline" or "eol", -- use `vim.fn.has 'nvim-0.10' == 1 and 'inline' or 'eol'` for inlined text if supported
       }
     end,
@@ -1205,7 +1214,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --"szymonmaszke/vimpyter",
   "camspiers/animate.vim",
   "neovim/nvim-lspconfig",
-  { "preservim/tagbar", cmd = { "TagbarToggle", "TagbarOpenAutoClose" } },
+  { "preservim/tagbar",              cmd = { "TagbarToggle", "TagbarOpenAutoClose" } },
   --{ "voldikss/vim-floaterm", cmd = "FloatermToggle" },
   --"JuliaEditorSupport/julia-vim",
   --{ "SirVer/ultisnips", opt = false, build = ":UpdateRemotePlugins" },
@@ -1351,15 +1360,15 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   { "theHamsta/vlime", branch = "prompt", ft = "lisp" },
   "hotwatermorning/auto-git-diff",
   "idanarye/vim-merginal",
-  { "janko/vim-test", ft = { "rust", "python" } },
+  { "janko/vim-test",   ft = { "rust", "python" } },
   --{ "ionide/Ionide-vim", build = "make fsautocomplete", ft = "fsharp" },
   --{"fsprojects/fsharp-language-server", build = "npm install && dotnet build -c Release"},
-  { "junegunn/fzf", build = ":call fzf#install()" },
+  { "junegunn/fzf",     build = ":call fzf#install()" },
   { "junegunn/fzf.vim", cmd = { "Blines", "Buffers", "GFiles", "GF", "Files", "Rg", "Helptags", "History" } },
-  { "junegunn/gv.vim", cmd = "GV" },
+  { "junegunn/gv.vim",  cmd = "GV" },
   "justinmk/vim-gtfo",
   "kassio/neoterm",
-  { "mbbill/undotree", cmd = { "UndotreeToggle" } },
+  { "mbbill/undotree",        cmd = { "UndotreeToggle" } },
   { "meain/vim-package-info", build = "npm install" },
   --{
   --"phaazon/hop.nvim",
@@ -1368,7 +1377,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --end,
   --},
   --"moll/vim-bbye",
-  { "jpalardy/vim-slime", enabled = false },
+  { "jpalardy/vim-slime",     enabled = false },
   "rhysd/git-messenger.vim",
   "scrooloose/nerdcommenter",
   "skywind3000/vim-preview",
@@ -1404,11 +1413,11 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     },
     lazy = true,
   },
-  { "terryma/vim-multiple-cursors", keys = { "<c-n>", "<a-n>" } },
-  { "kana/vim-textobj-user", event = "VeryLazy" },
-  { "theHamsta/vim-template", dependencies = "kana/vim-textobj-user", enabled = vim.fn.has "win32" ~= 1 },
-  { "theHamsta/vim-textobj-entire", dependencies = "kana/vim-textobj-user", event = "VeryLazy" },
-  { "theHamsta/vim-rebase-mode", dependencies = "kana/vim-textobj-user", event = "VeryLazy" },
+  { "terryma/vim-multiple-cursors",        keys = { "<c-n>", "<a-n>" } },
+  { "kana/vim-textobj-user",               event = "VeryLazy" },
+  { "theHamsta/vim-template",              dependencies = "kana/vim-textobj-user", enabled = vim.fn.has "win32" ~= 1 },
+  { "theHamsta/vim-textobj-entire",        dependencies = "kana/vim-textobj-user", event = "VeryLazy" },
+  { "theHamsta/vim-rebase-mode",           dependencies = "kana/vim-textobj-user", event = "VeryLazy" },
   { "Julian/vim-textobj-variable-segment", dependencies = "kana/vim-textobj-user", event = "VeryLazy" },
   "tpope/vim-eunuch",
   "tpope/vim-fugitive",
@@ -1416,10 +1425,10 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   { "tpope/vim-sexp-mappings-for-regular-people", ft = lisp_filetypes },
   {
     "amitds1997/remote-nvim.nvim",
-    version = "*", -- Pin to GitHub releases
+    version = "*",                     -- Pin to GitHub releases
     dependencies = {
-      "nvim-lua/plenary.nvim", -- For standard functions
-      "MunifTanjim/nui.nvim", -- To build the plugin UI
+      "nvim-lua/plenary.nvim",         -- For standard functions
+      "MunifTanjim/nui.nvim",          -- To build the plugin UI
       "nvim-telescope/telescope.nvim", -- For picking b/w different remote methods
     },
     config = function()
@@ -1437,7 +1446,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
         --},
         client_callback = function(port, _)
           require("remote-nvim.ui").float_term(
-            --('alacritty -e nvim --server localhost:%s --remote-ui'):format(port),
+          --('alacritty -e nvim --server localhost:%s --remote-ui'):format(port),
             ("neovide --server localhost:%s"):format(port),
             function(exit_code)
               if exit_code ~= 0 then
@@ -1452,7 +1461,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --{ "nvim-java/nvim-java", ft = "java", config = function()
   --require('java').setup()
   --end },
-  { "guns/vim-sexp", ft = lisp_filetypes },
+  { "guns/vim-sexp",                              ft = lisp_filetypes },
   "tpope/vim-sleuth",
   "tpope/vim-surround",
   { "tpope/vim-unimpaired", enabled = false },
@@ -1462,7 +1471,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   "TravonteD/luajob",
 
   -- Color schemes
-  { "rakr/vim-one", lazy = true },
+  { "rakr/vim-one",         lazy = true },
   --{
   --"rose-pine/neovim",
   --lazy = true,
