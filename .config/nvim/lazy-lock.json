@@ -89,6 +89,7 @@
   "vim-textobj-entire": { "branch": "master", "commit": "e3c29f3e68cb7639753a2346ad31cec5a0f8d05f" },
   "vim-textobj-user": { "branch": "master", "commit": "41a675ddbeefd6a93664a4dc52f302fe3086a933" },
   "vim-textobj-variable-segment": { "branch": "main", "commit": "12e07590db6c90586ae5b750d6123c0779f6b35b" },
+  "vimtex": { "branch": "master", "commit": "74371e6ad18275a9d9de688d8efc3c332d8f1feb" },
   "vlime": { "branch": "prompt", "commit": "fb37b2f0b509b3bae5a9456fea00a32ff3b4505d" },
   "zoxide.vim": { "branch": "master", "commit": "b1e70b6fc1682a83929aee63680d2b43456fe9a5" }
 }

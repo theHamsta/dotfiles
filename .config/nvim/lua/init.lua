@@ -163,6 +163,7 @@ _G["NvimLspMaps"] = function()
   --end, { silent = true, buffer = true })
   vim.keymap.set("n", "<c-s>", function()
     require("conform").format({ lsp_fallback = true, async = true }, function()
+      vim.lsp.buf.format { bufnr = 0 }
       vim.cmd "w"
     end)
   end, { silent = true, buffer = true })
@@ -973,7 +974,8 @@ if dap then
     end,
     name = "lldb",
     stopOnEntry = true,
-    initCommands = 'command script import "/home/stephan/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/etc/lldb_lookup.py"',
+    initCommands =
+    'command script import "/home/stephan/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/etc/lldb_lookup.py"',
   }
   dap.adapters.markdown = {
     type = "executable",
@@ -1082,7 +1084,7 @@ if ok then
     auto_install = false,
     highlight = {
       enable = true, -- false will disable the whole extension
-      disable = {}, -- list of language that will be disabled
+      disable = {},  -- list of language that will be disabled
     },
     query_linter = {
       enable = false,
@@ -1103,9 +1105,9 @@ if ok then
       enable = true,
       disable = {},
       keymaps = {
-        init_selection = "<leader><enter>", -- maps in normal mode to init the node/scope selection
+        init_selection = "<leader><enter>",   -- maps in normal mode to init the node/scope selection
         node_incremental = "<leader><enter>", -- increment to the upper named parent
-        scope_incremental = "Ts", -- increment to the upper scope (as defined in locals.scm)
+        scope_incremental = "Ts",             -- increment to the upper scope (as defined in locals.scm)
         node_decremental = "<bs>",
       },
     },
