@@ -7,7 +7,8 @@ let g:my_fontsize = 9
 if has("win32")
     set guifont=Cascadia\ Code:h9
 else
-    set guifont=Hack:h8
+    "set guifont=Hack:h8
+    set guifont=Roboto\ Mono:h8
 end
 
 "call rpcnotify(1, 'Gui', 'Font', 'Hack 9')

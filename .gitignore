@@ -168,7 +168,6 @@ results
 *.onnx.edit
 *.nv-editor-cfg
 .slangpy_cache
-*.lock
 *.exe
 subprojects/*/
 *.egg-info
