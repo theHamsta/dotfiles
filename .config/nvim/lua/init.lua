@@ -32,6 +32,16 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
   },
 }
 
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+    if client:supports_method('textDocument/documentColor') then
+      vim.lsp.document_color.enable(true, args.buf)
+    end
+  end
+})
+
 local line_numbers = false
 local function toggle_line_numbers()
   line_numbers = not line_numbers
@@ -237,9 +247,10 @@ if lspconfig then
       capabilities = capabilities,
     }
   end
-  nvim_lsp.slangd.setup {
+  vim.lsp.config('slangd', {
     on_attach = on_attach,
     capabilities = capabilities,
+    filetypes = {"hlsl", "shaderslang", "glsl"},
     settings = {
       slang = {
         --predefinedMacros = {"MY_VALUE_MACRO=1"},
@@ -251,6 +262,7 @@ if lspconfig then
       },
     },
   }
+  )
 
   --pcall(require, "lspconfig/julials")
   --if not require("lspconfig/configs").julials.install_info().is_installed then
