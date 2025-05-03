@@ -32,14 +32,14 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
   },
 }
 
-vim.api.nvim_create_autocmd('LspAttach', {
+vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     local client = vim.lsp.get_client_by_id(args.data.client_id)
 
-    if client:supports_method('textDocument/documentColor') then
+    if client:supports_method "textDocument/documentColor" then
       vim.lsp.document_color.enable(true, args.buf)
     end
-  end
+  end,
 })
 
 local line_numbers = false
@@ -247,10 +247,10 @@ if lspconfig then
       capabilities = capabilities,
     }
   end
-  vim.lsp.config('slangd', {
+  lspconfig.slangd.setup {
     on_attach = on_attach,
     capabilities = capabilities,
-    filetypes = {"hlsl", "shaderslang", "glsl"},
+    filetypes = { "hlsl", "shaderslang", "glsl" },
     settings = {
       slang = {
         --predefinedMacros = {"MY_VALUE_MACRO=1"},
@@ -262,7 +262,11 @@ if lspconfig then
       },
     },
   }
-  )
+  lspconfig.qmlls.setup {
+    cmd = shell.select_executable{"/usr/local/Qt-6.9.0/bin/qmlls", "qmlls" },
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
 
   --pcall(require, "lspconfig/julials")
   --if not require("lspconfig/configs").julials.install_info().is_installed then
@@ -375,6 +379,7 @@ if lspconfig then
     on_attach = on_attach,
     capabilities = capabilities,
   }
+  vim.lsp.enable "qmlls"
 
   lspconfig.wgsl_analyzer.setup {
     on_attach = on_attach,
