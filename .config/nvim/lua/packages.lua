@@ -41,35 +41,35 @@ require("lazy").setup {
       vim.g.vimtex_view_method = "zathura"
     end,
   },
-  {
-    "https://gitlab.com/schrieveslaach/sonarlint.nvim",
-    config = function()
-      if vim.uv.fs_stat(SONARLS_JAR_PATH) and vim.fn.executable "java" == 1 then
-        require("sonarlint").setup {
-          server = {
-            cmd = vim.list_extend({
-              "java",
-              "-jar",
-              SONARLS_JAR_PATH,
-              -- Ensure that sonarlint-language-server uses stdio channel
-              "-stdio",
-              "-analyzers",
-            }, analyzers),
-          },
-          filetypes = {
-            -- Tested and working
-            "python",
-            --"c",
-            --"cpp",
-            "java",
-            "go",
-            "csharp",
-          },
-        }
-      end
-    end,
-    cond = vim.uv.fs_stat(SONARLS_JAR_PATH) and vim.fn.executable "java" == 1,
-  },
+  --{
+    --"https://gitlab.com/schrieveslaach/sonarlint.nvim",
+    --config = function()
+      --if vim.uv.fs_stat(SONARLS_JAR_PATH) and vim.fn.executable "java" == 1 then
+        --require("sonarlint").setup {
+          --server = {
+            --cmd = vim.list_extend({
+              --"java",
+              --"-jar",
+              --SONARLS_JAR_PATH,
+              ---- Ensure that sonarlint-language-server uses stdio channel
+              --"-stdio",
+              --"-analyzers",
+            --}, analyzers),
+          --},
+          --filetypes = {
+            ---- Tested and working
+            --"python",
+            ----"c",
+            ----"cpp",
+            --"java",
+            --"go",
+            --"csharp",
+          --},
+        --}
+      --end
+    --end,
+    --cond = vim.uv.fs_stat(SONARLS_JAR_PATH) and vim.fn.executable "java" == 1,
+  --},
   --{
   --dir = "~/projects/gp.nvim",
   --config = function()

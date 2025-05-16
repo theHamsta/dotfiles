@@ -57,7 +57,7 @@ release:
 		-DCMAKE_CXX_FLAGS_RELEASE="-march=native -O3 -DNDEBUG -flto" \
 		-DCMAKE_C_FLAGS=-fdiagnostics-color \
 		-DCMAKE_C_FLAGS_RELEASE="-march=native -O3 -DNDEBUG -flto" \
-		-DCMAKE_CUDA_ARCHITECTURES=native \
+		-DCMAKE_CUDA_ARCHITECTURES=89 \
 		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo --use_fast_math -O3"
 	rm -f compile_commands.json
 	ln -s release/compile_commands.json .

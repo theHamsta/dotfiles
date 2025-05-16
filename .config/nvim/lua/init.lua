@@ -732,7 +732,7 @@ if lspconfig then
           closureStyle = "impl_fn",
           discriminantHints = { enable = "never" },
           expressionAdjustmentHints = {
-            enable = "true",
+            --enable = "true",
             hideOutsideUnsafe = false,
             mode = "prefix",
           },
