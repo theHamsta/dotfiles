@@ -1,0 +1,13 @@
+* {
+  all: unset; // Unsets everything so you can style everything from scratch
+}
+
+
+// Styles on classes (see eww.yuck for more information)
+
+.sidestuff  {
+  all: unset;
+  border-radius: 2px;
+  background-color: #3a3a3a;
+}
+

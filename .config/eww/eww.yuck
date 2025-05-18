@@ -1,0 +1,36 @@
+(defwidget bar []
+    (sidestuff))
+
+(defwidget sidestuff []
+  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
+    time))
+
+(defwidget workspaces []
+  (box :class "workspaces"
+       :orientation "h"
+       :space-evenly true
+       :halign "start"
+       :spacing 10
+    (button :onclick "wmctrl -s 0" 1)
+    (button :onclick "wmctrl -s 1" 2)
+    (button :onclick "wmctrl -s 2" 3)
+    (button :onclick "wmctrl -s 3" 4)
+    (button :onclick "wmctrl -s 4" 5)
+    (button :onclick "wmctrl -s 5" 6)
+    (button :onclick "wmctrl -s 6" 7)
+    (button :onclick "wmctrl -s 7" 8)
+    (button :onclick "wmctrl -s 8" 9)))
+
+(defpoll time :interval "10s"
+  "date '+%H:%M %b %d, %Y'")
+
+(defwindow clock
+  :monitor 0
+  :windowtype "dock"
+  :geometry (geometry :x "20px"
+                      :y "35px"
+                      :width "20px"
+                      :height "10px"
+                      :anchor "bottom right")
+  :reserve (struts :side "bottom" :distance "40%")
+  (bar))
