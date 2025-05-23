@@ -535,6 +535,13 @@ if lspconfig then
     settings = {},
     capabilities = capabilities,
   }
+  --lspconfig.ty.setup {
+    --on_attach = on_attach,
+    --settings = {},
+    --capabilities = capabilities,
+  --}
+  vim.lsp.enable('ty')
+
   lspconfig.pylsp.setup {
     on_attach = on_attach,
     settings = {
