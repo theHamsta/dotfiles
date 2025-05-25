@@ -3,7 +3,14 @@
 
 (defwidget sidestuff []
   (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
-    time))
+   :spacing 10
+    (button "GPU")
+    gpu
+    (button "NVDEC")
+    nvdec
+    (button :onclick "plasma-emojier" "🙂")
+    time
+    ))
 
 (defwidget workspaces []
   (box :class "workspaces"
@@ -24,6 +31,11 @@
 (defpoll time :interval "10s"
   "date '+%H:%M %b %d, %Y'")
 
+(defpoll gpu :interval "10s"
+  "nvidia-smi  --format=csv --format=noheader --query-gpu=utilization.gpu")
+(defpoll nvdec :interval "10s"
+  "nvidia-smi  --format=csv --format=noheader --query-gpu=utilization.decoder")
+
 (defwindow clock
   :monitor 0
   :windowtype "dock"
@@ -31,6 +43,6 @@
                       :y "35px"
                       :width "20px"
                       :height "10px"
-                      :anchor "bottom right")
+                      :anchor "top right")
   :reserve (struts :side "bottom" :distance "40%")
   (bar))

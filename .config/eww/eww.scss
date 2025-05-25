@@ -3,11 +3,31 @@
 }
 
 
+// Variable Color's
+$background: #1A1B26;
+$foreground: #A9B1D6;
+
+$black: #24283B;
+$gray: #565F89;
+$red: #F7768E;
+$green: #73DACA;
+$yellow: #E0AF68;
+$blue: #7AA2F7;
+$magenta: #BB9AF7;
+$cyan: #7DCFFF;
+$white: $foreground;
+
+.bar {
+  background-color: #3a3a3a;
+  color: #b0b4bc;
+}
 // Styles on classes (see eww.yuck for more information)
 
 .sidestuff  {
   all: unset;
-  border-radius: 2px;
-  background-color: #3a3a3a;
+  border-radius: 20px;
+  background-color: #1A1B26;
+  color: #A9B1D6;
+  padding: 5px;
 }
 
