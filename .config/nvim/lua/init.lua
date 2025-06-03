@@ -542,23 +542,43 @@ if lspconfig then
   --}
   vim.lsp.enable('ty')
 
-  lspconfig.pylsp.setup {
+  --lspconfig.pylsp.setup {
+    --on_attach = on_attach,
+    --settings = {
+      --pyls = {
+        ----plugins = {
+          ----pydocstyle = {
+            ----enabled = false,
+          ----},
+          ----flake8 = {
+            ----maxLineLength = 120,
+          ----},
+          ----pycodestyle = {
+            ----ignore = { "E501" },
+            ----maxLineLength = 120,
+          ----},
+        ----},
+      --},
+    --},
+    --capabilities = capabilities,
+  --}
+  lspconfig.jedi_language_server.setup {
     on_attach = on_attach,
     settings = {
-      pyls = {
-        plugins = {
-          pydocstyle = {
-            enabled = false,
-          },
-          flake8 = {
-            maxLineLength = 120,
-          },
-          pycodestyle = {
-            ignore = { "E501" },
-            maxLineLength = 120,
-          },
-        },
-      },
+      --pyls = {
+        --plugins = {
+          --pydocstyle = {
+            --enabled = false,
+          --},
+          --flake8 = {
+            --maxLineLength = 120,
+          --},
+          --pycodestyle = {
+            --ignore = { "E501" },
+            --maxLineLength = 120,
+          --},
+        --},
+      --},
     },
     capabilities = capabilities,
   }
