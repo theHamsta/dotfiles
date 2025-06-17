@@ -25,19 +25,19 @@ build:
 run: build
 	debug/pystencils_gui
 meson-release:
-	meson setup --reconfigure --buildtype=release -Dc_flags="-fdiagnostics-absolute-paths -march=native -fdiagnostics-color" -Dcpp_flags="-fdiagnostics-absolute-paths -march=native -fdiagnostics-color" release
+	meson setup --reconfigure --buildtype=release -Dc_args="-fdiagnostics-absolute-paths -march=native -fdiagnostics-color" -Dcpp_args="-fdiagnostics-absolute-paths -march=native" release
 	rm -f compile_commands.json
 	ln -s release/compile_commands.json .
 	meson compile -C release
 
 meson-debugoptimized:
-	meson setup --reconfigure --buildtype=debugoptimized -Dc_flags="-fdiagnostics-absolute-paths -march=native -fdiagnostics-color" -Dcpp_flags="-fdiagnostics-absolute-paths -march=native -fdiagnostics-color" release
+	meson setup --reconfigure --buildtype=debugoptimized -Dc_args="-fdiagnostics-absolute-paths -march=native -fdiagnostics-color" -Dcpp_args="-fdiagnostics-absolute-paths -march=native" release
 	rm -f compile_commands.json
 	ln -s release/compile_commands.json .
 	meson compile -C release
 
 meson-debug:
-	meson setup --reconfigure --buildtype=debug -Dc_flags="-fdiagnostics-absolute-paths  -fdiagnostics-color" -Dcpp_flags="-fdiagnostics-absolute-paths  -fdiagnostics-color" debug
+	meson setup --reconfigure --buildtype=debug -Dc_args="-fdiagnostics-absolute-paths  -fdiagnostics-color" -Dcpp_args="-fdiagnostics-absolute-paths" debug
 	rm -f compile_commands.json
 	ln -s debug/compile_commands.json .
 	meson compile -C debug
