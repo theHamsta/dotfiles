@@ -193,3 +193,5 @@ __CtrlSF__
 .build
 .kateproject.notes
 #dependencies
+diffpanel_*
+undotree_*
