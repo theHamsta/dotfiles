@@ -263,7 +263,7 @@ if lspconfig then
     },
   }
   lspconfig.qmlls.setup {
-    cmd = shell.select_executable{"/usr/local/Qt-6.9.0/bin/qmlls", "qmlls" },
+    cmd = shell.select_executable { "/usr/local/Qt-6.9.0/bin/qmlls", "qmlls" },
     on_attach = on_attach,
     capabilities = capabilities,
   }
@@ -536,48 +536,48 @@ if lspconfig then
     capabilities = capabilities,
   }
   --lspconfig.ty.setup {
-    --on_attach = on_attach,
-    --settings = {},
-    --capabilities = capabilities,
+  --on_attach = on_attach,
+  --settings = {},
+  --capabilities = capabilities,
   --}
-  vim.lsp.enable('ty')
+  vim.lsp.enable "ty"
 
   --lspconfig.pylsp.setup {
-    --on_attach = on_attach,
-    --settings = {
-      --pyls = {
-        ----plugins = {
-          ----pydocstyle = {
-            ----enabled = false,
-          ----},
-          ----flake8 = {
-            ----maxLineLength = 120,
-          ----},
-          ----pycodestyle = {
-            ----ignore = { "E501" },
-            ----maxLineLength = 120,
-          ----},
-        ----},
-      --},
-    --},
-    --capabilities = capabilities,
+  --on_attach = on_attach,
+  --settings = {
+  --pyls = {
+  ----plugins = {
+  ----pydocstyle = {
+  ----enabled = false,
+  ----},
+  ----flake8 = {
+  ----maxLineLength = 120,
+  ----},
+  ----pycodestyle = {
+  ----ignore = { "E501" },
+  ----maxLineLength = 120,
+  ----},
+  ----},
+  --},
+  --},
+  --capabilities = capabilities,
   --}
   lspconfig.jedi_language_server.setup {
     on_attach = on_attach,
     settings = {
       --pyls = {
-        --plugins = {
-          --pydocstyle = {
-            --enabled = false,
-          --},
-          --flake8 = {
-            --maxLineLength = 120,
-          --},
-          --pycodestyle = {
-            --ignore = { "E501" },
-            --maxLineLength = 120,
-          --},
-        --},
+      --plugins = {
+      --pydocstyle = {
+      --enabled = false,
+      --},
+      --flake8 = {
+      --maxLineLength = 120,
+      --},
+      --pycodestyle = {
+      --ignore = { "E501" },
+      --maxLineLength = 120,
+      --},
+      --},
       --},
     },
     capabilities = capabilities,
@@ -721,6 +721,9 @@ if lspconfig then
     on_attach = on_attach,
   }
 
+  lspconfig.jsonnet_ls.setup {
+    on_attach = on_attach,
+  }
   lspconfig.rust_analyzer.setup {
     cmd = {
       shell.select_executable {
@@ -785,7 +788,9 @@ if lspconfig then
   --}
   lspconfig.yamlls.setup {
     on_attach = on_attach,
+    --filetypes = { "yaml", "json" },
   }
+
   lspconfig.jsonls.setup {
     on_attach = on_attach,
   }
