@@ -169,7 +169,7 @@ results
 *.nv-editor-cfg
 .slangpy_cache
 *.exe
-subprojects/*/
+#subprojects/*/
 *.egg-info
 **/*.vcproj
 **/*.vcxproj

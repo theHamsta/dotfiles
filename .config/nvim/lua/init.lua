@@ -722,7 +722,7 @@ if lspconfig then
   }
 
   lspconfig.jsonnet_ls.setup {
-    on_attach = on_attach,
+   on_attach = on_attach,
   }
   lspconfig.rust_analyzer.setup {
     cmd = {

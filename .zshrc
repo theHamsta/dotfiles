@@ -3,6 +3,29 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 export DISABLE_AUTO_UPDATE=1
+DISABLE_MAGIC_FUNCTIONS="true"
+DISABLE_COMPFIX="true"
+autoload -Uz compinit
+if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
+    compinit
+else
+    compinit -C
+fi
+SPACESHIP_PROMPT_ASYNC=true
+SPACESHIP_PROMPT_ADD_NEWLINE=true
+SPACESHIP_CHAR_SYMBOL="⚡"
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="20"
+ZSH_AUTOSUGGEST_USE_ASYNC=1
+
+# Only load what you actually use
+SPACESHIP_PROMPT_ORDER=(
+    time
+    user
+    dir
+    git
+    line_sep
+    char
+)
 fpath=($HOME/.zsh-completions /home/stephan/.local/share/kde-builder/data/completions/zsh/ $fpath /home/linuxbrew/.linuxbrew/share/zsh/site-functions)
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -74,7 +97,7 @@ export PATH=~/.cargo/bin:$PATH
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zoxide extract microk8s)
+plugins=(git zsh-autosuggestions zoxide extract microk8s)
 
 source $ZSH/oh-my-zsh.sh
 
