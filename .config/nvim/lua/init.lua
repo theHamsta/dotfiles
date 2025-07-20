@@ -529,6 +529,12 @@ if lspconfig then
   --},
   --capabilities = capabilities,
   --}
+  vim.lsp.config("spirvls", {
+    cmd = { "spirvls" },
+    filetypes = { "spirv", "spvasm" },
+    on_attach = on_attach,
+  })
+  vim.lsp.enable "spirvls"
 
   lspconfig.ruff.setup {
     on_attach = on_attach,
@@ -722,7 +728,7 @@ if lspconfig then
   }
 
   lspconfig.jsonnet_ls.setup {
-   on_attach = on_attach,
+    on_attach = on_attach,
   }
   lspconfig.rust_analyzer.setup {
     cmd = {
