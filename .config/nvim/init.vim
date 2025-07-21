@@ -545,7 +545,7 @@ let g:sexp_enable_insert_mode_mappings = 0
 let g:markdown_composer_autostart=0
 
 nnoremap <c-h> :History<cr>
-nnoremap <c-t> :Tags<cr>
+"nnoremap <c-t> :Tags<cr>
 nnoremap <c-s-t> :Telescope lsp_dynamic_workspace_symbols<cr>
 nnoremap <c-a-o> :BTags<cr>
 nnoremap <leader><c-o> :BTags<cr>
