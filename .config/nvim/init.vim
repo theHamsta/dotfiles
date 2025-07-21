@@ -29,10 +29,10 @@ let g:vim_bootstrap_editor = "nvim"             " nvim or vim
 let g:sexp_insert_after_wrap = 0
 
 map <SPACE> <leader>
-map <space><space>f  :HopFunctions<cr>
-map <space><space>w :HopWord<cr>
-map <space><space>j :HopLineAC<cr>
-map <space><space>k :HopLineBC<cr>
+"map <space><space>f  :HopFunctions<cr>
+"map <space><space>w :HopWord<cr>
+"map <space><space>j :HopLineAC<cr>
+"map <space><space>k :HopLineBC<cr>
 
 set history=10000
 set splitbelow
