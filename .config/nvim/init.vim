@@ -481,10 +481,6 @@ fun! RemoveTrailingWhitespaces()
     %s/\s\+$//e
 endfun
 command! RemoveTrailingWhitespaces call RemoveTrailingWhitespaces()
-nnoremap <silent> <PageDown> :FloatermToggle<cr>
-nnoremap <silent> <leader>fl :FloatermToggle<cr>
-tnoremap <silent> <PageDown> <C-\><C-n>:FloatermToggle<cr>
-tnoremap <silent> <leader>fl <C-\><C-n>:FloatermToggle<cr>
 tnoremap <silent> jk <C-\><C-n>
 "tnoremap <silent> <c-d> <C-\><C-n>:bd!<cr>
 
