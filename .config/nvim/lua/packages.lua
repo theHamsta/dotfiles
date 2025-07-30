@@ -42,33 +42,33 @@ require("lazy").setup {
     end,
   },
   --{
-    --"https://gitlab.com/schrieveslaach/sonarlint.nvim",
-    --config = function()
-      --if vim.uv.fs_stat(SONARLS_JAR_PATH) and vim.fn.executable "java" == 1 then
-        --require("sonarlint").setup {
-          --server = {
-            --cmd = vim.list_extend({
-              --"java",
-              --"-jar",
-              --SONARLS_JAR_PATH,
-              ---- Ensure that sonarlint-language-server uses stdio channel
-              --"-stdio",
-              --"-analyzers",
-            --}, analyzers),
-          --},
-          --filetypes = {
-            ---- Tested and working
-            --"python",
-            ----"c",
-            ----"cpp",
-            --"java",
-            --"go",
-            --"csharp",
-          --},
-        --}
-      --end
-    --end,
-    --cond = vim.uv.fs_stat(SONARLS_JAR_PATH) and vim.fn.executable "java" == 1,
+  --"https://gitlab.com/schrieveslaach/sonarlint.nvim",
+  --config = function()
+  --if vim.uv.fs_stat(SONARLS_JAR_PATH) and vim.fn.executable "java" == 1 then
+  --require("sonarlint").setup {
+  --server = {
+  --cmd = vim.list_extend({
+  --"java",
+  --"-jar",
+  --SONARLS_JAR_PATH,
+  ---- Ensure that sonarlint-language-server uses stdio channel
+  --"-stdio",
+  --"-analyzers",
+  --}, analyzers),
+  --},
+  --filetypes = {
+  ---- Tested and working
+  --"python",
+  ----"c",
+  ----"cpp",
+  --"java",
+  --"go",
+  --"csharp",
+  --},
+  --}
+  --end
+  --end,
+  --cond = vim.uv.fs_stat(SONARLS_JAR_PATH) and vim.fn.executable "java" == 1,
   --},
   --{
   --dir = "~/projects/gp.nvim",
@@ -107,16 +107,17 @@ require("lazy").setup {
     end,
     event = "VeryLazy",
   },
-  {
-    "ethersync/ethersync",
-    config = function(plugin)
-      -- Load the plugin from a subfolder:
-      vim.opt.rtp:append(plugin.dir .. "/vim-plugin")
-      require("lazy.core.loader").packadd(plugin.dir .. "/vim-plugin")
-    end,
-    keys = { { "<leader>jj", "<cmd>EthersyncJumpToCursor<cr>" } },
-    lazy = false,
-  },
+  --{
+  --"ethersync/ethersync",
+  --config = function(plugin)
+  ---- Load the plugin from a subfolder:
+  --vim.opt.rtp:append(plugin.dir .. "/vim-plugin")
+  --require("lazy.core.loader").packadd(plugin.dir .. "/vim-plugin")
+  --end,
+  --keys = { { "<leader>jj", "<cmd>EthersyncJumpToCursor<cr>" } },
+  --lazy = false,
+  --enable = false,
+  --},
   --{
   --"RaafatTurki/hex.nvim",
   --config = function()
@@ -1110,16 +1111,16 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --}
   --end,
   --},
-  { "nvim-treesitter/nvim-treesitter-textobjects", event = "VeryLazy" },
+  { "nvim-treesitter/nvim-treesitter-textobjects", event = "VeryLazy", branch = "main" },
   --{ "theHamsta/nvim-treesitter-commonlisp", ft = "lisp" },
-  { "nvim-treesitter/nvim-treesitter-refactor",    event = "VeryLazy" },
-  {
-    "Badhi/nvim-treesitter-cpp-tools",
-    ft = { "cpp", "cuda" },
-    config = function()
-      require("nt-cpp-tools").setup {}
-    end,
-  },
+  --{ "nvim-treesitter/nvim-treesitter-refactor",    event = "VeryLazy" },
+  --{
+  --"Badhi/nvim-treesitter-cpp-tools",
+  --ft = { "cpp", "cuda" },
+  --config = function()
+  --require("nt-cpp-tools").setup {}
+  --end,
+  --},
   {
     "kiyoon/persistent-breakpoints.nvim",
     config = function()
@@ -1132,9 +1133,10 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     event = "VeryLazy",
+    branch = "main",
   },
   --{ "nvim-treesitter/playground", keys = "<leader>pl" },
-  { "theHamsta/crazy-node-movement", event = "VeryLazy" },
+  --{ "theHamsta/crazy-node-movement", event = "VeryLazy" },
   {
     "kevinhwang91/nvim-ufo",
     dependencies = "kevinhwang91/promise-async",
@@ -1214,7 +1216,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --"szymonmaszke/vimpyter",
   "camspiers/animate.vim",
   "neovim/nvim-lspconfig",
-  { "preservim/tagbar",              cmd = { "TagbarToggle", "TagbarOpenAutoClose" } },
+  { "preservim/tagbar", cmd = { "TagbarToggle", "TagbarOpenAutoClose" } },
   --{ "voldikss/vim-floaterm", cmd = "FloatermToggle" },
   --"JuliaEditorSupport/julia-vim",
   --{ "SirVer/ultisnips", opt = false, build = ":UpdateRemotePlugins" },
@@ -1307,7 +1309,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --"bronson/vim-visual-star-search",
   --{ "dbeniamine/cheat.sh-vim", cmd = { "Cheat" } },
   --{ "dyng/ctrlsf.vim", cmd = { "CtrlSFPrompt", "CtrlSFCwordPath", "CtrlSFVwordPath", "CtrlSFToggle", "CtrlSFOpen" } },
-  { "dyng/ctrlsf.vim", event = "VeryLazy" },
+  { "dyng/ctrlsf.vim",  event = "VeryLazy" },
   --{ "euclio/vim-markdown-composer", build = "cargo build --release", cmd = "ComposerStart", ft = "markdown" },
   --{
   --"fatih/vim-go",
@@ -1357,7 +1359,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --end
   --end,
   --},
-  { "theHamsta/vlime", branch = "prompt", ft = "lisp" },
+  { "theHamsta/vlime",  branch = "prompt",                              ft = "lisp" },
   "hotwatermorning/auto-git-diff",
   "idanarye/vim-merginal",
   { "janko/vim-test",   ft = { "rust", "python" } },

@@ -5,7 +5,6 @@
 --end
 
 vim.loader.enable()
-local shell = require "nvim-treesitter.shell_command_selectors"
 
 vim.api.nvim_command [[
 function! DeleteTrailingWS()
@@ -14,6 +13,12 @@ exe 'normal mz'
 exe 'normal `z'
 endfunction
 ]]
+
+local function select_executable(executables)
+  return vim.tbl_filter(function(c) ---@param c string
+    return c ~= vim.NIL and vim.fn.executable(c) == 1
+  end, executables)[1]
+end
 
 vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
@@ -264,7 +269,7 @@ if lspconfig then
     },
   }
   lspconfig.qmlls.setup {
-    cmd = shell.select_executable { "/usr/local/Qt-6.9.0/bin/qmlls", "qmlls" },
+    cmd = select_executable { "/usr/local/Qt-6.10.0/bin/qmlls", "qmlls" },
     on_attach = on_attach,
     capabilities = capabilities,
   }
@@ -649,7 +654,7 @@ if lspconfig then
   --on_attach = on_attach,
   --capabilities = capabilities,
   --}
-  local clangd = shell.select_executable {
+  local clangd = select_executable {
     "clangd-21",
     "clangd-20",
     "clangd-19",
@@ -733,7 +738,7 @@ if lspconfig then
   }
   lspconfig.rust_analyzer.setup {
     cmd = {
-      shell.select_executable {
+      select_executable {
         "rust-analyzer",
         ((os.getenv "HOME") or "") .. "/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/rust-analyzer",
         ((os.getenv "HOME") or "") .. "/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer",
@@ -981,7 +986,7 @@ if dap then
       pidProperty = "pid",
       pidSelect = "ask",
     },
-    command = shell.select_executable {
+    command = select_executable {
       "rust-gdb",
       "gdb",
     },
@@ -1010,7 +1015,7 @@ if dap then
       pidProperty = "pid",
       pidSelect = "ask",
     },
-    command = shell.select_executable {
+    command = select_executable {
       "lldb-dap-20",
       "lldb-dap-19",
       "lldb-vscode-18",
@@ -1395,10 +1400,6 @@ end
 vim.api.nvim_set_hl(0, "DapBreakpoint", { ctermbg = 0, fg = "#993939", bg = "#31353f" })
 vim.api.nvim_set_hl(0, "DapLogPoint", { ctermbg = 0, fg = "#61afef", bg = "#31353f" })
 vim.api.nvim_set_hl(0, "Stopped", { ctermbg = 0, fg = "#98c379", bg = "#31353f" })
-
-for _, parser in ipairs(require("nvim-treesitter.parsers").get_parser_configs()) do
-  parser.repo.use_makefile = true
-end
 
 if vim.fn.executable "ts_query_ls" then
   vim.api.nvim_create_autocmd("FileType", {
