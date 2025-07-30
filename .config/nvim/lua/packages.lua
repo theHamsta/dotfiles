@@ -1015,16 +1015,16 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     end,
     enabled = false,
   },
-  { "danilo-augusto/vim-afterglow",                enabled = false },
-  { "kevinhwang91/nvim-hlslens",                   enabled = false },
+  { "danilo-augusto/vim-afterglow",          enabled = false },
+  { "kevinhwang91/nvim-hlslens",             enabled = false },
   --{
   --"norcalli/snippets.nvim",
   --config = function()
   --vim.cmd [[inoremap <c-k> <cmd>lua return require'snippets'.expand_or_advance(1)<CR>]]
   --end,
   --},
-  { "tpope/vim-speeddating",                       enabled = false },
-  { "nvim-telescope/telescope-symbols.nvim",       enabled = false },
+  { "tpope/vim-speeddating",                 enabled = false },
+  { "nvim-telescope/telescope-symbols.nvim", enabled = false },
   --{
   --"rcarriga/nvim-dap-ui",
   --lazy = true,
@@ -1111,7 +1111,41 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   --}
   --end,
   --},
-  { "nvim-treesitter/nvim-treesitter-textobjects", event = "VeryLazy", branch = "main" },
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    event = "VeryLazy",
+    branch = "main",
+    config = function()
+      vim.keymap.set({ "x", "o" }, "af", function()
+        require("nvim-treesitter-textobjects.select").select_textobject("@function.outer", "textobjects")
+      end)
+      vim.keymap.set({ "x", "o" }, "if", function()
+        require("nvim-treesitter-textobjects.select").select_textobject("@function.inner", "textobjects")
+      end)
+      vim.keymap.set({ "x", "o" }, "ac", function()
+        require("nvim-treesitter-textobjects.select").select_textobject("@class.outer", "textobjects")
+      end)
+      vim.keymap.set({ "x", "o" }, "ic", function()
+        require("nvim-treesitter-textobjects.select").select_textobject("@class.inner", "textobjects")
+      end)
+      require("nvim-treesitter-textobjects").setup {
+        select = {
+          -- Automatically jump forward to textobj, similar to targets.vim
+          lookahead = true,
+          -- If you set this to `true` (default is `false`) then any textobject is
+          -- extended to include preceding or succeeding whitespace. Succeeding
+          -- whitespace has priority in order to act similarly to eg the built-in
+          -- `ap`.
+          --
+          -- Can also be a function which gets passed a table with the keys
+          -- * query_string: eg '@function.inner'
+          -- * selection_mode: eg 'v'
+          -- and should return true of false
+          include_surrounding_whitespace = false,
+        },
+      }
+    end,
+  },
   --{ "theHamsta/nvim-treesitter-commonlisp", ft = "lisp" },
   --{ "nvim-treesitter/nvim-treesitter-refactor",    event = "VeryLazy" },
   --{
