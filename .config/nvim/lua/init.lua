@@ -505,6 +505,7 @@ if lspconfig then
         usePlaceholders = true,
       },
       gopls = {
+        semanticTokens = true,
         hints = {
           assignVariableTypes = true,
           compositeLiteralFields = true,
