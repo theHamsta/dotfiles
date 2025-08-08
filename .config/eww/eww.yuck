@@ -8,6 +8,8 @@
     gpu
     (button "NVDEC")
     nvdec
+    (button "VRAM")
+    vram
     (button :onclick "plasma-emojier" "🙂")
     time
     ))
@@ -35,6 +37,8 @@
   "nvidia-smi  --format=csv --format=noheader --query-gpu=utilization.gpu")
 (defpoll nvdec :interval "10s"
   "nvidia-smi  --format=csv --format=noheader --query-gpu=utilization.decoder")
+(defpoll vram :interval "10s"
+  "nvidia-smi  --format=csv --format=noheader --query-gpu=memory.used")
 
 (defwindow clock
   :monitor 0
