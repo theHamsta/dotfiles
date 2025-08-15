@@ -12,6 +12,7 @@
     vram
     (button :onclick "plasma-emojier" "🙂")
     time
+    (button :onclick "eww close clock" "X")
     ))
 
 

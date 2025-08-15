@@ -519,9 +519,16 @@ if lspconfig then
     },
   }
 
-  --lspconfig.pyright.setup {
-  --on_attach = on_attach,
-  --capabilities = capabilities,
+  --lspconfig.basedpyright.setup {
+    --on_attach = on_attach,
+    --capabilities = capabilities,
+    --settings = {
+      --basedpyright = {
+        --analysis = {
+          --typeCheckingMode = "off",
+        --},
+      --},
+    --},
   --}
 
   --lspconfig.pylyzer.setup {

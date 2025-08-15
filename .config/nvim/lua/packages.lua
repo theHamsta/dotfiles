@@ -21,15 +21,15 @@ vim.opt.rtp:prepend(lazypath)
 
 local lisp_filetypes = { "lisp", "clojure", "scheme", "vlime_repl", "fennel", "query" }
 
-local analyzers = {}
-local SONARDIR = "/home/stephan/Downloads/sonar"
-local SONARLS_JAR = "sonarlint-ls.jar"
-local SONARLS_JAR_PATH = vim.fs.joinpath(SONARDIR, SONARLS_JAR)
-for file, type in vim.fs.dir(SONARDIR) do
-  if type == "file" and vim.endswith(file, ".jar") and file ~= SONARLS_JAR then
-    table.insert(analyzers, vim.fs.joinpath(SONARDIR, file))
-  end
-end
+--local analyzers = {}
+--local SONARDIR = "/home/stephan/Downloads/sonar"
+--local SONARLS_JAR = "sonarlint-ls.jar"
+--local SONARLS_JAR_PATH = vim.fs.joinpath(SONARDIR, SONARLS_JAR)
+--for file, type in vim.fs.dir(SONARDIR) do
+  --if type == "file" and vim.endswith(file, ".jar") and file ~= SONARLS_JAR then
+    --table.insert(analyzers, vim.fs.joinpath(SONARDIR, file))
+  --end
+--end
 
 require("lazy").setup {
   {
@@ -283,7 +283,7 @@ require("lazy").setup {
       }
       require("telescope").load_extension "telescope-alternate"
     end,
-    enabled = true,
+    enabled = false,
   },
   {
     "stevearc/overseer.nvim",
@@ -501,6 +501,7 @@ require("lazy").setup {
   --
   {
     "esensar/nvim-dev-container",
+    enabled = false,
     config = function()
       require("devcontainer").setup {
         generate_commands = true,
