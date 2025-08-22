@@ -519,17 +519,17 @@ if lspconfig then
     },
   }
 
-  --lspconfig.basedpyright.setup {
-    --on_attach = on_attach,
-    --capabilities = capabilities,
-    --settings = {
-      --basedpyright = {
-        --analysis = {
-          --typeCheckingMode = "off",
-        --},
-      --},
-    --},
-  --}
+  lspconfig.basedpyright.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = {
+      basedpyright = {
+        analysis = {
+          typeCheckingMode = "off",
+        },
+      },
+    },
+  }
 
   --lspconfig.pylyzer.setup {
   --on_attach = on_attach,
@@ -560,7 +560,7 @@ if lspconfig then
   --settings = {},
   --capabilities = capabilities,
   --}
-  vim.lsp.enable "ty"
+  --vim.lsp.enable "ty"
 
   --lspconfig.pylsp.setup {
   --on_attach = on_attach,
