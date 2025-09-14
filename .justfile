@@ -25,7 +25,7 @@ build:
 run: build
 	debug/pystencils_gui
 meson-release:
-	meson setup --reconfigure --buildtype=release -Dc_args="-fdiagnostics-absolute-paths -march=native -fdiagnostics-color" -Dcpp_args="-fdiagnostics-absolute-paths -march=native" release
+	meson setup --reconfigure --buildtype=release -Dc_args="-fdiagnostics-absolute-paths -march=native -fdiagnostics-color" -Dcpp_args="-fdiagnostics-absolute-paths -march=native" -Dcuda_args="-arch=native -lineinfo" release
 	rm -f compile_commands.json
 	ln -s release/compile_commands.json .
 	meson compile -C release
@@ -37,7 +37,7 @@ meson-debugoptimized:
 	meson compile -C release
 
 meson-debug:
-	meson setup --reconfigure --buildtype=debug -Dc_args="-fdiagnostics-absolute-paths  -fdiagnostics-color" -Dcpp_args="-fdiagnostics-absolute-paths" debug
+	meson setup --reconfigure --buildtype=debug -Dc_args="-fdiagnostics-absolute-paths  -fdiagnostics-color" -Dcpp_args="-fdiagnostics-absolute-paths -fdiagnostics-color" debug
 	rm -f compile_commands.json
 	ln -s debug/compile_commands.json .
 	meson compile -C debug

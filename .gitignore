@@ -197,3 +197,4 @@ diffpanel_*
 undotree_*
 *.onnx.cfg
 *.json.gv
+*.engine

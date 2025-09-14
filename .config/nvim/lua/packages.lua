@@ -628,7 +628,7 @@ require("lazy").setup {
     end,
     --cmd = { "Neotree" },
   },
-  { "ray-x/lsp_signature.nvim" },
+  --{ "ray-x/lsp_signature.nvim" },
   {
     "L3MON4D3/LuaSnip",
     build = vim.fn.has "win32" ~= 1 and "make install_jsregexp" or nil,
@@ -1178,20 +1178,20 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
   },
   --{ "nvim-treesitter/playground", keys = "<leader>pl" },
   --{ "theHamsta/crazy-node-movement", event = "VeryLazy" },
-  {
-    "kevinhwang91/nvim-ufo",
-    dependencies = "kevinhwang91/promise-async",
-    config = function()
-      require("ufo").setup {
-        open_fold_hl_timeout = 100,
-        provider_selector = function(_bufnr, _filetype, _buftype)
-          return { "treesitter", "indent" }
-        end,
-      }
-    end,
-    --keys = { "zc", "zC", "zO", "zo" },
-    event = "VeryLazy",
-  },
+  --{
+    --"kevinhwang91/nvim-ufo",
+    --dependencies = "kevinhwang91/promise-async",
+    --config = function()
+      --require("ufo").setup {
+        --open_fold_hl_timeout = 100,
+        --provider_selector = function(_bufnr, _filetype, _buftype)
+          --return { "treesitter", "indent" }
+        --end,
+      --}
+    --end,
+    ----keys = { "zc", "zC", "zO", "zo" },
+    --event = "VeryLazy",
+  --},
   --{
   --"danymat/neogen",
   --config = function()
