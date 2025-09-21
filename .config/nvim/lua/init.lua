@@ -4,7 +4,7 @@
 --vim.cmd [[packadd packer.nvim]]
 --end
 
-vim.loader.enable()
+--vim.loader.enable()
 
 vim.api.nvim_command [[
 function! DeleteTrailingWS()
@@ -15,97 +15,99 @@ endfunction
 ]]
 
 local function select_executable(executables)
-  return vim.tbl_filter(function(c) ---@param c string
-    return c ~= vim.NIL and vim.fn.executable(c) == 1
-  end, executables)[1]
+    return vim.tbl_filter(function(c) ---@param c string
+        return c ~= vim.NIL and vim.fn.executable(c) == 1
+    end, executables)[1]
 end
 
-vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.wo.foldexpr    = "v:lua.vim.treesitter.foldexpr()"
 
-local lsp_status = vim.F.npcall(require, "lsp-status")
-local capabilities = require("blink.cmp").get_lsp_capabilities()
-if lsp_status then
-  capabilities = vim.tbl_extend("keep", capabilities or {}, lsp_status.capabilities)
+local lsp_status   = vim.F.npcall(require, "lsp-status")
+local blink, ok    = pcall(require, "blink.cmp")
+local capabilities = {}
+if ok and lsp_status then
+    capabilities = blink.get_lsp_capabilities()
+    capabilities = vim.tbl_extend("keep", capabilities or {}, lsp_status.capabilities)
+    capabilities.textDocument.completion.completionItem.snippetSupport = true
+    capabilities.textDocument.completion.completionItem.resolveSupport = {
+        properties = {
+            "documentation",
+            "detail",
+            "additionalTextEdits",
+        },
+    }
 end
 
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-  properties = {
-    "documentation",
-    "detail",
-    "additionalTextEdits",
-  },
-}
 
 vim.api.nvim_create_autocmd("LspAttach", {
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
 
-    if client:supports_method "textDocument/documentColor" then
-      vim.lsp.document_color.enable(true, args.buf)
-    end
-  end,
+        if client:supports_method "textDocument/documentColor" then
+            vim.lsp.document_color.enable(true, args.buf)
+        end
+    end,
 })
 
 local line_numbers = false
 local function toggle_line_numbers()
-  line_numbers = not line_numbers
-  for _, win in pairs(vim.api.nvim_list_wins()) do
-    vim.wo[win].number = line_numbers
-    vim.wo[win].relativenumber = line_numbers
-  end
+    line_numbers = not line_numbers
+    for _, win in pairs(vim.api.nvim_list_wins()) do
+        vim.wo[win].number = line_numbers
+        vim.wo[win].relativenumber = line_numbers
+    end
 end
 
 vim.api.nvim_create_user_command("ToggleLineNumbers", toggle_line_numbers, {})
 
 if vim.g.neovide then
-  local fullscreen = false
-  vim.g.neovide_floating_shadow = true
-  vim.g.neovide_title_background_color = "1a1b26"
-  vim.g.neovide_floating_z_height = 5
-  vim.g.neovide_light_angle_degrees = 45
-  vim.g.neovide_light_radius = 1
-  vim.g.neovide_floating_blur_amount_x = 2.0
-  vim.g.neovide_floating_blur_amount_y = 2.0
-  vim.g.neovide_floating_corner_radius = 10.0
-  vim.keymap.set({ "i", "n" }, "<F11>", function()
-    fullscreen = not fullscreen
-    vim.g.neovide_fullscreen = fullscreen
-  end, { silent = true })
+    local fullscreen = false
+    vim.g.neovide_floating_shadow = true
+    vim.g.neovide_title_background_color = "1a1b26"
+    vim.g.neovide_floating_z_height = 5
+    vim.g.neovide_light_angle_degrees = 45
+    vim.g.neovide_light_radius = 1
+    vim.g.neovide_floating_blur_amount_x = 2.0
+    vim.g.neovide_floating_blur_amount_y = 2.0
+    vim.g.neovide_floating_corner_radius = 10.0
+    vim.keymap.set({ "i", "n" }, "<F11>", function()
+        fullscreen = not fullscreen
+        vim.g.neovide_fullscreen = fullscreen
+    end, { silent = true })
 end
 
 require("vim.lsp.log").set_level(vim.log.levels.OFF)
 
 function _G.D(a)
-  print(vim.inspect(a))
-  return a
+    print(vim.inspect(a))
+    return a
 end
 
 function _G.R(a)
-  require("dap.repl").append(vim.inspect(a))
-  return a
+    require("dap.repl").append(vim.inspect(a))
+    return a
 end
 
 function _G.E(...)
-  print(vim.inspect { ... })
-  return ...
+    print(vim.inspect { ... })
+    return ...
 end
 
 vim.diagnostic.config {
-  virtual_text = {
-    source = "if_many", -- Or "if_many"
-  },
-  float = {
-    source = "always", -- Or "if_many"
-  },
-  signs = {
-    "DapBreakpoint",
-    { text = "🛑", texthl = "", linehl = "", numhl = "" },
-    "DapStopped",
-    { text = "→", texthl = "", linehl = "NvimDapStopped", numhl = "" },
-    "DapBreakpointRejected",
-    { text = "", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" },
-  },
+    virtual_text = {
+        source = "if_many", -- Or "if_many"
+    },
+    float = {
+        source = "always", -- Or "if_many"
+    },
+    signs = {
+        "DapBreakpoint",
+        { text = "🛑", texthl = "", linehl = "", numhl = "" },
+        "DapStopped",
+        { text = "→", texthl = "", linehl = "NvimDapStopped", numhl = "" },
+        "DapBreakpointRejected",
+        { text = "", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" },
+    },
 }
 
 --nnoremap <silent> [d <cmd>lua vim.diagnostic.goto_prev()<CR>
@@ -117,85 +119,83 @@ vim.keymap.set("n", "<leader>ld", vim.diagnostic.open_float, { silent = true })
 vim.keymap.set("n", "<leader>lD", vim.diagnostic.setqflist, { silent = true })
 vim.keymap.set("n", "<leader>dz", "<cmd>Neotree diagnostics reveal bottom<cr>", { silent = true })
 vim.keymap.set("n", "<leader>ll", function()
-  virtual_lines = not virtual_lines
-  vim.diagnostic.config { virtual_lines = virtual_lines, virtual_text = not virtual_lines }
+    virtual_lines = not virtual_lines
+    vim.diagnostic.config { virtual_lines = virtual_lines, virtual_text = not virtual_lines }
 end, { silent = true })
 
 vim.keymap.set("n", "<leader>rr", ":grep <cword> | copen<cr>", { silent = true, buffer = false, noremap = true })
 vim.keymap.set("v", "<leader>rr", "y:grep <c-r>+ | copen<cr>", { silent = true, buffer = false, noremap = true })
 
 local function switch_source_header(bufnr)
-  local util = require "lspconfig.util"
-  bufnr = util.validate_bufnr(bufnr)
-  local clangd_client = util.get_active_client_by_name(bufnr, "clangd")
-  local params = { uri = vim.uri_from_bufnr(bufnr) }
-  if clangd_client then
-    clangd_client.request("textDocument/switchSourceHeader", params, function(err, result)
-      if err then
-        vim.cmd [[:Telescope telescope-alternate alternate_file]]
-        error(tostring(err))
-      end
-      if not result then
-        vim.cmd [[:Telescope telescope-alternate alternate_file]]
-        print "Corresponding file cannot be determined"
-        return
-      end
-      vim.api.nvim_command("edit " .. vim.uri_to_fname(result))
-    end, bufnr)
-  else
-    print "method textDocument/switchSourceHeader is not supported by any servers active on the current buffer"
-  end
+    local util = require "lspconfig.util"
+    bufnr = util.validate_bufnr(bufnr)
+    local clangd_client = util.get_active_client_by_name(bufnr, "clangd")
+    local params = { uri = vim.uri_from_bufnr(bufnr) }
+    if clangd_client then
+        clangd_client.request("textDocument/switchSourceHeader", params, function(err, result)
+            if err then
+                vim.cmd [[:Telescope telescope-alternate alternate_file]]
+                error(tostring(err))
+            end
+            if not result then
+                vim.cmd [[:Telescope telescope-alternate alternate_file]]
+                print "Corresponding file cannot be determined"
+                return
+            end
+            vim.api.nvim_command("edit " .. vim.uri_to_fname(result))
+        end, bufnr)
+    else
+        print "method textDocument/switchSourceHeader is not supported by any servers active on the current buffer"
+    end
 end
 
 _G["NvimLspMaps"] = function()
-  local C_FTYPES = { c = true, cpp = true, cuda = true }
-  if C_FTYPES[vim.bo.filetype] then
-    vim.keymap.set("n", "<a-o>", function()
-      switch_source_header(0)
+    local C_FTYPES = { c = true, cpp = true, cuda = true }
+    if C_FTYPES[vim.bo.filetype] then
+        vim.keymap.set("n", "<a-o>", function()
+            switch_source_header(0)
+        end, { silent = true, buffer = true })
+    end
+    vim.keymap.set("n", "<c-a-o>", ":Telescope lsp_document_symbols<cr>", { silent = true, buffer = true })
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, { silent = true, buffer = true })
+    vim.keymap.set("n", "gD", "<c-w>vgd", { silent = true, buffer = true })
+    vim.keymap.set("n", "<leader>gd", vim.lsp.buf.implementation, { silent = true, buffer = true })
+    vim.keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, { silent = true, buffer = true })
+    vim.keymap.set("n", "<f2>", vim.lsp.buf.rename, { silent = true, buffer = true })
+    vim.keymap.set("n", "gk", vim.lsp.buf.declaration, { silent = true, buffer = true })
+    vim.keymap.set("n", "gR", vim.lsp.buf.references, { silent = true, buffer = true })
+    vim.keymap.set("n", "gh", vim.lsp.buf.hover, { silent = true, buffer = true })
+    vim.keymap.set({ "i", "n" }, "<c-g>", vim.lsp.buf.signature_help, { silent = true, buffer = true })
+    vim.keymap.set("n", "<leader>lD", vim.diagnostic.setloclist, { silent = true, buffer = true })
+    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { silent = true, buffer = true })
+    vim.keymap.set("n", "<leader>ic", vim.lsp.buf.incoming_calls, { silent = true, buffer = true })
+    vim.keymap.set("n", "<leader>oc", vim.lsp.buf.outgoing_calls, { silent = true, buffer = true })
+    vim.keymap.set("n", "<leader>ss", ":Telescope lsp_workspace_symbols<cr>", { silent = true, buffer = true })
+    vim.keymap.set("n", "<c-t>", ":Telescope lsp_workspace_symbols<cr>", { silent = true, buffer = true })
+    --vim.keymap.set("n", "<leader>de", require("lsp-ext").peek_definition, { silent = true, buffer = true })
+    vim.keymap.set("n", "<2-LeftMouse", vim.lsp.buf.hover, { silent = true, buffer = true })
+    vim.keymap.set("n", "<c-LeftMouse", vim.lsp.buf.definition, { silent = true, buffer = true })
+    --vim.keymap.set("n", "üf", "<cmd>packadd lspsaga<cr><cmd>Lspsaga lsp_finder", { silent = true, buffer = true })
+    --vim.keymap.set("n", "<leader>fi", function()
+    --require("lspsaga.provider").lsp_finder()
+    --end, { silent = true, buffer = true })
+    vim.keymap.set("n", "<c-s>", function()
+        require("conform").format({ lsp_fallback = true, async = true }, function()
+            vim.lsp.buf.format { bufnr = 0 }
+            vim.cmd "w"
+        end)
     end, { silent = true, buffer = true })
-  end
-  vim.keymap.set("n", "<c-a-o>", ":Telescope lsp_document_symbols<cr>", { silent = true, buffer = true })
-  vim.keymap.set("n", "gd", vim.lsp.buf.definition, { silent = true, buffer = true })
-  vim.keymap.set("n", "gD", "<c-w>vgd", { silent = true, buffer = true })
-  vim.keymap.set("n", "<leader>gd", vim.lsp.buf.implementation, { silent = true, buffer = true })
-  vim.keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, { silent = true, buffer = true })
-  vim.keymap.set("n", "<f2>", vim.lsp.buf.rename, { silent = true, buffer = true })
-  vim.keymap.set("n", "gk", vim.lsp.buf.declaration, { silent = true, buffer = true })
-  vim.keymap.set("n", "gR", vim.lsp.buf.references, { silent = true, buffer = true })
-  vim.keymap.set("n", "gh", vim.lsp.buf.hover, { silent = true, buffer = true })
-  vim.keymap.set({ "i", "n" }, "<c-g>", vim.lsp.buf.signature_help, { silent = true, buffer = true })
-  vim.keymap.set("n", "<leader>lD", vim.diagnostic.setloclist, { silent = true, buffer = true })
-  vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { silent = true, buffer = true })
-  vim.keymap.set("n", "<leader>ic", vim.lsp.buf.incoming_calls, { silent = true, buffer = true })
-  vim.keymap.set("n", "<leader>oc", vim.lsp.buf.outgoing_calls, { silent = true, buffer = true })
-  vim.keymap.set("n", "<leader>ss", ":Telescope lsp_workspace_symbols<cr>", { silent = true, buffer = true })
-  vim.keymap.set("n", "<c-t>", ":Telescope lsp_workspace_symbols<cr>", { silent = true, buffer = true })
-  --vim.keymap.set("n", "<leader>de", require("lsp-ext").peek_definition, { silent = true, buffer = true })
-  vim.keymap.set("n", "<2-LeftMouse", vim.lsp.buf.hover, { silent = true, buffer = true })
-  vim.keymap.set("n", "<c-LeftMouse", vim.lsp.buf.definition, { silent = true, buffer = true })
-  --vim.keymap.set("n", "üf", "<cmd>packadd lspsaga<cr><cmd>Lspsaga lsp_finder", { silent = true, buffer = true })
-  --vim.keymap.set("n", "<leader>fi", function()
-  --require("lspsaga.provider").lsp_finder()
-  --end, { silent = true, buffer = true })
-  vim.keymap.set("n", "<c-s>", function()
-    require("conform").format({ lsp_fallback = true, async = true }, function()
-      vim.lsp.buf.format { bufnr = 0 }
-      vim.cmd "w"
-    end)
-  end, { silent = true, buffer = true })
-  vim.cmd [[command! CodeLens autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]]
+    vim.cmd [[command! CodeLens autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]]
 
-  vim.cmd [[setlocal omnifunc=v:lua.vim.lsp.omnifunc]]
-  --vim.cmd [[Lazy load fidget.nvim]]
+    vim.cmd [[setlocal omnifunc=v:lua.vim.lsp.omnifunc]]
+    --vim.cmd [[Lazy load fidget.nvim]]
 end
 
-require("nvim-treesitter.install").prefer_git = false
-
-vim.keymap.set("n", "<leader>sf", require("telescope.builtin").find_files, { desc = "[S]earch [F]iles" })
-vim.keymap.set("n", "<leader>sh", require("telescope.builtin").help_tags, { desc = "[S]earch [H]elp" })
-vim.keymap.set("n", "<leader>sw", require("telescope.builtin").grep_string, { desc = "[S]earch current [W]ord" })
-vim.keymap.set("n", "<leader>sg", require("telescope.builtin").live_grep, { desc = "[S]earch by [G]rep" })
-vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { desc = "[S]earch [D]iagnostics" })
+--vim.keymap.set("n", "<leader>sf", require("telescope.builtin").find_files, { desc = "[S]earch [F]iles" })
+--vim.keymap.set("n", "<leader>sh", require("telescope.builtin").help_tags, { desc = "[S]earch [H]elp" })
+--vim.keymap.set("n", "<leader>sw", require("telescope.builtin").grep_string, { desc = "[S]earch current [W]ord" })
+--vim.keymap.set("n", "<leader>sg", require("telescope.builtin").live_grep, { desc = "[S]earch by [G]rep" })
+--vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { desc = "[S]earch [D]iagnostics" })
 --vim.keymap.set("n", "<F6>", require("dap").continue, { desc = "DAP continue" })
 --vim.keymap.set("n", "<F10>", require("dap").step_over, { desc = "DAP step over" })
 --vim.keymap.set("n", "<F11>", require("dap").step_into, { desc = "DAP step into" })
@@ -204,465 +204,405 @@ vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { de
 
 local neodev = vim.F.npcall(require, "neodev")
 if neodev then
-  neodev.setup {
-    -- add any options here, or leave empty to use the default settings
-  }
+    neodev.setup {
+        -- add any options here, or leave empty to use the default settings
+    }
 end
 
-local lspconfig = vim.F.npcall(require, "lspconfig")
 local lsp_signature = vim.F.npcall(require, "lsp_signature")
 
-if lspconfig then
-  --require("lspkind").init()
-  local function on_attach(client, bufnr)
-    --local ih = require "inlay-hints"
-    --ih.on_attach(client, bufnr)
-    --require("lsp-inlayhints").on_attach(client, bufnr)
+local function on_attach(client, bufnr)
     if client:supports_method "textDocument/inlayHint" or client.name == "rust_analyzer" then
-      vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
     end
-    --local caps = client.server_capabilities
-    --if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
-    --vim.cmd [[autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.buf.semantic_tokens_full()]]
-    --end
     vim.fn.NvimLspMaps()
     if lsp_signature and vim.bo[bufnr].ft ~= "glsl" then
-      lsp_signature.on_attach()
+        lsp_signature.on_attach()
     end
     if lsp_status then
-      lsp_status.on_attach(client)
+        lsp_status.on_attach(client)
     end
-  end
+end
 
-  local configs = require "lspconfig.configs"
-  local nvim_lsp = require "lspconfig"
-  if not configs.neocmake then
-    configs.neocmake = {
-      default_config = {
-        cmd = { "neocmakelsp", "--stdio" },
-        filetypes = { "cmake" },
-        root_dir = function(fname)
-          return nvim_lsp.util.find_git_ancestor(fname)
-        end,
-        single_file_support = true, -- suggested
-        on_attach = on_attach,
-      },
-    }
-    nvim_lsp.neocmake.setup {
-      on_attach = on_attach,
-      capabilities = capabilities,
-    }
-  end
-  lspconfig.slangd.setup {
+local function lsp_setup(name, config, enable)
+    vim.lsp.config(name, config)
+    if enable ~= false then
+        vim.lsp.enable(name, config)
+    end
+end
+
+lsp_setup('neocmakelsp', {
+    on_attach = on_attach,
+    capabilities = capabilities,
+})
+lsp_setup('slangd', {
     on_attach = on_attach,
     capabilities = capabilities,
     filetypes = { "hlsl", "shaderslang", "glsl" },
     settings = {
-      slang = {
-        --predefinedMacros = {"MY_VALUE_MACRO=1"},
-        --additionalSearchPaths
-        inlayHints = {
-          deducedTypes = true,
-          parameterNames = true,
+        slang = {
+            --predefinedMacros = {"MY_VALUE_MACRO=1"},
+            --additionalSearchPaths
+            inlayHints = {
+                deducedTypes = true,
+                parameterNames = true,
+            },
         },
-      },
     },
-  }
-  lspconfig.qmlls.setup {
+})
+lsp_setup('qmlls', {
     cmd = select_executable { "/usr/local/Qt-6.10.0/bin/qmlls", "qmlls" },
     on_attach = on_attach,
     capabilities = capabilities,
-  }
+})
 
-  --pcall(require, "lspconfig/julials")
-  --if not require("lspconfig/configs").julials.install_info().is_installed then
-  -- require("lspconfig/configs").julials.install()
-  --end
-
-  lspconfig.asm_lsp.setup {
+vim.lsp.config('asm_lsp', {
     on_attach = on_attach,
     capabilities = capabilities,
-  }
-  lspconfig.eslint.setup {
+})
+vim.lsp.config('eslint', {
     on_attach = on_attach,
     capabilities = capabilities,
-  }
-  lspconfig.mesonlsp.setup {
+})
+vim.lsp.config('mesonlsp', {
     on_attach = on_attach,
     capabilities = capabilities,
-  }
-  lspconfig.sourcekit.setup {
+})
+vim.lsp.config('sourcekit', {
     on_attach = on_attach,
     capabilities = capabilities,
     filetypes = { "swift" },
-  }
-  --lspconfig.helm_ls.setup {
-  --cmd = { "helm-ls", "serve" },
-  --filetypes = { "helm", "yaml" },
-  --on_attach = on_attach,
-  --capabilities = capabilities,
-  --}
-  lspconfig.jdtls.setup {
+})
+--lspconfig.helm_ls.setup {
+--cmd = { "helm-ls", "serve" },
+--filetypes = { "helm", "yaml" },
+--on_attach = on_attach,
+--capabilities = capabilities,
+--}
+vim.lsp.config('jdtls', {
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
-      -- config example: https://ptrtojoel.dev/posts/so-you-want-to-write-java-in-neovim/
-      java = {
-        inlayHints = {
-          enabled = true,
-          --parameterNames = {
-          --   enabled = 'all' -- literals, all, none
-          --}
-        },
-        import = {
-          gradle = {
-            wrapper = {
-              checksums = {
-                { sha256 = "803c75f3307787290478a5ccfa9054c5c0c7b4250c1b96ceb77ad41fbe919e4e", allowed = true },
-                { sha256 = "ee3739525a995bcb5601621a6e2daec1f183bbefc375743acc235cec33547e04", allowed = true },
-              },
+        -- config example: https://ptrtojoel.dev/posts/so-you-want-to-write-java-in-neovim/
+        java = {
+            inlayHints = {
+                enabled = true,
+                --parameterNames = {
+                --   enabled = 'all' -- literals, all, none
+                --}
             },
-          },
+            import = {
+                gradle = {
+                    wrapper = {
+                        checksums = {
+                            { sha256 = "803c75f3307787290478a5ccfa9054c5c0c7b4250c1b96ceb77ad41fbe919e4e", allowed = true },
+                            { sha256 = "ee3739525a995bcb5601621a6e2daec1f183bbefc375743acc235cec33547e04", allowed = true },
+                        },
+                    },
+                },
+            },
         },
-      },
     },
-  }
-  require("lspconfig").intelephense.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  }
-  require("lspconfig").taplo.setup { on_attach = on_attach, capabilities = capabilities }
+})
+vim.lsp.config('taplo', { on_attach = on_attach, capabilities = capabilities })
 
-  vim.keymap.set("n", "<leader>nf", function()
+vim.keymap.set("n", "<leader>nf", function()
     local url = vim.api.nvim_buf_get_name(0)
     if url:match "^sg:" then
-      url = vim.fn.fnamemodify(url, ":h")
-      if url:match "-$" then
-        url = url .. "/."
-      end
-      vim.cmd(":e " .. url)
+        url = vim.fn.fnamemodify(url, ":h")
+        if url:match "-$" then
+            url = url .. "/."
+        end
+        vim.cmd(":e " .. url)
     else
-      vim.cmd "Neotree filesystem reveal left"
+        vim.cmd "Neotree filesystem reveal left"
     end
-  end, { silent = true, noremap = true, desc = "Nerdtree for local files or :e %:h" })
+end, { silent = true, noremap = true, desc = "Nerdtree for local files or :e %:h" })
 
-  local sg = vim.F.npcall(require, "sg")
-  if sg then
+local sg = vim.F.npcall(require, "sg")
+if sg then
     sg.setup {
-      on_attach = function(...)
-        on_attach(...)
-      end,
+        on_attach = function(...)
+            on_attach(...)
+        end,
     }
-  end
+end
 
-  require("lspconfig.configs").markdown_oxide = {
-    default_config = {
-      root_dir = function()
-        return vim.fn.getcwd()
-      end, -- this is applicable because markdown vaults have no defined root files
-      filetypes = { "markdown" },
-      cmd = { "markdown-oxide" },
-    },
+
+--lspconfig.obsidian_ls.setup {
+--on_attach = on_attach,
+--capabilities = capabilities,
+--}
+
+vim.lsp.config('flow', {
     on_attach = on_attach,
     capabilities = capabilities,
-  }
+})
 
-  --lspconfig.obsidian_ls.setup {
-  --on_attach = on_attach,
-  --capabilities = capabilities,
-  --}
-
-  lspconfig.flow.setup {
+vim.lsp.config('glsl_analyzer', {
     on_attach = on_attach,
     capabilities = capabilities,
-  }
+})
+vim.lsp.enable "qmlls"
 
-  --lspconfig.glslls.setup {
-  --on_attach = on_attach,
-  --capabilities = capabilities,
-  --}
-  lspconfig.glsl_analyzer.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  }
-  vim.lsp.enable "qmlls"
-
-  lspconfig.wgsl_analyzer.setup {
+vim.lsp.config('wgsl_analyzer', {
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
-      ["wgsl-analyzer"] = {
-        shaderDefs = {
-          "VERTEX_TANGENTS",
-          "VERTEX_NORMALS",
-          "VERTEX_COLORS",
-          "VERTEX_UVS",
-          "SKINNED",
+        ["wgsl-analyzer"] = {
+            shaderDefs = {
+                "VERTEX_TANGENTS",
+                "VERTEX_NORMALS",
+                "VERTEX_COLORS",
+                "VERTEX_UVS",
+                "SKINNED",
+            },
+            inlayHints = {
+                enabled = true,
+                typeHints = true,
+                parameterHints = true,
+                structLayoutHints = true,
+            },
+            customImports = {
+                ["bevy_pbr::clustered_forward"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/clustered_forward.wgsl",
+                ["bevy_pbr::mesh_bindings"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/mesh_bindings.wgsl",
+                ["bevy_pbr::mesh_functions"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/mesh_functions.wgsl",
+                ["bevy_pbr::mesh_types"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/mesh_types.wgsl",
+                ["bevy_pbr::mesh_vertex_output"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/mesh_vertex_output.wgsl",
+                ["bevy_pbr::mesh_view_bindings"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/mesh_view_bindings.wgsl",
+                ["bevy_pbr::mesh_view_types"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/mesh_view_types.wgsl",
+                ["bevy_pbr::pbr_bindings"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/pbr_bindings.wgsl",
+                ["bevy_pbr::pbr_functions"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/pbr_functions.wgsl",
+                ["bevy_pbr::lighting"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/pbr_lighting.wgsl",
+                ["bevy_pbr::pbr_types"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/pbr_types.wgsl",
+                ["bevy_pbr::shadows"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/shadows.wgsl",
+                ["bevy_pbr::skinning"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/skinning.wgsl",
+                ["bevy_pbr::utils"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/utils.wgsl",
+                ["bevy_sprite::mesh2d_bindings"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_sprite/src/mesh2d/mesh2d_bindings.wgsl",
+                ["bevy_sprite::mesh2d_functions"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_sprite/src/mesh2d/mesh2d_functions.wgsl",
+                ["bevy_sprite::mesh2d_types"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_sprite/src/mesh2d/mesh2d_types.wgsl",
+                ["bevy_sprite::mesh2d_vertex_output"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_sprite/src/mesh2d/mesh2d_vertex_output.wgsl",
+                ["bevy_sprite::mesh2d_view_bindings"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_sprite/src/mesh2d/mesh2d_view_bindings.wgsl",
+                ["bevy_sprite::mesh2d_view_types"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_sprite/src/mesh2d/mesh2d_view_types.wgsl",
+            },
         },
-        inlayHints = {
-          enabled = true,
-          typeHints = true,
-          parameterHints = true,
-          structLayoutHints = true,
-        },
-        customImports = {
-          ["bevy_pbr::clustered_forward"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/clustered_forward.wgsl",
-          ["bevy_pbr::mesh_bindings"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/mesh_bindings.wgsl",
-          ["bevy_pbr::mesh_functions"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/mesh_functions.wgsl",
-          ["bevy_pbr::mesh_types"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/mesh_types.wgsl",
-          ["bevy_pbr::mesh_vertex_output"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/mesh_vertex_output.wgsl",
-          ["bevy_pbr::mesh_view_bindings"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/mesh_view_bindings.wgsl",
-          ["bevy_pbr::mesh_view_types"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/mesh_view_types.wgsl",
-          ["bevy_pbr::pbr_bindings"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/pbr_bindings.wgsl",
-          ["bevy_pbr::pbr_functions"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/pbr_functions.wgsl",
-          ["bevy_pbr::lighting"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/pbr_lighting.wgsl",
-          ["bevy_pbr::pbr_types"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/pbr_types.wgsl",
-          ["bevy_pbr::shadows"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/shadows.wgsl",
-          ["bevy_pbr::skinning"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/skinning.wgsl",
-          ["bevy_pbr::utils"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/utils.wgsl",
-          ["bevy_sprite::mesh2d_bindings"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_sprite/src/mesh2d/mesh2d_bindings.wgsl",
-          ["bevy_sprite::mesh2d_functions"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_sprite/src/mesh2d/mesh2d_functions.wgsl",
-          ["bevy_sprite::mesh2d_types"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_sprite/src/mesh2d/mesh2d_types.wgsl",
-          ["bevy_sprite::mesh2d_vertex_output"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_sprite/src/mesh2d/mesh2d_vertex_output.wgsl",
-          ["bevy_sprite::mesh2d_view_bindings"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_sprite/src/mesh2d/mesh2d_view_bindings.wgsl",
-          ["bevy_sprite::mesh2d_view_types"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_sprite/src/mesh2d/mesh2d_view_types.wgsl",
-        },
-      },
     },
-  }
+})
 
-  --lspconfig.marksman.setup {
-  --on_attach = on_attach,
-  --capabilities = capabilities,
-  --}
-  --lspconfig.fsautocomplete.setup {
-  --on_attach = on_attach,
-  --capabilities = capabilities,
-  --}
-  lspconfig.csharp_ls.setup {
+--lspconfig.marksman.setup {
+--on_attach = on_attach,
+--capabilities = capabilities,
+--}
+--lspconfig.fsautocomplete.setup {
+--on_attach = on_attach,
+--capabilities = capabilities,
+--}
+vim.lsp.config('csharp_ls', {
     on_attach = on_attach,
     capabilities = capabilities,
-  }
+})
 
-  lspconfig.zls.setup {
+vim.lsp.config('zls', {
     on_attach = on_attach,
     capabilities = capabilities,
-  }
-  lspconfig.bashls.setup {
+})
+vim.lsp.config('bashls', {
     on_attach = on_attach,
     capabilities = capabilities,
     filetypes = { "sh", "bash", "make", "zsh" },
-  }
+})
 
-  --lspconfig.tsserver.setup {
-  --on_attach = on_attach,
-  --capabilities = capabilities,
-  --settings = {
-  --javascript = {
-  --inlayHints = {
-  --includeInlayEnumMemberValueHints = true,
-  --includeInlayFunctionLikeReturnTypeHints = true,
-  --includeInlayFunctionParameterTypeHints = true,
-  --includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
-  --includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-  --includeInlayPropertyDeclarationTypeHints = true,
-  --includeInlayVariableTypeHints = true,
-  --},
-  --},
-  --typescript = {
-  --inlayHints = {
-  --includeInlayEnumMemberValueHints = true,
-  --includeInlayFunctionLikeReturnTypeHints = true,
-  --includeInlayFunctionParameterTypeHints = true,
-  --includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
-  --includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-  --includeInlayPropertyDeclarationTypeHints = true,
-  --includeInlayVariableTypeHints = true,
-  --},
-  --},
-  --},
-  --}
+--lspconfig.tsserver.setup {
+--on_attach = on_attach,
+--capabilities = capabilities,
+--settings = {
+--javascript = {
+--inlayHints = {
+--includeInlayEnumMemberValueHints = true,
+--includeInlayFunctionLikeReturnTypeHints = true,
+--includeInlayFunctionParameterTypeHints = true,
+--includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+--includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+--includeInlayPropertyDeclarationTypeHints = true,
+--includeInlayVariableTypeHints = true,
+--},
+--},
+--typescript = {
+--inlayHints = {
+--includeInlayEnumMemberValueHints = true,
+--includeInlayFunctionLikeReturnTypeHints = true,
+--includeInlayFunctionParameterTypeHints = true,
+--includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+--includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+--includeInlayPropertyDeclarationTypeHints = true,
+--includeInlayVariableTypeHints = true,
+--},
+--},
+--},
+--}
 
-  lspconfig.svelte.setup {
+vim.lsp.config('svelte', {
     on_attach = on_attach,
     capabilities = capabilities,
-  }
+})
 
-  lspconfig.julials.setup {
+vim.lsp.config('julials', {
     on_attach = on_attach,
     capabilities = capabilities,
-  }
-  lspconfig.ocamllsp.setup {
+})
+vim.lsp.config('ocamllsp', {
     on_attach = function(...)
-      require("virtualtypes").on_attach(...)
-      on_attach()
+        require("virtualtypes").on_attach(...)
+        on_attach()
     end,
-  }
-  lspconfig.gopls.setup {
+})
+vim.lsp.config('gopls', {
     on_attach = on_attach,
     settings = {
-      initializationOptions = {
-        usePlaceholders = true,
-      },
-      gopls = {
-        semanticTokens = true,
-        hints = {
-          assignVariableTypes = true,
-          compositeLiteralFields = true,
-          compositeLiteralTypes = true,
-          constantValues = true,
-          functionTypeParameters = true,
-          parameterNames = true,
-          rangeVariableTypes = true,
+        initializationOptions = {
+            usePlaceholders = true,
         },
-      },
+        gopls = {
+            semanticTokens = true,
+            hints = {
+                assignVariableTypes = true,
+                compositeLiteralFields = true,
+                compositeLiteralTypes = true,
+                constantValues = true,
+                functionTypeParameters = true,
+                parameterNames = true,
+                rangeVariableTypes = true,
+            },
+        },
     },
-  }
+})
 
-  lspconfig.basedpyright.setup {
+vim.lsp.config('basedpyright', {
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
-      basedpyright = {
-        analysis = {
-          typeCheckingMode = "off",
+        basedpyright = {
+            analysis = {
+                typeCheckingMode = "off",
+            },
         },
-      },
     },
-  }
+})
 
-  --lspconfig.pylyzer.setup {
-  --on_attach = on_attach,
-  --settings = {
-  --python = {
-  --checkOnType = false,
-  --diagnostics = false,
-  --inlayHints = false,
-  --smartCompletion = true,
-  --},
-  --},
-  --capabilities = capabilities,
-  --}
-  vim.lsp.config("spirvls", {
+--lspconfig.pylyzer.setup {
+--on_attach = on_attach,
+--settings = {
+--python = {
+--checkOnType = false,
+--diagnostics = false,
+--inlayHints = false,
+--smartCompletion = true,
+--},
+--},
+--capabilities = capabilities,
+--}
+vim.lsp.config("spirvls", {
     cmd = { "spirvls" },
     filetypes = { "spirv", "spvasm" },
     on_attach = on_attach,
-  })
-  vim.lsp.enable "spirvls"
+})
+vim.lsp.enable "spirvls"
 
-  lspconfig.ruff.setup {
+vim.lsp.config('ruff', {
     on_attach = on_attach,
     settings = {},
     capabilities = capabilities,
-  }
-  --lspconfig.ty.setup {
-  --on_attach = on_attach,
-  --settings = {},
-  --capabilities = capabilities,
-  --}
-  --vim.lsp.enable "ty"
+})
+vim.lsp.enable "ruff"
+--lspconfig.ty.setup {
+--on_attach = on_attach,
+--settings = {},
+--capabilities = capabilities,
+--}
+--vim.lsp.enable "ty"
 
-  --lspconfig.pylsp.setup {
-  --on_attach = on_attach,
-  --settings = {
-  --pyls = {
-  ----plugins = {
-  ----pydocstyle = {
-  ----enabled = false,
-  ----},
-  ----flake8 = {
-  ----maxLineLength = 120,
-  ----},
-  ----pycodestyle = {
-  ----ignore = { "E501" },
-  ----maxLineLength = 120,
-  ----},
-  ----},
-  --},
-  --},
-  --capabilities = capabilities,
-  --}
-  lspconfig.jedi_language_server.setup {
+--lspconfig.pylsp.setup {
+--on_attach = on_attach,
+--settings = {
+--pyls = {
+----plugins = {
+----pydocstyle = {
+----enabled = false,
+----},
+----flake8 = {
+----maxLineLength = 120,
+----},
+----pycodestyle = {
+----ignore = { "E501" },
+----maxLineLength = 120,
+----},
+----},
+--},
+--},
+--capabilities = capabilities,
+--}
+vim.lsp.config('jedi_language_server', {
     on_attach = on_attach,
     settings = {
-      --pyls = {
-      --plugins = {
-      --pydocstyle = {
-      --enabled = false,
-      --},
-      --flake8 = {
-      --maxLineLength = 120,
-      --},
-      --pycodestyle = {
-      --ignore = { "E501" },
-      --maxLineLength = 120,
-      --},
-      --},
-      --},
+        --pyls = {
+        --plugins = {
+        --pydocstyle = {
+        --enabled = false,
+        --},
+        --flake8 = {
+        --maxLineLength = 120,
+        --},
+        --pycodestyle = {
+        --ignore = { "E501" },
+        --maxLineLength = 120,
+        --},
+        --},
+        --},
     },
     capabilities = capabilities,
-  }
+})
 
-  --lspconfig.pylyzer.setup {
-  --on_attach = on_attach,
-  --settings = {
-  --python = {
-  --checkOnType = false,
-  --diagnostics = true,
-  --inlayHints = true,
-  --smartCompletion = true,
-  --},
-  --},
-  --}
+--lspconfig.pylyzer.setup {
+--on_attach = on_attach,
+--settings = {
+--python = {
+--checkOnType = false,
+--diagnostics = true,
+--inlayHints = true,
+--smartCompletion = true,
+--},
+--},
+--}
 
-  lspconfig.tinymist.setup {
+vim.lsp.config('tinymist', {
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
-      exportPdf = "onType",
-      outputPath = "$root/$name",
-      formatterMode = "typstfmt",
+        exportPdf = "onType",
+        outputPath = "$root/$name",
+        formatterMode = "typstfmt",
     },
-  }
-  lspconfig.ts_ls.setup {
+})
+vim.lsp.config('ts_ls', {
     on_attach = on_attach,
     capabilities = capabilities,
-  }
-  lspconfig.kotlin_language_server.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  }
-  lspconfig.hls.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  }
-  lspconfig.mlir_lsp_server.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  }
-  lspconfig.blueprint_ls.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  }
-  lspconfig.systemd_ls.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  }
-  --lspconfig.clangd.setup {
-  --cmd = {
-  --"clangd-15",
-  --"--clang-tidy",
-  --"--all-scopes-completion",
-  --"--header-insertion=iwyu",
-  --"--background-index",
-  --"--suggest-missing-includes",
-  --"--cross-file-rename",
-  --},
-  --filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
-  --on_attach = on_attach,
-  --capabilities = capabilities,
-  --}
-  local clangd = select_executable {
+})
+
+--lspconfig.clangd.setup {
+--cmd = {
+--"clangd-15",
+--"--clang-tidy",
+--"--all-scopes-completion",
+--"--header-insertion=iwyu",
+--"--background-index",
+--"--suggest-missing-includes",
+--"--cross-file-rename",
+--},
+--filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
+--on_attach = on_attach,
+--capabilities = capabilities,
+--}
+local clangd = select_executable {
     "clangd-21",
     "clangd-20",
     "clangd-19",
@@ -673,766 +613,427 @@ if lspconfig then
     "clangd-14",
     "clangd-13",
     "clangd",
-  }
-  if clangd then
-    lspconfig.clangd.setup {
-      cmd = {
-        clangd,
-        "--clang-tidy",
-        "--all-scopes-completion",
-        "--header-insertion=iwyu",
-        "--background-index",
-      },
-      filetypes = {
-        "c",
-        "cpp",
-        "objc",
-        "objcpp",
-        "cuda", --[["glsl", "hlsl"]]
-      },
-      on_attach = on_attach,
-      capabilities = capabilities,
-      extensions = {
-        -- defaults:
-        -- Automatically set inlay hints (type hints)
-        autoSetHints = false,
-      },
-    }
-  end
+}
+if clangd then
+    vim.lsp.config('clangd', {
+        cmd = {
+            clangd,
+            "--clang-tidy",
+            "--all-scopes-completion",
+            "--header-insertion=iwyu",
+            "--background-index",
+        },
+        filetypes = {
+            "c",
+            "cpp",
+            "objc",
+            "objcpp",
+            "cuda", --[["glsl", "hlsl"]]
+        },
+        on_attach = on_attach,
+        capabilities = capabilities,
+        extensions = {
+            -- defaults:
+            -- Automatically set inlay hints (type hints)
+            autoSetHints = false,
+        },
+    })
+    vim.lsp.enable('clang')
+end
 
-  lspconfig.lua_ls.setup {
+vim.lsp.config('lua_ls', {
     on_init = function(client)
-      local path = client.workspace_folders[1].name
-      if not vim.uv.fs_stat(path .. "/.luarc.json") and not vim.uv.fs_stat(path .. "/.luarc.jsonc") then
-        client.config.settings = vim.tbl_deep_extend("force", client.config.settings.Lua, {
-          runtime = {
-            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-            version = "LuaJIT",
-          },
-          checkThirdParty = false,
-          awakened = { cat = true },
-          telemetry = { enable = false },
-          hint = { enable = true },
-          completion = {
-            callSnippet = "Replace",
-          },
-          -- Make the server aware of Neovim runtime files
-          workspace = {
-            library = { vim.env.VIMRUNTIME },
-            checkThirdParty = false,
-            -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
-            -- library = vim.api.nvim_get_runtime_file("", true)
-          },
-          diagnostics = {
-            globals = { "vim", "map", "filter", "range", "reduce", "head", "tail", "nth", "it", "describe" },
-            disable = { "redefined-local" },
-          },
-        })
+        local path = client.workspace_folders[1].name
+        if not vim.uv.fs_stat(path .. "/.luarc.json") and not vim.uv.fs_stat(path .. "/.luarc.jsonc") then
+            client.config.settings = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+                runtime = {
+                    -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                    version = "LuaJIT",
+                },
+                checkThirdParty = false,
+                awakened = { cat = true },
+                telemetry = { enable = false },
+                hint = { enable = true },
+                completion = {
+                    callSnippet = "Replace",
+                },
+                -- Make the server aware of Neovim runtime files
+                workspace = {
+                    library = { vim.env.VIMRUNTIME },
+                    checkThirdParty = false,
+                    -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+                    -- library = vim.api.nvim_get_runtime_file("", true)
+                },
+                diagnostics = {
+                    globals = { "vim", "map", "filter", "range", "reduce", "head", "tail", "nth", "it", "describe" },
+                    disable = { "redefined-local" },
+                },
+            })
 
-        client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
-      end
-      return true
+            client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+        end
+        return true
     end,
 
     on_attach = on_attach,
     capabilities = capabilities,
-  }
-  lspconfig.html.setup {
-    on_attach = on_attach,
-  }
+})
 
-  lspconfig.jsonnet_ls.setup {
-    on_attach = on_attach,
-  }
-  lspconfig.rust_analyzer.setup {
+
+lsp_setup('rust_analyzer', {
     cmd = {
-      select_executable {
-        "rust-analyzer",
-        ((os.getenv "HOME") or "") .. "/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/rust-analyzer",
-        ((os.getenv "HOME") or "") .. "/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer",
-      },
+        select_executable {
+            "rust-analyzer",
+            ((os.getenv "HOME") or "") .. "/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/rust-analyzer",
+            ((os.getenv "HOME") or "") .. "/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer",
+        },
     },
     settings = {
-      ["rust-analyzer"] = {
-        checkOnSave = {
-          command = "clippy",
-          enable = true,
+        ["rust-analyzer"] = {
+            checkOnSave = {
+                command = "clippy",
+                enable = true,
+            },
+            completion = {
+                postfix = {
+                    enabled = true,
+                },
+                autoimport = {
+                    enabled = true,
+                },
+            },
+            procMacro = {
+                enable = true,
+            },
+            lens = {
+                methodReferences = true,
+                references = true,
+            },
+            inlayHints = {
+                bindingModeHints = { enable = false },
+                chainingHints = { enable = true },
+                closingBraceHints = { enable = true, minLines = 25 },
+                closureCaptureHints = { enable = false },
+                closureReturnTypeHints = { enable = "never" },
+                closureStyle = "impl_fn",
+                discriminantHints = { enable = "never" },
+                expressionAdjustmentHints = {
+                    --enable = "true",
+                    hideOutsideUnsafe = false,
+                    mode = "prefix",
+                },
+                lifetimeElisionHints = { enable = "never", useParameterNames = false },
+                maxLength = 25,
+                parameterHints = { enable = true },
+                reborrowHints = { enable = "never" },
+                renderColons = true,
+                typeHints = {
+                    enable = true,
+                    hideClosureInitialization = false,
+                    hideNamedConstructor = false,
+                },
+            },
         },
-        completion = {
-          postfix = {
-            enabled = true,
-          },
-          autoimport = {
-            enabled = true,
-          },
-        },
-        procMacro = {
-          enable = true,
-        },
-        lens = {
-          methodReferences = true,
-          references = true,
-        },
-        inlayHints = {
-          bindingModeHints = { enable = false },
-          chainingHints = { enable = true },
-          closingBraceHints = { enable = true, minLines = 25 },
-          closureCaptureHints = { enable = false },
-          closureReturnTypeHints = { enable = "never" },
-          closureStyle = "impl_fn",
-          discriminantHints = { enable = "never" },
-          expressionAdjustmentHints = {
-            --enable = "true",
-            hideOutsideUnsafe = false,
-            mode = "prefix",
-          },
-          lifetimeElisionHints = { enable = "never", useParameterNames = false },
-          maxLength = 25,
-          parameterHints = { enable = true },
-          reborrowHints = { enable = "never" },
-          renderColons = true,
-          typeHints = {
-            enable = true,
-            hideClosureInitialization = false,
-            hideNamedConstructor = false,
-          },
-        },
-      },
     },
     capabilities = capabilities,
     on_attach = on_attach,
-  }
+})
 
-  --lspconfig.vimls.setup {
-  --on_attach = on_attach,
-  --}
-  lspconfig.yamlls.setup {
-    on_attach = on_attach,
-    --filetypes = { "yaml", "json" },
-  }
-
-  lspconfig.jsonls.setup {
-    on_attach = on_attach,
-  }
-
-  lspconfig.texlab.setup {
+lsp_setup('texlab', {
     settings = {
-      latex = {
-        build = {
-          onSave = false,
+        latex = {
+            build = {
+                onSave = false,
+            },
+            lint = {
+                onSave = false,
+                onChange = true,
+            },
         },
-        lint = {
-          onSave = false,
-          onChange = true,
-        },
-      },
     },
     on_attach = on_attach,
     capabilities = capabilities,
-  }
-end
+})
 
 local dap = vim.F.npcall(require, "dap")
 if dap then
-  require("dap-python").setup "/usr/bin/python3"
-  require("dap-python").test_runner = "pytest"
-  dap.adapters.haskell = {
-    type = "executable",
-    command = "haskell-debug-adapter",
-    args = { "--hackage-version=0.0.33.0" },
-  }
-  dap.configurations.haskell = {
-    {
-      type = "haskell",
-      request = "launch",
-      name = "Debug",
-      workspace = "${workspaceFolder}",
-      startup = "${file}",
-      stopOnEntry = true,
-      logFile = vim.fn.stdpath "data" .. "/haskell-dap.log",
-      logLevel = "WARNING",
-      ghciEnv = vim.empty_dict(),
-      ghciPrompt = "λ: ",
-      -- Adjust the prompt to the prompt you see when you invoke the stack ghci command below
-      ghciInitialPrompt = "λ: ",
-      ghciCmd = "stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show",
-    },
-  }
-  dap.adapters.python = {
-    type = "executable",
-    command = "python3",
-    args = {
-      "-m",
-      "debugpy.adapter",
-    },
-  }
+    --  require("dap-python").setup "/usr/bin/python3"
+    -- require("dap-python").test_runner = "pytest"
+    dap.adapters.haskell = {
+        type = "executable",
+        command = "haskell-debug-adapter",
+        args = { "--hackage-version=0.0.33.0" }, }
+    dap.configurations.haskell = {
+        {
+            type = "haskell",
+            request = "launch",
+            name = "Debug",
+            workspace = "${workspaceFolder}",
+            startup = "${file}",
+            stopOnEntry = true,
+            logFile = vim.fn.stdpath "data" .. "/haskell-dap.log",
+            logLevel = "WARNING",
+            ghciEnv = vim.empty_dict(),
+            ghciPrompt = "λ: ",
+            -- Adjust the prompt to the prompt you see when you invoke the stack ghci command below
+            ghciInitialPrompt = "λ: ",
+            ghciCmd = "stack ghci --test --no-load --no-build --main-is TARGET --ghci-options -fprint-evld-with-show",
+        },
+    }
+    dap.adapters.python = {
+        type = "executable",
+        command = "python3",
+        args = {
+            "-m",
+            "debugpy.adapter",
+        },
+    }
 
-  dap.adapters.cmake = {
-    type = "pipe",
-    pipe = "${pipe}",
-    executable = {
-      command = "cmake",
-      args = { "--debugger", "--debugger-pipe", "${pipe}" },
-    },
-  }
-  dap.configurations.cmake = {
-    {
-      name = "Build",
-      type = "cmake",
-      request = "launch",
-    },
-  }
+    dap.adapters.cmake = {
+        type = "pipe",
+        pipe = "${pipe}",
+        executable = {
+            command = "cmake",
+            args = { "--debugger", "--debugger-pipe", "${pipe}" },
+        },
+    }
+    dap.configurations.cmake = {
+        {
+            name = "Build",
+            type = "cmake",
+            request = "launch",
+        },
+    }
 
-  --dap.adapters.go = {
-  --type = "executable",
-  --command = "node",
-  --args = {os.getenv("HOME") .. "/projects/vscode-go/dist/debugAdapter.js"}
-  --}
-  --dap.adapters.go = {
-  --type = "executable",
-  --command = "dlv",
-  --args = { "dap" },
-  --env = function()
-  --local variables = {
-  --LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES",
-  --}
-  --for k, v in pairs(vim.fn.environ()) do
-  --if type(k) == "string" and type(v) == "string" then
-  --table.insert(variables, string.format("%s=%s", k, v))
-  --end
-  --end
-  --return variables
-  --end,
-  --}
-  --dap.configurations.go = {
-  --{
-  --type = "go",
-  --name = "Debug",
-  --request = "launch",
-  --showLog = false,
-  --program = "${file}",
-  --dlvToolPath = vim.fn.exepath "dlv", -- Adjust to where delve is installed
-  --},
-  --}
-  --dap.configurations.python = {
-  --{
-  --type = "python",
-  --request = "attach",
-  --name = "Launch file",
-  --program = "${file}",
-  --console = "internalConsole",
-  --autoReload = { enable = true },
-  --pythonPath = "/usr/bin/python3",
-  --},
-  --{
-  --type = "python",
-  --request = "attach",
-  --name = "Pytest file",
-  --program = "-m pytest ${file}",
-  --console = "externalTerminal",
-  --pythonPath = "/usr/bin/python3",
-  --},
-  --{
-  --type = "python",
-  --request = "launch",
-  --name = "Launch file",
-  --program = "${file}",
-  --console = "internalConsole",
-  --pythonPath = "/usr/bin/python3",
-  --},
-  --}
-  require("dap.repl").commands = vim.tbl_extend("force", require("dap.repl").commands, {
-    continue = { ".continue", "c" },
-    next_ = { ".next", "n" },
-    into = { ".into", "s" },
-    into_targets = { "st" },
-    out = { ".out", "r" },
-    scopes = { ".scopes", "a" },
-    threads = { ".threads", "t", "threads" },
-    frames = { ".frames", "f", "bt" },
-    exit = { "exit", ".exit", "q" },
-    up = { ".up", "up" },
-    down = { ".down", "down" },
-    goto_ = { ".goto", "j" },
-    capabilities = { ".capabilities", ".ca" },
-    custom_commands = {
-      [".echo"] = function(text)
-        dap.repl.append(text)
-      end,
-    },
-  })
-
-  dap.adapters.cpp = {
-    name = "cppdbg",
-    type = "executable",
-    command = vim.api.nvim_get_runtime_file("gadgets/linux/vscode-cpptools/debugAdapters/OpenDebugAD7", false)[1],
-    args = {},
-    attach = {
-      pidProperty = "processId",
-      pidSelect = "ask",
-    },
-    --configuration = {
-    --type = "cppdbg",
-    --args = {},
-    --cwd = "${workspaceRoot}",
-    --environment = {}
+    --dap.adapters.go = {
+    --type = "executable",
+    --command = "node",
+    --args = {os.getenv("HOME") .. "/projects/vscode-go/dist/debugAdapter.js"}
     --}
-  }
-  --dap.configurations.java = {
-  --{
-  --type = "java",
-  --request = "attach",
-  --name = "Debug (Attach) - Remote",
-  --hostName = "127.0.0.1",
-  --port = 5005
-  --}
-  --}
-
-  dap.adapters.gdb = {
-    type = "executable",
-    attach = {
-      pidProperty = "pid",
-      pidSelect = "ask",
-    },
-    command = select_executable {
-      "rust-gdb",
-      "gdb",
-    },
-    args = {
-      "--quiet",
-      "-i",
-      "dap",
-    },
+    --dap.adapters.go = {
+    --type = "executable",
+    --command = "dlv",
+    --args = { "dap" },
     --env = function()
     --local variables = {
     --LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES",
     --}
     --for k, v in pairs(vim.fn.environ()) do
+    --if type(k) == "string" and type(v) == "string" then
     --table.insert(variables, string.format("%s=%s", k, v))
+    --end
     --end
     --return variables
     --end,
-    name = "gdb",
-    stopOnEntry = true,
-    --initCommands = 'command script import "/home/stephan/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/etc/lldb_lookup.py"',
-  }
-  --local RUSTC_SYSROOT = vim.fn.system("rustc --print sysroot"):gsub("\n", "")
-  dap.adapters.lldb = {
-    type = "executable",
-    attach = {
-      pidProperty = "pid",
-      pidSelect = "ask",
-    },
-    command = select_executable {
-      "lldb-dap-20",
-      "lldb-dap-19",
-      "lldb-vscode-18",
-      "lldb-vscode-17",
-      "lldb-vscode-16",
-      "lldb-vscode-15",
-      "lldb-vscode",
-    },
-    env = function()
-      local variables = {
-        LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES",
-      }
-      for k, v in pairs(vim.fn.environ()) do
-        table.insert(variables, string.format("%s=%s", k, v))
-      end
-      return variables
-    end,
-    name = "lldb",
-    stopOnEntry = true,
-    initCommands =
-    'command script import "/home/stephan/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/etc/lldb_lookup.py"',
-  }
-  dap.adapters.markdown = {
-    type = "executable",
-    name = "mockdebug",
-    command = "node",
-    args = { "./out/debugAdapter.js" },
-    cwd = "/home/stephan/projects/vscode-mock-debug/",
-  }
-
-  dap.configurations.markdown = {
-    {
-      type = "mock",
-      request = "launch",
-      name = "mock test",
-      program = "${file}",
-      stopOnEntry = true,
-      debugServer = 4711,
-    },
-  }
-
-  dap.adapters.go = function(callback, config)
-    local handle
-    local port = 38697
-    handle = vim.uv.spawn(
-      "dlv",
-      {
-        args = { "dap", "-l", "127.0.0.1:" .. port },
-        detached = true,
-      },
-      vim.schedule_wrap(function(code)
-        handle:close()
-        print("Delve exited with exit code: " .. code)
-      end)
-    )
-    ------wait for delve to start
-    vim.defer_fn(function()
-      callback { type = "server", host = "127.0.0.1", port = port }
-      dap.repl.open()
-    end, 250)
-    --dap.repl.open()
-    --callback({type = "server", host = "127.0.0.1", port = port})
-    --dap.repl.open()
-  end
-  -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
-  dap.configurations.go = {
-    {
-      type = "go",
-      name = "Debug",
-      mode = "debug",
-      request = "launch",
-      program = "${file}",
-    },
-  }
-
-  --local ok, dapui = pcall(require, 'dapui')
-
-  --if dap.custom_event_handlers then
-  dap.listeners.after.event_initialized["my handler id"] = function(_, _)
-    --vim.cmd [[Lazy load nvim-dap-ui]]
-    vim.cmd [[Lazy load telescope-dap.nvim]]
-    dap.repl.open()
-    --if ok then
-    --dapui.open()
-    --end
-  end
-  --dap.listeners.after.event_stopped["my handler id"] = function(_, response)
-  --dap.repl.append(vim.inspect(response))
-  --dap.repl.append(vim.inspect(dap.session().current_frame))
-  --end
-  dap.listeners.after.event_exited["my handler id"] = function(_, _)
-    vim.print "Process terminated"
-    --dap.repl.close()
-    --if ok then
-    --dapui.close()
-    --end
-    --vim.cmd "stopinsert"
-  end
-
-  --dap.custom_response_handlers.gotoTargets["my handler id"] = function(_, _)
-  ----dap.repl.append(vim.inspect(body))
-  --end
-  --dap.custom_event_handlers.event_stopped["my handler id"] = function(session, _)
-  ----dap.repl.append(vim.inspect(body))
-  ----dap.repl.append(vim.inspect(session))
-  --end
-  --end
-  --"<name>: Attach": {
-  --"adapter": "vscode-cpptools",
-  --"configuration": {
-  --"name": "<name>: Attach",
-  --"type": "cppdbg",
-  --"request": "attach",
-  --"program": "<path to binary>",
-  --"MIMode": "lldb"
-  --}
-  --}
-end
-
-local ok, _ = pcall(require, "nvim-treesitter.configs")
-if ok then
-  vim.treesitter.language.register("wgsl_bevy", "wgsl")
-  --vim.cmd "set foldmethod=expr foldexpr=nvim_treesitter#foldexpr()"
-  --local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
-
-  require("nvim-treesitter.configs").setup {
-    auto_install = false,
-    highlight = {
-      enable = true, -- false will disable the whole extension
-      disable = {},  -- list of language that will be disabled
-    },
-    query_linter = {
-      enable = false,
-      lint_events = { "BufWrite", "CursorHold" },
-    },
-    tree_docs = {
-      enable = true,
-      keymaps = {
-        doc_node_at_cursor = "<leader>GDD",
-        doc_all_in_range = "<leader>GDD",
-      },
-    },
-    playground = {
-      enable = true,
-    },
-    incremental_selection = {
-      -- this enables incremental selection
-      enable = true,
-      disable = {},
-      keymaps = {
-        init_selection = "<leader><enter>",   -- maps in normal mode to init the node/scope selection
-        node_incremental = "<leader><enter>", -- increment to the upper named parent
-        scope_incremental = "Ts",             -- increment to the upper scope (as defined in locals.scm)
-        node_decremental = "<bs>",
-      },
-    },
-    node_movement = {
-      enable = true,
-      highlight_current_node = true,
-      keymaps = {
-        move_up = "<a-k>",
-        move_down = "<a-j>",
-        move_left = "<a-h>",
-        move_right = "<a-l>",
-        swap_up = "<s-a-k>",
-        swap_left = "<s-a-h>",
-        swap_right = "<s-a-l>",
-        select_current_node = "<cr>",
-      },
-      allow_switch_parents = true,
-      allow_next_parent = true,
-    },
-    rainbow = {
-      enable = false,
-      extended_mode = {
-        latex = true,
-      },
-    },
-    autotag = {
-      enable = true,
-    },
-    pairs = {
-      enable = true,
-      highlight_pair_events = {},
-      highlight_self = false,
-      goto_right_end = false,
-      fallback_cmd_normal = "call matchit#Match_wrapper('',1,'n')",
-      keymaps = {
-        goto_partner = "%",
-        --delete_balanced = "x"
-      },
-      delete_balanced = {
-        only_on_first_char = true,
-        fallback_cmd_normal = "normal! x",
-        longest_partner = true,
-      },
-    },
-    textobjects = {
-      select = {
-        enable = true,
-        lookahead = true,
-        lookbehind = true,
-        include_surrounding_whitespace = true,
-        disable = {},
-        keymaps = {
-          ["af"] = "@function.outer",
-          ["if"] = "@function.inner",
-          ["aC"] = "@class.outer",
-          ["iC"] = "@class.inner",
-          ["ac"] = "@conditional.outer",
-          ["ic"] = "@conditional.inner",
-          ["aü"] = "@conditional.outer",
-          ["iü"] = "@conditional.inner",
-          ["ae"] = "@block.outer",
-          ["ie"] = "@block.inner",
-          ["al"] = "@loop.outer",
-          ["il"] = "@loop.inner",
-          ["is"] = "@statement.inner",
-          --["as"] = "@statement.outer",
-          ["ad"] = "@lhs.inner",
-          ["id"] = "@rhs.inner",
-          ["am"] = "@call.outer",
-          ["im"] = "@call.inner",
-          ["iM"] = "@frame.inner",
-          ["aM"] = "@frame.outer",
-          ["ai"] = "@parameter.outer",
-          ["ii"] = "@parameter.inner",
-          ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
-
-          --["aS"] = { "@scope", "locals" }, -- selects `@scope` from locals.scm
+    --}
+    --dap.configurations.go = {
+    --{
+    --type = "go",
+    --name = "Debug",
+    --request = "launch",
+    --showLog = false,
+    --program = "${file}",
+    --dlvToolPath = vim.fn.exepath "dlv", -- Adjust to where delve is installed
+    --},
+    --}
+    --dap.configurations.python = {
+    --{
+    --type = "python",
+    --request = "attach",
+    --name = "Launch file",
+    --program = "${file}",
+    --console = "internalConsole",
+    --autoReload = { enable = true },
+    --pythonPath = "/usr/bin/python3",
+    --},
+    --{
+    --type = "python",
+    --request = "attach",
+    --name = "Pytest file",
+    --program = "-m pytest ${file}",
+    --console = "externalTerminal",
+    --pythonPath = "/usr/bin/python3",
+    --},
+    --{
+    --type = "python",
+    --request = "launch",
+    --name = "Launch file",
+    --program = "${file}",
+    --console = "internalConsole",
+    --pythonPath = "/usr/bin/python3",
+    --},
+    --}
+    require("dap.repl").commands = vim.tbl_extend("force", require("dap.repl").commands, {
+        continue = { ".continue", "c" },
+        next_ = { ".next", "n" },
+        into = { ".into", "s" },
+        into_targets = { "st" },
+        out = { ".out", "r" },
+        scopes = { ".scopes", "a" },
+        threads = { ".threads", "t", "threads" },
+        frames = { ".frames", "f", "bt" },
+        exit = { "exit", ".exit", "q" },
+        up = { ".up", "up" },
+        down = { ".down", "down" },
+        goto_ = { ".goto", "j" },
+        capabilities = { ".capabilities", ".ca" },
+        custom_commands = {
+            [".echo"] = function(text)
+                dap.repl.append(text)
+            end,
         },
-      },
-      swap = {
-        enable = true,
-        super_repeat = { ["<c-ü>"] = "h" },
-        swap_next = {
-          ["<leader>ä"] = "@parameter.inner",
-          ["<a-f>"] = "@function.outer",
-          --["<a-s>"] = { "@scope", "locals" },
-        },
-        swap_previous = {
-          ["<leader>Ä"] = "@parameter.inner",
-          ["<a-F>"] = "@function.outer",
-          --["<a-S>"] = { "@scope", "locals" },
-        },
-      },
-      lsp_interop = {
-        enable = true,
-        peek_definition_code = {
-          ["<leader>df"] = "@function.outer",
-          ["<leader>dF"] = "@class.outer",
-        },
-        peek_type_definition_code = {
-          ["<leader>TF"] = "@class.outer",
-        },
-      },
-      move = {
-        enable = true,
-        set_jumps = false,
-        goto_next_start = {
-          ["öö"] = { "@function.inner", "locals" },
-        },
-        goto_previous_start = {
-          ["ÖÖ"] = { "@function.inner", "locals" },
-          ["üü"] = "@class.outer",
-        },
-      },
-    },
-    fold = {
-      enable = false,
-      fold_one_line_after = false,
-    },
-    refactor = {
-      highlight_current_scope = {
-        enable = false,
-        inverse_highlighting = true,
-        disable = { "python" },
-      },
-      highlight_definitions = {
-        enable = false,
-        disable = { "cpp", "c", "javascript", "typescript" },
-      },
-      smart_rename = {
-        enable = false,
-        disable = {},
-        keymaps = {
-          smart_rename = "grr",
-        },
-      },
-      navigation = {
-        enable = false,
-        disable = {},
-        keymaps = {
-          goto_definition = "gnd",
-          list_definitions = "gnD",
-          goto_next_usage = "<a-*>",
-          goto_previous_usage = "<a-#>",
-        },
-      },
-    },
-    indent = {
-      enable = true,
-      --disable = "python",
-    },
-    --ensure_installed = "all",
-    --update_strategy = "do not use lockfile, please!"
-  }
-  local hlmap = {}
+    })
 
-  --misc
-  hlmap["error"] = "tserror"
-  hlmap["none"] = "None"
-  hlmap["punctuation.delimiter"] = "delimiter"
-  hlmap["interface"] = "Type"
-  --hlmap["punctuation.bracket"] = nil
+    dap.adapters.cpp = {
+        name = "cppdbg",
+        type = "executable",
+        command = vim.api.nvim_get_runtime_file("gadgets/linux/vscode-cpptools/debugAdapters/OpenDebugAD7", false)[1],
+        args = {},
+        attach = {
+            pidProperty = "processId",
+            pidSelect = "ask",
+        },
+        --configuration = {
+        --type = "cppdbg",
+        --args = {},
+        --cwd = "${workspaceRoot}",
+        --environment = {}
+        --}
+    }
+    --dap.configurations.java = {
+    --{
+    --type = "java",
+    --request = "attach",
+    --name = "Debug (Attach) - Remote",
+    --hostName = "127.0.0.1",
+    --port = 5005
+    --}
+    --}
 
-  -- constants
-  hlmap["constant"] = "Constant"
-  hlmap["attribute"] = "Type"
-  hlmap["comment"] = "Comment"
-  hlmap["semshi"] = "semshiimported"
-  hlmap["constant.builtin"] = "boolean"
-  hlmap["constant.macro"] = "define"
-  hlmap["string"] = "string"
-  hlmap["string.regex"] = "string"
-  hlmap["string.escape"] = "specialchar"
-  hlmap["character"] = "number"
-  hlmap["number"] = "number"
-  hlmap["boolean"] = "boolean"
-  hlmap["float.number"] = "float"
+    dap.adapters.gdb = {
+        type = "executable",
+        attach = {
+            pidProperty = "pid",
+            pidSelect = "ask",
+        },
+        command = select_executable {
+            "rust-gdb",
+            "gdb",
+        },
+        args = {
+            "--quiet",
+            "-i",
+            "dap",
+        },
+        --env = function()
+        --local variables = {
+        --LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES",
+        --}
+        --for k, v in pairs(vim.fn.environ()) do
+        --table.insert(variables, string.format("%s=%s", k, v))
+        --end
+        --return variables
+        --end,
+        name = "gdb",
+        stopOnEntry = true,
+        --initCommands = 'command script import "/home/stephan/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/etc/lldb_lookup.py"',
+    }
+    --local RUSTC_SYSROOT = vim.fn.system("rustc --print sysroot"):gsub("\n", "")
+    dap.adapters.lldb = {
+        type = "executable",
+        attach = {
+            pidProperty = "pid",
+            pidSelect = "ask",
+        },
+        command = select_executable {
+            "lldb-dap-20",
+            "lldb-dap-19",
+            "lldb-vscode-18",
+            "lldb-vscode-17",
+            "lldb-vscode-16",
+            "lldb-vscode-15",
+            "lldb-vscode",
+        },
+        env = function()
+            local variables = {
+                LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES",
+            }
+            for k, v in pairs(vim.fn.environ()) do
+                table.insert(variables, string.format("%s=%s", k, v))
+            end
+            return variables
+        end,
+        name = "lldb",
+        stopOnEntry = true,
+        initCommands =
+        'command script import "/home/stephan/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/etc/lldb_lookup.py"',
+    }
+    dap.adapters.markdown = {
+        type = "executable",
+        name = "mockdebug",
+        command = "node",
+        args = { "./out/debugAdapter.js" },
+        cwd = "/home/stephan/projects/vscode-mock-debug/",
+    }
 
-  hlmap["namespace"] = "constant"
-  hlmap["module"] = "constant"
-  hlmap["module.builtin"] = "constant"
-  -- functions
-  hlmap["function"] = "function"
-  hlmap["keyword.function"] = "operator"
-  hlmap["keyword.operator"] = "operator"
-  hlmap["keyword.return"] = "repeat"
-  hlmap["function.builtin"] = "special"
-  hlmap["function.macro"] = "macro"
-  hlmap["constructor"] = "function"
-  hlmap["variable.parameter"] = "identifier"
-  hlmap["method"] = "function"
-  hlmap["field"] = "identifier"
-  hlmap["property"] = "identifier"
-  hlmap["constructor"] = "function"
+    dap.configurations.markdown = {
+        {
+            type = "mock",
+            request = "launch",
+            name = "mock test",
+            program = "${file}",
+            stopOnEntry = true,
+            debugServer = 4711,
+        },
+    }
 
-  -- keywords
-  hlmap["keyword.conditional"] = "conditional"
-  hlmap["keyword.conditional.ternary"] = "operator"
-  hlmap["text.title"] = "markdownh1"
-  hlmap["keyword.repeat"] = "repeat"
-  hlmap["label"] = "label"
-  hlmap["operator"] = "operator"
-  hlmap["keyword"] = "repeat"
-  hlmap["exception"] = "exception"
-  hlmap["keyword.import"] = "include"
-  hlmap["type"] = "type"
-  hlmap["type.qualifier"] = "Keyword"
-  hlmap["type.builtin"] = "type"
-  hlmap["structure"] = "structure"
-  hlmap["variable"] = "tsvariable"
-  hlmap["variable.builtin"] = "type"
-  hlmap["string.special.symbol"] = "type"
-  hlmap["text.environment.name"] = "type"
+    dap.adapters.go = function(callback, config)
+        local handle
+        local port = 38697
+        handle = vim.uv.spawn(
+            "dlv",
+            {
+                args = { "dap", "-l", "127.0.0.1:" .. port },
+                detached = true,
+            },
+            vim.schedule_wrap(function(code)
+                handle:close()
+                print("Delve exited with exit code: " .. code)
+            end)
+        )
+        ------wait for delve to start
+        vim.defer_fn(function()
+            callback { type = "server", host = "127.0.0.1", port = port }
+            dap.repl.open()
+        end, 250)
+        --dap.repl.open()
+        --callback({type = "server", host = "127.0.0.1", port = port})
+        --dap.repl.open()
+    end
+    -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
+    dap.configurations.go = {
+        {
+            type = "go",
+            name = "Debug",
+            mode = "debug",
+            request = "launch",
+            program = "${file}",
+        },
+    }
 
-  for k, v in pairs(hlmap) do
-    vim.api.nvim_set_hl(0, "@" .. k, { link = v })
-  end
-
-  local docs = vim.F.npcall(require, "nvim-tree-docs")
-  if docs then
-    docs.init()
-  end
-  local play = vim.F.npcall(require, "nvim-treesitter-playground")
-  if play then
-    play.init()
-  end
+    dap.listeners.after.event_initialized["my handler id"] = function(_, _)
+        --vim.cmd [[Lazy load nvim-dap-ui]]
+        vim.cmd [[Lazy load telescope-dap.nvim]]
+        dap.repl.open()
+        --if ok then
+        --dapui.open()
+        --end
+    end
+    dap.listeners.after.event_exited["my handler id"] = function(_, _)
+        vim.print "Process terminated"
+    end
 end
 
 vim.api.nvim_set_hl(0, "DapBreakpoint", { ctermbg = 0, fg = "#993939", bg = "#31353f" })
 vim.api.nvim_set_hl(0, "DapLogPoint", { ctermbg = 0, fg = "#61afef", bg = "#31353f" })
 vim.api.nvim_set_hl(0, "Stopped", { ctermbg = 0, fg = "#98c379", bg = "#31353f" })
-
-if vim.fn.executable "ts_query_ls" then
-  vim.api.nvim_create_autocmd("FileType", {
-    pattern = "query",
-    callback = function(ev)
-      if vim.bo[ev.buf].buftype == "nofile" then
-        return
-      end
-      vim.lsp.start {
-        name = "ts_query_ls",
-        cmd = { "ts_query_ls" },
-        root_dir = vim.fs.root(0, { "queries" }),
-        settings = {
-          parser_install_directories = {
-            -- If using nvim-treesitter with lazy.nvim
-            vim.fs.joinpath(vim.fn.stdpath "data", "/lazy/nvim-treesitter/parser/"),
-          },
-          parser_aliases = {
-            ecma = "javascript",
-          },
-          language_retrieval_patterns = {
-            "languages/src/([^/]+)/[^/]+\\.scm$",
-          },
-        },
-      }
-    end,
-  })
-end
