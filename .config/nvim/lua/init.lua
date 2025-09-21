@@ -224,10 +224,10 @@ local function on_attach(client, bufnr)
     end
 end
 
-local function lsp_setup(name, config, enable)
+local function lsp_setup(name, config, disable)
     vim.lsp.config(name, config)
-    if enable ~= false then
-        vim.lsp.enable(name, config)
+    if not disable then
+        vim.lsp.enable(name)
     end
 end
 
@@ -256,19 +256,19 @@ lsp_setup('qmlls', {
     capabilities = capabilities,
 })
 
-vim.lsp.config('asm_lsp', {
+lsp_setup('asm_lsp', {
     on_attach = on_attach,
     capabilities = capabilities,
 })
-vim.lsp.config('eslint', {
+lsp_setup('eslint', {
     on_attach = on_attach,
     capabilities = capabilities,
 })
-vim.lsp.config('mesonlsp', {
+lsp_setup('mesonlsp', {
     on_attach = on_attach,
     capabilities = capabilities,
 })
-vim.lsp.config('sourcekit', {
+lsp_setup('sourcekit', {
     on_attach = on_attach,
     capabilities = capabilities,
     filetypes = { "swift" },
@@ -279,7 +279,7 @@ vim.lsp.config('sourcekit', {
 --on_attach = on_attach,
 --capabilities = capabilities,
 --}
-vim.lsp.config('jdtls', {
+lsp_setup('jdtls', {
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
@@ -304,7 +304,7 @@ vim.lsp.config('jdtls', {
         },
     },
 })
-vim.lsp.config('taplo', { on_attach = on_attach, capabilities = capabilities })
+lsp_setup('taplo', { on_attach = on_attach, capabilities = capabilities })
 
 vim.keymap.set("n", "<leader>nf", function()
     local url = vim.api.nvim_buf_get_name(0)
@@ -334,18 +334,18 @@ end
 --capabilities = capabilities,
 --}
 
-vim.lsp.config('flow', {
+lsp_setup('flow', {
     on_attach = on_attach,
     capabilities = capabilities,
 })
 
-vim.lsp.config('glsl_analyzer', {
+lsp_setup('glsl_analyzer', {
     on_attach = on_attach,
     capabilities = capabilities,
 })
 vim.lsp.enable "qmlls"
 
-vim.lsp.config('wgsl_analyzer', {
+lsp_setup('wgsl_analyzer', {
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
@@ -397,16 +397,16 @@ vim.lsp.config('wgsl_analyzer', {
 --on_attach = on_attach,
 --capabilities = capabilities,
 --}
-vim.lsp.config('csharp_ls', {
+lsp_setup('csharp_ls', {
     on_attach = on_attach,
     capabilities = capabilities,
 })
 
-vim.lsp.config('zls', {
+lsp_setup('zls', {
     on_attach = on_attach,
     capabilities = capabilities,
 })
-vim.lsp.config('bashls', {
+lsp_setup('bashls', {
     on_attach = on_attach,
     capabilities = capabilities,
     filetypes = { "sh", "bash", "make", "zsh" },
@@ -441,22 +441,22 @@ vim.lsp.config('bashls', {
 --},
 --}
 
-vim.lsp.config('svelte', {
+lsp_setup('svelte', {
     on_attach = on_attach,
     capabilities = capabilities,
 })
 
-vim.lsp.config('julials', {
+lsp_setup('julials', {
     on_attach = on_attach,
     capabilities = capabilities,
 })
-vim.lsp.config('ocamllsp', {
+lsp_setup('ocamllsp', {
     on_attach = function(...)
         require("virtualtypes").on_attach(...)
         on_attach()
     end,
 })
-vim.lsp.config('gopls', {
+lsp_setup('gopls', {
     on_attach = on_attach,
     settings = {
         initializationOptions = {
@@ -477,7 +477,7 @@ vim.lsp.config('gopls', {
     },
 })
 
-vim.lsp.config('basedpyright', {
+lsp_setup('basedpyright', {
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
@@ -501,14 +501,14 @@ vim.lsp.config('basedpyright', {
 --},
 --capabilities = capabilities,
 --}
-vim.lsp.config("spirvls", {
+lsp_setup("spirvls", {
     cmd = { "spirvls" },
     filetypes = { "spirv", "spvasm" },
     on_attach = on_attach,
 })
 vim.lsp.enable "spirvls"
 
-vim.lsp.config('ruff', {
+lsp_setup('ruff', {
     on_attach = on_attach,
     settings = {},
     capabilities = capabilities,
@@ -541,7 +541,7 @@ vim.lsp.enable "ruff"
 --},
 --capabilities = capabilities,
 --}
-vim.lsp.config('jedi_language_server', {
+lsp_setup('jedi_language_server', {
     on_attach = on_attach,
     settings = {
         --pyls = {
@@ -574,7 +574,7 @@ vim.lsp.config('jedi_language_server', {
 --},
 --}
 
-vim.lsp.config('tinymist', {
+lsp_setup('tinymist', {
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
@@ -583,7 +583,7 @@ vim.lsp.config('tinymist', {
         formatterMode = "typstfmt",
     },
 })
-vim.lsp.config('ts_ls', {
+lsp_setup('ts_ls', {
     on_attach = on_attach,
     capabilities = capabilities,
 })
@@ -615,7 +615,7 @@ local clangd = select_executable {
     "clangd",
 }
 if clangd then
-    vim.lsp.config('clangd', {
+    lsp_setup('clangd', {
         cmd = {
             clangd,
             "--clang-tidy",
@@ -641,7 +641,7 @@ if clangd then
     vim.lsp.enable('clang')
 end
 
-vim.lsp.config('lua_ls', {
+lsp_setup('lua_ls', {
     on_init = function(client)
         local path = client.workspace_folders[1].name
         if not vim.uv.fs_stat(path .. "/.luarc.json") and not vim.uv.fs_stat(path .. "/.luarc.jsonc") then
