@@ -41,6 +41,7 @@ require("lazy").setup {
             vim.g.vimtex_view_method = "zathura"
         end,
     },
+    "TravonteD/luajob",
     { "kana/vim-textobj-user",               event = "VeryLazy" },
     { "theHamsta/vim-template",              dependencies = "kana/vim-textobj-user", enabled = vim.fn.has "win32" ~= 1 },
     { "theHamsta/vim-textobj-entire",        dependencies = "kana/vim-textobj-user", event = "VeryLazy" },
@@ -54,7 +55,29 @@ require("lazy").setup {
     { "junegunn/gv.vim",  cmd = "GV" },
     "justinmk/vim-gtfo",
     "kassio/neoterm",
+    "scrooloose/nerdcommenter",
     { "mbbill/undotree",       cmd = { "UndotreeToggle" } },
+  {
+    "stevearc/conform.nvim",
+    config = function()
+      require("conform").setup {
+        formatters_by_ft = {
+          lua = { "stylua" },
+          ---- Conform will run multiple formatters sequentially
+          --python = { "isort", "black" },
+          ---- Use a sub-list to run only the first available formatter
+          javascript = { { "prettierd", "prettier" } },
+          ["_"] = { "trim_whitespace" },
+        },
+        --format_on_save = {
+        ---- I recommend these options. See :help conform.format for details.
+        --lsp_fallback = true,
+        --timeout_ms = 500,
+        --},
+      }
+    end,
+    event = "VeryLazy",
+  },
     {
         "nvim-lualine/lualine.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
