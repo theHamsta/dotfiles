@@ -531,7 +531,7 @@ let g:vlime_enable_autodoc = v:true
 let g:vlime_window_settings = {'sldb': {'pos': 'belowright', 'vertical': v:true}, 'inspector': {'pos': 'belowright', 'vertical': v:true}, 'preview': {'pos': 'belowright', 'size': v:null, 'vertical': v:true}}
 
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
-au TextYankPost * silent! lua require'vim.highlight'.on_yank({"IncSearch", 150})
+autocmd TextYankPost * silent! lua vim.hl.on_yank {higroup='IncSearch', timeout=100}
 
 
 let g:sexp_filetypes = 'clojure,scheme,lisp,timl,vlime_repl,fennel,query'
