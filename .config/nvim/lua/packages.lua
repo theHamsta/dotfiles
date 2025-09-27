@@ -47,6 +47,7 @@ require("lazy").setup {
     { "theHamsta/vim-textobj-entire",        dependencies = "kana/vim-textobj-user", event = "VeryLazy" },
     { "theHamsta/vim-rebase-mode",           dependencies = "kana/vim-textobj-user", event = "VeryLazy" },
     { "Julian/vim-textobj-variable-segment", dependencies = "kana/vim-textobj-user", event = "VeryLazy" },
+    { "ray-x/lsp_signature.nvim" },
     "tpope/vim-eunuch",
     "tpope/vim-fugitive",
     "tpope/vim-repeat",
@@ -57,27 +58,27 @@ require("lazy").setup {
     "kassio/neoterm",
     "scrooloose/nerdcommenter",
     { "mbbill/undotree",       cmd = { "UndotreeToggle" } },
-  {
-    "stevearc/conform.nvim",
-    config = function()
-      require("conform").setup {
-        formatters_by_ft = {
-          lua = { "stylua" },
-          ---- Conform will run multiple formatters sequentially
-          --python = { "isort", "black" },
-          ---- Use a sub-list to run only the first available formatter
-          javascript = { { "prettierd", "prettier" } },
-          ["_"] = { "trim_whitespace" },
-        },
-        --format_on_save = {
-        ---- I recommend these options. See :help conform.format for details.
-        --lsp_fallback = true,
-        --timeout_ms = 500,
-        --},
-      }
-    end,
-    event = "VeryLazy",
-  },
+    {
+        "stevearc/conform.nvim",
+        config = function()
+            require("conform").setup {
+                formatters_by_ft = {
+                    lua = { "stylua" },
+                    ---- Conform will run multiple formatters sequentially
+                    --python = { "isort", "black" },
+                    ---- Use a sub-list to run only the first available formatter
+                    javascript = { { "prettierd", "prettier" } },
+                    ["_"] = { "trim_whitespace" },
+                },
+                --format_on_save = {
+                ---- I recommend these options. See :help conform.format for details.
+                --lsp_fallback = true,
+                --timeout_ms = 500,
+                --},
+            }
+        end,
+        event = "VeryLazy",
+    },
     {
         "nvim-lualine/lualine.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -280,11 +281,13 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
             keymap = {
                 preset = "default",
             },
-            cmdline = { keymap = {
-                preset = "default",
+            cmdline = {
+                keymap = {
+                    preset = "default",
 
-                ["<tab>"] = { "show", "select_and_accept" },
-            } },
+                    ["<tab>"] = { "show", "select_and_accept" },
+                },
+            },
 
             appearance = {
                 -- Sets the fallback highlight groups to nvim-cmp's highlight groups
@@ -381,7 +384,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     --end,
     --cmd = { "Trouble" },
     --},
-   -- { "windwp/nvim-ts-autotag", enabled = false },
+    -- { "windwp/nvim-ts-autotag", enabled = false },
     {
         "windwp/nvim-autopairs",
         config = function()
@@ -402,9 +405,9 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
     {
         "NeogitOrg/neogit",
         dependencies = {
-            "nvim-lua/plenary.nvim",         -- required
+            "nvim-lua/plenary.nvim",   -- required
             "nvim-telescope/telescope.nvim", -- optional
-            "sindrets/diffview.nvim",        -- optional
+            "sindrets/diffview.nvim",  -- optional
             --"ibhagwan/fzf-lua", -- optional
         },
         config = true,
@@ -520,170 +523,170 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
         end,
         branch = "master",
     },
-     "kbenzie/vim-spirv",
-  {
-    "nvim-telescope/telescope-dap.nvim",
-    dependencies = "nvim-telescope/telescope.nvim",
-    config = function()
-      require("telescope").load_extension "dap"
-    end,
-    lazy = true,
-  },
-  {
-    "nvim-telescope/telescope-fzy-native.nvim",
-    dependencies = "nvim-telescope/telescope.nvim",
-    cmd = "Telescope",
-    config = function()
-      require("telescope").setup {
-        extensions = {
-          fzy_native = {
-            override_generic_sorter = false,
-            override_file_sorter = true,
-          },
-        },
-      }
-      require("telescope").load_extension "fzy_native"
-    end,
-  },
-  --{"Olical/conjure", enabled = false},
-  --"Olical/nvim-local-fennel",
-  --"bakpakin/fennel.vim",
-  --"Olical/aniseed",
-  --"szymonmaszke/vimpyter",
-  "camspiers/animate.vim",
-  "neovim/nvim-lspconfig",
-  { "preservim/tagbar", cmd = { "TagbarToggle", "TagbarOpenAutoClose" } },
-  --{ "voldikss/vim-floaterm", cmd = "FloatermToggle" },
-  --"JuliaEditorSupport/julia-vim",
-  --{ "SirVer/ultisnips", opt = false, build = ":UpdateRemotePlugins" },
-  --"airblade/vim-gitgutter",
-  {
-    "lewis6991/gitsigns.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-    event = "BufReadPre",
-    enabled = true,
-    config = function()
-      require("gitsigns").setup {
-        signs = {
-          add = { text = "▋" },
-          change = { text = "▐" },
-          delete = { text = "_" },
-          topdelete = { text = "‾" },
-          changedelete = { text = "▐_" },
-        },
-        numhl = false,
-        on_attach = function(bufnr)
-          local gs = package.loaded.gitsigns
-
-          local function map(mode, l, r, opts)
-            opts = opts or {}
-            opts.buffer = bufnr
-            vim.keymap.set(mode, l, r, opts)
-          end
-
-          -- Navigation
-          map("n", "]c", function()
-            if vim.wo.diff then
-              return "]c"
-            end
-            vim.schedule(function()
-              gs.next_hunk()
-            end)
-            return "<Ignore>"
-          end, { expr = true })
-
-          map("n", "[c", function()
-            if vim.wo.diff then
-              return "[c"
-            end
-            vim.schedule(function()
-              gs.prev_hunk()
-            end)
-            return "<Ignore>"
-          end, { expr = true })
-
-          -- Actions
-          map("n", "<c-a-k>", gs.prev_hunk)
-          map("n", "<c-a-j>", gs.next_hunk)
-          map("n", "<leader>hu", gs.reset_hunk)
-          map("n", "<leader>hs", gs.stage_hunk)
-          map("v", "<leader>hs", function()
-            gs.stage_hunk { vim.fn.line ".", vim.fn.line "v" }
-          end)
-          map("v", "<leader>hr", function()
-            gs.reset_hunk { vim.fn.line ".", vim.fn.line "v" }
-          end)
-          map("n", "<leader>hS", gs.stage_buffer)
-          map("n", "<leader>hU", gs.undo_stage_hunk)
-          map("n", "<leader>hR", gs.reset_buffer)
-          map("n", "<leader>hp", gs.preview_hunk)
-          map("n", "<leader>hb", function()
-            gs.blame_line { full = true }
-          end)
-          map("n", "<leader>tb", gs.toggle_current_line_blame)
-          map("n", "<leader>hd", gs.diffthis)
-          map("n", "<leader>hD", function()
-            gs.diffthis "~"
-          end)
-          map("n", "<leader>td", gs.toggle_deleted)
-
-          -- Text object
-          map({ "o", "x" }, "ah", ":<C-U>Gitsigns select_hunk<CR>")
+    "kbenzie/vim-spirv",
+    {
+        "nvim-telescope/telescope-dap.nvim",
+        dependencies = "nvim-telescope/telescope.nvim",
+        config = function()
+            require("telescope").load_extension "dap"
         end,
-        watch_gitdir = {
-          interval = 1000,
-        },
-        sign_priority = 6,
-        status_formatter = nil, -- Use default
-      }
-    end,
-  },
-
-  "airblade/vim-rooter",
-  --"bronson/vim-visual-star-search",
-  --{ "dbeniamine/cheat.sh-vim", cmd = { "Cheat" } },
-  --{ "dyng/ctrlsf.vim", cmd = { "CtrlSFPrompt", "CtrlSFCwordPath", "CtrlSFVwordPath", "CtrlSFToggle", "CtrlSFOpen" } },
-  { "dyng/ctrlsf.vim",  event = "VeryLazy" },
-   "idanarye/vim-merginal",
-    {
-    "norcalli/nvim-colorizer.lua",
-    config = function()
-      require("colorizer").setup {
-        "vim",
-        "html",
-        "markdown",
-        "tex",
-        css = { rgb_fn = true, css = true, css_fn = true },
-        scss = { rgb_fn = true, css = true, css_fn = true },
-        "sass",
-      }
-    end,
-    ft = {
-      "vim",
-      "html",
-      "markdown",
-      "tex",
-      "css",
-      "sass",
-      "scss",
+        lazy = true,
     },
-    lazy = true,
-  },
-  { "guns/vim-sexp",                              ft = lisp_filetypes },
-  "tpope/vim-sleuth",
-  "tpope/vim-surround",
-  { "tpope/vim-unimpaired", enabled = false },
     {
-    "folke/tokyonight.nvim",
-    config = function()
-      vim.cmd [[
+        "nvim-telescope/telescope-fzy-native.nvim",
+        dependencies = "nvim-telescope/telescope.nvim",
+        cmd = "Telescope",
+        config = function()
+            require("telescope").setup {
+                extensions = {
+                    fzy_native = {
+                        override_generic_sorter = false,
+                        override_file_sorter = true,
+                    },
+                },
+            }
+            require("telescope").load_extension "fzy_native"
+        end,
+    },
+    --{"Olical/conjure", enabled = false},
+    --"Olical/nvim-local-fennel",
+    --"bakpakin/fennel.vim",
+    --"Olical/aniseed",
+    --"szymonmaszke/vimpyter",
+    "camspiers/animate.vim",
+    "neovim/nvim-lspconfig",
+    { "preservim/tagbar", cmd = { "TagbarToggle", "TagbarOpenAutoClose" } },
+    --{ "voldikss/vim-floaterm", cmd = "FloatermToggle" },
+    --"JuliaEditorSupport/julia-vim",
+    --{ "SirVer/ultisnips", opt = false, build = ":UpdateRemotePlugins" },
+    --"airblade/vim-gitgutter",
+    {
+        "lewis6991/gitsigns.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+        event = "BufReadPre",
+        enabled = true,
+        config = function()
+            require("gitsigns").setup {
+                signs = {
+                    add = { text = "▋" },
+                    change = { text = "▐" },
+                    delete = { text = "_" },
+                    topdelete = { text = "‾" },
+                    changedelete = { text = "▐_" },
+                },
+                numhl = false,
+                on_attach = function(bufnr)
+                    local gs = package.loaded.gitsigns
+
+                    local function map(mode, l, r, opts)
+                        opts = opts or {}
+                        opts.buffer = bufnr
+                        vim.keymap.set(mode, l, r, opts)
+                    end
+
+                    -- Navigation
+                    map("n", "]c", function()
+                        if vim.wo.diff then
+                            return "]c"
+                        end
+                        vim.schedule(function()
+                            gs.next_hunk()
+                        end)
+                        return "<Ignore>"
+                    end, { expr = true })
+
+                    map("n", "[c", function()
+                        if vim.wo.diff then
+                            return "[c"
+                        end
+                        vim.schedule(function()
+                            gs.prev_hunk()
+                        end)
+                        return "<Ignore>"
+                    end, { expr = true })
+
+                    -- Actions
+                    map("n", "<c-a-k>", gs.prev_hunk)
+                    map("n", "<c-a-j>", gs.next_hunk)
+                    map("n", "<leader>hu", gs.reset_hunk)
+                    map("n", "<leader>hs", gs.stage_hunk)
+                    map("v", "<leader>hs", function()
+                        gs.stage_hunk { vim.fn.line ".", vim.fn.line "v" }
+                    end)
+                    map("v", "<leader>hr", function()
+                        gs.reset_hunk { vim.fn.line ".", vim.fn.line "v" }
+                    end)
+                    map("n", "<leader>hS", gs.stage_buffer)
+                    map("n", "<leader>hU", gs.undo_stage_hunk)
+                    map("n", "<leader>hR", gs.reset_buffer)
+                    map("n", "<leader>hp", gs.preview_hunk)
+                    map("n", "<leader>hb", function()
+                        gs.blame_line { full = true }
+                    end)
+                    map("n", "<leader>tb", gs.toggle_current_line_blame)
+                    map("n", "<leader>hd", gs.diffthis)
+                    map("n", "<leader>hD", function()
+                        gs.diffthis "~"
+                    end)
+                    map("n", "<leader>td", gs.toggle_deleted)
+
+                    -- Text object
+                    map({ "o", "x" }, "ah", ":<C-U>Gitsigns select_hunk<CR>")
+                end,
+                watch_gitdir = {
+                    interval = 1000,
+                },
+                sign_priority = 6,
+                status_formatter = nil, -- Use default
+            }
+        end,
+    },
+
+    "airblade/vim-rooter",
+    --"bronson/vim-visual-star-search",
+    --{ "dbeniamine/cheat.sh-vim", cmd = { "Cheat" } },
+    --{ "dyng/ctrlsf.vim", cmd = { "CtrlSFPrompt", "CtrlSFCwordPath", "CtrlSFVwordPath", "CtrlSFToggle", "CtrlSFOpen" } },
+    { "dyng/ctrlsf.vim",  event = "VeryLazy" },
+    "idanarye/vim-merginal",
+    {
+        "norcalli/nvim-colorizer.lua",
+        config = function()
+            require("colorizer").setup {
+                "vim",
+                "html",
+                "markdown",
+                "tex",
+                css = { rgb_fn = true, css = true, css_fn = true },
+                scss = { rgb_fn = true, css = true, css_fn = true },
+                "sass",
+            }
+        end,
+        ft = {
+            "vim",
+            "html",
+            "markdown",
+            "tex",
+            "css",
+            "sass",
+            "scss",
+        },
+        lazy = true,
+    },
+    { "guns/vim-sexp",        ft = lisp_filetypes },
+    "tpope/vim-sleuth",
+    "tpope/vim-surround",
+    { "tpope/vim-unimpaired", enabled = false },
+    {
+        "folke/tokyonight.nvim",
+        config = function()
+            vim.cmd [[
   set background=dark
   colorscheme tokyonight-night
   ]]
-    end,
-    enable = false,
-    --lazy = true,
-  },
+        end,
+        enable = false,
+        --lazy = true,
+    },
 }
