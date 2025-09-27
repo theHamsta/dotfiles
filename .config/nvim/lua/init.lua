@@ -38,6 +38,12 @@ if ok and lsp_status then
     }
 end
 
+vim.api.nvim_create_autocmd("BufEnter", {
+    callback = function()
+        pcall(vim.treesitter.start)
+    end,
+})
+
 
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
