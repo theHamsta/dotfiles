@@ -354,6 +354,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
         enabled = vim.fn.has "win32" ~= 1,
     },
     --{ "jceb/emmet.snippets" },
+    {  "theHamsta/nvim-dap-commands", opts = {} },
     { "theHamsta/vim-snippets" },
     {
         "simrat39/symbols-outline.nvim",

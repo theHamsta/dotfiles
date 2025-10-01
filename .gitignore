@@ -198,3 +198,5 @@ undotree_*
 *.onnx.cfg
 *.json.gv
 *.engine
+aarch-release
+win32*

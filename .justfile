@@ -117,6 +117,20 @@ gcc-9-release:
 		-DCMAKE_C_FLAGS=-fdiagnostics-color ..
 	cd gcc-release && cmake --build . --parallel
 
+aarch-release:
+	mkdir -p aarch-release
+	export CXX='aarch64-linux-gnu-g++' && export CC='aarch64-linux-gnu-gcc' && cmake \
+		-DCMAKE_TOOLCHAIN_FILE=/home/stephan/projects/mlperf_client_dev/toolchain/linux.aarch-cross.cmake \
+		-DCMAKE_SYSTEM_PROCESSOR=aarch64 \
+		-DCMAKE_EXPORT_COMPILE_COMMANDS=YES  \
+		-DCMAKE_VERBOSE_MAKEFILE=OFF  \
+		-DCMAKE_BUILD_TYPE=RelWithDebInfo -G Ninja \
+		-DCMAKE_CUDA_ARCHITECTURES=OFF \
+		-DCMAKE_CXX_FLAGS="-fdiagnostics-color -O3" \
+		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo" \
+		-DCMAKE_C_FLAGS="-fdiagnostics-color" -B aarch-release -S .
+	cmake --build aarch-release --parallel
+
 gcc-debug:
 	mkdir -p debug
 	CXX=g++-13 CC=gcc-13 cmake -Bgcc-debug \
