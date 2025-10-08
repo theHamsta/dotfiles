@@ -30,6 +30,7 @@ local lisp_filetypes = { "lisp", "clojure", "scheme", "vlime_repl", "fennel", "q
 --table.insert(analyzers, vim.fs.joinpath(SONARDIR, file))
 --end
 --end
+vim.cmd.packadd "nvim.undotree"
 
 require("lazy").setup {
     {
@@ -57,7 +58,7 @@ require("lazy").setup {
     "justinmk/vim-gtfo",
     "kassio/neoterm",
     "scrooloose/nerdcommenter",
-    { "mbbill/undotree",       cmd = { "UndotreeToggle" } },
+    { "mbbill/undotree",             cmd = { "UndotreeToggle" } },
     {
         "stevearc/conform.nvim",
         config = function()
@@ -354,7 +355,7 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
         enabled = vim.fn.has "win32" ~= 1,
     },
     --{ "jceb/emmet.snippets" },
-    {  "theHamsta/nvim-dap-commands", opts = {} },
+    { "theHamsta/nvim-dap-commands", opts = {} },
     { "theHamsta/vim-snippets" },
     {
         "simrat39/symbols-outline.nvim",
