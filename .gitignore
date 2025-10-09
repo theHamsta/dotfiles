@@ -200,3 +200,4 @@ undotree_*
 *.engine
 aarch-release
 win32*
+ubuntu24.04

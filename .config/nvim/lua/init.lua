@@ -237,7 +237,7 @@ local function lsp_setup(name, config, disable)
     end
 end
 
-lsp_setup('neocmakelsp', {
+lsp_setup('neocmake', {
     on_attach = on_attach,
     capabilities = capabilities,
 })
