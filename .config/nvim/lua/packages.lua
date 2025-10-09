@@ -31,6 +31,7 @@ local lisp_filetypes = { "lisp", "clojure", "scheme", "vlime_repl", "fennel", "q
 --end
 --end
 vim.cmd.packadd "nvim.undotree"
+--vim.o.fillchars = 'eob: ,fold: ,foldopen:v,foldsep: ,foldinner: ,foldclose:'
 
 require("lazy").setup {
     {
@@ -40,6 +41,17 @@ require("lazy").setup {
         init = function()
             -- VimTeX configuration goes here, e.g.
             vim.g.vimtex_view_method = "zathura"
+        end,
+    },
+    {
+        "kevinhwang91/nvim-ufo",
+        dependencies = "kevinhwang91/promise-async",
+        config = function()
+            require("ufo").setup {
+                provider_selector = function(bufnr, filetype, buftype)
+                    return { "treesitter", "indent" }
+                end,
+            }
         end,
     },
     "TravonteD/luajob",

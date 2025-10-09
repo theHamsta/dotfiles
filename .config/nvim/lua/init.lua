@@ -20,10 +20,10 @@ local function select_executable(executables)
     end, executables)[1]
 end
 
-vim.wo.foldexpr    = "v:lua.vim.treesitter.foldexpr()"
+vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
-local lsp_status   = vim.F.npcall(require, "lsp-status")
-local blink, ok    = pcall(require, "blink.cmp")
+local lsp_status = vim.F.npcall(require, "lsp-status")
+local blink, ok = pcall(require, "blink.cmp")
 local capabilities = {}
 if ok and lsp_status then
     capabilities = blink.get_lsp_capabilities()
@@ -36,6 +36,14 @@ if ok and lsp_status then
             "additionalTextEdits",
         },
     }
+    vim.tbl_extend("keep", capabilities, {
+        workspace = {
+            didChangeWatchedFiles = {
+                dynamicRegistration = true,
+                relative_pattern_support = true,
+            },
+        },
+    })
 end
 
 vim.api.nvim_create_autocmd("BufEnter", {
@@ -43,7 +51,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
         pcall(vim.treesitter.start)
     end,
 })
-
 
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
@@ -237,11 +244,19 @@ local function lsp_setup(name, config, disable)
     end
 end
 
-lsp_setup('neocmake', {
+lsp_setup("neocmake", {
     on_attach = on_attach,
     capabilities = capabilities,
+    init_options = {
+        format = {
+            enable = true,
+        },
+        lint = {
+            enable = true,
+        },
+    },
 })
-lsp_setup('slangd', {
+lsp_setup("slangd", {
     on_attach = on_attach,
     capabilities = capabilities,
     filetypes = { "hlsl", "shaderslang", "glsl" },
@@ -256,25 +271,25 @@ lsp_setup('slangd', {
         },
     },
 })
-lsp_setup('qmlls', {
+lsp_setup("qmlls", {
     cmd = select_executable { "/usr/local/Qt-6.10.0/bin/qmlls", "qmlls" },
     on_attach = on_attach,
     capabilities = capabilities,
 })
 
-lsp_setup('asm_lsp', {
+lsp_setup("asm_lsp", {
     on_attach = on_attach,
     capabilities = capabilities,
 })
-lsp_setup('eslint', {
+lsp_setup("eslint", {
     on_attach = on_attach,
     capabilities = capabilities,
 })
-lsp_setup('mesonlsp', {
+lsp_setup("mesonlsp", {
     on_attach = on_attach,
     capabilities = capabilities,
 })
-lsp_setup('sourcekit', {
+lsp_setup("sourcekit", {
     on_attach = on_attach,
     capabilities = capabilities,
     filetypes = { "swift" },
@@ -285,7 +300,7 @@ lsp_setup('sourcekit', {
 --on_attach = on_attach,
 --capabilities = capabilities,
 --}
-lsp_setup('jdtls', {
+lsp_setup("jdtls", {
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
@@ -310,7 +325,7 @@ lsp_setup('jdtls', {
         },
     },
 })
-lsp_setup('taplo', { on_attach = on_attach, capabilities = capabilities })
+lsp_setup("taplo", { on_attach = on_attach, capabilities = capabilities })
 
 vim.keymap.set("n", "<leader>nf", function()
     local url = vim.api.nvim_buf_get_name(0)
@@ -334,24 +349,23 @@ if sg then
     }
 end
 
-
 --lspconfig.obsidian_ls.setup {
 --on_attach = on_attach,
 --capabilities = capabilities,
 --}
 
-lsp_setup('flow', {
+lsp_setup("flow", {
     on_attach = on_attach,
     capabilities = capabilities,
 })
 
-lsp_setup('glsl_analyzer', {
+lsp_setup("glsl_analyzer", {
     on_attach = on_attach,
     capabilities = capabilities,
 })
 vim.lsp.enable "qmlls"
 
-lsp_setup('wgsl_analyzer', {
+lsp_setup("wgsl_analyzer", {
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
@@ -370,26 +384,46 @@ lsp_setup('wgsl_analyzer', {
                 structLayoutHints = true,
             },
             customImports = {
-                ["bevy_pbr::clustered_forward"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/clustered_forward.wgsl",
-                ["bevy_pbr::mesh_bindings"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/mesh_bindings.wgsl",
-                ["bevy_pbr::mesh_functions"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/mesh_functions.wgsl",
-                ["bevy_pbr::mesh_types"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/mesh_types.wgsl",
-                ["bevy_pbr::mesh_vertex_output"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/mesh_vertex_output.wgsl",
-                ["bevy_pbr::mesh_view_bindings"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/mesh_view_bindings.wgsl",
-                ["bevy_pbr::mesh_view_types"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/mesh_view_types.wgsl",
-                ["bevy_pbr::pbr_bindings"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/pbr_bindings.wgsl",
-                ["bevy_pbr::pbr_functions"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/pbr_functions.wgsl",
-                ["bevy_pbr::lighting"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/pbr_lighting.wgsl",
-                ["bevy_pbr::pbr_types"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/pbr_types.wgsl",
-                ["bevy_pbr::shadows"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/shadows.wgsl",
-                ["bevy_pbr::skinning"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/skinning.wgsl",
-                ["bevy_pbr::utils"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/utils.wgsl",
-                ["bevy_sprite::mesh2d_bindings"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_sprite/src/mesh2d/mesh2d_bindings.wgsl",
-                ["bevy_sprite::mesh2d_functions"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_sprite/src/mesh2d/mesh2d_functions.wgsl",
-                ["bevy_sprite::mesh2d_types"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_sprite/src/mesh2d/mesh2d_types.wgsl",
-                ["bevy_sprite::mesh2d_vertex_output"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_sprite/src/mesh2d/mesh2d_vertex_output.wgsl",
-                ["bevy_sprite::mesh2d_view_bindings"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_sprite/src/mesh2d/mesh2d_view_bindings.wgsl",
-                ["bevy_sprite::mesh2d_view_types"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_sprite/src/mesh2d/mesh2d_view_types.wgsl",
+                ["bevy_pbr::clustered_forward"] =
+                "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/clustered_forward.wgsl",
+                ["bevy_pbr::mesh_bindings"] =
+                "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/mesh_bindings.wgsl",
+                ["bevy_pbr::mesh_functions"] =
+                "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/mesh_functions.wgsl",
+                ["bevy_pbr::mesh_types"] =
+                "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/mesh_types.wgsl",
+                ["bevy_pbr::mesh_vertex_output"] =
+                "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/mesh_vertex_output.wgsl",
+                ["bevy_pbr::mesh_view_bindings"] =
+                "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/mesh_view_bindings.wgsl",
+                ["bevy_pbr::mesh_view_types"] =
+                "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/mesh_view_types.wgsl",
+                ["bevy_pbr::pbr_bindings"] =
+                "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/pbr_bindings.wgsl",
+                ["bevy_pbr::pbr_functions"] =
+                "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/pbr_functions.wgsl",
+                ["bevy_pbr::lighting"] =
+                "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/pbr_lighting.wgsl",
+                ["bevy_pbr::pbr_types"] =
+                "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/pbr_types.wgsl",
+                ["bevy_pbr::shadows"] =
+                "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/shadows.wgsl",
+                ["bevy_pbr::skinning"] =
+                "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/skinning.wgsl",
+                ["bevy_pbr::utils"] =
+                "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_pbr/src/render/utils.wgsl",
+                ["bevy_sprite::mesh2d_bindings"] =
+                "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_sprite/src/mesh2d/mesh2d_bindings.wgsl",
+                ["bevy_sprite::mesh2d_functions"] =
+                "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_sprite/src/mesh2d/mesh2d_functions.wgsl",
+                ["bevy_sprite::mesh2d_types"] =
+                "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_sprite/src/mesh2d/mesh2d_types.wgsl",
+                ["bevy_sprite::mesh2d_vertex_output"] =
+                "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_sprite/src/mesh2d/mesh2d_vertex_output.wgsl",
+                ["bevy_sprite::mesh2d_view_bindings"] =
+                "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_sprite/src/mesh2d/mesh2d_view_bindings.wgsl",
+                ["bevy_sprite::mesh2d_view_types"] =
+                "https://raw.githubusercontent.com/bevyengine/bevy/v0.10.0/crates/bevy_sprite/src/mesh2d/mesh2d_view_types.wgsl",
             },
         },
     },
@@ -403,16 +437,16 @@ lsp_setup('wgsl_analyzer', {
 --on_attach = on_attach,
 --capabilities = capabilities,
 --}
-lsp_setup('csharp_ls', {
+lsp_setup("csharp_ls", {
     on_attach = on_attach,
     capabilities = capabilities,
 })
 
-lsp_setup('zls', {
+lsp_setup("zls", {
     on_attach = on_attach,
     capabilities = capabilities,
 })
-lsp_setup('bashls', {
+lsp_setup("bashls", {
     on_attach = on_attach,
     capabilities = capabilities,
     filetypes = { "sh", "bash", "make", "zsh" },
@@ -447,22 +481,22 @@ lsp_setup('bashls', {
 --},
 --}
 
-lsp_setup('svelte', {
+lsp_setup("svelte", {
     on_attach = on_attach,
     capabilities = capabilities,
 })
 
-lsp_setup('julials', {
+lsp_setup("julials", {
     on_attach = on_attach,
     capabilities = capabilities,
 })
-lsp_setup('ocamllsp', {
+lsp_setup("ocamllsp", {
     on_attach = function(...)
         require("virtualtypes").on_attach(...)
         on_attach()
     end,
 })
-lsp_setup('gopls', {
+lsp_setup("gopls", {
     on_attach = on_attach,
     settings = {
         initializationOptions = {
@@ -483,7 +517,7 @@ lsp_setup('gopls', {
     },
 })
 
-lsp_setup('basedpyright', {
+lsp_setup("basedpyright", {
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
@@ -514,7 +548,7 @@ lsp_setup("spirvls", {
 })
 vim.lsp.enable "spirvls"
 
-lsp_setup('ruff', {
+lsp_setup("ruff", {
     on_attach = on_attach,
     settings = {},
     capabilities = capabilities,
@@ -547,7 +581,7 @@ vim.lsp.enable "ruff"
 --},
 --capabilities = capabilities,
 --}
-lsp_setup('jedi_language_server', {
+lsp_setup("jedi_language_server", {
     on_attach = on_attach,
     settings = {
         --pyls = {
@@ -580,7 +614,7 @@ lsp_setup('jedi_language_server', {
 --},
 --}
 
-lsp_setup('tinymist', {
+lsp_setup("tinymist", {
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
@@ -589,7 +623,7 @@ lsp_setup('tinymist', {
         formatterMode = "typstfmt",
     },
 })
-lsp_setup('ts_ls', {
+lsp_setup("ts_ls", {
     on_attach = on_attach,
     capabilities = capabilities,
 })
@@ -621,7 +655,7 @@ local clangd = select_executable {
     "clangd",
 }
 if clangd then
-    lsp_setup('clangd', {
+    lsp_setup("clangd", {
         cmd = {
             clangd,
             "--clang-tidy",
@@ -644,10 +678,10 @@ if clangd then
             autoSetHints = false,
         },
     })
-    vim.lsp.enable('clang')
+    vim.lsp.enable "clang"
 end
 
-lsp_setup('lua_ls', {
+lsp_setup("lua_ls", {
     on_init = function(client)
         local path = client.workspace_folders[1].name
         if not vim.uv.fs_stat(path .. "/.luarc.json") and not vim.uv.fs_stat(path .. "/.luarc.jsonc") then
@@ -685,8 +719,7 @@ lsp_setup('lua_ls', {
     capabilities = capabilities,
 })
 
-
-lsp_setup('rust_analyzer', {
+lsp_setup("rust_analyzer", {
     cmd = {
         select_executable {
             "rust-analyzer",
@@ -745,7 +778,7 @@ lsp_setup('rust_analyzer', {
     on_attach = on_attach,
 })
 
-lsp_setup('texlab', {
+lsp_setup("texlab", {
     settings = {
         latex = {
             build = {
@@ -768,7 +801,8 @@ if dap then
     dap.adapters.haskell = {
         type = "executable",
         command = "haskell-debug-adapter",
-        args = { "--hackage-version=0.0.33.0" }, }
+        args = { "--hackage-version=0.0.33.0" },
+    }
     dap.configurations.haskell = {
         {
             type = "haskell",
