@@ -30,7 +30,7 @@ local lisp_filetypes = { "lisp", "clojure", "scheme", "vlime_repl", "fennel", "q
 --table.insert(analyzers, vim.fs.joinpath(SONARDIR, file))
 --end
 --end
-vim.cmd.packadd "nvim.undotree"
+pcall(vim.cmd.packadd,"nvim.undotree")
 --vim.o.fillchars = 'eob: ,fold: ,foldopen:v,foldsep: ,foldinner: ,foldclose:'
 
 require("lazy").setup {
