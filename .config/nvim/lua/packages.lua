@@ -30,7 +30,7 @@ local lisp_filetypes = { "lisp", "clojure", "scheme", "vlime_repl", "fennel", "q
 --table.insert(analyzers, vim.fs.joinpath(SONARDIR, file))
 --end
 --end
-pcall(vim.cmd.packadd,"nvim.undotree")
+pcall(vim.cmd.packadd, "nvim.undotree")
 --vim.o.fillchars = 'eob: ,fold: ,foldopen:v,foldsep: ,foldinner: ,foldclose:'
 
 require("lazy").setup {
@@ -42,6 +42,14 @@ require("lazy").setup {
             -- VimTeX configuration goes here, e.g.
             vim.g.vimtex_view_method = "zathura"
         end,
+    },
+    {
+        "teamtype/teamtype-nvim",
+        keys = {
+            { "<leader>ej", "<cmd>TeamtypeJumpToCursor<cr>" },
+            { "<leader>ef", "<cmd>TeamtypeFollow<cr>" },
+        },
+        lazy = false,
     },
     {
         "kevinhwang91/nvim-ufo",
