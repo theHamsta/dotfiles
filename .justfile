@@ -22,8 +22,24 @@ build:
 #-DCMAKE_C_CLANG_TIDY="clang-tidy-20" \
 #-DCMAKE_CXX_CLANG_TIDY="clang-tidy-20" \
 
-run: build
-	debug/pystencils_gui
+release:
+	mkdir -p release
+	cmake -Brelease \
+		-DCMAKE_VERBOSE_MAKEFILE=OFF  \
+		-DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
+		-DCMAKE_CUDA_HOST_COMPILER=g++-13 \
+		-DCMAKE_CUDA_COMPILER_LAUNCHER=ccache \
+		-DCMAKE_BUILD_TYPE=Release -G Ninja \
+		-DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
+		-DCMAKE_CXX_FLAGS_RELEASE="-march=native -O3 -DNDEBUG" \
+		-DCMAKE_C_FLAGS=-fdiagnostics-color \
+		-DCMAKE_C_FLAGS_RELEASE="-march=native -O3 -DNDEBUG" \
+		-DCMAKE_CUDA_ARCHITECTURES=89 \
+		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo --use_fast_math -O3"
+	rm -f compile_commands.json
+	ln -s release/compile_commands.json .
+	cd release && cmake --build . --parallel
+
 meson-release:
 	meson setup --reconfigure --buildtype=release -Dc_args="-fdiagnostics-absolute-paths -march=native -fdiagnostics-color" -Dcpp_args="-fdiagnostics-absolute-paths -march=native" -Dcuda_args="-arch=native -lineinfo" release
 	rm -f compile_commands.json
@@ -45,23 +61,6 @@ meson-debug:
 meson-install: meson-release
 	meson install -C release
 
-release:
-	mkdir -p release
-	cmake -Brelease \
-		-DCMAKE_VERBOSE_MAKEFILE=OFF  \
-		-DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
-		-DCMAKE_CUDA_HOST_COMPILER=g++-13 \
-		-DCMAKE_CUDA_COMPILER_LAUNCHER=ccache \
-		-DCMAKE_BUILD_TYPE=Release -G Ninja \
-		-DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
-		-DCMAKE_CXX_FLAGS_RELEASE="-march=native -O3 -DNDEBUG" \
-		-DCMAKE_C_FLAGS=-fdiagnostics-color \
-		-DCMAKE_C_FLAGS_RELEASE="-march=native -O3 -DNDEBUG" \
-		-DCMAKE_CUDA_ARCHITECTURES=89 \
-		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo --use_fast_math -O3"
-	rm -f compile_commands.json
-	ln -s release/compile_commands.json .
-	cd release && cmake --build . --parallel
 
 release-deb:
 	mkdir -p release
