@@ -5,3 +5,11 @@ InlayHints:
   DeducedTypes: Yes
 Diagnostics:
   UnusedIncludes: Strict
+CompileFlags:
+  Add: 
+  Remove:
+    - "-Xcompiler=*"
+    - -G
+    - --expt-relaxed-constexpr
+
+
