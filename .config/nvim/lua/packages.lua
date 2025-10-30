@@ -62,6 +62,10 @@ require("lazy").setup {
             }
         end,
     },
+    {
+        "otavioschwanck/telescope-alternate",
+        dependencies = { "nvim-telescope/telescope.nvim" }, -- or { "ibhagwan/fzf-lua" }
+    },
     "TravonteD/luajob",
     { "kana/vim-textobj-user",               event = "VeryLazy" },
     { "theHamsta/vim-template",              dependencies = "kana/vim-textobj-user", enabled = vim.fn.has "win32" ~= 1 },
