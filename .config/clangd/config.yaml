@@ -11,5 +11,7 @@ CompileFlags:
     - "-Xcompiler=*"
     - -G
     - --expt-relaxed-constexpr
+    - --threads*
+    - -arch*
 
 
