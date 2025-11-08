@@ -517,17 +517,17 @@ lsp_setup("gopls", {
     },
 })
 
-lsp_setup("basedpyright", {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    settings = {
-        basedpyright = {
-            analysis = {
-                typeCheckingMode = "off",
-            },
-        },
-    },
-})
+--lsp_setup("basedpyright", {
+    --on_attach = on_attach,
+    --capabilities = capabilities,
+    --settings = {
+        --basedpyright = {
+            --analysis = {
+                --typeCheckingMode = "off",
+            --},
+        --},
+    --},
+--})
 
 --lspconfig.pylyzer.setup {
 --on_attach = on_attach,
