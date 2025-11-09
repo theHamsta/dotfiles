@@ -93,56 +93,58 @@ if vim.g.neovide then
     vim.g.neovide_progress_bar_hide_delay = 0.2
 end
 
-local kde_progress = vim.api.nvim_create_augroup("KdeProgress", { clear = true })
-vim.api.nvim_create_autocmd("Progress", {
-    group = kde_progress,
-    callback = function(ev)
-        if ev.data.status == "running" then
-            vim.system {
-                "gdbus",
-                "emit",
-                "--session",
-                "-o",
-                "/",
-                "-s",
-                "com.canonical.Unity.LauncherEntry.Update",
-                "application://neovide.desktop",
-                "{'progress':<" .. (ev.data.percent / 100) .. ">,'progress-visible':<true>}",
-            }
-        else
-            vim.system {
-                "gdbus",
-                "emit",
-                "--session",
-                "-o",
-                "/",
-                "-s",
-                "com.canonical.Unity.LauncherEntry.Update",
-                "application://neovide.desktop",
-                "{'progress':<" .. (ev.data.percent / 100) .. ">,'progress-visible':<true>}",
-            }
-            local timer = vim.uv.new_timer()
-            if timer then
-                timer:start(1000, 0, function()
-                    timer:stop()
-                    vim.schedule_wrap(function()
-                        vim.system {
-                            "gdbus",
-                            "emit",
-                            "--session",
-                            "-o",
-                            "/",
-                            "-s",
-                            "com.canonical.Unity.LauncherEntry.Update",
-                            "application://neovide.desktop",
-                            "{'progress':<" .. (ev.data.percent / 100) .. ">,'progress-visible':<false>}",
-                        }
-                    end)()
-                end)
+if vim.fn.executable "gdbus" == 1 then
+    local kde_progress = vim.api.nvim_create_augroup("KdeProgress", { clear = true })
+    vim.api.nvim_create_autocmd("Progress", {
+        group = kde_progress,
+        callback = function(ev)
+            if ev.data.status == "running" then
+                vim.system {
+                    "gdbus",
+                    "emit",
+                    "--session",
+                    "-o",
+                    "/",
+                    "-s",
+                    "com.canonical.Unity.LauncherEntry.Update",
+                    "application://neovide.desktop",
+                    "{'progress':<" .. (ev.data.percent / 100) .. ">,'progress-visible':<true>}",
+                }
+            else
+                vim.system {
+                    "gdbus",
+                    "emit",
+                    "--session",
+                    "-o",
+                    "/",
+                    "-s",
+                    "com.canonical.Unity.LauncherEntry.Update",
+                    "application://neovide.desktop",
+                    "{'progress':<" .. (ev.data.percent / 100) .. ">,'progress-visible':<true>}",
+                }
+                local timer = vim.uv.new_timer()
+                if timer then
+                    timer:start(1000, 0, function()
+                        timer:stop()
+                        vim.schedule_wrap(function()
+                            vim.system {
+                                "gdbus",
+                                "emit",
+                                "--session",
+                                "-o",
+                                "/",
+                                "-s",
+                                "com.canonical.Unity.LauncherEntry.Update",
+                                "application://neovide.desktop",
+                                "{'progress':<" .. (ev.data.percent / 100) .. ">,'progress-visible':<false>}",
+                            }
+                        end)()
+                    end)
+                end
             end
-        end
-    end,
-})
+        end,
+    })
+end
 
 require("vim.lsp.log").set_level(vim.log.levels.OFF)
 
