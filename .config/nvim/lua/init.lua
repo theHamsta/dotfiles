@@ -126,7 +126,6 @@ vim.api.nvim_create_autocmd("Progress", {
                 timer:start(1000, 0, function()
                     timer:stop()
                     vim.schedule_wrap(function()
-                        print "sall"
                         vim.system {
                             "gdbus",
                             "emit",
