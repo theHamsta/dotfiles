@@ -52,33 +52,33 @@ require("lazy").setup {
         lazy = false,
     },
     --{
-        --"huggingface/llm.nvim",
-        --opts = {
-            --backend = "ollama",
-            --model = "starcoder2:7b",
-            ----model = "codellama:code",
-            --url = "http://localhost:11434", -- llm-ls uses "/api/generate"
-            ---- cf https://github.com/ollama/ollama/blob/main/docs/api.md#parameters
-            --request_body = {
-                ---- Modelfile options for the model you use
-                --options = {
-                    --temperature = 0.2,
-                    --top_p = 0.95,
-                --},
-            --},
-            --tokens_to_clear = { "<|endoftext|>" },
-            --fim = {
-                --enabled = true,
-                --prefix = "<fim_prefix>",
-                --middle = "<fim_middle>",
-                --suffix = "<fim_suffix>",
-            --},
-            --context_window = 8192,
-            ----tokenizer = {
-                ----repository = "bigcode/starcoder",
-            ----},
-            --enabled = false
-        --},
+    --"huggingface/llm.nvim",
+    --opts = {
+    --backend = "ollama",
+    --model = "starcoder2:7b",
+    ----model = "codellama:code",
+    --url = "http://localhost:11434", -- llm-ls uses "/api/generate"
+    ---- cf https://github.com/ollama/ollama/blob/main/docs/api.md#parameters
+    --request_body = {
+    ---- Modelfile options for the model you use
+    --options = {
+    --temperature = 0.2,
+    --top_p = 0.95,
+    --},
+    --},
+    --tokens_to_clear = { "<|endoftext|>" },
+    --fim = {
+    --enabled = true,
+    --prefix = "<fim_prefix>",
+    --middle = "<fim_middle>",
+    --suffix = "<fim_suffix>",
+    --},
+    --context_window = 8192,
+    ----tokenizer = {
+    ----repository = "bigcode/starcoder",
+    ----},
+    --enabled = false
+    --},
     --},
     {
         "stevearc/oil.nvim",
@@ -754,5 +754,28 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
         end,
         enable = false,
         --lazy = true,
+    },
+    {
+        "Julian/lean.nvim",
+        event = { "BufReadPre *.lean", "BufNewFile *.lean" },
+
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+
+            -- optional dependencies:
+
+            -- a completion engine
+            --    hrsh7th/nvim-cmp or Saghen/blink.cmp are popular choices
+
+            -- 'nvim-telescope/telescope.nvim', -- for 2 Lean-specific pickers
+            -- 'andymass/vim-matchup',          -- for enhanced % motion behavior
+            -- 'andrewradev/switch.vim',        -- for switch support
+            -- 'tomtom/tcomment_vim',           -- for commenting
+        },
+
+        ---@type lean.Config
+        opts = { -- see below for full configuration options
+            mappings = true,
+        },
     },
 }
