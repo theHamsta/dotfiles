@@ -301,6 +301,7 @@ require("lazy").setup {
     --{ "ray-x/lsp_signature.nvim" },
     {
         "L3MON4D3/LuaSnip",
+        version = "v2.*",
         build = vim.fn.has "win32" ~= 1 and "make install_jsregexp" or nil,
         config = function()
             vim.cmd [[
@@ -314,8 +315,9 @@ snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
 imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
 smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
     ]]
+            require("luasnip.loaders.from_snipmate").lazy_load()
         end,
-        keys = "<tab>",
+        --keys = "<tab>",
         --dependencies = {},
     },
     {
@@ -390,7 +392,6 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
                 --} },
 
                 menu = {
-                    -- Don't automatically show the completion menu
                     auto_show = true,
 
                     -- nvim-cmp style menu
