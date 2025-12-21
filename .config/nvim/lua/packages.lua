@@ -32,6 +32,16 @@ local lisp_filetypes = { "lisp", "clojure", "scheme", "vlime_repl", "fennel", "q
 --end
 pcall(vim.cmd.packadd, "nvim.undotree")
 --vim.o.fillchars = 'eob: ,fold: ,foldopen:v,foldsep: ,foldinner: ,foldclose:'
+vim.api.nvim_create_autocmd("User", {
+    pattern = "OilActionsPost",
+    callback = function(event)
+        if event.data.actions[1].type == "move" then
+            if Snacks then
+                Snacks.rename.on_rename_file(event.data.actions[1].src_url, event.data.actions[1].dest_url)
+            end
+        end
+    end,
+})
 
 require("lazy").setup {
     {
@@ -90,6 +100,64 @@ require("lazy").setup {
         -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
         -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
         lazy = false,
+    },
+    {
+        "folke/snacks.nvim",
+        ---@type snacks.Config
+        opts = {
+            image = {
+                -- your image configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            },
+            gh = {
+                -- your gh configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            },
+            picker = {
+                sources = {
+                    gh_issue = {
+                        -- your gh_issue picker configuration comes here
+                        -- or leave it empty to use the default settings
+                    },
+                    gh_pr = {
+                        -- your gh_pr picker configuration comes here
+                        -- or leave it empty to use the default settings
+                    },
+                },
+            },
+        },
+        keys = {
+            {
+                "<leader>gi",
+                function()
+                    Snacks.picker.gh_issue()
+                end,
+                desc = "GitHub Issues (open)",
+            },
+            {
+                "<leader>gI",
+                function()
+                    Snacks.picker.gh_issue { state = "all" }
+                end,
+                desc = "GitHub Issues (all)",
+            },
+            {
+                "<leader>gm",
+                function()
+                    Snacks.picker.gh_pr()
+                end,
+                desc = "GitHub Pull Requests (open)",
+            },
+            {
+                "<leader>gM",
+                function()
+                    Snacks.picker.gh_pr { state = "all" }
+                end,
+                desc = "GitHub Pull Requests (all)",
+            },
+        },
     },
     {
         "kevinhwang91/nvim-ufo",

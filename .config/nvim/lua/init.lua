@@ -14,6 +14,8 @@ exe 'normal `z'
 endfunction
 ]]
 
+vim.g.rooter_targets = {'!/home/stephan/projects/advent-of-code-2025/', '*'}
+
 local function select_executable(executables)
     return vim.tbl_filter(function(c) ---@param c string
         return c ~= vim.NIL and vim.fn.executable(c) == 1
