@@ -1,8 +1,8 @@
 # Just file: https://github.com/casey/just
 
-alias debug := build
+is-meson := path_exists("./meson.build")
 
-build:
+cmake-debug:
 	mkdir -p debug
 	cmake -B debug \
 		-DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
@@ -23,6 +23,13 @@ build:
 #-DCMAKE_CXX_CLANG_TIDY="clang-tidy-20" \
 
 release:
+	just --working-directory . --justfile '{{justfile()}}' {{ if is-meson == "true" {"meson-release"} else {"cmake-release"} }}
+debug:
+	just --working-directory . --justfile '{{justfile()}}' {{ if is-meson == "true" {"meson-debug"} else {"cmake-debug"} }}
+install:
+	just --working-directory . --justfile '{{justfile()}}' {{ if is-meson == "true" {"meson-install"} else {"cmake-install"} }}
+
+cmake-release:
 	mkdir -p release
 	cmake -Brelease \
 		-DCMAKE_VERBOSE_MAKEFILE=OFF  \
@@ -155,9 +162,7 @@ clean:
 	rm -rf gcc-debug
 	rm -rf gcc-release
 
-clean-build: clean build
-
-install: release
+cmake-install: release
 	sudo ninja -C release install
 
 gcc-install: gcc-release
