@@ -14,7 +14,7 @@ exe 'normal `z'
 endfunction
 ]]
 
-vim.g.rooter_targets = {'!/home/stephan/projects/advent-of-code-2025/', '*'}
+vim.g.rooter_targets = { "!/home/stephan/projects/advent-of-code-2025/", "*" }
 
 local function select_executable(executables)
     return vim.tbl_filter(function(c) ---@param c string
@@ -307,6 +307,15 @@ lsp_setup("leanls", {
     on_attach = on_attach,
     capabilities = capabilities,
 })
+lsp_setup("systemd_lsp", {
+    on_attach = on_attach,
+    capabilities = capabilities,
+})
+--lsp_setup("qmlls", {
+    --on_attach = on_attach,
+    --capabilities = capabilities,
+    --cmd = { "/usr/local/Qt-6.12.0/bin/qmlls" },
+--})
 lsp_setup("neocmake", {
     on_attach = on_attach,
     capabilities = capabilities,
