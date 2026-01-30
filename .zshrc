@@ -26,7 +26,7 @@ SPACESHIP_PROMPT_ORDER=(
     line_sep
     char
 )
-fpath=($HOME/.zsh-completions /home/stephan/.local/share/kde-builder/data/completions/zsh/ $fpath /home/linuxbrew/.linuxbrew/share/zsh/site-functions)
+fpath=($HOME/.zsh-completions /home/stephan/.local/share/kde-builder/data/completions/zsh/ $fpath /home/linuxbrew/.linuxbrew/share/zsh/site-functions $PYTHONUSERBASE/share/zsh/site-functions/)
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
