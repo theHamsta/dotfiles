@@ -1,5 +1,6 @@
 # Compiled source #
 ###################
+*.po
 *.com
 *.class
 *.dll
@@ -202,3 +203,4 @@ aarch-release
 win32*
 ubuntu24.04
 lib
+*.data
