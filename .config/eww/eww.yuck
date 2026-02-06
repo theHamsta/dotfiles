@@ -17,11 +17,11 @@
 
 
 (defpoll gpu :interval "10s"
-  "nvidia-smi  --format=csv --format=noheader --query-gpu=utilization.gpu")
+  "nvidia-smi  --format=csv --format=noheader --query-gpu=utilization.gpu |  tr '\n' ' '   ")
 (defpoll nvdec :interval "10s"
-  "nvidia-smi  --format=csv --format=noheader --query-gpu=utilization.decoder")
+  "nvidia-smi  --format=csv --format=noheader --query-gpu=utilization.decoder |  tr '\n' ' '   ")
 (defpoll vram :interval "10s"
-  "nvidia-smi  --format=csv --format=noheader --query-gpu=memory.used")
+  "nvidia-smi  --format=csv --format=noheader --query-gpu=memory.used |  tr '\n' ' '   ")
 (defpoll time :interval "10s"
   "date '+%H:%M %b %d, %Y'")
 
