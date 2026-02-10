@@ -341,6 +341,7 @@ binds {
     //Super+Alt+F { spawn "firefox"; }
     Super+Return { spawn "alacritty"; }
     Super+Alt+V { spawn "neovide"; }
+    Ctrl+Escape { spawn "qps"; }
 
     // You can also use a shell. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument in the end.
