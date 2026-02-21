@@ -343,6 +343,7 @@ binds {
     Ctrl+Alt+T { spawn "alacritty"; }
     Mod+S { spawn "fuzzel"; }
     Mod+E { spawn "dolphin"; }
+    Mod+N { spawn "neovide"; }
     Super+Alt+L { spawn "swaylock"; }
     Super+Alt+F { spawn "flatpak" "run" "io.gitlab.librewolf-community"; }
     //Super+Alt+F { spawn "firefox"; }
