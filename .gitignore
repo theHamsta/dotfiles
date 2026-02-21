@@ -204,3 +204,5 @@ win32*
 ubuntu24.04
 lib
 *.data
+bin
+obj
