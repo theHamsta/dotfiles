@@ -7,6 +7,12 @@
 // Find the full list of options on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Input
 spawn-at-startup "eww" "open" "clock"
+
+environment {
+    QT_QPA_PLATFORMTHEME  "kde"
+    QT_STYLE_OVERRIDE     "Breeze"
+}
+
 input {
     keyboard {
         xkb {
