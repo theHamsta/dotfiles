@@ -336,6 +336,7 @@ binds {
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Ctrl+Alt+T { spawn "alacritty"; }
     Mod+S { spawn "fuzzel"; }
+    Mod+E { spawn "dolphin"; }
     Super+Alt+L { spawn "swaylock"; }
     Super+Alt+F { spawn "flatpak" "run" "io.gitlab.librewolf-community"; }
     //Super+Alt+F { spawn "firefox"; }
