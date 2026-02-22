@@ -252,7 +252,7 @@ layout {
 
 xwayland-satellite {
     // off
-    path "xwayland-satellite"
+    path "~/.cargo/bin/xwayland-satellite"
 }
 
 // Add lines like this to spawn processes at startup.
