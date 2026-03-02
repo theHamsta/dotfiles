@@ -6,3 +6,6 @@ size = 8.0
 [font.normal]
 family = "Hack Nerd Font"
 style = "Regular"
+
+[scrolling]
+history = 100000
