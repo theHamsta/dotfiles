@@ -11,6 +11,10 @@ else
     set guifont=Roboto\ Mono:h8
 end
 
+nnoremap <silent> <c-ScrollWheelUp> :lua require'my_gui'.increase_fontsize()<cr>
+nnoremap <silent> <c-ScrollWheelDown> :lua require'my_gui'.decrease_fontsize()<cr>
+nnoremap <silent> <c-0> :lua require'my_gui'.reset_fontsize()<cr>
+
 "call rpcnotify(1, 'Gui', 'Font', 'Hack 9')
 ""call rpcnotify(1, 'Gui', 'Option', 'Cmdline', 1)
 ""

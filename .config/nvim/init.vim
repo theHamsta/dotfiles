@@ -516,9 +516,6 @@ nnoremap <silent> gf gF
 
 command! CdToCurrentFile cd %:p:h
 
-nnoremap <silent> <c-ScrollWheelUp> :lua require'my_gui'.increase_fontsize()<cr>
-nnoremap <silent> <c-ScrollWheelDown> :lua require'my_gui'.decrease_fontsize()<cr>
-nnoremap <silent> <c-0> :lua require'my_gui'.reset_fontsize()<cr>
 "nnoremap <Leader>nf :Neotree filesystem reveal left<cr>
 nnoremap <Leader>nt :Neotree toggle<cr>
 
