@@ -312,9 +312,9 @@ lsp_setup("systemd_lsp", {
     capabilities = capabilities,
 })
 --lsp_setup("qmlls", {
-    --on_attach = on_attach,
-    --capabilities = capabilities,
-    --cmd = { "/usr/local/Qt-6.12.0/bin/qmlls" },
+--on_attach = on_attach,
+--capabilities = capabilities,
+--cmd = { "/usr/local/Qt-6.12.0/bin/qmlls" },
 --})
 lsp_setup("neocmake", {
     on_attach = on_attach,
@@ -803,6 +803,10 @@ lsp_setup("rust_analyzer", {
     },
     settings = {
         ["rust-analyzer"] = {
+            --cargo = {
+                --target = "wasm32-unknown-unknown",
+                --allFeatures = false,
+            --},
             checkOnSave = {
                 command = "clippy",
                 enable = true,

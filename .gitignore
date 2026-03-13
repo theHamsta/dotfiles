@@ -45,7 +45,8 @@ Thumbs.db
 **/gcc11-release/*
 /build/*
 cmake-build-*
-/debug/*
+debug
+release
 .idea/*
 **/__pycache__/*
 *.aux
@@ -206,3 +207,4 @@ lib
 *.data
 bin
 obj
+release
