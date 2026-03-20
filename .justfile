@@ -11,6 +11,7 @@ cmake-debug:
 		-DCMAKE_CUDA_COMPILER_LAUNCHER=ccache \
 		-GNinja \
 		-DCMAKE_C_FLAGS_INIT="-fsanitize=undefined -fsanitize=address -fsanitize=memory" \
+		-DCMAKE_EXPERIMENTAL_CXX_IMPORT_STD="451f2fe2-a8a2-47c3-bc32-94786d8fc91b" \
 		-DCMAKE_CXX_FLAGS_INIT="-fsanitize=undefined -fsanitize=address -fsanitize=memory" \
 		-DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
 		-DCMAKE_C_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
@@ -37,6 +38,7 @@ cmake-release:
 		-DCMAKE_CUDA_HOST_COMPILER=g++-13 \
 		-DCMAKE_CUDA_COMPILER_LAUNCHER=ccache \
 		-DCMAKE_BUILD_TYPE=Release -G Ninja \
+		-DCMAKE_EXPERIMENTAL_CXX_IMPORT_STD="451f2fe2-a8a2-47c3-bc32-94786d8fc91b" \
 		-DCMAKE_CXX_FLAGS="-fdiagnostics-absolute-paths -fdiagnostics-color" \
 		-DCMAKE_CXX_FLAGS_RELEASE="-march=native -O3 -DNDEBUG" \
 		-DCMAKE_C_FLAGS=-fdiagnostics-color \
@@ -88,9 +90,10 @@ release-deb:
 
 gcc-release:
 	mkdir -p gcc-release
-	export CXX=g++-15 && export CC=gcc-15 && cd gcc-release && cmake \
+	export CXX=g++-16 && export CC=gcc-16 && cd gcc-release && cmake \
 		-DCMAKE_EXPORT_COMPILE_COMMANDS=YES  \
 		-DCMAKE_VERBOSE_MAKEFILE=OFF  \
+		-DCMAKE_EXPERIMENTAL_CXX_IMPORT_STD="451f2fe2-a8a2-47c3-bc32-94786d8fc91b" \
 		-DCMAKE_CUDA_HOST_COMPILER=g++-13 \
 		-DCMAKE_BUILD_TYPE=Release -G Ninja \
 		-DCMAKE_CUDA_ARCHITECTURES=OFF \
