@@ -803,10 +803,10 @@ lsp_setup("rust_analyzer", {
     },
     settings = {
         ["rust-analyzer"] = {
-            --cargo = {
-                --target = "wasm32-unknown-unknown",
-                --allFeatures = false,
-            --},
+            cargo = {
+                target = "wasm32-unknown-unknown",
+                allFeatures = false,
+            },
             checkOnSave = {
                 command = "clippy",
                 enable = true,

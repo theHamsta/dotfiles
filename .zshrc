@@ -374,6 +374,7 @@ fi
   eval $__fzf_key_bindings_options
   'unset' '__fzf_key_bindings_options'
 }
+export QT_PLUGIN_PATH=/home/stephan/kde/usr/lib/x86_64-linux-gnu/plugins
 
 
 # >>> nvwb
@@ -384,3 +385,4 @@ fi
 #source $HOME/.local/share/nvwb/nvwb-wrapper.sh
 # >>> nvwb
 
+export CARGO_TARGET_WASM32_UNKNOWN_UNKNOWN_RUNNER=wasm-server-runner
