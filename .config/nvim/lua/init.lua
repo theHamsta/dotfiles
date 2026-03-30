@@ -294,6 +294,7 @@ local function on_attach(client, bufnr)
     if lsp_status then
         lsp_status.on_attach(client)
     end
+    vim.lsp.codelens.enable()
 end
 
 local function lsp_setup(name, config, disable)
