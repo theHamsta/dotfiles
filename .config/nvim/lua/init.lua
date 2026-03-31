@@ -294,7 +294,7 @@ local function on_attach(client, bufnr)
     if lsp_status then
         lsp_status.on_attach(client)
     end
-    vim.lsp.codelens.enable()
+    --vim.lsp.codelens.enable()
 end
 
 local function lsp_setup(name, config, disable)
@@ -804,10 +804,10 @@ lsp_setup("rust_analyzer", {
     },
     settings = {
         ["rust-analyzer"] = {
-            cargo = {
-                target = "wasm32-unknown-unknown",
-                allFeatures = false,
-            },
+            --cargo = {
+                --target = "wasm32-unknown-unknown",
+                --allFeatures = false,
+            --},
             checkOnSave = {
                 command = "clippy",
                 enable = true,
