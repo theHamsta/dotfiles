@@ -273,7 +273,7 @@ xmap ah <Plug>GitGutterTextObjectOuterVisual
 
 
 "if has("win32") == 1
-nnoremap <c-p> :Telescope git_files<CR>
+nnoremap <c-p> :Telescope find_files<CR>
 "else
   "nnoremap <c-p> :Files<CR>
 "endif
