@@ -197,13 +197,15 @@ alias kubectl="microk8s kubectl"
 alias k="microk8s kubectl"
 alias wk="watch microk8s kubectl"
 
-export CC=clang-22
-export CXX=clang++-22
-export CUDACC=nvcc
-export CUDACXX=nvcc
-export CUDAHOSTCXX=g++-14
-export CPATH=$CUDA_PATH/targets/x86_64-linux/include/:$CPATH
-export CMAKE_CUDA_COMPILER_LAUNCHER=ccache
+if [[ "$HOSTNAME" != "toolbx" ]]; then
+  export CC=clang-22
+  export CXX=clang++-22
+  export CUDACC=nvcc
+  export CUDACXX=nvcc
+  export CUDAHOSTCXX=g++-14
+  export CPATH=$CUDA_PATH/targets/x86_64-linux/include/:$CPATH
+  export CMAKE_CUDA_COMPILER_LAUNCHER=ccache
+fi
 
 export GO111MODULE=on
 export DOCKER_BUILDKIT=1 
