@@ -58,8 +58,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     local client = vim.lsp.get_client_by_id(args.data.client_id)
 
-    if client:supports_method "textDocument/documentColor" then
-      vim.lsp.document_color.enable(true, args.buf)
+    if client then
+      if client:supports_method "textDocument/documentColor" then
+        vim.lsp.document_color.enable(true, { bufnr = args.buf })
+      end
     end
   end,
 })
@@ -808,9 +810,9 @@ lsp_setup("rust_analyzer", {
   settings = {
     ["rust-analyzer"] = {
       --cargo = {
-        --target = "wasm32-unknown-unknown",
-        features = { "trtx-runtime", "onnx-runtime" },
-        ----allFeatures = false,
+      --target = "wasm32-unknown-unknown",
+      features = { "trtx-runtime", "onnx-runtime" },
+      ----allFeatures = false,
       --},
       checkOnSave = {
         command = "clippy",
