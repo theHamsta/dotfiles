@@ -100,6 +100,9 @@ if vim.fn.executable "gdbus" == 1 then
   vim.api.nvim_create_autocmd("Progress", {
     group = kde_progress,
     callback = function(ev)
+      if not ev.data.percent then
+        return
+      end
       if ev.data.status == "running" then
         vim.system {
           "gdbus",
@@ -804,11 +807,11 @@ lsp_setup("rust_analyzer", {
   },
   settings = {
     ["rust-analyzer"] = {
-      ----cargo = {
-      ----target = "wasm32-unknown-unknown",
-      ----features = {"web"},
-      ----allFeatures = false,
-      ----},
+      --cargo = {
+        --target = "wasm32-unknown-unknown",
+        features = { "trtx-runtime", "onnx-runtime" },
+        ----allFeatures = false,
+      --},
       checkOnSave = {
         command = "clippy",
         enable = true,
