@@ -190,7 +190,7 @@ require("lazy").setup {
     "justinmk/vim-gtfo",
     "kassio/neoterm",
     "scrooloose/nerdcommenter",
-    { "mbbill/undotree",             cmd = { "UndotreeToggle" } },
+    { "mbbill/undotree", cmd = { "UndotreeToggle" } },
     {
         "stevearc/conform.nvim",
         config = function()
@@ -388,10 +388,12 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
         --keys = "<tab>",
         --dependencies = {},
     },
-    { 'saghen/blink.lib' },
+    { "saghen/blink.lib" },
     {
         "saghen/blink.cmp",
-        build = "cargo build --release",
+        build = function()
+            require("blink.cmp").build():wait(60000)
+        end,
         dependencies = "rafamadriz/friendly-snippets",
         --build = function()
         --vim.notify("Building blink.cmp", vim.log.levels.INFO)
