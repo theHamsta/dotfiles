@@ -272,11 +272,11 @@ xmap ih <Plug>GitGutterTextObjectInnerVisual
 xmap ah <Plug>GitGutterTextObjectOuterVisual
 
 
-"if has("win32") == 1
+if has("win32") == 1
 nnoremap <c-p> :Telescope find_files<CR>
-"else
-  "nnoremap <c-p> :Files<CR>
-"endif
+else
+  nnoremap <c-p> :Files<CR>
+endif
 if executable('rg')
   let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
   set grepprg=rg\ --vimgrep
