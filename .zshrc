@@ -181,8 +181,10 @@ alias i="sudo apt install"
 alias r="sudo apt remove"
 alias gr="sudo apt upgrade"
 alias python="python3"
-alias ls="lsr"
-alias ll="lsr -l"
+#alias ls="lsr"
+#alias ll="lsr -l"
+alias ls="eza"
+alias ll="eza -l"
 
 #eval $(minikube docker-env)
 #alias helm="minikube helm"
