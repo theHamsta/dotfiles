@@ -99,7 +99,7 @@ gcc-release:
 		-DCMAKE_CXX_FLAGS_RELEASE="-fdiagnostics-color -O3" \
 		-DCMAKE_C_FLAGS_RELEASE="-march=native -O3 -DNDEBUG" \
 		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo" \
-		-DCMAKE_C_FLAGS="-fdiagnostics-color" .
+		-DCMAKE_C_FLAGS="-fdiagnostics-color"
 	rm -f compile_commands.json
 	ln -s gcc-release/compile_commands.json .
 	cd gcc-release && cmake --build . --parallel
