@@ -25,6 +25,8 @@ cmake-debug:
 
 release:
 	just --working-directory . --justfile '{{justfile()}}' {{ if is-meson == "true" {"meson-release"} else {"cmake-release"} }}
+gcc-release:
+	just --working-directory . --justfile '{{justfile()}}' {{ if is-meson == "true" {"meson-gcc-release"} else {"cmake-gcc-release"} }}
 debug:
 	just --working-directory . --justfile '{{justfile()}}' {{ if is-meson == "true" {"meson-debug"} else {"cmake-debug"} }}
 install:
@@ -49,14 +51,19 @@ cmake-release:
 	ln -s release/compile_commands.json .
 	cd release && cmake --build . --parallel
 
+meson-gcc-release:
+	CXX=g++-16 CC=gcc-16 meson setup --reconfigure --buildtype=release -Dc_args="-march=native -fdiagnostics-color" -Dcpp_args="-march=native -fdiagnostics-color" -Dcuda_args="-arch=native -lineinfo" release
+	rm -f compile_commands.json
+	ln -s release/compile_commands.json .
+	meson compile -C release
 meson-release:
-	meson setup --reconfigure --buildtype=release -Dc_args="-fdiagnostics-absolute-paths -march=native -fdiagnostics-color" -Dcpp_args="-fdiagnostics-absolute-paths -march=native" -Dcuda_args="-arch=native -lineinfo" release
+	meson setup --reconfigure --buildtype=release -Dc_args="-fdiagnostics-absolute-paths -march=native -fdiagnostics-color" -Dcpp_args="-fdiagnostics-absolute-paths -march=native -fdiagnostics-color" -Dcuda_args="-arch=native -lineinfo" release
 	rm -f compile_commands.json
 	ln -s release/compile_commands.json .
 	meson compile -C release
 
 meson-debugoptimized:
-	meson setup --reconfigure --buildtype=debugoptimized -Dc_args="-fdiagnostics-absolute-paths -march=native -fdiagnostics-color" -Dcpp_args="-fdiagnostics-absolute-paths -march=native" release
+	meson setup --reconfigure --buildtype=debugoptimized -Dc_args="-fdiagnostics-absolute-paths -march=native -fdiagnostics-color" -Dcpp_args="-fdiagnostics-absolute-paths -march=native -fdiagnostics-color" release
 	rm -f compile_commands.json
 	ln -s release/compile_commands.json .
 	meson compile -C release
@@ -88,7 +95,7 @@ release-deb:
 	ln -s release/compile_commands.json .
 	cd release && cmake --build . --parallel
 
-gcc-release:
+cmake-gcc-release:
 	export CXX=g++-16 && export CC=gcc-16 && cmake -B gcc-release -S . \
 		-DCMAKE_EXPORT_COMPILE_COMMANDS=YES  \
 		-DCMAKE_VERBOSE_MAKEFILE=OFF  \
