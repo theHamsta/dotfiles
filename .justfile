@@ -52,7 +52,7 @@ cmake-release:
 	cd release && cmake --build . --parallel
 
 meson-gcc-release:
-	CXX=g++-16 CC=gcc-16 meson setup --reconfigure --buildtype=release -Dc_args="-march=native -fdiagnostics-color" -Dcpp_args="-march=native -fdiagnostics-color" -Dcuda_args="-arch=native -lineinfo" release
+	CXX=g++-16 CC=gcc-16 meson setup --reconfigure --buildtype=release -Dc_args="-march=native -fdiagnostics-color" -Dcpp_args="-march=native -fdiagnostics-color" -Dcuda_args="-arch=native -lineinfo" gcc-release
 	rm -f compile_commands.json
 	ln -s release/compile_commands.json .
 	meson compile -C release
