@@ -89,8 +89,7 @@ release-deb:
 	cd release && cmake --build . --parallel
 
 gcc-release:
-	mkdir -p gcc-release
-	export CXX=g++-16 && export CC=gcc-16 && cd gcc-release && cmake \
+	export CXX=g++-16 && export CC=gcc-16 && cmake -B gcc-release -S . \
 		-DCMAKE_EXPORT_COMPILE_COMMANDS=YES  \
 		-DCMAKE_VERBOSE_MAKEFILE=OFF  \
 		-DCMAKE_EXPERIMENTAL_CXX_IMPORT_STD="451f2fe2-a8a2-47c3-bc32-94786d8fc91b" \
@@ -100,7 +99,7 @@ gcc-release:
 		-DCMAKE_CXX_FLAGS_RELEASE="-fdiagnostics-color -O3" \
 		-DCMAKE_C_FLAGS_RELEASE="-march=native -O3 -DNDEBUG" \
 		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo" \
-		-DCMAKE_C_FLAGS="-fdiagnostics-color" ..
+		-DCMAKE_C_FLAGS="-fdiagnostics-color" .
 	rm -f compile_commands.json
 	ln -s gcc-release/compile_commands.json .
 	cd gcc-release && cmake --build . --parallel
