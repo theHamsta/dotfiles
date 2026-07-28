@@ -203,7 +203,7 @@ undotree_*
 aarch-release
 win32*
 ubuntu24.04
-lib
+#lib
 *.data
 bin
 obj
