@@ -5,6 +5,7 @@
 export DISABLE_AUTO_UPDATE=1
 DISABLE_MAGIC_FUNCTIONS="true"
 DISABLE_COMPFIX="true"
+zstyle ':completion:*' hosts file-system dns-off
 autoload -Uz compinit
 if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
     compinit
