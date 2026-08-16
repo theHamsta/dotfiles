@@ -363,6 +363,13 @@ lsp_setup("eslint", {
   on_attach = on_attach,
   capabilities = capabilities,
 })
+lsp_setup("buf-lsp", {
+  cmd = { "buf", "lsp", "serve" },
+  filetypes = { "proto" },
+  root_markers = { "buf.yaml", ".git" },
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
 lsp_setup("mesonlsp", {
   on_attach = on_attach,
   capabilities = capabilities,
