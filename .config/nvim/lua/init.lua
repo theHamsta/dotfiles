@@ -175,7 +175,7 @@ vim.diagnostic.config {
     source = "if_many", -- Or "if_many"
   },
   float = {
-    source = "always", -- Or "if_many"
+    source = true, -- Or "if_many"
   },
   signs = {
     "DapBreakpoint",
