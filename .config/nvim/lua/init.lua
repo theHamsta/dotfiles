@@ -728,6 +728,7 @@ lsp_setup("ts_ls", {
 --capabilities = capabilities,
 --}
 local clangd = select_executable {
+  "clangd-24",
   "clangd-23",
   "clangd-22",
   "clangd-21",
