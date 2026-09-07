@@ -26,7 +26,7 @@ end
 
 local function luajob_on_stdout(err, data)
   if err then
-    vim.cmd.echoerr("error: ", err)
+    print("error: ", vim.inspect(err))
   elseif data then
     local lines = vim.fn.split(data, "\n")
     for _, line in ipairs(lines) do
