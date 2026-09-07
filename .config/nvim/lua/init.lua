@@ -355,6 +355,10 @@ lsp_setup("qmlls", {
   capabilities = capabilities,
 })
 
+lsp_setup("tsc", {
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
 lsp_setup("asm_lsp", {
   on_attach = on_attach,
   capabilities = capabilities,
