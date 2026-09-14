@@ -345,7 +345,7 @@ binds {
     Mod+Shift+7 { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Ctrl+Alt+T { spawn "alacritty"; }
+    Ctrl+Alt+T { spawn "ghostty"; }
     Mod+S { spawn "fuzzel"; }
     Mod+E { spawn "dolphin"; }
     Mod+N { spawn "neovide"; }
@@ -353,6 +353,7 @@ binds {
     Super+Alt+F { spawn "flatpak" "run" "io.gitlab.librewolf-community"; }
     //Super+Alt+F { spawn "firefox"; }
     Super+Return { spawn "alacritty"; }
+    //Super+Return { spawn "ghostty"; }
     Super+Alt+V { spawn "neovide"; }
     Ctrl+Escape { spawn "qps"; }
 
