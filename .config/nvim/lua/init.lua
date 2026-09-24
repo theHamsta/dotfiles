@@ -257,7 +257,7 @@ _G["NvimLspMaps"] = function()
   --require("lspsaga.provider").lsp_finder()
   --end, { silent = true, buffer = true })
   vim.keymap.set("n", "<c-s>", function()
-    require("conform").format({ lsp_fallback = true, async = true }, function()
+    require("conform").format({ lsp_format = "fallback", async = true }, function()
       vim.lsp.buf.format { bufnr = 0 }
       vim.cmd "w"
     end)

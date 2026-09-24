@@ -36,7 +36,6 @@ cmake-release:
 	mkdir -p release
 	cmake -Brelease \
 		-DCMAKE_VERBOSE_MAKEFILE=OFF  \
-		-DCMAKE_LINKER_TYPE=WILD \
 		-DCMAKE_EXPORT_COMPILE_COMMANDS=YES \
 		-DCMAKE_CUDA_HOST_COMPILER=g++-13 \
 		-DCMAKE_CUDA_COMPILER_LAUNCHER=ccache \
@@ -48,6 +47,7 @@ cmake-release:
 		-DCMAKE_C_FLAGS_RELEASE="-march=native -O3 -DNDEBUG" \
 		-DCMAKE_CUDA_ARCHITECTURES=89 \
 		-DCMAKE_CUDA_FLAGS="-Wno-deprecated-gpu-targets -allow-unsupported-compiler -arch=native -lineinfo --use_fast_math -O3"
+	#-DCMAKE_LINKER_TYPE=WILD
 	rm -f compile_commands.json
 	ln -s release/compile_commands.json .
 	cd release && cmake --build . --parallel
