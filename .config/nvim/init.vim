@@ -323,6 +323,7 @@ augroup filetypedetect
     au! BufRead,BufNewFile *.mlir set filetype=mlir
     au! BufRead,BufNewFile *.osl set filetype=cpp
     au! BufRead,BufNewFile *.slang set filetype=shaderslang
+    au! BufRead,BufNewFile *.metal set filetype=cpp
     au! BufRead,BufNewFile *.sdp,*.SDP set filetype=sdp
     au! BufRead,BufNewFile *.gstlaunch set filetype=gstlaunch
     au! BufRead,BufNewFile *.nvmk set filetype=make
