@@ -114,6 +114,7 @@ require("lazy").setup {
             -- add an alone title
         },
     },
+    "wsdjeg/vim-fetch",
     {
         "folke/snacks.nvim",
         ---@type snacks.Config
