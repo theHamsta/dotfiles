@@ -334,7 +334,8 @@ augroup filetypedetect
     au! BufRead,BufNewFile *.ny set filetype=scheme
     au! BufRead,BufNewFile .gitignore set filetype=gitignore
     au! BufRead,BufNewFile *.hlsli,*.hlsl,*.effect set filetype=hlsl
-    au! BufRead,BufNewFile *.wgsl set filetype=wgsl
+    au! BufRead,BufNewFile *.wgsl set filetype=wgsl_bevy
+    au! BufRead,BufNewFile *.wesl set filetype=wgsl_bevy
     au! BufRead,BufNewFile *.slint set filetype=slint
     au! BufRead,BufNewFile *.ll set filetype=llvm
     au! BufRead,BufNewFile *.cpp.tmpl set filetype=cpp
