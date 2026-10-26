@@ -635,14 +635,17 @@ lsp_setup("spirvls", {
   filetypes = { "spirv", "spvasm" },
   on_attach = on_attach,
 })
-vim.lsp.enable "spirvls"
 
 lsp_setup("ruff", {
   on_attach = on_attach,
   settings = {},
   capabilities = capabilities,
 })
-vim.lsp.enable "ruff"
+lsp_setup("ty", {
+  on_attach = on_attach,
+  settings = {},
+  capabilities = capabilities,
+})
 --lspconfig.ty.setup {
 --on_attach = on_attach,
 --settings = {},
@@ -713,6 +716,10 @@ lsp_setup("tinymist", {
   },
 })
 lsp_setup("ts_ls", {
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
+lsp_setup("actionsls", {
   on_attach = on_attach,
   capabilities = capabilities,
 })
